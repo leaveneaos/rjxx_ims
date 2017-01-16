@@ -1,0 +1,6 @@
+ALTER TABLE `privileges`
+ADD COLUMN `lrsj`  datetime NULL AFTER `ztbz`,
+ADD COLUMN `lrry`  varchar(255) NULL AFTER `lrsj`,
+ADD COLUMN `xgsj`  datetime NULL AFTER `lrry`,
+ADD COLUMN `xgry`  varchar(255) NULL AFTER `xgsj`,
+ADD COLUMN `yxbz`  varchar(1) NULL AFTER `xgry`;

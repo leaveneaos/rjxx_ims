@@ -1,0 +1,1 @@
+ALTER TABLE `t_yh` ADD COLUMN `admin`  varchar(1) NULL AFTER `yxbz`;

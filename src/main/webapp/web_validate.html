@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>泰易电子发票云服务平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="alternate icon" type="image/png" href="/i/favicon.png">
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="/css/web.css"/>
+</head>
+<body>
+
+<!--[if lte IE 8]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-fixed-top">
+    <div class="am-container">
+        <div class="am-g am-padding-top am-padding-bottom">
+            <div class="am-u-sm-4  am-padding-0">
+                <img src="/img/logo.png" alt="TaxEasy" />
+            </div>
+            <div class="am-u-sm-8 menu  am-padding-0">
+                <div class="am-btn-group am-btn-group-justify">
+                    <a class="am-btn am-btn-default"  href="/web_index.html" role="button">首页</a>/
+                    <a class="am-btn am-btn-default" href="/web_products.html" role="button">产品</a>/
+                    <a class="am-btn am-btn-default"  href="/web_services.html"  role="">服务</a>/
+                    <a class="am-btn am-btn-default  am-text-primary" href="/web_validate.html" role="button">发票查验</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="get validate">
+    <div class="am-container  ">
+        <div class="am-g">
+            <div class="am-u-sm-12  description am-padding">
+                <div class="dl  ">
+                    <form class="am-form am-form-horizontal">
+                        <div class="am-g ">
+                            <div class="am-u-sm-12  ">
+                                <div class="am-form-group">
+                                    <label for="fpdm" class="am-u-sm-4 am-form-label">发票代码: </label>
+                                    <div class="am-u-sm-8">
+                                        <input type="text" id="fpdm" name="fpdm" placeholder="请输入10位或12位的发票代码">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-u-sm-12  ">
+                                <div class="am-form-group">
+                                    <label for="fphm" class="am-u-sm-4 am-form-label">发票号码: </label>
+                                    <div class="am-u-sm-8">
+                                        <input type="text" id="fphm" name="fphm" class="" placeholder="请输入8位发票号码">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-u-sm-12 tj ">
+                                    <div class="am-u-sm-4">
+                                        &nbsp;
+                                    </div>
+                                    <div class="am-u-sm-4">
+                                        <button type="submit" class="am-btn am-btn-primary  am-btn-block">查询</button>
+                                    </div>
+                                    <div class="am-u-sm-4">
+                                        <div class="am-form-group  ">
+                                            <a  class="am-u-sm-12 am-form-label  am-text-center">批量查询</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <div class="am-container">
+        <div class="am-g">
+            <div class="am-u-sm-3">
+                <h1> <span class="am-icon-phone-square"> </span></h1>
+            </div>
+            <div class="am-u-sm-3">
+                <h1><span class="am-icon-weibo"></span> &nbsp;<span class="am-icon-weixin"></span></h1>
+            </div>
+            <div class="am-u-sm-3  am-text-sm  am-text-left">
+                <p>Email: service@datarj.com</p>
+                <p>Web: www.datarj.com</p>
+            </div>
+            <div class="am-u-sm-3  am-text-sm  am-text-left">
+                <p>技术咨询热线: </p>
+                <p>电话: 021-5571833</p>
+            </div>
+        </div>
+    </div>
+    <p class="am-text-sm">© Copyright 2011-2015 上海容津信息技术有限公司  沪ICP备15020560号</p>
+</footer>
+
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+﻿* {
+    padding: 0px;
+    margin: 0px;
+    font-family: "微软雅黑";
+	font-size:.15rem
+}
+html{
+	font-size: 31.25vw;
+}
+.regitem-title{height:150px;
+         line-height:150px;
+		 text-align:center}
+#dreg {
+	margin:0 auto;
+	opacity:0.7
+	
+}
+
+a{ text-decoration:none;
+}
+
+.regitem{height:.45rem;
+        margin-top:10px;
+         
+		 }
+	
+		  
+.regitem-tet span{ width:1rem;
+       display:inline-block;
+}	 
+.regitem-mesage{
+	 height:.4rem;
+        margin-top:10px;
+	}
+.regitem-mesage span:first-child{
+	width:1rem;
+       display:inline-block;
+	}
+ .regitem-mesage input{
+	 width:.85rem;
+	 border-radius:5px
+	 }
+ .regitem-tet{margin-top:10px}
+ 
+ 
+.regitem span{
+	 width:1rem;
+     display:inline-block;
+	 text-align:right;
+}
+
+.regitem input{border-radius:5px}
+
+#city{display:inline}
+
+#city select{
+      
+	   border-radius:3px
+}
+
+.regitem-detail{
+	position:relative;
+	bottom:.26rem;
+	}
+#txtarea{border-radius:3px; 
+          width: 1.65rem;
+		 
+}
+
+.regitem-mesage{
+	font-size:.12rem;
+	display:none;
+	
+	}
+.dregbtn{text-align:center;
+     
+}
+
+.regitem-but{margin-top:30px
+}
+
+
+
+.dregbtn a{
+	  display:inline-block;
+     height:.3rem;
+	width:1.1rem;
+	background-color:#0089c8;
+	color:#FFFFFF;
+	 border-radius:5px;
+	line-height:.3rem;
+}
+
+.msgs{
+	color:#fff;
+	border:1px solid #0697DA;
+	text-align:center;
+	background:#0697DA;
+	cursor:pointer;
+	 border-radius:5px;
+    font-size: .13rem;
+	}
+form .msgs1{
+	background:#E6E6E6;
+	color:#818080;
+	border:1px solid #CCCCCC;
+	 border-radius:5px;
+	}

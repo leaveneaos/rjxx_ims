@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>泰易电子发票云服务平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="alternate icon" type="image/png" href="/i/favicon.png">
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="/css/web.css"/>
+</head>
+<body>
+
+<!--[if lte IE 8]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<div class="am-g  login">
+    <div class="am-u-sm-5 js-left">
+        &nbsp;
+    </div>
+    <div class="am-u-sm-7 js-right">
+        <form  action="#" class="js-login-form  am-form am-form-horizontal">
+            <div class="am-g">
+                <div class="am-u-sm-12  ">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6 am-padding-left-xl">
+                            <h1 class="am-margin-0  am-text-primary ">TaxEasy</h1>
+                            <p class="am-margin-0">登陆</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 first-input">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6 am-padding-left-xl">
+                            <input type="text" id="user_name" name="user_name" placeholder="请输入用户名/手机号码/邮箱" />
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6  am-padding-left-xl">
+                            <input type="text" id="passwd" name="passwd" placeholder="请输入登陆密码" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-12  submit">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6  am-padding-left-xl">
+                            <button type="submit" class="am-btn  am-btn-xl  am-btn-primary am-padding-left-xl  am-padding-right-xl">&nbsp;&nbsp;&nbsp;登陆&nbsp;&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-12">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6  am-padding-left-xl">
+                            <a href="#"  class="am-text-primary">无法访问您的账户?</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-12  no-account">
+                    <div class="am-form-group">
+                        <div class="am-u-sm-6  am-padding-left-xl">
+                            <p><span class="am-text-warning">没有TaxEasy账户?</span><a href="#" class="am-text-primary">立即注册</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+
+<script>
+    $(function () {
+        var el = {
+            $jsLeft: $('.js-left'),
+            $jsRight: $('.js-right')
+        };
+
+        var ac = {
+
+            screen: function () {
+                var height = $(window).height();
+                el.$jsLeft.height(height);
+                el.$jsRight.height(height);
+            }
+        };
+
+        ac.screen();
+
+    });
+</script>
+</body>
+</html>

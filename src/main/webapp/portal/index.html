@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" href="css/style.css"/>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		
+		<script>
+		$(function() {
+			// 悬浮窗口
+			$(".yb_conct").hover(function() {
+				$(".yb_conct").css("right", "5px");
+				$(".yb_bar .yb_ercode").css('height', '200px');
+			}, function() {
+				$(".yb_conct").css("right", "-127px");
+				$(".yb_bar .yb_ercode").css('height', '53px');
+			});
+			// 返回顶部
+			$(".yb_top").click(function() {
+				$("html,body").animate({
+					'scrollTop': '0px'
+				}, 300)
+			});
+		});
+		</script>
+		
+	</head>
+	<body>
+		<!--头部开始 -->
+		<div class="head ">
+		  <div class="cont">
+		    <div class="head-left"><a href="#"><img src="img/te.png" alt="" /></a></div>
+		    <div class="nav"> 
+		      <!--导航条-->
+		      <ul class="nav-main">
+		        <li id="li-2" style="color: #1E90FF;">首页<span></span></li>
+		        <li id="li-1"><a href="jjfa.html">解决方案</a><span></span></li>
+		        <li><a href="fptq.html">发票提取</a></li>        
+		        <li class="sjrk" style="height: 85%;"><a href="dl.html">商家入口</a></li>
+		        <li class="dzfp" style="height: 85%;"><a href="wysdzfp.html">我要上电子发票</a></li>
+		        <!--<li class="fpj" style="height: 85%;">发票夹</li>-->
+		      </ul>
+		      <!--隐藏盒子-->
+		      <div id="box-1" class="hidden-box hidden-loc-index">
+		        <ul>
+		          <li id="tuo"><a href="jjfa.html#dshy" name="dshy">电商行业</a></li>
+		          <li><a href="jjfa.html#cylshy" name="cylshy">餐饮零售行业</a></li>
+		          <li><a href="jjfa.html#cthy" name="cthy">传统行业</a></li>
+		        </ul>
+		      </div>
+		      <div id="box-2" class="hidden-box hidden-loc-us">
+		        <ul>
+		          <li><a href="http://www.datarj.com/index.php">关于我们</a></li>
+		          <li><a href="fw.html">用户服务</a></li>
+		        </ul>
+		      </div>
+		      <!--
+		      <div id="box-3" class="hidden-box hidden-loc-info">
+		        <ul>
+		          <li>金属字</li>
+		          <li>发光字</li>
+		          <li>灯箱</li>
+		          <li>水晶</li>
+		          <li>LED显示屏</li>
+		          <li>导视系统</li>
+		          <li>消费者服务</li>
+		        </ul>
+		      </div>
+		      <div id="box-4" class="hidden-box hidden-loc-info box04">
+		        <ul>
+		          <li>联系我们</li>
+		          <li>加入我们</li>
+		        </ul>
+		      </div>-->
+		    </div>
+		    <script type="text/javascript" src="js/main.js"></script> 
+		  </div>
+		  <div class="yanse"></div>
+		</div>
+		<!--头部结束 --> 
+		    <script type="text/javascript" src="js/main.js"></script> 
+		
+		<!-- 主体开始 -->
+			<div id="dl_bj">
+				<div id="dl_zt">
+					<div class="dl_left">
+						<h1>欢迎来到TaxEasy</h1>
+						<p>专注税务服务, 深谙电子发票应用</p>
+						<p>成长路上, 感谢您的支持陪伴</p>
+					</div>
+				</div>
+			</div>
+			
+			<div id="lanse">
+				<div class="nei">
+					<div class="nei_a">
+						<img src="img/552cdad847c22_64.png" alt="" />
+						<div class="nei_a_wz">自助获取模式</div>
+					</div>
+					<div class="nei_a">
+						<img src="img/552cde10ac54e_64.png" alt="" />
+						<div class="nei_a_wz">零打印、无纸化</div>
+					</div>
+					<div class="nei_a">
+						<img src="img/552ce11840044_64.png" alt="" />
+						<div class="nei_a_wz">无需干预，节省人力</div>
+					</div>
+					<div class="nei_a">
+						<img src="img/552cdb334eaa3_64.png" alt="" />
+						<div class="nei_a_wz">电子存储，随时查询</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="zhuti" style="height: 2330px;">
+				<p>泰易电子发票云服务平台</p>
+				<div class="zhuti_wengzi">泰易电子发票云服务平台为国内领先的 “增值税电子普通发票”SaaS云服务平台，为企业用户提供“电子发票”应用的第三方服务，是企业与税务局之间电子发票数据传输的桥梁。平台符合国家税务总局相关技术标准要求，支持航信、百望金赋两家厂商的税控服务器、税控盘接入方式。</div>
+				
+				<div class="zhuti_a">
+					<img class="zhuti_a_img" src="img/2016-12-14_162723.png" alt="" />
+					<div class="zhuti_b1">
+						<img class="zhuti_b1_img" src="img/kk.png" alt="" />
+						<div class="zhuti_b2">
+							<h1>可靠</h1>
+							<div class="zhuti_b2_span">平台可以部署在公有云或私有云上, 弹性拓展满足 “双11” 等消费节日高并发的性能需求</div>
+						</div>
+					</div>
+					<div class="zhuti_b1">
+						<img class="zhuti_b1_img" src="img/sy.png" alt="" />
+						<div class="zhuti_b2">
+							<h1>实用</h1>
+							<div class="zhuti_b2_span">提供电子发票开具、红冲、换开、查验、报表统计等全过程应用, 同时具备运行监控、预警提示等管理功能，支持多用户分角色的管理模式；</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="zhuti_a">
+					<div class="zhuti_right">
+						<img class="zhuti_b_img" src="img/2016-12-14_174908.png" alt="" />
+					</div>
+					
+					<div class="zhuti_b1">
+						<img class="zhuti_b1_img" src="img/kj.png" alt="" />
+						<div class="zhuti_b2">
+							<h1>便捷</h1>
+							<div class="zhuti_b2_span">采用HTML5技术开发,前端支持PC、PAD、手机等多种设备,方便企业用户和消费者多种方式的接入使用；</div>
+						</div>
+					</div>
+					<div class="zhuti_c1">
+						<img class="zhuti_c1_img" src="img/zy.png" alt="" />
+						<div class="zhuti_c2">
+							<h1>专业</h1>
+							<div class="zhuti_c2_span">服务方式交付，接入税控盘（金税盘）,快速上线应用,建设和使用成本低 ；</div>
+						</div>
+					</div>
+					<div class="zhuti_d1">
+						<a href="wysdzfp.html">快来开启电子发票模式，马上试试吧→</a>
+					</div>
+				</div>
+				
+				<div id="deixiang">
+					<div class="dei_z">适用对象</div>
+					<div class="dei_t">
+						<img src="img/dshy.png" alt="" />
+						<img src="img/cylshy.png" alt="" />
+						<img src="img/cthy.png" alt="" />
+					</div>
+				</div>
+				
+				<div class="box">
+					<div style="text-align: center;font-size:20px ;font-weight: 800;line-height: 50px;">你和他们，有着同样的选择</div>
+				    <ul>
+				        <li>
+				            <img src="img/sqj.png" width="230" height="190" alt=""/>
+				            <div class="cover" onclick="window.open('tq.html?cs=sqj');">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>食其家</h2>
+				                <p>泉盛餐饮有限公司</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/bss.png" width="230" height="190" alt=""/>
+				            <div class="cover" onclick="window.open('bss');">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>滨寿司</h2>
+				                <p>泉盛餐饮有限公司</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/lhwdm.png" width="230" height="190" alt=""/>
+				            <div class="cover" onclick="window.open('lhwdm');">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>濑户乌冬面</h2>
+				                <p>泉盛餐饮有限公司</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/zydc.png" width="230" height="190" alt=""/>
+				            <div class="cover" onclick="window.open('tq.html?cs=zydc');">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>中原地产</h2>
+				                <p>中原集团</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/wljqr.png" width="230" height="190" alt=""/>
+				            <div class="cover" onclick="window.open('tq.html?cs=wljqr');">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>能力风暴</h2>
+				                <p>未来机器人有限公司</p>
+				            </div>
+				        </li>
+				        <!--<li>
+				            <img src="img/bqw.png" width="230" height="190" alt=""/>
+				            <div class="cover">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>波奇网</h2>
+				                <p>光橙信息科技有限公司</p>
+				            </div>
+				        </li>
+				        -->
+				        <li>
+				            <img src="img/efe.png" width="230" height="190" alt=""/>
+				            <div class="cover">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>艾夫一</h2>
+				                <p>艾夫一眼镜有限公司</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/sps.png" width="230" height="190" alt=""/>
+				            <div class="cover">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>食派士</h2>
+				                <p>食派士餐饮管理有限公司</p>
+				            </div>
+				        </li>
+				        <li>
+				            <img src="img/afq.png" width="230" height="190" alt=""/>
+				            <div class="cover">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>a&f</h2>
+				                <p>爱芙趣</p>
+				            </div>
+				        </li>
+				        <!--<li>
+				            <img src="img/br.png" width="230" height="190" alt=""/>
+				            <div class="cover">
+				                <a href=""><img src="img/smallMirror.png" alt="" /></i></a>
+				                <h2>贝锐</h2>
+				                <p>上海贝锐信息科技有限公司</p>
+				            </div>
+				        </li>-->
+				    </ul>
+				</div>
+				
+				<div id="kqdzfp">
+					<img src="img/yung.png" alt="" />
+					<div class="kqdzfp_z">
+						<span>泰易电子发票</span>
+						<p></p>
+						<span>助力企业税务电子化</span>
+					</div>
+					<a href="wysdzfp.html">
+						<div class="kqdzfp_a">开启电子发票</div>
+					</a>
+				</div>
+				
+				<div id="gzh">
+					<div class="gzh_z">
+						<img src="img/1_20160613080654_nz3tu.png" alt="" />
+						<div class="gzh_z_z">关注微信公众号<br />获取更多咨询</div>
+					</div>
+					<div class="gzh_zh">
+						<img src="img/rjxx.jpg" alt="" />
+						<div class="gzh_zh_zh">联系合作<br />service@datarj.com
+						<br />官网链接<br /><a href="www.datarj.com">www.datarj.com</a></div>
+					</div>
+					<div class="gzh_y">
+						<img src="img/2016-12-15_190318.png" alt="" />
+						<div class="gzh_y_y">
+							<div style="text-align: left;width: 116px;float: left;">技术咨询热线:</div> <div style="text-align: right;">021-55571833</div>
+							<div style="text-align: right;width: 112px;float: left;">服&nbsp;&nbsp;务&nbsp;&nbsp;热&nbsp;&nbsp;线:</div> <div style="text-align: right;"> 021-33566700</div>
+						</div>
+					</div>
+					
+					<div id="wei">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
+				</div>
+			</div>
+			
+			<div class="yb_conct">
+			  <div class="yb_bar">
+			    <ul>
+			      <li class="yb_top">返回顶部</li>
+			      <li class="yb_phone">021-33566700</li>
+			      <li class="yb_QQ">
+			      	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3345756358&amp;site=qq&amp;menu=yes&amp;from=message&amp;isappinstalled=0" title="即刻发送您的需求">在线咨询</a>
+			      </li>
+			      <li class="yb_ercode" style="height:53px;">微信二维码 <br>
+			        <img class="hd_qr" src="img/weixin.png" width="125" alt="关注你附近"> </li>
+			    </ul>
+			  </div>
+			</div>
+		<!--主题结束 -->
+		
+	</body>
+</html>

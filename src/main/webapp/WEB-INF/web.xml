@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         id="WebApp_ID" version="3.1">
+    <display-name>215</display-name>
+    <!--<listener>-->
+    <!--<listener-class>listener.FpListener</listener-class>-->
+    <!--</listener>-->
+    <!--<listener>-->
+    <!--<listener-class>listener.FpOutListener</listener-class>-->
+    <!--</listener>-->
+
+    <!--to disable jsessionid in url  -->
+<!--     <filter>
+        <filter-name>
+            DisableUrlSessionFilter
+        </filter-name>
+        <filter-class>
+            filter.DisableUrlSessionFilter
+        </filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>DisableUrlSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+ -->
+
+   <!--  <filter>
+        <filter-name>extractInvoice</filter-name>
+        <filter-class>com.rjxx.taxeasy.filter.ExtractInvoiceFilter</filter-class>
+        <init-param>
+            <param-name>servletPrefix</param-name>
+            <param-value>/extractInvoice</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>extractInvoice</filter-name>
+        <url-pattern>/extractInvoice/*</url-pattern>
+    </filter-mapping> -->
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

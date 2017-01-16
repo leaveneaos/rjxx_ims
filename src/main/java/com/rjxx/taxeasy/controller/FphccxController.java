@@ -1,0 +1,83 @@
+package com.rjxx.taxeasy.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.KplsvoService;
+import com.rjxx.taxeasy.vo.KplsVO;
+import com.rjxx.taxeasy.web.BaseController;
+
+@Controller
+@RequestMapping("/fphccx")
+public class FphccxController extends BaseController {
+
+	@Autowired
+	private KplsvoService kvs;
+
+	@RequestMapping
+	public String index() {
+		return "fphccx/index";
+	}
+
+	/**
+	 * 初始化显示列表
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getKplsList")
+	@ResponseBody
+	public Map getKplsList(int length, int start, int draw, String ddh, String fphm, String kprqq, String kprqz)
+			throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		pagination.addParam("gsdm", getGsdm());
+		List<Integer> xfs = new ArrayList<>();
+		List<Integer> skps = new ArrayList<>();
+		if (!getXfList().isEmpty()) {
+			for (Xf xf : getXfList()) {
+				xfs.add(xf.getId());
+			}
+		}
+		if (xfs.size() > 0) {
+			pagination.addParam("xfList", xfs);
+		}
+		if (!getSkpList().isEmpty()) {
+			for (Skp skp : getSkpList()) {
+				skps.add(skp.getId());
+			}
+		}
+		if (skps.size() > 0) {
+			pagination.addParam("skpList", skps);
+		}
+		pagination.addParam("ddh", ddh);
+		pagination.addParam("fphm", fphm);
+		if (!"".equals(kprqq)) {
+			pagination.addParam("kprqq", kprqq);
+		}
+		if (!"".equals(kprqz)) {
+			pagination.addParam("kprqz", kprqz);
+		}
+		pagination.addParam("fpczlxdm", "12");
+		List<KplsVO> list = kvs.findByPage(pagination);
+		int total = pagination.getTotalRecord();
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
+		result.put("data", list);
+
+		return result;
+	}
+}

@@ -1,0 +1,120 @@
+/*=====================*\
+    am-header
+\*=====================*/
+.am-topbar { background-color: #fff; height: 70px; }
+.am-topbar img { width: 100%; }
+.am-topbar .menu { line-height: 37px; vertical-align: middle; }
+.am-topbar:visited { background-color: #fff; }
+.am-topbar .menu { text-align: right\0; }
+.am-topbar .am-btn {
+    box-shadow: none;
+    width: 150px\0; /* ie8/8 do not support flex box; hack code*/
+}
+.am-topbar .am-btn:active { /*-- reset click  */
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-align: center;
+
+}
+/*=====================*\
+    reset
+\*=====================*/
+.am-with-topbar-fixed-top { padding-top: 70px; }
+.am-btn-group .am-btn-default { background-color: #fff; border-color: #fff; }
+.am-topbar .am-text-primary { color: #0e90d2 !important; }
+
+.am-topbar .am-btn-default:hover,
+.am-topbar .am-btn-default:focus,
+.am-topbar .am-btn-default:active { transform: none; }
+
+
+/*=====================*\
+    index
+\*=====================*/
+.get {
+    background-image: url(../img/index_welcome.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 400px;
+    background-color: rgb(223,227,243);
+}
+.get .description { position: relative; height: 400px; padding: 100px 0; }
+.get .dl_back { background-image: url(../img/index_5.png) ; background-repeat: repeat;  width:300px; height: 310px;   position: absolute; right: 5%; top: 50px; z-index: 1; }
+.get .dl {  border: 2px solid rgb(131,176,242); background-color: transparent;  width:300px; height: 310px;   position: absolute; right: 5%; top: 50px; z-index: 2; }
+.get .dl .title .am-form-group { border-bottom: 1px solid grey; margin: 10px 0 !important; }
+.get .dl h2 { margin: 0 0; }
+.get .dl .tj { margin-top: 20px; }
+.get .dl .am-form-group { margin-bottom: 12px; }
+.tzgg { margin: 80px 0; }
+
+
+.detail {
+    background: #fff;
+}
+
+.detail-h2 {
+    text-align: center;
+    font-size: 150%;
+    margin: 40px 0;
+}
+
+.detail-h3 {
+    color: #1f8dd6;
+}
+
+.detail-p {
+    color: #7f8c8d;
+    text-align: left;
+}
+
+.detail-mb {
+    margin-bottom: 30px;
+}
+
+/*=====================*\
+    products
+\*=====================*/
+.products { background-image: url(../img/products_1.jpg); }
+.products .description p,
+.products .description h1 { margin-left: 10%; }
+
+.products_area_2 .right_area { padding-top: 100px;}
+
+.products_3 { padding: 20px 0; background-color: rgb(246,246,246); }
+.products_3 .am-u-sm-4 { padding: 120px 0; }
+.products_4 { padding: 60px 0 60px 0; }
+.products_4 .am-u-sm-4 { padding: 120px 0; }
+/*=====================*\
+    service
+\*=====================*/
+.services { background-image: url(../img/services_1.jpg);  height: 460px; background-size: cover; }
+.services_2 {padding: 60px 0; background-color: rgb(246,246,246); }
+
+/*=====================*\
+    validate
+\*=====================*/
+.validate { min-height: 700px; background-image: url(../img/validate_1.jpg); }
+.validate .get { min-height: 700px; }
+.validate .tj > div { padding: 0 0; }
+.validate .dl {  border: none; background-image: url(../img/validate_02.png);  width: 441px; height: 527px;   position: absolute; right: 3%; top: 9%; z-index: 2; }
+.validate .dl form { margin: 0 34px 0 8px; position: relative; top: 110px; }
+/*=====================*\
+    login
+\*=====================*/
+.login > div:first-child {  background-image: url(../img/login_01.jpg); background-repeat: no-repeat; background-size: cover; }
+
+.login form { position: relative; top: 20%; }
+.login .first-input { margin-top: 20px; }
+.login .submit { margin-top: 40px; }
+.login .no-account { margin-top: 80px; }
+
+/*=====================*\
+    footer
+\*=====================*/
+.footer {
+    color: #7f8c8d;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    background: rgb(56,56,56);
+}

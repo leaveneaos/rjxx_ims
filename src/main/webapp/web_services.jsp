@@ -1,0 +1,177 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>泰易电子发票云服务平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="alternate icon" type="image/png" href="/i/favicon.png">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/web.css"/>
+</head>
+<body>
+
+<!--[if lte IE 8]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-fixed-top">
+    <div class="am-container">
+        <div class="am-g am-padding-top am-padding-bottom">
+            <div class="am-u-sm-4  am-padding-0">
+                <img src="<%=request.getContextPath()%>/img/logo.png" alt="TaxEasy" />
+            </div>
+            <div class="am-u-sm-8 menu  am-padding-0">
+                <div class="am-btn-group am-btn-group-justify">
+                    <a class="am-btn am-btn-default"  href="<c:url value="/login/login"/>" role="button">首页</a>/
+                    <a class="am-btn am-btn-default" href="<%=request.getContextPath()%>/web_products.jsp" role="button">产品</a>/
+                    <a class="am-btn am-btn-default  am-text-primary" href="#" role="button">服务</a>/
+                    <a class="am-btn am-btn-default" href="<%=request.getContextPath()%>/web_validate.jsp"  role="button">发票查验</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="get services">
+    <div class="am-container  ">
+        <div class="am-g">
+            <div class="am-u-sm-12  description am-padding  am-text-left">
+                <h1 class="am-text-primary">让客户获得最大的价值和持续的成功</h1>
+                <p>提供完善的实施、培训和日常支持服务,确保客户持续成功</p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<div class="tzgg  services_area_2">
+    <div class="am-g  am-container">
+        <div  class="am-u-sm-12  am-text-center  am-margin-bottom-lg">
+            <h1 class="am-text-primary">优质、高效、用心的服务</h1>
+            <h2 class="am-margin-0">提供专业的实施、培训和日常运维服务</h2>
+        </div>
+        <div class="am-u-sm-7  am-margin-top-lg">
+            <p  style="text-indent: 2em;">
+                我们将为您提供最专业的电子发票云服务，服务内容包括税控设备托管、受票方咨询、发票数据上报、数据备份、纸质发票打印邮寄等一站式发票服务。
+            </p>
+            <p style="text-indent: 2em;">
+                我们的团队成员都来自于国内知名大型IT企业，具备十年以上的财税领域信息化工作经验，深谙国家财税行业政策，致力于将行业管理要求与IT技术相结合，研发创新的企业财税软件产品，为企业用户量身定制专业的财税信息化应用解决方案。</p>
+            <p style="text-indent: 2em;">
+                您选择了泰易电子发票云平台后，我们将会与您一起梳理现在的发票管理流程，将电子发票与纸质发票无缝衔接，充分利用电子发票在成本、时效、环保、安全方面的优势，提升您的财税管理效率，让您从此再也不用为发票苦恼。
+            </p>
+        </div>
+        <div class="am-u-sm-5  right_area">
+            <img src="<%=request.getContextPath()%>/img/services_2.jpg" alt=""/>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="services_2  ">
+    <div class="am-g  am-container">
+
+        <div class="am-u-sm-12  am-text-center">
+            <h1><span  class="am-text-primary">TaxEasy 服务响应级别</span></h1>
+        </div>
+
+        <div class="am-u-sm-12">
+            <table class="am-table  am-table-radius am-table-striped ">
+                <thead>
+                <tr class="am-primary">
+                    <td >级别</td>
+                    <td >描述</td>
+                    <td >响应时间</td>
+                    <td >解决时间</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td  class="am-text-middle">
+                        7X24
+                    </td>
+                    <td>
+                        业务交易全天进行，发票需要实时开具，实时送达
+                    </td>
+                    <td class="am-text-middle">1小时</td>
+                    <td class="am-text-middle">8小时</td>
+                </tr>
+                <tr>
+                    <td class="am-text-middle">
+                        5X8
+                    </td>
+                    <td>
+                        业务交易在工作时间进行，发票当月完成开具送达
+                    </td>
+                    <td class="am-text-middle">2小时</td>
+                    <td class="am-text-middle">24小时</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="am-container">
+        <div class="am-g">
+        
+        <div style="width:60%;float: right;">
+        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">技术咨询热线: 021-5571833</div>
+        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">公司网址：<a href="http://www.datarj.com/index.php">http://www.datarj.com/index.php</a></div>
+        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
+        </div>
+        <div style="width:20%;float: right;">
+        	<img src="<%=request.getContextPath()%>/img/fw.jpg" alt="" style="width:120px;height:120px;"/>
+        	<p>服务号</p>
+        	
+        </div>
+        <div style="width:20%;float: right;">
+        	<img src="<%=request.getContextPath()%>/img/dy.jpg" alt="" style="width:120px;height:120px;"/>
+        	<p>订阅号</p>
+        </div>
+            <!-- <div class="am-u-sm-3">
+                <h1><span class="am-icon-phone-square"> </span></h1>
+            </div>
+            <div class="am-u-sm-3">
+                <h1><span class="am-icon-weibo"></span> &nbsp;<span class="am-icon-weixin"></span></h1>
+            </div>
+            <div class="am-u-sm-3  am-text-sm  am-text-left">
+                <p>Email: service@datarj.com</p>
+                <p>Web: www.datarj.com</p>
+            </div>
+            <div class="am-u-sm-3  am-text-sm  am-text-left">
+                <p>技术咨询热线: </p>
+                <p>电话: 021-5571833</p>
+            </div> -->
+        </div>
+    </div>
+    <!-- <p class="am-text-sm">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</p> -->
+</footer>
+
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+</body>
+</html>

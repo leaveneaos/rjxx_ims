@@ -1,0 +1,39 @@
+/*==========*\
+    common
+\*==========*/
+.admin-content { min-height: 820px; }
+table thead th { text-align: center; }
+table tbody td a { text-decoration: underline; cursor: pointer!important; }
+table tbody td label { padding-top: 0!important; }
+.right{text-align:right;}
+.link_a { text-decoration: underline !important;  }
+/*==========*\
+    reset
+\*==========*/
+table.dataTable thead > tr > th { padding: .7rem; }
+
+.am-scrollable-horizontal .am-form-select { display: inline-block!important; width: auto; }
+/*==========*\
+    page: 邮件发送
+\*==========*/
+.table_2_search_condition a  { text-decoration: underline; padding: 0 20px; }
+
+
+/*==========*\
+    ybp
+\*==========*/
+
+/*.ybp-area .chart-1 { height: 700px; width: 100%; background-color: aliceblue; }*/
+
+
+/*==========*\
+    fytjbb
+\*==========*/
+
+.chart-2 { height: 400px; width: 100%; background-color: aliceblue; }
+/*==========*\
+          导入导出
+\*==========*/
+.import{
+	background-color:#c0c0c0;	
+}

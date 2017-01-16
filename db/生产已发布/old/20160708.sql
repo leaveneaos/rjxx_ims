@@ -1,0 +1,1 @@
+alter table t_xf add kpzdje double(18,2) comment '开票最大金额';

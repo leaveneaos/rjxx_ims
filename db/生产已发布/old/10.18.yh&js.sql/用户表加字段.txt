@@ -1,0 +1,5 @@
+ALTER TABLE `t_yh`
+ADD COLUMN `sup`  varchar(1) NULL COMMENT '是否为超级管理员' AFTER `ztbz`,
+ADD COLUMN `sjhm`  varchar(255) NULL COMMENT '手机号码' AFTER `super`,
+ADD COLUMN `yx`  varchar(255) NULL COMMENT '邮箱' AFTER `sjhm`,
+ADD COLUMN `yxbz`  varchar(1) NULL COMMENT '有效标志' AFTER `yx`;

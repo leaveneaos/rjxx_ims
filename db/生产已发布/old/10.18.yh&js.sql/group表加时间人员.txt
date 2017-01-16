@@ -1,0 +1,7 @@
+ALTER TABLE `t_group`
+CHANGE COLUMN `ztbz` `yxbz`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `xfid`,
+ADD COLUMN `lrry`  varchar(255) NULL AFTER `remark3`,
+ADD COLUMN `lrsj`  datetime NULL AFTER `lrry`,
+ADD COLUMN `xgry`  varchar(255) NULL AFTER `lrsj`,
+ADD COLUMN `xgsj`  datetime NULL AFTER `xgry`;
+

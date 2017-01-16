@@ -1,0 +1,4 @@
+INSERT INTO t_group (yhid ,xfid,ztbz)VALUES(1,4,0)
+INSERT INTO t_group (yhid ,xfid,ztbz) VALUES(2,4,0);
+INSERT INTO t_group (yhid ,xfid,ztbz) VALUES(3,4,0);
+INSERT INTO t_group (yhid ,xfid,ztbz) VALUES(4,5,0);
