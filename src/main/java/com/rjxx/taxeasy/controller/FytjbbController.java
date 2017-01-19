@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +21,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rjxx.taxeasy.domains.Fpzl;
+import com.rjxx.taxeasy.domains.Kpls;
+import com.rjxx.taxeasy.domains.Kpspmx;
+import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.KplsvoService;
+import com.rjxx.taxeasy.vo.Fpnum;
 import com.rjxx.taxeasy.vo.KplsVO;
+import com.rjxx.taxeasy.vo.Tjjevo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 
@@ -31,10 +39,110 @@ public class FytjbbController extends BaseController {
 
 	@Autowired
 	private KplsvoService kvs;
+	@Autowired
+	private FpzlService fpzlService;
 
 	@RequestMapping
 	public String index() {
+		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
+		request.setAttribute("fpzlList", fpzlList);
+		List<Xf> xfs = getXfList();
+		request.setAttribute("xfs", xfs);
 		return "fytjbb/index";
+	}
+	
+	//取得每月各种发票的数量
+	@RequestMapping(value = "/getfps")
+	@ResponseBody
+	public Map<String,Object> getFps(Integer xfid,String fpzl,String kprq){
+		Map<String,Object> result = new HashMap<String,Object>();
+		String kprq1 = kprq;
+		if (!kprq.contains("-")) {
+			Date kprq2 = new Date(kprq);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+			kprq1 = sdf.format(kprq2);
+		}
+		Map params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("xfid", xfid);
+		params.put("fpzl", fpzl);
+		params.put("kprq", kprq1);
+		List<Fpnum> slList = fpzlService.findGfpsl(params);
+		Integer zspfs = slList.get(0).getFpnum();
+		Integer fspfs = slList.get(1).getFpnum();
+		Integer hjpfs = zspfs+fspfs;
+		Integer zcpfs = slList.get(2).getFpnum();
+		Integer hcpfs = slList.get(3).getFpnum();
+		Integer hkpfs = slList.get(4).getFpnum();
+		Integer zfpfs = slList.get(5).getFpnum();
+		Integer ckpfs = slList.get(6).getFpnum();
+		Integer cdpfs = slList.get(7).getFpnum();
+		result.put("zspfs",zspfs);
+		result.put("fspfs",fspfs);
+		result.put("hjpfs",hjpfs);
+		result.put("zcpfs",zcpfs);
+		result.put("hcpfs",hcpfs);
+		result.put("hkpfs",hkpfs);
+		result.put("zfpfs",zfpfs);
+		result.put("ckpfs",ckpfs);
+		result.put("cdpfs",cdpfs);
+		return result;
+	}
+	
+	@RequestMapping(value = "/getje")
+	@ResponseBody
+	public Map<String,Object> getTjje(Integer xfid,String fpzl,String kprq){
+		Map<String,Object> result = new HashMap<String,Object>();
+		Map params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("xfid", xfid);
+		params.put("fpzl", fpzl);
+		params.put("kprq", kprq);
+		List<Kpspmx> mxList = fpzlService.findSpsl(params);
+		List<Tjjevo> tjList = new ArrayList<Tjjevo>();
+		if(mxList !=null){
+			for(Kpspmx mx:mxList){
+				Tjjevo item = new Tjjevo();
+				Double spsl = mx.getSpsl();
+				item.setSpsl(spsl);
+				params.put("spsl", spsl);
+				params.put("fpczlxdm", "11");   //正常发票
+				Kpls kpls = fpzlService.findSpje(params);
+				Double hjje1 = kpls.getHjje();
+				item.setZckjje(hjje1);
+				Double hjse1 = kpls.getHjse();
+				item.setZckjse(hjse1);
+				Double jshj1 = kpls.getJshj();
+				item.setZcjshj(jshj1);
+				params.put("fpczlxdm", "12");
+				kpls = fpzlService.findSpje(params);    //查询红冲合计
+				Double hjje2 = kpls.getHjje();
+				item.setHckjje(hjje2);
+				Double hjse2 = kpls.getHjse();
+				item.setHckjse(hjse2);
+				Double jshj2 = kpls.getJshj();
+				item.setHcjshj(jshj2);
+				params.put("fpczlxdm", "13");
+				kpls = fpzlService.findSpje(params);   //查询换开合计
+				Double hjje3 = kpls.getHjje();
+				item.setHkkjje(hjje3);
+				Double hjse3 = kpls.getHjse();
+				item.setHkkjse(hjse3);
+				Double jshj3 = kpls.getJshj();
+				item.setHkjshj(jshj3);
+				params.put("fpczlxdm", "21");
+				kpls = fpzlService.findSpje(params);   //查询作废合计
+				Double hjje4 = kpls.getHjje();
+				item.setZfkjje(hjje4);
+				Double hjse4 = kpls.getHjse();
+				item.setZfkjse(hjse4);
+				Double jshj4 = kpls.getJshj();
+				item.setZfjshj(jshj4);
+				tjList.add(item);
+			}
+		}
+		result.put("data", tjList);
+		return result;
 	}
 
 	/**

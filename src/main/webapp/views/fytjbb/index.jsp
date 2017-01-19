@@ -20,21 +20,14 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
-
-<!-- jqplot style -->
 <link rel="stylesheet"
 	href="/plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
-
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
 	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
-		<!-- sidebar start -->
 		<%@ include file="../../pages/menus.jsp"%>
-		<!-- sidebar end -->
-
-		<!-- content start -->
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
@@ -45,26 +38,36 @@
 			<form action="#" class="js-form am-form am-form-horizontal">
 				<div class="am-g">
 					<div class="am-u-sm-12">
-						<div class="am-u-sm-6">
-							<label for="s_fpzl" class="am-u-sm-3 am-form-label">发票种类</label>
-							<div class="am-u-sm-9">
-								<select id="s_fpzl" name="fpzl">
-									<option value="">------请选择------</option>
-									<option value="01">增值税专用发票</option>
-									<option value="02">增值税普通发票</option>
-									<option value="12">电子发票(增普)</option>
+					    <div class="am-u-sm-3">							
+							<div class="am-u-sm-12">
+								<select id="s_xfid" name="xfid">
+								<c:forEach items="${xfs}" var="item">
+									<option value="${item.id}">${item.xfmc}</option>
+								</c:forEach>
 								</select>
 							</div>
 						</div>
-						<div class="am-u-sm-6">
-							<div class="am-u-sm-9">
-								<input type="text" id="s_xzrq" name="s_xzrq" placeholder="日历组件"
-									data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}"
-									readonly />
+						<div class="am-u-sm-3">							
+							<div class="am-u-sm-12">
+								<select id="s_fpzl" name="fpzl">
+									<option value="">---请选择发票类型---</option>
+									<c:forEach items="${fpzlList}" var="item">
+									<option value="${item.fpzldm}">${item.fpzlmc}</option>
+								</c:forEach>
+								</select>
 							</div>
-							<div class="am-u-sm-3">
-							   <button type="button" class="am-btn am-btn-primary">查询</button>
-						    </div>
+						</div>
+						<div class="am-u-sm-3">
+							<div class="am-u-sm-12">
+							    <input type="text" id="s_xzrq" name="s_xzrq" placeholder="日历组件"
+									data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}" 
+									readonly />	
+							</div>						
+						</div>
+						<div class="am-u-sm-3">
+						    <div class="am-u-sm-12">
+							   <button type="button" class="am-btn am-btn-primary" id="jsSearch">查询</button>
+							</div>
 						</div>					
 					</div>
 				</div>
@@ -82,136 +85,79 @@
 					<tbody>
 						<tr>
 							<td>正数票份数</td>
-							<td><input type="text" id="je1" name="je1" placeholder="张"
+							<td><input type="text" id="zspfs" placeholder="张"
 								readonly style="border: none; background: transparent;" /></td>
 							<td>负数票份数</td>
-							<td><input type="text" id="je2" name="je2" placeholder="张"
+							<td><input type="text" id="fspfs"  placeholder="张"
 								readonly style="border: none; background: transparent;" /></td>
 							<td>合计</td>
-							<td><input type="text" id="je3" name="je3" placeholder="张"
+							<td><input type="text" id="hjpfs"  placeholder="张"
 								readonly style="border: none; background: transparent;" /></td>
 						</tr>
 						<tr>
-							<td>红冲发票票份数</td>
-							<td><input type="text" id="se1" name="se1" placeholder="张"
+							<td>正常发票份数</td>
+							<td><input type="text" id="zcpfs"  placeholder="张"
+								readonly style="border: none; background: transparent;" /></td>
+							<td>红冲发票份数</td>
+							<td><input type="text" id="hcpfs"  placeholder="张"
 								readonly style="border: none; background: transparent;" /></td>
 							<td>换开发票份数</td>
-							<td><input type="text" id="se2" name="se2" placeholder="张"
-								readonly style="border: none; background: transparent;" /></td>
-							<td>作废发票份数</td>
-							<td><input type="text" id="se3" name="se3" placeholder="张"
+							<td><input type="text" id="hkpfs"  placeholder="张"
 								readonly style="border: none; background: transparent;" /></td>
 						</tr>
 						<tr>
+							<td>作废发票份数</td>
+							<td><input type="text" id="zfpfs" 
+								placeholder="张" readonly
+								style="border: none; background: transparent;" /></td>
 							<td>重开发票份数</td>
-							<td><input type="text" id="jshj1" name="jshj1"
+							<td><input type="text" id="ckpfs" 
 								placeholder="张" readonly
 								style="border: none; background: transparent;" /></td>
 							<td>重打发票份数</td>
-							<td><input type="text" id="jshj2" name="jshj2"
+							<td><input type="text" id="cdpfs" 
 								placeholder="张" readonly
 								style="border: none; background: transparent;" /></td>
-							<td></td>
-							<td></td>
 						</tr>
 					</tbody>
 				</table>
+				<br>
+				<div class="am-u-sm-12" style="text-align:center">
+				     <span ><strong>税率统计</strong></span>
+				</div>
+				<br>
+				<br>
 				<table
-					class="js-sltable am-table  am-table-bordered  am-table-striped ">
+					class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap am-table-compact">
 					<thead>
 						<tr>
-							<th colspan="6">税率统计</th>
+					        <th rowspan="2">税率</th>
+							<th colspan='3'>正常开具</th>
+							<th colspan='3'>红冲开具</th>
+							<th colspan='3'>换开开具</th>
+							<th colspan='3'>发票作废</th>
 						</tr>
+						<tr>
+					        <th>金额</th>
+					        <th>税额</th>
+					        <th>价税合计</th>
+					        <th>金额</th>
+					        <th>税额</th>
+					        <th>价税合计</th>
+					        <th>金额</th>
+					        <th>税额</th>
+					        <th>价税合计</th>
+					        <th>金额</th>
+					        <th>税额</th>
+					        <th>价税合计</th>
+					  </tr>
 					</thead>
 					<tbody>
-					    <tr>
-							<td>项目名称</td>
-							<td>合计</td>
-							<td>0%</td>
-							<td>5%</td>
-							<td>6%</td>
-							<td>11%</td>
-							<td>17%</td>
-						</tr>
-						<tr>
-							<td>正常开具金额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>正常开具税额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>红冲开具金额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>红冲开具税额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>换开开具金额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>换开开具税额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>发票作废金额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>发票作废税额</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					 
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<!-- content end -->
-
-		<!-- loading do not delete -->
 		<div
 			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
 			tabindex="-1">
@@ -229,24 +175,13 @@
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 	<%@ include file="../../pages/foot.jsp"%>
-
-	<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-
-	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
-	<!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
 		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
-
-	<!-- jqplot chart -->
 	<script src="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.js"></script>
 	<script
 		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.barRenderer.min.js"></script>
@@ -256,8 +191,6 @@
 		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.cursor.min.js"></script>
 	<script
 		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.pointLabels.min.js"></script>
-
-
 	<script src="assets/js/fytjbb.js"></script>
 
 </body>

@@ -38,52 +38,52 @@
 				<div class="am-u-sm-12" style="top: 10; left: 0">
 					<div class="am-panel am-panel-default">
 						<div class="am-panel-hd am-cf" style="height: 45px">
-							<span>待办事项汇总</span>
+							<strong><span>待办事项汇总</span></strong>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">开票单审核</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票开具</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票作废</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票红冲</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票重开</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票换开</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票重打</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3"
+						<div class="am-in am-u-sm-3"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">电子票发送</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
-						<div class="am-collapse am-in am-u-sm-3 am-u-end"
+						<div class="am-in am-u-sm-3 am-u-end"
 							style="height: 140px; overflow: auto;">
 							<div style="text-align: center;padding-top:30px">发票邮寄</div>
-							<div style="text-align: center"><a href="#">4</a></div>
+							<div style="text-align: center;font-size:28px"><a href="#">4</a></div>
 						</div>
 					</div>
 				</div>
@@ -94,7 +94,7 @@
 			<br>
 			<div class="am-u-sm-12">
 				<div class="am-scrollable-horizontal">
-					<table class="fpds-table am-table am-table-bordered am-table-striped am-text-nowrap">
+					<table class="fpds-table am-table am-table-bordered am-table-striped am-text-nowrap am-table-compact">
 						<thead>
 							<tr>
 								<th>日期</th>

@@ -36,26 +36,38 @@
 			<div class="am-g  am-padding-top">
 				<form action="#" class="js-search-form  am-form am-form-horizontal">
 					<div class="am-g">
-						<div class="am-u-sm-6">
+					    <div class="am-u-sm-4">
 							<div class="am-form-group">
-								<div class="am-u-sm-9 am-input-group">
-									<input type="text" class="am-form-field" id="cfpdm" name="fpdm"
-										placeholder="发票代码" /> <span class="am-input-group-btn">
-										<button class="am-btn am-btn-default" type="button">
-											<span class="am-icon-search"></span>
-										</button>
-									</span>
+								<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+								<div class="am-u-sm-8">
+									<select id="cfplx" name="fpzldm">
+										<option value="">选择发票类型</option>
+										<c:forEach items="${fplxList}" var="item">
+											<option value="${item.fpzldm}">${item.fpzlmc}</option>
+										</c:forEach>
+									</select>
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-6">
+						<div class="am-u-sm-4">
 							<div class="am-form-group">
-								<label for="s_fpdm" class="am-u-sm-9 am-form-label"></label>
-								<div class="am-u-sm-3">
-									<button class="am-btn am-btn-primary">
+								<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
+								<div class="am-u-sm-8">
+									<input type="text" id="cfpdm" name="fpdm" placeholder="发票代码" />
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-4">
+							<div class="am-form-group">
+								<div class="am-u-sm-12">
+									<button class="am-btn am-btn-primary" id="jsSearch">
+										<i class="am-icon-search"></i>查询
+									</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<button class="am-btn am-btn-primary" id="jsAdd">
 										<i class="am-icon-plus"></i>添加发票库存
 									</button>
-								</div>
+								</div>		
 							</div>
 						</div>
 					</div>
@@ -64,15 +76,16 @@
 				<div class="am-u-sm-12">
 					<div>
 						<table id="search-table"
-							class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+							class="js-table  am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th style="display: none">id</th>
+									<!-- <th style="display: none">id</th> -->
 									<th>销方名称</th>
 									<th>销方税号</th>
-									<th style="display: none">skpid</th>
+									<!-- <th style="display: none">skpid</th> -->
 									<th>开票点名称</th>
+									<th>发票类型</th>
 									<th>发票代码</th>
 									<th>起始发票号码</th>
 									<th>终止发票号码</th>
@@ -95,14 +108,14 @@
 			<div class="am-u-sm-12">
 				<div>
 					<table id="dyzytable"
-						class="js-table am-table am-table-bordered am-table-compact table-main am-text-nowrap">
+						class="am-table am-table-bordered am-table-compact table-main am-text-nowrap">
 						<thead>
 							<tr>
 								<th>序号</th>
 								<th>销方名称</th>
 								<th>销方税号</th>
-								<th>税控盘号</th>
 								<th>开票点名称</th>
+								<th>发票类型</th>
 								<th>剩余库存(张)</th>
 							</tr>
 						</thead>
@@ -110,7 +123,7 @@
 				</div>
 			</div>
 			<div class="am-u-sm-12  am-padding  am-text-center">
-				<button type="button" class="am-btn am-btn-primary">
+				<button type="button" class="am-btn am-btn-primary" id="jsRefresh">
 					<i class="am-icon-refresh"></i>刷新
 				</button>
 			</div>
@@ -132,20 +145,25 @@
 												class="am-table am-table-bordered am-table-striped am-text-nowrap">
 												<tr>
 													<td>销方名称：</td>
-													<td colspan="2"><select id="xfsh" name="xfid"
+													<td><select id="xfsh" name="xfid"
 														class="am-form-field" required onchange="getKpd()">
 															<option value="">---请选择---</option>
 															<c:forEach items="${xfList}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
 															</c:forEach>
 													</select></td>
-													<td></td>
-												</tr>
-												<tr>
 													<td>开票点名称：</td>
 													<td><select id="kpddm" name="skpid"
 														class="am-form-field" required>
-
+													</select></td>
+												</tr>
+												<tr>
+													<td>发票类型：</td>
+													<td><select id="fplx" name="fpzldm" class="am-form-field" required>
+													     <option value="">---请选择---</option>
+															<c:forEach items="${fplxList}" var="item">
+																<option value="${item.fpzldm}">${item.fpzlmc}</option>
+															</c:forEach>
 													</select></td>
 													<td>发票代码：</td>
 													<td><input type="text" id="fpdm" name="fpdm"
@@ -207,7 +225,8 @@
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
-	<!-- <script src="assets/js/fpkc.js"></script> -->
+	<script src="assets/js/fpkc.js"></script>
+	<script src="assets/js/kcjk.js"></script>
 	<script>
 		function getKpd() {
 			var xfid = $('#xfsh option:selected').val();

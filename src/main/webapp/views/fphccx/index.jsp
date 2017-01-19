@@ -23,11 +23,6 @@
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-    以获得更好的体验！</p>
-<![endif]-->
-
 	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
@@ -43,166 +38,92 @@
 			</div>
 			<hr />
 
-			<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
-				<ul class="am-tabs-nav am-nav am-nav-tabs">
-					<li class="am-active"><a href="#tab1">电子发票</a></li>
-					<li><a href="#tab2">纸质发票</a></li>
-				</ul>
-				<div class="am-tabs-bd">
-					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-						<form action="#"
-							class="js-search-form  am-form am-form-horizontal">
-							<div class="am-g">
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_ddh" class="am-u-sm-3 am-form-label">订单号</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_ddh" name="s_ddh" placeholder="" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_fphm" class="am-u-sm-3 am-form-label">发票号码</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_fphm" name="s_fphm" placeholder="" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_kprqq" class="am-u-sm-3 am-form-label">红冲日期</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_kprqq" name="s_kprqq"
-												placeholder="点击选择日期"
-												data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_kprqz"
-											class="am-u-sm-3 am-form-label am-text-center">-</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_kprqz" name="s_kprqz"
-												placeholder="点击选择日期"
-												data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">&nbsp;</div>
-							</div>
-						</form>
-						<hr />
-						<div class="am-u-sm-12  am-padding  am-text-center">
-							<button type="button" class="js-search  am-btn am-btn-primary">查询</button>
-						</div>
-						<div class="am-u-sm-12">
-							<div class="am-scrollable-horizontal">
-								<table class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
-									<thead>
-										<tr>
-											<th>序号</th>
-											<th>订单号</th>
-											<th>购方名称</th>
-											<th>发票代码</th>
-											<th>发票号码</th>
-											<th>原发票代码</th>
-											<th>原发票号码</th>
-											<th>金额</th>
-											<th>税额</th>
-											<th>价稅合计</th>											
-											<th>红冲日期</th>
-											<th>开票人</th>
-											<th>操作</th>
-										</tr>
-									</thead>
-									<tbody>
-
-									</tbody>
-								</table>
+			<form action="#" class="js-search-form  am-form am-form-horizontal">
+				<div class="am-g">
+					<div class="am-u-sm-6">
+						<div class="am-form-group">
+							<label for="s_ddh" class="am-u-sm-3 am-form-label">订单号</label>
+							<div class="am-u-sm-9">
+								<input type="text" id="s_ddh" name="s_ddh" placeholder="" />
 							</div>
 						</div>
 					</div>
-					<div class="am-tab-panel am-fade" id="tab2">
-					<form action="#"
-							class="js-search-form  am-form am-form-horizontal">
-							<div class="am-g">
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_ddh" class="am-u-sm-3 am-form-label">订单号</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_ddh" name="s_ddh" placeholder="" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_fphm" class="am-u-sm-3 am-form-label">发票号码</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_fphm" name="s_fphm" placeholder="" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_kprqq" class="am-u-sm-3 am-form-label">红冲日期</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_kprqq" name="s_kprqq"
-												placeholder="点击选择日期"
-												data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group">
-										<label for="s_kprqz"
-											class="am-u-sm-3 am-form-label am-text-center">-</label>
-										<div class="am-u-sm-9">
-											<input type="text" id="s_kprqz" name="s_kprqz"
-												placeholder="点击选择日期"
-												data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-6">&nbsp;</div>
-							</div>
-						</form>
-						<hr />
-						<div class="am-u-sm-12  am-padding  am-text-center">
-							<button type="button" class="js-search  am-btn am-btn-primary">查询</button>
-						</div>
-						<div class="am-u-sm-12">
-							<div class="am-scrollable-horizontal">
-								<table class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
-									<thead>
-										<tr>
-											<th>序号</th>
-											<th>订单号</th>
-											<th>购方名称</th>
-											<th>发票代码</th>
-											<th>发票号码</th>
-											<th>原发票代码</th>
-											<th>原发票号码</th>
-											<th>金额</th>
-											<th>税额</th>
-											<th>价稅合计</th>										
-											<th>红冲日期</th>
-											<th>开票人</th>
-											<th>操作</th>
-										</tr>
-									</thead>
-									<tbody>
-
-									</tbody>
-								</table>
+					<div class="am-u-sm-6">
+						<div class="am-form-group">
+							<label for="s_fphm" class="am-u-sm-3 am-form-label">发票号码</label>
+							<div class="am-u-sm-9">
+								<input type="text" id="s_fphm" name="s_fphm" placeholder="" />
 							</div>
 						</div>
 					</div>
+					<div class="am-u-sm-6">
+						<div class="am-form-group">
+							<label for="s_kprqq" class="am-u-sm-3 am-form-label">红冲日期</label>
+							<div class="am-u-sm-9">
+								<input type="text" id="s_kprqq" name="s_kprqq"
+									placeholder="点击选择日期"
+									data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+							</div>
+						</div>
+					</div>
+					<div class="am-u-sm-6">
+						<div class="am-form-group">
+							<label for="s_kprqz"
+								class="am-u-sm-3 am-form-label am-text-center">-</label>
+							<div class="am-u-sm-9">
+								<input type="text" id="s_kprqz" name="s_kprqz"
+									placeholder="点击选择日期"
+									data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+							</div>
+						</div>
+					</div>
+					<div class="am-u-sm-6">
+						<div class="am-form-group">
+							<label for="s_zzfplx"
+								class="am-u-sm-3 am-form-label am-text-center">发票类型</label>
+							<div class="am-u-sm-9">
+								<select id="s_zzfplx" name="s_zzfplx">
+									<option value="">----请选择----</option>
+									<option value="01">增值税专用发票</option>
+									<option value="02">增值税普通发票</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="am-u-sm-6">&nbsp;</div>
+				</div>
+			</form>
+			<hr />
+			<div class="am-u-sm-12  am-padding  am-text-center">
+				<button type="button" class="js-search  am-btn am-btn-primary">查询</button>
+			</div>
+			<div class="am-u-sm-12">
+				<div class="am-scrollable-horizontal">
+					<table
+						class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>订单号</th>
+								<th>购方名称</th>
+								<th>发票代码</th>
+								<th>发票号码</th>
+								<th>原发票代码</th>
+								<th>原发票号码</th>
+								<th>金额</th>
+								<th>税额</th>
+								<th>价稅合计</th>
+								<th>红冲日期</th>
+								<th>开票人</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
 				</div>
 			</div>
-
-
 		</div>
 		<!-- content end -->
 

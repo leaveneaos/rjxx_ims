@@ -4,55 +4,43 @@
 $(function () {
     "use strict";
     var el = {
-    	$jsTable: $('.js-table'),   
-        $jsPre: $('.js-pre'),
-        $jsLater: $('.js-later'),
+    	$jsTable: $('.js-table'),
+    	$jsSlTable: $('.js-sltable'),
         $jsDate: $('#s_xzrq'),
-       // $jsKcpl: $('.js-kcpl'),  // 库存票量
+        $jsXfid: $('#s_xfid option:selected'),
+        $jsFpzl: $('#s_fpzl option:selected'),
         $jsForm: $('.js-form'),
-        $jsFresh: $('.js-fresh'),
-        $jsSave: $('.js-save'),
-        $jsExport: $('.js-export'),
+        $jsSearch: $('#jsSearch'),
         $jsLoading: $('.js-modal-loading')
     };
-   
     var action = {
     	tableEx: null, // cache dataTable
         config: {
-            saveURL: 'fytjbb/save',
-            getURL:'fytjbb/getList',
-            getPreDay:'fytjbb/getPre',
-            getLaterDay:'fytjbb/getLater',
-            exportURL:'fytjbb/export'
+            getURL:'fytjbb/getfps',
+            getJE:'fytjbb/getje'
         },   
-        showFp:function(data){
-        	if(data.kprq==null||""==data.kprq){
+        showFp:function(){
+        	/*if(data.kprq==null||""==data.kprq){
         		return;
-        	}
+        	}*/
         	var _this = this;   
         	el.$jsLoading.modal('toggle'),  // show loading         	
         	$.ajax({  		
                 url: _this.config.getURL,
-                data:data,
+                data:{"xfid":$jsXfid.val(),"fpzl":$jsFpzl.val(),"kprq":$jsDate.val()},
                 type: 'POST',
                 dataType: 'json',             
                 success: function (data) {              	
                 	if(data.success){
-                		//正常开具
-                		$("#je1").val(data.je1); 
-                        $("#se1").val(data.se1);
-                        $("#jshj1").val(data.jshj1);
-                        $("#fpsl1").val(data.fpsl1);
-                        //红冲
-                        $("#je2").val(data.je2); 
-                        $("#se2").val(data.se2);
-                        $("#jshj2").val(data.jshj2);
-                        $("#fpsl2").val(data.fpsl2);
-                        //换开
-                		$("#je3").val(data.je3); 
-                        $("#se3").val(data.se3);
-                        $("#jshj3").val(data.jshj3);
-                        $("#fpsl3").val(data.fpsl3); 
+                		$("#zspfs").val(data.zspfs); 
+                        $("#fspfs").val(data.fspfs);
+                        $("#hjpfs").val(data.hjpfs);
+                        $("#zcpfs").val(data.zcpfs);
+                        $("#hcpfs").val(data.hcpfs); 
+                        $("#hkpfs").val(data.hkpfs);
+                        $("#zfpfs").val(data.zfpfs);
+                        $("#ckpfs").val(data.ckpfs);
+                		$("#cdpfs").val(data.cdpfs); 
                 	}else{
                 		 alert('数据读取失败,服务器错误:'+data.msg);     
                 	}
@@ -60,10 +48,44 @@ $(function () {
                 },
                 error: function() {
                     alert('后台错误,请重新登录！');
-                }
-        	
+                }        	
            });
-        },        
+        },
+        dataTable: function () {
+            var _this = this;
+            var t = el.$jsSlTable
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    ordering: false,
+                    searching: false,
+                    "ajax": {
+                        url: _this.config.getJE,
+                        type: 'POST',
+                        data: function (d) {
+                            d.xfid = $jsXfid.val(),
+                            d.fpzl = $jsFpzl.val(),
+                            d.kprq = $jsDate.val()
+                        }
+                    },
+                    "columns": [                 
+                        {"data": "sl"},
+                        {"data": "zckjje"},
+                        {"data": "zckjse"},
+                        {"data": "zcjshj"},                   
+                        {"data": "hckjje"},
+                        {"data": "hckjse"},
+                        {"data": "hcjshj"},
+                        {"data": "hkkjje"},
+                        {"data": "hkkjse"},
+                        {"data": "hkjshj"},
+                        {"data": "zfkjje"},
+                        {"data": "zfkjse"},
+                        {"data": "zfjshj"}
+                        ]
+                });                                
+            return t;
+        },
         /**
          * 前一天
          */
@@ -99,6 +121,22 @@ $(function () {
             	e.preventDefault();
               
             });
+        },
+        
+        searchAc:function(){
+        	var _this = this;       	
+        	el.$jsSearch.on('click', function (e) {
+        		el.$jsLoading.modal('toggle');  // show loading
+                var kprq = el.$jsDate.val();
+                alert(kprq);
+                if(kprq==''){
+                	alert("请先选择月份！");
+                	return false;
+                }
+                _this.showFp();
+               e.preventDefault();
+        		_this.tableEx.ajax.reload();
+            })
         },
         
         /**
@@ -141,63 +179,10 @@ $(function () {
             });
         },
         /**
-         * change date
+         * 查询
          */
-        dateAc: function() {
-        	var _this = this;
-            el.$jsDate.on('changeDate.datepicker.amui', function (event) {
-                //debugger
-                // todo  
-                var kprq=event.date;
-                el.$jsDate.val(kprq);
-                var kprq1 = el.$jsDate.val();
-               _this.showFp({kprq:kprq1}); //传参格式{'随便写':参数值}            
-            });
-        },
-        /**
-         * 保存
-         */
-        saveAc: function () {
-            var _this = this;
-            el.$jsSave.on('click', function (e) {
-                e.preventDefault();
-                if (!el.$jsForm.find('input[name="dy"]:checked').length) {
-                    alert('请选择订阅方式');
-                    return false;
-                }
-                var data = el.$jsForm.serialize();
-                el.$jsLoading.modal('open');
-                // todo
-                $.ajax({
-                    url: _this.config.saveURL,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.success) {
-                            alert('保存成功');
-                        } else {
-                            alert('服务器异常' + data.msg);
-                        }
-                        el.$jsLoading.modal('close');
-                    },
-                    error: function () {
-                        alert('服务器错误,请稍后重试');
-                    }
-                });
-            });
-        },
-        /**
-         * 刷新
-         */
-        freshAc: function () {
-            var _this = this;
-            el.$jsFresh.on('click', function (e) {
-                e.preventDefault();               
-                window.location.reload();
-            });
-
-        },
+        	
+      
         /**
          * 导出
          */
@@ -211,19 +196,13 @@ $(function () {
             		return;
             	}
             	window.location.href = _this.config.exportURL+"?kprq=" +kprq;
-
-   //             alert('导出成功');
             });
         },
         init: function () {
-            var _this = this;        
-            _this.preAc();
-            _this.laterAc();           
-            _this.saveAc();
-            _this.freshAc();
-            _this.exportAc();
-            _this.tableEx=_this.dateAc();
+            var _this = this;                  
+            _this.searchAc();
+           //_this.tableEx=_this.dateAc();
         }
     }; 
-    action.init();
+    action.init(); 
 });

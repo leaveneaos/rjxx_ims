@@ -5,15 +5,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Fpkc;
+import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpkcService;
+import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -22,11 +26,15 @@ import com.rjxx.taxeasy.web.BaseController;
 public class FpkcController extends BaseController {
 	@Autowired
 	private FpkcService fpkcService;
+	@Autowired
+	private FpzlService fpzlService;
 
 	@RequestMapping
 	public String index() throws Exception {
 		List<Xf> xfList = getXfList();
 		request.setAttribute("xfList", xfList);
+		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
+		request.setAttribute("fplxList",fpzlList);
 		return "fpkc/index";
 	}
 
@@ -60,7 +68,7 @@ public class FpkcController extends BaseController {
 	// 查询方法
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, String fpdm) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw, String fpdm,String fplx) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -102,6 +110,7 @@ public class FpkcController extends BaseController {
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("skpid", skpid);
 		pagination.addParam("fpdm", fpdm);
+		pagination.addParam("fplx", fplx);
 		List<Fpkcvo> kcList = fpkcService.findByPage(pagination);
 		List<Fpkcvo> kcList1 = new ArrayList<Fpkcvo>();
 		if (kcList != null) {
@@ -170,8 +179,8 @@ public class FpkcController extends BaseController {
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map<String, Object> update(int id, Integer xfid, Integer skpid, String fpdm, String fphms, String fphmz)
-			throws Exception {
+	public Map<String, Object> update(int id, Integer xfid, Integer skpid, String fpdm, 
+			String fphms, String fphmz,String fplxdm) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
 		int fpkcl = 0;
@@ -231,5 +240,33 @@ public class FpkcController extends BaseController {
 		}
 		return result;
 	}
+	
+	// 发票监控查询方法
+		@RequestMapping(value = "/getItems2")
+		@ResponseBody
+		public Map<String, Object> getItems2(int length, int start, int draw) throws Exception {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Pagination pagination = new Pagination();
+			pagination.setPageNo(start / length + 1);
+			pagination.setPageSize(length);
+			String gsdm = getGsdm();
+			List<Xf> xfs = getXfList();
+			List<Skp> skps = getSkpList();
+			pagination.addParam("gsdm", gsdm);
+			if(xfs !=null&&xfs.size()>0){
+				pagination.addParam("xfs", xfs);
+			}
+			if(skps !=null&&skps.size()>0){
+				pagination.addParam("skps", skps);
+			}
+			List<Fpkcvo> kcjkList = fpkcService.findKcjkByPage(pagination);
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", kcjkList);
+			return result;
+		}
+
 
 }

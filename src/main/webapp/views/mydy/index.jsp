@@ -45,20 +45,16 @@
 				</ul>
 				<div class="am-tabs-bd">	    
 					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-					<button class="am-btn am-btn-primary" style="float:right;">
+					<button class="am-btn am-btn-primary" style="float:right;" id="jsAdd">
 						<i class="am-icon-plus"></i>添加订阅
 					</button>
                          <table id="mydytable"
 							class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 							<thead>
 								<tr>
-									<th><input type="checkbox" id="selectAll" /></th>
 									<th>序号</th>
-									<th>标题</th>
-									<th>描述</th>
-									<th>首页订阅</th>
-									<th>Email订阅</th>
-									<th>短信订阅</th>
+									<th>标题</th>									
+									<th>订阅方式</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -70,11 +66,11 @@
 	                        <div class="am-form-group">
 	                            <label for="s_dymc" class="am-u-sm-3 am-form-label">订阅主题</label>
 	                            <div class="am-u-sm-9">
-	                                <select id="dymc" name="dymc" class="am-u-sm-12">
+	                                <select id="dybtid" name="dybtid" class="am-u-sm-12" onchange="getBz()">
 											<option value="">----请选择----</option>
-											<%-- <c:forEach items="${xfList}" var="item">
-												<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-											</c:forEach> --%>
+											<c:forEach items="${dybtList}" var="item">
+												<option value="${item.id}">${item.dybt}</option>
+											</c:forEach>
 									</select>
 	                            </div>
 	                        </div>
@@ -114,11 +110,11 @@
 
 		<!-- model -->
 		<div class="am-modal am-modal-no-btn" tabindex="-1" id="shezhi">
-			<div class="am-modal-dialog" style="height: 240px; width: 400px">
+			<div class="am-modal-dialog" style="height: 400px; width: 480px">
 				<form class="js-form-yjsz am-form">
 					<div class="am-tabs" data-am-tabs>
 						<div class="am-tabs-nav am-nav am-nav-tabs">
-							<label>预警订阅设置</label>
+							<label>订阅设置</label>
 						</div>
 						<div class="am-tabs-bd">
 							<div class="am-tab-panel am-in am-active" id="tab1">
@@ -128,15 +124,20 @@
 											<table
 												class="am-table am-table-bordered am-table-striped am-text-nowrap">
 												<tr>
-													<td><input type="checkbox" id="sfsy" name="sfsy">首页订阅</td>
-													<td><input type="checkbox" id="sfemail" name="sfemail">email订阅</td>
+													<td><span style="color: red;">*</span>订阅标题</td>
+													<td><select id="dybtidinput" name="dybtid" 
+														class="am-form-field" required>
+														<option value="">----请选择----</option>
+														    <c:forEach items="${dybtList}" var="item">
+												            <option value="${item.id}">${item.dybt}</option>
+											            </c:forEach>
+													    </select></td>
 												</tr>
-												<tr>
-													<td><span style="color: red;">*</span>库存预警阈值</td>
-													<td><input type="text" id="yjkcl" name="yjkcl"
-														pattern="^\d{0,8}$" placeholder="请输入库存预警阈值"
-														class="am-form-field" required></td>
+												<c:forEach items="${dyfsList}" var="item">
+												<tr>																					
+													<td colspan="2"><input type="checkbox" id="${item.dyfsdm}" name="dyfs">&nbsp;&nbsp;${item.dyfsmc}</td>
 												</tr>
+												</c:forEach>							
 											</table>
 										</div>
 										<div class="am-u-sm-12">
@@ -183,6 +184,20 @@
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
-	<!-- <script src="assets/js/fpyjdy.js"></script> -->
+	<script src="assets/js/mydy.js"></script>
+	<script type="text/javascript">
+	    function getBz(){
+	    	var id = $('#dybtid option:selected').val();
+			$.ajax({
+				url : "mydy/getBz",
+				data : {
+					"id" : id
+				},
+				success : function(data) {
+					$("#ztxq").val(data.bz);
+				}
+			});
+	    }
+	</script>
 </body>
 </html>
