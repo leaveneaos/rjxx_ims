@@ -362,12 +362,13 @@ $(function() {
 					data.dlyhid.substring(data.dlyhid.indexOf("_") + 1));
 			el.$jsForm0.find('input[name="sjhm"]').val(data.sjhm);
 			el.$jsForm0.find('input[name="yx"]').val(data.yx);
+			var tmp;
+			$('#xb1').empty();
 			if ('男' == data.xb) {
-				$('#xb1').prop('checked', true);
+				$('#xb1').append('<option value = "0">男</option><option value = "1">女</option>');
 			} else {
-				$('#xb2').prop('checked', true);
+				$('#xb1').append('<option value = "1">女</option><option value = "0">男</option>');
 			}
-			;
 
 		},
 		setForm1 : function() {

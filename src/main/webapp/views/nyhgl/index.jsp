@@ -142,9 +142,10 @@
 											</div>
 											<label for="hc_yfphm" class="am-u-sm-2 am-form-label">用户性别</label>
 											<div class="am-u-sm-4">
-												<input id="xb1" type="radio" value="0" name="xb"
-													checked="checked">男 &nbsp;&nbsp;&nbsp;&nbsp; <input
-													id="xb2" type="radio" value="1" name="xb">女
+												<select name="xb" id="xb1">
+													<option value="0">男</option>
+													<option value="1">女</option>
+												</select>
 											</div>
 										</div>
 										<div class="am-form-group">
@@ -232,6 +233,7 @@
 											<div title="用户机构" style="padding: 10px;" id="bm-box1">
 
 												<div class="am-panel-group" id="accordion">
+													<input type="checkbox" onclick="xfqx(this)" id="all" name="all" />&nbsp;&nbsp;全选
 													<c:forEach items="${xfs }" var="x" varStatus="i">
 														<div class="am-panel am-panel-default">
 															<div class="am-panel-hd">
@@ -239,7 +241,7 @@
 																<h4 class="am-panel-title"
 																	data-am-collapse="{parent: '#accordion', target: '#do-not-say-${x.id }'}">
 																	<input type="checkbox" id="yhjg1-${x.id }"
-																		onclick="xzxf(this)" name="xfid" value="${x.id }" />&nbsp;&nbsp;${x.xfmc }<i
+																		 name="xfid" value="${x.id }" />&nbsp;&nbsp;${x.xfmc }<i
 																		class="am-icon-angle-right am-fr am-margin-right"></i>
 																</h4>
 															</div>
@@ -385,6 +387,18 @@
 				var smObj = document.getElementsByName(obj.value);
 				for (var i = 0; i < smObj.length; i++)
 					smObj[i].checked = true;
+			}
+		}
+		function xfqx(obj){
+			var xfids = document.getElementsByName('xfid');
+			if (obj.checked == true) {
+				for (var i = 0; i < xfids.length; i++) {
+					xfids[i].checked = true;
+				}
+			}else{
+				for (var i = 0; i < xfids.length; i++) {
+					xfids[i].checked = false;
+				}
 			}
 		}
 		function xzskp(obj) {
