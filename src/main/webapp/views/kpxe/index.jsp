@@ -43,24 +43,22 @@
 			</div>
 			<hr />
 			<div style="padding: 100px; padding-top: 10px; width: 1200px;">
-				<form id="frm" class="js-form-0 am-form am-form-horizontal">
 					<div class="am-modal-bd" style="border: none">
 						<div class="am-modal-bd" style=" border: none">
 							<div class="am-g">
+								<form id="frm" class="js-form-0 am-form am-form-horizontal">
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red">*</font>企业</label>
 									<div class="am-u-sm-9">
 										<select id="xfid" name="xfid">
-											<c:forEach items="${xfs }" var="x">
-												<option value="${x.id }">${x.xfmc }&nbsp;${x.xfsh }</option>
-											</c:forEach>
+												<option value="${xf.id }">${xf.xfmc }&nbsp;${xf.xfsh }</option>
 										</select>
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red"></font>增值税普通发票</label>
+										color="red">*</font>增值税普通发票</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="kpxe1" name="kpxe1" style="float: left;"
 											placeholder="开票限额"  value="${xf.ppzdje }"
@@ -76,7 +74,7 @@
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red"></font>增值税专用发票</label>
+										color="red">*</font>增值税专用发票</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="kpxe2" name="kpxe2" style="float: left;"
 											placeholder="开票限额" value="${xf.zpzdje}"
@@ -92,7 +90,7 @@
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red"></font>增值税电子普通发票</label>
+										color="red">*</font>增值税电子普通发票</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="kpxe3" name="kpxe3" style="float: left;"
 											placeholder="开票限额" value="${xf.dzpzdje }"
@@ -103,18 +101,24 @@
 										<input type="text" id="fpje3" name="fpje3" style="float: left;"
 											placeholder="分票金额" value="${xf.dzpfpje }"
 											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-											class="am-form-field" required />
+											class="am-form-field"  required />
 									</div>
 								</div>
 								<div class="am-form-group">
+									<button style="display: none;" id="last1" class="js-button  am-btn am-btn-primary">上一步</button>
+									<button id="save" class="js-button  am-btn am-btn-success">保存</button>
+									<button style="display: none;" id="finish1" class="js-button  am-btn am-btn-success">完成</button>
+								</div>
+								
+								</form>
+								<div class="am-form-group">
 									<button id="last" class="js-button  am-btn am-btn-primary">上一步</button>
-									<button id="save" class="js-submit  am-btn am-btn-success">保存并添加</button>
+									<button style="display: none;" id="save1" class="js-button  am-btn am-btn-success">保存</button>
 									<button id="finish" class="js-button  am-btn am-btn-success">完成</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 		<!-- content end -->
@@ -235,10 +239,10 @@
 					}
 				});
 			});
-			$('#last').click(function(){
-				location.href='kpd';
+			$("#last").click(function(){
+				location.href="kpd";
 			});
-			$('#finish').click(function(){
+			$("#finish").click(function(){
 				location.href='main';
 			});
 			$('#kpxe1').blur(function(){

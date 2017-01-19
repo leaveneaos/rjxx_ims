@@ -18,6 +18,7 @@ public class KpdController extends BaseController {
 	@RequestMapping
 	public String index() throws Exception {
 		session.setAttribute("xfs", getXfList());
+		session.setAttribute("xf", getXfList().get(0));
 //		session.setAttribute("bmbbs", bs.findAllByParams(new HashMap<>()));
 		return "kpd/index";
 	}

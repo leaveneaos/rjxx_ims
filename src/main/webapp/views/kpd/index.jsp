@@ -49,25 +49,23 @@
 							<div class="am-g">
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业</label>
 									<div class="am-u-sm-9">
 										<select id="xfid" name="xfid">
-											<c:forEach items="${xfs }" var="x">
-												<option value="${x.id }">${x.xfmc }&nbsp;${x.xfsh }</option>
-											</c:forEach>
+											<option value="${xf.id }">${xf.xfmc }&nbsp;${xf.xfsh }</option>
 										</select>
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>开票点代码</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="kpddm" name="kpddm" style="float: left;"
 											placeholder="开票点代码"
 											class="am-form-field" required />
 									</div>
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>开票点名称</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="kpdmc" name="kpdmc" style="float: left;"
 											placeholder="开票点名称"
@@ -76,7 +74,7 @@
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>设备厂商</label>
 									<div class="am-u-sm-3">
 										<select id="sbcs" name="sbcs">
 											<option value="1">百旺(黑色)</option>
@@ -84,7 +82,7 @@
 										</select>
 									</div>
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red"></font></label>
+										color="red"></font>税控盘号</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="skph" name="skph" style="float: left;"
 											placeholder="税控盘号"
@@ -92,13 +90,13 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">税控盘密码</label>
 									<div class="am-u-sm-3">
 										<input type="password" id="skpmm" name="skpmm" style="float: left;"
 											placeholder="税控盘密码" class="am-form-field"
 											maxlength="30" />
 									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">证书密码</label>
 									<div class="am-u-sm-3">
 										<input type="password" id="zsmm" name="zsmm" style="float: left;"
 											placeholder="证书密码" class="am-form-field"
@@ -106,56 +104,56 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">联系地址</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="lxdz" name="lxdz" style="float: left;"
-											placeholder="联系地址" class="am-form-field"
+											placeholder="联系地址" value="${xf.xfdz }" class="am-form-field"
 											/>
 									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">联系电话</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="lxdh" name="lxdh" style="float: left;"
+										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
 											placeholder="联系电话" class="am-form-field"
 											/>
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">开户银行</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="khyh" name="khyh" style="float: left;"
-											placeholder="开户银行" class="am-form-field"
+											placeholder="开户银行" value="${xf.xfyh }" class="am-form-field"
 											/>
 									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">银行账号</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="银行账号" class="am-form-field"
+											placeholder="银行账号" value="${xf.xfyhzh }" class="am-form-field"
 											/>
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">开票人</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="kpr" name="kpr" style="float: left;"
-											placeholder="开票人" class="am-form-field"
+											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
 											/>
 									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">收款人</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="skr" name="skr" style="float: left;"
-											placeholder="收款人" class="am-form-field"
+											placeholder="收款人" value="${xf.skr }" class="am-form-field"
 											/>
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">复核人</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="fhr" name="fhr" style="float: left;"
-											placeholder="复核人" class="am-form-field"
+											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
 											/>
 									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"></label>
-									<div class="am-u-sm-3">
+									<label style="display: none;" for="hc_yfphm" class="am-u-sm-3 am-form-label">商品编码版本</label>
+									<div style="display: none;" class="am-u-sm-3">
 										<select id="bmbb" name="bmbb">
 											<option value="0">请选择</option>
 											<c:forEach items="${bmbbs }" var="b">
@@ -172,7 +170,7 @@
 <!-- 								</div> -->
 								<div class="am-form-group">
 									<button id="lastStep" class="js-submit  am-btn am-btn-primary">上一步</button>
-									<button id="save" class="js-submit  am-btn am-btn-success">保存并添加</button>
+									<button id="save" class="js-submit  am-btn am-btn-success">保存</button>
 									<button id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button>
 								</div>
 							</div>

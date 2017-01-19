@@ -50,7 +50,7 @@
 							<div class="am-g">
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业名称</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfmc" name="xfmc" style="float: left;"
 											placeholder="企业名称" class="am-form-field" required
@@ -59,70 +59,70 @@
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业税号</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfsh" name="xfsh" style="float: left;"
-											placeholder="15位或18位"
-											pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18})$"
+											placeholder="15、18或20位"
+											pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18}|[0-9|a-zA-Z]{20})$"
 											class="am-form-field" required maxlength="20" />
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业地址</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdz" name="dz" style="float: left;"
-											placeholder="企业地址" class="am-form-field" required />
+											placeholder="企业地址(发票票面)" class="am-form-field" required />
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业电话</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdh" name="xfdh" style="float: left;"
-											placeholder="企业电话" class="am-form-field" required
+											placeholder="企业电话(发票票面)" class="am-form-field" required
 											maxlength="30" />
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>企业银行</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="khyh" name="khyh" style="float: left;"
-											placeholder="企业银行" class="am-form-field" required />
+											placeholder="企业银行(发票票面)" class="am-form-field" required />
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>银行账号</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="银行账号" class="am-form-field" required
+											placeholder="银行账号(发票票面)" class="am-form-field" required
 											maxlength="50" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">收款人</label>
 									<div class="am-u-sm-8">
-										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="收款人" class="am-form-field"
+										<input type="text" id="skr" name="skr" style="float: left;"
+											placeholder="收款人(发票票面)" class="am-form-field"
 											maxlength="50" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"></label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">复核人</label>
 									<div class="am-u-sm-8">
-										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="复核人" class="am-form-field"
+										<input type="text" id="fhr" name="fhr" style="float: left;"
+											placeholder="复核人(发票票面)" class="am-form-field"
 											maxlength="50" />
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font></label>
+										color="red">*</font>开票人</label>
 									<div class="am-u-sm-8">
-										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="开票人" class="am-form-field" required
+										<input type="text" id="kpr" name="kpr" style="float: left;"
+											placeholder="开票人(发票票面)" class="am-form-field" required
 											maxlength="50" />
 									</div>
 								</div>
@@ -135,9 +135,9 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">将作为您开票的</font><font size="6" color="orange">销售方信息</font><p>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
 						
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" style="width: 200px" id="save" class="js-submit  am-btn am-btn-success">保存并添加</button><p>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="export" class="js-submit  am-btn am-btn-default">批量导入</button><p>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" style="width: 200px" id="save" class="js-submit  am-btn am-btn-secondary">下一步</button><p>
+<!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="export" class="js-submit  am-btn am-btn-default">批量导入</button><p> -->
+<!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button> -->
 					</div>
 				</form>
 			</div>
@@ -234,7 +234,7 @@
 									$('#save').attr("disabled", false);
 									if (data.success) {
 										alert(data.msg);
-										window.location.reload(); // reload table
+										location.href= "kpd";
 									} else if (data.repeat) {
 										alert(data.msg);
 									}else{
