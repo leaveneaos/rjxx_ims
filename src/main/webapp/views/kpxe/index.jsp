@@ -44,7 +44,6 @@
 			<hr />
 			<div style="padding: 100px; padding-top: 10px; width: 1200px;">
 					<div class="am-modal-bd" style="border: none">
-						<div class="am-modal-bd" style=" border: none">
 							<div class="am-g">
 								<form id="frm" class="js-form-0 am-form am-form-horizontal">
 								<div class="am-form-group">
@@ -105,19 +104,13 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<button style="display: none;" id="last1" class="js-button  am-btn am-btn-primary">上一步</button>
+									<a id="last" class="js-button  am-btn am-btn-primary">上一步</a>
 									<button id="save" class="js-button  am-btn am-btn-success">保存</button>
-									<button style="display: none;" id="finish1" class="js-button  am-btn am-btn-success">完成</button>
+									<a id="finish" class="js-button  am-btn am-btn-success">完成</a>
 								</div>
 								
 								</form>
-								<div class="am-form-group">
-									<button id="last" class="js-button  am-btn am-btn-primary">上一步</button>
-									<button style="display: none;" id="save1" class="js-button  am-btn am-btn-success">保存</button>
-									<button id="finish" class="js-button  am-btn am-btn-success">完成</button>
-								</div>
 							</div>
-						</div>
 					</div>
 			</div>
 		</div>
