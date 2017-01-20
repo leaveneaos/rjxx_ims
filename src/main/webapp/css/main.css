@@ -10,11 +10,11 @@ table tbody td label { padding-top: 0!important; }
 /*==========*\
     reset
 \*==========*/
-table.dataTable thead > tr > th { padding: .7rem; }
+table.dataTable thead > tr > th { padding: .4rem; }
 
 .am-scrollable-horizontal .am-form-select { display: inline-block!important; width: auto; }
 /*==========*\
-    page: 邮件发送
+    page: 閭欢鍙戦��
 \*==========*/
 .table_2_search_condition a  { text-decoration: underline; padding: 0 20px; }
 
@@ -32,7 +32,7 @@ table.dataTable thead > tr > th { padding: .7rem; }
 
 .chart-2 { height: 400px; width: 100%; background-color: aliceblue; }
 /*==========*\
-          导入导出
+          瀵煎叆瀵煎嚭
 \*==========*/
 .import{
 	background-color:#c0c0c0;	

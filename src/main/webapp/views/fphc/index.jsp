@@ -140,10 +140,11 @@
 								</div>
 								<br>
 							</form>
-							<hr />
+							
 
 
 							<div class="am-u-sm-12">
+							<hr />
 								<div class="am-scrollable-horizontal">
 									<table
 										class="js-table2 am-table am-table-bordered am-text-nowrap"

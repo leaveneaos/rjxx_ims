@@ -49,7 +49,8 @@
 			</div>
 			<hr />
 			<div class="am-g">
-				<form class="am-form am-form-horizontal">
+				<form action="#"
+								class="js-search-form  am-form am-form-horizontal">
 					<div class="am-u-sm-12">
 						<div class="am-u-lg-4">
 							<div class="am-form-group">
@@ -169,30 +170,32 @@
 						</div>
 					</div>
 				</form>
-
-				<br> <br> <br>
-				<hr />
-				<fieldset>
+				<hr/>
+				
+				
+				<%-- <fieldset>
 					<hr>
-					<%-- <div class="am-btn-toolbar ">
+					<div class="am-btn-toolbar ">
                      <div class="am-btn-group am-btn-group-xs ">
                          <span>处理状态：</span>
                          <span class="am-badge am-badge-success am-icon-check-circle">服务端生成XML并放入服务端IN队列完成</span>
                          <span class="am-badge am-badge-danger am-icon-clock-o">服务端接收数据完成</span>
                      </div>
-                 </div>--%>
-				</fieldset>
-				<div style="margin-left: 10px">
+                 </div>
+				</fieldset>--%>
+				<div class="am-u-sm-12">
+				<hr/>
+				<div  class="am-scrollable-horizontal">
 					<table
-						class="js-table am-table am-table-bordered am-text-nowrap am-scrollable-horizontal"
+						class="js-table2 am-table am-table-bordered am-text-nowrap"
 						id="jyls_table">
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="check_all" /></th>
-								<th width="80">交易流水号</th>
-								<th width="80">订单号</th>
-								<th width="80">订单日期</th>
-								<th width="80">发票类型</th>
+								<th>交易流水号</th>
+								<th>订单号</th>
+								<th>订单日期</th>
+								<th>发票类型</th>
 								<th>购方税号</th>
 								<th>购方名称</th>
 								<th>购方银行</th>
@@ -207,10 +210,13 @@
 						</thead>
 					</table>
 				</div>
+				</div>
 				<fieldset>
 					<legend>商品明细列表</legend>
+					<div class="am-u-sm-12">
+					<div>
 					<table
-						class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap"
+						class="js-mxtable am-table am-table-bordered am-table-striped am-text-nowrap"
 						id="jyspmx_table">
 						<thead>
 							<tr>
@@ -227,6 +233,8 @@
 							</tr>
 						</thead>
 					</table>
+					</div>
+					</div>
 				</fieldset>
 			</div>
 		</div>
