@@ -21,10 +21,14 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.DrPz;
 import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Sp;
+import com.rjxx.taxeasy.domains.Spz;
+import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.SmService;
 import com.rjxx.taxeasy.service.SpService;
 import com.rjxx.taxeasy.service.SpbmService;
 import com.rjxx.taxeasy.service.SpvoService;
+import com.rjxx.taxeasy.service.SpzService;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.Spbm;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -46,6 +50,14 @@ public class SpslglController extends BaseController {
 	@Autowired
 	private SpbmService spbmService;
 
+	@Autowired
+	private XfService xfService;
+
+	@Autowired
+	private SpzService spzService;
+	
+	
+
 	/**
 	 * 导入字段映射
 	 */
@@ -64,8 +76,16 @@ public class SpslglController extends BaseController {
 	public String index() {
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
-//		List<Spbm> spbms = spbmService.findAllByParam(new HashMap<>());
-//		request.setAttribute("spbms", spbms);
+		Map<String, Object> params = new HashMap<>();
+		List<Spbm> spbms = spbmService.findAllByParam(params);
+		request.setAttribute("spbms", spbms);
+		params.put("gsdm", getGsdm());
+		Sp sp = new Sp();
+		sp.setGsdm(getGsdm());
+		List<Sp> sps = spService.findAllByParams(sp);
+		List<Xf> xfs = xfService.findAllByMap(params);
+		request.setAttribute("sps", sps);
+		request.setAttribute("xfs", xfs);
 		return "spslgl/index";
 	}
 
@@ -81,6 +101,24 @@ public class SpslglController extends BaseController {
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		List<Spvo> list = spvoService.findAllOnPage(pagination);
+		int total = pagination.getTotalRecord();
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
+		result.put("data", list);
+		return result;
+	}
+
+	@RequestMapping(value = "/getSpzs")
+	@ResponseBody
+	public Map getSpzs(int length, int start, int draw, String spzmc){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		pagination.addParam("spzmc", spzmc);
+		pagination.addParam("gsdm", getGsdm());
+		List<Spz> list = spzService.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
@@ -186,8 +224,8 @@ public class SpslglController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("spbm", spbm);
 		try {
-//			List<Spbm> list = spbmService.findAllByParam(params);
-//			result.put("spbms", list);
+			List<Spbm> list = spbmService.findAllByParam(params);
+			result.put("spbms", list);
 			result.put("success", true);
 		} catch (Exception e) {
 			result.put("success", false);
@@ -207,12 +245,12 @@ public class SpslglController extends BaseController {
 			Map<String, Object> node = new HashMap<String, Object>();
 			node.put("id", spbm.getSpbm());
 			node.put("text", spbm.getSpbm() + "|" + spbm.getSpmc());
-//			node.put("pid", spbm.getSjspbm());
+			node.put("pid", spbm.getSjspbm());
 			nodes.add(node);
 		}
 		// 循环获取全部子节点
 		params.put("spbms", null);
-//		spbms = spbmService.findAllByParam(params);
+		spbms = spbmService.findAllByParam(params);
 		List<Map<String, Object>> doing = new ArrayList<Map<String, Object>>();
 		doing.addAll(nodes);
 		while (!doing.isEmpty()) {
@@ -221,9 +259,9 @@ public class SpslglController extends BaseController {
 				List<Spbm> spbms2 = new ArrayList<Spbm>();
 				if (spbms != null) {
 					for (int i = 0; i < spbms.size(); i++) {
-//						if ((spbms.get(i).getSjspbm() == null ? "" : spbms.get(i).getSjspbm()).equals(item.get("id"))) {
-//							spbms2.add(spbms.get(i));
-//						}
+						if ((spbms.get(i).getSjspbm() == null ? "" : spbms.get(i).getSjspbm()).equals(item.get("id"))) {
+							spbms2.add(spbms.get(i));
+						}
 					}
 				}
 				if (spbms2.isEmpty())
@@ -233,7 +271,7 @@ public class SpslglController extends BaseController {
 					Map<String, Object> node = new HashMap<String, Object>();
 					node.put("id", spbm.getSpbm());
 					node.put("text", spbm.getSpbm() + "|" + spbm.getSpmc());
-//					node.put("pid", spbm.getSjspbm());
+					node.put("pid", spbm.getSjspbm());
 					children.add(node);
 					todo.add(node);
 				}
@@ -412,9 +450,9 @@ public class SpslglController extends BaseController {
 			}
 
 			try {
-//				sp.setSpbm(row.get(6) == null ? null : row.get(6).toString());
+				sp.setSpbm(row.get(6) == null ? null : row.get(6).toString());
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 			}
 
 			list.add(sp);
@@ -471,12 +509,12 @@ public class SpslglController extends BaseController {
 				}
 			}
 			boolean flag = false;
-//			String spbm = sp.getSpbm();
-//			for (Spbm bm : spbmList) {
-//				if (bm.getSpbm().equals(spbm)) {
-//					flag = true;
-//				}
-//			}
+			String spbm = sp.getSpbm();
+			for (Spbm bm : spbmList) {
+				if (bm.getSpbm().equals(spbm)) {
+					flag = true;
+				}
+			}
 			if (flag) {
 				msgg = "第" + (i + 2) + "行商品和服务税收分类编码不存在，请重新填写！";
 				msg += msgg;
@@ -499,56 +537,4 @@ public class SpslglController extends BaseController {
 		return msg;
 	}
 
-	/**
-	 * 获取每一行中的
-	 *
-	 * @param enColumnName
-	 * @param pzMap
-	 * @param columnIndexMap
-	 * @param row
-	 * @return
-	 * @throws Exception
-	 */
-	private String getValue(String enColumnName, Map<String, DrPz> pzMap, Map<String, Integer> columnIndexMap, List row)
-			throws Exception {
-		DrPz drPz = pzMap.get(enColumnName);
-		if (drPz == null) {
-			Integer index = columnIndexMap.get(enColumnName);
-			if (index == null) {
-				return null;
-			}
-			return row.get(index).toString();
-		}
-		if ("auto".equals(drPz.getPzlx())) {
-			if ("jylsh".equals(enColumnName)) {
-				String value = "JY" + System.currentTimeMillis();
-				Thread.sleep(1);
-				return value;
-			} else if ("ddh".equals(enColumnName)) {
-				String value = "DD" + System.currentTimeMillis();
-				Thread.sleep(1);
-				return value;
-			} else if ("spse".equals(enColumnName)) {
-				return "0";
-			}
-			return drPz.getPzz();
-		} else {
-			String cnColumnName = drPz.getPzz();
-			Integer columnIndex = columnIndexMap.get(cnColumnName);
-			if (columnIndex == null) {
-				return null;
-			}
-			String value = row.get(columnIndex).toString();
-			if ("hsbz".equals(enColumnName)) {
-				if ("是".equals(value)) {
-					return "1";
-				} else if ("否".equals(value)) {
-					return "0";
-				} else {
-					return value;
-				}
-			}
-			return value;
-		}
-	}
 }

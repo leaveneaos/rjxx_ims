@@ -59,10 +59,16 @@ $(function() {
 									"data" : "id"
 								},
 								{
+									"data" : "sjjgbm"
+								},
+								{
 									"data" : "xfmc"
 								},
 								{
 									"data" : "xfsh"
+								},
+								{
+									"data" : "sjxfmc"
 								},
 								{
 									"data" : "xfdz"
@@ -153,6 +159,7 @@ $(function() {
 					cell.innerHTML = page + i + 1;
 				});
 				$('#tbl tr').find('td:eq(1)').hide();
+				$('#tbl tr').find('td:eq(2)').hide();
 			});
 
 			// 新增
@@ -166,7 +173,8 @@ $(function() {
 				var row = t.row($(this).parents('tr')).data();
 				_this.setForm0(row);				
 				el.$modalHongchong.modal({"width": 950, "height": 500});
-				ur = _this.config.editUrl + "?xfid="+row.id;
+				$('#xfid').val(row.id);
+				ur = _this.config.editUrl;
 			});
 			// 删除
 			t.on('click', 'a.del', function() {
@@ -258,6 +266,13 @@ $(function() {
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
+                        var sjxf = $('#sjxf').val();
+        				var xfid = $('#xfid').val();
+        				if (sjxf == xfid) {
+        					alert("不能选择该销方本身做上级");
+                            el.$jsLoading.modal('close'); 
+        					return;
+        				}
 						var data = el.$jsForm0.serialize(); // get form data
 						$.ajax({
 							url : ur,
@@ -343,6 +358,7 @@ $(function() {
 			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
 			el.$jsForm0.find('input[name="ppzdje"]').val(data.ppzdje);
 			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
+			$('#sjxf').val(data.sjjgbm);
 		},
 		setForm1 : function() {
 			var _this = this, i;

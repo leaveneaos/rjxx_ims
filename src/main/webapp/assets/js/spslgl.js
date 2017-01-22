@@ -148,10 +148,6 @@
 		            $("#importExcelForm").ajaxSubmit(options);
 							
 	        });
-	        
-	        $("#close").click(function () {
-							
-	        });
             
             /**
              * 禁用

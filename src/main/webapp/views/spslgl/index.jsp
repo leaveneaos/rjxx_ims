@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>商品税率管理</title>
+<title>商品管理</title>
 <meta name="description" content="用户管理">
 <meta name="keywords" content="用户管理">
 <meta name="viewport"
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/easyui.css">
+<!-- <link rel="stylesheet" type="text/css" href="assets/css/easyui.css"> -->
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
@@ -34,104 +34,109 @@
 		<!-- sidebar start -->
 		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
-		 <div data-am-widget="tabs"
-       class="am-tabs am-tabs-default"
-        >
-      <ul class="am-tabs-nav am-cf">
-          <li class="am-active"><a href="[data-tab-panel-0]">青春</a></li>
-          <li class=""><a href="[data-tab-panel-1]">彩虹</a></li>
-          <li class=""><a href="[data-tab-panel-2]">歌唱</a></li>
-      </ul>
-      <div class="am-tabs-bd">
-          <div data-tab-panel-0 class="am-tab-panel am-active">
-            	
-          </div>
-          <div data-tab-panel-1 class="am-tab-panel ">
-            
-          </div>
-          <div data-tab-panel-2 class="am-tab-panel ">
-            
-          </div>
-      </div>
-  </div>
+		
+		
+		
 		<!-- content start -->
 		<div class="admin-content">
-			<div class="am-cf am-padding">
-				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品税率维护</strong>
-				</div>
-			</div>
-			<hr />
-
-			<div class="am-g  am-padding-top">
-				<form action="#" class="js-search-form  am-form am-form-horizontal">
-					<div class="am-g">
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_splb" class="am-u-sm-3 am-form-label">商品代码</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="s_spdm" name="s_spdm"
-										placeholder="请输入商品代码" />
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_spmc" class="am-u-sm-3 am-form-label">商品名称</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="s_spmc" name="s_spmc"
-										placeholder="请输入商品名称" />
-								</div>
-							</div>
+		
+			<div class="am-tabs" data-am-tabs>
+			  <ul class="am-tabs-nav am-nav am-nav-tabs">
+			    <li class="am-active"><a href="#tab1">商品管理</a></li>
+			    <li><a href="#tab2">商品组</a></li>
+			    <li><a href="#tab3">商品组销方</a></li>
+			  </ul>
+			
+			  <div class="am-tabs-bd">
+			    <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+			     	<div class="am-cf am-padding">
+						<div class="am-fl am-cf">
+							<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品管理</strong>
 						</div>
 					</div>
-
 					<hr />
-
-					<div class="am-g  am-text-center  am-padding-bottom ">
-						<div class="am-u-sm-12">
-							<button type="button" class="js-search  am-btn am-btn-primary">查询</button>
-							<button type="button" class="js-add  am-btn am-btn-secondary">新增</button>
-							<button type="button" id="kp_dr"
-								class="am-btn am-btn-success"
-								style="margin-right: 10px;">
-								<span></span> 批量导入
-							</button>
-						</div>
-						<%--<div class="am-u-sm-6">--%>
-						<%--<button type="button" class="js-import  am-btn am-btn-success">导入</button>--%>
-						<%--<button type="button" class="js-export  am-btn am-btn-warning">导出</button>--%>
-						<%--</div>--%>
+		
+					<div class="am-g  am-padding-top">
+						<form action="#" class="js-search-form  am-form am-form-horizontal">
+							<div class="am-g">
+								<div class="am-u-sm-6">
+									<div class="am-form-group">
+										<label for="s_splb" class="am-u-sm-3 am-form-label">商品代码</label>
+										<div class="am-u-sm-9">
+											<input type="text" id="s_spdm" name="s_spdm"
+												placeholder="请输入商品代码" />
+										</div>
+									</div>
+								</div>
+								<div class="am-u-sm-6">
+									<div class="am-form-group">
+										<label for="s_spmc" class="am-u-sm-3 am-form-label">商品名称</label>
+										<div class="am-u-sm-9">
+											<input type="text" id="s_spmc" name="s_spmc"
+												placeholder="请输入商品名称" />
+										</div>
+									</div>
+								</div>
+							</div>
+		
+							<hr />
+		
+							<div class="am-g  am-text-center  am-padding-bottom ">
+								<div class="am-u-sm-12">
+									<button type="button" class="js-search  am-btn am-btn-success">查询</button>
+									<button type="button" class="js-add  am-btn am-btn-success">新增</button>
+									<button type="button" id="kp_dr"
+										class="am-btn am-btn-default"
+										style="margin-right: 10px;">
+										<span></span> 批量导入
+									</button>
+								</div>
+								<%--<div class="am-u-sm-6">--%>
+								<%--<button type="button" class="js-import  am-btn am-btn-success">导入</button>--%>
+								<%--<button type="button" class="js-export  am-btn am-btn-warning">导出</button>--%>
+								<%--</div>--%>
+							</div>
+		
+							<div class="am-u-sm-12">
+								<div class="am-scrollable-horizontal">
+		
+									<table id="tbl"
+										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										<thead>
+											<tr>
+												<th>序号</th>
+												<th style="display: none;">id</th>
+												<th>商品代码</th>
+												<th>商品名称</th>
+												<th>税率</th>
+												<th>规格型号</th>
+												<th>计量单位</th>
+												<th>单价</th>
+												<th>商品和服务税收分类编码</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+		
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+		
 					</div>
-
-					<div class="am-u-sm-12">
-						<div class="am-scrollable-horizontal">
-
-							<table id="tbl"
-								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th style="display: none;">id</th>
-										<th>商品代码</th>
-										<th>商品名称</th>
-										<th>税率</th>
-										<th>规格型号</th>
-										<th>计量单位</th>
-										<th>单价</th>
-										<th>商品和服务税收分类编码</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</form>
-
+			    </div>
+			    <div class="am-tab-panel am-fade" id="tab2">
+			      走在忠孝东路<br>徘徊在茫然中<br>在我的人生旅途<br>选择了多少错误<br>我在睡梦中惊醒<br>感叹悔言无尽<br>恨我不能说服自己<br>接受一切教训<br>让生命去等候<br>等候下一个漂流<br>让生命去等候<br>等候下一个伤口
+			    </div>
+			    <div class="am-tab-panel am-fade" id="tab3">
+			      我就这样告别山下的家，我实在不愿轻易让眼泪留下。我以为我并不差不会害怕，我就这样自己照顾自己长大。我不想因为现实把头低下，我以为我并不差能学会虚假。怎样才能够看穿面具里的谎话？别让我的真心散的像沙。如果有一天我变得更复杂，还能不能唱出歌声里的那幅画？
+			    </div>
+			  </div>
 			</div>
+		
+		
+			
 		</div>
 		<!-- content end -->
 
@@ -405,8 +410,8 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/spslgl.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="assets/js/easyui-lang-zh_CN.js"></script>
+<!-- 	<script type="text/javascript" src="assets/js/jquery.easyui.min.js"></script> -->
+<!-- <script type="text/javascript" src="assets/js/easyui-lang-zh_CN.js"></script> -->
 	<script>
 		$(function() {
 

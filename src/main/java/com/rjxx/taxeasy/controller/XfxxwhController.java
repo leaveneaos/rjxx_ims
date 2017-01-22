@@ -28,6 +28,8 @@ import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.GroupService;
 import com.rjxx.taxeasy.service.GsxxService;
 import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.vo.Spbm;
+import com.rjxx.taxeasy.vo.XfVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ExcelUtil;
@@ -73,6 +75,7 @@ public class XfxxwhController extends BaseController {
 
 	@RequestMapping
 	public String index() {
+		request.setAttribute("xfs", getXfList());
 		return "xfxxwh/index";
 	}
 
@@ -96,7 +99,7 @@ public class XfxxwhController extends BaseController {
 		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj");
-		List<Xf> list = xfService.findByPage(pagination);
+		List<XfVo> list = xfService.findByPages(pagination);
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
@@ -128,14 +131,14 @@ public class XfxxwhController extends BaseController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
-	public Map save(String xfsh, String xfmc, String dz, String xfdh, String xflxr, String xfyb, String khyh,
-			String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje, Double dzpfpje, Double zpzdje,
-			Double zpfpje, Double ppzdje, Double ppfpje) {
+	public Map save(String sjxf, String xfsh, String xfmc, String dz, String xfdh, String xflxr, String xfyb,
+			String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje, Double dzpfpje,
+			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			Xf xf = new Xf();
 			xf.setXfsh(xfmc);
 			xf.setGsdm(getGsdm());
@@ -150,6 +153,7 @@ public class XfxxwhController extends BaseController {
 			}
 			if (xfService.findOneByParams(xf) == null) {
 				xf.setXfmc(xfmc);
+				xf.setSjjgbm(sjxf);
 				xf.setXfdh(xfdh);
 				xf.setXfdz(dz);
 				xf.setXfyh(khyh);
@@ -217,17 +221,55 @@ public class XfxxwhController extends BaseController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Map update(Integer xfid, String xfsh, String xfmc, String dz, String xfdh, String xflxr, String xfyb,
-			String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje, Double dzpfpje,
-			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
+	public Map update(String sjxf, Integer xfid, String xfsh, String xfmc, String dz, String xfdh, String xflxr,
+			String xfyb, String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje,
+			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
+			Map<String, Object> node = new HashMap<>();
+			node.put("sjxf", xfid);
+			List<Map<String, Object>> doing = new ArrayList<Map<String, Object>>();
+			doing.add(node);
+			List<Xf> xfs = getXfList();
+			List<Xf> xfs1 = new ArrayList<>();
+			while (!doing.isEmpty()) {
+				List<Map<String, Object>> todo = new ArrayList<Map<String, Object>>();
+				for (Map<String, Object> item : doing) {
+					List<Xf> xfs2 = new ArrayList<Xf>();
+					for (int i = 0; i < xfs.size(); i++) {
+						if ((xfs.get(i).getSjjgbm() == null ? "" : xfs.get(i).getSjjgbm())
+								.equals(String.valueOf(item.get("sjxf")))) {
+							xfs2.add(xfs.get(i));
+							xfs1.add(xfs.get(i));
+						}
+					}
+					if (xfs2.isEmpty())
+						continue;
+					List<Object> children = new ArrayList<Object>();
+					for (Xf spbm : xfs2) {
+						Map<String, Object> node1 = new HashMap<String, Object>();
+						node1.put("sjxf", spbm.getId());
+						children.add(node1);
+						todo.add(node1);
+					}
+					item.put("children", children.toArray(new Object[children.size()]));
+				}
+				doing = todo;
+			}
+			for (Xf xf : xfs1) {
+				if (xf.getId().equals(Integer.valueOf(sjxf))) {
+					result.put("failure", true);
+					result.put("msg", "上级销方在【"+xfmc+"】下级存在");
+					return result;
+				}
+			}
 			Xf xf = new Xf();
 			xf.setXfsh(xfsh);
 			xf.setId(xfid);
 			xf.setGsdm(getGsdm());
 			if (xfService.findOneByParams(xf) == null || xfid.equals(xfService.findOneByParams(xf).getId())) {
 				xf.setXfmc(xfmc);
+				xf.setSjjgbm(sjxf);
 				xf.setXfdh(xfdh);
 				xf.setXfdz(dz);
 				xf.setXfyh(khyh);
@@ -238,7 +280,8 @@ public class XfxxwhController extends BaseController {
 				xf.setKpr(kpr);
 				xf.setSkr(skr);
 				xf.setLrry(getYhid());
-				xf.setLrsj(xfService.findOneByParams(xf) == null ? TimeUtil.getNowDate() : xfService.findOneByParams(xf).getLrsj());
+				xf.setLrsj(xfService.findOneByParams(xf) == null ? TimeUtil.getNowDate()
+						: xfService.findOneByParams(xf).getLrsj());
 				xf.setXgry(getYhid());
 				xf.setXgsj(new Date());
 				xf.setXflxr(xflxr);
@@ -251,6 +294,14 @@ public class XfxxwhController extends BaseController {
 				xf.setPpzdje(ppzdje);
 				xf.setPpfpje(ppfpje);
 				xfService.update(xf);
+				List<Xf> xfs3 = new ArrayList<>();
+				for (Xf xf2 : getXfList()) {
+					if (xf2.equals(xfid)) {
+						xfs3.add(xf2);
+					}
+				}
+				getXfList().removeAll(xfs3);
+				getXfList().add(xf);
 				result.put("success", true);
 				result.put("msg", "保存成功");
 			} else {
@@ -265,23 +316,31 @@ public class XfxxwhController extends BaseController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/updateJe")
 	@ResponseBody
 	public Map updateJe(int xfid, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			
+
 			Xf xf = xfService.findOne(xfid);
 			xf.setDzpzdje(kpxe3);
 			xf.setDzpfpje(fpje3);
 			xf.setPpzdje(kpxe1);
 			xf.setPpfpje(fpje1);
-			xf.setZpfpje(kpxe2);
-			xf.setZpzdje(fpje2);
+			xf.setZpfpje(fpje2);
+			xf.setZpzdje(kpxe2);
 			xf.setXgry(getYhid());
 			xf.setXgsj(new Date());
 			xfService.update(xf);
+			Xf x = null;
+			for (Xf x1 : getXfList()) {
+				if (xf.getId().equals(x1.getId())) {
+					x = x1;
+				}
+			}
+			getXfList().remove(x);
+			getXfList().add(0, xf);
 			result.put("success", true);
 			result.put("msg", "保存成功");
 		} catch (Exception e) {
@@ -294,7 +353,7 @@ public class XfxxwhController extends BaseController {
 
 	@RequestMapping(value = "/getJe")
 	@ResponseBody
-	public Map<String, Object> getSkp(Integer id){
+	public Map<String, Object> getSkp(Integer id) {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			Xf xf = xfService.findOne(id);
@@ -304,7 +363,7 @@ public class XfxxwhController extends BaseController {
 			result.put("success", false);
 			result.put("msg", "查询异常，请稍后再试");
 		}
-		
+
 		return result;
 	}
 
@@ -681,7 +740,7 @@ public class XfxxwhController extends BaseController {
 			int sum = xfService.findAllByMap(prms).size();
 			Gsxx gsxx = gs.findOneByParams(prms);
 			if (gsxx.getXfnum() - sum < list.size()) {
-				msg = "导入销方数量("+list.size()+")已超过可增加销方数量("+(gsxx.getXfnum()-sum)+")，不能导入，如需增加请联系平台开发商";
+				msg = "导入销方数量(" + list.size() + ")已超过可增加销方数量(" + (gsxx.getXfnum() - sum) + ")，不能导入，如需增加请联系平台开发商";
 				return msg;
 			}
 			xfService.save(list);

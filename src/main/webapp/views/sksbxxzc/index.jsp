@@ -51,12 +51,19 @@
 							<div class="am-form-group">
 								<label for="s_fpdm" class="am-u-sm-3 am-form-label">销方</label>
 								<div class="am-u-sm-9">
-									<select id="xfid" name="xfid">
+									<select id="xfid1" name="xfid1">
 										<option value="">请选择</option>
 										<c:forEach items="${xfs}" var="item">
 											<option value="${item.id}">${item.xfmc}(${item.xfsh})</option>
 										</c:forEach>
 									</select>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="s_fpdm" class="am-u-sm-3 am-form-label">开票点代码</label>
+								<div class="am-u-sm-9">
+									<input type="text" id="s_kpddm" name="s_kpddm"
+										placeholder="开票点代码" />
 								</div>
 							</div>
 						</div>
@@ -71,13 +78,13 @@
 						</div>
 					</div>
 					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-center">
+					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-primary">查询</button>
-						<button type="button" class="am-btn am-btn-secondary js-modal-open">新增</button>
+							class="js-search  am-btn am-btn-success">查询</button>
+						<button type="button" class="am-btn am-btn-success js-modal-open">新增</button>
 						<button type="button" class="js-sent  am-btn am-btn-danger">批量删除</button>
 						<button type="button" id="kp_dr"
-							class="am-btn am-btn-success"
+							class="am-btn am-btn-default"
 							style="margin-right: 10px;">
 							<span></span> 批量导入
 						</button>
@@ -91,23 +98,34 @@
 									<tr>
 										<th><input type="checkbox" id="check_all" /></th>
 										<th>序号</th>
+										<th style="display: none;">id</th>
+										<th style="display: none;">pid</th>																		
+										<th style="display: none;">税控密码</th>
+										<th style="display: none;">证书密码</th>																			
+										<th>联系地址</th>
 										<th>销方名称</th>
 										<th>开票点代码</th>
-										<th>开票点名称</th>	
+										<th>开票点名称</th>																				
+										<th>设备厂商</th>
+										<th>税控盘号</th>																			
+										<th>税控密码</th>
+										<th>证书密码</th>																			
+										<th>联系地址</th>
+										<th>联系电话</th>																			
+										<th>开户银行</th>
+										<th>银行账号</th>																			
+										<th>收款人</th>
+										<th>复核人</th>																			
+										<th>开票人</th>
 										<th>品牌代码</th>
-										<th>品牌名称</th>																				
-										<!-- <th style="display: none;">税控密码</th>
-										<th style="display: none;">证书密码</th>
-										<th>电子发票开票限额</th>
-										<th>电子发票分票金额</th>
-										<th style="display: none;">普通发票开票限额</th>
-										<th style="display: none;">普通发票分票金额</th>
-										<th style="display: none;">专用发票开票限额</th>
-										<th style="display: none;">专用发票分票金额</th>
-										<th style="display: none;">注册码</th> -->
-										<th>备注</th>
-										<th style="display: none;">id</th>
-										<th style="display: none;">pid</th>
+										<th>品牌名称</th>	
+<!-- 										<th>电子发票开票限额</th> -->
+<!-- 										<th>电子发票分票金额</th> -->
+<!-- 										<th style="display: none;">普通发票开票限额</th> -->
+<!-- 										<th style="display: none;">普通发票分票金额</th> -->
+<!-- 										<th style="display: none;">专用发票开票限额</th> -->
+<!-- 										<th style="display: none;">专用发票分票金额</th> -->
+<!-- 										<th style="display: none;">注册码</th> -->
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -160,7 +178,96 @@
 										<input type="text" id="kpdmc" name="kpdmc"
 											placeholder="请输入开票点名称" required />
 									</div>
-								</div>	
+								</div>																
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">设备厂商</label>
+									<div class="am-u-sm-8">
+										<select id="sbcs" name="sbcs">
+											<option value="1">百旺(黑色)</option>
+											<option value="2">航行(白色)</option>
+										</select>
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">税控盘号</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="skph" name="skph"
+											placeholder="请输入税控盘号" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">税控盘密码</label>
+									<div class="am-u-sm-8">
+										<input type="password" id="skpmm" name="skpmm" style="float: left;"
+											placeholder="税控盘密码" class="am-form-field"
+											maxlength="30" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">证书密码</label>
+									<div class="am-u-sm-8">
+										<input type="password" id="zsmm" name="zsmm" style="float: left;"
+											placeholder="证书密码" class="am-form-field"
+											maxlength="30" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">联系地址</label>
+									<div class="am-u-sm-8">
+											<input type="text" id="lxdz" name="lxdz" style="float: left;"
+												placeholder="联系地址" value="${xf.xfdz }" class="am-form-field"
+												/>
+									
+									</div>
+								</div>														
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">联系电话</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
+											placeholder="联系电话" class="am-form-field"
+											/>
+									</div>
+								</div>													
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">开户银行</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="khyh" name="khyh" style="float: left;"
+											placeholder="开户银行" value="${xf.xfyh }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">银行账号</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="yhzh" name="yhzh" style="float: left;"
+											placeholder="银行账号" value="${xf.xfyhzh }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">收款人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="skr" name="skr" style="float: left;"
+											placeholder="收款人" value="${xf.skr }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">复核人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="fhr" name="fhr" style="float: left;"
+											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="kpr" name="kpr" style="float: left;"
+											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
+											/>
+									</div>
+								</div>
 								<div class="am-form-group">
 									<label for="kpdmc" class="am-u-sm-4 am-form-label">开票点品牌</label>
 									<div class="am-u-sm-8">
@@ -171,21 +278,14 @@
 											</c:forEach>
 										</select>
 									</div>
-								</div>																
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">备注</label>
-									<div class="am-u-sm-8">
-										<textarea rows="4" cols="50" id="bz" name="bz"></textarea>
-
-									</div>
-								</div>
+								</div>	
 							</div>
  						</div>
 						<div class="am-u-sm-12">
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
-									<button type="submit" class="js-submit  am-btn am-btn-primary">保存</button>
-									<button type="button" class="js-close  am-btn am-btn-danger"
+									<button type="submit" class="js-submit  am-btn am-btn-success">保存</button>
+									<button type="button" class="js-close  am-btn am-btn-warning"
 										onclick="">取消</button>
 								</div>
 							</div>
@@ -232,10 +332,92 @@
 								</div>
 
 								<div class="am-form-group">
-									<label for="bz1" class="am-u-sm-3 am-form-label">备注</label>
-									<div class="am-u-sm-9">
-										<input type="text" id="bz1" name="bz1" placeholder="请输入备注信息" />
-
+									<label for="bz" class="am-u-sm-4 am-form-label">设备厂商</label>
+									<div class="am-u-sm-8">
+										<select id="sbcs1" name="sbcs1">
+											<option value="1">百旺(黑色)</option>
+											<option value="2">航行(白色)</option>
+										</select>
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">税控盘号</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="skph1" name="skph1"
+											placeholder="请输入税控盘号" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">税控盘密码</label>
+									<div class="am-u-sm-8">
+										<input type="password" id="skpmm1" name="skpmm1" style="float: left;"
+											placeholder="税控盘密码" class="am-form-field"
+											maxlength="30" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">证书密码</label>
+									<div class="am-u-sm-8">
+										<input type="password" id="zsmm1" name="zsmm1" style="float: left;"
+											placeholder="证书密码" class="am-form-field"
+											maxlength="30" />
+									</div>
+								</div>															
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">联系地址</label>
+									<div class="am-u-sm-8">
+											<input type="text" id="lxdz1" name="lxdz1" style="float: left;"
+												placeholder="联系地址" value="${xf.xfdz }" class="am-form-field"
+												/>
+									
+									</div>
+								</div>														
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">联系电话</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="lxdh1" name="lxdh1" value="${xf.xfdh }" style="float: left;"
+											placeholder="联系电话" class="am-form-field"
+											/>
+									</div>
+								</div>													
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">开户银行</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="khyh1" name="khyh1" style="float: left;"
+											placeholder="开户银行" value="${xf.xfyh }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">银行账号</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="yhzh1" name="yhzh1" style="float: left;"
+											placeholder="银行账号" value="${xf.xfyhzh }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">收款人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="skr1" name="skr1" style="float: left;"
+											placeholder="收款人" value="${xf.skr }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">复核人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="fhr1" name="fhr1" style="float: left;"
+											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
+											/>
+									</div>
+								</div>												
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="kpr1" name="kpr1" style="float: left;"
+											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
+											/>
 									</div>
 								</div>
 							</div>
@@ -243,8 +425,8 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12  am-text-center">
 										<button type="submit"
-											class="js-submit1  am-btn am-btn-primary">保存</button>
-										<button type="button" class="js-close1  am-btn am-btn-danger">取消</button>
+											class="js-submit1  am-btn am-btn-success">保存</button>
+										<button type="button" class="js-close1  am-btn am-btn-warning">取消</button>
 									</div>
 								</div>
 							</div>
@@ -273,9 +455,9 @@
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
 								<button type="button" id="btnImport"
-									class="am-btn am-btn-xs am-btn-secondary">导入</button>
+									class="am-btn am-btn-xs am-btn-success">导入</button>
 								<button type="button" id="close1"
-									class="am-btn am-btn-danger am-btn-xs">关闭</button>
+									class="am-btn am-btn-warning am-btn-xs">关闭</button>
 
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">

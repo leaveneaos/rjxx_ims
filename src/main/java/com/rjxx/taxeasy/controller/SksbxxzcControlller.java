@@ -80,6 +80,7 @@ public class SksbxxzcControlller extends BaseController {
 		xf.setGsdm(getGsdm());
 		List<Xf> list = xfService.findAllByParams(xf);
 		request.setAttribute("xfs", list);
+		request.setAttribute("xf", list.get(0));
 		Map<String, Object> prms = new HashMap<>();
 		prms.put("gsdm", getGsdm());
 		List<Pp> ppList = ps.findAllByParams(prms);
@@ -98,12 +99,13 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/getsksblist")
 	@ResponseBody
-	public Map getsksblist(int length, int start, int draw, String kpdmc, Integer xfid) throws Exception {
+	public Map getsksblist(int length, int start, int draw, String kpdmc, String kpddm, Integer xfid1) throws Exception {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("xfid", xfid);
+		pagination.addParam("xfid", xfid1);
 		pagination.addParam("kpdmc", kpdmc);
+		pagination.addParam("kpddm", kpddm);
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		pagination.addParam("xfs", getXfList());
@@ -121,6 +123,20 @@ public class SksbxxzcControlller extends BaseController {
 		result.put("recordsFiltered", total);
 		result.put("draw", draw);
 		result.put("data", list);
+		return result;
+	}
+
+	@RequestMapping(value = "/getXf")
+	@ResponseBody
+	public Map getXf(Integer xfid){
+		Map<String, Object> result = new HashMap<>();
+		Xf x = null;
+		for (Xf xf : getXfList()) {
+			if (xf.getId().equals(xfid)) {
+				x = xf;
+			}
+		}
+		result.put("xf", x);
 		return result;
 	}
 
@@ -176,14 +192,16 @@ public class SksbxxzcControlller extends BaseController {
 			old.setKpddm(kpddm);
 			old.setKpdmc(kpdmc);
 			old.setSkph(skph);
-//			old.setSbcs(sbcs);
-//			old.setLxdz(lxdz);
-//			old.setLxdh(lxdh);
-//			old.setKhyh(khyh);
-//			old.setYhzh(yhzh);
-//			old.setSkr(skr);
-//			old.setFhr(fhr);
-//			old.setKpr(kpr);
+			old.setSbcs(sbcs);
+			old.setLxdz(lxdz);
+			old.setSkpmm(skpmm);
+			old.setZsmm(zsmm);
+			old.setLxdh(lxdh);
+			old.setKhyh(khyh);
+			old.setYhzh(yhzh);
+			old.setSkr(skr);
+			old.setFhr(fhr);
+			old.setKpr(kpr);
 			old.setLrry(getYhid());
 			old.setLrsj(new Date());
 			old.setXgry(getYhid());
@@ -229,30 +247,40 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map update(int id, int xfid, String kpddm, String kpdmc, String bz, Integer pid) {
+	public Map update(int id,int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
+			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			Skp old = new Skp();
-			old.setKpdmc(kpdmc);
-			old.setKpddm(kpddm);
-			old.setGsdm(getGsdm());
-			old.setId(id);
-			if (!pid.equals(0)) {
-				old.setPid(pid);
-			}
-			Skp skp = skpService.findOne(id);
+			Map<String, Object> params = new HashMap<>();
+			params.put("kpddm", kpddm);
+			params.put("gsdm", getGsdm());
+			
+			Skp skp = skpService.findOneByParams(params);
 
 			if (skp != null && !kpddm.equals(skp.getKpddm()) && !kpdmc.equals(skp.getKpdmc())) {
 				result.put("failure", true);
 				result.put("msg", "此开票点已经存在");
 				return result;
 			}
-
+			skp = skpService.findOne(id);
 			skp.setKpdmc(kpdmc);
 			skp.setKpddm(kpddm);
 			skp.setGsdm(getGsdm());
+			if (!pid.equals(0)) {
+				skp.setPid(pid);
+			}
+			skp.setSkph(skph);
+			skp.setSbcs(sbcs);
+			skp.setSkpmm(skpmm);
+			skp.setZsmm(zsmm);;
+			skp.setLxdz(lxdz);
+			skp.setLxdh(lxdh);
+			skp.setKhyh(khyh);
+			skp.setYhzh(yhzh);
+			skp.setSkr(skr);
+			skp.setFhr(fhr);
+			skp.setKpr(kpr);
 			skp.setXfid(xfid);
-			skp.setBz(bz);
 			skp.setLrry(skp.getLrry());
 			skp.setLrsj(skp.getLrsj());
 			skp.setXgry(getYhid());
@@ -524,7 +552,57 @@ public class SksbxxzcControlller extends BaseController {
 
 			}
 			try {
-				skp.setBz(row.get(4) == null ? null : row.get(4).toString());
+				skp.setSbcs(row.get(4) == null ? null : row.get(4).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setSkph(row.get(5) == null ? null : row.get(5).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setSkpmm(row.get(6) == null ? null : row.get(6).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setZsmm(row.get(7) == null ? null : row.get(7).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setLxdz(row.get(8) == null ? null : row.get(8).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setLxdh(row.get(9) == null ? null : row.get(9).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setKhyh(row.get(10) == null ? null : row.get(10).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setYhzh(row.get(11) == null ? null : row.get(11).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setSkr(row.get(12) == null ? null : row.get(12).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setFhr(row.get(13) == null ? null : row.get(13).toString());
+			} catch (Exception e) {
+
+			}
+			try {
+				skp.setKpr(row.get(14) == null ? null : row.get(14).toString());
 			} catch (Exception e) {
 
 			}
@@ -555,6 +633,11 @@ public class SksbxxzcControlller extends BaseController {
 				msg += msgg;
 			} else if (kpdmc.length() > 50) {
 				msgg = "第" + (i + 2) + "行开票点名称超过50个字符，请重新填写！";
+				msg += msgg;
+			}
+			String sksb = skp.getSbcs();
+			if (sksb != null && (!sksb.equals("1") || !sksb.equals("2"))) {
+				msgg = "第" + (i + 2) + "行税控设备填写不正确，请重新填写！";
 				msg += msgg;
 			}
 			// 判断税控盘号是否存在

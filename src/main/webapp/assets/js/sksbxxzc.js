@@ -13,6 +13,7 @@ $(function () {
 		$jsClose1 : $('.js-close1'),
 		$xfid : $('#xfid'),
 		$s_kpdmc : $('#s_kpdmc'),
+		$s_kpddm : $('#s_kpddm'),
         $jsForm: $('.js-form'),
         $jsForm1: $('.js-form1'),        
         $dpmax: $('#dpmax'),
@@ -33,7 +34,8 @@ $(function () {
             delUrl: 'sksbxxzc/del',
             addUrl: 'sksbxxzc/save',
             deleteUrl: 'sksbxxzc/delele',
-            editUrl: 'sksbxxzc/update'
+            editUrl: 'sksbxxzc/update',
+            xfUrl: 'sksbxxzc/getXf'
         },
 
         dataTable: function () {
@@ -50,6 +52,7 @@ $(function () {
 					data : function(d) {
 						d.xfid = el.$xfid.val(); // search 用户账号
 						d.kpdmc = el.$s_kpdmc.val(); // search 用户名称
+						d.kpddm = el.$s_kpddm.val(); // search 用户名称
 	
 					}
 				},
@@ -68,14 +71,44 @@ $(function () {
                         "defaultContent": ""
 
                     },
+                    {"data": "id"},
+                    {"data": "pid"},   
+                    {"data": "skpmm"},  
+                    {"data": "zsmm"},
                     {"data": "xfmc"},
                     {"data": "kpddm"},
-                    {"data": "kpdmc"},   
+                    {"data": "kpdmc"}, 
+                    {"data": function(data){
+                    	if (data.sbcs == 1) {
+							return "百旺";
+						}else{
+							return "航信";
+						}
+                    }}, 
+                    {"data": "skph"},   
+                    {"data": function(data){
+                    	if (data.skpmm == null || data.skpmm == "") {
+							return "";
+						}else{
+							return "******";
+						}
+                    }},  
+                    {"data": function(data){
+                    	if (data.zsmm == null || data.zsmm == "") {
+							return "";
+						}else{
+							return "******";
+						}
+                    }},  
+                    {"data": "lxdz"},  
+                    {"data": "lxdh"},  
+                    {"data": "khyh"},  
+                    {"data": "yhzh"},  
+                    {"data": "skr"},  
+                    {"data": "fhr"},  
+                    {"data": "kpr"},  
                     {"data": "ppdm"},
-                    {"data": "ppmc"},                                                                             
-                    {"data": "bz"},
-                    {"data": "id"},
-                    {"data": "pid"},
+                    {"data": "ppmc"},  
                     {
                         "data": null,
                         "defaultContent": "<a class='modify'>修改</a> <a class='del'>删除</a>"
@@ -90,8 +123,10 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {//序号
                     cell.innerHTML = page + i + 1;
                 });
-                $('#tbl tr').find('td:eq(8)').hide();
-                $('#tbl tr').find('td:eq(9)').hide();
+                $('#tbl tr').find('td:eq(2)').hide();
+                $('#tbl tr').find('td:eq(3)').hide();
+                $('#tbl tr').find('td:eq(4)').hide();
+                $('#tbl tr').find('td:eq(5)').hide();
             });
 
             t.on('click', 'a.modify', function () {
@@ -100,15 +135,17 @@ $(function () {
                 el.$jsForm.find('[name="kpdmc"]').val(data.kpdmc);
                 el.$jsForm.find('[name="xfid"]').find('option[value='+data.xfid+']').prop('selected', true);
                 el.$jsForm.find('[name="pid"]').find('option[value='+data.pid+']').prop('selected', true);
-                /*el.$jsForm.find('[name="skpmm"]').val(data.skpmm);
+                el.$jsForm.find('[name="sbcs"]').find('option[value='+(data.sbcs== "百旺" ? 1 : 2)+']').prop('selected', true);
+                el.$jsForm.find('[name="skpmm"]').val(data.skpmm);
                 el.$jsForm.find('[name="zsmm"]').val(data.zsmm);
-                el.$jsForm.find('[name="dpmax"]').val(data.dpmax);
-                el.$jsForm.find('[name="ppmax"]').val(data.ppmax);
-                el.$jsForm.find('[name="ppfz"]').val(data.ppfz);
-                el.$jsForm.find('[name="fpfz"]').val(data.fpfz);
-                el.$jsForm.find('[name="zpmax"]').val(data.zpmax);
-                el.$jsForm.find('[name="zpfz"]').val(data.zpfz);*/
-                el.$jsForm.find('[name="bz"]').val(data.bz);
+                el.$jsForm.find('[name="skph"]').val(data.skph);
+                el.$jsForm.find('[name="lxdz"]').val(data.lxdz);
+                el.$jsForm.find('[name="lxdh"]').val(data.lxdh);
+                el.$jsForm.find('[name="khyh"]').val(data.khyh);
+                el.$jsForm.find('[name="yhzh"]').val(data.yhzh);
+                el.$jsForm.find('[name="skr"]').val(data.skr);
+                el.$jsForm.find('[name="fhr"]').val(data.fhr);
+                el.$jsForm.find('[name="kpr"]').val(data.kpr);
                 //el.$jsForm.find('[name="zcm"]').val(data.zcm);
                 url = _this.config.editUrl + "?id=" + data.id;
                 $('#your-modal').modal({"width": 600, "height": 500});
@@ -123,6 +160,40 @@ $(function () {
 	        var $importModal = $("#bulk-import-div");
 	        $("#close1").click(function () {
 	            $importModal.modal("close");
+	        });
+	        
+	        $('#xfid').change(function(){
+	        	var lxdz = $('#lxdz').val();
+                var lxdh = $('#lxdh').val();
+                var khyh = $('#khyh').val();
+                var yhzh = $('#yhzh').val();
+                var skr = $('#skr').val();
+                var fhr = $('#fhr').val();
+                var kpr = $('#kpr').val();
+	        	
+	        		$.ajax({
+		                 url: _this.config.xfUrl,
+		                 data: {xfid : $('#xfid').val()},
+		                 type: 'POST',
+		                 success: function (data) {
+//		                	 if ((lxdz == "" && lxdh == "" && khyh == "" && yhzh == "" && skr == "" 
+//		     	        		&& fhr == "" && kpr == "") || (lxdz == data.xf.xfdz && lxdh == data.xf.xfdh 
+//		     	        		&& khyh == data.xf.khyh && yhzh == data.xf.yhzh && skr == data.xf.skr &&
+//		     	        		fhr == data.xf.fhr && kpr == data.xf.kpr)) {
+		                		 $('#lxdz').val(data.xf.xfdz);
+			                     $('#lxdh').val(data.xf.xfdh);
+			                     $('#khyh').val(data.xf.xfyh);
+			                     $('#yhzh').val(data.xf.yhzh);
+			                     $('#skr').val(data.xf.skr);
+			                     $('#fhr').val(data.xf.fhr);
+			                     $('#kpr').val(data.xf.kpr);
+//		                	 }
+		                 },
+		                 error: function () {
+		                     
+		                 }
+		             });
+	        	 
 	        });
           //导入excel
 	        $("#btnImport").click(function () {
