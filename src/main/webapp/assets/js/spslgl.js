@@ -1,6 +1,7 @@
 ﻿$(function () {
     "use strict";
     var url;
+    var url1;
     var el = {
         $jsTable: $('.js-table'),
         $modal2: $('#import'),
@@ -22,6 +23,7 @@
         $s_spmc: $('#s_spmc'), // search 商品名称
 
         $jsSearch: $('.js-search'),
+        $jsSearch1: $('.js-search1'),
         $jsAdd: $('.js-add'),
         $jsDel: $('del'),
         $jsImport: $('.js-import'),
@@ -81,6 +83,44 @@
                     }
                 ]
             });
+            
+            var spz_table = $('#tbl1').DataTable({
+                "processing": true,
+                "serverSide": true,
+                ordering: false,
+                searching: false,
+
+                "ajax": {
+                    "url": "spslgl/getSpzs",
+                    data: function (d) {
+                        d.spzmc = $("#s_spzmc").val();
+                    }
+                },
+
+                "columns": [ 
+                    {
+	                    "orderable": false,
+	                    "data": null,
+	                    "defaultContent": ""
+                    },
+                    { "data": "id" },
+                    {"data": "spzmc"},
+                    {"data" : function (data) {
+                        if (data.zbz == 1) {
+                            return "公共组";
+                        } else {
+                            return "私有组";
+                        }
+                    }},
+                    {
+                        "data": null,
+                        "defaultContent": '<a class="modify1">修改</a> <a class="del1">删除</a>'
+                    }
+                    
+                ]
+
+            });
+            
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
@@ -89,6 +129,16 @@
                 });
 
                 $('#tbl tr').find('td:eq(1)').hide();
+            });
+            
+            spz_table.on('draw.dt', function (e, settings, json) {
+                var x = spz_table,
+                    page = x.page.info().start; // 设置第几页
+                spz_table.column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = page + i + 1;
+                });
+
+                $('#tbl1 tr').find('td:eq(1)').hide();
             });
 
             t.on('click', 'a.modify', function () {
@@ -109,6 +159,46 @@
 	        $("#close2").click(function () {
 	        	var _this = this;
 	        	$('#bulk-import-div').modal('close');
+	        });
+	        $("#close3").click(function () {
+	        	var _this = this;
+	        	$('#hongchong').modal('close');
+	        });
+	        $("#search").click(function () {
+	        	spz_table.ajax.reload();
+	        });
+	        $("#new").click(function () {
+	        	$('#hongchong').modal({"width": 700, "height": 500});
+	        	url1 = "spslgl/saveSpz";
+	        });
+	        $("#save").click(function () {
+	        	var data = $("#form1").serialize();
+				$('#save').attr("disabled", true);
+				var spzmc = $("#spzmc").val();
+				if (spzmc == null || spzmc == '' || spzmc == "") {
+					alert('请输入商品组名称');
+					$('#save').attr("disabled", false);
+					return;
+				}
+				$.ajax({
+					url : url1,
+					data : data,
+					method : 'POST',
+					success : function(data) {
+						$('#save').attr("disabled", false);
+						if (data.success) {
+							alert("保存成功");
+							$('#hongchong').modal('close');
+							spz_table.ajax.reload();
+						} else {
+							alert(data.msg);
+						}
+					},
+					error : function() {
+						alert('保存失败, 请重新登陆再试...!');
+						$('#save').attr("disabled", false);
+					}
+				});
 	        });
           //导入excel
 	        $("#btnImport").click(function () {
@@ -160,6 +250,61 @@
                 if (isAgree) {
                     el.$jsLoading.modal('open');  // show loading
                     _this.bear({id: data.id});
+                }
+            });
+            spz_table.on('click', 'a.modify1', function () {
+                var data = spz_table.row($(this).parents('tr')).data();
+                $("#form1").resetForm();
+                $("#spzmc").val(data.spzmc);
+                $("#zbz").val(data.zbz);
+                $.ajax({
+					url : "spslgl/getSpzsp",
+					data : {
+						spzid : data.id
+					},
+					type : 'post',
+					success : function(data) {
+						var i, rp, rp1, slt, slt1, slt2;
+						var list = data.sps;
+						var list1 = data.xfs;
+						for (i = 0; i < list.length; i++) {
+							rp = list[i];
+							slt = '#spz-' + rp.spdm;
+							$(slt).prop('checked', true);
+						}
+						for(i = 0; i < list1.length; i++){
+							$('#spz-'+list1[i].xfid).prop('checked', true);
+						}
+					}
+				});
+                $('#hongchong').modal({"width": 700, "height": 500});
+                url1 = "spslgl/updateSpz?spzid="+data.id;
+            });
+            spz_table.on('click', 'a.del1', function () {
+                var data = spz_table.row($(this).parents('tr')).data(),
+                    isAgree = false,
+                // TODO 删除这条数据
+                    isAgree = confirm('确认要删除这条数据么');
+                if (isAgree) {
+                    el.$jsLoading.modal('open');  // show loading
+                    $.ajax({
+                        url: "spslgl/deleteSpz",
+                        data: {spzid: data.id},  // 禁用这条数据的 id
+                        method: 'POST',
+                        //context: null,
+                        success: function (data) {
+                            if (data.failure) {
+                                alert(data.msg);
+                            } else if (data.success){
+                            	alert('删除成功');
+                            	spz_table.ajax.reload(); // 重新加载数据
+                            }
+                            el.$jsLoading.modal('close'); // close loading
+                        },
+                        error: function () {
+                            alert('删除数据失败,请稍后重试');
+                        }
+                    });
                 }
             });
             return t;

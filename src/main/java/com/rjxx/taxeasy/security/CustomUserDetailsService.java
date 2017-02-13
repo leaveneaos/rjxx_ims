@@ -44,6 +44,9 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
     @Autowired
     private transient PrivilegeTypesService privilegeTypesService;
 
+    @Autowired
+    private transient GroupService groupService;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         try {
@@ -56,7 +59,30 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority("ROLE_LOGIN_USER"));
             List<Xf> xflist = xfService.getXfListByYhId(yh.getId());
-            List<Skp> skpList = skpService.getSkpListByYhId(yh.getId());
+            
+            Group g = new Group();
+            g.setYhid(yh.getId());
+            List<Group> groupList = groupService.findAllByParams(g);
+            List<Integer> xfs = new ArrayList<>();
+            List<Integer> skps = new ArrayList<>();
+            for (Group gp : groupList) {
+            	boolean flag = false;
+            	for (Group gr : groupList) {
+					if (gp.getXfid().equals(gr.getXfid()) && gr.getSkpid() != null) {
+						flag = true;
+						skps.add(gr.getSkpid());
+						continue;
+					}
+				}
+            	if (!flag) {
+					xfs.add(gp.getXfid());
+				}
+				
+			}
+            Map<String, Object> params1 = new HashMap<>();
+            params1.put("xfs", xfs);
+            params1.put("skps", skps);
+            List<Skp> skpList = skpService.getKpd(params1);
             WebPrincipal webPrincipal = new WebPrincipal();
             String roleIds = yh.getRoleids();
             if (StringUtils.isBlank(roleIds)) {
@@ -67,7 +93,7 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             for (String str : arr) {
                 paramsList.add(Integer.valueOf(str));
             }
-            Map params = new HashMap<>();
+            Map<String, Object> params = new HashMap<>();
             params.put("roleIds", paramsList);
             List<Privileges> privilegesList = privilegesService.findByRoleIds(params);
             List<PrivilegeTypes> privilegeTypesList = privilegeTypesService.findAllByParams(null);

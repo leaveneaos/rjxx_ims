@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.controller;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +24,16 @@ import com.rjxx.taxeasy.domains.DrPz;
 import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Spz;
+import com.rjxx.taxeasy.domains.SpzSp;
+import com.rjxx.taxeasy.domains.SpzXf;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.SmService;
 import com.rjxx.taxeasy.service.SpService;
 import com.rjxx.taxeasy.service.SpbmService;
 import com.rjxx.taxeasy.service.SpvoService;
 import com.rjxx.taxeasy.service.SpzService;
+import com.rjxx.taxeasy.service.SpzSpService;
+import com.rjxx.taxeasy.service.SpzXfService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.Spbm;
 import com.rjxx.taxeasy.vo.Spvo;
@@ -55,6 +61,12 @@ public class SpslglController extends BaseController {
 
 	@Autowired
 	private SpzService spzService;
+
+	@Autowired
+	private SpzSpService sss;
+
+	@Autowired
+	private SpzXfService sxs;
 	
 	
 
@@ -301,6 +313,195 @@ public class SpslglController extends BaseController {
 		}
 
 		return result;
+	}
+	
+	@RequestMapping(value = "/saveSpz")
+	@ResponseBody
+	@Transactional
+	public Map saveSpz(String spzmc, String zbz){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String[] sps = request.getParameterValues("spz");
+		String[] xfids = request.getParameterValues("xfid");
+		if (sps == null || sps.length < 1) {
+			result.put("success", false);
+			result.put("msg", "请勾选商品组商品");
+			return result;
+		}
+		if (xfids == null || xfids.length < 1) {
+			result.put("success", false);
+			result.put("msg", "请勾选商品组销方");
+			return result;
+		}
+		Map<String, Object> params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("spzmc", spzmc);
+		try {
+			Spz spz = spzService.findOneByParams(params);
+			if (spz != null) {
+				result.put("success", false);
+				result.put("msg", "商品组名称已存在");
+				return result;
+			}
+			spz = new Spz();
+			spz.setZbz(zbz);
+			spz.setSpzmc(spzmc);
+			spz.setGsdm(getGsdm());
+			spz.setYxbz("1");
+			spz.setLrry(getYhid());
+			spz.setLrsj(new Date());
+			spz.setXgry(getYhid());
+			spz.setXgsj(new Date());
+			spzService.save(spz);
+			saveSpzsp(spz.getId(), sps, 0, 1);
+			saveSpzxf(spz.getId(), xfids, 0, 1);
+			result.put("success", true);
+		} catch (Exception e) {
+			result.put("success", false);
+			result.put("msg", "新增商品组异常：" + e);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/updateSpz")
+	@ResponseBody
+	@Transactional
+	public Map updateSpz(Integer spzid, String spzmc, String zbz){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String[] sps = request.getParameterValues("spz");
+		String[] xfids = request.getParameterValues("xfid");
+		if (sps == null || sps.length < 1) {
+			result.put("success", false);
+			result.put("msg", "请勾选商品组商品");
+			return result;
+		}
+		if (xfids == null || xfids.length < 1) {
+			result.put("success", false);
+			result.put("msg", "请勾选商品组销方");
+			return result;
+		}
+		Map<String, Object> params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("spzmc", spzmc);
+		params.put("spzid", spzid);
+		try {
+			Spz spz = spzService.findOneByParams(params);
+			if (spz != null) {
+				result.put("success", false);
+				result.put("msg", "商品组名称已存在");
+				return result;
+			}
+			spz = spzService.findOne(spzid);
+			spz.setZbz(zbz);
+			spz.setSpzmc(spzmc);
+			spz.setXgry(getYhid());
+			spz.setXgsj(new Date());
+			spzService.save(spz);
+			saveSpzsp(spz.getId(), sps, 1, 1);
+			saveSpzxf(spz.getId(), xfids, 1, 1);
+			result.put("success", true);
+		} catch (Exception e) {
+			result.put("success", false);
+			result.put("msg", "新增商品组异常：" + e);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/getSpzsp")
+	@ResponseBody
+	public Map getSpzsp(Integer spzid){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("spzid", spzid);
+		List<SpzSp> list = sss.findAllByParams(params);
+		result.put("sps", list);
+		List<SpzXf> list1 = sxs.findAllByParams(params);
+		result.put("xfs", list1);
+		return result;
+	}
+	
+	@RequestMapping(value = "/getSpzxf")
+	@ResponseBody
+	public Map getSpzxf(Integer spzid){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<>();
+		params.put("gsdm", getGsdm());
+		params.put("spzid", spzid);
+		List<SpzXf> list = sxs.findAllByParams(params);
+		result.put("xfs", list);
+		return result;
+	}
+	
+	@RequestMapping(value = "/deleteSpz")
+	@ResponseBody
+	public Map deleteSpz(Integer spzid){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Spz spz = spzService.findOne(spzid);
+		spz.setYxbz("0");
+		spzService.save(spz);
+		saveSpzsp(spzid, null, 1, 0);
+		saveSpzxf(spzid, null, 1, 0);
+		return result;
+	}
+	
+	public void saveSpzsp(Integer spzid, String[] sps, int tag, int flag){
+		List<SpzSp> list = new ArrayList<>();
+		SpzSp ss;
+		if (tag == 1) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("gsdm", getGsdm());
+			params.put("spzid", spzid);
+			List<SpzSp> oldList = sss.findAllByParams(params);
+			for (SpzSp spzSp : oldList) {
+				spzSp.setYxbz("0");
+			}
+			sss.save(oldList);
+		}
+		if (flag == 1) {
+			for (String s : sps) {
+				ss = new SpzSp();
+				ss.setGsdm(getGsdm());
+				ss.setSpdm(s);
+				ss.setSpzid(spzid);
+				ss.setLrry(getYhid());
+				ss.setLrsj(new Date());
+				ss.setXgry(getYhid());
+				ss.setXgsj(new Date());
+				ss.setYxbz("1");
+				list.add(ss);
+			}
+			sss.save(list);
+		}
+	}
+	
+	public void saveSpzxf(Integer spzid, String[] xfids, int tag, int flag){
+		List<SpzXf> list = new ArrayList<>();
+		SpzXf sx;
+		if (tag == 1) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("gsdm", getGsdm());
+			params.put("spzid", spzid);
+			List<SpzXf> oldList = sxs.findAllByParams(params);
+			for (SpzXf spzXf : oldList) {
+				spzXf.setYxbz("0");
+			}
+			sxs.save(oldList);
+		}
+		if (flag == 1) {
+			for (String x : xfids) {
+				sx = new SpzXf();
+				sx.setGsdm(getGsdm());
+				sx.setSpzid(spzid);
+				sx.setXfid(Integer.valueOf(x));
+				sx.setYxbz("1");
+				sx.setLrry(getYhid());
+				sx.setLrsj(new Date());
+				sx.setXgry(getYhid());
+				sx.setXgsj(new Date());
+				list.add(sx);
+			}
+			sxs.save(list);
+		}
 	}
 
 	@RequestMapping(value = "/downloadDefaultImportTemplate")

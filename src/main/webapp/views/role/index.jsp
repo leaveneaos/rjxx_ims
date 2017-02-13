@@ -56,7 +56,7 @@
 						</div>
 					</div>
 					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-center">
+					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
 							class="js-search  am-btn am-btn-success">查询</button>
 						<button id="button2" type="button"

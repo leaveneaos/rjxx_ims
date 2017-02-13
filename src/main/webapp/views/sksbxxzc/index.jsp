@@ -101,8 +101,7 @@
 										<th style="display: none;">id</th>
 										<th style="display: none;">pid</th>																		
 										<th style="display: none;">税控密码</th>
-										<th style="display: none;">证书密码</th>																			
-										<th>联系地址</th>
+										<th style="display: none;">证书密码</th>	
 										<th>销方名称</th>
 										<th>开票点代码</th>
 										<th>开票点名称</th>																				
@@ -143,14 +142,14 @@
 		<!-- model -->
 		<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
 			<div class="am-modal-dialog" style="overflow: auto">
-				<div class="am-modal-hd">
+				<div class="am-modal-hd" data-am-sticky="{animation: 'slide-top'}">
 					税控设备信息 <a href="javascript: void(0)" class="am-close am-close-spin"
 						data-am-modal-close>&times;</a>
 				</div>
 				<div class="am-modal-bd">
 					<hr />
 					<form action="sksbxxzc/save" method="get"
-						class="js-form  am-form am-form-horizontal">
+						class="js-form am-form am-form-horizontal">
 						<div class="am-g">
 
 							<div class="am-u-sm-12">

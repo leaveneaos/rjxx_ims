@@ -40,11 +40,10 @@
 		<!-- content start -->
 		<div class="admin-content">
 		
-			<div class="am-tabs" data-am-tabs>
+			<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
 			  <ul class="am-tabs-nav am-nav am-nav-tabs">
 			    <li class="am-active"><a href="#tab1">商品管理</a></li>
 			    <li><a href="#tab2">商品组</a></li>
-			    <li><a href="#tab3">商品组销方</a></li>
 			  </ul>
 			
 			  <div class="am-tabs-bd">
@@ -81,7 +80,7 @@
 		
 							<hr />
 		
-							<div class="am-g  am-text-center  am-padding-bottom ">
+							<div class="am-g am-text-right  am-padding-bottom ">
 								<div class="am-u-sm-12">
 									<button type="button" class="js-search  am-btn am-btn-success">查询</button>
 									<button type="button" class="js-add  am-btn am-btn-success">新增</button>
@@ -127,10 +126,67 @@
 					</div>
 			    </div>
 			    <div class="am-tab-panel am-fade" id="tab2">
-			      走在忠孝东路<br>徘徊在茫然中<br>在我的人生旅途<br>选择了多少错误<br>我在睡梦中惊醒<br>感叹悔言无尽<br>恨我不能说服自己<br>接受一切教训<br>让生命去等候<br>等候下一个漂流<br>让生命去等候<br>等候下一个伤口
-			    </div>
-			    <div class="am-tab-panel am-fade" id="tab3">
-			      我就这样告别山下的家，我实在不愿轻易让眼泪留下。我以为我并不差不会害怕，我就这样自己照顾自己长大。我不想因为现实把头低下，我以为我并不差能学会虚假。怎样才能够看穿面具里的谎话？别让我的真心散的像沙。如果有一天我变得更复杂，还能不能唱出歌声里的那幅画？
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf">
+							<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品组</strong>
+						</div>
+					</div>
+					<hr />
+		
+					<div class="am-g  am-padding-top">
+						<form action="#" class="js-search-form  am-form am-form-horizontal">
+							<div class="am-g">
+								<div class="am-u-sm-6">
+									<div class="am-form-group">
+										<label for="s_splb" class="am-u-sm-3 am-form-label">商品组名称</label>
+										<div class="am-u-sm-9">
+											<input type="text" id="s_spzmc" name="s_spzmc"
+												placeholder="请输入商品代码" />
+										</div>
+									</div>
+								</div>
+								<div class="am-u-sm-6">
+									
+								</div>
+							</div>
+		
+							<hr />
+		
+							<div class="am-g am-text-right am-padding-bottom ">
+								<div class="am-u-sm-12">
+									<button type="button" id="search" class="js-search1  am-btn am-btn-success">查询</button>
+									<button type="button" id="new" class="js-add1  am-btn am-btn-success">新增</button>
+									
+								</div>
+								<%--<div class="am-u-sm-6">--%>
+								<%--<button type="button" class="js-import  am-btn am-btn-success">导入</button>--%>
+								<%--<button type="button" class="js-export  am-btn am-btn-warning">导出</button>--%>
+								<%--</div>--%>
+							</div>
+		
+							<div class="am-u-sm-12">
+								<div class="am-scrollable-horizontal">
+		
+									<table id="tbl1"
+										class="js-table1  am-table am-table-bordered am-table-striped am-text-nowrap">
+										<thead>
+											<tr>
+												<th>序号</th>
+												<th style="display: none;">id</th>
+												<th>商品组名称</th>
+												<th>商品组类别</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+		
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+		
+					</div>
 			    </div>
 			  </div>
 			</div>
@@ -372,6 +428,109 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
+			<div class="am-modal-dialog" style="overflow: auto;">
+				<form id="form1" class="js-form-0 am-form am-form-horizontal">
+					<div class="am-tabs" data-am-tabs>
+						<ul class="am-tabs-nav am-nav am-nav-tabs">
+							<li class="am-active"><a href="#tab1">商品组</a></li>
+							<li><a href="#tab2">商品组商品</a></li>
+							<li><a href="#tab3">商品组销方</a></li>
+						</ul>
+						<div class="am-tabs-bd">
+							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+								<div class="am-modal-hd" data-am-sticky>
+									商品组 <a href="javascript: void(0)"
+										class="am-close am-close-spin" data-am-modal-close>&times;</a>
+								</div>
+								<div class="am-modal-bd">
+									<hr />
+									<div class="am-g">
+										<div class="am-form-group">
+											<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
+												color="red">*</font>商品组名称</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="spzmc" name="spzmc" placeholder="商品组名称"
+													class="am-form-field" required maxlength="50" />
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
+												color="red">*</font>商品组类别</label>
+											<div class="am-u-sm-8">
+												<select name="zbz" id="zbz" required>
+													<option value="1">公共组</option>
+													<option value="2">私有组</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="am-tab-panel am-fade" id="tab2">
+								<div class="am-modal-hd" data-am-sticky>
+									商品组商品<a href="javascript: void(0)" class="am-close am-close-spin"
+										data-am-modal-close>&times;</a>
+								</div>
+								<table style="width: 100%;">
+									<tr align="left">
+										<td><input type="checkbox" id="spz"
+											onclick="qxsp(this)" name="" value="roles" />&nbsp;&nbsp;全选</td>
+									</tr>
+									<c:forEach items="${sps }" var="s">
+										<tr align="left">
+											<td style="width: 100%" colspan="2"><input
+												type="checkbox" id="spz-${s.spdm }"
+												name="spz" value="${s.spdm }" />&nbsp;&nbsp;${s.spmc }
+	
+											</td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<div class="am-tab-panel am-fade" id="tab3">
+								<div class="am-modal-hd" data-am-sticky>
+									商品组销方<a href="javascript: void(0)"
+										class="am-close am-close-spin" data-am-modal-close>&times;</a>
+								</div>
+								<table style="width: 100%;">
+									<tr align="left">
+										<td style="width: 100%" colspan="2">
+											<div title="用户机构" style="padding: 10px;" id="bm-box1">
+
+												<div class="am-panel-group" id="accordion">
+													<input type="checkbox" onclick="xfqx(this)" id="all" name="all" />&nbsp;&nbsp;全选<br>
+													<c:forEach items="${xfs }" var="x" varStatus="i">
+
+<!-- 																<h4 class="am-panel-title" -->
+<%-- 																	data-am-collapse="{parent: '#accordion', target: '#do-not-say-${x.id }'}"> --%>
+																	<input type="checkbox" id="spz-${x.id }"
+																		 name="xfid" value="${x.id }" />&nbsp;&nbsp;${x.xfmc }<br>
+<!-- 																</h4> -->
+													</c:forEach>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="am-text-center">
+								<button type="button" id="save"
+									class="am-btn am-btn-success">确定</button>
+								<button type="button" id="close3"
+									class="am-btn am-btn-warning">关闭</button>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
 		<!-- loading do not delete this -->
 		<div
 			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
@@ -477,7 +636,32 @@
 
 			
 		});
-
+		
+		function qxsp(obj) {
+			var smObj = document.getElementById('spz');
+			var smObj1 = document.getElementsByName("spz");
+			if (obj.checked == true) {
+				for (var i = 0; i < smObj1.length; i++) {
+					smObj1[i].checked = true;
+				}
+			}else{
+				for (var i = 0; i < smObj1.length; i++) {
+					smObj1[i].checked = false;
+				}
+			}
+		}
+		function xfqx(obj){
+			var xfids = document.getElementsByName('xfid');
+			if (obj.checked == true) {
+				for (var i = 0; i < xfids.length; i++) {
+					xfids[i].checked = true;
+				}
+			}else{
+				for (var i = 0; i < xfids.length; i++) {
+					xfids[i].checked = false;
+				}
+			}
+		}
 		
 	</script>
 </body>
