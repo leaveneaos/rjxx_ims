@@ -140,7 +140,7 @@ public class XfxxwhController extends BaseController {
 		try {
 
 			Xf xf = new Xf();
-			xf.setXfsh(xfmc);
+			xf.setXfsh(xfsh);
 			xf.setGsdm(getGsdm());
 			Map<String, Object> params = new HashMap<>();
 			params.put("gsdm", getGsdm());
