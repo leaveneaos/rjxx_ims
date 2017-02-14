@@ -63,26 +63,32 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             Group g = new Group();
             g.setYhid(yh.getId());
             List<Group> groupList = groupService.findAllByParams(g);
-            List<Integer> xfs = new ArrayList<>();
-            List<Integer> skps = new ArrayList<>();
+            List<Xf> xfs = new ArrayList<>();
+            List<Skp> skps = new ArrayList<>();
+            Xf xf = null;
+            Skp skp = null;
             for (Group gp : groupList) {
             	boolean flag = false;
             	for (Group gr : groupList) {
 					if (gp.getXfid().equals(gr.getXfid()) && gr.getSkpid() != null) {
 						flag = true;
-						skps.add(gr.getSkpid());
+						skp = new Skp();
+						skp.setId(gr.getSkpid());
+						skps.add(skp);
 						continue;
 					}
 				}
             	if (!flag) {
-					xfs.add(gp.getXfid());
+            		xf = new Xf();
+            		xf.setId(gp.getXfid());
+					xfs.add(xf);
 				}
 				
 			}
             Map<String, Object> params1 = new HashMap<>();
             params1.put("xfs", xfs);
             params1.put("skps", skps);
-            List<Skp> skpList = skpService.getKpd(params1);
+            List<Skp> skpList = skpService.getSkpListByYhId(params1);
             WebPrincipal webPrincipal = new WebPrincipal();
             String roleIds = yh.getRoleids();
             if (StringUtils.isBlank(roleIds)) {
