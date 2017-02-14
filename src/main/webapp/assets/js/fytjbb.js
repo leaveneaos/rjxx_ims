@@ -7,12 +7,44 @@ $(function () {
     	$jsTable: $('.js-table'),
     	$jsSlTable: $('.js-sltable'),
         $jsDate: $('#s_xzrq'),
-        $jsXfid: $('#s_xfid option:selected'),
-        $jsFpzl: $('#s_fpzl option:selected'),
         $jsForm: $('.js-form'),
         $jsSearch: $('#jsSearch'),
         $jsLoading: $('.js-modal-loading')
     };
+    
+    var t = el.$jsSlTable.DataTable({
+        "processing": true,
+        "serverSide": true,
+        ordering: false,
+        searching: false,
+        bInfo:false,
+        bPaginate:false,
+        "ajax": {
+            url: 'fytjbb/getje',
+            type: 'POST',
+            data: function (d) {
+                d.xfid = $('#s_xfid option:selected').val(),
+                d.fpzl = $('#s_fpzl option:selected').val(),
+                d.kprq = el.$jsDate.val()
+            }
+        },
+        "columns": [                 
+            {"data": "spsl"},
+            {"data": "zckjje"},
+            {"data": "zckjse"},
+            {"data": "zcjshj"},                   
+            {"data": "hckjje"},
+            {"data": "hckjse"},
+            {"data": "hcjshj"},
+            {"data": "hkkjje"},
+            {"data": "hkkjse"},
+            {"data": "hkjshj"},
+            {"data": "zfkjje"},
+            {"data": "zfkjse"},
+            {"data": "zfjshj"}
+            ]
+    });
+    
     var action = {
     	tableEx: null, // cache dataTable
         config: {
@@ -20,14 +52,14 @@ $(function () {
             getJE:'fytjbb/getje'
         },   
         showFp:function(){
-        	/*if(data.kprq==null||""==data.kprq){
-        		return;
-        	}*/
-        	var _this = this;   
+        	var _this = this;
+        	var xfid = $('#s_xfid option:selected').val();
+        	var fpzl = $('#s_fpzl option:selected').val();
+        	var kprq = el.$jsDate.val();
         	el.$jsLoading.modal('toggle'),  // show loading         	
         	$.ajax({  		
                 url: _this.config.getURL,
-                data:{"xfid":$jsXfid.val(),"fpzl":$jsFpzl.val(),"kprq":$jsDate.val()},
+                data:{"xfid":xfid,"fpzl":fpzl,"kprq":kprq},
                 type: 'POST',
                 dataType: 'json',             
                 success: function (data) {              	
@@ -51,41 +83,7 @@ $(function () {
                 }        	
            });
         },
-        dataTable: function () {
-            var _this = this;
-            var t = el.$jsSlTable
-                .DataTable({
-                    "processing": true,
-                    "serverSide": true,
-                    ordering: false,
-                    searching: false,
-                    "ajax": {
-                        url: _this.config.getJE,
-                        type: 'POST',
-                        data: function (d) {
-                            d.xfid = $jsXfid.val(),
-                            d.fpzl = $jsFpzl.val(),
-                            d.kprq = $jsDate.val()
-                        }
-                    },
-                    "columns": [                 
-                        {"data": "sl"},
-                        {"data": "zckjje"},
-                        {"data": "zckjse"},
-                        {"data": "zcjshj"},                   
-                        {"data": "hckjje"},
-                        {"data": "hckjse"},
-                        {"data": "hcjshj"},
-                        {"data": "hkkjje"},
-                        {"data": "hkkjse"},
-                        {"data": "hkjshj"},
-                        {"data": "zfkjje"},
-                        {"data": "zfkjse"},
-                        {"data": "zfjshj"}
-                        ]
-                });                                
-            return t;
-        },
+        
         /**
          * 前一天
          */
@@ -124,18 +122,18 @@ $(function () {
         },
         
         searchAc:function(){
-        	var _this = this;       	
-        	el.$jsSearch.on('click', function (e) {
+        	var _this = this;
+        	//$(".js-sltable  tr:not(:first)").html("");
+        	el.$jsSearch.on('click', function (e) { 
         		el.$jsLoading.modal('toggle');  // show loading
                 var kprq = el.$jsDate.val();
-                alert(kprq);
                 if(kprq==''){
                 	alert("请先选择月份！");
                 	return false;
                 }
-                _this.showFp();
-               e.preventDefault();
-        		_this.tableEx.ajax.reload();
+                _this.showFp();                
+               e.preventDefault();              
+               t.ajax.reload();
             })
         },
         
@@ -199,9 +197,9 @@ $(function () {
             });
         },
         init: function () {
-            var _this = this;                  
-            _this.searchAc();
-           //_this.tableEx=_this.dateAc();
+            var _this = this;
+            //_this.tableEx = _this.dataTable();
+            _this.searchAc();            
         }
     }; 
     action.init(); 

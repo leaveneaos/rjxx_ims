@@ -20,8 +20,6 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
-<link rel="stylesheet"
-	href="/plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
@@ -128,7 +126,7 @@
 				<br>
 				<br>
 				<table
-					class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap am-table-compact">
+					class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 					<thead>
 						<tr>
 					        <th rowspan="2">税率</th>
@@ -182,15 +180,6 @@
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.barRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.highlighter.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.cursor.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/plugins/jqplot.pointLabels.min.js"></script>
 	<script src="assets/js/fytjbb.js"></script>
 
 </body>

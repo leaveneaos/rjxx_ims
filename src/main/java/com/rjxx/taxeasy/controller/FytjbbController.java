@@ -55,37 +55,42 @@ public class FytjbbController extends BaseController {
 	@RequestMapping(value = "/getfps")
 	@ResponseBody
 	public Map<String,Object> getFps(Integer xfid,String fpzl,String kprq){
-		Map<String,Object> result = new HashMap<String,Object>();
+		Map<String,Object> result = new HashMap<String,Object>();		
 		String kprq1 = kprq;
-		if (!kprq.contains("-")) {
-			Date kprq2 = new Date(kprq);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-			kprq1 = sdf.format(kprq2);
-		}
-		Map params = new HashMap<>();
-		params.put("gsdm", getGsdm());
-		params.put("xfid", xfid);
-		params.put("fpzl", fpzl);
-		params.put("kprq", kprq1);
-		List<Fpnum> slList = fpzlService.findGfpsl(params);
-		Integer zspfs = slList.get(0).getFpnum();
-		Integer fspfs = slList.get(1).getFpnum();
-		Integer hjpfs = zspfs+fspfs;
-		Integer zcpfs = slList.get(2).getFpnum();
-		Integer hcpfs = slList.get(3).getFpnum();
-		Integer hkpfs = slList.get(4).getFpnum();
-		Integer zfpfs = slList.get(5).getFpnum();
-		Integer ckpfs = slList.get(6).getFpnum();
-		Integer cdpfs = slList.get(7).getFpnum();
-		result.put("zspfs",zspfs);
-		result.put("fspfs",fspfs);
-		result.put("hjpfs",hjpfs);
-		result.put("zcpfs",zcpfs);
-		result.put("hcpfs",hcpfs);
-		result.put("hkpfs",hkpfs);
-		result.put("zfpfs",zfpfs);
-		result.put("ckpfs",ckpfs);
-		result.put("cdpfs",cdpfs);
+		try{
+			if (!kprq.contains("-")) {
+				Date kprq2 = new Date(kprq);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+				kprq1 = sdf.format(kprq2);
+			}
+			Map params = new HashMap<>();
+			params.put("gsdm", getGsdm());
+			params.put("xfid", xfid);
+			params.put("fpzl", fpzl);
+			params.put("kprq", kprq1);
+			List<Fpnum> slList = fpzlService.findGfpsl(params);
+			Integer zspfs = slList.get(0).getFpnum();
+			Integer fspfs = slList.get(1).getFpnum();
+			Integer hjpfs = zspfs+fspfs;
+			Integer zcpfs = slList.get(2).getFpnum();
+			Integer hcpfs = slList.get(3).getFpnum();
+			Integer hkpfs = slList.get(4).getFpnum();
+			Integer zfpfs = slList.get(5).getFpnum();
+			Integer ckpfs = slList.get(6).getFpnum();
+			Integer cdpfs = slList.get(7).getFpnum();
+			result.put("zspfs",zspfs);
+			result.put("fspfs",fspfs);
+			result.put("hjpfs",hjpfs);
+			result.put("zcpfs",zcpfs);
+			result.put("hcpfs",hcpfs);
+			result.put("hkpfs",hkpfs);
+			result.put("zfpfs",zfpfs);
+			result.put("ckpfs",ckpfs);
+			result.put("cdpfs",cdpfs);
+			result.put("success",true);
+		}catch(Exception e){
+			result.put("success",false);
+		}		
 		return result;
 	}
 	
@@ -93,6 +98,10 @@ public class FytjbbController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> getTjje(Integer xfid,String fpzl,String kprq){
 		Map<String,Object> result = new HashMap<String,Object>();
+        if("".equals(kprq)||kprq==null){
+        	result.put("data", new ArrayList<>());
+        	return result;
+		}
 		Map params = new HashMap<>();
 		params.put("gsdm", getGsdm());
 		params.put("xfid", xfid);
@@ -108,36 +117,62 @@ public class FytjbbController extends BaseController {
 				params.put("spsl", spsl);
 				params.put("fpczlxdm", "11");   //正常发票
 				Kpls kpls = fpzlService.findSpje(params);
-				Double hjje1 = kpls.getHjje();
-				item.setZckjje(hjje1);
-				Double hjse1 = kpls.getHjse();
-				item.setZckjse(hjse1);
-				Double jshj1 = kpls.getJshj();
-				item.setZcjshj(jshj1);
+				if(kpls !=null){
+					Double hjje1 = kpls.getHjje();
+					item.setZckjje(hjje1);
+					Double hjse1 = kpls.getHjse();
+					item.setZckjse(hjse1);
+					Double jshj1 = kpls.getJshj();
+					item.setZcjshj(jshj1);
+				}else{
+					item.setZckjje((double)0);
+					item.setZckjse((double)0);
+					item.setZcjshj((double)0);
+				}				
 				params.put("fpczlxdm", "12");
 				kpls = fpzlService.findSpje(params);    //查询红冲合计
-				Double hjje2 = kpls.getHjje();
-				item.setHckjje(hjje2);
-				Double hjse2 = kpls.getHjse();
-				item.setHckjse(hjse2);
-				Double jshj2 = kpls.getJshj();
-				item.setHcjshj(jshj2);
+				if(kpls !=null){
+					Double hjje2 = kpls.getHjje();
+					item.setHckjje(hjje2);
+					Double hjse2 = kpls.getHjse();
+					item.setHckjse(hjse2);
+					Double jshj2 = kpls.getJshj();
+					item.setHcjshj(jshj2);
+				}else{
+					item.setHckjje((double)0);
+					item.setHckjse((double)0);
+					item.setHcjshj((double)0);					
+				}				
 				params.put("fpczlxdm", "13");
 				kpls = fpzlService.findSpje(params);   //查询换开合计
-				Double hjje3 = kpls.getHjje();
-				item.setHkkjje(hjje3);
-				Double hjse3 = kpls.getHjse();
-				item.setHkkjse(hjse3);
-				Double jshj3 = kpls.getJshj();
-				item.setHkjshj(jshj3);
+				if(kpls !=null){
+					Double hjje3 = kpls.getHjje();
+					item.setHkkjje(hjje3);
+					Double hjse3 = kpls.getHjse();
+					item.setHkkjse(hjse3);
+					Double jshj3 = kpls.getJshj();
+					item.setHkjshj(jshj3);
+				}else{
+					item.setHkkjje((double)0);
+					item.setHkkjse((double)0);
+					item.setHkjshj((double)0);
+					
+				}				
 				params.put("fpczlxdm", "21");
 				kpls = fpzlService.findSpje(params);   //查询作废合计
-				Double hjje4 = kpls.getHjje();
-				item.setZfkjje(hjje4);
-				Double hjse4 = kpls.getHjse();
-				item.setZfkjse(hjse4);
-				Double jshj4 = kpls.getJshj();
-				item.setZfjshj(jshj4);
+				if(kpls !=null){
+					Double hjje4 = kpls.getHjje();
+					item.setZfkjje(hjje4);
+					Double hjse4 = kpls.getHjse();
+					item.setZfkjse(hjse4);
+					Double jshj4 = kpls.getJshj();
+					item.setZfjshj(jshj4);
+				}else{
+					item.setZfkjje((double)0);
+					item.setZfkjse((double)0);
+					item.setZfjshj((double)0);
+					
+				}				
 				tjList.add(item);
 			}
 		}
