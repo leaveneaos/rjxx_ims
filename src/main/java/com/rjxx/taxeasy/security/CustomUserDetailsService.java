@@ -86,8 +86,12 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
 				
 			}
             Map<String, Object> params1 = new HashMap<>();
-            params1.put("xfs", xfs);
-            params1.put("skps", skps);
+            if (xfs.size() > 0) {
+            	params1.put("xfs", xfs);
+			}
+            if (skps.size() > 0) {
+            	params1.put("skps", skps);
+			}
             List<Skp> skpList = skpService.getSkpListByYhId(params1);
             WebPrincipal webPrincipal = new WebPrincipal();
             String roleIds = yh.getRoleids();
