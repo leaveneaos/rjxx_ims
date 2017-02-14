@@ -6,8 +6,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>红冲发票查询</title>
-<meta name="description" content="红冲发票查询">
-<meta name="keywords" content="红冲发票查询">
+<meta name="description" content="作废发票查询">
+<meta name="keywords" content="作废发票查询">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
@@ -25,15 +25,11 @@
 <body>
 	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
-		<!-- sidebar start -->
 		<%@ include file="../../pages/menus.jsp"%>
-		<!-- sidebar end -->
-
-		<!-- content start -->
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>红字发票查询</strong>
+					<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>作废发票查询</strong>
 				</div>
 			</div>
 			<hr />
@@ -58,7 +54,7 @@
 					</div>
 					<div class="am-u-sm-6">
 						<div class="am-form-group">
-							<label for="s_kprqq" class="am-u-sm-3 am-form-label">红冲日期</label>
+							<label for="s_kprqq" class="am-u-sm-3 am-form-label">作废日期</label>
 							<div class="am-u-sm-9">
 								<input type="text" id="s_kprqq" name="s_kprqq"
 									placeholder="点击选择日期"
@@ -99,7 +95,7 @@
 			<div class="am-u-sm-12">
 				<div class="am-scrollable-horizontal">
 					<table
-						class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+						class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 						<thead>
 							<tr>
 								<th>序号</th>
@@ -108,12 +104,10 @@
 								<th>购方名称</th>
 								<th>发票代码</th>
 								<th>发票号码</th>
-								<th>原发票代码</th>
-								<th>原发票号码</th>
 								<th>金额</th>
 								<th>税额</th>
 								<th>价稅合计</th>
-								<th>红冲日期</th>
+								<th>作废日期</th>
 								<th>开票人</th>
 								<th>操作</th>
 							</tr>
@@ -125,13 +119,11 @@
 				</div>
 			</div>
 		</div>
-		<!-- content end -->
-
-		<!-- model -->
+		
 		<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
 			<div class="am-modal-dialog">
 				<div class="am-modal-hd">
-					红字发票详情 <a href="javascript: void(0)" class="am-close am-close-spin"
+					作废发票详情 <a href="javascript: void(0)" class="am-close am-close-spin"
 						data-am-modal-close>&times;</a>
 				</div>
 				<div class="am-modal-bd">
@@ -205,8 +197,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- loading do not delete this -->
 		<div
 			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
 			tabindex="-1">
@@ -224,9 +214,7 @@
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 	<%@ include file="../../pages/foot.jsp"%>
-	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
-	<!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
 		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
@@ -234,7 +222,6 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script src="assets/js/fphccx.js"></script>
-
+	<script src="assets/js/fpzfcx.js"></script>
 </body>
 </html>

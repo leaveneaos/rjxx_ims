@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.KplsvoService;
 import com.rjxx.taxeasy.vo.KplsVO;
 import com.rjxx.taxeasy.web.BaseController;
@@ -23,9 +25,13 @@ public class FphccxController extends BaseController {
 
 	@Autowired
 	private KplsvoService kvs;
+	@Autowired
+	private FpzlService fpzlService;
 
 	@RequestMapping
 	public String index() {
+		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
+		request.setAttribute("fpzlList", fpzlList);
 		return "fphccx/index";
 	}
 
@@ -37,8 +43,8 @@ public class FphccxController extends BaseController {
 	 */
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map getKplsList(int length, int start, int draw, String ddh, String fphm, String kprqq, String kprqz)
-			throws Exception {
+	public Map getKplsList(int length, int start, int draw, String ddh, String fphm, 
+			String kprqq, String kprqz,String fpzl) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -71,6 +77,7 @@ public class FphccxController extends BaseController {
 			pagination.addParam("kprqz", kprqz);
 		}
 		pagination.addParam("fpczlxdm", "12");
+		pagination.addParam("fpzl", fpzl);
 		List<KplsVO> list = kvs.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
