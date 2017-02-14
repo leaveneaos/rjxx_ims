@@ -1,17 +1,16 @@
 /**
- * Created by lenovo on 2015/12/14.
+ * Created by lenovo on 2017/02/11.
  */
 (function ($) {
     'use strict';
     $(function () {
         $.ajax({
-            url: "kp/getXfxx", context: null, success: function (data) {
+            url: "lrkpd/getXfxx", context: null, success: function (data) {
                 $("#qymc").val(data.xfmc);
                 $("#nsrsbh").val(data.xfsh);
             }
         });
              
-
 
         var jyls_table = $('#jyls_table').DataTable({
             "searching": false,
@@ -21,23 +20,24 @@
             "scrollX": true,
             ordering: false,
             ajax: {
-                "url": "kp/getjylslist?clztdm=00",
+                "url": "lrkpd/getjyxxsqlist?clztdm=00",
                 type: 'post',
                 data: function (d) {
                     d.xfsh = $('#xfsh').val();   // search 销方
                     d.gfmc = $('#gfmc').val();	// search 购方名称
-                    d.ddh = $('#s_ddh').val();   // search 订单号
-                    d.jylsh = $('#s_lsh').val();   // search 发票号码
+                    d.ddh = $('#ddh').val();   // search 订单号
+                    d.spmc = $('#spmc').val();   // search 订单号
+                    //d.jylsh = $('#s_lsh').val();   // search 发票号码
                     d.rqq = $('#kssj').val(); // search 开票日期
                     d.rqz = $('#jssj').val(); // search 开票日期
                 }
             },
             "columns": [
-                {"data": "djh"},
+                {"data": "sqlsh"},
                 // {"data": "clztdm"},
                 {"data": "jylsh"},
                 {"data": "ddh"},
-                {"data": "jylssj"},
+                {"data": "ddrq"},
                 {"data": "fpzldm"},
                 {"data": "gfmc"},
                 {"data": "gfsh"},
@@ -59,7 +59,7 @@
             //         "bVisible": false, "aTargets": [0]
             //     }],
             "createdRow": function (row, data, index) {
-                $('td', row).eq(0).html('<input type="checkbox" data="' + data.djh + '" name="chk"/>');
+                $('td', row).eq(0).html('<input type="checkbox" data="' + data.sqlsh + '" name="chk"/>');
             }
         });
         
@@ -73,9 +73,9 @@
             "sServerMethod": "POST",
             "processing": true,
             ajax: {
-                "url": "kp/getjyspmxlist",
+                "url": "lrkpd/getjymxsqlist",
                 data: function (d) {
-                    d.djh = $("#djh").val();
+                    d.sqlsh = $("#djh").val();
                 }
             },
             "columns": [
@@ -158,7 +158,8 @@
                 $(this).addClass('selected');
             }
             var data = jyls_table.row($(this)).data();
-            $("#djh").val(data.djh);
+            $("#djh").val(data.sqlsh);
+            //alert(data.sqlsh);
             //$("#formid").val(data.djh);
             jyspmx_table.ajax.reload();
         });
@@ -197,13 +198,13 @@
 				}
             });
             if (djhArr.length == 0) {
-                alert("请选择需要开票的交易流水...");
+                alert("请选择需要提交开票申请的交易流水...");
                 return;
             }
             $.ajax({
-                url: "kp/doKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
+                url: "lrkpd/sqKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
                     if (data.success) {
-                        alert("发送到开票队列成功!");
+                        alert("已提交开票申请!");
                         jyls_table.ajax.reload();
                     } else {
                         alert(data.msg);
@@ -322,7 +323,7 @@
                 });
                 var frmData = $("#main_form").serialize() + "&" + ps.join("&");
                 $.ajax({
-                    url: "kp/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
+                    url: "lrkpd/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
                         if (data.success) {
                             alert("保存成功!");
                             jyls_table.ajax.reload();

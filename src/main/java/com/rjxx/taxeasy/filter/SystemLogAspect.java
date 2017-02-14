@@ -11,9 +11,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.rjxx.taxeasy.domains.Privileges;
-//import com.rjxx.taxeasy.domains.XtLog;
+import com.rjxx.taxeasy.domains.XtLog;
 import com.rjxx.taxeasy.service.PrivilegesService;
-//import com.rjxx.taxeasy.service.XtLogService;
+import com.rjxx.taxeasy.service.XtLogService;
 import com.rjxx.taxeasy.web.BaseController;
 
 import freemarker.template.utility.StringUtil;
@@ -42,8 +42,8 @@ public  class SystemLogAspect extends BaseController {
      @Autowired
      private PrivilegesService privilegesService;
      
-//     @Autowired
-//     private XtLogService xtLogService;
+     @Autowired
+     private XtLogService xtLogService;
     //Service层切点    
     @Pointcut("@annotation(com.rjxx.taxeasy.filter.SystemServiceLog)")    
      public  void serviceAspect() {    
@@ -89,7 +89,7 @@ public  class SystemLogAspect extends BaseController {
             System.out.println("操作对象:" + url.toString());    
             System.out.println("请求IP:" + ip);    
             //*========数据库日志=========*//    
-/*            XtLog log = new XtLog();    
+            XtLog log = new XtLog();    
             log.setAnctionobj(priList.get(0).getName());   
             log.setDescription( getControllerMethodDescription(joinPoint).get("description").toString());     
             log.setDetails(value);
@@ -97,8 +97,9 @@ public  class SystemLogAspect extends BaseController {
             log.setRequestip(ip);   
             log.setOperator(this.getYhid()); 
             log.setTime(new Date());
+            log.setGsdm(this.getGsdm());
             //保存数据库    
-            xtLogService.save(log);*/
+            xtLogService.save(log);
             System.out.println("=====前置通知结束=====");    
         }  catch (Exception e) {    
             //记录本地异常日志    

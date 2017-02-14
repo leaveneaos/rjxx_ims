@@ -1,8 +1,4 @@
 package com.rjxx.taxeasy.controller;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Jyxx;
-import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.JyxxService;
-import com.rjxx.taxeasy.service.KplsvoService;
-import com.rjxx.taxeasy.vo.KplsVO;
+import com.rjxx.taxeasy.service.XtLogService;
+import com.rjxx.taxeasy.vo.XtLogVo;
 import com.rjxx.taxeasy.web.BaseController;
 
 @Controller
@@ -25,7 +20,7 @@ import com.rjxx.taxeasy.web.BaseController;
 public class SystemLogController extends BaseController {
 
 	@Autowired
-	private JyxxService jys;
+	private XtLogService xtLogService;
 
 	@RequestMapping
 	public String index() {
@@ -38,7 +33,7 @@ public class SystemLogController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getJyxxList")
+	@RequestMapping(value = "/getXtrzList")
 	@ResponseBody
 	public Map getKplsList(int length, int start, int draw, String ddh, String kpddm, String ddrqq, String ddrqz)
 			throws Exception {
@@ -48,24 +43,7 @@ public class SystemLogController extends BaseController {
 		pagination.setPageSize(length);
 		String gsdm = getGsdm() ;
 		pagination.addParam("gsdm", gsdm);
-		pagination.addParam("ddh", ddh);
-		pagination.addParam("kpddm", kpddm);
-		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd");
-        SimpleDateFormat for2 = new SimpleDateFormat ("yyyyMMdd"); 
-		if (!"".equals(ddrqq)) {
-			Date kprqt = new Date();
-			kprqt =formatter.parse(ddrqq);
-			ddrqq = for2.format(kprqt);
-			pagination.addParam("ddrqq", ddrqq);
-		}
-		if (!"".equals(ddrqz)) {
-			Date kprqt = new Date();
-			kprqt =formatter.parse(ddrqz);
-			ddrqz = for2.format(kprqt);
-			pagination.addParam("ddrqz", ddrqz);
-		}
-		//pagination.addParam("fpczlxdm", "12");
-		List<Jyxx> list = jys.findByPage(pagination);
+		List<XtLogVo> list = xtLogService.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);

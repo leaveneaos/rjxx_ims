@@ -1,5 +1,6 @@
 $(function () {
     "use strict";
+    var ur;
     var el = {
         $jsTable: $('.js-table'),
         $modalHongchong: $('#hongchong'),
@@ -7,12 +8,14 @@ $(function () {
         $jsForm0: $('.js-form-0'),     // 红冲 form
         $jsAdd: $('.js-add'),
         $jsExport: $('.js-export'),
-        $jsLoading: $('.js-modal-loading')
+        $jsLoading: $('.js-modal-loading'),
+        $jsSave: $('#save')
     };
     var action = {
         tableEx: null, // cache dataTable
         config: {
-            getUrl: 'gfqymp/getGfxxList'
+            getUrl: 'gfqymp/getGfxxList',
+            addUrl: 'gfqymp/saveGfxx'
         },
         dataTable: function () {
             var _this = this;
@@ -37,28 +40,13 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "orderNo"},
+                    {"data": "gfmc"},
+                    {"data": "gfsh"},
+                    {"data": "gfdz"},
+                    {"data": "gfdh"},
                     //{"data": "orderTime"},
-                    {"data":  function (data) {
-                        if (data.orderTime) {
-                            return dateFormat(data.orderTime);
-                        } else {
-                            return null;
-                        }
-                     }
-                    },
-                    {
-                        "data": function (data) {
-                            if (data.price) {
-                                return FormatFloat(data.price, "###,###.00");
-                            } else {
-                                return null;
-                            }
-                        }, 'sClass': 'right'
-                    },
-                    {"data": "storeNo"},
-                    {"data": "storeNo"},
-                    {"data": "storeNo"},
+                    {"data": "gfyh"},
+                    {"data": "gfyhzh"},
                     {
 						"data": null,
                         "defaultContent": "<a class='modify' href='javascript:void(0)'>修改</a> <a href='javascript:void(0)' class='del'>删除</a>"									
@@ -73,12 +61,13 @@ $(function () {
                 });
 
             });
-         // 新增
+         // 界面新增按钮
 			el.$jsAdd.on('click', el.$jsAdd, function() {
 				_this.resetForm();
-				//ur = _this.config.addUrl;
+				ur = _this.config.addUrl;
+				//alert("新增");
 				el.$modalHongchong.modal({"width": 600, "height": 500});
-			});
+			});	
             return t;
         },
         /**
@@ -87,12 +76,13 @@ $(function () {
 
 		xz : function() {
 			var _this = this;
+			//alert("12345");
 			el.$jsForm0.validator({
 				submit : function() {
 					var formValidity = this.isFormValid();
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
-						if (parseInt(el.$dpmax.val()) < parseInt(el.$fpfz.val())) {
+						/*if (parseInt(el.$dpmax.val()) < parseInt(el.$fpfz.val())) {
                         	alert('电子发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
@@ -106,11 +96,19 @@ $(function () {
                         	alert('专用发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
-						}
-						var data = el.$jsForm0.serialize(); // get form data
+						}*/
+						//var data = el.$jsForm0.serialize(); // get form data
+						//alert($('#xz_gfmc').val());
 						$.ajax({
 							url : ur,
-							data : data,
+							 data: {
+			                        gfmc : $('#xz_gfmc').val(),   // 购方名称
+			                        gfsh : $('#xz_gfsh').val(),   // 购方税号
+			                        gfdz : $('#xz_gfdz').val(), // 购方地址
+			                        gfdh : $('#xz_gfdh').val(), // 购方电话
+			                        gfyh : $('#xz_gfyh').val(), // 购方银行
+			                        gfyhzh : $('#xz_gfyhzh').val() // 购方银行账号        
+			                    },
 							method : 'POST',
 							success : function(data) {
 								if (data.success) {

@@ -87,44 +87,44 @@
                             <div class="am-form-group">
                                 <label for="xq_ddh" class="am-u-sm-4 am-form-label">企业名称</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_ddh" name="xq_ddh" placeholder=""/>
+                                    <input type="text" id="xz_gfmc" name="xq_ddh" placeholder=""/>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <label for="xq_ddrq" class="am-u-sm-4 am-form-label">纳税人识别号</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_ddrq" name="xq_ddrq" placeholder=""/>
+                                    <input type="text" id="xz_gfsh" name="xq_ddrq" placeholder=""/>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <label for="xq_je" class="am-u-sm-4 am-form-label">地址</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_je" name="xq_je" placeholder=""/>
+                                    <input type="text" id="xz_gfdz" name="xq_je" placeholder=""/>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <label for="xq_mdh" class="am-u-sm-4 am-form-label">电话</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_mdh" name="xq_mdh" placeholder=""/>
+                                    <input type="text" id="xz_gfdh" name="xq_mdh" placeholder=""/>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <label for="xq_je" class="am-u-sm-4 am-form-label">开户银行</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_je" name="xq_je" placeholder=""/>
+                                    <input type="text" id="xz_gfyh" name="xq_je" placeholder=""/>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <label for="xq_mdh" class="am-u-sm-4 am-form-label">开户账号</label>
                                 <div class="am-u-sm-8">
-                                    <input type="text" id="xq_mdh" name="xq_mdh" placeholder=""/>
+                                    <input type="text" id="xz_gfyhzh" name="xq_mdh" placeholder=""/>
                                 </div>
                             </div>
 						 </div>
                         <div class="am-u-sm-12">
                             <div class="am-form-group">
                                 <div class="am-u-sm-12  am-text-center">
-                                    <button type="button" id="save" class="am-btn am-btn-secondary">保存</button>
+                                    <button type="submit" id="save"  class="am-btn am-btn-secondary">保存</button>
                                     <button type="button" class="js-close  am-btn am-btn-danger">关闭</button>
                                 </div>
                             </div>
