@@ -104,9 +104,9 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<a id="last" class="js-button  am-btn am-btn-primary">上一步</a>
-									<button id="save" class="js-button  am-btn am-btn-success">保存</button>
-									<a id="finish" class="js-button  am-btn am-btn-success">完成</a>
+									<a id="last" class="js-button  am-btn am-radius am-btn-primary">上一步</a>
+									<button id="save" class="js-button  am-btn am-radius am-btn-success">保存</button>
+									<a id="finish" class="js-button  am-btn am-radius am-btn-success">完成</a>
 								</div>
 								
 								</form>

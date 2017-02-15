@@ -43,52 +43,6 @@
 
         <div class="am-g  am-padding-top">
             <form action="#" class="js-search-form  am-form am-form-horizontal">
-                <div class="am-g">
-                    <div class="am-u-sm-6">
-                        <div class="am-form-group">
-                            <label for="s_ddh" class="am-u-sm-3 am-form-label">订单号</label>
-                            <div class="am-u-sm-9">
-                                <input type="text" id="s_ddh" name="s_ddh" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-6">
-                        <div class="am-form-group">
-                            <label for="s_kpddm" class="am-u-sm-3 am-form-label">门店号</label>
-                            <div class="am-u-sm-9">
-                                <input type="text" id="s_kpddm" name="s_kpddm" placeholder=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-6">
-                        <div class="am-form-group">
-                            <label for="s_ddrqq" class="am-u-sm-3 am-form-label">订单日期</label>
-                            <div class="am-u-sm-9">
-                                <input type="text" id="s_ddrqq" name="s_ddrqq" placeholder="点击选择日期"
-                                       data-am-datepicker="{format: 'yyyy-mm-dd'}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-6">
-                        <div class="am-form-group">
-                            <label for="s_ddrqz" class="am-u-sm-3 am-form-label am-text-center">-</label>
-                            <div class="am-u-sm-9">
-                                <input type="text" id="s_ddrqz" name="s_ddrqz" placeholder="点击选择日期"
-                                       data-am-datepicker="{format: 'yyyy-mm-dd'}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-6">
-                        &nbsp;
-                    </div>
-                </div>
-
-                <hr/>
-
-                <div class="am-u-sm-12  am-padding  am-text-center">
-                    <button type="button" class="js-search  am-btn am-btn-primary">查询</button>
-                    <%--<button type="button" class="js-export  am-btn am-btn-success">导出</button>--%>
-                </div>
 
                 <div class="am-u-sm-12">
                     <div class="am-scrollable-horizontal">
@@ -97,11 +51,12 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>订单号</th>
-                                <th>订单日期</th>
-                                <th>金额</th>
-                                <th>门店号</th>
-                                <th>操作</th>
+                                <th>操作对象</th>
+                                <th>操作类型</th>
+                                <th>详细数据</th>
+                                <th>请求ip</th>
+                                <th>操作人员</th>
+                                <th>操作时间</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,59 +70,6 @@
         </div>
     </div>
     <!-- content end -->
-
-    <!-- model -->
-    <div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
-        <div class="am-modal-dialog">
-            <div class="am-modal-hd">交易信息详情
-                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-            </div>
-            <div class="am-modal-bd">
-                <hr/>
-                <form action="#" class="js-form-0  am-form am-form-horizontal">
-                    <div class="am-g">
-                        <div class="am-u-sm-12">
-                            <div class="am-form-group">
-                                <label for="xq_ddh" class="am-u-sm-4 am-form-label">订单号</label>
-                                <div class="am-u-sm-8">
-                                    <input type="text" id="xq_ddh" name="xq_ddh" placeholder="" readonly/>
-                                    <input type="hidden" name="id"/>
-                                </div>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="xq_ddrq" class="am-u-sm-4 am-form-label">订单日期</label>
-                                <div class="am-u-sm-8">
-                                    <input type="text" id="xq_ddrq" name="xq_ddrq" placeholder="" readonly/>
-                                </div>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="xq_je" class="am-u-sm-4 am-form-label">金额</label>
-                                <div class="am-u-sm-8">
-                                    <input type="text" id="xq_je" name="xq_je" placeholder="" readonly/>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="am-u-sm-12">
-                            <div class="am-form-group">
-                                <label for="xq_mdh" class="am-u-sm-4 am-form-label">门店号</label>
-                                <div class="am-u-sm-8">
-                                    <input type="text" id="xq_mdh" name="xq_mdh" placeholder="" readonly/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="am-u-sm-12">
-                            <div class="am-form-group">
-                                <div class="am-u-sm-12  am-text-center">
-                                    <button type="button" class="js-close  am-btn am-btn-danger">关闭</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <!-- loading do not delete this -->
     <div class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn" tabindex="-1">
@@ -201,7 +103,7 @@
 <script src="assets/js/amazeui.tree.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/format.js"></script>
-<script src="assets/js/jyxxcx.js"></script>
+<script src="assets/js/xtrzcx.js"></script>
 
 </body>
 </html>

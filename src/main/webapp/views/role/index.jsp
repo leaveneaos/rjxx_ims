@@ -58,9 +58,9 @@
 					<hr />
 					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-success">查询</button>
+							class="js-search  am-btn am-radius am-btn-success">查询</button>
 						<button id="button2" type="button"
-							class="js-search  am-btn am-btn-success">新增</button>
+							class="js-search  am-btn am-radius am-btn-success">新增</button>
 					</div>
 
 					<div class="am-u-sm-12">
@@ -86,8 +86,8 @@
 		<!-- content end -->
 
 		<!-- model -->
-		<div class="am-modal am-modal-no-btn"  tabindex="-1" id="hongchong" >
-			<div class="am-modal-dialog" style="overflow-y: auto;">
+		<div class="am-modal am-modal-no-btn"  tabindex="-1" id="hongchong" data-am-sticky>
+			<div class="am-modal-dialog" style="overflow-y: auto;" data-am-sticky>
 				<form id="form1" class="js-form-0 am-form am-form-horizontal">
 					<div class="am-tabs" data-am-tabs>
 						<ul class="am-tabs-nav am-nav am-nav-tabs">
@@ -96,7 +96,7 @@
 
 						<div class="am-tabs-bd">
 							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-								<div class="am-modal-hd">
+								<div class="am-modal-hd" data-am-sticky>
 									 <a href="javascript: void(0)"
 										class="am-close am-close-spin" data-am-modal-close>&times;</a>
 								</div>
@@ -117,7 +117,7 @@
 											</div>
 										</div>
 										<div class="am-u-sm-12">
-											<div style="border: 1px solid #000;padding: 5px;">
+											<div style="border: 1px solid #000;padding: 5px;" title="授权">
 												<label> 授权</label>
 												<table style="overflow: auto;">
 													<tr>
@@ -154,9 +154,9 @@
 											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center">
 													<button type="submit"
-														class="js-submit  am-btn am-btn-success">确定</button>
+														class="js-submit  am-btn am-radius am-btn-success">确定</button>
 													<button type="button"
-														class="js-close  am-btn am-btn-warning">取消</button>
+														class="js-close  am-btn am-radius am-btn-warning">取消</button>
 												</div>
 											</div>
 										</div>

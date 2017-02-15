@@ -38,7 +38,7 @@
 		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
-		<input type="hidden" id="djh" value="0">
+		<input type="" id="djh" value="0">
 
 		<div class="admin-content">
 			<div class="am-cf am-padding">
@@ -67,7 +67,7 @@
 							<div class="am-form-group">
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">购方名称</label>
 								<div class="am-u-sm-8">
-									<input type="text" class="am-form-field" placeholder="">
+									<input type="text" id="gfmc" class="am-form-field" placeholder="">
 								</div>
 							</div>
 						</div>
@@ -94,7 +94,7 @@
 							<div class="am-form-group">
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
 								<div class="am-u-sm-8">
-									<input type="text" class="am-form-field" placeholder="" style="width:100%;">
+									<input type="text" id="ddh" class="am-form-field" placeholder="" style="width:100%;">
 								</div>
 							</div>
 						</div>
@@ -102,7 +102,7 @@
 							<div class="am-form-group">
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">商品名称</label>
 								<div class="am-u-sm-8">
-									<input type="text" class="am-form-field" placeholder="">
+									<input type="text" id ="spmc" class="am-form-field" placeholder="">
 								</div>
 							</div>
 						</div>
@@ -225,7 +225,7 @@
 
 			<div class="am-tab-panel am-fade am-in am-active">
 				<form class="am-form am-form-horizontal" id="importExcelForm"
-					method="post" action="<%=request.getContextPath()%>/kp/importExcel"
+					method="post" action="<%=request.getContextPath()%>/lrkpd/importExcel"
 					enctype="multipart/form-data">
 					<div class="am-form-group">
 						<div class="am-u-sm-12">
@@ -1041,7 +1041,7 @@
 	<script>
     $(document).ready(function () {   	
         //初始化导入配置
-        var url = "<%=request.getContextPath()%>/kp/initImportConfig";
+        var url = "<%=request.getContextPath()%>/lrkpd/initImportConfig";
         $.post(url, {}, function (res) {
             if (res && res.length > 0) {
                 for (var i = 0; i < res.length; i++) {
@@ -1075,7 +1075,7 @@
                 $("#mx_form input").val("");
                 return;
             }
-            var url = "<%=request.getContextPath()%>/kp/getSpxq";
+            var url = "<%=request.getContextPath()%>/lrkpd/getSpxq";
             $.post(url, {spdm: spdm,spmc:spmc}, function (res) {
                 if (res) {
                     $("#mx_form #spdm_edit").val(res["spdm"]);
@@ -1119,7 +1119,7 @@
             var spmc = $("#selectImportConfigSp option:checked").text();
             var pos = spmc.indexOf("(");
             spmc = spmc.substring(0, pos);
-            var url = "<%=request.getContextPath()%>/kp/getSpxq";
+            var url = "<%=request.getContextPath()%>/lrkpd/getSpxq";
             $.post(url, {spdm: spdm, spmc:spmc}, function (res) {
                 if (res) {
                     $("input[name=config_spdm]").val(res["spdm"]);
@@ -1140,7 +1140,7 @@
             if (xfsh == null || xfsh == '' || xfsh == "") {
 				return;
 			}
-            var url = "<%=request.getContextPath()%>/kp/getSkpList";
+            var url = "<%=request.getContextPath()%>/lrkpd/getSkpList";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
                 	var option = $("<option>").text('请选择').val(-1);
@@ -1151,7 +1151,7 @@
 					}
                 }
             });
-            url = "<%=request.getContextPath()%>/kp/getTemplate";
+            url = "<%=request.getContextPath()%>/lrkpd/getTemplate";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
                 	var option = $("<option>").text('请选择').val(-1);
@@ -1162,7 +1162,7 @@
 					}
                 }
             });
-            url = "<%=request.getContextPath()%>/kp/getMrmb";
+            url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
                     	var option = $("<option>").text(data.mrmb.mbmc).val(data.mrmb.id);
@@ -1173,7 +1173,7 @@
         //导入配置选择销方
         $("#selectImportConfigXf").change(function () {
             var xfid = $(this).val();
-            var url = "<%=request.getContextPath()%>/kp/getXfxxById";
+            var url = "<%=request.getContextPath()%>/lrkpd/getXfxxById";
             $.post(url, {xfid: xfid}, function (res) {
                 if (res) {
                     $("input[name=config_xfsh]").val(res["xfsh"]);
@@ -1191,7 +1191,7 @@
         //保存导入模板配置
         $("#btnImportConfigSave").click(function () {
             var data = $("#importConfigForm").serialize();
-            var url = "<%=request.getContextPath()%>/kp/saveImportConfig";
+            var url = "<%=request.getContextPath()%>/lrkpd/saveImportConfig";
             var mbmc = $('#mbmc').val();
             var xfsh = $('#config_xfsh').val();
             if (mbmc == null || mbmc == '') {
@@ -1255,7 +1255,7 @@
 				return;
 			}
             $importModal.modal("close");
-            var url = "<%=request.getContextPath()%>/kp/initImport";
+            var url = "<%=request.getContextPath()%>/lrkpd/initImport";
             $.post(url, {mbid:mbid,xfsh:xfsh}, function (res) {
                 if (res && res.length > 0) {
                     for (var i = 0; i < res.length; i++) {
@@ -1275,7 +1275,7 @@
                     $('#mbid').val(mbid);
                 }
             });
-            var url = "<%=request.getContextPath()%>/kp/getMb";
+            var url = "<%=request.getContextPath()%>/lrkpd/getMb";
             $.post(url, {mbid:mbid}, function (res) {
                 if (res) {
                     if (res.gxbz == "1") {
@@ -1288,14 +1288,14 @@
             $importConfigModal.modal({"width": 600, "height": 480});
             
         });
-        $("#delete1").click(function () {
+       <%--  $("#delete1").click(function () {
         	var mbid = $('#mb').val();
         	if (mbid == null || mbid == "") {
 				alert('请选择要删除的销方导入模板');
 				return;
 			}
         	if (confirm("您确认删除？")) {
-                $.post("<%=request.getContextPath()%>/kp/deleteMb",
+                $.post("<%=request.getContextPath()%>/lrkpd/deleteMb",
 						"mbid="+ mbid,
 						function(res) {
 							if (res.success) {
@@ -1306,11 +1306,11 @@
 							}
 				});
 			}
-        });
+        }); --%>
         
         //下载默认导入模板
         $("#btnDownloadDefaultTemplate").click(function () {
-        		window.location.href='kp/downloadDefaultImportTemplate';
+        		window.location.href='lrkpd/downloadDefaultImportTemplate';
 //             $("#downloadDefaultImportTemplateForm").submit();
         });
         //导入excel
@@ -1384,7 +1384,7 @@
 				return;
 			}
         	
-        	var url = "<%=request.getContextPath()%>/kp/saveMb";
+        	var url = "<%=request.getContextPath()%>/lrkpd/saveMb";
         	$.post(url, {mbid:mbid,xfsh:xfsh}, function (res) {
         		if (res.success) {
         			$('#mrmb').empty();
@@ -1410,7 +1410,7 @@
                 return;
             }
             if (confirm("您确认删除？")) {
-                $.post("<%=request.getContextPath()%>/kp/doDel",
+                $.post("<%=request.getContextPath()%>/lrkpd/doDel",
 						"djhArr="+ djhArr.join(","),
 						function(res) {
 							if (res) {
@@ -1425,6 +1425,7 @@
 	//选择销方取得税控盘
 	function getKpd(){
 		var xfid =  $('#select_xfid option:selected').val();
+		//alert(xfid);
 		var skpid = $("#select_skpid");
 		$("#select_skpid").empty();
 		$.ajax({
