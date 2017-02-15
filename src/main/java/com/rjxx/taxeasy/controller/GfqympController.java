@@ -110,7 +110,7 @@ public class GfqympController extends BaseController {
 	
 
 	/**
-	 * 保存购方企业信息
+	 * 删除购方企业信息
 	 *
 	 * @return
 	 * @throws Exception
