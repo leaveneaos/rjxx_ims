@@ -70,12 +70,12 @@
 					<hr />
 					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-success">查询</button>
+							class="js-search  am-btn am-radius am-btn-success">查询</button>
 						<button id="button2" type="button"
-							class="js-search  am-btn am-btn-success">新增</button>
+							class="js-search  am-btn am-radius am-btn-success">新增</button>
 
 						<button type="button" id="kp_dr"
-							class="am-btn am-btn-default am-btn-default"
+							class="am-btn am-radius am-btn-default am-btn-default"
 							style="margin-right: 10px;">
 							<span></span> 批量导入
 						</button>
@@ -275,8 +275,8 @@
 						<div class="am-u-sm-12 am-margin-top-lg">
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
-									<button type="submit" class="js-submit am-btn am-btn-success">保存</button>
-									<button type="button" class="js-close  am-btn am-btn-warning">取消</button>
+									<button type="submit" class="js-submit am-btn am-radius am-btn-success">保存</button>
+									<button type="button" class="js-close  am-btn am-radius am-btn-warning">取消</button>
 								</div>
 							</div>
 						</div>
@@ -304,9 +304,9 @@
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
 								<button type="button" id="btnImport"
-									class="am-btn am-btn-xs am-btn-success">导入</button>
+									class="am-btn am-radius am-btn-xs am-btn-success">导入</button>
 								<button type="button" id="close1"
-									class="am-btn am-btn-warning am-btn-xs">关闭</button>
+									class="am-btn am-radius am-btn-warning am-btn-xs">关闭</button>
 
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">

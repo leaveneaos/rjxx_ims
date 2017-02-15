@@ -82,10 +82,10 @@
 		
 							<div class="am-g am-text-right  am-padding-bottom ">
 								<div class="am-u-sm-12">
-									<button type="button" class="js-search  am-btn am-btn-success">查询</button>
-									<button type="button" class="js-add  am-btn am-btn-success">新增</button>
+									<button type="button" class="js-search  am-btn am-radius am-btn-success">查询</button>
+									<button type="button" class="js-add  am-btn am-radius am-btn-success">新增</button>
 									<button type="button" id="kp_dr"
-										class="am-btn am-btn-default"
+										class="am-btn am-radius am-btn-default"
 										style="margin-right: 10px;">
 										<span></span> 批量导入
 									</button>
@@ -154,8 +154,8 @@
 		
 							<div class="am-g am-text-right am-padding-bottom ">
 								<div class="am-u-sm-12">
-									<button type="button" id="search" class="js-search1  am-btn am-btn-success">查询</button>
-									<button type="button" id="new" class="js-add1  am-btn am-btn-success">新增</button>
+									<button type="button" id="search" class="js-search1  am-btn am-radius am-btn-success">查询</button>
+									<button type="button" id="new" class="js-add1  am-btn am-radius am-btn-success">新增</button>
 									
 								</div>
 								<%--<div class="am-u-sm-6">--%>
@@ -281,9 +281,9 @@
 							<div class="am-u-sm-12">
 								<div class="am-form-group">
 									<div class="am-u-sm-12  am-text-center">
-										<button type="submit" class="js-submit  am-btn am-btn-primary">保存</button>
+										<button type="submit" class="js-submit  am-btn am-radius am-btn-primary">保存</button>
 										<button type="button" id="close"
-											class="js-close  am-btn am-btn-danger" onclick="">取消</button>
+											class="js-close  am-btn am-radius am-btn-danger" onclick="">取消</button>
 									</div>
 								</div>
 							</div>
@@ -382,9 +382,9 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12  am-text-center">
 										<button type="submit"
-											class="js-submit1  am-btn am-btn-primary">保存</button>
+											class="js-submit1  am-btn am-radius am-btn-primary">保存</button>
 										<button type="button" id="close1"
-											class="js-close1  am-btn am-btn-danger" onclick="">取消</button>
+											class="js-close1  am-btn am-radius am-btn-danger" onclick="">取消</button>
 									</div>
 								</div>
 							</div>
@@ -414,9 +414,9 @@
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
 								<button type="button" id="btnImport"
-									class="am-btn am-btn-xs am-btn-secondary">导入</button>
+									class="am-btn am-radius am-btn-xs am-btn-secondary">导入</button>
 								<button type="button" id="close2"
-									class="am-btn am-btn-danger am-btn-xs">关闭</button>
+									class="am-btn am-radius am-btn-danger am-btn-xs">关闭</button>
 
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">

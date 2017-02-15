@@ -135,7 +135,7 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">将作为您开票的</font><font size="6" color="orange">销售方信息</font><p>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
 						
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" style="width: 200px" id="save" class="js-submit  am-btn am-btn-secondary">下一步</button><p>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" style="width: 200px" id="save" class="js-submit  am-btn am-radius am-btn-secondary">下一步</button><p>
 <!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="export" class="js-submit  am-btn am-btn-default">批量导入</button><p> -->
 <!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button> -->
 					</div>
@@ -165,9 +165,9 @@
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
 								<button type="button" id="btnImport"
-									class="am-btn am-btn-xs am-btn-success">导入</button>
+									class="am-btn am-radius am-btn-xs am-btn-success">导入</button>
 								<button type="button" id="close1"
-									class="am-btn am-btn-warning am-btn-xs">关闭</button>
+									class="am-btn am-radius am-btn-warning am-btn-xs">关闭</button>
 
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">

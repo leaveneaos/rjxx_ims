@@ -169,9 +169,9 @@
 <!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label> -->
 <!-- 								</div> -->
 								<div class="am-form-group">
-									<a id="lastStep" class="js-button  am-btn am-btn-primary">上一步</a>
-									<button id="save" class="js-submit  am-btn am-btn-success">保存</button>
-									<a id="nextStep" class="js-button  am-btn am-btn-secondary">下一步</a>
+									<a id="lastStep" class="js-button  am-btn am-radius am-btn-primary">上一步</a>
+									<button id="save" class="js-submit  am-btn am-radius am-btn-success">保存</button>
+									<a id="nextStep" class="js-button  am-btn am-radius am-btn-secondary">下一步</a>
 								</div>
 							</div>
 						</div>
