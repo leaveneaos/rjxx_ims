@@ -81,7 +81,7 @@ $(function () {
 //                 el.$lab.show();
 //                 el.$lab1.show();
                  ur = _this.config.xzUrl
-                el.$modalHongchong.modal({"width": 600, "height": 500});
+                el.$modalHongchong.modal({"width": 700, "height": 450});
             });
             // 修改
             t.on('click', 'a.xiugai', function () {
@@ -107,7 +107,7 @@ $(function () {
         						$(slt).prop('checked', true);
         					}
     						$('#roleid').val(row.id);
-    						  el.$modalHongchong.modal({"width": 600, "height": 500});
+    						  el.$modalHongchong.modal({"width": 700, "height": 450});
     					}else{
                               alert('查询角色权限异常');        
     					}

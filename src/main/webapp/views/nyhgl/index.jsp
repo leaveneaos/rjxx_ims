@@ -68,9 +68,9 @@
 					<hr />
 					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-success">查询</button>
+							class="js-search  am-btn am-radius am-btn-success">查询</button>
 						<button id="button2" type="button"
-							class="js-search  am-btn am-btn-success">新增</button>
+							class="js-search  am-btn am-radius am-btn-success">新增</button>
 					</div>
 
 					<div class="am-u-sm-12">
@@ -183,9 +183,9 @@
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
 												<button type="submit"
-													class="js-submit  am-btn am-btn-success">确定</button>
+													class="js-submit  am-btn am-radius am-btn-success">确定</button>
 												<button type="button"
-													class="js-close  am-btn am-btn-warning">取消</button>
+													class="js-close  am-btn am-radius am-btn-warning">取消</button>
 											</div>
 										</div>
 									</div>
@@ -216,8 +216,8 @@
 									<div class="am-form-group">
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
-												class="js-submit  am-btn am-btn-success">确定</button>
-											<button type="button" class="js-close  am-btn am-btn-warning">取消</button>
+												class="js-submit  am-btn am-radius am-btn-success">确定</button>
+											<button type="button" class="js-close  am-btn am-radius am-btn-warning">取消</button>
 										</div>
 									</div>
 								</div>
@@ -284,8 +284,8 @@
 									<div class="am-form-group">
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
-												class="js-submit  am-btn am-btn-success">确定</button>
-											<button type="button" class="js-close  am-btn am-btn-warning">取消</button>
+												class="js-submit  am-btn am-radius am-btn-success">确定</button>
+											<button type="button" class="js-close  am-btn am-radius am-btn-warning">取消</button>
 										</div>
 									</div>
 								</div>
@@ -341,8 +341,8 @@
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
 									<button type="button" id="jsSubmit"
-										class=" am-btn am-btn-success">保存</button>
-									<button type="button" class="js-close1  am-btn am-btn-warning">取消</button>
+										class=" am-btn am-radius am-btn-success">保存</button>
+									<button type="button" class="js-close1  am-btn am-radius am-btn-warning">取消</button>
 								</div>
 							</div>
 						</div>
