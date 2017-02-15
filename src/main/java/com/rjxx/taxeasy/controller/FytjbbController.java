@@ -22,14 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.taxeasy.domains.Fpzl;
-import com.rjxx.taxeasy.domains.Kpls;
-import com.rjxx.taxeasy.domains.Kpspmx;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.KplsvoService;
 import com.rjxx.taxeasy.vo.Fpnum;
 import com.rjxx.taxeasy.vo.KplsVO;
-import com.rjxx.taxeasy.vo.Tjjevo;
+import com.rjxx.taxeasy.vo.Slcxvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 
@@ -107,75 +105,7 @@ public class FytjbbController extends BaseController {
 		params.put("xfid", xfid);
 		params.put("fpzl", fpzl);
 		params.put("kprq", kprq);
-		List<Kpspmx> mxList = fpzlService.findSpsl(params);
-		List<Tjjevo> tjList = new ArrayList<Tjjevo>();
-		if(mxList !=null){
-			for(Kpspmx mx:mxList){
-				Tjjevo item = new Tjjevo();
-				Double spsl = mx.getSpsl();
-				item.setSpsl(spsl);
-				params.put("spsl", spsl);
-				params.put("fpczlxdm", "11");   //正常发票
-				Kpls kpls = fpzlService.findSpje(params);
-				if(kpls !=null){
-					Double hjje1 = kpls.getHjje();
-					item.setZckjje(hjje1);
-					Double hjse1 = kpls.getHjse();
-					item.setZckjse(hjse1);
-					Double jshj1 = kpls.getJshj();
-					item.setZcjshj(jshj1);
-				}else{
-					item.setZckjje((double)0);
-					item.setZckjse((double)0);
-					item.setZcjshj((double)0);
-				}				
-				params.put("fpczlxdm", "12");
-				kpls = fpzlService.findSpje(params);    //查询红冲合计
-				if(kpls !=null){
-					Double hjje2 = kpls.getHjje();
-					item.setHckjje(hjje2);
-					Double hjse2 = kpls.getHjse();
-					item.setHckjse(hjse2);
-					Double jshj2 = kpls.getJshj();
-					item.setHcjshj(jshj2);
-				}else{
-					item.setHckjje((double)0);
-					item.setHckjse((double)0);
-					item.setHcjshj((double)0);					
-				}				
-				params.put("fpczlxdm", "13");
-				kpls = fpzlService.findSpje(params);   //查询换开合计
-				if(kpls !=null){
-					Double hjje3 = kpls.getHjje();
-					item.setHkkjje(hjje3);
-					Double hjse3 = kpls.getHjse();
-					item.setHkkjse(hjse3);
-					Double jshj3 = kpls.getJshj();
-					item.setHkjshj(jshj3);
-				}else{
-					item.setHkkjje((double)0);
-					item.setHkkjse((double)0);
-					item.setHkjshj((double)0);
-					
-				}				
-				params.put("fpczlxdm", "21");
-				kpls = fpzlService.findSpje(params);   //查询作废合计
-				if(kpls !=null){
-					Double hjje4 = kpls.getHjje();
-					item.setZfkjje(hjje4);
-					Double hjse4 = kpls.getHjse();
-					item.setZfkjse(hjse4);
-					Double jshj4 = kpls.getJshj();
-					item.setZfjshj(jshj4);
-				}else{
-					item.setZfkjje((double)0);
-					item.setZfkjse((double)0);
-					item.setZfjshj((double)0);
-					
-				}				
-				tjList.add(item);
-			}
-		}
+		List<Slcxvo> tjList = fpzlService.findSpje(params);		
 		result.put("data", tjList);
 		return result;
 	}

@@ -41,55 +41,55 @@
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
 						<div style="text-align: center; padding-top: 50px">开票单审核</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/kpdsh">${kpd}</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
 						<div style="text-align: center; padding-top: 50px">发票开具</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/kp">${fpkj}</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
 						<div style="text-align: center; padding-top: 50px">发票红冲</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/fphc">${fphc}</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
-						<div style="text-align: center; padding-top: 50px">开票换开</div>
+						<div style="text-align: center; padding-top: 50px">发票换开</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/fphk">${fphk }</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
-						<div style="text-align: center; padding-top: 50px">开票作废</div>
+						<div style="text-align: center; padding-top: 50px">发票作废</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/fpzf">${fpzf }</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
-						<div style="text-align: center; padding-top: 50px">开票重开</div>
+						<div style="text-align: center; padding-top: 50px">发票重开</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="#">${fpck }</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
-						<div style="text-align: center; padding-top: 50px">开票重打</div>
+						<div style="text-align: center; padding-top: 50px">发票重打</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="#">${fpcd }</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2" style="height:160px">
 						<div style="text-align: center; padding-top: 50px">发票发送</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">4</a>
+							<a href="<%=request.getContextPath()%>/fpfs">0</a>
 						</div>
 					</div>
 					<div class="am-panel am-panel-default am-u-sm-2 am-u-end" style="height:160px">
 						<div style="text-align: center; padding-top: 50px">发票邮寄</div>
 						<div style="text-align: center; font-size: 28px">
-							<a href="#">6</a>
+							<a href="#">0</a>
 						</div>
 					</div>
 				</div>

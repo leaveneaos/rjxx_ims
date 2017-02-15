@@ -129,25 +129,16 @@
 					class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 					<thead>
 						<tr>
-					        <th rowspan="2">税率</th>
-							<th colspan='3'>正常开具</th>
-							<th colspan='3'>红冲开具</th>
-							<th colspan='3'>换开开具</th>
-							<th colspan='3'>发票作废</th>
-						</tr>
-						<tr>
-					        <th>金额</th>
-					        <th>税额</th>
-					        <th>价税合计</th>
-					        <th>金额</th>
-					        <th>税额</th>
-					        <th>价税合计</th>
-					        <th>金额</th>
-					        <th>税额</th>
-					        <th>价税合计</th>
-					        <th>金额</th>
-					        <th>税额</th>
-					        <th>价税合计</th>
+					        <th>税率(%)</th>
+					        <th>销方名称</th>
+					        <th>发票种类</th>
+					        <th>税率类型</th>
+					        <th>销项正数金额</th>
+					        <th>销项负数金额</th>
+					        <th>合计金额</th>
+					        <th>正数税额</th>
+					        <th>负数税额</th>
+					        <th>合计税额</th>
 					  </tr>
 					</thead>
 					<tbody>

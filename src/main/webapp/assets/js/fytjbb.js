@@ -29,19 +29,16 @@ $(function () {
             }
         },
         "columns": [                 
-            {"data": "spsl"},
-            {"data": "zckjje"},
-            {"data": "zckjse"},
-            {"data": "zcjshj"},                   
-            {"data": "hckjje"},
-            {"data": "hckjse"},
-            {"data": "hcjshj"},
-            {"data": "hkkjje"},
-            {"data": "hkkjse"},
-            {"data": "hkjshj"},
-            {"data": "zfkjje"},
-            {"data": "zfkjse"},
-            {"data": "zfjshj"}
+            {"data": "sl"},
+            {"data": "xfmc"},
+            {"data": "fpzl"},
+            {"data": "jzjtbz"},                   
+            {"data": "zsje"},
+            {"data": "fsje"},
+            {"data": "hjje"},
+            {"data": "zsse"},
+            {"data": "fsse"},
+            {"data": "hjse"}
             ]
     });
     
