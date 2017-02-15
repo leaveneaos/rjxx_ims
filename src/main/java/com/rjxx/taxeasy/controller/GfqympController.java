@@ -106,4 +106,79 @@ public class GfqympController extends BaseController {
 		}
 		return result;
 	}
+	
+	
+
+	/**
+	 * 保存购方企业信息
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map delete() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String id = request.getParameter("id");
+		Map params = new HashMap();
+		// 校验数据 未完成
+		try {
+			params.put("id", id);
+			gfxxservice.deleteById(params);
+			result.put("success", true);
+			result.put("msg", "删除成功");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result.put("success", false);
+			result.put("msg", "保存出现错误: " + ex.getMessage());
+		}
+		return result;
+	}
+	
+	/**
+	 * 保存购方企业信息
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public Map updateGfxx() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String id = request.getParameter("gfid");
+		String gfmc = request.getParameter("gfmc");
+		String gfsh = request.getParameter("gfsh");
+		String gfdz = request.getParameter("gfdz");
+		String gfdh = request.getParameter("gfdh");
+		String gfyh = request.getParameter("gfyh");
+		String gfyhzh = request.getParameter("gfyhzh");
+		// 校验数据 未完成
+		try {
+			// 购房名称生成首字母缩写
+			ChinaInitial chinain = new ChinaInitial();
+			String mcszmsx = chinain.getPYIndexStr(gfmc, false);//第二个参数代表是否大小写，ture大写，false小写。
+			Gfxx gfxx = new Gfxx();
+			gfxx.setId(Integer.valueOf(id));
+			gfxx.setGfsh(gfsh);
+			gfxx.setGfmc(gfmc);
+			gfxx.setGfdz(gfdz);
+			gfxx.setGfdh(gfdh);
+			gfxx.setGfyh(gfyh);
+			gfxx.setGfyhzh(gfyhzh);
+			gfxx.setMcszmsx(mcszmsx);
+			gfxx.setYxbz("1");
+			//gfxx.setLrsj(new Date());
+			gfxx.setLrry(1);
+			gfxx.setXgsj(new Date());
+			gfxx.setXgry(1);
+			gfxxservice.save(gfxx);
+			result.put("success", true);
+			result.put("msg", "更新成功");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result.put("success", false);
+			result.put("msg", "更新保存出现错误: " + ex.getMessage());
+		}
+		return result;
+	}
 }

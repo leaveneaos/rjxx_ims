@@ -9,13 +9,17 @@ $(function () {
         $jsAdd: $('.js-add'),
         $jsExport: $('.js-export'),
         $jsLoading: $('.js-modal-loading'),
-        $jsSave: $('#save')
+        $jsSave: $('#save'),
+        $xiugai: $('#xiugai'),
+        $jsUpdate: $('#update'),
     };
     var action = {
         tableEx: null, // cache dataTable
         config: {
             getUrl: 'gfqymp/getGfxxList',
-            addUrl: 'gfqymp/saveGfxx'
+            addUrl: 'gfqymp/saveGfxx',
+            scUrl:'gfqymp/delete',
+            updateUrl:'gfqymp/update'
         },
         dataTable: function () {
             var _this = this;
@@ -61,6 +65,24 @@ $(function () {
                 });
 
             });
+         // 删除
+			t.on('click', 'a.del', function() {
+				var da = t.row($(this).parents('tr')).data();
+				if (confirm("确定要删除该条信息吗")) {
+					_this.sc(da);
+					//alert(da.id);
+				}
+				_this.resetForm();
+			});
+			
+			 // 修改
+            t.on('click', 'a.modify', function () {
+                var data = t.row($(this).parents('tr')).data();
+                // todo
+                _this.setForm0(data);
+                el.$xiugai.modal('open');
+            });
+            
          // 界面新增按钮
 			el.$jsAdd.on('click', el.$jsAdd, function() {
 				_this.resetForm();
@@ -68,12 +90,90 @@ $(function () {
 				//alert("新增");
 				el.$modalHongchong.modal({"width": 600, "height": 500});
 			});	
+			
+			// 修改数据保存按钮
+			el.$jsUpdate.on('click', el.$jsUpdate, function() {
+				ur = _this.config.updateUrl;
+				_this.update();
+				_this.resetForm();
+			});	
             return t;
         },
+        
+        /**
+		 * 更新
+		 */
+		update : function() {
+			var _this = this;
+			$.ajax({
+				url : ur,
+				data : {
+					 gfid : $('#gfid').val(), 
+					 gfmc : $('#xg_gfmc').val(),   // 购方名称
+                     gfsh : $('#xg_gfsh').val(),   // 购方税号
+                     gfdz : $('#xg_gfdz').val(), // 购方地址
+                     gfdh : $('#xg_gfdh').val(), // 购方电话
+                     gfyh : $('#xg_gfyh').val(), // 购方银行
+                     gfyhzh : $('#xg_gfyhzh').val() // 购方银行账号      
+				},
+				method : 'POST',
+				success : function(data) {
+					if (data.success) {
+
+						// modal
+						alert(data.msg);
+						 el.$xiugai.modal('close');
+					} else {
+
+						alert('更新购方信息失败: ' + data.msg);
+
+					}
+					_this.tableEx.ajax.reload(); // reload table
+					// data
+
+				},
+				error : function() {
+					alert('更新购方信息失败, 请重新登陆再试...!');
+				}
+			});
+
+		},
+        
+        /**
+		 * 删除
+		 */
+		sc : function(da) {
+			var _this = this;
+			$.ajax({
+				url : _this.config.scUrl,
+				data : {
+					"id" : da.id
+				},
+				method : 'POST',
+				success : function(data) {
+					if (data.success) {
+
+						// modal
+						alert(data.msg);
+					} else {
+
+						alert('删除购方信息失败: ' + data.msg);
+
+					}
+					_this.tableEx.ajax.reload(); // reload table
+					// data
+
+				},
+				error : function() {
+					alert('删除购方信息失败, 请重新登陆再试...!');
+				}
+			});
+
+		},
+        
         /**
 		 * 新增保存
 		 */
-
 		xz : function() {
 			var _this = this;
 			//alert("12345");
@@ -137,6 +237,18 @@ $(function () {
 				}
 			});
 		},
+		setForm0 : function(data) {
+			//var _this = this, i;
+			// todo set data
+			// debugger
+			el.$jsForm0.find('input[id="xg_gfmc"]').val(data.gfmc);
+			el.$jsForm0.find('input[id="xg_gfsh"]').val(data.gfsh);
+			el.$jsForm0.find('input[id="xg_gfdz"]').val(data.gfdz);
+			el.$jsForm0.find('input[id="xg_gfdh"]').val(data.gfdh);
+			el.$jsForm0.find('input[id="xg_gfyh"]').val(data.gfyh);
+			el.$jsForm0.find('input[id="xg_gfyhzh"]').val(data.gfyhzh);
+			$('#gfid').val(data.id);
+		},
         resetForm: function () {
             el.$jsForm0[0].reset();
         },
@@ -148,6 +260,7 @@ $(function () {
             // close modal
             el.$jsClose.on('click', function () {
                 el.$modalHongchong.modal('close');
+                el.$xiugai.modal('close');
             });
         },
         init: function () {
@@ -160,6 +273,8 @@ $(function () {
     };
     action.init();
 });
+
+
 
 
 	function dateFormat(str){
