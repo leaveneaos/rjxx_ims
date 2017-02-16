@@ -824,6 +824,7 @@ public class LrkpdController extends BaseController {
 			put("gfemail", "购方邮箱");
 			put("bz", "备注");
 			put("gfsjh", "购方手机号");
+			put("fpzldm", "发票种类");
 		}
 	};
 	
@@ -1029,7 +1030,7 @@ public class LrkpdController extends BaseController {
 			jyxxsq.setXgsj(TimeUtil.getNowDate());
 			jyxxsq.setYkpjshj(0d);
 			jyxxsq.setClztdm("00");
-			//Jyxxsq.setFpzldm("12");
+			jyxxsq.setFpzldm(getValue("fpzldm", pzMap, columnIndexMap, row));
 			jyxxsq.setFpczlxdm("11");
 			jyxxsq.setYxbz("1");
 			jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
@@ -1191,6 +1192,12 @@ public class LrkpdController extends BaseController {
 				msgg = "第" + (i+2) + "行销方地址超出100个字符，请重新填写！";
 				msg += msgg;
 			}
+			String fpzldm = jyxxsq.getFpzldm();// 发票种类代码
+			if (fpzldm == null || "".equals(fpzldm)) {
+				msgg = "第" + (i+2) + "行发票种类没有填写，请重新填写！";
+				msg += msgg;
+			} 
+			
 			String xfdh = jyxxsq.getXfdh();// 销方电话校验
 			if (xfdh == null || "".equals(xfdh)) {
 				msgg = "第" + (i+2) + "行销方电话没有填写，请重新填写！";

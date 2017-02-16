@@ -359,6 +359,18 @@
 								</div>
 							</div>
 							<div class="am-form-group">
+								<label for="config_fpzldm" class="am-u-sm-4 am-form-label">发票种类</label>
+								<div class="am-u-sm-4">
+									<input type="radio" checked name="config_fpzldm_radio"
+										value="config">导入文件<font size='1px' color='red'>(01专票，02普票，12电子发票)</font>
+								</div>
+								<div class="am-u-sm-4">
+									<input type="text" id="config_fpzldm" name="config_fpzldm"
+										placeholder="必填" required>
+								</div>
+							</div>
+							
+							<div class="am-form-group">
 								<label class="am-u-sm-4 am-form-label">选择商品</label>
 								<div class="am-u-sm-8">
 									<select id="selectImportConfigSp" class="am-u-sm-12">
@@ -791,6 +803,17 @@
 								</div>
 							</div>
 							<div class="am-form-group">
+								<label for="config_fpzldm" class="am-u-sm-4 am-form-label">发票种类</label>
+								<div class="am-u-sm-4">
+									<input type="radio" checked name="config_fpzldm_radio"
+										value="config">导入文件<font size='1px' color='red'>(01专票，02普票，12电子发票)</font>
+								</div>
+								<div class="am-u-sm-4">
+									<input type="text" id="config_fpzldm1" name="config_fpzldm"
+										placeholder="必填" required>
+								</div>
+							</div>
+							<div class="am-form-group">
 								<label class="am-u-sm-4 am-form-label">选择商品</label>
 								<div class="am-u-sm-8">
 									<select id="selectImportConfigSp1" class="am-u-sm-12">
@@ -1015,6 +1038,7 @@
 		            var xfsh = $('#config_xfsh').val();
 		            var gfmc = $('#config_gfmc').val();
 		            var spje = $('#config_spje').val();
+		            var fpzldm = $('#config_fpzldm').val();
 		            if (mbmc == null || mbmc == '') {
 		            	alert("请输入模板名称");
 		            	return;
@@ -1029,6 +1053,10 @@
 					}
 		            if (spje == null || spje == '') {
 		            	alert("商品金额不能为空");
+		            	return;
+					}
+		            if (fpzldm == null || fpzldm == '') {
+		            	alert("发票种类不能为空");
 		            	return;
 					}
 		            $.post(url, data, function (res) {
@@ -1050,6 +1078,7 @@
 		            var xfsh = $('#config_xfsh1').val();
 		            var gfmc = $('#config_gfmc1').val();
 		            var spje = $('#config_spje1').val();
+		            var fpzldm = $('#config_fpzldm1').val();
 		            if (mbmc == null || mbmc == '') {
 		            	alert("请输入模板名称");
 		            	return;
@@ -1064,6 +1093,10 @@
 					}
 		            if (spje == null || spje == '') {
 		            	alert("商品金额不能为空");
+		            	return;
+					}
+		            if (fpzldm == null || fpzldm == '') {
+		            	alert("发票种类不能为空");
 		            	return;
 					}
 		            $.post(url, data, function (res) {
