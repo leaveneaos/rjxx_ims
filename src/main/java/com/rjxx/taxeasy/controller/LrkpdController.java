@@ -333,7 +333,7 @@ public class LrkpdController extends BaseController {
 		jyxxsq.setLrsj(TimeUtil.getNowDate());
 		jyxxsq.setXgsj(TimeUtil.getNowDate());
 		jyxxsq.setDdrq(TimeUtil.getNowDate());
-		jyxxsq.setFpzldm("12");
+		jyxxsq.setFpzldm(request.getParameter("fpzl_edit"));
 		jyxxsq.setFpczlxdm("11");
 		jyxxsq.setXfyh(xf.getXfyh());
 		jyxxsq.setXfyhzh(xf.getXfyhzh());

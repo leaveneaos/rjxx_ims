@@ -860,6 +860,19 @@
 								</div>
 								<div class="am-form-group">
 									
+									<label for="fpzl_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>发票种类</label>
+
+									<div class="am-u-sm-4 am-u-end">
+									 <select id="fpzl_edit" name="fpzl_edit" required>
+										<option value="">---选择开票类型---</option>
+										<option value="01">专用发票</option>
+										<option value="02">普通发票</option>
+										<option value="12">电子发票</option>
+									</select>
+									</div>
+								</div>
+								<div class="am-form-group">
+									
 									<label for="gfbz_edit" class="am-u-sm-2 am-form-label">备注</label>
 
 									<div class="am-u-sm-10">
