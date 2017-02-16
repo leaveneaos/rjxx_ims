@@ -105,9 +105,9 @@
 								<div class="am-u-sm-8">
 									<select id="s_fplx" name="xfsh">
 										<option value="">选择类型</option>
-										<option value="">电子票</option>
-										<option value="">纸质专票</option>
-										<option value="">纸质普票</option>
+										<option value="12">电子票</option>
+										<option value="01">纸质专票</option>
+										<option value="02">纸质普票</option>
 									</select>
 								</div>
 							</div>

@@ -27,7 +27,7 @@
                     d.xfsh = $('#s_xfsh').val();   // search 销方
                     d.gfmc = $('#s_gfmc').val();	// search 购方名称
                     d.ddh = $('#s_ddh').val();   // search 订单号
-                    d.jylsh = $('#s_fplx').val();   // search 发票号码
+                    d.fpzldm = $('#s_fplx').val();   // search 发票号码
                     d.rqq = $('#s_rqq').val(); // search 开票日期
                     d.rqz = $('#s_rqz').val(); // search 开票日期
                 }
@@ -230,7 +230,7 @@
             $.ajax({
                 url: "kp/doKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
                     if (data.success) {
-                        alert("发送到开票队列成功!");
+                        alert("开票成功!");
                         jyls_table.ajax.reload();
                     } else {
                         alert(data.msg);
