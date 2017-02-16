@@ -160,7 +160,7 @@ public class SksbxxzcControlller extends BaseController {
 	@ResponseBody
 	@Transactional
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
-			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb) {
+			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb, String fplx) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> prms = new HashMap<>();
@@ -172,6 +172,11 @@ public class SksbxxzcControlller extends BaseController {
 			old.setGsdm(getGsdm());
 			if (pid != null) {
 				old.setPid(pid);
+			}
+			if (fplx == null || "".equals(fplx)) {
+				result.put("failure", true);
+				result.put("msg", "请选择开票类型");
+				return result;
 			}
 			int sum = skpService.findAllByParams(old).size();;
 			Gsxx gsxx = gs.findOneByParams(prms);
@@ -207,6 +212,7 @@ public class SksbxxzcControlller extends BaseController {
 			old.setXgry(getYhid());
 			old.setXgsj(new Date());
 			old.setYxbz("1");
+			old.setKplx(fplx);
 			skpService.save(old);
 			Group group = new Group();
 			group.setYhid(getYhid());
@@ -256,7 +262,7 @@ public class SksbxxzcControlller extends BaseController {
 			params.put("gsdm", getGsdm());
 			
 			Skp skp = skpService.findOneByParams(params);
-
+			
 			if (skp != null && !kpddm.equals(skp.getKpddm()) && !kpdmc.equals(skp.getKpdmc())) {
 				result.put("failure", true);
 				result.put("msg", "此开票点已经存在");
@@ -304,15 +310,40 @@ public class SksbxxzcControlller extends BaseController {
 		try {
 			
 			Skp skp = skpService.findOne(skpid);
-			skp.setDpmax(kpxe3);
-			skp.setFpfz(fpje3);
-			skp.setPpmax(kpxe1);
-			skp.setPpfz(fpje1);
-			skp.setZpmax(kpxe2);
-			skp.setZpfz(fpje2);
+			if (kpxe3 == null) {
+				skp.setDpmax(0.00);
+				skp.setFpfz(0.00);
+			}else{
+				skp.setDpmax(kpxe3);
+				skp.setFpfz(fpje3);
+			}
+			
+			if (kpxe1 == null) {
+				skp.setPpmax(0.00);
+				skp.setPpfz(0.00);
+			}else{
+				skp.setPpmax(kpxe1);
+				skp.setPpfz(fpje1);
+			}
+			if (kpxe2 == null) {
+				skp.setZpmax(0.00);
+				skp.setZpfz(0.00);
+			}else{
+				skp.setZpmax(kpxe2);
+				skp.setZpfz(fpje2);
+			}
 			skp.setXgry(getYhid());
 			skp.setXgsj(new Date());
 			skpService.save(skp);
+			List<Skp> skps = new ArrayList<>();
+			for (Skp skp2 : getSkpList()) {
+				if (skp2.getId().equals(skpid)) {
+					skps.add(skp2);
+					break;
+				}
+			}
+			getSkpList().removeAll(skps);
+			getSkpList().add(0, skp);
 			result.put("success", true);
 			result.put("msg", "保存成功");
 		} catch (Exception e) {

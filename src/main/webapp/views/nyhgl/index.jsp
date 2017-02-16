@@ -241,7 +241,7 @@
 																<h4 class="am-panel-title"
 																	data-am-collapse="{parent: '#accordion', target: '#do-not-say-${x.id }'}">
 																	<input type="checkbox" id="yhjg1-${x.id }"
-																		 name="xfid" value="${x.id }" />&nbsp;&nbsp;${x.xfmc }<i
+																		 name="xfid" value="${x.id }" onclick="xzxf(this)" />&nbsp;&nbsp;${x.xfmc }<i
 																		class="am-icon-angle-right am-fr am-margin-right"></i>
 																</h4>
 															</div>
@@ -383,10 +383,6 @@
 				var smObj = document.getElementsByName(obj.value);
 				for (var i = 0; i < smObj.length; i++)
 					smObj[i].checked = false;
-			} else {
-				var smObj = document.getElementsByName(obj.value);
-				for (var i = 0; i < smObj.length; i++)
-					smObj[i].checked = true;
 			}
 		}
 		function xfqx(obj){

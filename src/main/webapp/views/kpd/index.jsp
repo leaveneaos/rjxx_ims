@@ -162,12 +162,12 @@
 										</select>
 									</div>
 								</div>
-<!-- 								<div class="am-form-group" style="padding-bottom: 1px;"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font></label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="02">普通发票</label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="01">专用发票</label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label> -->
-<!-- 								</div> -->
+								<div class="am-form-group" style="padding-bottom: 1px;">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="02">普通发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="01">专用发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label>
+								</div>
 								<div class="am-form-group">
 									<a id="lastStep" class="js-button  am-btn am-radius am-btn-primary">上一步</a>
 									<button id="save" class="js-submit  am-btn am-radius am-btn-success">保存</button>
