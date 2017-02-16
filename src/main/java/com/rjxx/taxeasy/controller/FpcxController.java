@@ -304,7 +304,7 @@ public class FpcxController extends BaseController {
 				}else if ("yfpdm".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getYfpdm() == null ? "" : ykfpcx.getYfpdm());
 				}else if ("ykpjshj".equals(dczydlVo.getZddm())) {
-					row.createCell(9).setCellValue(ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getYkpjshj()));
+					row.createCell(k).setCellValue(ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getYkpjshj()));
 				}else if ("tqm".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getTqm() == null ? "" : ykfpcx.getTqm());
 				}else if ("kpddm".equals(dczydlVo.getZddm())) {
@@ -316,10 +316,10 @@ public class FpcxController extends BaseController {
 					}
 				}
 				else if ("hjje".equals(dczydlVo.getZddm())) {
-					row.createCell(k).setCellValue(ykfpcx.getHjje() == null ? "0.00" :  ykfpcx.getHjje());
+					row.createCell(k).setCellValue(ykfpcx.getHjje() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjje()));
 				}
 				else if ("hjse".equals(dczydlVo.getZddm())) {
-					row.createCell(k).setCellValue(ykfpcx.getHjse() == null ? "0.00" : ykfpcx.getHjse());
+					row.createCell(k).setCellValue(ykfpcx.getHjse() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjse()));
 				}
 				k++;
 			}
