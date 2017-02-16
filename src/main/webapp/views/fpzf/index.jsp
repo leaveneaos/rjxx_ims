@@ -5,9 +5,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>已开发票红冲</title>
-<meta name="description" content="发票红冲">
-<meta name="keywords" content="发票红冲">
+<title>已开发票作废</title>
+<meta name="description" content="发票作废">
+<meta name="keywords" content="发票作废">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
@@ -38,14 +38,14 @@
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票红冲</strong>
+					<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票作废</strong>
 				</div>
 			</div>
 			<hr />
 			<div class="am-tabs"  data-am-tabs="{noSwipe: 1}">
 				<ul class="am-tabs-nav am-nav am-nav-tabs">
-					<li class="am-active"><a href="#tab1">发票红冲</a></li>
-					<li><a href="#tab2">已红冲</a></li>
+					<li class="am-active"><a href="#tab1">发票作废</a></li>
+					<li><a href="#tab2">已作废</a></li>
 				</ul>
 				<div class="am-tabs-bd">
 					<div class="am-tab-panel am-fade am-active am-in" id="tab1">
@@ -87,7 +87,7 @@
 											<div class="am-form-group" style="width: 100%">
 												<button type="button" id="kp_zf"
 													class="am-btn am-radius am-btn-danger" style="width: 100%">
-													<span></span> 红冲
+													<span></span> 作废
 												</button>
 											</div>
 										</div>
@@ -150,7 +150,6 @@
 										id="fpTable">
 										<thead>
 											<tr>
-											
 												<th>序号</th>
 												<th>订单号</th>
 												<th>开票日期</th>
@@ -181,9 +180,6 @@
 													<th>序号</th>
 													<th>商品名称</th>
 													<th>商品规格型号</th>
-													<th>本次红冲金额</th>
-													<th>可红冲金额</th>
-													<th>已红冲金额</th>
 													<th>商品金额</th>
 													<th>商品税率</th>
 													<th>商品税额</th>
@@ -197,6 +193,65 @@
 									</div>
 								</div>
 							</fieldset>
+						</div>
+						<!-- model -->
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
+							<div class="am-modal-dialog">
+								<div class="am-modal-hd">
+									发票红冲详情 <a href="javascript: void(0)"
+										class="am-close am-close-spin" data-am-modal-close>&times;</a>
+								</div>
+								<div class="am-modal-bd">
+									<hr />
+									<form action="fphc/ykfphc"
+										class="js-form-0  am-form am-form-horizontal">
+										<div class="am-g">
+											<div class="am-u-sm-12">
+												<div class="am-form-group" style="display: none">
+													<label for="hc_yfphm" class="am-u-sm-4 am-form-label">DJH</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="djh" name="djh" placeholder=""
+															readonly />
+													</div>
+												</div>
+												<div class="am-form-group">
+													<label for="hc_yfpdm" class="am-u-sm-4 am-form-label">原发票代码</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="hc_yfpdm" name="hc_yfpdm"
+															placeholder="" readonly /> <input type="hidden"
+															name="id" />
+													</div>
+												</div>
+												<div class="am-form-group">
+													<label for="hc_yfphm" class="am-u-sm-4 am-form-label">原发票号码</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="hc_yfphm" name="hc_yfphm"
+															placeholder="" readonly />
+													</div>
+												</div>
+												<div class="am-form-group">
+													<label for="hc_kpje" class="am-u-sm-4 am-form-label">价税合计</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="hc_kpje" name="hc_kpje"
+															placeholder="" readonly />
+													</div>
+												</div>
+
+											</div>
+											<div class="am-u-sm-12">
+												<div class="am-form-group">
+													<div class="am-u-sm-12  am-text-center">
+														<button type="submit"
+															class="js-submit  am-btn am-btn-primary">确定</button>
+														<button type="button"
+															class="js-close  am-btn am-btn-danger">取消</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 						<!-- loading do not delete this -->
 						<div
@@ -221,7 +276,7 @@
 									<div class="am-u-sm-12">
 										<div class="am-u-lg-4">
 											<div class="am-form-group">
-												<label for="zf_xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<label for="zf_xfsh1" class="am-u-sm-4 am-form-label">选择销方</label>
 												<div class="am-u-sm-8">
 													<select id="zf_xfsh1" name="xfsh">
 														<option value="">选择销方</option>
@@ -234,7 +289,7 @@
 										</div>
 										<div class="am-u-lg-4">
 											<div class="am-form-group">
-												<label for="zf_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+												<label for="zf_gfmc1" class="am-u-sm-4 am-form-label">购方名称</label>
 												<div class="am-u-sm-8">
 													<input id="zf_gfmc1" type="text" class="am-form-field" placeholder="购方名称">
 												</div>
@@ -251,7 +306,7 @@
 									</div>
 									<div class="am-u-sm-12">
 										<div class="am-u-sm-4">
-											<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
+											<label for="s_kprqq1" class="am-u-sm-4 am-form-label">开始时间</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
 												<input type="text" id="s_kprqq1" class="am-form-field" placeholder="开始时间" readonly>
@@ -264,7 +319,7 @@
 			
 										</div>
 										<div class="am-u-sm-4">
-											<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
+											<label for="s_kprqz1" class="am-u-sm-4 am-form-label">截止时间</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
 												<input type="text" id="s_kprqz1" class="am-form-field"
@@ -288,7 +343,7 @@
 										<div class="am-u-sm-2">
 											<div class="am-form-group" style="width: 100%">
 												<button type="button" id="kp_cx1" style="width: 100%"
-													class="js-search am-btn am-radius am-btn-success">
+													class=" am-btn am-radius am-btn-success">
 													<span></span> 查询
 												</button>
 											</div>
@@ -303,7 +358,7 @@
 							<div class="am-u-sm-12">
 								<div class="am-scrollable-horizontal">
 									<table
-										class="am-table am-table-bordered am-text-nowrap"
+										class="js-table1 am-table am-table-bordered am-text-nowrap"
 										id="ysTable">
 										<thead>
 											<tr>
@@ -384,7 +439,7 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script src="assets/js/fphc.js"></script>
+	<script src="assets/js/fpzf.js"></script>
 	<script type="text/javascript">
 		$("a").on('click', function() {
 			var date = $(this).attr("id")
@@ -406,20 +461,6 @@
 				$("#s_kprqz").val(k);
 			}
 		});
-/* 		$("#kp_zf").on('click', function(){
-			 var djhArr = [];
-	            $("input[type='checkbox']:checked").each(function (i, o) {
-	            	if ($(o).attr("data") != null) {
-	                    djhArr.push($(o).attr("data"));
-					}
-	            });
-	            if (djhArr.length == 0) {
-	                alert("请选择数据...");
-	                return;
-	            }else{
-	            	 alert("虚拟红冲...");
-	            }
-		}) */
 		//当前日期
 		function getToday() {
 			var date = new Date();

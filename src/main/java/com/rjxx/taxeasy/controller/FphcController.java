@@ -1,8 +1,5 @@
 package com.rjxx.taxeasy.controller;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,22 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.domains.Gsxx;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Jyspmx;
-import com.rjxx.taxeasy.domains.Kpls;
+import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.JyspmxService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.service.KpspmxService;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Kpspmxvo;
 import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
 
 @Controller
 @RequestMapping("/fphc")
@@ -40,24 +29,18 @@ public class FphcController extends BaseController {
 	@Autowired
 	private KpspmxService mxService;
 	@Autowired
-	private JylsService jylsService;
-	@Autowired
-	private JyspmxService jymxService;
-	@Autowired
-	private DataOperte dc;
-
-	@Autowired
-	private GsxxService gsxxservice;
+	private FpclService FpclService;
 	
 	@RequestMapping
 	public String index() throws Exception {
+		request.setAttribute("xfList", getXfList());
+		request.setAttribute("skpList", getSkpList());
 		return "fphc/index";
 	}
 
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, String kprqq, String kprqz, String fpdm,
-			String fphm, String gfmc, String ddh) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw, String kprqq, String kprqz, String gfmc, Integer xfi) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -97,13 +80,67 @@ public class FphcController extends BaseController {
 		}
 		pagination.addParam("gsdm", gsdm);
 		pagination.addParam("xfid", xfid);
+		pagination.addParam("xfi", xfi);
 		pagination.addParam("skpid", skpid);
-		pagination.addParam("ddh", ddh);
-		pagination.addParam("fphm", fphm);
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);
 		pagination.addParam("gfmc", gfmc);
 		List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage(pagination);
+		int total = pagination.getTotalRecord();
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
+		result.put("data", khcfpList);
+		return result;
+	}
+	@RequestMapping(value = "/getKplsList1")
+	@ResponseBody
+	public Map<String, Object> getItems1(int length, int start, int draw, String kprqq, String kprqz, String gfmc, Integer xfi) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		String gsdm = getGsdm();
+		String xfStr = "";
+		List<Xf> xfs = getXfList();
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid + "";
+				} else {
+					xfStr += xfid + ",";
+				}
+			}
+		}
+		String[] xfid = xfStr.split(",");
+		if (xfid.length == 0) {
+			xfid = null;
+		}
+		String skpStr = "";
+		List<Skp> skpList = getSkpList();
+		if (skpList != null) {
+			for (int j = 0; j < skpList.size(); j++) {
+				int skpid = skpList.get(j).getId();
+				if (j == skpList.size() - 1) {
+					skpStr += skpid + "";
+				} else {
+					skpStr += skpid + ",";
+				}
+			}
+		}
+		String[] skpid = skpStr.split(",");
+		if (skpid.length == 0) {
+			skpid = null;
+		}
+		pagination.addParam("gsdm", gsdm);
+		pagination.addParam("xfid", xfid);
+		pagination.addParam("xfi", xfi);
+		pagination.addParam("skpid", skpid);
+		pagination.addParam("kprqq", kprqq);
+		pagination.addParam("kprqz", kprqz);
+		pagination.addParam("gfmc", gfmc);
+		List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage1(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
@@ -137,13 +174,11 @@ public class FphcController extends BaseController {
 	@Transactional
 	@RequestMapping(value = "/hc")
 	@ResponseBody
-	public Map<String, Object> update(String hcjeStr, String xhStr, String kplsh) throws Exception {
+	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		result.put("success", true);
 		result.put("msg", "红冲成功！");
-		DecimalFormat df = new DecimalFormat("#.00");
-		DecimalFormat df6 = new DecimalFormat("#.000000");
 		Map map = new HashMap<>();
 		map.put("kplsh", kplsh);
 		Fpcxvo cxvo = kplsService.selectMonth(map);
@@ -154,14 +189,16 @@ public class FphcController extends BaseController {
 				return result;
 			}
 		}
-		//kzx 20161212 如果走税控服务器红冲则设置clztdm为03
+		//try {
+		boolean flag = FpclService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr);
+	/*	//kzx 20161212 如果走税控服务器红冲则设置clztdm为03
 		Map paramsTmp = new HashMap();
 		paramsTmp.put("gsdm", getGsdm());
 		Gsxx gsxx = gsxxservice.findOneByParams(paramsTmp);
 		
 		String jylsh = "";
 		Integer djh = 0;
-		try {
+	
 			int yhid = getYhid();
 			String gsdm = getGsdm();
 			double hjhcje = 0;
@@ -333,11 +370,11 @@ public class FphcController extends BaseController {
 			Map param2 = new HashMap<>();
 			param2.put("kplsh", kplsh);
 			// 部分红冲后修改kpls表的三个金额
-			/*
+			
 			 * Kpls ls = kplsService.findHjje(param2);
 			 * param2.put("hjje",ls.getHjje()); param2.put("hjse",ls.getHjse());
 			 * param2.put("jshj",ls.getJshj()); kplsService.updateHjje(param2);
-			 */
+			 
 			// 全部红冲后修改
 			Kpspmxvo mxvo = mxService.findKhcje(param2);
 			if (mxvo.getKhcje() == 0) {
@@ -346,24 +383,20 @@ public class FphcController extends BaseController {
 			} else {
 				param2.put("fpztdm", "01");
 				kplsService.updateFpczlx(param2);
-			}
-			dc.saveLog(cxvo.getDjh(), "01", "0", "电子发票服务平台红冲操作", "已向服务端发送红冲请求", getYhid(), cxvo.getXfsh(), jylsh);
+			}*/
+		if (flag) {
 			result.put("success", true);
-			result.put("msg", "红冲请求提交成功，请注意查看操作结果！");
-		} catch (Exception e) {
+			result.put("msg", "红冲请求提交成功!");
+		}else{
+			result.put("success", false);
+			result.put("msg", "红冲请求失败!");
+		}
+		
+	/*	} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", false);
 			result.put("msg", "后台出现错误: " + e.getMessage());
-			dc.saveLog(cxvo.getDjh(), "92", "1", "", "电子发票服务平台红冲请求失败!", 2, cxvo.getXfsh(), jylsh);
-			if (djh != 0) {
-				Map para = new HashMap<>();
-				para.put("clztdm", 92);
-				para.put("xgsj", TimeUtil.getNowDate());
-				para.put("djh", djh);
-				jylsService.updateClzt(para);
-			}
-		}
-
+		}*/
 		return result;
 	}
 }

@@ -56,7 +56,7 @@
 							<div class="am-form-group">
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
 								<div class="am-u-sm-8">
-									<select id="xfsh" name="xfsh">
+									<select id="s_xfsh" name="xfsh">
 										<option value="">选择销方</option>
 										<c:forEach items="${xfList}" var="item">
 											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
@@ -67,9 +67,9 @@
 						</div>
 						<div class="am-u-lg-4">
 							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">购方名称</label>
+								<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
 								<div class="am-u-sm-8">
-									<input type="text" class="am-form-field" placeholder="购方名称">
+									<input id="s_gfmc" type="text" class="am-form-field" placeholder="购方名称">
 								</div>
 							</div>
 						</div>
@@ -95,15 +95,15 @@
 							<div class="am-form-group">
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
 								<div class="am-u-sm-8">
-									<input type="text" class="am-form-field" placeholder="订单号">
+									<input id="s_ddh" type="text" class="am-form-field" placeholder="订单号">
 								</div>
 							</div>
 						</div>
 						<div class="am-u-lg-4">
 							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">发票类型</label>
+								<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
 								<div class="am-u-sm-8">
-									<select id="xfsh" name="xfsh">
+									<select id="s_fplx" name="xfsh">
 										<option value="">选择类型</option>
 										<option value="">电子票</option>
 										<option value="">纸质专票</option>
@@ -130,7 +130,7 @@
 							<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
 							<div class="am-input-group am-datepicker-date am-u-sm-8"
 								data-am-datepicker="{format: 'yyyy-mm-dd'}">
-								<input type="text" id="kssj" class="am-form-field" placeholder="开始时间" readonly>
+								<input type="text" id="s_rqq" class="am-form-field" placeholder="开始时间" readonly>
 								<span class="am-input-group-btn am-datepicker-add-on">
 									<button class="am-btn am-btn-default" type="button">
 										<span class="am-icon-calendar"></span>
@@ -143,7 +143,7 @@
 							<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
 							<div class="am-input-group am-datepicker-date am-u-sm-8"
 								data-am-datepicker="{format: 'yyyy-mm-dd'}">
-								<input type="text" id="jssj" class="am-form-field"
+								<input type="text" id="s_rqz" class="am-form-field"
 									placeholder="截止时间" readonly> <span
 									class="am-input-group-btn am-datepicker-add-on">
 									<button class="am-btn am-btn-default" type="button">
@@ -162,7 +162,7 @@
 						</div>
 						<div class="am-u-sm-2">
 							<div class="am-form-group" style="width: 100%">
-								<button type="button" id="kp_kp" style="width: 100%"
+								<button type="button" id="kp_search" style="width: 100%"
 									class="am-btn am-radius am-btn-success">
 									<span></span> 查询
 								</button>
@@ -185,13 +185,14 @@
 				</fieldset>--%>
 				<div class="am-u-sm-12">
 				<hr/>
-				<div  class="am-scrollable-horizontal">
+				<div>
 					<table
 						class="js-table2 am-table am-table-bordered am-text-nowrap"
 						id="jyls_table">
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="check_all" /></th>
+								<th>序号</th>
 								<th>交易流水号</th>
 								<th>订单号</th>
 								<th>订单日期</th>
@@ -206,6 +207,7 @@
 								<th>购方手机号</th>
 								<th>备注</th>
 								<th>价税合计</th>
+							<!-- 	<th>操作</th> -->
 							</tr>
 						</thead>
 					</table>
@@ -1441,11 +1443,9 @@
         //删除
         $("#kp_del").click(function () {
             var djhArr = [];
-            $("input[type='checkbox']:checked").each(function (i, o) {
-            	if ($(o).attr("data") != null) {
-                    djhArr.push($(o).attr("data"));
-				}
-            });
+            $('input[name="chk"]:checked').each(function(){    
+                djhArr.push($(this).val()); 
+        });
             if (djhArr.length == 0) {
                 alert("请选择需要删除的交易流水...");
                 return;
