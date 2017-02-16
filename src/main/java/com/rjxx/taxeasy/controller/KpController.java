@@ -1297,7 +1297,6 @@ public class KpController extends BaseController {
 		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("gfmc", gfmc);
 		pagination.addParam("ddh", ddh);
-		pagination.addParam("jylsh", jylsh);
 
 		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
 			pagination.addParam("rqq", rqq);
