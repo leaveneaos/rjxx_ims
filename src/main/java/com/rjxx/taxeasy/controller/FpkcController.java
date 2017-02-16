@@ -33,6 +33,8 @@ public class FpkcController extends BaseController {
 	public String index() throws Exception {
 		List<Xf> xfList = getXfList();
 		request.setAttribute("xfList", xfList);
+		List<Skp> skpList = getSkpList();
+		request.setAttribute("skpList", skpList);
 		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
 		request.setAttribute("fplxList",fpzlList);
 		return "fpkc/index";
@@ -68,7 +70,7 @@ public class FpkcController extends BaseController {
 	// 查询方法
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, String fpdm,String fplx) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw,Integer xfids,Integer skpids, String fpdm,String fplx) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -109,6 +111,8 @@ public class FpkcController extends BaseController {
 		pagination.addParam("gsdm", gsdm);
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("skpid", skpid);
+		pagination.addParam("xfids", xfids);
+		pagination.addParam("skpids", skpids);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fplx", fplx);
 		List<Fpkcvo> kcList = fpkcService.findByPage(pagination);
@@ -244,7 +248,7 @@ public class FpkcController extends BaseController {
 	// 发票监控查询方法
 		@RequestMapping(value = "/getItems2")
 		@ResponseBody
-		public Map<String, Object> getItems2(int length, int start, int draw) throws Exception {
+		public Map<String, Object> getItems2(int length,int start,int draw,Integer xfid,Integer skpid,String fplx) throws Exception {
 			Map<String, Object> result = new HashMap<String, Object>();
 			Pagination pagination = new Pagination();
 			pagination.setPageNo(start / length + 1);
@@ -259,6 +263,9 @@ public class FpkcController extends BaseController {
 			if(skps !=null&&skps.size()>0){
 				pagination.addParam("skps", skps);
 			}
+			pagination.addParam("xfid", xfid);
+			pagination.addParam("skpid", skpid);
+			pagination.addParam("fplx", fplx);
 			List<Fpkcvo> kcjkList = fpkcService.findKcjkByPage(pagination);
 			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);

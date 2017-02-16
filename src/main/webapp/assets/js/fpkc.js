@@ -45,6 +45,8 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
+                        	d.xfids = $('#xfid').val();
+                        	d.skpids = $('#s_skpid').val();
                             d.fpdm= el.$s_fpdm.val(); // search 用户账号
                             d.fplx = el.$s_fplx.val();
                         }

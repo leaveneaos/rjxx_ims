@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+2<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html class="no-js">
@@ -36,7 +36,42 @@
 			<div class="am-g  am-padding-top">
 				<form action="#" class="js-search-form  am-form am-form-horizontal">
 					<div class="am-g">
-					    <div class="am-u-sm-4">
+					<div class="am-u-sm-5">
+							<div class="am-form-group">
+								<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
+								<div class="am-u-sm-8">
+									<select id="xfid" name="xfid">
+										<option value="">选择发票销方</option>
+										<c:forEach items="${xfList}" var="xf">
+											<option value="${xf.id}">${xf.xfmc}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-5">
+							<div class="am-form-group">
+								<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点名称</label>
+								<div class="am-u-sm-8">
+									<select id="s_skpid" name="skpid">
+									   <option value="">选择发票开票点</option>
+									   <c:forEach items="${skpList}" var="skp">
+										  <option value="${skp.id}">${skp.kpdmc}</option>
+									   </c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-2">
+							<div class="am-form-group">
+								<div class="am-u-sm-12">
+									<button class="am-btn am-btn-secondary" id="jsAdd">
+										<i class="am-icon-plus"></i>&nbsp;新增
+									</button>
+								</div>		
+							</div>
+						</div>
+					    <div class="am-u-sm-5">
 							<div class="am-form-group">
 								<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
 								<div class="am-u-sm-8">
@@ -49,7 +84,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-4">
+						<div class="am-u-sm-5">
 							<div class="am-form-group">
 								<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 								<div class="am-u-sm-8">
@@ -57,33 +92,27 @@
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-4">
+						<div class="am-u-sm-2">
 							<div class="am-form-group">
 								<div class="am-u-sm-12">
 									<button class="am-btn am-btn-primary" id="jsSearch">
-										<i class="am-icon-search"></i>查询
-									</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="am-btn am-btn-primary" id="jsAdd">
-										<i class="am-icon-plus"></i>添加发票库存
-									</button>
+										<i class="am-icon-search"></i>&nbsp;查询
+									</button>									
 								</div>		
 							</div>
-						</div>
+						</div>						
 					</div>
 				</form>
 				<br>
 				<div class="am-u-sm-12">
 					<div>
 						<table id="search-table"
-							class="js-table  am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
+							class="js-table am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
 							<thead>
 								<tr>
 									<th>序号</th>
-									<!-- <th style="display: none">id</th> -->
 									<th>销方名称</th>
 									<th>销方税号</th>
-									<!-- <th style="display: none">skpid</th> -->
 									<th>开票点名称</th>
 									<th>发票类型</th>
 									<th>发票代码</th>
@@ -99,33 +128,6 @@
 						</table>
 					</div>
 				</div>
-			</div>
-			<br> <br>
-			<div class="am-u-sm-12" style="padding-left: 20px">
-				<strong><span>库存监控</span></strong>
-			</div>
-			<hr/>
-			<div class="am-u-sm-12">
-				<div>
-					<table id="dyzytable"
-						class="am-table am-table-bordered am-table-compact table-main am-text-nowrap">
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>销方名称</th>
-								<th>销方税号</th>
-								<th>开票点名称</th>
-								<th>发票类型</th>
-								<th>剩余库存(张)</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
-			</div>
-			<div class="am-u-sm-12  am-padding  am-text-center">
-				<button type="button" class="am-btn am-btn-primary" id="jsRefresh">
-					<i class="am-icon-refresh"></i>刷新
-				</button>
 			</div>
 		</div>
 
@@ -226,7 +228,6 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/fpkc.js"></script>
-	<script src="assets/js/kcjk.js"></script>
 	<script>
 		function getKpd() {
 			var xfid = $('#xfsh option:selected').val();

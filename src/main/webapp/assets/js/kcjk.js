@@ -6,7 +6,7 @@ $(function () {
     var ur ;
     var el = {
     	$jkTable: $('#dyzytable'),//库存table   
-        $jsRefresh: $('#jsRefresh'),//查询按钮
+        $jsRefresh: $('#jsSearch'),//查询按钮
         $jkLoading: $('.js-modal-loading')//输在载入特效
     };
     var action = {
@@ -26,7 +26,9 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                      
+                            d.xfid = $('#s_xfid').val();
+                            d.skpid = $('#s_skpid').val();
+                            d.fplx = $('#s_fplx').val();
                         }
                     },
                     "columns": [
