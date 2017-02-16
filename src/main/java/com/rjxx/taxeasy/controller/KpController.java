@@ -1309,7 +1309,11 @@ public class KpController extends BaseController {
 			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
 		}
 		pagination.addParam("clztdm", "00");
-		pagination.addParam("fpzldm", fpzldm);
+		if ("".equals(fpzldm)) {
+			pagination.addParam("fpzldm", null);
+		}else{
+			pagination.addParam("fpzldm", fpzldm);
+		}
 		pagination.addParam("fpczlxdm", "11");
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj desc");
