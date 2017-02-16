@@ -24,27 +24,47 @@
                 "url": "kp/getjylslist?clztdm=00",
                 type: 'post',
                 data: function (d) {
-                    d.xfsh = $('#xfsh').val();   // search 销方
-                    d.gfmc = $('#gfmc').val();	// search 购方名称
+                    d.xfsh = $('#s_xfsh').val();   // search 销方
+                    d.gfmc = $('#s_gfmc').val();	// search 购方名称
                     d.ddh = $('#s_ddh').val();   // search 订单号
-                    d.jylsh = $('#s_lsh').val();   // search 发票号码
+                    d.jylsh = $('#s_fplx').val();   // search 发票号码
                     d.rqq = $('#s_rqq').val(); // search 开票日期
                     d.rqz = $('#s_rqz').val(); // search 开票日期
                 }
             },
             "columns": [
-                {"data": "djh"},
-                // {"data": "clztdm"},
+                       	{
+                    		"orderable" : false,
+                    		"data" : null,
+                    		render : function(data, type, full, meta) {
+                    			return '<input type="checkbox" value="'
+                    				+ data.djh + '" name="chk"  />';
+                    		}
+                    	},
+                    {
+	                    "orderable": false,
+	                    "data": null,
+	                    "defaultContent": ""
+                    },
                 {"data": "jylsh"},
                 {"data": "ddh"},
                 {"data": "jylssj"},
+                {"data": function(data){
+                	if(data.fpzldm=='12'){
+                		return "电子票";
+                	}else if(data.fpzldm=='01'){
+                		return "纸质专票";
+                	}else if(data.fpzldm=='02'){
+                		return "纸质普票";
+                	}
+                
+                }},
                 {"data": "gfsh"},
                 {"data": "gfmc"},
                 {"data": "gfyh"},
                 {"data": "gfyhzh"},
-             /*   {"data": "gflxr"},*/
+                {"data": "gflxr"},
                 {"data": "gfdz"},
-                {"data": "gfemail"},
                 {"data": "gfsjh"},
                 {"data": "bz"},
                 {"data": function (data) {
@@ -53,27 +73,26 @@
                     } else {
                         return null;
                     }
-                }, 'sClass': 'right'},    {
+                }, 'sClass': 'right'}/*,    {
                     "data": null,
                     "render": function (data) {
-                        return '<a class="view" href="'
-                            + data.pdfurl
-                            + '" target="_blank">修改</a>     '+
-                            '<a class="view" href="'
-                            + data.pdfurl
-                            + '" target="_blank">退回</a>'
+                        return '<a class="view" href="#">开票</a>     '+
+                            '<a class="view" href="#">删除</a>'
                     }
-                }
-            ],
+                }*/
+            ]
             // "columnDefs": [
             //     {
             //         "bVisible": false, "aTargets": [0]
             //     }],
-            "createdRow": function (row, data, index) {
-                $('td', row).eq(0).html('<input type="checkbox" data="' + data.djh + '" name="chk"/>');
-            }
         });
-        
+        jyls_table.on('draw.dt', function(e, settings, json) {
+			var x = jyls_table, page = x.page.info().start; // 设置第几页
+			jyls_table.column(1).nodes().each(function(cell, i) {
+				cell.innerHTML = page + i + 1;
+			});
+
+		});
         jyls_table.on('click', 'tr', function () {
               $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");
         });
@@ -201,10 +220,8 @@
 
         $('#kp_kp').click(function () {
             var djhArr = [];
-            $("input[type='checkbox']:checked").each(function (i, o) {
-            	if ($(o).attr("data") != null) {
-                    djhArr.push($(o).attr("data"));
-				}
+            $('input[name="chk"]:checked').each(function(){    
+                    djhArr.push($(this).val()); 
             });
             if (djhArr.length == 0) {
                 alert("请选择需要开票的交易流水...");

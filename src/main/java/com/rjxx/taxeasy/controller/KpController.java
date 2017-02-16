@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JyspmxVo;
@@ -54,6 +55,8 @@ public class KpController extends BaseController {
 
 	@Autowired
 	private XfService xfService;
+	@Autowired
+	private FpclService fpclService;
 
 	@Autowired
 	DrmbService drmbService;
@@ -1150,28 +1153,39 @@ public class KpController extends BaseController {
 	 *
 	 * @param djhArr
 	 * @return
+	 * @throws Exception 
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/doKp")
 	@ResponseBody
-	public Map doKp(String djhArr) {
+	public Map doKp(String djhArr) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> djhList = convertToList(djhArr);
-		try {
-			Map<String, Object> params = new HashMap<>();
+	//	try {
+			/*Map<String, Object> params = new HashMap<>();
 			params.put("gsdm", getGsdm());
 			Gsxx gsxx = gsxxService.findOneByParams(params);
 			if (gsxx != null && gsxx.getWsUrl() != null) {
 				jylsService.updateJylsClzt(djhList, "03");
 			}else{
 				jylsService.updateJylsClzt(djhList, "01");
-			}
-			result.put("success", true);
-			result.put("msg", "请求成功，请耐心等待开票结果");
-		} catch (Exception ex) {
+			}*/
+		String[] djhs = djhArr.split(",");
+		for (int i = 0; i < djhs.length; i++) {
+		boolean flag = 	fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
+		if (!flag) {
+			result.put("success", false);
+			result.put("msg", "第"+(i+1)+"张发票开具失败!");
+			return result;
+		}
+		}
+		result.put("success", true);
+		result.put("msg", "开票成功！");
+	/*	} catch (Exception ex) {
 			ex.printStackTrace();
 			result.put("failure", true);
 			result.put("msg", "保存出现错误: " + ex.getMessage());
-		}
+		}*/
 		return result;
 	}
 

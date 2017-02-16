@@ -1,10 +1,11 @@
-﻿/**
+/**
  * feel
  */
 $(function () {
     "use strict";
     var el = {
         $jsTable: $('.js-table2'),
+        $jsTable1: $('.js-table1'),
         $modalHongchong: $('#hongchong'),
         $jsSubmit: $('.js-submit'),
         $jsClose: $('.js-close'),
@@ -34,42 +35,35 @@ $(function () {
         "bInfo": false,
         "scrollX": true,
         ajax: {
-            "url": "fphc/getMx",
+            "url": "fpzf/getMx",
             data: function (d) {
                 d.kplsh = $("#kplsh").val();
             }
         },
         "columns": [
-            {"data": "spmxxh"},
+            {"data": null},
             {"data": "spmc"},
             {"data": "spggxh"},
             {
             	"data": null,
                 "render": function (data) {
-                   return '<input type="text" name="hcje" value="'+data.khcje+'">';
-                	/*   if (data.khcje) {
-                           return FormatFloat(data.khcje,
+                 //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
+                	   if (data.spje) {
+                           return FormatFloat(data.spje,
                                "###,###.00");
                        }else{
                            return null;
-                       }*/
+                       }
                 }
             },
             {
-            	"data": function (data) {
-                    if (data.khcje) {
-                        return FormatFloat(data.khcje,
-                            "###,###.00");
-                    }else{
-                        return null;
-                    }
-                },
+            	"data": "spsl",
                 'sClass': 'right'
             		},
             {
             	"data": function (data) {
-                    if (data.yhcje) {
-                        return FormatFloat(data.yhcje,
+                    if (data.spse) {
+                        return FormatFloat(data.spse,
                             "###,###.00");
                     }else{
                         return null;
@@ -79,52 +73,19 @@ $(function () {
             		},
             {
               "data": function (data) {
-                     if (data.spje) {
-                         return FormatFloat(data.spje,
+                     if (data.jshj) {
+                         return FormatFloat(data.jshj,
                              "###,###.00");
                      }else{
                          return null;
                      }
                  },
                  'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.spsl) {
-                    return FormatFloat(data.spsl,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-              },
-              'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.spse) {
-                    return FormatFloat(data.spse,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.jshj) {
-                    return FormatFloat(data.jshj,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
             }
         ]
     });
-    
-    //开票商品明细table
+    var t1;
+    //开票商品明细table已审
     var kpspmx_table1 = $('#mxTable1').DataTable({
         "searching": false,
         "serverSide": true,
@@ -136,83 +97,76 @@ $(function () {
         "bInfo": false,
         "scrollX": true,
         ajax: {
-            "url": "fphc/getMx",
+            "url": "fpzf/getMx",
             data: function (d) {
                 d.kplsh = $("#kplsh").val();
             }
         },
         "columns": [
-            {"data": "spmxxh"},
+            {"data": null},
             {"data": "spmc"},
             {"data": "spggxh"},
             {
+            	"data": null,
+                "render": function (data) {
+                 //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
+                	   if (data.spje) {
+                           return FormatFloat(data.spje,
+                               "###,###.00");
+                       }else{
+                           return null;
+                       }
+                }
+            },
+            {
+            	"data": "spsl",
+                'sClass': 'right'
+            		},
+            {
+            	"data": function (data) {
+                    if (data.spse) {
+                        return FormatFloat(data.spse,
+                            "###,###.00");
+                    }else{
+                        return null;
+                    }
+                },
+                'sClass': 'right'
+            		},
+            {
               "data": function (data) {
-                     if (data.spje) {
-                         return FormatFloat(data.spje,
+                     if (data.jshj) {
+                         return FormatFloat(data.jshj,
                              "###,###.00");
                      }else{
                          return null;
                      }
                  },
                  'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.spsl) {
-                    return FormatFloat(data.spsl,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-              },
-              'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.spse) {
-                    return FormatFloat(data.spse,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
-            },
-            { 
-            	"data": function (data) {
-                if (data.jshj) {
-                    return FormatFloat(data.jshj,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
             }
         ]
     });
-   
     
     kpspmx_table.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table, page = x.page.info().start; // 设置第几页
-        kpspmx_table.column(1).nodes().each(function (cell, i) {
+        kpspmx_table.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
         //$('#fpTable tr').find('td:eq(0)').hide();
     });
     kpspmx_table1.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table1, page = x.page.info().start; // 设置第几页
-        kpspmx_table1.column(1).nodes().each(function (cell, i) {
+        kpspmx_table1.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
         //$('#fpTable tr').find('td:eq(0)').hide();
     });
-    var t1;
+    
     var action = {
         tableEx: null, // cache dataTable
         config: {
-            getUrl: 'fphc/getKplsList',
-            hcUrl: 'fphc/hc'
+            getUrl: 'fpzf/getKplsList',
+            hcUrl: 'fpzf/ykfpzf'
         },
         dataTable: function () {
             var _this = this;
@@ -235,7 +189,6 @@ $(function () {
                         }
                     },
                     "columns": [
-    
                        {"data":null},        
                         {"data": "ddh"},
                         {"data": "kprq"},
@@ -287,7 +240,7 @@ $(function () {
                             }
                         }]
                 });
-            t1 = $('#ysTable')
+             t1 = el.$jsTable1
             .DataTable({
             	"searching": false,
                 "serverSide": true,
@@ -296,7 +249,7 @@ $(function () {
                 "bSort":true,
                 ordering: false,
                 "ajax": {
-                    url: 'fphc/getKplsList1',
+                    url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
                         d.kprqq = el.$s_kprqq1.val(); // search 开票日期起
@@ -306,7 +259,6 @@ $(function () {
                     }
                 },
                 "columns": [
-  
                    {"data":null},        
                     {"data": "ddh"},
                     {"data": "kprq"},
@@ -356,8 +308,7 @@ $(function () {
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
                         }
-                    }],
-                  
+                    }]
             });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
@@ -397,7 +348,7 @@ $(function () {
                 $("#kplsh").val(data.kplsh);
                 kpspmx_table.ajax.reload();
             });
-            $('#ysTable tbody').on('click', 'tr', function () {
+            $('.js-table1 tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
@@ -409,7 +360,7 @@ $(function () {
                 $("#kplsh").val(data.kplsh);
                 kpspmx_table1.ajax.reload();
             });
-            $('#check_all').change(function () {
+ /*           $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
             		t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', true);
@@ -419,18 +370,7 @@ $(function () {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
-            });
-            $('#check_all').change(function () {
-            	if ($('#check_all').prop('checked')) {
-            		t1.column(0).nodes().each(function (cell, i) {
-                        $(cell).find('input[type="checkbox"]').prop('checked', true);
-                    });
-                } else {
-                	t1.column(0).nodes().each(function (cell, i) {
-                        $(cell).find('input[type="checkbox"]').prop('checked', false);
-                    });
-                }
-            });
+            });*/
 
             return t;
         },
@@ -440,14 +380,14 @@ $(function () {
         search_ac: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
-                if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                    || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
-                    return false;
-                }
-                e.preventDefault();
-                _this.tableEx.ajax.reload();
-                $("#kplsh").val("");
+            	  if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
+                          || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
+                          alert('Error,请选择开始和结束时间!');
+                          return false;
+                      }
+                      e.preventDefault();
+                      _this.tableEx.ajax.reload();
+                      $("#kplsh").val("");
             });
         },
         /**
@@ -464,6 +404,15 @@ $(function () {
                 e.preventDefault();
                 t1.ajax.reload();
             });
+        },
+        setForm0: function (data) {
+            var _this = this, i;
+            // todo set data
+            // debugger
+            el.$jsForm0.find('input[name="hc_yfpdm"]').val(data.fpdm);
+            el.$jsForm0.find('input[name="hc_yfphm"]').val(data.fphm);
+            el.$jsForm0.find('input[name="hc_kpje"]').val(FormatFloat(data.jshj, "###,###.00"));
+            el.$jsForm0.find('input[name="djh"]').val(data.djh);
         },
         resetForm: function () {
             el.$jsForm0[0].reset();
@@ -489,50 +438,26 @@ $(function () {
     };
     action.init();
     //定义鼠标样式
-    $("#fpTable").css("cursor","pointer");
+/*    $("#fpTable").css("cursor","pointer");
     function delcommafy(num){
     	   if((num+"").trim()==""){
     	      return "";
     	   }
     	   num=num.replace(/,/gi,'');
     	   return num;
-    	}
-    //红冲操作
-    $("#kp_zf").click(function () {
+    	}*/
+    //作废操作
+    $('#kp_zf').click(function () {
     	var kplsh = $('#kplsh').val();
     	if(kplsh!=0){
-    		if(confirm("确定要红冲该条数据吗？")){
+    		if(confirm("确定要作废该条数据吗？")){
         		var xhStr = "";
             	var hcjeStr="";
             	var zhcje = 0;
         		var rows = $("#mxTable").find('tr');		
-        		for(var j=1;j<rows.length;j++){
-        			xhStr +=rows[j].cells[0].innerHTML+",";
-        		}
-        		var els =document.getElementsByName("hcje");
-        		for(var i=0;i<els.length;i++){
-        			var hcje = els[i].value;
-        			if(hcje==''){
-        				hcje = 0;
-        			}
-        			if(!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-        				alert("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
-        				return;
-        			}
-        			if(Number(hcje)>Number(delcommafy(rows[i+1].cells[4].innerHTML))){
-        				alert("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
-        				return;
-        			}
-        			zhcje+=hcje;
-        			hcjeStr += hcje+",";
-        		}
-        		if(zhcje==0){
-        			alert("红冲金额不能为0或空！");
-        			return;
-        		}   		
         		$.ajax({
-        			url:"fphc/hc",
-        			data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh},
+        			url:"fpzf/zf",
+        			data:{"kplsh":kplsh},
         		    success:function(data){
         		    	if(data.success){
         		    		alert(data.msg);
