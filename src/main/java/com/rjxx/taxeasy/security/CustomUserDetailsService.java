@@ -60,39 +60,8 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             authorities.add(new SimpleGrantedAuthority("ROLE_LOGIN_USER"));
             List<Xf> xflist = xfService.getXfListByYhId(yh.getId());
             
-            Group g = new Group();
-            g.setYhid(yh.getId());
-            List<Group> groupList = groupService.findAllByParams(g);
-            List<Xf> xfs = new ArrayList<>();
-            List<Skp> skps = new ArrayList<>();
-            Xf xf = null;
-            Skp skp = null;
-            for (Group gp : groupList) {
-            	boolean flag = false;
-            	for (Group gr : groupList) {
-					if (gp.getXfid().equals(gr.getXfid()) && gr.getSkpid() != null) {
-						flag = true;
-						skp = new Skp();
-						skp.setId(gr.getSkpid());
-						skps.add(skp);
-						continue;
-					}
-				}
-            	if (!flag) {
-            		xf = new Xf();
-            		xf.setId(gp.getXfid());
-					xfs.add(xf);
-				}
-				
-			}
-            Map<String, Object> params1 = new HashMap<>();
-            if (xfs.size() > 0) {
-            	params1.put("xfs", xfs);
-			}
-            if (skps.size() > 0) {
-            	params1.put("skps", skps);
-			}
-            List<Skp> skpList = skpService.getSkpListByYhId(params1);
+           
+            List<Skp> skpList = skpService.getSkpListByYhId(yh.getId());
             WebPrincipal webPrincipal = new WebPrincipal();
             String roleIds = yh.getRoleids();
             if (StringUtils.isBlank(roleIds)) {
