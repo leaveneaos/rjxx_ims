@@ -51,8 +51,6 @@ $(function() {
 					}, {
 						"data" : "ddh"
 					}, {
-						"data" : "ddh"
-					}, {
 						"data" : "fpczlxmc"
 					}, {
 						"data" : "fpdm"
@@ -83,7 +81,27 @@ $(function() {
 				success : function(data) {
 					$('#bt').append(data.bt);
 					$.each(data.da, function(n, value) {
-						var j = {"data":value};
+						if(value=="hjje"){
+							var j = {
+									"data" : function(data) {
+										if (data.hjje) {
+											return FormatFloat(data.hjje, "###,###.00");
+										} else {
+											return null;
+										}
+									}};
+						}else if(value=="hjse"){
+							var j = {
+									"data" : function(data) {
+										if (data.hjse) {
+											return FormatFloat(data.hjse, "###,###.00");
+										} else {
+											return null;
+										}
+									}};	
+						}else{
+							var j = {"data":value};
+						}
 						start.push(j);
 					});
 				}
