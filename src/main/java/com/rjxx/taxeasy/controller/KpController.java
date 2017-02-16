@@ -1282,7 +1282,7 @@ public class KpController extends BaseController {
 	@RequestMapping(value = "/getjylslist")
 	@ResponseBody
 	public Map getjylslist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
-			String jylsh, String rqq, String rqz) {
+			String fpzldm, String rqq, String rqz) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -1310,7 +1310,7 @@ public class KpController extends BaseController {
 			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
 		}
 		pagination.addParam("clztdm", "00");
-	/*	pagination.addParam("fpzldm", "12");*/
+		pagination.addParam("fpzldm", fpzldm);
 		pagination.addParam("fpczlxdm", "11");
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj desc");
