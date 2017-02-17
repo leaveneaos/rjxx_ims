@@ -421,6 +421,7 @@ public class LrkpdController extends BaseController {
 				}
 				//jymxsq.setYkphj(0.00);
 				jymxsq.setLrry(yhid);
+				jymxsq.setYxbz("1");
 				jymxsq.setLrsj(TimeUtil.getNowDate());
 				jymxsq.setXgsj(TimeUtil.getNowDate());
 				jymxsq.setXgry(yhid);
@@ -1120,6 +1121,7 @@ public class LrkpdController extends BaseController {
 			jymxsq.setLrry(yhid);
 			jymxsq.setXgry(yhid);
 			//jymxsq.setYkphj(0d);
+			jymxsq.setYxbz("1");
 			jymxsq.setFphxz("0");
 			jymxsq.setLrsj(TimeUtil.getNowDate());
 			jymxsq.setXgsj(TimeUtil.getNowDate());
