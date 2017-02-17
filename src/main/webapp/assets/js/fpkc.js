@@ -85,13 +85,7 @@ $(function () {
                 //$('#search-table tr').find('td:eq(4)').hide();
             });
 
-            // 新增
-            el.$jsAdd.on('click', el.$jsAdd, function () {
-            	 _this.resetForm();
-            	 $("#xfsh").find("option").eq(0).attr("selected", true);          	 
-                 ur = _this.config.xzUrl;
-                el.$modalHongchong.modal('open');
-            });
+            
             // 修改
             t.on('click', 'a.xiugai', function () {
                 var row = t.row($(this).parents('tr')).data();
@@ -164,6 +158,17 @@ $(function () {
             el.$jsSearch.on('click', function (e) {
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
+            });
+        },
+        
+        add:function(){
+        	// 新增
+        	var _this = this;
+            el.$jsAdd.on('click', el.$jsAdd, function () {
+            	 _this.resetForm();
+            	 $("#xfsh").find("option").eq(0).attr("selected", true);          	 
+                 ur = _this.config.xzUrl;
+                el.$modalHongchong.modal('toggle');
             });
         },
         /**
@@ -251,6 +256,7 @@ $(function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
+            _this.add();
             _this.xz();
             _this.modalAction(); // hidden action
         }

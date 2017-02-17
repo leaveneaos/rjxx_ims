@@ -34,75 +34,81 @@
 			</div>
 			<hr />
 			<div class="am-g  am-padding-top">
-				<form action="#" class="js-search-form  am-form am-form-horizontal">
+				<div class="am-form">
 					<div class="am-g">
-					<div class="am-u-sm-5">
-							<div class="am-form-group">
-								<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
-								<div class="am-u-sm-8">
-									<select id="xfid" name="xfid">
-										<option value="">选择发票销方</option>
-										<c:forEach items="${xfList}" var="xf">
-											<option value="${xf.id}">${xf.xfmc}</option>
-										</c:forEach>
-									</select>
+						<div class="am-u-sm-12">
+							<div class="am-u-sm-5">
+								<div class="am-form-group">
+									<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
+									<div class="am-u-sm-8">
+										<select id="xfid" name="xfid">
+											<option value="">选择发票销方</option>
+											<c:forEach items="${xfList}" var="xf">
+												<option value="${xf.id}">${xf.xfmc}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="am-u-sm-5">
+								<div class="am-form-group">
+									<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点名称</label>
+									<div class="am-u-sm-8">
+										<select id="s_skpid" name="skpid">
+											<option value="">选择发票开票点</option>
+											<c:forEach items="${skpList}" var="skp">
+												<option value="${skp.id}">${skp.kpdmc}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="am-u-sm-2">
+								<div class="am-form-group">
+									<div class="am-u-sm-12">
+										<button class="am-btn am-btn-secondary" id="jsAdd">
+											<i class="am-icon-plus"></i>&nbsp;新增
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-5">
-							<div class="am-form-group">
-								<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点名称</label>
-								<div class="am-u-sm-8">
-									<select id="s_skpid" name="skpid">
-									   <option value="">选择发票开票点</option>
-									   <c:forEach items="${skpList}" var="skp">
-										  <option value="${skp.id}">${skp.kpdmc}</option>
-									   </c:forEach>
-									</select>
+						<br>
+						<br>
+						<div class="am-u-sm-12">
+							<div class="am-u-sm-5">
+								<div class="am-form-group">
+									<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+									<div class="am-u-sm-8">
+										<select id="cfplx" name="fpzldm">
+											<option value="">选择发票类型</option>
+											<c:forEach items="${fplxList}" var="item">
+												<option value="${item.fpzldm}">${item.fpzlmc}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="am-u-sm-5">
+								<div class="am-form-group">
+									<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="cfpdm" name="fpdm" placeholder="发票代码" />
+									</div>
+								</div>
+							</div>
+							<div class="am-u-sm-2">
+								<div class="am-form-group">
+									<div class="am-u-sm-12">
+										<button class="am-btn am-btn-primary" id="jsSearch">
+											<i class="am-icon-search"></i>&nbsp;查询
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group">
-								<div class="am-u-sm-12">
-									<button class="am-btn am-btn-secondary" id="jsAdd">
-										<i class="am-icon-plus"></i>&nbsp;新增
-									</button>
-								</div>		
-							</div>
-						</div>
-					    <div class="am-u-sm-5">
-							<div class="am-form-group">
-								<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
-								<div class="am-u-sm-8">
-									<select id="cfplx" name="fpzldm">
-										<option value="">选择发票类型</option>
-										<c:forEach items="${fplxList}" var="item">
-											<option value="${item.fpzldm}">${item.fpzlmc}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-5">
-							<div class="am-form-group">
-								<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="cfpdm" name="fpdm" placeholder="发票代码" />
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group">
-								<div class="am-u-sm-12">
-									<button class="am-btn am-btn-primary" id="jsSearch">
-										<i class="am-icon-search"></i>&nbsp;查询
-									</button>									
-								</div>		
-							</div>
-						</div>						
 					</div>
-				</form>
+				</div>
 				<br>
 				<div class="am-u-sm-12">
 					<div>
@@ -161,8 +167,9 @@
 												</tr>
 												<tr>
 													<td>发票类型：</td>
-													<td><select id="fplx" name="fpzldm" class="am-form-field" required>
-													     <option value="">---请选择---</option>
+													<td><select id="fplx" name="fpzldm"
+														class="am-form-field" required>
+															<option value="">---请选择---</option>
 															<c:forEach items="${fplxList}" var="item">
 																<option value="${item.fpzldm}">${item.fpzlmc}</option>
 															</c:forEach>
