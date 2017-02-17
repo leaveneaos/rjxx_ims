@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.GsxxService;
@@ -191,13 +192,13 @@ public class FpzfController extends BaseController{
 	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		//try {
-			boolean flag = FpclService.zfcl(kplsh, getYhid(), getGsdm());
-			if (flag) {
+			InvoiceResponse flag = FpclService.zfcl(kplsh, getYhid(), getGsdm());
+			if (flag.getReturnCode().equals("0000")) {
 				result.put("success", true);
-				result.put("msg", "作废请求提交成功，请注意查看操作结果！");
+				result.put("msg", "作废成功");
 			}else{
 				result.put("success", true);
-				result.put("msg", "作废请求失败!");
+				result.put("msg", "作废请求失败!"+flag.getReturnMessage());
 			}
 		
 /*		} catch (Exception e) {
