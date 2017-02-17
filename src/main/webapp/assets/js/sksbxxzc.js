@@ -53,6 +53,7 @@ $(function () {
 						d.xfid = el.$xfid.val(); // search 用户账号
 						d.kpdmc = el.$s_kpdmc.val(); // search 用户名称
 						d.kpddm = el.$s_kpddm.val(); // search 用户名称
+						d.xfid1= $('#xfid1').val(); // search 用户名称
 	
 					}
 				},
@@ -148,7 +149,7 @@ $(function () {
                 el.$jsForm.find('[name="kpr"]').val(data.kpr);
                 //el.$jsForm.find('[name="zcm"]').val(data.zcm);
                 url = _this.config.editUrl + "?id=" + data.id;
-                $('#your-modal').modal({"width": 600, "height": 500});
+                $('#your-modal').modal({"width": 700, "height": 500});
             });
            
             t.on('click', 'a.del', function () {
@@ -240,7 +241,7 @@ $(function () {
             el.$jsModalOpem.on('click', function (e) {
                 e.preventDefault();
                 url = _this.config.addUrl;
-                $('#your-modal').modal({"width": 600, "height": 500});
+                $('#your-modal').modal({"width": 700, "height": 500});
 
             });
         },
