@@ -115,7 +115,8 @@
 										<th>银行账号</th>																			
 										<th>收款人</th>
 										<th>复核人</th>																			
-										<th>开票人</th>
+										<th>开票人</th>																		
+										<th>开票类型</th>
 										<th>品牌代码</th>
 										<th>品牌名称</th>	
 <!-- 										<th>电子发票开票限额</th> -->
@@ -259,20 +260,14 @@
 											/>
 									</div>
 								</div>												
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label> -->
-<!-- 									<div class="am-u-sm-8"> -->
-<!-- 										<input type="text" id="kpr" name="kpr" style="float: left;" -->
-<%-- 											placeholder="开票人" value="${xf.kpr }" class="am-form-field" --%>
-<!-- 											/> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="02">普通发票</label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="01">专用发票</label> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label> -->
-<!-- 								</div> -->
+								<div class="am-form-group">
+									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="kpr" name="kpr" style="float: left;"
+											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
+											/>
+									</div>
+								</div>
 <!-- 								<div class="am-form-group"> -->
 <!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票开票限额</label> -->
 <!-- 										<div class="am-u-sm-8"> -->
@@ -342,6 +337,12 @@
 											</c:forEach>
 										</select>
 									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="ptfp" name="fplx" value="02">普通发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="zyfp" name="fplx" value="01">专用发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="dzfp" name="fplx" value="12">电子发票</label>
 								</div>	
 							</div>
  						</div>

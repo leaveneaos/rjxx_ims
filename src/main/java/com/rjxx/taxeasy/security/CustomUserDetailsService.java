@@ -98,6 +98,7 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             webPrincipal.setSjhm(yh.getSjhm());
             webPrincipal.setYx(yh.getYx());
             webPrincipal.setXb(yh.getXb());
+            webPrincipal.setZhlxdm(yh.getZhlxdm());;
             webPrincipal.setSup(yh.getSup());
             webPrincipal.setXfList(xflist);
             webPrincipal.setSkpList(skpList);

@@ -38,113 +38,98 @@
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf" style="background: ccccff">
-					<strong class="am-text-default am-text-lg">1创建企业名片&nbsp;></strong>&nbsp;&nbsp;<strong
-						class="am-text-default am-text-lg">2开票点信息</strong>&nbsp;>&nbsp;&nbsp;<strong
-						class="am-text-primary am-text-lg">3开票限额</strong>
+					<strong class="am-text-default am-text-lg">1创建企业名片&nbsp;></strong>&nbsp;&nbsp;<strong class="am-text-default am-text-lg">2开票点信息</strong>&nbsp;>&nbsp;&nbsp;<strong class="am-text-primary am-text-lg">3开票限额</strong>
 				</div>
 			</div>
 			<hr />
 			<div style="padding: 100px; padding-top: 10px; width: 1200px;">
-				<div class="am-modal-bd" style="border: none">
-					<div class="am-g">
-						<form id="frm" class="js-form-0 am-form am-form-horizontal">
-							<div class="am-form-group">
-								<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-									color="red">*</font>开票点</label>
-								<div class="am-u-sm-9">
-									<select id="skpid" name="skpid">
-										<option value="${skp.id }">${skp.kpdmc }&nbsp;${skp.kpddm}</option>
-									</select>
+					<div class="am-modal-bd" style="border: none">
+							<div class="am-g">
+								<form id="frm" class="js-form-0 am-form am-form-horizontal">
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+										color="red">*</font>企业</label>
+									<div class="am-u-sm-9">
+										<select id="xfid" name="xfid">
+												<option value="${xf.id }">${xf.xfmc }&nbsp;${xf.xfsh }</option>
+										</select>
+									</div>
 								</div>
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+										color="red">*</font>增值税普通发票</label>
+									<div class="am-u-sm-4">
+										<select id="kpxe1" name="kpxe1" style="float: left;">
+											<c:forEach items="${bc }" var="b">
+												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="am-u-sm-5">
+										<input type="text" id="fpje1" name="fpje1" style="float: left;"
+											placeholder="分票金额" value="${xf.ppfpje }"
+											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
+											class="am-form-field" required />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+										color="red">*</font>增值税专用发票</label>
+									<div class="am-u-sm-4">
+										<select type="text" id="kpxe2" name="kpxe2" style="float: left;">
+											<c:forEach items="${bc }" var="b">
+												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="am-u-sm-5">
+										<input type="text" id="fpje2" name="fpje2" style="float: left;"
+											placeholder="分票金额" value="${xf.zpfpje }"
+											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
+											class="am-form-field" required />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+										color="red">*</font>增值税电子普通发票</label>
+									<div class="am-u-sm-4">
+										<select type="text" id="kpxe3" name="kpxe3" style="float: left;">
+											<c:forEach items="${bc }" var="b">
+												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="am-u-sm-5">
+										<input type="text" id="fpje3" name="fpje3" style="float: left;"
+											placeholder="分票金额" value="${xf.dzpfpje }"
+											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
+											class="am-form-field"  required />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<a id="last" class="js-button  am-btn am-btn-primary">上一步</a>
+									<button id="save" class="js-button  am-btn am-btn-success">保存</button>
+									<a id="finish" class="js-button  am-btn am-btn-success">完成</a>
+								</div>
+								
+								</form>
 							</div>
-							<c:forEach items="${kplxs }" var="k">
-								<c:if test="${k=='01' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税专用发票</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="kpxe2" name="kpxe2"
-												style="float: left;" placeholder="开票限额" value="${skp.zpmax}"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje2" name="fpje2"
-												style="float: left;" placeholder="分票金额"
-												value="${skp.zpfz }"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-									</div>
-								</c:if>
-								<c:if test="${k=='02' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税普通发票</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="kpxe1" name="kpxe1"
-												style="float: left;" placeholder="开票限额"
-												value="${skp.ppmax }"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje1" name="fpje1"
-												style="float: left;" placeholder="分票金额"
-												value="${skp.ppfz }"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-									</div>
-								</c:if>
-								<c:if test="${k=='12' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税电子普通发票</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="kpxe3" name="kpxe3"
-												style="float: left;" placeholder="开票限额"
-												value="${skp.dpmax}"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje3" name="fpje3"
-												style="float: left;" placeholder="分票金额"
-												value="${skp.fpfz }"
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" required />
-										</div>
-									</div>
-								</c:if>
-
-							</c:forEach>
-							<div class="am-form-group">
-								<a id="last" class="js-button  am-btn am-radius am-btn-primary">上一步</a>
-								<button id="save"
-									class="js-button  am-btn am-radius am-btn-success">保存</button>
-								<a id="finish"
-									class="js-button  am-btn am-radius am-btn-success">完成</a>
-							</div>
-
-						</form>
 					</div>
-				</div>
 			</div>
 		</div>
 		<!-- content end -->
 
-		<!-- loading do not delete this -->
-		<div
-			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
-			tabindex="-1">
-			<div class="am-modal-dialog">
-				<div class="am-modal-hd">正在载入...</div>
-				<div class="am-modal-bd">
-					<span class="am-icon-spinner am-icon-spin"></span>
+			<!-- loading do not delete this -->
+			<div
+				class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+				tabindex="-1">
+				<div class="am-modal-dialog">
+					<div class="am-modal-hd">正在载入...</div>
+					<div class="am-modal-bd">
+						<span class="am-icon-spinner am-icon-spin"></span>
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
@@ -186,26 +171,25 @@
 							var fpxe1 = $('#kpxe1').val();
 							var fpxe2 = $('#kpxe2').val();
 							var fpxe3 = $('#kpxe3').val();
-							if (fpje1 != null && fpxe1 != null && fpje1 - fpxe1 > 0) {
+							if (fpje1 - fpxe1 > 0) {
 								alert('普票分票金额不能大于限额');
 								return;
 							}
-							if (fpje2 != null && fpxe2 != null && fpje2 - fpxe2 > 0) {
+							if (fpje2 - fpxe2 > 0) {
 								alert('专票分票金额不能大于限额');
 								return;
 							}
-							if (fpje3 != null && fpxe3 != null && fpje3 - fpxe3 > 0) {
+							if (fpje3 - fpxe3 > 0) {
 								alert('电子发票分票金额不能大于限额');
 								return;
 							}
 							$.ajax({
-								url : '<%=request.getContextPath()%>/sksbxxzc/updateJe',
+								url : '<%=request.getContextPath()%>/xfxxwh/updateJe',
 								data : data,
 								method : 'POST',
 								success : function(data) {
 									if (data.success) {
 										alert(data.msg);
-										window.location.reload();
 									} else if (data.repeat) {
 										alert(data.msg);
 									}else{
@@ -219,55 +203,55 @@
 							});
 							return false;
 						} else {
-							alert('验证失败');
 							$('#save').attr("disabled", false);
+							alert('验证失败');
 							return false;
 						}
 					}
 				});
 			});
-// 			$('#xfid').change(function(){
-// 				$.ajax({
-<%-- 					url : "<%=request.getContextPath()%> --%>
-// 		/xfxxwh/getJe",
-// 					data : {
-// 						id : $('#xfid').val()
-// 					},
-// 					method : 'POST',
-// 					success : function(data) {
-// 						if (data.success) {
-// 							$('#fpje1').val(data.xf.ppzdje);
-// 							$('#fpje2').val(data.xf.ppfpje);
-// 							$('#fpje3').val(data.xf.zpzdje);
-// 							$('#kpxe1').val(data.xf.zpfpje);
-// 							$('#kpxe2').val(data.xf.dzpzdje);
-// 							$('#kpxe3').val(data.xf.dzpfpje);
-// 						} else {
-// 							alert(data.msg);
-// 						}
-// 					},
-// 					error : function() {
-// 						el.$jsLoading.modal('close'); // close loading
-// 						alert('保存失败, 请重新登陆再试...!');
-// 					}
-// 				});
-// 			});
-			$("#last").click(function() {
-				location.href = "kpd";
+			$('#xfid').change(function(){
+				$.ajax({
+					url : "<%=request.getContextPath()%>/xfxxwh/getJe",
+					data : {
+						id : $('#xfid').val()
+					},
+					method : 'POST',
+					success : function(data) {
+						if (data.success) {
+							$('#fpje1').val(data.xf.ppzdje);
+							$('#fpje2').val(data.xf.ppfpje);
+							$('#fpje3').val(data.xf.zpzdje);
+							$('#kpxe1').val(data.xf.zpfpje);
+							$('#kpxe2').val(data.xf.dzpzdje);
+							$('#kpxe3').val(data.xf.dzpfpje);
+						}else{
+							alert(data.msg);
+						}
+					},
+					error : function() {
+						el.$jsLoading.modal('close'); // close loading
+						alert('保存失败, 请重新登陆再试...!');
+					}
+				});
 			});
-			$("#finish").click(function() {
-				location.href = 'main';
+			$("#last").click(function(){
+				location.href="kpd";
 			});
-			$('#kpxe1').blur(function() {
+			$("#finish").click(function(){
+				location.href='main';
+			});
+			$('#kpxe1').change(function(){
 				$('#fpje1').val($('#kpxe1').val());
 			});
-			$('#kpxe2').blur(function() {
+			$('#kpxe2').change(function(){
 				$('#fpje2').val($('#kpxe2').val());
 			});
-			$('#kpxe3').blur(function() {
+			$('#kpxe3').change(function(){
 				$('#fpje3').val($('#kpxe3').val());
 			});
 		});
+		
 	</script>
 </body>
 </html>

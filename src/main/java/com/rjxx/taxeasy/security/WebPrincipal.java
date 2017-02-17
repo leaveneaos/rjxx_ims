@@ -39,6 +39,8 @@ public class WebPrincipal implements Principal, Serializable {
 
     private String xb;
 
+    private String zhlxdm;
+
     private int yhid;
 
     private List<Xf> xfList;
@@ -184,6 +186,14 @@ public class WebPrincipal implements Principal, Serializable {
 
 	public void setSkpList(List<Skp> skpList) {
 		this.skpList = skpList;
+	}
+
+	public String getZhlxdm() {
+		return zhlxdm;
+	}
+
+	public void setZhlxdm(String zhlxdm) {
+		this.zhlxdm = zhlxdm;
 	}
     
 }

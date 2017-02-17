@@ -227,9 +227,11 @@
 							<label for="dzpzdje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>电子票开票限额</label>
 							<div class="am-u-sm-4">
-								<input type="text" id="dzpzdje" name="dzpzdje"
-									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-									placeholder="电子发票最大开票限额(大于零)" required />
+								<select id="dzpzdje" name="dzpzdje">
+									<c:forEach items="${bc }" var="b">
+										<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+									</c:forEach>
+								</select>
 							</div>
 							<label for="dzpfpje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>电子票分票金额</label>
@@ -243,9 +245,11 @@
 							<label for="zpzdje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>专票开票限额</label>
 							<div class="am-u-sm-4">
-								<input type="text" id="zpzdje" name="zpzdje"
-									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-									placeholder="专票最大开票限额(大于零)" required />
+								<select id="zpzdje" name="zpzdje">
+									<c:forEach items="${bc }" var="b">
+										<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+									</c:forEach>
+								</select>
 							</div>
 							<label for="zpfpje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>专票分票金额</label>
@@ -259,9 +263,11 @@
 							<label for="ppzdje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>普票开票限额</label>
 							<div class="am-u-sm-4">
-								<input type="text" id="ppzdje" name="ppzdje"
-									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-									placeholder="普票最大开票限额(大于零)" required />
+								<select id="ppzdje" name="ppzdje">
+									<c:forEach items="${bc }" var="b">
+										<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+									</c:forEach>
+								</select>
 							</div>
 							<label for="ppfpje" class="am-u-sm-2 am-form-label am-u-left"><font
 								color="red">*</font>普票分票金额</label>

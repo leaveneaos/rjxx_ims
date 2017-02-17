@@ -352,11 +352,11 @@ $(function() {
 			el.$jsForm0.find('input[name="xfdh"]').val(data.xfdh);
 			el.$jsForm0.find('input[name="fhr"]').val(data.fhr);
 			el.$jsForm0.find('input[name="zfr"]').val(data.zfr);
-			el.$jsForm0.find('input[name="dzpzdje"]').val(data.dzpzdje);
+			el.$jsForm0.find('select[name="dzpzdje"]').val(data.dzpzdje);
 			el.$jsForm0.find('input[name="dzpfpje"]').val(data.dzpfpje);
-			el.$jsForm0.find('input[name="zpzdje"]').val(data.zpzdje);
+			el.$jsForm0.find('select[name="zpzdje"]').val(data.zpzdje);
 			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
-			el.$jsForm0.find('input[name="ppzdje"]').val(data.ppzdje);
+			el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
 			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
 			$('#sjxf').val(data.sjjgbm);
 		},

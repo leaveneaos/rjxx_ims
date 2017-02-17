@@ -108,6 +108,7 @@ $(function () {
                     {"data": "skr"},  
                     {"data": "fhr"},  
                     {"data": "kpr"},  
+                    {"data": "fpzl"},  
                     {"data": "ppdm"},
                     {"data": "ppmc"},  
                     {
@@ -147,6 +148,16 @@ $(function () {
                 el.$jsForm.find('[name="skr"]').val(data.skr);
                 el.$jsForm.find('[name="fhr"]').val(data.fhr);
                 el.$jsForm.find('[name="kpr"]').val(data.kpr);
+                var fps = data.kplx.split(",");
+                for(var i = 0; i < fps.length; i++){
+                	if (fps[i] == "01") {
+						$('#zyfp').prop('checked', true);
+					}else if (fps[i] == "02") {
+						$('#ptfp').prop('checked', true);
+					}else{
+						$('#dzfp').prop('checked', true);
+					}
+                }
                 //el.$jsForm.find('[name="zcm"]').val(data.zcm);
                 url = _this.config.editUrl + "?id=" + data.id;
                 $('#your-modal').modal({"width": 700, "height": 500});

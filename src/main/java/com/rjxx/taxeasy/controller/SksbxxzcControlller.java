@@ -170,7 +170,7 @@ public class SksbxxzcControlller extends BaseController {
 			old.setKpddm(kpddm);
 			old.setKpdmc(kpdmc);
 			old.setGsdm(getGsdm());
-			if (pid != null) {
+			if (pid != null && pid != 0) {
 				old.setPid(pid);
 			}
 			if (fplx == null || "".equals(fplx)) {
@@ -254,13 +254,18 @@ public class SksbxxzcControlller extends BaseController {
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	public Map update(int id,int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
-			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb) {
+			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb, String fplx) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
 			params.put("kpddm", kpddm);
 			params.put("gsdm", getGsdm());
-			
+
+			if (fplx == null || "".equals(fplx)) {
+				result.put("failure", true);
+				result.put("msg", "请选择开票类型");
+				return result;
+			}
 			Skp skp = skpService.findOneByParams(params);
 			
 			if (skp != null && !kpddm.equals(skp.getKpddm()) && !kpdmc.equals(skp.getKpdmc())) {
@@ -286,6 +291,7 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setSkr(skr);
 			skp.setFhr(fhr);
 			skp.setKpr(kpr);
+			skp.setKplx(fplx);
 			skp.setXfid(xfid);
 			skp.setLrry(skp.getLrry());
 			skp.setLrsj(skp.getLrsj());

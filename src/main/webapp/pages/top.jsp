@@ -216,7 +216,11 @@
 						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户类型</font></label>
 							<div class="am-u-sm-8">
-								<label id="yhlx"></label>
+								<label id="yhlx">
+									<c:if test="${login_session_key.zhlxdm == '01'}">集团账户</c:if>
+									<c:if test="${login_session_key.zhlxdm == '02'}">代理账户</c:if>
+									<c:if test="${login_session_key.zhlxdm == '03'}">企业账户</c:if>
+								</label>
 							</div>
 						</div>
 						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
@@ -253,7 +257,7 @@
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">登录账号</font></label>
 							<div class="am-u-sm-8">
 								<div style="float: left;">
-									<label id="yhzh"></label>
+									<label id="yhzh">${login_session_key.dlyhid}</label>
 								</div>
 								<div style="float: right">
 									<font color="blue"><a href="#"
