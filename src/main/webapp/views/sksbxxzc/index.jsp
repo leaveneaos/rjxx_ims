@@ -259,79 +259,79 @@
 											/>
 									</div>
 								</div>												
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label>
-									<div class="am-u-sm-8">
-										<input type="text" id="kpr" name="kpr" style="float: left;"
-											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
-											/>
-									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="02">普通发票</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="01">专用发票</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票开票限额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="kpxe2" name="kpxe2"
-												style="float: left;" placeholder="开票限额" value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" />
-										</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票分票金额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="fpje2" name="fpje2"
-												style="float: left;" placeholder="分票金额"
-												value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field" />
-										</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票开票限额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="kpxe1" name="kpxe1"
-												style="float: left;" placeholder="开票限额"
-												value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field"/>
-										</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票分票金额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="fpje1" name="fpje1"
-												style="float: left;" placeholder="分票金额"
-												value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field"/>
-										</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票开票限额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="kpxe3" name="kpxe3"
-												style="float: left;" placeholder="开票限额"
-												value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field"/>
-										</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票分票金额</label>
-										<div class="am-u-sm-8">
-											<input type="text" id="fpje3" name="fpje3"
-												style="float: left;" placeholder="分票金额"
-												value=""
-												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-												class="am-form-field"/>
-										</div>
-								</div>
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label> -->
+<!-- 									<div class="am-u-sm-8"> -->
+<!-- 										<input type="text" id="kpr" name="kpr" style="float: left;" -->
+<%-- 											placeholder="开票人" value="${xf.kpr }" class="am-form-field" --%>
+<!-- 											/> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="02">普通发票</label> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="01">专用发票</label> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" name="fplx" value="12">电子发票</label> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票开票限额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="kpxe2" name="kpxe2" -->
+<!-- 												style="float: left;" placeholder="开票限额" value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field" /> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票分票金额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="fpje2" name="fpje2" -->
+<!-- 												style="float: left;" placeholder="分票金额" -->
+<!-- 												value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field" /> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票开票限额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="kpxe1" name="kpxe1" -->
+<!-- 												style="float: left;" placeholder="开票限额" -->
+<!-- 												value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field"/> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票分票金额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="fpje1" name="fpje1" -->
+<!-- 												style="float: left;" placeholder="分票金额" -->
+<!-- 												value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field"/> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票开票限额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="kpxe3" name="kpxe3" -->
+<!-- 												style="float: left;" placeholder="开票限额" -->
+<!-- 												value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field"/> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="am-form-group"> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票分票金额</label> -->
+<!-- 										<div class="am-u-sm-8"> -->
+<!-- 											<input type="text" id="fpje3" name="fpje3" -->
+<!-- 												style="float: left;" placeholder="分票金额" -->
+<!-- 												value="" -->
+<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
+<!-- 												class="am-form-field"/> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
 								<div class="am-form-group">
 									<label for="kpdmc" class="am-u-sm-4 am-form-label">开票点品牌</label>
 									<div class="am-u-sm-8">
