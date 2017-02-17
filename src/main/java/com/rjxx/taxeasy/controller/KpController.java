@@ -1,10 +1,13 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.vo.JyspmxVo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -41,6 +44,9 @@ public class KpController extends BaseController {
 
 	@Autowired
 	private SpvoService spvoService;
+	
+	@Autowired
+	private DataOperte dataOperate;
 
 	@Autowired
 	private DrPzService drPzService;
@@ -1173,10 +1179,11 @@ public class KpController extends BaseController {
 			}*/
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
-		InvoiceResponse flag = 	fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
+             //保存
+             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
 		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
-			result.put("msg", "第"+(i+1)+"张发票开具失败,"+flag.getReturnMessage());
+			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());
 			return result;
 		}
 		}

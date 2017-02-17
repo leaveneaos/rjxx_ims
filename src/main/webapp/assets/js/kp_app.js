@@ -227,6 +227,10 @@
                 alert("请选择需要开票的交易流水...");
                 return;
             }
+            if (!confirm("您确认开票？")) {
+				return;
+			}
+            $("#kp_kp").attr('disabled',false); 
             $.ajax({
                 url: "kp/doKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
                     if (data.success) {
@@ -235,6 +239,7 @@
                     } else {
                         alert(data.msg);
                     }
+                    $('#kp_kp').removeAttr("disabled");
                 }
             });
         });

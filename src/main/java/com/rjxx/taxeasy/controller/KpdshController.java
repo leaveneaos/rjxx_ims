@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.domains.Fpzt;
 import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Jymxsq;
@@ -26,6 +28,7 @@ import com.rjxx.taxeasy.service.JyspmxService;
 import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 
@@ -237,7 +240,7 @@ public class KpdshController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
-	public Map<String, Object> kpdshkp(String sqlshs){
+	public Map<String, Object> kpdshkp(String sqlshs) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
 		String [] sqlsht=sqlshs.split(",");
 		for (String str : sqlsht) {

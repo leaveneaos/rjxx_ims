@@ -42,8 +42,8 @@
 				</div>
 			</div>
 			<hr />
-			<a type="button"
-				class="js-close  am-btn am-btn-primary am-radius am-icon-plus"
+			<a type="button" id="gz_xzgz"
+				class="am-btn am-btn-primary am-radius am-icon-plus"
 				style="margin-left: 70%" href="#"
 				data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}">增加规则</a>
 
@@ -86,11 +86,12 @@
 								<div class="am-modal-bd" style="overflow: auto;">
 									<hr />
 									<div class="am-g">
+									<input type="hidden" name="idd" id="idd">
 										<div class="am-u-sm-12">
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>规则名称</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="gzmc" name="gzmc"
+													<input type="text" id="ggmc" name="ggmc"
 														placeholder="规则名称" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -98,7 +99,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>专票分票金额</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="zpfpje" name="zpfpje"
+													<input type="text" id="zpxe" name="zpxe"
 														placeholder="专票分票金额" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -106,7 +107,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>专票分票行数</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="zpfphs" name="zpfphs"
+													<input type="text" id="zphs" name="zphs"
 														placeholder="普票分票行数" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -114,7 +115,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>普票分票金额</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="ppfpje" name="ppfpje"
+													<input type="text" id="ppxe" name="ppxe"
 														placeholder="普票分票金额" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -122,7 +123,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>普票分票行数</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="ppfphs" name="ppfphs" 
+													<input type="text" id="pphs" name="pphs" 
 														placeholder="普票分票行数" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -130,7 +131,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>电子票分票金额</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="dzpfpje" name="dzpfpje"
+													<input type="text" id="dzpxe" name="dzpxe"
 														placeholder="电子票分票金额" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -138,7 +139,7 @@
 											<div class="am-form-group">
 												<label for="gzmc" class="am-u-sm-4 am-form-label"><font style="color: red;">*</font>电子票分票行数</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="dzpfphs" name="dzpfphs" 
+													<input type="text" id="dzphs" name="dzphs" 
 														placeholder="电子票分票行数" 
 														class="am-form-field" required maxlength="20" />
 												</div>
@@ -148,9 +149,9 @@
 											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center">
 													<button type="submit"
-														class="js-submit  am-btn am-btn-primary">确定</button>
+														class="gz_xz am-btn am-btn-primary">确定</button>
 													<button type="button"
-														class="js-close  am-btn am-btn-danger">取消</button>
+														class="gz_qx am-btn am-btn-danger">取消</button>
 												</div>
 											</div>
 										</div>
@@ -174,9 +175,9 @@
 												<c:forEach items="${xfs }" var="x">
 													<div id="type-${x.id}">
 														<label> <input type="checkbox" id="yhjg1-${x.id }"
-															onclick="xzxf(this)" name="xfid" value="${x.id }" /> <span>${x.xfmc }</span>
+															 name="xfid" value="${x.id }" /> <span>${x.xfmc }</span>
 														</label> <br>
-														<c:forEach items="${sksbs }" var="sksb" varStatus="h">
+								<%-- 						<c:forEach items="${sksbs }" var="sksb" varStatus="h">
 
 															<c:if test="${sksb.xfid == x.id}">
 																<input type="checkbox" id="skp-${sksb.id }"
@@ -186,7 +187,7 @@
 																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															</c:if>
 																
-														</c:forEach>
+														</c:forEach> --%>
 
 													</div>
 												</c:forEach>
@@ -198,8 +199,8 @@
 									<div class="am-form-group">
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
-												class="js-submit  am-btn am-btn-primary">确定</button>
-											<button type="button" class="js-close  am-btn am-btn-danger">取消</button>
+												class="gz_xz am-btn am-btn-primary">确定</button>
+											<button type="button"  class="gz_qx  am-btn am-btn-danger">取消</button>
 										</div>
 									</div>
 								</div>
@@ -243,5 +244,6 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
+	<script src="assets/js/fpgz.js"></script>
 </body>
 </html>

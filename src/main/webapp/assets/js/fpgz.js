@@ -27,14 +27,14 @@ $(function () {
 
         $jsLoading: $('.js-modal-loading')
     };
-
+var ur;
     var action = {
         tableEx: null, // cache dataTable
         config: {
-            getUrl: 'fphk/getKplsList',
-            hkUrl: 'fphk/ykfphk',
-            exportUrl: '/export/fphk'
-
+            getUrl: 'fpgz/getList',
+            xzUrl: 'fpgz/xzgz',
+            xgUrl: 'fpgz/xggz',
+            scUrl: 'fpgz/scgz'
         },
 
         dataTable: function () {
@@ -52,12 +52,6 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
 
-                            d.kprqq = el.$s_kprqq.val(); // search 开票日期起
-                            d.kprqz = el.$s_kprqz.val(); // search 开票日期止
-                            d.fphm = el.$s_fphm.val(); // search 发票号码
-                            d.fpdm = el.$s_fpdm.val();
-                            d.gfmc = el.$s_gfmc.val(); // search 购方名称
-                            d.ddh = el.$s_ddh.val();
                         }
                     },
                     "columns": [
@@ -66,15 +60,11 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {"data": "ddh"},
-                        {"data": "kprq"},
-                        {"data": "gfmc"},
-                        {"data": "fpdm"},
-                        {"data": "fphm"},
+                        {"data": "ggmc"},
                         {
                             "data": function (data) {
-                                if (data.hjje) {
-                                    return FormatFloat(data.hjje,
+                                if (data.zpxe) {
+                                    return FormatFloat(data.zpxe,
                                         "###,###.00");
                                 }else{
                                     return null;
@@ -82,10 +72,11 @@ $(function () {
                             },
                             'sClass': 'right'
                         },
+                        {"data": "zphs"},
                         {
                             "data": function (data) {
-                                if (data.hjse) {
-                                    return FormatFloat(data.hjse,
+                                if (data.ppxe) {
+                                    return FormatFloat(data.ppxe,
                                         "###,###.00");
                                 }else{
                                     return null;
@@ -93,10 +84,11 @@ $(function () {
                             },
                             'sClass': 'right'
                         },
+                        {"data": "pphs"},
                         {
                             "data": function (data) {
-                                if (data.jshj) {
-                                    return FormatFloat(data.jshj,
+                                if (data.dzpxe) {
+                                    return FormatFloat(data.dzpxe,
                                         "###,###.00");
                                 }else{
                                     return null;
@@ -104,15 +96,80 @@ $(function () {
                             },
                             'sClass': 'right'
                         },
-
+                        {"data": "dzphs"},
                         {
                             "data": null,
                             "render": function (data) {
-                            		return '<a href="'+ data.pdfurl+'" target="_blank">查看</a> <a class="huankai">换开</a>';                
+                            		return '<a class="xiugai">修改</a>  '+'<a class="shanchu">删除</a>';                
                             }
                         }]
                 });
+			// 新增
+			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
+				$("#fpform")[0].reset();
+/*				$.ajax({
+					url : _this.config.xzCsbUrl,
+					data : {
+						csid : csid,
+						csjb : csjb
+					},
+					 async: false,
+					type : 'post',
+					success : function(data) {
+						trs="<option value=''>请选择</option>";
+						$.each(data.list, function(n, value) {
+						
+							trs +="<option value= '"+value.id+"'>"+value.csmc+"("+value.csm+")</option>"
+						});
+						el.$xzcs.append(trs);
+					}
+				})*/
+				ur = _this.config.xzUrl;
+			});
+			
+			// 修改
+			t.on('click', 'a.xiugai', function() {
+				var row = t.row($(this).parents('tr')).data();
+				$("#fpform")[0].reset();
+				  $("#doc-modal-4").modal('open');
+				$("#ggmc").val(row.ggmc);
+				$("#zpxe").val(row.zpxe);
+				$("#zphs").val(row.zphs);
+				$("#ppxe").val(row.ppxe);
+				$("#pphs").val(row.pphs);
+				$("#dzpxe").val(row.dzpxe);
+				$("#idd").val(row.id);
+				$("#dzphs").val(row.dzphs);
+				var xfids = row.xfids.split(',');
+				for(var i in xfids){
+					var bz = "#yhjg1-"+xfids[i];
+					$(bz).prop('checked', true);
+					  }
+				ur = _this.config.xgUrl
+			});
 
+			// 删除
+			t.on('click', 'a.shanchu', function() {
+				   if (!confirm("您确认删除该规则？")) {
+						return;
+					}
+					var row = t.row($(this).parents('tr')).data();
+				   ur = _this.config.scUrl;
+					$.ajax({
+						url : ur,
+						data : {"id":row.id},
+						method : 'POST',
+						success : function(data) {
+							alert(data.msg);
+							t.ajax.reload(); // reload table
+						},
+						error : function() {
+							alert('操作失败!');
+							t.ajax.reload(); // reload table
+						}
+					});
+					
+			});
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(0).nodes().each(function (cell, i) {
@@ -120,149 +177,126 @@ $(function () {
                 });
 
             });
-
-            // 换开
-            t.on('click', 'a.huankai', function () {
-                var data = t.row($(this).parents('tr')).data();
-                _this.setForm0(data);
-                el.$modalhuankai.modal('open');
-
-            });
             return t;
         },
         /**
-         * 导出
-         */
-        saveExport: function () {
-            var _this = this;
-            el.$jsExportSubmit.on('click', function () {
-                if (!$('#e_dcsjq').val() || !$('#e_dcsjz').val()) {
-                    alert('请输入开始和结束时间!');
-                    return false;
-                }
-                var data = el.$jsForm1.serialize(); // get data
+		 * 新增保存
+		 */
 
-                // todo 下载链接
-                var url = 'https://datatables.net/releases/DataTables-1.10.10.zip?' + data;
-                window.open(url);
-            });
-        },
-        /**
-         * 换开
-         */
-        saveRow: function () {
-            var _this = this;
-            el.$jsForm0.validator({
-                submit: function () {
-                    var formValidity = this.isFormValid();
-                    if (formValidity) {
-                        el.$jsLoading.modal('toggle'); // show loading
-                        // alert('验证成功');
-                        var data = el.$jsForm0.serialize(); // get form data
-                        $.ajax({
-                            url: _this.config.hkUrl,
-                            data: data,
-                            method: 'POST',
-                            success: function (data) {
-                                if (data.success) {
-                                    el.$modalhuankai.modal('close'); // close
-                                    alert(data.msg);
+		xz : function() {
+			var _this = this;
+			el.$jsForm0.validator({
+				submit : function() {
+					var formValidity = this.isFormValid();
+					var chk_value =[];
+					$('input[name="xfid"]:checked').each(function(){
+					chk_value.push($(this).val());
+					}); 
+					if(chk_value.length<1){
+						alert("请至少选择一个销方");
+						return false;
+					}
+					if (formValidity) {
+						var data = el.$jsForm0.serialize(); // get form data
+						$.ajax({
+							url : ur,
+							data : data,
+							method : 'POST',
+							success : function(data) {
+								if (data.success) {
+									el.$jsLoading.modal('close'); // close
+									alert(data.msg);
+								} else {
+									el.$jsLoading.modal('close'); // close
+									alert(data.msg);
+								}
+							     $("#doc-modal-4").modal('close');
+								_this.tableEx.ajax.reload(); // reload table
+								// data
 
-                                } else {
-                                    alert('后台错误: 换开操作失败' + data.msg);
-                                }
-                                _this.tableEx.ajax.reload(); // reload table
-                                el.$jsLoading.modal('close'); // close loading
+							},
+							error : function() {
+								el.$modalHongchong.modal('close'); // close
+								el.$jsLoading.modal('close'); // close loading
+								alert('操作失败!');
+							}
+						});
+						return false;
+					} else {
+						alert('验证失败,请注意红色输入框内内容!');
+						return false;
+					}
+				}
+			});
+		},
+     
+		/**
+		 * 修改保存
+		 */
 
-                            },
-                            error: function () {
-                                alert('换开操作失败, 请重新登陆再试...!');
-                            }
-                        });
-                        return false;
-                    } else {
-                        alert('验证失败');
-                        return false;
-                    }
-                }
-            });
-        },
-        setForm0: function (data) {
-            var _this = this, i;
-            el.$jsForm0.find('input[name="yfpdm"]').val(data.fpdm);
-            el.$jsForm0.find('input[name="yfphm"]').val(data.fphm);
-            el.$jsForm0.find('input[name="kpje"]').val(FormatFloat(data.jshj, "###,###.00"));
-            el.$jsForm0.find('input[name="djh"]').val(data.djh);
-            el.$jsForm0.find('input[name="kplsh"]').val(data.kplsh);
-        },
+		xg : function() {
+			var _this = this;
+			el.$jsForm0.validator({
+				submit : function() {
+					var formValidity = this.isFormValid();
+					var chk_value =[];
+					$('input[name="xfid"]:checked').each(function(){
+					chk_value.push($(this).val());
+					}); 
+					if(chk_value.length<1){
+						alert("请至少选择一个销方");
+						return false;
+					}
+					if (formValidity) {
+						var data = el.$jsForm0.serialize(); // get form data
+						$.ajax({
+							url : ur,
+							data : data,
+							method : 'POST',
+							success : function(data) {
+								if (data.success) {
+									el.$jsLoading.modal('close'); // close
+									alert(data.msg);
+								} else {
+									el.$jsLoading.modal('close'); // close
+									alert(data.msg);
+								}
+							     $("#doc-modal-4").modal('close');
+								_this.tableEx.ajax.reload(); // reload table
+								// data
+
+							},
+							error : function() {
+								el.$modalHongchong.modal('close'); // close
+								el.$jsLoading.modal('close'); // close loading
+								alert('操作失败!');
+							}
+						});
+						return false;
+					} else {
+						alert('验证失败,请注意红色输入框内内容!');
+						return false;
+					}
+				}
+			});
+		},
+     
         resetForm: function () {
             el.$jsForm0[0].reset();
         },
         modalAction: function () {
-            var _this = this;
-            el.$modalhuankai.on('closed.modal.amui', function () {
-                el.$jsForm0[0].reset();
-            });
-            el.$modalExport.on('closed.modal.amui', function () {
-                el.$jsForm1[0].reset();
-            });
-
             // close modal
-            el.$jsClose.on('click', function () {
-                el.$modalhuankai.modal('close');
-                el.$modalExport.modal('close');
-            });
-
-            // 导出 modal
-            el.$jsExport.on('click', function (e) {
-                e.preventDefault();
-                el.$modalExport.modal('open');
-
-            });
-        },
-        searchAc: function () {
-            var _this = this;
-            el.$jsSearch.on('click', function (e) {
-
-                if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                    || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
-                    return false;
-                }
-                var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
-                var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
-                if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
-                    if (dt1.getYear() == dt2.getYear()) {
-                        if (dt1.getMonth() == dt2.getMonth()) {
-                            if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
-                                return false;
-                            }
-                        } else {
-                            // alert('月份不同,Error!');
-                            alert('Error,请选择同一个年月内的时间!');
-                            return false;
-                        }
-                    } else {
-                        // alert('年份不同,Error!');
-                        alert('Error,请选择同一个年月内的时间!');
-                        return false;
-                    }
-                }
-                e.preventDefault();
-                _this.tableEx.ajax.reload();
-
+           $(".gz_qx").on('click', function () {
+                $("#doc-modal-4").modal('close');
+              //  el.$modalExport.modal('close');
             });
         },
         init: function () {
             var _this = this;
-
             _this.tableEx = _this.dataTable(); // cache variable
-
-            _this.saveRow();
             _this.modalAction(); // hidden action
-            _this.searchAc();
-            _this.saveExport(); // export
+            _this.xz();
+            _this.xg();
 
         }
     };
