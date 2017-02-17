@@ -16,11 +16,13 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Fpzt;
 import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Jymxsq;
+import com.rjxx.taxeasy.domains.Jyspmx;
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.JymxsqService;
+import com.rjxx.taxeasy.service.JyspmxService;
 import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.XfService;
@@ -32,6 +34,8 @@ import com.rjxx.time.TimeUtil;
 public class KpdshController extends BaseController {
 	@Autowired
 	private JyxxsqService jyxxsqService;
+	@Autowired
+	private JyspmxService jyspmxService;
 	@Autowired
 	private JymxsqService jymxsqService;
 	@Autowired
@@ -282,6 +286,32 @@ public class KpdshController extends BaseController {
 			jyls1.setXgsj(TimeUtil.getNowDate());
 			jyls1.setSkpid(jyxxsq.getSkpid());
 			jylsService.save(jyls1);
+			Map<String, Object> params = new HashMap<>();
+			params.put("sqlsh", jyxxsq.getSqlsh());
+			List<Jymxsq> list = jymxsqService.findAllByParams(params);
+			for (Jymxsq mxItem : list) {
+				Jyspmx jymx = new Jyspmx();
+				jymx.setDjh(jyls1.getDjh());
+				jymx.setSpmxxh(mxItem.getSpmxxh());
+				jymx.setSpdm(mxItem.getSpdm());
+				jymx.setSpmc(mxItem.getSpmc());
+				jymx.setSpggxh(mxItem.getSpggxh());
+				jymx.setSpdw(mxItem.getSpdw());
+				jymx.setSps(mxItem.getSps());
+				jymx.setSpdj(mxItem.getSpdj() == null ? null : mxItem.getSpdj());
+				jymx.setSpje(mxItem.getSpje());
+				jymx.setSpsl(mxItem.getSpsl());
+				jymx.setSpse(mxItem.getSpse());
+				jymx.setJshj(mxItem.getJshj());
+				jymx.setYkphj(0d);
+				jymx.setGsdm(getGsdm());
+				jymx.setLrsj(TimeUtil.getNowDate());
+				jymx.setLrry(getYhid());
+				jymx.setXgsj(TimeUtil.getNowDate());
+				jymx.setXgry(getYhid());
+				jymx.setFphxz("0");
+				jyspmxService.save(jymx);
+			}
 			jyxxsq.setZtbz("2");
 			jyxxsqService.save(jyxxsq);
 		}
@@ -290,3 +320,4 @@ public class KpdshController extends BaseController {
 		
 	}
 }
+ 

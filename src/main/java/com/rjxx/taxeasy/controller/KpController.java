@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JyspmxVo;
@@ -1172,10 +1173,10 @@ public class KpController extends BaseController {
 			}*/
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
-		boolean flag = 	fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
-		if (!flag) {
+		InvoiceResponse flag = 	fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
+		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
-			result.put("msg", "第"+(i+1)+"张发票开具失败!");
+			result.put("msg", "第"+(i+1)+"张发票开具失败,"+flag.getReturnMessage());
 			return result;
 		}
 		}

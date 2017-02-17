@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.KplsService;
@@ -190,7 +191,7 @@ public class FphcController extends BaseController {
 			}
 		}
 		//try {
-		boolean flag = FpclService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr);
+		InvoiceResponse flag = FpclService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr);
 	/*	//kzx 20161212 如果走税控服务器红冲则设置clztdm为03
 		Map paramsTmp = new HashMap();
 		paramsTmp.put("gsdm", getGsdm());
@@ -384,12 +385,12 @@ public class FphcController extends BaseController {
 				param2.put("fpztdm", "01");
 				kplsService.updateFpczlx(param2);
 			}*/
-		if (flag) {
+		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
-			result.put("msg", "红冲请求提交成功!");
+			result.put("msg", "红冲成功!");
 		}else{
 			result.put("success", false);
-			result.put("msg", "红冲请求失败!");
+			result.put("msg", "红冲请求失败!"+flag.getReturnMessage());
 		}
 		
 	/*	} catch (Exception e) {

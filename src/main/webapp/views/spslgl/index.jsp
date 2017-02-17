@@ -317,7 +317,7 @@
 								<%--</div>--%>
 
 								<div class="am-form-group">
-									<label for="spdm1" class="am-u-sm-4 am-form-label"><font color="red">*</font>商品编码</label>
+									<label for="spdm1" class="am-u-sm-4 am-form-label"><font color="red">*</font>商品代码</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="spdm1" name="spdm1" maxlength="20"
 											placeholder="请输入商品编码(不超过20位)" required />

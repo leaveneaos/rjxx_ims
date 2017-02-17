@@ -134,6 +134,7 @@
 							<label for="xfsh" class="am-u-sm-2 am-form-label"><font
 								color="red">*</font>上级销方</label>
 							<div class="am-u-sm-10">
+								<option>请选择</option>
 								<select id="sjxf" name="sjxf" required="required">
 									<c:forEach items="${xfs }" var="x">
 										<option value="${x.id }">${x.xfmc }</option>
@@ -337,7 +338,9 @@
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-	<%@ include file="../../pages/foot.jsp"%>
+	<div style="margin-bottom: 10px; height: 30px;">
+		<%@ include file="../../pages/foot.jsp"%>
+	</div>
 
 	<!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
