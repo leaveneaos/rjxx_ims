@@ -38,7 +38,7 @@
 		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
-		<input type="" id="djh" value="0">
+		<input type="hidden" id="djh" value="0">
 
 		<div class="admin-content">
 			<div class="am-cf am-padding">
@@ -790,13 +790,18 @@
 									</div>
                                 </div>
 								<div class="am-form-group">
-									<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>订单号</label>
+								<label for="fpzl_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>发票种类</label>
 
-									<div class="am-u-sm-4">
-										<input type="text" id="ddh_edit" name="ddh_edit"
-											placeholder="输入订单号..." required>
+									<div class="am-u-sm-4 am-u-end">
+									 <select id="fpzl_edit" name="fpzl_edit"  onchange="hidespan()" required>
+										<option value="">---选择开票类型---</option>
+										<option value="01">专用发票</option>
+										<option value="02">普通发票</option>
+										<option value="12">电子发票</option>
+									</select>
 									</div>
-									<label for="gfsh_edit" class="am-u-sm-2 am-form-label">购方税号</label>
+									
+									<label for="gfsh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfsh">*</span>购方税号</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfsh_edit" name="gfsh_edit"
@@ -810,7 +815,7 @@
 										<input type="text" id="gfmc_edit" name="gfmc_edit"
 											placeholder="输入购方名称..." required>
 									</div>
-									<label for="gfyh_edit" class="am-u-sm-2 am-form-label">购方银行</label>
+									<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfyh">*</span>购方银行</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfyh_edit" name="gfyh_edit"
@@ -818,7 +823,7 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="gfzh_edit" class="am-u-sm-2 am-form-label">银行账号</label>
+									<label for="gfzh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfyhzh">*</span>银行账号</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfzh_edit" name="gfzh_edit"
@@ -838,14 +843,14 @@
 										<input type="text" id="gfemail_edit" name="gfemail_edit"
 											placeholder="输入购方邮件地址...">
 									</div>
-									<label for="gfsjh_edit" class="am-u-sm-2 am-form-label">手机号</label>
+									<label for="gfdh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdh">*</span>购方电话</label>
 									<div class="am-u-sm-4">
-										<input type="text" id="gfsjh_edit" name="gfsjh_edit"
-											placeholder="输入购方手机号...">
+										<input type="text" id="gfdh_edit" name="gfdh_edit"
+											placeholder="输入购方电话...">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="gfdz_edit" class="am-u-sm-2 am-form-label">购方地址</label>
+									<label for="gfdz_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdz">*</span>购方地址</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfdz_edit" name="gfdz_edit"
@@ -860,15 +865,16 @@
 								</div>
 								<div class="am-form-group">
 									
-									<label for="fpzl_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>发票种类</label>
+									<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>订单号</label>
 
-									<div class="am-u-sm-4 am-u-end">
-									 <select id="fpzl_edit" name="fpzl_edit" required>
-										<option value="">---选择开票类型---</option>
-										<option value="01">专用发票</option>
-										<option value="02">普通发票</option>
-										<option value="12">电子发票</option>
-									</select>
+									<div class="am-u-sm-4">
+										<input type="text" id="ddh_edit" name="ddh_edit"
+											placeholder="输入订单号..." required>
+									</div>
+									<label for="gfsjh_edit" class="am-u-sm-2 am-form-label">手机号</label>
+									<div class="am-u-sm-4">
+										<input type="text" id="gfsjh_edit" name="gfsjh_edit"
+											placeholder="输入购方手机号...">
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -1052,7 +1058,7 @@
 	<script src="assets/js/lrkpd.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script>
-    $(document).ready(function () {   	
+    $(document).ready(function () {  
         //初始化导入配置
         var url = "<%=request.getContextPath()%>/lrkpd/initImportConfig";
         $.post(url, {}, function (res) {
@@ -1453,6 +1459,36 @@
 			
 		});
 	};
+	
+	
+	function hidespan(){
+		var fpzldm = $("#fpzl_edit").val();
+		if(fpzldm=='01'){
+			//$("#span_gfsh").style.display="";
+			document.getElementById("span_gfsh").style.display=""; 
+			document.getElementById("span_gfdz").style.display=""; 
+			document.getElementById("span_gfdh").style.display=""; 
+			document.getElementById("span_gfyh").style.display=""; 
+			document.getElementById("span_gfyhzh").style.display=""; 
+			//document.getElementById("gfmc_edit").setAttribute("required",true);
+			$("#gfsh_edit").attr("required",true);
+			$("#gfdz_edit").attr("required",true);
+			$("#gfdh_edit").attr("required",true);
+			$("#gfyh_edit").attr("required",true);
+			$("#gfzh_edit").attr("required",true);
+		 }else{
+			document.getElementById("span_gfsh").style.display="none"; 
+			document.getElementById("span_gfdz").style.display="none"; 
+			document.getElementById("span_gfdh").style.display="none"; 
+	        document.getElementById("span_gfyh").style.display="none"; 
+			document.getElementById("span_gfyhzh").style.display="none"; 
+			$("#gfsh_edit").attr("required",false);
+			$("#gfdz_edit").attr("required",false);
+			$("#gfdh_edit").attr("required",false);
+			$("#gfyh_edit").attr("required",false);
+			$("#gfzh_edit").attr("required",false);
+		 }
+		}
 	</script>
 
 </body>

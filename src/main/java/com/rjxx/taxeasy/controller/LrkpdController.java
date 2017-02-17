@@ -308,6 +308,7 @@ public class LrkpdController extends BaseController {
 		jyxxsq.setBz(request.getParameter("gfbz_edit"));
 		jyxxsq.setGfemail(request.getParameter("gfemail_edit"));
 		jyxxsq.setGfdz(request.getParameter("gfdz_edit"));
+		jyxxsq.setGfdh(request.getParameter("gfdh_edit"));
 		jyxxsq.setZtbz("0");//0待审，1已审
 		jyxxsq.setSjly("0");//0平台接入，1接口接入
 		String tqm = request.getParameter("tqm_edit");

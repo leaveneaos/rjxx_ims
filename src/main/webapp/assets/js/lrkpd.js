@@ -326,6 +326,7 @@
                     url: "lrkpd/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
                         if (data.success) {
                             alert("保存成功!");
+                            $modal.modal("close");
                             jyls_table.ajax.reload();
                         } else {
                             alert(data.msg);
