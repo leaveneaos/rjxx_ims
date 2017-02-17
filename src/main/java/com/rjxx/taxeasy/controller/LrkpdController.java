@@ -86,7 +86,7 @@ public class LrkpdController extends BaseController {
 	private SmService smService;
 	
 	@RequestMapping
-	//@SystemControllerLog(description = "功能首页",key = "xfsh")   
+	@SystemControllerLog(description = "功能首页",key = "")   
 	public String index() {
 		String gsdm = this.getGsdm();
 		List<Object> argList = new ArrayList<>();
@@ -251,6 +251,7 @@ public class LrkpdController extends BaseController {
 	 */
 	@RequestMapping(value = "/doDel")
 	@ResponseBody
+	@SystemControllerLog(description = "开票单删除",key = "djhArr")   
 	public boolean doDel(String djhArr) throws Exception {
 		jyxxsqservice.delBySqlshList(convertToList(djhArr));
 		return true;
@@ -288,6 +289,7 @@ public class LrkpdController extends BaseController {
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
+	@SystemControllerLog(description = "开票单保存",key = "ddh_edit")
 	public Map save() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String gsdm = getGsdm();
@@ -450,6 +452,7 @@ public class LrkpdController extends BaseController {
 	 */
 	@RequestMapping(value = "/sqKp")
 	@ResponseBody
+	@SystemControllerLog(description = "申请开票",key = "djhArr")
 	public Map doKp(String djhArr) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> sqlshList = convertToList(djhArr);

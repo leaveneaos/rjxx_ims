@@ -80,6 +80,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 // todo
                 _this.setForm0(data);
+                el.$xiugai.modal({"width": 600, "height": 400});
                 el.$xiugai.modal('open');
             });
             
@@ -88,7 +89,7 @@ $(function () {
 				_this.resetForm();
 				ur = _this.config.addUrl;
 				//alert("新增");
-				el.$modalHongchong.modal({"width": 600, "height": 500});
+				el.$modalHongchong.modal({"width": 600, "height": 400});
 			});	
 			
 			// 修改数据保存按钮
