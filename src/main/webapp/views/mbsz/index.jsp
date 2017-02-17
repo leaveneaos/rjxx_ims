@@ -289,7 +289,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfsh" name="config_gfsh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -311,7 +311,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfdz" name="config_gfdz"
-										placeholder="如无可不填">
+										placeholder="如无可不填,专票必填">
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -322,7 +322,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfdh" name="config_gfdh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -333,7 +333,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfyh" name="config_gfyh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -344,7 +344,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfyhzh" name="config_gfyhzh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -733,7 +733,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfsh" name="config_gfsh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -755,7 +755,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfdz" name="config_gfdz"
-										placeholder="如无可不填">
+										placeholder="如无可不填,专票必填">
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -766,7 +766,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfdh" name="config_gfdh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -777,7 +777,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfyh" name="config_gfyh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -788,7 +788,7 @@
 								</div>
 								<div class="am-u-sm-4">
 									<input type="text" id="config_gfyhzh" name="config_gfyhzh"
-										placeholder="如无可不填" required>
+										placeholder="如无可不填,专票必填" required>
 								</div>
 							</div>
 							<div class="am-form-group">
