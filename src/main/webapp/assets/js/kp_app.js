@@ -230,7 +230,7 @@
             if (!confirm("您确认开票？")) {
 				return;
 			}
-            $("#kp_kp").attr('disabled',false); 
+            $("#kp_kp").attr('disabled',"true"); 
             $.ajax({
                 url: "kp/doKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
                     if (data.success) {
