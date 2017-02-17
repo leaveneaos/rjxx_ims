@@ -31,7 +31,7 @@
     <!-- sidebar start -->
     <%@ include file="../../pages/menus.jsp" %>
     <!-- sidebar end -->
-<input type="" id="gfid" value="0">
+<input type="hidden" id="gfid" value="0">
     <!-- content start -->
     <div class="admin-content">
         <div class="am-cf am-padding">
