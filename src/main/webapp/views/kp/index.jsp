@@ -1053,6 +1053,22 @@
 			</div>
 		</div>
 	</div>
+	<div id="fpjek" class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+		tabindex="-1">
+	<div class="am-modal-dialog" >
+	<br/>
+		<p>是否确认开票?分票金额为 </p>
+		<input id="fpjesrk" type="text" class="am-text-money" value=""/>
+		<br/>
+		<div class="am-margin">
+			<button type="button" id="savet"
+				class="am-btn am-btn-xs am-btn-secondary">确认</button>
+			<button type="button" id="closet"
+				class="am-btn am-btn-danger am-btn-xs">关闭</button>
+		</div>
+	<br/>
+	</div>
+	</div>
 	<form id="downloadDefaultImportTemplateForm"
 		action="<%=request.getContextPath()%>/kp/downloadDefaultImportTemplate"
 		method="post" target="downloadFrame"></form>

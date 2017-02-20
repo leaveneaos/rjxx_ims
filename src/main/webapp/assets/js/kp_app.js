@@ -224,26 +224,60 @@
                     djhArr.push($(this).val()); 
             });
             if (djhArr.length == 0) {
-                alert("请选择需要开票的交易流水...");
+                alert("请勾选需要开票的交易流水...");
                 return;
             }
-            if (!confirm("您确认开票？")) {
+            if($("#s_xfsh").val()==""||$("#s_fplx").val()==""){
+            	  alert("请选择销方和开票类型...");
+                  return;
+            }
+/*            if (!confirm("您确认开票？")) {
 				return;
-			}
-            $("#kp_kp").attr('disabled',"true"); 
+			}*/
+            //获取分票金额
             $.ajax({
-                url: "kp/doKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
+                url: "fpgz/hqfpxe",
+                type: "post",
+                data: {
+                    xfsh : $('#s_xfsh').val(),
+                    fpzldm :$("#s_fplx").val()// search 销方
+                  
+                }, 
+                success: function (data) {
+                	$("#fpjek").modal("open");
+                	$("#fpjesrk").val("");
+                	$("#fpjesrk").val(data.fpje);
+                }
+            });
+            $("#kp_kp").attr('disabled',"true"); 
+        });
+        $('#savet').click(function () {
+            var djhArr = [];
+            $('input[name="chk"]:checked').each(function(){    
+                    djhArr.push($(this).val()); 
+            });
+            if (djhArr.length == 0) {
+                alert("请勾选需要开票的交易流水...");
+                return;
+            }
+            if($("#s_xfsh").val()==""||$("#s_fplx").val()==""){
+            	  alert("请选择销方和开票类型...");
+                  return;
+            }
+            var kpxe = $("#fpjesrk").val()
+            $.ajax({
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","), "kpxe":kpxe}, success: function (data) {
                     if (data.success) {
                         alert("开票成功!");
                         jyls_table.ajax.reload();
                     } else {
                         alert(data.msg);
                     }
+                    $("#fpjek").modal("close");
                     $('#kp_kp').removeAttr("disabled");
                 }
             });
-        });
-
+        })
 
         $('#kp_all').click(function () {
             if (!confirm("您确认全部开票？")) {
@@ -259,6 +293,7 @@
                     jylsh : $('#s_lsh').val(),   // search 发票号码
                     rqq : $('#s_rqq').val(), // search 开票日期
                     rqz : $('#s_rqz').val() // search 开票日期
+                    
                 }, 
                 success: function (data) {
                     if (data.success) {
@@ -397,6 +432,10 @@
         });
         $("#close").click(function () {
             $modal.modal("close");
+        });
+        $("#closet").click(function () {
+        	 $('#kp_kp').removeAttr("disabled");
+           $("#fpjek").modal("close");
         });
         //批量导入
         var $importModal = $("#bulk-import-div");

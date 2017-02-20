@@ -173,8 +173,8 @@
 										<td style="width: 100%" colspan="2">
 											<div title="用户机构" style="padding: 80px;" id="bm-box1">
 												<c:forEach items="${xfs }" var="x">
-													<div id="type-${x.id}">
-														<label> <input type="checkbox" id="yhjg1-${x.id }"
+													<div id="type-${x.id}" class="chk">
+														<label> <input type="checkbox" id="yhjg1-${x.id }" 
 															 name="xfid" value="${x.id }" /> <span>${x.xfmc }</span>
 														</label> <br>
 								<%-- 						<c:forEach items="${sksbs }" var="sksb" varStatus="h">

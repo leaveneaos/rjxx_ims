@@ -655,6 +655,18 @@ $(function() {
 			$("#mxclose").on('click', function() {
 				$('#my-alert-edit1').modal('close');
 			});
+			$("#kp_hbkp").on('click', function() {
+				var chk_value="" ;
+				$('input[name="dxk"]:checked').each(function(){
+				chk_value+=$(this).val()+",";
+				});
+				var ddhs = chk_value.substring(0, chk_value.length-1);
+				if(chk_value.length<2){
+					alert("请至少选择2条数据!")
+				}else{
+					
+				}
+			});
 		},
 		init : function() {
 			var _this = this;

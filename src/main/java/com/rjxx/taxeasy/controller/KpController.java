@@ -1165,7 +1165,7 @@ public class KpController extends BaseController {
 	 */
 	@RequestMapping(value = "/doKp")
 	@ResponseBody
-	public Map doKp(String djhArr) throws Exception {
+	public Map doKp(String djhArr,Double kpxe) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> djhList = convertToList(djhArr);
 	//	try {
@@ -1180,7 +1180,7 @@ public class KpController extends BaseController {
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
              //保存
-             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid());
+             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid(),kpxe);
 		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
 			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());

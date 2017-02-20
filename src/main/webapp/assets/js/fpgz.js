@@ -107,6 +107,17 @@ var ur;
 			// 新增
 			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
 				$("#fpform")[0].reset();
+				$(".chk").show();
+				 var t01 = $("#jyls_table tbody tr").length;
+				 for(var i = 0;i<t01;i++){
+					 var row =  t.row(i).data();
+						var xfds = row.xfids.split(',');
+						for(var j in xfds){
+							var bz = "#type-"+xfds[j];
+							$(bz).hide();
+						/*	$(bz).prop('checked', true);*/
+							  }
+				 }
 /*				$.ajax({
 					url : _this.config.xzCsbUrl,
 					data : {
@@ -130,8 +141,9 @@ var ur;
 			// 修改
 			t.on('click', 'a.xiugai', function() {
 				var row = t.row($(this).parents('tr')).data();
+				$(".chk").show();
 				$("#fpform")[0].reset();
-				  $("#doc-modal-4").modal('open');
+				$("#doc-modal-4").modal('open');
 				$("#ggmc").val(row.ggmc);
 				$("#zpxe").val(row.zpxe);
 				$("#zphs").val(row.zphs);
@@ -141,8 +153,20 @@ var ur;
 				$("#idd").val(row.id);
 				$("#dzphs").val(row.dzphs);
 				var xfids = row.xfids.split(',');
+				 var t01 = $("#jyls_table tbody tr").length;
+				 for(var i = 0;i<t01;i++){
+					 var row =  t.row(i).data();
+						var xfds = row.xfids.split(',');
+						for(var j in xfds){
+							var bz = "#type-"+xfds[j];
+							$(bz).hide();
+						/*	$(bz).prop('checked', true);*/
+							  }
+				 }
 				for(var i in xfids){
 					var bz = "#yhjg1-"+xfids[i];
+					var bz1 = "#type-"+xfids[i];
+					$(bz1).show();
 					$(bz).prop('checked', true);
 					  }
 				ur = _this.config.xgUrl

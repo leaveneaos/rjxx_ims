@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.loader.collection.OneToManyJoinWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itextpdf.text.pdf.parser.clipper.Clipper.ZFillCallback;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Csb;
 import com.rjxx.taxeasy.domains.Fpgz;
@@ -17,6 +19,7 @@ import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
 import com.rjxx.taxeasy.service.FpgzService;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.service.YhService;
 import com.rjxx.taxeasy.vo.CsbVo;
 import com.rjxx.taxeasy.vo.FpgzVo;
@@ -31,6 +34,9 @@ public class FpgzController extends BaseController{
 	
 	@Autowired
 	private YhService yhService;
+	
+	@Autowired
+	private XfService XfService;
 	
 	@RequestMapping
 	public String index() {
@@ -125,6 +131,43 @@ public class FpgzController extends BaseController{
 		fpgz.setXgsj(new Date());
 		fpgzService.save(fpgz);
 		result.put("msg", "修改成功");
+		return result;
+	}
+	
+	//修改
+	@RequestMapping(value = "/hqfpxe")
+	@ResponseBody
+	public Map<String, Object> hqfpxe(String xfsh,String fpzldm){
+		Map<String, Object> result = new HashMap<String, Object>();
+        List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
+        Xf xf2 = new Xf();
+        xf2.setXfsh(xfsh);
+        Xf xf = XfService.findOneByParams(xf2);
+        double fpje = Double.MAX_VALUE;
+        double zdje = Double.MAX_VALUE;
+        if ("01".equals(fpzldm)) {
+      	  fpje = xf.getZpfpje();
+            zdje = xf.getZpzdje();
+		}else if ("02".equals(fpzldm)) {
+			  fpje = xf.getPpfpje();
+		      zdje = xf.getPpzdje();
+		}else if ("11".equals(fpzldm)) {
+			  fpje = xf.getDzpfpje();
+		      zdje = xf.getDzpzdje();
+		}
+        for (Fpgz fpgz : listt) {
+			if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
+				if ("01".equals(fpzldm)) {
+					fpje=fpgz.getZpxe();
+				}else if ("02".equals(fpzldm)) {
+					fpje=fpgz.getPpxe();
+				}else if ("11".equals(fpzldm)) {
+					fpje=fpgz.getDzpxe();
+				}
+			}
+		}
+        result.put("fpje", fpje);
+        result.put("success", true);
 		return result;
 	}
 

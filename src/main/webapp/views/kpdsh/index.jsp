@@ -83,7 +83,7 @@
 						</div> -->
 						<div class="am-u-sm-2">
 							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_kp"
+								<button type="button" style="width: 100%" id="kp_hbkp"
 									class="am-btn am-radius am-radius am-btn-primary">
 									<span></span> 合并开票
 								</button>
@@ -419,7 +419,7 @@
 						<div class="am-form-group">
 							<label for="mx_spsl" class="am-u-sm-4 am-form-label">商品数量</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spsl" name="sps" onchange="jsje()" type="text" class="am-form-field"
+								<input id="mx_spsl" name="sps" onchange="jsje()" type="text" class="am-text-money am-form-field"
 									placeholder="商品数量">
 							</div>
 						</div>
@@ -428,7 +428,7 @@
 						<div class="am-form-group">
 							<label for="mx_spdj" class="am-u-sm-4 am-form-label">商品单价</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spdj" name="spdj" onchange="jsje1()" type="text" class="am-form-field"
+								<input id="mx_spdj" name="spdj" onchange="jsje1()" type="text" class="am-text-money am-form-field"
 									placeholder="商品单价">
 							</div>
 						</div>
@@ -437,7 +437,7 @@
 						<div class="am-form-group">
 							<label for="mx_spje" class="am-u-sm-4 am-form-label">商品金额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spje" name="spje" onchange="jsje2()" type="text" class="am-form-field"
+								<input id="mx_spje" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
@@ -458,7 +458,7 @@
 						<div class="am-form-group">
 							<label for="mx_spse" class="am-u-sm-4 am-form-label">商品税额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spse"  disabled="disabled" type="text" class="am-form-field"
+								<input id="mx_spse"  disabled="disabled" type="text" class="am-text-money am-form-field"
 								>
 								<input id="mx_spse1" name="spse"  type="hidden" class="am-form-field"
 								>
@@ -469,7 +469,7 @@
 						<div class="am-form-group">
 							<label for="mx_jshj" class="am-u-sm-4 am-form-label">价税合计</label>
 							<div class="am-u-sm-8">
-								<input id="mx_jshj" name="jshj" onchange="jsje4()" type="text" class="am-form-field"
+								<input id="mx_jshj"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
@@ -556,6 +556,10 @@
 		if(""!=spje&&null!=spje){
 			$('#mx_spse').val(Math.round((spje*spsl*1)*100)/100);
 			$('#mx_jshj').val(Math.round((spje*1+spje*spsl*1)*100)/100);
+			if(null!=spdj&&""!=spdj){
+				$('#mx_spsl').val(Math.round((spje*1+spje*spsl*1)*100)/100/(spdj*1));
+			}
+		
 			}
 	}
 	//sl
@@ -568,10 +572,17 @@
 		if(""!=jshj&&null!=jshj){
 			$('#mx_spje').val(Math.round((jshj/(1*1+spsl*1))*100)/100);
 			$('#mx_spse').val(Math.round((jshj*1-jshj*1/(1*1+spsl*1))*100)/100);
+			if(null!=spdj&&""!=spdj){
+			$('#mx_spsl').val(Math.round(jshj*1/spdj*1)*100/100);
+			}
 			}else if(""!=spje&&null!=spje){
 				$('#mx_spse').val(Math.round((spje*1*spsl)*100)/100);
 				$('#mx_jshj').val(Math.round((spje*1+spje*spsl*1)*100)/100);
+				if(null!=spdj&&""!=spdj){
+				$('#mx_spsl').val(Math.round((spje*1+spje*spsl*1)*100)/100/(spdj*1));
+				}
 			}
+		
 	}
 	//jshj
 	function jsje4(){
@@ -583,6 +594,8 @@
 		if(""!=jshj&&null!=jshj){
 			$('#mx_spje').val(Math.round((jshj*1/(1*1+spsl*1))*100)/100);
 			$('#mx_spse').val(Math.round((jshj*1-jshj*1/(1*1+spsl*1))*100)/100);
+			if(null!=spdj&&""!=spdj){
+			$('#mx_spsl').val(Math.round((jshj*1/spdj*1)*100)/100);}
 			}
 	}
 	</script>
