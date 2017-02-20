@@ -4,12 +4,12 @@
 (function ($) {
     'use strict';
     $(function () {
-        $.ajax({
+      /*  $.ajax({
             url: "lrkpd/getXfxx", context: null, success: function (data) {
                 $("#qymc").val(data.xfmc);
                 $("#nsrsbh").val(data.xfsh);
             }
-        });
+        });*/
              
 
         var jyls_table = $('#jyls_table').DataTable({
@@ -38,7 +38,19 @@
                 {"data": "jylsh"},
                 {"data": "ddh"},
                 {"data": "ddrq"},
-                {"data": "fpzldm"},
+                {"data": function(data){
+                	if("01"==data.fpzldm){
+                	 	return "纸质专票";
+                	}else if("02"==data.fpzldm){
+                	 	return "纸质专票";
+                	}
+                	else if("12"==data.fpzldm){
+                	 	return "电子票";
+                	}else{
+                		return "";
+                	}
+               
+                }},
                 {"data": "gfmc"},
                 {"data": "gfsh"},
                 {"data": "gfdz"},

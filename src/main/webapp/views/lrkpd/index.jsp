@@ -800,20 +800,20 @@
 										<option value="12">电子发票</option>
 									</select>
 									</div>
-									
-									<label for="gfsh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfsh">*</span>购方税号</label>
-
-									<div class="am-u-sm-4">
-										<input type="text" id="gfsh_edit" name="gfsh_edit"
-											placeholder="输入购方税号...">
-									</div>
-								</div>
-								<div class="am-form-group">
 									<label for="gfmc_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>购方名称</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfmc_edit" name="gfmc_edit"
 											placeholder="输入购方名称..." required>
+									</div>
+									
+								</div>
+								<div class="am-form-group">
+									<label for="gfsh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfsh">*</span>购方税号</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfsh_edit" name="gfsh_edit"
+											placeholder="输入购方税号...">
 									</div>
 									<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfyh">*</span>购方银行</label>
 
@@ -1082,20 +1082,27 @@
         
         $('#mbid').hide();
         
-        
-
+        var je = $('#je_edit');
+        var sl = $('#sltaxrate_edit');
+        var se = $('#se_edit');
+        var hsje = $('#hsje_edit');
+        var jshj = $('#jshj_edit');
+        var dj = $('#dj_edit');
+        var sps = $('#sl_edit');
+        var spsl;
         //录入订单时选择商品
         $("#select_sp").change(function () {
             var spdm = $(this).val();
             var spmc = $("#select_sp option:checked").text();
             var pos = spmc.indexOf("(");
+            
             spmc = spmc.substring(0, pos);
             if (!spdm) {
                 $("#mx_form input").val("");
                 return;
             }
-            var url = "<%=request.getContextPath()%>/lrkpd/getSpxq";
-            $.post(url, {spdm: spdm,spmc:spmc}, function (res) {
+            var ur = "<%=request.getContextPath()%>/lrkpd/getSpxq";
+          /*   $.post(url, {spdm: spdm,spmc:spmc}, function (res) {
                 if (res) {
                     $("#mx_form #spdm_edit").val(res["spdm"]);
                     $("#mx_form #mc_edit").val(res["spmc"]);
@@ -1103,16 +1110,50 @@
                     $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
                     $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
                     $("#mx_form #sltaxrate_edit").val(res["sl"]);
+                    spsl = res["sl"];
+                    alert(spsl+"QQQ");
+                }
+            }) */
+            
+            $.ajax({
+                url: ur,
+                type: "post",
+                async:false,
+                data: {
+                	spdm: spdm,   
+                	spmc:spmc,	
+                }, 
+                success: function (res) {
+                	 if (res) {
+                         $("#mx_form #spdm_edit").val(res["spdm"]);
+                         $("#mx_form #mc_edit").val(res["spmc"]);
+                         $("#mx_form #ggxh_edit").val(res["spggxh"] == null ? "" : res["spggxh"]);
+                         $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
+                         $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
+                         $("#mx_form #sltaxrate_edit").val(res["sl"]);
+                         spsl = res["sl"];
+                        // alert(spsl+"QQQ");
+                     }
                 }
             })
+            if(null!=je && je.val() !=""){
+            	//alert(spsl);
+            	var temp = (100+sl.val()*100)/100;
+				se.val(FormatFloat(je.val() * spsl, "#####0.00"));
+				var je1 = parseFloat(je.val());
+        		var se1 = parseFloat(se.val());
+				hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+				jshj.val(FormatFloat(je1 + se1, "#####0.00"));
+        		if (dj != null && dj.val() != "") {
+        			sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
+				}else if(sps != null && sps.val() != ""){
+					dj.val(FormatFloat(je.val() / spl.val(), "#####0.00"));
+				}
+            }
         });
         
-        var je = $('#je_edit');
-        var sl = $('#sltaxrate_edit');
-        var se = $('#se_edit');
-        var hsje = $('#hsje_edit');
-        var jshj = $('#jshj_edit');
-        $("#je_edit").blur(function () {
+        
+        $("#je_edit").keyup(function () {
         	var temp = (100+sl.val()*100)/100;
 			se.val(FormatFloat(je.val() * sl.val(), "#####0.00"));
 			var je1 = parseFloat(je.val());
@@ -1125,7 +1166,7 @@
 				dj.val(FormatFloat(je.val() / spl.val(), "#####0.00"));
 			}
         });
-        $("#hsje_edit").blur(function () {
+        $("#hsje_edit").keyup(function () {
         	var temp = (100+sl.val()*100)/100;
         	je.val(FormatFloat(hsje.val()/(temp), "#####0.00"));
 			se.val(FormatFloat(hsje.val() -je.val(), "#####0.00"));
