@@ -83,11 +83,11 @@
 							class="js-search  am-btn am-radius am-btn-success">查询</button>
 						<button type="button" class="am-btn am-radius am-btn-success js-modal-open">新增</button>
 						<button type="button" class="js-sent  am-btn am-radius am-btn-danger">批量删除</button>
-<!-- 						<button type="button" id="kp_dr" -->
-<!-- 							class="am-btn am-radius am-btn-default" -->
-<!-- 							style="margin-right: 10px;"> -->
-<!-- 							<span></span> 批量导入 -->
-<!-- 						</button> -->
+						<button type="button" id="kp_dr"
+							class="am-btn am-radius am-btn-default"
+							style="margin-right: 10px;">
+							<span></span> 批量导入
+						</button>
 					</div>
 					<div class="am-u-sm-12">
 						<div class="am-scrollable-horizontal">
