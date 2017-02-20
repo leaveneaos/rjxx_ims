@@ -643,6 +643,11 @@ public class SksbxxzcControlller extends BaseController {
 			} catch (Exception e) {
 
 			}
+			try {
+				skp.setKplx(row.get(15) == null ? null : row.get(15).toString());
+			} catch (Exception e) {
+
+			}
 			list.add(skp);
 
 		}
@@ -676,6 +681,16 @@ public class SksbxxzcControlller extends BaseController {
 			if (sksb != null && (!sksb.equals("1") || !sksb.equals("2"))) {
 				msgg = "第" + (i + 2) + "行税控设备填写不正确，请重新填写！";
 				msg += msgg;
+			}
+			String kplx = skp.getKplx();
+			if (kplx != null) {
+				String[] strs = kplx.split(",");
+				for (String str : strs) {
+					if (!str.equals("01") || !str.equals("02") || !str.equals("12")) {
+						msgg = "第" + (i + 2) + "行开票类型填写不正确（应为01,02,12三种，多种用英文“,”隔开），请重新填写！";
+						msg += msgg;
+					}
+				}
 			}
 			// 判断税控盘号是否存在
 			/*

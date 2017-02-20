@@ -18,9 +18,15 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
+<link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <style>
 .am-u-left {
 	padding-left: 0em;
+}
+.admin-div{
+	width: 1089px;
+	height: 820px;
 }
 </style>
 </head>
@@ -31,12 +37,12 @@
     以获得更好的体验！</p>
 <![endif]-->
 	<%@ include file="../../pages/top.jsp"%>
-	<div class="am-cf admin-main">
+	<div class="admin-main">
 		<!-- sidebar start -->
 		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
-		<div class="admin-content">
+		<div class="admin-div admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
 					<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>销方信息维护</strong>
