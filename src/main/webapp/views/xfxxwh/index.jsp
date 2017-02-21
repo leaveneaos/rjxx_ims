@@ -25,7 +25,7 @@
 	padding-left: 0em;
 }
 .admin-div{
-	width: 1089px;
+	width: 80%;
 	height: 820px;
 }
 </style>
