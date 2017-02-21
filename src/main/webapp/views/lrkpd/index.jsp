@@ -184,6 +184,7 @@
 								<th>开户账号</th>
 								<th>价税合计</th>
 								<th>录入人员</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 					</table>
@@ -205,6 +206,7 @@
 								<th>税率</th>
 								<th>税额</th>
 								<th>价税合计</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 					</table>
@@ -1029,6 +1031,266 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-modify"
+		style="width: 800px;">
+		<div class="am-modal-dialog" style="overflow: auto; height: 450px;">
+			<div class="am-modal-hd am-modal-footer-hd">
+				修改开票单 <a href="javascript: void(0)" class="am-close am-close-spin"
+					data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
+				style="display: none">
+				<button type="button" class="am-close">&times</button>
+				<p id="infomessage"></p>
+			</div>
+			<div class="am-tabs am-margin" id="main_tab">
+				<form class="am-form am-form-horizontal" id="main_form_modify">
+							<fieldset>
+								<input type="hidden" id="formid_modify" name="sqlsh">
+                                <div class="am-form-group">
+                                    <label for="xfid_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>销方名称</label>
+                                    <div class="am-u-sm-4">
+                                    <select id="select_xfid_modify" name="xfid"  required>
+										<option value="">---选择销方---</option>
+										<c:forEach items="${xfList}" var="item">
+											<option value="${item.xfsh}">${item.xfmc}</option>
+										</c:forEach>
+									</select>
+									</div>
+									<label for="skpid_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>开票点名称</label>
+									<div class="am-u-sm-4">
+                                    <select id="select_skpid_modify" name="skpid" required>
+										
+									</select>
+									</div>
+                                </div>
+								<div class="am-form-group">
+								<label for="fpzl_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>发票种类</label>
+
+									<div class="am-u-sm-4 am-u-end">
+									 <select id="fpzl_modify" name="fpzldm"  onchange="hidespan2()" required>
+										<option value="">---选择开票类型---</option>
+										<option value="01">专用发票</option>
+										<option value="02">普通发票</option>
+										<option value="12">电子发票</option>
+									</select>
+									</div>
+									<label for="gfmc_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>购方名称</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfmc_modify" name="gfmc"
+											placeholder="输入购方名称..." required>
+									</div>
+									
+								</div>
+								<div class="am-form-group">
+									<label for="gfsh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfsh_modify">*</span>购方税号</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfsh_modify" name="gfsh"
+											placeholder="输入购方税号...">
+									</div>
+									<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfyh_modify">*</span>购方银行</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfyh_modify" name="gfyh"
+											placeholder="输入购方银行...">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="gfzh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfyhzh_modify">*</span>银行账号</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfzh_modify" name="gfyhzh"
+											placeholder="输入购方银行账号...">
+									</div>
+									<label for="gflxr_edit" class="am-u-sm-2 am-form-label">购方联系人</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gflxr_modify" name="gflxr"
+											placeholder="输入购方联系人...">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="gfemail_edit" class="am-u-sm-2 am-form-label">购方邮件</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfemail_modify" name="gfemail"
+											placeholder="输入购方邮件地址...">
+									</div>
+									<label for="gfdh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdh_modify">*</span>购方电话</label>
+									<div class="am-u-sm-4">
+										<input type="text" id="gfdh_modify" name="gfdh"
+											placeholder="输入购方电话...">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="gfdz_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdz_modify">*</span>购方地址</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="gfdz_modify" name="gfdz"
+											placeholder="输入购方地址...">
+									</div>
+									<label for="tqm_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>提取码</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="tqm_modify" name="tqm"
+											placeholder="输入提取码..." required>
+									</div>
+								</div>
+								<div class="am-form-group">
+									
+									<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>订单号</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="ddh_modify" name="ddh"
+											placeholder="输入订单号..." required>
+									</div>
+									<label for="gfsjh_edit" class="am-u-sm-2 am-form-label">手机号</label>
+									<div class="am-u-sm-4">
+										<input type="text" id="gfsjh_modify" name="gfsjh"
+											placeholder="输入购方手机号...">
+									</div>
+								</div>
+								<div class="am-form-group">
+									
+									<label for="gfbz_edit" class="am-u-sm-2 am-form-label">备注</label>
+
+									<div class="am-u-sm-10">
+										<input type="text" id="gfbz_modify" name="bz"
+											placeholder="输入备注信息...">
+									</div>
+								</div>
+							</fieldset>
+						</form>
+
+				<div class="am-margin">
+					<button type="button" id="kpd_xgbc"
+						class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
+					<button type="button" id="close3"
+						class="am-btn am-btn-danger am-btn-xs">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit1"
+		style="width: 480px;">
+		<div class="am-modal-dialog" style="overflow: auto; height: 500px;">
+			<div class="am-modal-hd am-modal-footer-hd">
+				修改商品明细 <a href="javascript: void(0)" class="am-close am-close-spin"
+					data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-alert am-alert-success" data-am-alert
+				id="myinfoalert1" style="display: none">
+				<button type="button" class="am-close">&times</button>
+				<p id="infomessage"></p>
+			</div>
+			<form class="am-form am-form-horizontal" id="main_form1">
+				<fieldset>
+					<input type="hidden" name="id" id="formid1">
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spmc" name="spmc" type="text" class="am-form-field"
+									placeholder="商品名称">
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_ggxh" class="am-u-sm-4 am-form-label">规格型号</label>
+							<div class="am-u-sm-8">
+								<input id="mx_ggxh" type="text" name="spggxh" class="am-form-field"
+									placeholder="规格型号">
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_dw" class="am-u-sm-4 am-form-label">商品单位</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spdw" type="text" name="spdw" class="am-form-field"
+									placeholder="商品单位">
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spsl" class="am-u-sm-4 am-form-label">商品数量</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spsl" name="sps" onchange="jsje()" type="text" class="am-text-money am-form-field"
+									placeholder="商品数量">
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spdj" class="am-u-sm-4 am-form-label">商品单价</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spdj" name="spdj" onchange="jsje1()" type="text" class="am-text-money am-form-field"
+									placeholder="商品单价">
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spje" class="am-u-sm-4 am-form-label">商品金额</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spje" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
+									placeholder="商品金额">
+							</div>
+						</div>
+					</div>
+							<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_sl" class="am-u-sm-4 am-form-label">商品税率</label>
+							<div class="am-u-sm-8">
+								<select id="mx_sl" name="spsl" onchange="jsje3()" name="sl">
+										<c:forEach items="${slList}" var="item">
+											<option value="${item}">${item}</option>
+										</c:forEach>
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spse" class="am-u-sm-4 am-form-label">商品税额</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spse"  disabled="disabled" type="text" class="am-text-money am-form-field"
+								>
+								<input id="mx_spse1" name="spse"  type="hidden" class="am-form-field"
+								>
+							</div>
+						</div>
+					</div>
+							<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_jshj" class="am-u-sm-4 am-form-label">价税合计</label>
+							<div class="am-u-sm-8">
+								<input id="mx_jshj"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
+									placeholder="价税合计">
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+
+			<div class="am-margin">
+				<button type="button" id="kpdmx_xgbc"
+					class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
+				<button type="button" id="mxclose"
+					class="am-btn am-btn-danger am-btn-xs">关闭</button>
+			</div>
+
+		</div>
+	</div>
+	
 	<form id="downloadDefaultImportTemplateForm"
 		action="<%=request.getContextPath()%>/kp/downloadDefaultImportTemplate"
 		method="post" target="downloadFrame"></form>
@@ -1480,6 +1742,44 @@
 				});
 			}
 		});
+        
+        
+        
+        $("#select_xfid_modify").change(
+				function() {
+		            $('#select_skpid_modify').empty();
+				    var xfsh = $(this).val();
+				    if (xfsh == null || xfsh == '' || xfsh == "") {
+						return;
+					}
+				    var url = "<%=request.getContextPath()%>/kp/getSkpList";
+								$.post(
+										url,
+												{
+													xfsh : xfsh
+												},
+												function(data) {
+													if (data) {
+														var option = $(
+																"<option>")
+																.text('请选择')
+																.val(-1);
+														$('#select_skpid_modify')
+																.append(option);
+														for (var i = 0; i < data.skps.length; i++) {
+															option = $(
+																	"<option>")
+																	.text(
+																			data.skps[i].kpdmc)
+																	.val(
+																			data.skps[i].id);
+															$('#select_skpid_modify')
+																	.append(
+																			option);
+														}
+													}
+												});
+							});
 	});
         
 	//选择销方取得税控盘
@@ -1500,6 +1800,8 @@
 			
 		});
 	};
+	
+
 	
 	
 	function hidespan(){
@@ -1530,6 +1832,118 @@
 			$("#gfzh_edit").attr("required",false);
 		 }
 		}
+	
+	
+	function hidespan2(){
+		var fpzldm = $("#fpzl_modify").val();
+		if(fpzldm=='01'){
+			//$("#span_gfsh").style.display="";
+			document.getElementById("span_gfsh_modify").style.display=""; 
+			document.getElementById("span_gfdz_modify").style.display=""; 
+			document.getElementById("span_gfdh_modify").style.display=""; 
+			document.getElementById("span_gfyh_modify").style.display=""; 
+			document.getElementById("span_gfyhzh_modify").style.display=""; 
+			//document.getElementById("gfmc_edit").setAttribute("required",true);
+			$("#gfsh_modify").attr("required",true);
+			$("#gfdz_modify").attr("required",true);
+			$("#gfdh_modify").attr("required",true);
+			$("#gfyh_modify").attr("required",true);
+			$("#gfzh_modify").attr("required",true);
+		 }else{
+			document.getElementById("span_gfsh_modify").style.display="none"; 
+			document.getElementById("span_gfdz_modify").style.display="none"; 
+			document.getElementById("span_gfdh_modify").style.display="none"; 
+	        document.getElementById("span_gfyh_modify").style.display="none"; 
+			document.getElementById("span_gfyhzh_modify").style.display="none"; 
+			$("#gfsh_modify").attr("required",false);
+			$("#gfdz_modify").attr("required",false);
+			$("#gfdh_modify").attr("required",false);
+			$("#gfyh_modify").attr("required",false);
+			$("#gfzh_modify").attr("required",false);
+		 }
+		}
+	
+	function hidespan3(str){
+		var fpzldm = str;
+		if(fpzldm=='01'){
+			//$("#span_gfsh").style.display="";
+			document.getElementById("span_gfsh_modify").style.display=""; 
+			document.getElementById("span_gfdz_modify").style.display=""; 
+			document.getElementById("span_gfdh_modify").style.display=""; 
+			document.getElementById("span_gfyh_modify").style.display=""; 
+			document.getElementById("span_gfyhzh_modify").style.display=""; 
+			//document.getElementById("gfmc_edit").setAttribute("required",true);
+			$("#gfsh_modify").attr("required",true);
+			$("#gfdz_modify").attr("required",true);
+			$("#gfdh_modify").attr("required",true);
+			$("#gfyh_modify").attr("required",true);
+			$("#gfzh_modify").attr("required",true);
+		 }else{
+			document.getElementById("span_gfsh_modify").style.display="none"; 
+			document.getElementById("span_gfdz_modify").style.display="none"; 
+			document.getElementById("span_gfdh_modify").style.display="none"; 
+	        document.getElementById("span_gfyh_modify").style.display="none"; 
+			document.getElementById("span_gfyhzh_modify").style.display="none"; 
+			$("#gfsh_modify").attr("required",false);
+			$("#gfdz_modify").attr("required",false);
+			$("#gfdh_modify").attr("required",false);
+			$("#gfyh_modify").attr("required",false);
+			$("#gfzh_modify").attr("required",false);
+		 }
+		}
+	
+	//je
+	function jsje2(){
+		var sps = $('#mx_spsl').val();
+		var spdj = $('#mx_spdj').val();
+		var spje = $('#mx_spje').val();
+		var spsl = $('#mx_sl').val();
+		var jshj = $('#mx_jshj').val();
+		if(""!=spje&&null!=spje){
+			$('#mx_spse').val(Math.round((spje*spsl*1)*100)/100);
+			$('#mx_jshj').val(Math.round((spje*1+spje*spsl*1)*100)/100);
+			if(null!=spdj&&""!=spdj){
+				$('#mx_spsl').val(Math.round((spje*1+spje*spsl*1)*100)/100/(spdj*1));
+			}
+		
+			}
+	}
+	//sl
+	function jsje3(){
+		var sps = $('#mx_spsl').val();
+		var spdj = $('#mx_spdj').val();
+		var spje = $('#mx_spje').val();
+		var spsl = $('#mx_sl').val();
+		var jshj = $('#mx_jshj').val();
+		if(""!=jshj&&null!=jshj){
+			$('#mx_spje').val(Math.round((jshj/(1*1+spsl*1))*100)/100);
+			$('#mx_spse').val(Math.round((jshj*1-jshj*1/(1*1+spsl*1))*100)/100);
+			if(null!=spdj&&""!=spdj){
+			$('#mx_spsl').val(Math.round(jshj*1/spdj*1)*100/100);
+			}
+			}else if(""!=spje&&null!=spje){
+				$('#mx_spse').val(Math.round((spje*1*spsl)*100)/100);
+				$('#mx_jshj').val(Math.round((spje*1+spje*spsl*1)*100)/100);
+				if(null!=spdj&&""!=spdj){
+				$('#mx_spsl').val(Math.round((spje*1+spje*spsl*1)*100)/100/(spdj*1));
+				}
+			}
+		
+	}
+	//jshj
+	function jsje4(){
+		var sps = $('#mx_spsl').val();
+		var spdj = $('#mx_spdj').val();
+		var spje = $('#mx_spje').val();
+		var spsl = $('#mx_sl').val();
+		var jshj = $('#mx_jshj').val();
+		if(""!=jshj&&null!=jshj){
+			$('#mx_spje').val(Math.round((jshj*1/(1*1+spsl*1))*100)/100);
+			$('#mx_spse').val(Math.round((jshj*1-jshj*1/(1*1+spsl*1))*100)/100);
+			if(null!=spdj&&""!=spdj){
+			$('#mx_spsl').val(Math.round((jshj*1/spdj*1)*100)/100);}
+			}
+	}
 	</script>
 
 </body>

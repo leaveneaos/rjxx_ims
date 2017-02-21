@@ -42,7 +42,7 @@
                 	if("01"==data.fpzldm){
                 	 	return "纸质专票";
                 	}else if("02"==data.fpzldm){
-                	 	return "纸质专票";
+                	 	return "纸质普票";
                 	}
                 	else if("12"==data.fpzldm){
                 	 	return "电子票";
@@ -64,7 +64,13 @@
                         return null;
                     }
                 }, 'sClass': 'right'},
-                {"data": "lrry"}
+                {"data": "lrry"},
+                {
+                    "data": null,
+                    "render": function (data) {
+                        return '<a href="javascript:void(0)" class="modify1" style="margin-right: 10px;">修改</a>'
+                    }
+                }
             ],
             // "columnDefs": [
             //     {
@@ -136,7 +142,13 @@
                     } else {
                         return null;
                     }
-                }, 'sClass': 'right'}
+                }, 'sClass': 'right'},
+                {
+                    "data": null,
+                    "render": function (data) {
+                        return '<a href="#" class="modify2" style="margin-right: 10px;">修改</a>'
+                    }
+                }
             ]
         });
 
@@ -224,8 +236,140 @@
                 }
             });
         });
+        //修改主表 begin
+        jyls_table.on('click', 'a.modify1', function() {
+        	var row = jyls_table.row($(this).parents('tr')).data();
+        	$('#my-alert-modify').modal({"width": 800, "height": 500});
+        	//$('#my-alert-modify').modal('open');
+			$.ajax({
+				url : 'kpdsh/xgkpd',
+				data : {
+					"sqlsh" : row.sqlsh,
+				},
+				success : function(data) {
+					if (null!=data&&""!=data) {
+						var jy= data.jyxx
+						$('#select_xfid_modify').val(jy.xfsh);
+						$.ajax({
+							url:"kp/getSkpList",
+							async:false,
+							data:{
+							"xfsh" : jy.xfsh
+						}, success:function(data) {
+							if (data) {
+								var option;
+								$('#select_skpid_modify').html("");
+								for (var i = 0; i < data.skps.length; i++) {
+									option+= "<option value='"+data.skps[i].id+"'>"+data.skps[i].kpdmc+"</option>";
+									
+								}
+								$('#select_skpid_modify').append(option);
 
+							}
+						}});
+						$('#select_skpid_modify').val(jy.skpid);
+						$('#ddh_modify').val(jy.ddh);
+						$('#gfsh_modify').val(jy.gfsh);
+						$('#gfmc_modify').val(jy.gfmc);
+						$('#gfyh_modify').val(jy.gfyh);
+						$('#gfzh_modify').val(jy.gfyhzh);
+						$('#gflxr_modify').val(jy.gflxr);
+						$('#gfemail_modify').val(jy.gfemail);
+						$('#gfsjh_modify').val(jy.gfsjh);
+						$('#gfdz_modify').val(jy.gfdz);
+						$('#gfdh_modify').val(jy.gfdh);
+						$('#tqm_modify').val(jy.tqm);
+						$('#gfbz_modify').val(jy.bz);
+						$('#formid_modify').val(jy.sqlsh);
+						$('#fpzl_modify').val(jy.fpzldm);
+						hidespan3(jy.fpzldm);//为了设置当选择为专票时，其他几项购方信息为必录
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function() {
+					alert("出现错误，请稍后重试！");
+				}
+			})
+        });
+        
+        $("#kpd_xgbc").on('click', function() {
+        	 var r = $("#main_form_modify").validator("isFormValid");
+             if (r) {
+			 $.ajax({
+                 url: "kpdsh/xgbckpd", 
+                 "type": "POST",
+                 data:{ 
+                	sqlsh   : $('#formid_modify').val(),
+                	skpid   : $('#select_skpid_modify').val(),
+                	ddh	    : $('#ddh_modify').val(),
+					gfsh	: $('#gfsh_modify').val(),
+					gfmc 	: $('#gfmc_modify').val(),
+					gfyh	: $('#gfyh_modify').val(),
+					gfyhzh	: $('#gfzh_modify').val(),
+					gflxr	: $('#gflxr_modify').val(),
+					gfemail : $('#gfemail_modify').val(),
+					gfsjh	: $('#gfsjh_modify').val(),
+					gfdz 	: $('#gfdz_modify').val(),
+					gfdh	: $('#gfdh_modify').val(),
+					tqm		: $('#tqm_modify').val(),
+					bz		: $('#gfbz_modify').val(),
+					fpzldm  : $('#fpzl_modify').val(),
+					xfsh	:$('#select_xfid_modify').val(),
+                	 },
+                 //data : $('#main_form_modify').serialize(),
+                 success : function(data) {
+					if(data.msg){
+						alert("修改成功!");
+						$('#my-alert-modify').modal('close');
+						 jyls_table.ajax.reload();
+					}
+				}
+             });
+        	//alert($('#main_form_modify').serialize());
+             }
+		});
+        //修改主表 end
 
+        //修改明细数据 begin
+        jyspmx_table.on('click', 'a.modify2', function () {
+        	var row = jyspmx_table.row($(this).parents('tr')).data();
+        	$('#my-alert-edit1').modal('open');
+        	$('#mx_spmc').val(row.spmc);
+        	$('#mx_ggxh').val(row.spggxh);
+        	$('#mx_spdw').val(row.spdw);
+        	$('#mx_spsl').val(row.sps);
+        	$('#mx_spdj').val(row.spdj);
+        	$('#mx_spje').val(row.spje);
+        	$('#mx_sl').val(row.spsl);
+        	$('#mx_spse').val(row.spse);
+        	$('#mx_jshj').val(row.jshj);
+        	$('#formid1').val(row.id);
+        });
+        
+        $("#kpdmx_xgbc").click(function () {
+            var r = $("#main_form1").validator("isFormValid");
+            if (r) {
+            	$('#mx_spse1').val($('#mx_spse').val());
+                var frmData = $("#main_form1").serialize();
+                $.ajax({
+                    url: "kpdsh/xgbcmx", "type": "POST", context: document.body, data: frmData, success: function (data) {
+                        if (data.msg) {
+                            alert("保存成功!");
+							$('#my-alert-edit1').modal('close');
+                            jyls_table.ajax.reload();
+                            jyspmx_table.ajax.reload();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            } else {
+                ///如果校验不通过
+                $("#main_tab").tabs('open', 0);
+            }
+        });
+        //修改明细数据 end
         $('#kp_all').click(function () {
             if (!confirm("您确认全部开票？")) {
 				return;
@@ -363,10 +507,16 @@
         $("#close1").click(function () {
             $importModal.modal("close");
         });
+        $("#mxclose").on('click', function() {
+			$('#my-alert-edit1').modal('close');
+		});
         $("#close2").click(function () {
             $importConfigModal.modal("close");
 //        	$importConfigModal.modal({"width": 600, "height": 480});
         });
+        $("#close3").click(function () {
+        	$('#my-alert-modify').modal('close');
+        }); 
         //导入配置
         var $importConfigModal = $("#import_config_div");
         $("#btnImportConfig").click(function () {

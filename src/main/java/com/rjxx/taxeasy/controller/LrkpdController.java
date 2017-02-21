@@ -118,6 +118,13 @@ public class LrkpdController extends BaseController {
 		request.setAttribute("xfSum", xfList.size());
 		request.setAttribute("xfList", xfList);
 		request.setAttribute("skpList", skpList);
+		List<Double> list = new ArrayList<>();
+		list.add(0.17);
+		list.add(0.13);
+		list.add(0.11);
+		list.add(0.06);
+		list.add(0.03);
+		request.setAttribute("slList", list);
 		return "lrkpd/index";
 	}
 	
