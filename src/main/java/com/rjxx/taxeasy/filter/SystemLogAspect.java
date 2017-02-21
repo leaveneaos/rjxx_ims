@@ -245,7 +245,7 @@ public class SystemLogAspect extends BaseController {
 		String s1 = str;
 		int count = 0;
 		for (int i = 0; i < str.length(); i++) {
-			System.out.println(s1);
+			//System.out.println(s1);
 			if (s1.indexOf(ch) >= 0) {
 				count++;
 				// return true;
