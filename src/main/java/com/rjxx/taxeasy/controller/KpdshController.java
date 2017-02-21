@@ -21,12 +21,16 @@ import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyspmx;
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.domains.Sm;
+import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.JymxsqService;
 import com.rjxx.taxeasy.service.JyspmxService;
 import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.SkpService;
+import com.rjxx.taxeasy.service.SmService;
+import com.rjxx.taxeasy.service.SpService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.web.BaseController;
@@ -46,18 +50,17 @@ public class KpdshController extends BaseController {
 	@Autowired
 	private XfService xfService;
 	@Autowired
+	private SpService spService;
+	@Autowired
 	private SkpService skpService;
+	@Autowired
+	private SmService smService;
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfList", getXfList());
 		request.setAttribute("skpList", getSkpList());
-		List<Double> list = new ArrayList<>();
-		list.add(0.17);
-		list.add(0.13);
-		list.add(0.11);
-		list.add(0.06);
-		list.add(0.03);
-		request.setAttribute("slList", list);
+		List<Sm> list = smService.findAllByParams(new Sm());
+		request.setAttribute("smlist", list);
 		return "kpdsh/index";
 	}
 	
@@ -170,6 +173,7 @@ public class KpdshController extends BaseController {
 		jyxxsq2.setXfdh(xf1.getXfdh());
 		jyxxsq2.setXfdz(xf1.getXfdz());
 		jyxxsq2.setXfsh(xf1.getXfsh());
+		jyxxsq2.setFpzldm(jyxxsq.getFpzldm());
 		jyxxsq2.setXfmc(xf1.getXfmc());
 		jyxxsq2.setXfyh(xf1.getXfyh());
 		jyxxsq2.setXfyhzh(xf1.getXfyhzh());
@@ -179,7 +183,7 @@ public class KpdshController extends BaseController {
 		jyxxsq2.setSkpid(skp1.getId());
 		jyxxsq2.setDdh(jyxxsq.getDdh());
 		jyxxsq2.setGfsh(jyxxsq.getGfsh());
-		jyxxsq2.setGfmc(jyxxsq2.getGfmc());
+		jyxxsq2.setGfmc(jyxxsq.getGfmc());
 		jyxxsq2.setGfyh(jyxxsq.getGfyh());
 		jyxxsq2.setGfyhzh(jyxxsq.getGfyhzh());
 		jyxxsq2.setGflxr(jyxxsq.getGflxr());
@@ -215,11 +219,13 @@ public class KpdshController extends BaseController {
 	}
 	@ResponseBody
 	@RequestMapping("/xgbcmx")
-	public Map<String, Object> xgbcmx(Jymxsq jymxsq){
+	public Map<String, Object> xgbcmx(Jymxsq jymxsq,Integer spid){
 		Map<String, Object> result = new HashMap<String, Object>();
+		Sp sp = spService.findOne(spid);
 		Jymxsq jymxsq2 = jymxsqService.findOne(jymxsq.getId());
 		jymxsq2.setSpmc(jymxsq.getSpmc());
 		jymxsq2.setSpggxh(jymxsq.getSpggxh());
+		jymxsq2.setSpdm(sp.getSpbm());
 		jymxsq2.setSpmc(jymxsq.getSpmc());
 		jymxsq2.setSpdw(jymxsq.getSpdw());
 		jymxsq2.setSps(jymxsq.getSps());
@@ -321,6 +327,26 @@ public class KpdshController extends BaseController {
 		result.put("msg", "审核成功!");
 		return result;
 		
+	}
+	@ResponseBody
+	@RequestMapping("/cxsp")
+	public Map<String, Object> cxsp(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Sp sp = new Sp();
+		sp.setGsdm(getGsdm());
+		List<Sp> sps = spService.findAllByParams(sp);
+		result.put("sps", sps);
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping("/hqsl")
+	public Map<String, Object> hqsl(Integer spid){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Sp sp = spService.findOne(spid);
+		Sm sm = smService.findOne(sp.getSmid());
+		result.put("sm", sm);
+		result.put("sp", sp);
+		return result;
 	}
 }
  

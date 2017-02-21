@@ -288,6 +288,22 @@
 							</div>
 						</div>
 						<div class="am-form-group">
+							<label for="fplx_edit" class="am-u-sm-2 am-form-label"><span
+								style="color: red;">*</span>销方名称</label>
+							<div class="am-u-sm-4">
+								<select id="select_fplx" name="fpzldm" onchange="tjbt()" required>
+									<option value="11">电子票</option>
+									<option value="01">纸质专票</option>
+									<option value="02">纸质普票</option>
+								</select>
+							</div>
+							<label for="skpid_gfdh" class="am-u-sm-2 am-form-label">购方电话</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="gfdh_edit" name="gfdh"
+									placeholder="输入电话号码...">
+							</div>
+						</div>
+						<div class="am-form-group">
 							<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span
 								style="color: red;">*</span>订单号</label>
 
@@ -375,7 +391,7 @@
 	</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit1"
 		style="width: 480px;">
-		<div class="am-modal-dialog" style="overflow: auto; height: 500px;">
+		<div class="am-modal-dialog" style="overflow: auto; height: 550px;">
 			<div class="am-modal-hd am-modal-footer-hd">
 				修改商品明细 <a href="javascript: void(0)" class="am-close am-close-spin"
 					data-am-modal-close>&times;</a>
@@ -390,9 +406,19 @@
 					<input type="hidden" name="id" id="formid1">
 					<div class="am-u-lg-12">
 						<div class="am-form-group">
-							<label for="mx_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
+							<label for="mx_spmc" class="am-u-sm-4 am-form-label">选择商品</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spmc" name="spmc" type="text" class="am-form-field"
+								<select onchange="tzsl()" id="mx_spmc" name="spid" required>
+							
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spmx" class="am-u-sm-4 am-form-label">商品名称</label>
+							<div class="am-u-sm-8">
+								<input id="mx_spmx" type="text" name="spmc" class="am-form-field"
 									placeholder="商品名称">
 							</div>
 						</div>
@@ -447,8 +473,8 @@
 							<label for="mx_sl" class="am-u-sm-4 am-form-label">商品税率</label>
 							<div class="am-u-sm-8">
 								<select id="mx_sl" name="spsl" onchange="jsje3()" name="sl">
-										<c:forEach items="${slList}" var="item">
-											<option value="${item}">${item}</option>
+										<c:forEach items="${smlist}" var="item">
+											<option value="${item.sl}">${item.sl}</option>
 										</c:forEach>
 									</select>
 							</div>
@@ -597,6 +623,36 @@
 			if(null!=spdj&&""!=spdj){
 			$('#mx_spsl').val(Math.round((jshj*1/spdj*1)*100)/100);}
 			}
+	}
+	function tjbt(){
+		if($("#select_fplx").val()=="01"){
+		$('#gfdh_edit').attr("required",true);
+		$('#gfsh_edit').attr("required",true);
+		$('#gfmc_edit').attr("required",true);
+		$('#gfyh_edit').attr("required",true);
+		$('#gfyhzh_edit').attr("required",true);
+		$('#gfdz_edit').attr("required",true);
+		}else{
+			$('#gfdh_edit').attr("required",false);
+			$('#gfsh_edit').attr("required",false);
+			$('#gfmc_edit').attr("required",true);
+			$('#gfyh_edit').removeAttr("required");
+			$('#gfyhzh_edit').attr("required",false);
+			$('#gfdz_edit').attr("required",false);
+		}
+	}
+	
+	function tzsl(){
+		var spid = $('#mx_spmc').val();
+		$.ajax({
+			type : "POST",
+			url : "kpdsh/hqsl",
+			data : {"spid":spid},
+			success : function(data) {
+				$('#mx_sl').val(data.sm.sl);
+				$('#mx_spmx').val(data.sp.spmc);
+			}
+		});
 	}
 	</script>
 

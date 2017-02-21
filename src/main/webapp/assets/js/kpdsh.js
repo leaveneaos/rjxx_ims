@@ -134,8 +134,23 @@ $(function() {
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
+		$.ajax({
+			type : "POST",
+			url : "kpdsh/cxsp",
+			data : {},
+			success : function(data) {
+				var option;
+				$('#mx_spmc').html("");
+				for (var i = 0; i < data.sps.length; i++) {
+					option+= "<option value='"+data.sps[i].id+"'>"+data.sps[i].spmc+"("+data.sps[i].spbm+")</option>";
+				}
+				$('#mx_spmc').append(option);
+				
+			}
+		});
     	$('#my-alert-edit1').modal('open');
-    	$('#mx_spmc').val(row.spmc);
+    	$('#mx_spmc').val(row.id);
+    	$('#mx_spmx').val(row.spmc);
     	$('#mx_ggxh').val(row.spggxh);
     	$('#mx_spdw').val(row.spdw);
     	$('#mx_spsl').val(row.sps);
@@ -301,15 +316,18 @@ $(function() {
 								if (data) {
 									/*var option = $("<option>").text('请选择').val(-1);
 									$('#select_skpid').append(option);*/
+									var option;
+									$('#select_skpid').html("");
 									for (var i = 0; i < data.skps.length; i++) {
-										option = $("<option>").text(data.skps[i].kpdmc)
-												.val(data.skps[i].id);
-										$('#select_skpid').append(option);
+										option+= "<option value='"+data.skps[i].id+"'>"+data.skps[i].kpdmc+"</option>";
 									}
+									$('#select_skpid').append(option);
 								}
 							}});
 							$('#select_skpid').val(jy.skpid);
 							$('#ddh_edit').val(jy.ddh);
+							$('#ddh_fplx').val(jy.fpzldm);
+							$('#gfdh_edit').val(jy.gfdh);
 							$('#gfsh_edit').val(jy.gfsh);
 							$('#gfmc_edit').val(jy.gfmc);
 							$('#gfyh_edit').val(jy.gfyh);
@@ -433,7 +451,10 @@ $(function() {
 		 */
 		xgbc : function() {
 			var _this = this;
+
 			$("#kpd_xgbc").on('click', function(e) {
+				 var r = $("#main_form").validator("isFormValid");
+		          if (r) {
 				$.ajax({
 					type : "POST",
 					url : "kpdsh/xgbckpd",
@@ -446,8 +467,11 @@ $(function() {
 						}
 					}
 				});
-				
+		          }else{
+		        	  alert("验证不通过!")
+		          }
 			});
+	         
 		},
 		/**
 		 * 修改保存mx
@@ -455,6 +479,8 @@ $(function() {
 		xgbcmx : function() {
 			var _this = this;
 			$("#kpdmx_xgbc").on('click', function(e) {
+				  var r = $("#main_form1").validator("isFormValid");
+		            if (r) {
 				$('#mx_spse1').val($('#mx_spse').val());
 				$.ajax({
 					type : "POST",
@@ -469,8 +495,11 @@ $(function() {
 						}
 					}
 				});
-				
+		            }else{
+			        	  alert("验证不通过!")
+			          }
 			});
+	           
 		},
 		/**
 		 * 导出按钮
