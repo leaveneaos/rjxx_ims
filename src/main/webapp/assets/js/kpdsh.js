@@ -137,6 +137,7 @@ $(function() {
 		$.ajax({
 			type : "POST",
 			url : "kpdsh/cxsp",
+			 async: false,
 			data : {},
 			success : function(data) {
 				var option;
@@ -149,7 +150,7 @@ $(function() {
 			}
 		});
     	$('#my-alert-edit1').modal('open');
-    	$('#mx_spmc').val(row.id);
+    	/*$('#mx_spmc').val(row.id);*/
     	$('#mx_spmx').val(row.spmc);
     	$('#mx_ggxh').val(row.spggxh);
     	$('#mx_spdw').val(row.spdw);

@@ -144,7 +144,7 @@ public class KpdshController extends BaseController {
 		String[] sqlshs = ddhs.split(",");
 		for (String sqlsh : sqlshs) {
 			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
-			jyxxsq.setZtbz("0");
+			jyxxsq.setZtbz("2");
 			jyxxsqService.save(jyxxsq);
 		}
 		result.put("msg", "退回成功");
@@ -191,6 +191,7 @@ public class KpdshController extends BaseController {
 		jyxxsq2.setGfsjh(jyxxsq.getGfsjh());
 		jyxxsq2.setGfdz(jyxxsq.getGfdz());
 		jyxxsq2.setBz(jyxxsq.getBz());
+		jyxxsq2.setGfdh(jyxxsq.getGfdh());
 		jyxxsq2.setXgry(getYhid());
 		jyxxsq2.setXgsj(new Date());
 		jyxxsqService.save(jyxxsq2);

@@ -101,7 +101,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="zpxe" name="zpxe"
 														placeholder="专票分票金额" 
-														class="am-form-field" required maxlength="20" />
+														class="am-text-money am-form-field" required maxlength="20" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -109,7 +109,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="zphs" name="zphs"
 														placeholder="普票分票行数" 
-														class="am-form-field" required maxlength="20" />
+														class="js-pattern-integer am-form-field" max="8" min="1" required maxlength="1" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -117,7 +117,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="ppxe" name="ppxe"
 														placeholder="普票分票金额" 
-														class="am-form-field" required maxlength="20" />
+														class="am-text-money am-form-field"  required maxlength="20" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -125,7 +125,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="pphs" name="pphs" 
 														placeholder="普票分票行数" 
-														class="am-form-field" required maxlength="20" />
+														class="js-pattern-integer am-form-field" max="8" min="1" required maxlength="1" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -133,7 +133,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="dzpxe" name="dzpxe"
 														placeholder="电子票分票金额" 
-														class="am-form-field" required maxlength="20" />
+														class="am-text-money am-form-field" required maxlength="20" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -141,7 +141,7 @@
 												<div class="am-u-sm-8">
 													<input type="text" id="dzphs" name="dzphs" 
 														placeholder="电子票分票行数" 
-														class="am-form-field" required maxlength="20" />
+														class="js-pattern-integer am-form-field" max="100" min="1" required maxlength="3" />
 												</div>
 											</div>
 										</div>

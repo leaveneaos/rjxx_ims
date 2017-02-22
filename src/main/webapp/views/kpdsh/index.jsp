@@ -651,6 +651,9 @@
 			success : function(data) {
 				$('#mx_sl').val(data.sm.sl);
 				$('#mx_spmx').val(data.sp.spmc);
+				$('#mx_spje').val(null);
+				$('#mx_spse').val(null);
+				$('#mx_jshj').val(null);
 			}
 		});
 	}
