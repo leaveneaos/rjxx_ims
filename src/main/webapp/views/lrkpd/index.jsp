@@ -32,10 +32,8 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
 		<input type="hidden" id="djh" value="0">
@@ -183,7 +181,7 @@
 								<th>开户行</th>
 								<th>开户账号</th>
 								<th>价税合计</th>
-								<th>录入人员</th>
+								<!-- <th>录入人员</th> -->
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -906,7 +904,7 @@
 										<select id="select_sp" name="select_sp">
 											<option value="">---选择商品---</option>
 											<c:forEach items="${spList}" var="item">
-												<option value="${item.spdm}">${item.spmc}(${item.spdm})</option>
+												<option value="${item.spdm}" class ="${item.id}">${item.spmc}(${item.spdm})</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -915,6 +913,7 @@
 
 									<div class="am-u-sm-4">
 										<input type="text" id="spdm_edit" placeholder="输入商品代码..." readonly="readonly">
+										<input type="text" id="spid_edit" placeholder="输入商品代码..." >
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -1299,7 +1298,6 @@
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-	<%@ include file="../../pages/foot.jsp"%>
 	<!--[if lt IE 9]>
 
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
@@ -1357,7 +1355,7 @@
             var spdm = $(this).val();
             var spmc = $("#select_sp option:checked").text();
             var pos = spmc.indexOf("(");
-            
+            //var spid =  $("#select_sp option:checked").attr('class');
             spmc = spmc.substring(0, pos);
             if (!spdm) {
                 $("#mx_form input").val("");
@@ -1393,6 +1391,7 @@
                          $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
                          $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
                          $("#mx_form #sltaxrate_edit").val(res["sl"]);
+                         $("#mx_form #spid_edit").val(res["id"]);
                          spsl = res["sl"];
                         // alert(spsl+"QQQ");
                      }

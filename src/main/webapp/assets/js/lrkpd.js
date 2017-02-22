@@ -40,12 +40,12 @@
                 {"data": "ddrq"},
                 {"data": function(data){
                 	if("01"==data.fpzldm){
-                	 	return "纸质专票";
+                	 	return "专用发票";
                 	}else if("02"==data.fpzldm){
-                	 	return "纸质普票";
+                	 	return "普通发票";
                 	}
                 	else if("12"==data.fpzldm){
-                	 	return "电子票";
+                	 	return "电子发票";
                 	}else{
                 		return "";
                 	}
@@ -64,7 +64,7 @@
                         return null;
                     }
                 }, 'sClass': 'right'},
-                {"data": "lrry"},
+               // {"data": "lrry"},
                 {
                     "data": null,
                     "render": function (data) {

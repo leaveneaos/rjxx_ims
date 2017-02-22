@@ -28,10 +28,8 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<input type="hidden" id="kplsh" value="0">
 		<!-- content start -->
@@ -420,8 +418,6 @@
 	</div>
 
 
-
-	<%@ include file="../../pages/foot.jsp"%>
 
 	<!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>

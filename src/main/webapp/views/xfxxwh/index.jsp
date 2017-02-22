@@ -24,10 +24,6 @@
 .am-u-left {
 	padding-left: 0em;
 }
-.admin-div{
-	width: 80%;
-	height: 820px;
-}
 </style>
 </head>
 <body>
@@ -36,10 +32,8 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="admin-main">
 		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
 		<div class="admin-div admin-content">
@@ -368,9 +362,6 @@
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-	<div style="margin-bottom: 10px; height: 30px;">
-		<%@ include file="../../pages/foot.jsp"%>
-	</div>
 
 	<!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
