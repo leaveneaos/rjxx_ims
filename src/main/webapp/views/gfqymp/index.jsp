@@ -84,7 +84,7 @@
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <div class="am-form-group">
-                                <label for="xq_ddh" class="am-u-sm-4 am-form-label">企业名称</label>
+                                <label for="xq_ddh" class="am-u-sm-4 am-form-label"><span style="color: red;">*</span>企业名称</label>
                                 <div class="am-u-sm-8">
                                     <input type="text" id="xg_gfmc" name="xq_ddh" placeholder=""/>
                                 </div>
@@ -147,7 +147,7 @@
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <div class="am-form-group">
-                                <label for="xq_ddh" class="am-u-sm-4 am-form-label">企业名称</label>
+                                <label for="xq_ddh" class="am-u-sm-4 am-form-label"><span style="color: red;">*</span>企业名称</label>
                                 <div class="am-u-sm-8">
                                     <input type="text" id="xz_gfmc" name="xz_gfmc" placeholder=""/>
                                 </div>
