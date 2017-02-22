@@ -134,7 +134,7 @@ $(function() {
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
-		$.ajax({
+/*		$.ajax({
 			type : "POST",
 			url : "kpdsh/cxsp",
 			 async: false,
@@ -148,9 +148,9 @@ $(function() {
 				$('#mx_spmc').append(option);
 				
 			}
-		});
+		});*/
     	$('#my-alert-edit1').modal('open');
-    	/*$('#mx_spmc').val(row.id);*/
+    	/*$('#mx_spmc').val(row.spid);*/
     	$('#mx_spmx').val(row.spmc);
     	$('#mx_ggxh').val(row.spggxh);
     	$('#mx_spdw').val(row.spdw);
@@ -480,8 +480,8 @@ $(function() {
 		xgbcmx : function() {
 			var _this = this;
 			$("#kpdmx_xgbc").on('click', function(e) {
-				  var r = $("#main_form1").validator("isFormValid");
-		            if (r) {
+		var r = $("#main_form1").validator("isFormValid");
+	 if (r) {
 				$('#mx_spse1').val($('#mx_spse').val());
 				$.ajax({
 					type : "POST",

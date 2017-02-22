@@ -51,9 +51,27 @@
                 <div class="am-fr tpl-header-navbar">
                     <ul>
                         <!-- 欢迎语 -->
-                        <li class="am-text-sm tpl-header-navbar-welcome">
+                       <%--  <li class="am-text-sm tpl-header-navbar-welcome">
                             <a href="javascript:;"><span>${login_session_key.yhmc} ,你好!</span> </a>
-                        </li>
+                        </li> --%>
+                        <li class="am-dropdown" data-am-dropdown><a
+				class="am-text-sm am-dropdown-toggle" data-am-dropdown-toggle
+				href="javascript:;"> <span class="am-icon-users"></span>
+					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
+			</a>
+				<ul class="am-dropdown-content">
+					<li class=" am-text-sm"><a href="#"
+						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
+							class="am-icon-user"></span> 资料</a></li>
+					<li class=" am-text-sm"><a href="#"
+						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
+							class="am-icon-cog"></span> 修改密码</a></li>
+					<li class=" am-text-sm"><a href="javascript:logout()"><span
+							class="am-icon-power-off"></span> 退出</a></li>
+				</ul></li>
+			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
+				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
+					class="admin-fullText">开启全屏</span></a></li>
 
                         <!-- 新邮件 -->
                         <li class="am-dropdown tpl-dropdown" data-am-dropdown>
@@ -225,6 +243,136 @@
         </footer>
     </div>
     </div>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+		<div class="am-modal-dialog">
+			<form class="js-form-0 am-form am-form-horizontal">
+				<div class="am-modal-hd">
+					修改用户资料 <a href="javascript: void(0)" class="am-close am-close-spin"
+						data-am-modal-close>&times;</a>
+				</div>
+				<div class="am-modal-bd">
+					<div class="am-modal-bd" style="overflow: auto;" >
+					<div class="am-g">
+						<div class="am-u-sm-12">
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户名称</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="yhmc"
+									value="${login_session_key.yhmc}" class="am-form-field"
+									required maxlength="50" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_yfpdm" class="am-u-sm-3 am-form-label">选择性别</label>
+							<div class="am-u-sm-8">
+								<c:if test="${login_session_key.xb == 1}">
+									<select id="xb" name="xb" class="am-field-valid"
+										>
+										<option value="0" selected="selected">男</option>
+										<option value="1">女</option>
+									</select>
+								</c:if>
+								<c:if test="${login_session_key.xb == 0}">
+									<select id="xb" name="xb" class="am-field-valid">
+										<option value="0">男</option>
+										<option value="1" selected="selected">女</option>
+									</select>
+								</c:if>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label">手机号</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="sjhm"
+									value="${login_session_key.sjhm}" placeholder="请输入手机号"
+									class="am-form-field" maxlength="50" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户邮箱</label>
+							<div class="am-u-sm-8">
+								<input type="email" id="yx" value="${login_session_key.yx}"
+									placeholder="请输入用户邮箱" class="am-form-field" maxlength="100" />
+							</div>
+						</div>
+						<div class="am-u-sm-12 am-margin-top-lg">
+							<div class="am-form-group">
+								<div class="am-u-sm-12  am-text-center">
+									<button id="btnSaveUserInfo" type="button"
+										class="am-btn am-btn-primary" data-am-modal-close onclick="save()">保存</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<button id="btnCancelUserInfo" type="button"
+										class="am-btn am-btn-primary" data-am-modal-close
+										>取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-2">
+		<div class="am-modal-dialog">
+			<form class="js-form-0 am-form am-form-horizontal">
+				<div class="am-modal-hd">
+					修改用户密码 <a href="javascript: void(0)" class="am-close am-close-spin"
+						data-am-modal-close>&times;</a>
+				</div>
+				<div class="am-modal-bd">
+					<div class="am-g">
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label">原密码</label>
+							<div class="am-u-sm-8">
+								<input type="password" id="oldPass" name="yhmm2" 	placeholder="请输入原密码"
+									class="am-form-field" required maxlength="50" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label">新密码</label>
+							<div class="am-u-sm-8">
+								<input type="password" id="newPass" name="yhmm2"
+									placeholder="大,小写字母,数字,符号中三种,最少8位" class="am-form-field"
+									required
+									pattern="^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$"
+									minlength="8" maxlength="50" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label">确认密码</label>
+							<div class="am-u-sm-8">
+								<input type="password" id="newPass1" name="qrmm1"
+									placeholder="请与上面输入的值一致" data-equal-to="#yhmm2"
+									class="am-form-field" required maxlength="50" />
+							</div>
+						</div>
+						<div class="am-u-sm-12 am-margin-top-lg">
+							<div class="am-form-group">
+								<div class="am-u-sm-12  am-text-center">
+									<button id="btnUpdatePassword" type="button"
+									data-am-modal-close	class="am-btn am-btn-primary" onclick="updatePass()">保存</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+									<button type="button" class="am-btn am-btn-primary"
+										data-am-modal-close>取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-bd">您确定要退出吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-confirm>确定</span> <span
+					class="am-modal-btn" data-am-modal-cancel>取消</span>
+			</div>
+		</div>
+	</div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -275,6 +423,105 @@
     	var v_id = $(th).attr('data');
     	$("#mainFrame").attr("src",v_id); 
     }
+	function logout() {
+		$('#my-confirm').modal({
+			relatedTarget : this,
+			onConfirm : function(options) {
+				window.location.href = "<c:url value='/login/logout'/>";
+			},
+			// closeOnConfirm: false,
+			onCancel : function() {
+
+			}
+		});
+		// 		if (confirm('是否退出？')) {
+		// 			
+		// 		}
+	}
+	function save() {
+		var yhmc = $('#yhmc').val();// 用户名称
+		var xb = $('#xb').val(); // 性别
+		var sjhm = $('#sjhm').val(); // 性别
+		var yx = $('#yx').val(); // 性别
+		var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+		if(null==yhmc||""==yhmc){
+			alert("用户名称不能为空!");
+			return;
+		}else if(!reg.test(yx)){
+			alert("邮箱格式不对!");
+			return;
+		}
+		$.ajax({
+			url : 'nyhgl/update',
+			data : {
+				yhmc : yhmc,
+				xb : xb,
+				sjhm : sjhm,
+				yx : yx
+			},
+			method : 'POST',
+			success : function(data) {
+				if (data.success) {
+					$('#doc-modal-1').modal('close');
+					alert(data.msg);
+				} else {
+					alert('后台错误: 数据修改失败' + data.msg);
+				}
+			},
+			error : function() {
+				alert('数据修改失败, 请重新登陆再试...!');
+			}
+		});
+	}
+
+	function updatePass() {
+		var oldPass = $('#oldPass').val();// 原密码
+		var newPass = $('#newPass').val(); // 新密码
+		var newPass1 = $('#newPass1').val(); // 确认密码
+		if (oldPass == null || oldPass == "") {
+			alert('请输入原密码');
+			return;
+		}
+		if (newPass == null || newPass == "") {
+			alert('请输入新密码');
+			return;
+		}
+		if (newPass1 == null || newPass1 == "") {
+			alert('请输入确认密码');
+			return;
+		}
+		if (newPass == oldPass) {
+			alert('新密码与原密码一致，请重新输入');
+			return;
+		}
+		if (newPass != newPass1) {
+			alert('两次密码输入不一致，请重新输入');
+			return;
+		}
+		$.ajax({
+			url : 'nyhgl/updatePwd',
+			data : {
+				oldPass : oldPass,
+				newPass : newPass
+			},
+			type : 'POST',
+			success : function(data) {
+				if (data.success) {
+					$('#doc-modal-2').modal('close');
+					alert(data.msg);
+					window.location.href = "<c:url value='/login/logout'/>";
+				} else if (data.nosame) {
+					alert('原密码不正确，请重新输入');
+				} else {
+					alert('后台错误: 数据修改失败' + data.msg);
+				}
+			},
+			error : function() {
+				alert('数据修改失败, 请重新登陆再试...!');
+			}
+		});
+	}
+
 	function logout() {
 		$('#my-confirm').modal({
 			relatedTarget : this,

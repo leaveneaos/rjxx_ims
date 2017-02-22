@@ -220,13 +220,14 @@ public class KpdshController extends BaseController {
 	}
 	@ResponseBody
 	@RequestMapping("/xgbcmx")
-	public Map<String, Object> xgbcmx(Jymxsq jymxsq,Integer spid){
+	public Map<String, Object> xgbcmx(Jymxsq jymxsq/*,Integer spid*/){
 		Map<String, Object> result = new HashMap<String, Object>();
-		Sp sp = spService.findOne(spid);
+/*		Sp sp = spService.findOne(spid);*/
 		Jymxsq jymxsq2 = jymxsqService.findOne(jymxsq.getId());
 		jymxsq2.setSpmc(jymxsq.getSpmc());
+/*		jymxsq2.setSpid(spid);*/
 		jymxsq2.setSpggxh(jymxsq.getSpggxh());
-		jymxsq2.setSpdm(sp.getSpbm());
+	/*	jymxsq2.setSpdm(sp.getSpbm());*/
 		jymxsq2.setSpmc(jymxsq.getSpmc());
 		jymxsq2.setSpdw(jymxsq.getSpdw());
 		jymxsq2.setSps(jymxsq.getSps());

@@ -111,7 +111,7 @@
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">商品名称</label>
 								<div class="am-u-sm-8">
 									<input id="kpd_spmc" type="text" class="am-form-field"
-										placeholder="商品名称">
+										placeholder="商品名称" >
 								</div>
 							</div>
 						</div>
@@ -402,7 +402,7 @@
 			<form class="am-form am-form-horizontal" id="main_form1">
 				<fieldset>
 					<input type="hidden" name="id" id="formid1">
-					<div class="am-u-lg-12">
+<!-- 					<div class="am-u-lg-12">
 						<div class="am-form-group">
 							<label for="mx_spmc" class="am-u-sm-4 am-form-label">选择商品</label>
 							<div class="am-u-sm-8">
@@ -411,12 +411,12 @@
 								</select>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="am-u-lg-12">
 						<div class="am-form-group">
 							<label for="mx_spmx" class="am-u-sm-4 am-form-label">商品名称</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spmx" type="text" name="spmc" class="am-form-field"
+								<input id="mx_spmx" required="required" type="text" name="spmc" class="am-form-field"
 									placeholder="商品名称">
 							</div>
 						</div>
@@ -461,7 +461,7 @@
 						<div class="am-form-group">
 							<label for="mx_spje" class="am-u-sm-4 am-form-label">商品金额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spje" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
+								<input id="mx_spje" required="required" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
@@ -482,7 +482,7 @@
 						<div class="am-form-group">
 							<label for="mx_spse" class="am-u-sm-4 am-form-label">商品税额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spse"  disabled="disabled" type="text" class="am-text-money am-form-field"
+								<input id="mx_spse" required="required"  disabled="disabled" type="text" class="am-text-money am-form-field"
 								>
 								<input id="mx_spse1" name="spse"  type="hidden" class="am-form-field"
 								>
@@ -493,7 +493,7 @@
 						<div class="am-form-group">
 							<label for="mx_jshj" class="am-u-sm-4 am-form-label">价税合计</label>
 							<div class="am-u-sm-8">
-								<input id="mx_jshj"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
+								<input id="mx_jshj" required="required"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
