@@ -251,17 +251,24 @@ $(function() {
 					var formValidity = this.isFormValid();
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
-						if (parseInt(el.$dpmax.val()) < parseInt(el.$fpfz.val())) {
+
+						var dpmax = $('#dzpzdje').val();
+						var fpfz = $('#dzpfpje').val();
+						var zpmax = $('#zpzdje').val();
+						var zpfz = $('#zpfpje').val();
+						var ppmax = $('#ppzdje').val();
+						var ppfz = $('#ppfpje').val();
+						if (parseFloat(dpmax) < parseFloat(fpfz)) {
                         	alert('电子发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
-                        if (parseInt(el.$ppmax.val()) < parseInt(el.$ppfz.val())) {
+                        if (parseFloat(zpmax) < parseFloat(zpfz)) {
                         	alert('普通发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
-                        if (parseInt(el.$zpmax.val()) < parseInt(el.$zpfz.val())) {
+                        if (parseFloat(ppmax) < parseFloat(ppfz)) {
                         	alert('专用发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
