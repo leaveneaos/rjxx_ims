@@ -131,7 +131,7 @@
 												</tr>
 												<c:forEach items="${dyfsList}" var="item">
 												<tr>																					
-													<td colspan="2"><input type="checkbox" id="${item.dyfsdm}" name="dyfs">&nbsp;&nbsp;${item.dyfsmc}</td>
+													<td colspan="2"><input class="dyfs" type="checkbox" id="${item.dyfsdm}" name="dyfs">&nbsp;&nbsp;${item.dyfsmc}</td>
 												</tr>
 												</c:forEach>							
 											</table>

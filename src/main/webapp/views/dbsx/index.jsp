@@ -199,7 +199,7 @@
             	var i=0;
                 for (key in result) {            	
                     ticks[i] = key;  
-                    line1[i] = parseInt(result[key]);
+                    line1[i] = result[key];
                     i++;
                 }
                 //plot开始

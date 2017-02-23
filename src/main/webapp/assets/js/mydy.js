@@ -60,7 +60,7 @@ $(function () {
             // 新增
             el.$jsAdd.on('click', el.$jsAdd, function () {
             	$(".dyfs").attr("checked",false);
-            	$("#dybtid").val("");
+            	$("#dybtidinput").find("option").eq(0).attr("selected", true);
                 el.$jsdiv.modal('open');
                 ur="mydy/save";
                 

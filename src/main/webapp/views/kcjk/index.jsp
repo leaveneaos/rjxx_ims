@@ -62,7 +62,7 @@
 						</div>
 					    <div class="am-u-sm-6 am-u-end">
 							<div class="am-form-group">
-								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票类型</label>
+								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票种类</label>
 								<div class="am-u-sm-9">
 									<select id="s_fplx" name="fpzldm">
 										<option value="">请选择发票类型</option>
