@@ -53,6 +53,7 @@ public class YhglController extends BaseController {
 		request.setAttribute("xfs", getXfList());
 		request.setAttribute("jss", loadJs(getGsdm()));
 		request.setAttribute("sksbs", getKpdByXf(getXfList()));
+		request.setAttribute("gsdm", getGsdm());
 		return "nyhgl/index";
 	}
 

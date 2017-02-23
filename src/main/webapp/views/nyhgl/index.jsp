@@ -124,7 +124,7 @@
 												color="red">*</font>用户账号</label>
 											<div class="am-u-sm-10">
 												<p
-														style="float: left; text-align: center; width: 15%; color: red; height: 100%; padding-top: 5px;">${login_session_key.gsdm}_</p>
+														style="float: left; text-align: center; width: 15%; color: red; height: 100%; padding-top: 5px;">${gsdm}_</p>
 													<input type="text" id="yhzh" name="yhzh"
 														style="width: 85%; float: left;"
 														placeholder="请输入账号,不允许中文" pattern="^[\x01-\x7f]*$"

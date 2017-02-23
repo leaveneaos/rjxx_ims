@@ -166,7 +166,7 @@ public class SpslglController extends BaseController {
 			tp.setSpfldm("1");
 			tp.setSpggxh(spggxh1);
 			tp.setSpmc(spmc1);
-//			tp.setSpbm(spbm1);
+			tp.setSpbm(spbm1);
 			tp.setXgry(getYhid());
 			tp.setXgsj(TimeUtil.getNowDate());
 			tp.setYxbz("1");
@@ -210,7 +210,7 @@ public class SpslglController extends BaseController {
 			tp.setSpfldm("1");
 			tp.setSpggxh(spggxh);
 			tp.setSpmc(spmc);
-//			tp.setSpbm(spbm);
+			tp.setSpbm(spbm);
 			tp.setLrry(sp == null ? getYhid() : sp.getLrry());
 			tp.setLrsj(sp == null ? TimeUtil.getNowDate() : sp.getLrsj());
 			tp.setXgry(getYhid());

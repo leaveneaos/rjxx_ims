@@ -150,17 +150,12 @@ $(function () {
                 el.$jsForm.find('[name="kpr"]').val(data.kpr);
                 var fps = data.kplx.split(",");
                 for(var i = 0; i < fps.length; i++){
-                	if (fps[i] == "01") {
-						$('#zyfp').prop('checked', true);
-					}else if (fps[i] == "02") {
-						$('#ptfp').prop('checked', true);
-					}else{
-						$('#dzfp').prop('checked', true);
-					}
+                	var fplx = '#fplx-'+fps[i];
+                	$(fplx).prop('checked', true);
                 }
                 //el.$jsForm.find('[name="zcm"]').val(data.zcm);
                 url = _this.config.editUrl + "?id=" + data.id;
-                $('#your-modal').modal({"width": 700, "height": 500});
+                $('#your-modal').modal({"width": 800, "height": 500});
             });
            
             t.on('click', 'a.del', function () {
@@ -252,7 +247,7 @@ $(function () {
             el.$jsModalOpem.on('click', function (e) {
                 e.preventDefault();
                 url = _this.config.addUrl;
-                $('#your-modal').modal({"width": 700, "height": 500});
+                $('#your-modal').modal({"width": 800, "height": 500});
 
             });
         },

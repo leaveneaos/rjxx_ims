@@ -18,8 +18,6 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
-<link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
-<link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <style>
 .am-u-left {
 	padding-left: 0em;
@@ -32,11 +30,11 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
-	<div class="admin-main">
+	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
 		<!-- content start -->
-		<div class="admin-div admin-content">
+		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
 					<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>销方信息维护</strong>
@@ -70,12 +68,12 @@
 					<hr />
 					<div class="am-u-sm-12  am-padding  am-text-right">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-radius am-btn-success">查询</button>
+							class="js-search  am-btn am-btn-success">查询</button>
 						<button id="button2" type="button"
-							class="js-search  am-btn am-radius am-btn-success">新增</button>
+							class="js-search  am-btn am-btn-success">新增</button>
 
 						<button type="button" id="kp_dr"
-							class="am-btn am-radius am-btn-default am-btn-default"
+							class="am-btn am-btn-default am-btn-default"
 							style="margin-right: 10px;">
 							<span></span> 批量导入
 						</button>
@@ -130,177 +128,150 @@
 				<form class="js-form-0 am-form am-form-horizontal">
 					<input type="hidden" name="xfid" id="xfid" />
 					<div class="am-g">
-						<div class="am-u-sm-12">
-							<div class="am-form-group">
-								<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
-								<div class="am-u-sm-10">
-									<select id="sjxf" name="sjxf" required="required">
-										<option>请选择</option>
-										<c:forEach items="${xfs }" var="x">
-											<option value="${x.id }">${x.xfmc }</option>
-										</c:forEach>
-									</select>
-								</div>
+						<div class="am-form-group">
+							<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
+							<div class="am-u-sm-10">
+								<option value="0">请选择</option>
+								<select id="sjxf" name="sjxf">
+									<c:forEach items="${xfs }" var="x">
+										<option value="${x.id }">${x.xfmc }</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="xfsh" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>销方税号</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="xfsh"
-										pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18})$" name="xfsh"
-										placeholder="请输入税号,15位或18位" required />
-								</div>
+						<div class="am-form-group">
+							<label for="xfsh" class="am-u-sm-2 am-form-label"><font
+								color="red">*</font>销方税号</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="xfsh"
+									pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18}|[0-9|a-zA-Z]{20})$" name="xfsh"
+									placeholder="请输入税号,15位、18位或20位" required />
 							</div>
-							<div class="am-form-group">
-								<label for="khyh" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>开户银行</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="khyh" name="khyh" placeholder="请输入开户银行"
-										required />
-								</div>
+							<label for="xfmc" class="am-u-sm-2 am-form-label"><font
+								color="red">*</font>销方名称</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="xfmc" name="xfmc" placeholder="请输入销方名称"
+									required="required" />
 							</div>
-							<div class="am-form-group">
-								<label for="dz" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>销方地址</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="dz" name="dz" placeholder="请输入销方地址"
-										required="required" />
-								</div>
+						</div>
+						<div class="am-form-group">
+							<label for="khyh" class="am-u-sm-2 am-form-label">开户银行</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="khyh" name="khyh" placeholder="请输入开户银行"/>
 							</div>
+							<label for="yhzh" class="am-u-sm-2 am-form-label">银行账号</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="yhzh" pattern="^[0-9a-zA-Z]{4,30}$"
+									name="yhzh" placeholder="请输入销方银行帐号"/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="dz" class="am-u-sm-2 am-form-label">销方地址</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="dz" name="dz" placeholder="请输入销方地址"
+									 />
+							</div>
+							<label for="xfdh" class="am-u-sm-2 am-form-label">销方电话</label>
+							<div class="am-u-sm-4">
+								<input type="text" maxlength="20" id="xfdh" name="xfdh"
+									placeholder="请输入电话号码">
+							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="xflxr" class="am-u-sm-4 am-form-label">联系人</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="xflxr" name="xflxr"
-										placeholder="请输入销方联系人">
-								</div>
+						<div class="am-form-group">
+							<label for="xflxr" class="am-u-sm-2 am-form-label">联系人</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="xflxr" name="xflxr"
+									placeholder="请输入销方联系人">
 							</div>
+							<label for="xfyb" class="am-u-sm-2 am-form-label">销方邮编</label>
+							<div class="am-u-sm-4">
+								<input type="text" pattern="^\d{6}$" id="xfyb" name="xfyb"
+									placeholder="输入应为国内邮政编码" />
+							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="kpr" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>开票人</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"
-										required="required" />
-								</div>
+						<div class="am-form-group">
+							<label for="kpr" class="am-u-sm-2 am-form-label">开票人</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"
+									/>
 							</div>
+							<label for="fhr" class="am-u-sm-2 am-form-label">复核人</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="fhr" name="fhr" placeholder="请输入复核人" />
 
-							<div class="am-form-group">
-								<label for="skr" class="am-u-sm-4 am-form-label">收款人</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
-								</div>
 							</div>
-							<div class="am-form-group">
-								<label for="dzpzdje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>电子票开票限额</label>
-								<div class="am-u-sm-8">
+						</div>
+
+						<div class="am-form-group">
+							<label for="skr" class="am-u-sm-2 am-form-label">收款人</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
+							</div>
+							<label for="zfr" class="am-u-sm-2 am-form-label">作废人</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="zfr" name="zfr" placeholder="请输入作废人" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="dzpzdje" class="am-u-sm-2 am-form-label am-u-left">电子票开票限额</label>
+								<div class="am-u-sm-4">
 									<select id="dzpzdje" name="dzpzdje">
+										<option value="">请选择</option>
 										<c:forEach items="${bc }" var="b">
 											<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 										</c:forEach>
 									</select>
 								</div>
+							<label for="dzpfpje" class="am-u-sm-2 am-form-label am-u-left">电子票分票金额</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="dzpfpje" name="dzpfpje"
+									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+									placeholder="大于零且小于开票限额"/>
 							</div>
-							<div class="am-form-group">
-								<label for="zpzdje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>专票开票限额</label>
-								<div class="am-u-sm-8">
+						</div>
+						<div class="am-form-group">
+							<label for="zpzdje" class="am-u-sm-2 am-form-label am-u-left">专票开票限额</label>
+								<div class="am-u-sm-4">
 									<select id="zpzdje" name="zpzdje">
+										<option value="">请选择</option>
 										<c:forEach items="${bc }" var="b">
 											<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 										</c:forEach>
 									</select>
 								</div>
+							<label for="zpfpje" class="am-u-sm-2 am-form-label am-u-left">专票分票金额</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="zpfpje" name="zpfpje"
+									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+									placeholder="大于零且小于开票限额"/>
 							</div>
-							<div class="am-form-group">
-								<label for="ppzdje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>普票开票限额</label>
-								<div class="am-u-sm-8">
+						</div>
+						<div class="am-form-group">
+							<label for="ppzdje" class="am-u-sm-2 am-form-label am-u-left">普票开票限额</label>
+								<div class="am-u-sm-4">
 									<select id="ppzdje" name="ppzdje">
+										<option value="">请选择</option>
 										<c:forEach items="${bc }" var="b">
 											<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 										</c:forEach>
 									</select>
 								</div>
+							<label for="ppfpje" class="am-u-sm-2 am-form-label am-u-left">普票分票金额</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="ppfpje" name="ppfpje"
+									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+									placeholder="大于零且小于开票限额"/>
 							</div>
 						</div>
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="xfmc" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>销方名称</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="xfmc" name="xfmc" placeholder="请输入销方名称"
-										required="required" />
-								</div></div>
-							<div class="am-form-group">
-								<label for="yhzh" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>银行账号</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="yhzh" pattern="^[0-9a-zA-Z]{4,30}$"
-										name="yhzh" placeholder="请输入销方银行帐号" required />
-								</div></div>
-							<div class="am-form-group">
-								<label for="xfdh" class="am-u-sm-4 am-form-label"><font
-									color="red">*</font>销方电话</label>
-								<div class="am-u-sm-8">
-									<input type="text" maxlength="20" id="xfdh" name="xfdh"
-										placeholder="请输入电话号码" required="required">
-								</div></div>
-							<div class="am-form-group">
-								<label for="xfyb" class="am-u-sm-4 am-form-label">销方邮编</label>
-								<div class="am-u-sm-8">
-									<input type="text" pattern="^\d{6}$" id="xfyb" name="xfyb"
-										placeholder="输入应为国内邮政编码" />
-								</div></div>
-							<div class="am-form-group">
-								<label for="fhr" class="am-u-sm-4 am-form-label">复核人</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="fhr" name="fhr" placeholder="请输入复核人" />
-
-								</div></div>
-							<div class="am-form-group">
-								<label for="zfr" class="am-u-sm-4 am-form-label">作废人</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="zfr" name="zfr" placeholder="请输入作废人" />
-								</div></div>
-							<div class="am-form-group">
-								<label for="dzpfpje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>电子票分票金额</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="dzpfpje" name="dzpfpje"
-										pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-										placeholder="电子发票分票金额(大于零且小于开票限额)" required />
-								</div></div>
-							<div class="am-form-group">
-								<label for="zpfpje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>专票分票金额</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="zpfpje" name="zpfpje"
-										pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-										placeholder="专票分票金额(大于零且小于开票限额)" required />
-								</div></div>
-							<div class="am-form-group"><label for="ppfpje" class="am-u-sm-4 am-form-label am-u-left"><font
-									color="red">*</font>普票分票金额</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="ppfpje" name="ppfpje"
-										pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
-										placeholder="普票分票金额(大于零且小于开票限额)" required />
-								</div></div>
-								
-						</div>
-
 
 
 						<div class="am-u-sm-12 am-margin-top-lg">
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
-									<button type="submit"
-										class="js-submit am-btn am-radius am-btn-success">保存</button>
-									<button type="button"
-										class="js-close  am-btn am-radius am-btn-warning">取消</button>
+									<button type="submit" class="js-submit am-btn am-btn-success">保存</button>
+									<button type="button" class="js-close  am-btn am-btn-warning">取消</button>
 								</div>
 							</div>
 						</div>
@@ -328,9 +299,9 @@
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
 								<button type="button" id="btnImport"
-									class="am-btn am-radius am-btn-xs am-btn-success">导入</button>
+									class="am-btn am-btn-xs am-btn-success">导入</button>
 								<button type="button" id="close1"
-									class="am-btn am-radius am-btn-warning am-btn-xs">关闭</button>
+									class="am-btn am-btn-warning am-btn-xs">关闭</button>
 
 							</div>
 							<div class="am-u-sm-12" style="margin-top: 10px;">
