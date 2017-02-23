@@ -231,7 +231,7 @@ public class XfxxwhController extends BaseController {
 			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			if (!"0".equals(sjxf)) {
+			if (!"0".equals(sjxf) && !"".equals(sjxf) && sjxf != null) {
 				Map<String, Object> node = new HashMap<>();
 				node.put("sjxf", xfid);
 				List<Map<String, Object>> doing = new ArrayList<Map<String, Object>>();

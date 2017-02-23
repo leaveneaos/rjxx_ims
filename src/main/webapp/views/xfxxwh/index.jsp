@@ -22,6 +22,9 @@
 .am-u-left {
 	padding-left: 0em;
 }
+.right{
+	text-align: right;
+}
 </style>
 </head>
 <body>
@@ -131,8 +134,8 @@
 						<div class="am-form-group">
 							<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
 							<div class="am-u-sm-10">
-								<option value="0">请选择</option>
 								<select id="sjxf" name="sjxf">
+								<option value="0">请选择</option>
 									<c:forEach items="${xfs }" var="x">
 										<option value="${x.id }">${x.xfmc }</option>
 									</c:forEach>

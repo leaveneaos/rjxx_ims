@@ -53,6 +53,7 @@ $(function () {
                         {"data": "name"},
                         {"data": "id"},
                         {"data": "lrr"},
+                        {"data": "xgr"},
                         {
                             "data": null,
                             "render": function (data) {

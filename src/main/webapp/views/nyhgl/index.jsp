@@ -124,11 +124,11 @@
 												color="red">*</font>用户账号</label>
 											<div class="am-u-sm-10">
 												<p
-														style="float: left; text-align: center; width: 15%; color: red; height: 100%; padding-top: 5px;">${gsdm}_</p>
-													<input type="text" id="yhzh" name="yhzh"
-														style="width: 85%; float: left;"
-														placeholder="请输入账号,不允许中文" pattern="^[\x01-\x7f]*$"
-														class="am-form-field" required maxlength="20" />
+													style="float: left; text-align: center; width: 15%; color: red; height: 100%; padding-top: 5px;">${gsdm}_</p>
+												<input type="text" id="yhzh" name="yhzh"
+													style="width: 85%; float: left;" placeholder="请输入账号,不允许中文"
+													pattern="^[\x01-\x7f]*$" class="am-form-field" required
+													maxlength="20" />
 											</div>
 										</div>
 										<div class="am-form-group">
@@ -203,10 +203,8 @@
 									<c:forEach items="${jss }" var="j">
 										<tr align="left">
 											<td style="width: 100%" colspan="2"><input
-												type="checkbox" id="roles-${j.id }"
-												name="jsid" value="${j.id }" />&nbsp;&nbsp;${j.name }
-	
-											</td>
+												type="checkbox" id="roles-${j.id }" name="jsid"
+												value="${j.id }" />&nbsp;&nbsp;${j.name }</td>
 										</tr>
 									</c:forEach>
 								</table>
@@ -215,7 +213,8 @@
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
 												class="js-submit  am-btn am-radius am-btn-success">确定</button>
-											<button type="button" class="js-close  am-btn am-radius am-btn-warning">取消</button>
+											<button type="button"
+												class="js-close  am-btn am-radius am-btn-warning">取消</button>
 										</div>
 									</div>
 								</div>
@@ -231,15 +230,16 @@
 											<div title="用户机构" style="padding: 10px;" id="bm-box1">
 
 												<div class="am-panel-group" id="accordion">
-													<input type="checkbox" onclick="xfqx(this)" id="all" name="all" />&nbsp;&nbsp;全选
+													<input type="checkbox" onclick="xfqx(this)" id="all"
+														name="all" />&nbsp;&nbsp;全选
 													<c:forEach items="${xfs }" var="x" varStatus="i">
 														<div class="am-panel am-panel-default">
 															<div class="am-panel-hd">
 
 																<h4 class="am-panel-title"
 																	data-am-collapse="{parent: '#accordion', target: '#do-not-say-${x.id }'}">
-																	<input type="checkbox" id="yhjg1-${x.id }"
-																		 name="xfid" value="${x.id }" onclick="xzxf(this)" />&nbsp;&nbsp;${x.xfmc }<i
+																	<input type="checkbox" id="yhjg1-${x.id }" name="xfid"
+																		value="${x.id }" onclick="xzxf(this)" />&nbsp;&nbsp;${x.xfmc }<i
 																		class="am-icon-angle-right am-fr am-margin-right"></i>
 																</h4>
 															</div>
@@ -283,7 +283,8 @@
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
 												class="js-submit  am-btn am-radius am-btn-success">确定</button>
-											<button type="button" class="js-close  am-btn am-radius am-btn-warning">取消</button>
+											<button type="button"
+												class="js-close  am-btn am-radius am-btn-warning">取消</button>
 										</div>
 									</div>
 								</div>
@@ -326,13 +327,13 @@
 									pattern="^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$"
 									minlength="8" maxlength="50" />
 							</div>
-							<div class="am-form-group">
-								<label for="hc_kpje" class="am-u-sm-4 am-form-label">确认密码</label>
-								<div class="am-u-sm-8">
-									<input type="password" id="qrmm" name="qrmm1"
-										placeholder="请与上面输入的值一致" data-equal-to="#yhmm2"
-										class="am-form-field" required maxlength="50" />
-								</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label">确认密码</label>
+							<div class="am-u-sm-8">
+								<input type="password" id="qrmm1" name="qrmm1"
+									placeholder="请与上面输入的值一致" data-equal-to="#yhmm2"
+									class="am-form-field" required maxlength="50" />
 							</div>
 						</div>
 						<div class="am-u-sm-12 am-margin-top-lg">
@@ -340,7 +341,8 @@
 								<div class="am-u-sm-12  am-text-center">
 									<button type="button" id="jsSubmit"
 										class=" am-btn am-radius am-btn-success">保存</button>
-									<button type="button" class="js-close1  am-btn am-radius am-btn-warning">取消</button>
+									<button type="button"
+										class="js-close1  am-btn am-radius am-btn-warning">取消</button>
 								</div>
 							</div>
 						</div>
@@ -382,13 +384,13 @@
 					smObj[i].checked = false;
 			}
 		}
-		function xfqx(obj){
+		function xfqx(obj) {
 			var xfids = document.getElementsByName('xfid');
 			if (obj.checked == true) {
 				for (var i = 0; i < xfids.length; i++) {
 					xfids[i].checked = true;
 				}
-			}else{
+			} else {
 				for (var i = 0; i < xfids.length; i++) {
 					xfids[i].checked = false;
 				}
@@ -420,7 +422,7 @@
 				for (var i = 0; i < smObj1.length; i++) {
 					smObj1[i].checked = true;
 				}
-			}else{
+			} else {
 				for (var i = 0; i < smObj1.length; i++) {
 					smObj1[i].checked = false;
 				}

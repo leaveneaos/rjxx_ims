@@ -138,6 +138,20 @@ $(function() {
 			 */
 			el.$jsSubmit1.on('click', el.$jsSubmit1, function(e) {
 				e.preventDefault();
+				var pass1 = $('#yhmm2').val();
+				var pass2 = $('#qrmm1').val();
+				if (pass1 == "") {
+					alert('请重新输入密码');
+					return;
+				}
+				if (pass2 == "") {
+					alert('请重新输入确认密码');
+					return;
+				}
+				if (pass1 != pass2) {
+					alert('两次密码输入不一致，请重新输入');
+					return;
+				}
 				_this.cz(da1);
 			});
 			el.$chongzhi.modal('close');
@@ -200,7 +214,7 @@ $(function() {
 			});
 			// 重置密码
 			t.on('click', 'a.chongzhimima', function() {
-				el.$chongzhi.modal('open');
+				el.$chongzhi.modal({"width": 600, "height": 400});
 				da1 = t.row($(this).parents('tr')).data();
 
 			});
@@ -228,6 +242,8 @@ $(function() {
 					var formValidity = this.isFormValid();
 					var xfids = document.getElementsByName("xfid");
 					var jsids = document.getElementsByName("jsid");
+					var pass1 = $('#yhmm').val();
+					var pass2 = $('#qrmm').val();
 					var fl = false;
 					var ag = false;
 					for (var i = 0; i < xfids.length; i++) {
@@ -242,6 +258,10 @@ $(function() {
 					}
 					if (jsids == null || jsids == "" || jsids == '') {
 						alert("请选择角色!");
+						return false;
+					}
+					if (pass1 != pass2) {
+						alert("两次密码输入不一致，请重新输入!");
 						return false;
 					}
 					if (formValidity) {
