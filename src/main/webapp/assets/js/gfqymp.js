@@ -95,8 +95,11 @@ $(function () {
 			// 修改数据保存按钮
 			el.$jsUpdate.on('click', el.$jsUpdate, function() {
 				ur = _this.config.updateUrl;
-				_this.update();
-				_this.resetForm();
+				var t = _this.update();
+				if(t==true){
+					_this.resetForm();
+				}
+				
 			});	
             return t;
         },
@@ -106,6 +109,11 @@ $(function () {
 		 */
 		update : function() {
 			var _this = this;
+			if (null ==$('#xg_gfmc').val()|| $('#xg_gfmc').val()=='') {
+            	alert('企业名称不能为空！');
+                //el.$jsLoading.modal('close'); 
+                return false;
+			}
 			$.ajax({
 				url : ur,
 				data : {
@@ -122,7 +130,7 @@ $(function () {
 					if (data.success) {
 
 						// modal
-						alert(data.msg);
+						 alert(data.msg);
 						 el.$xiugai.modal('close');
 					} else {
 
@@ -137,7 +145,7 @@ $(function () {
 					alert('更新购方信息失败, 请重新登陆再试...!');
 				}
 			});
-
+           return true;
 		},
         
         /**
@@ -183,21 +191,11 @@ $(function () {
 					var formValidity = this.isFormValid();
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
-						/*if (parseInt(el.$dpmax.val()) < parseInt(el.$fpfz.val())) {
-                        	alert('电子发票分票金额大于开票限额！');
+						if (null ==$('#xz_gfmc').val()|| $('#xz_gfmc').val()=='') {
+                        	alert('企业名称不能为空！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
-                        if (parseInt(el.$ppmax.val()) < parseInt(el.$ppfz.val())) {
-                        	alert('普通发票分票金额大于开票限额！');
-                            el.$jsLoading.modal('close'); 
-                            return false;
-						}
-                        if (parseInt(el.$zpmax.val()) < parseInt(el.$zpfz.val())) {
-                        	alert('专用发票分票金额大于开票限额！');
-                            el.$jsLoading.modal('close'); 
-                            return false;
-						}*/
 						//var data = el.$jsForm0.serialize(); // get form data
 						//alert($('#xz_gfmc').val());
 						$.ajax({
