@@ -33,10 +33,8 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 		<!-- content start -->
 		<input type="hidden" id="kplsh" value="0">
@@ -113,7 +111,7 @@
 								<label for="s_ddh" class="am-u-sm-4 am-form-label">商品名称</label>
 								<div class="am-u-sm-8">
 									<input id="kpd_spmc" type="text" class="am-form-field"
-										placeholder="商品名称">
+										placeholder="商品名称" >
 								</div>
 							</div>
 						</div>
@@ -288,6 +286,22 @@
 							</div>
 						</div>
 						<div class="am-form-group">
+							<label for="fplx_edit" class="am-u-sm-2 am-form-label"><span
+								style="color: red;">*</span>销方名称</label>
+							<div class="am-u-sm-4">
+								<select id="select_fplx" name="fpzldm" onchange="tjbt()" required>
+									<option value="11">电子票</option>
+									<option value="01">纸质专票</option>
+									<option value="02">纸质普票</option>
+								</select>
+							</div>
+							<label for="skpid_gfdh" class="am-u-sm-2 am-form-label">购方电话</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="gfdh_edit" name="gfdh"
+									placeholder="输入电话号码...">
+							</div>
+						</div>
+						<div class="am-form-group">
 							<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span
 								style="color: red;">*</span>订单号</label>
 
@@ -375,7 +389,7 @@
 	</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit1"
 		style="width: 480px;">
-		<div class="am-modal-dialog" style="overflow: auto; height: 500px;">
+		<div class="am-modal-dialog" style="overflow: auto; height: 550px;">
 			<div class="am-modal-hd am-modal-footer-hd">
 				修改商品明细 <a href="javascript: void(0)" class="am-close am-close-spin"
 					data-am-modal-close>&times;</a>
@@ -388,11 +402,21 @@
 			<form class="am-form am-form-horizontal" id="main_form1">
 				<fieldset>
 					<input type="hidden" name="id" id="formid1">
+<!-- 					<div class="am-u-lg-12">
+						<div class="am-form-group">
+							<label for="mx_spmc" class="am-u-sm-4 am-form-label">选择商品</label>
+							<div class="am-u-sm-8">
+								<select onchange="tzsl()" id="mx_spmc" name="spid" required>
+							
+								</select>
+							</div>
+						</div>
+					</div> -->
 					<div class="am-u-lg-12">
 						<div class="am-form-group">
-							<label for="mx_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
+							<label for="mx_spmx" class="am-u-sm-4 am-form-label">商品名称</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spmc" name="spmc" type="text" class="am-form-field"
+								<input id="mx_spmx" required="required" type="text" name="spmc" class="am-form-field"
 									placeholder="商品名称">
 							</div>
 						</div>
@@ -437,7 +461,7 @@
 						<div class="am-form-group">
 							<label for="mx_spje" class="am-u-sm-4 am-form-label">商品金额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spje" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
+								<input id="mx_spje" required="required" name="spje" onchange="jsje2()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
@@ -447,8 +471,8 @@
 							<label for="mx_sl" class="am-u-sm-4 am-form-label">商品税率</label>
 							<div class="am-u-sm-8">
 								<select id="mx_sl" name="spsl" onchange="jsje3()" name="sl">
-										<c:forEach items="${slList}" var="item">
-											<option value="${item}">${item}</option>
+										<c:forEach items="${smlist}" var="item">
+											<option value="${item.sl}">${item.sl}</option>
 										</c:forEach>
 									</select>
 							</div>
@@ -458,7 +482,7 @@
 						<div class="am-form-group">
 							<label for="mx_spse" class="am-u-sm-4 am-form-label">商品税额</label>
 							<div class="am-u-sm-8">
-								<input id="mx_spse"  disabled="disabled" type="text" class="am-text-money am-form-field"
+								<input id="mx_spse" required="required"  disabled="disabled" type="text" class="am-text-money am-form-field"
 								>
 								<input id="mx_spse1" name="spse"  type="hidden" class="am-form-field"
 								>
@@ -469,7 +493,7 @@
 						<div class="am-form-group">
 							<label for="mx_jshj" class="am-u-sm-4 am-form-label">价税合计</label>
 							<div class="am-u-sm-8">
-								<input id="mx_jshj"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
+								<input id="mx_jshj" required="required"  name="jshj" onchange="jsje4()" type="text" class="am-text-money am-form-field"
 									placeholder="商品金额">
 							</div>
 						</div>
@@ -486,7 +510,6 @@
 
 		</div>
 	</div>
-	<%@ include file="../../pages/foot.jsp"%>
 
 
 
@@ -597,6 +620,39 @@
 			if(null!=spdj&&""!=spdj){
 			$('#mx_spsl').val(Math.round((jshj*1/spdj*1)*100)/100);}
 			}
+	}
+	function tjbt(){
+		if($("#select_fplx").val()=="01"){
+		$('#gfdh_edit').attr("required",true);
+		$('#gfsh_edit').attr("required",true);
+		$('#gfmc_edit').attr("required",true);
+		$('#gfyh_edit').attr("required",true);
+		$('#gfyhzh_edit').attr("required",true);
+		$('#gfdz_edit').attr("required",true);
+		}else{
+			$('#gfdh_edit').attr("required",false);
+			$('#gfsh_edit').attr("required",false);
+			$('#gfmc_edit').attr("required",true);
+			$('#gfyh_edit').removeAttr("required");
+			$('#gfyhzh_edit').attr("required",false);
+			$('#gfdz_edit').attr("required",false);
+		}
+	}
+	
+	function tzsl(){
+		var spid = $('#mx_spmc').val();
+		$.ajax({
+			type : "POST",
+			url : "kpdsh/hqsl",
+			data : {"spid":spid},
+			success : function(data) {
+				$('#mx_sl').val(data.sm.sl);
+				$('#mx_spmx').val(data.sp.spmc);
+				$('#mx_spje').val(null);
+				$('#mx_spse').val(null);
+				$('#mx_jshj').val(null);
+			}
+		});
 	}
 	</script>
 

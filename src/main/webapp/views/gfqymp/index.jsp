@@ -26,10 +26,9 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-<%@ include file="../../pages/top.jsp" %>
+
 <div class="am-cf admin-main">
     <!-- sidebar start -->
-    <%@ include file="../../pages/menus.jsp" %>
     <!-- sidebar end -->
 <input type="hidden" id="gfid" value="0">
     <!-- content start -->
@@ -85,7 +84,7 @@
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <div class="am-form-group">
-                                <label for="xq_ddh" class="am-u-sm-4 am-form-label">企业名称</label>
+                                <label for="xq_ddh" class="am-u-sm-4 am-form-label"><span style="color: red;">*</span>企业名称</label>
                                 <div class="am-u-sm-8">
                                     <input type="text" id="xg_gfmc" name="xq_ddh" placeholder=""/>
                                 </div>
@@ -148,7 +147,7 @@
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <div class="am-form-group">
-                                <label for="xq_ddh" class="am-u-sm-4 am-form-label">企业名称</label>
+                                <label for="xq_ddh" class="am-u-sm-4 am-form-label"><span style="color: red;">*</span>企业名称</label>
                                 <div class="am-u-sm-8">
                                     <input type="text" id="xz_gfmc" name="xz_gfmc" placeholder=""/>
                                 </div>
@@ -211,7 +210,6 @@
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-<%@ include file="../../pages/foot.jsp" %>
 
 
 <!--[if lt IE 9]>
