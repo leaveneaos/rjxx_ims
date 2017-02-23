@@ -913,7 +913,6 @@
 
 									<div class="am-u-sm-4">
 										<input type="text" id="spdm_edit" placeholder="输入商品代码..." readonly="readonly">
-										<input type="hidden" id="spid_edit" placeholder="输入商品代码..." >
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -1391,7 +1390,7 @@
                          $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
                          $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
                          $("#mx_form #sltaxrate_edit").val(res["sl"]);
-                         $("#mx_form #spid_edit").val(res["id"]);
+                        // $("#mx_form #spid_edit").val(res["id"]);
                          spsl = res["sl"];
                         // alert(spsl+"QQQ");
                      }
