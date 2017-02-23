@@ -913,7 +913,7 @@
 
 									<div class="am-u-sm-4">
 										<input type="text" id="spdm_edit" placeholder="输入商品代码..." readonly="readonly">
-										<input type="text" id="spid_edit" placeholder="输入商品代码..." >
+										<input type="hidden" id="spid_edit" placeholder="输入商品代码..." >
 									</div>
 								</div>
 								<div class="am-form-group">
