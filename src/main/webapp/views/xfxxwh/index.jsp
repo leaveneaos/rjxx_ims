@@ -132,8 +132,7 @@
 					<div class="am-g">
 						<div class="am-u-sm-12">
 							<div class="am-form-group">
-								<label for="xfsh" class="am-u-sm-2 am-form-label"><font
-									color="red">*</font>上级销方</label>
+								<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
 								<div class="am-u-sm-10">
 									<select id="sjxf" name="sjxf" required="required">
 										<option>请选择</option>
