@@ -23,9 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
-		<%@ include file="../../pages/menus.jsp"%>
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
@@ -223,7 +221,6 @@
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-	<%@ include file="../../pages/foot.jsp"%>
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>

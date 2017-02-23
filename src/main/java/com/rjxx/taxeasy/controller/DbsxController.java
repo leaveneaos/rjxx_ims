@@ -107,15 +107,21 @@ public class DbsxController extends BaseController{
 		List<Jyxxsq> list1 = fpzlService.findDbsx(param);//录入开票单的代办
 		if(list1 !=null && list1.size()>0){
 			request.setAttribute("lrkpddb","...");
+		}else{
+			request.setAttribute("lrkpddb","");
 		}
 		param.put("ztbz", "0");
 		List<Jyxxsq> list2 = fpzlService.findDbsx(param);//开票单审核的代办
 		if(list2 !=null && list2.size()>0){
 			request.setAttribute("kpdshdb","...");
+		}else{
+			request.setAttribute("kpdshdb","");
 		}
 		Kpls kpls = fpzlService.findDkpsj(param);
 		if(kpls !=null){
 			request.setAttribute("fpkjdb", "...");
+		}else{
+			request.setAttribute("fpkjdb", "");
 		}
 		return "dbsx/index";
 	}
