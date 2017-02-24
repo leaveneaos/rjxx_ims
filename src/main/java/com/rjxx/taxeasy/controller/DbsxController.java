@@ -19,6 +19,7 @@ import com.rjxx.taxeasy.domains.Privileges;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
+import com.rjxx.taxeasy.domains.Yhcljl;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.PrivilegesService;
 import com.rjxx.taxeasy.service.YhService;
@@ -145,6 +146,20 @@ public class DbsxController extends BaseController{
 			result.put(time, 0);
 		}		
 		return result;
+	}
+	
+	/**
+	 * ylmc:用例名称
+	 * 
+	 * */
+	public void saveYhcljl(Integer yhid,String ylmc){
+		Yhcljl item = new Yhcljl();
+		item.setClrq(new Date());
+		item.setYhid(yhid);
+		item.setYlmc(ylmc);
+		item.setLrsj(new Date());
+		item.setLrry(yhid);
+		cljlService.save(item);
 	}
 
 }
