@@ -126,7 +126,8 @@ $(function () {
                 var kprq = el.$jsDate.val();
                 if(kprq==''){
                 	alert("请先选择月份！");
-                	return false;
+                	el.$jsLoading.modal('toggle');
+                	return false;               	
                 }
                 _this.showFp();                
                e.preventDefault();              

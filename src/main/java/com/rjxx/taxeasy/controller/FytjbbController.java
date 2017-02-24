@@ -63,6 +63,10 @@ public class FytjbbController extends BaseController {
 			}
 			Map params = new HashMap<>();
 			params.put("gsdm", getGsdm());
+			List<Xf> xfs = getXfList();
+			if(xfs !=null && xfs.size()>0){
+				params.put("xfs", xfs);
+			}
 			params.put("xfid", xfid);
 			params.put("fpzl", fpzl);
 			params.put("kprq", kprq1);
@@ -102,6 +106,10 @@ public class FytjbbController extends BaseController {
 		}
 		Map params = new HashMap<>();
 		params.put("gsdm", getGsdm());
+		List<Xf> xfs = getXfList();
+		if(xfs !=null && xfs.size()>0){
+			params.put("xfs", xfs);
+		}
 		params.put("xfid", xfid);
 		params.put("fpzl", fpzl);
 		params.put("kprq", kprq);

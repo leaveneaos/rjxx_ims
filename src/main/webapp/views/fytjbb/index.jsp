@@ -37,6 +37,7 @@
 					    <div class="am-u-sm-3">							
 							<div class="am-u-sm-12">
 								<select id="s_xfid" name="xfid">
+								<option value="">---请选择销方---</option>
 								<c:forEach items="${xfs}" var="item">
 									<option value="${item.id}">${item.xfmc}</option>
 								</c:forEach>
@@ -53,14 +54,19 @@
 								</select>
 							</div>
 						</div>
-						<div class="am-u-sm-3">
-							<div class="am-u-sm-12">
-							    <input type="text" id="s_xzrq" name="s_xzrq" placeholder="日历组件"
-									data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}" 
-									readonly />	
-							</div>						
+						<div class="am-u-sm-4">
+							<div class="am-input-group am-datepicker-date am-u-sm-8"
+								data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
+								<input type="text" id="s_xzrq" class="am-form-field"
+									placeholder="选择月份" readonly> <span
+									class="am-input-group-btn am-datepicker-add-on">
+									<button class="am-btn am-btn-default" type="button">
+										<span class="am-icon-calendar"></span>
+									</button>
+								</span>
+							</div>					
 						</div>
-						<div class="am-u-sm-3">
+						<div class="am-u-sm-2">
 						    <div class="am-u-sm-12">
 							   <button type="button" class="am-btn am-btn-primary" id="jsSearch">查询</button>
 							</div>
