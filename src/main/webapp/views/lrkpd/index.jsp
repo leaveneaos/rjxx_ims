@@ -843,24 +843,24 @@
 										<input type="text" id="gfemail_edit" name="gfemail_edit"
 											placeholder="输入购方邮件地址...">
 									</div>
-									<label for="gfdh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdh">*</span>购方电话</label>
+									<label for="gfdh_edit" class="am-u-sm-2 am-form-label">购方电话</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="gfdh_edit" name="gfdh_edit"
 											placeholder="输入购方电话...">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="gfdz_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdz">*</span>购方地址</label>
+									<label for="gfdz_edit" class="am-u-sm-2 am-form-label">购方地址</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfdz_edit" name="gfdz_edit"
 											placeholder="输入购方地址...">
 									</div>
-									<label for="tqm_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>提取码</label>
+									<label for="tqm_edit" class="am-u-sm-2 am-form-label">提取码</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="tqm_edit" name="tqm_edit"
-											placeholder="输入提取码..." required>
+											placeholder="输入提取码..." >
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -1118,24 +1118,24 @@
 										<input type="text" id="gfemail_modify" name="gfemail"
 											placeholder="输入购方邮件地址...">
 									</div>
-									<label for="gfdh_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdh_modify">*</span>购方电话</label>
+									<label for="gfdh_edit" class="am-u-sm-2 am-form-label">购方电话</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="gfdh_modify" name="gfdh"
 											placeholder="输入购方电话...">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="gfdz_edit" class="am-u-sm-2 am-form-label"><span style="color: red;display:none" id="span_gfdz_modify">*</span>购方地址</label>
+									<label for="gfdz_edit" class="am-u-sm-2 am-form-label">购方地址</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="gfdz_modify" name="gfdz"
 											placeholder="输入购方地址...">
 									</div>
-									<label for="tqm_edit" class="am-u-sm-2 am-form-label"><span style="color: red;">*</span>提取码</label>
+									<label for="tqm_edit" class="am-u-sm-2 am-form-label">提取码</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="tqm_modify" name="tqm"
-											placeholder="输入提取码..." required>
+											placeholder="输入提取码...">
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -1807,25 +1807,25 @@
 		if(fpzldm=='01'){
 			//$("#span_gfsh").style.display="";
 			document.getElementById("span_gfsh").style.display=""; 
-			document.getElementById("span_gfdz").style.display=""; 
-			document.getElementById("span_gfdh").style.display=""; 
+			//document.getElementById("span_gfdz").style.display=""; 
+			//document.getElementById("span_gfdh").style.display=""; 
 			document.getElementById("span_gfyh").style.display=""; 
 			document.getElementById("span_gfyhzh").style.display=""; 
 			//document.getElementById("gfmc_edit").setAttribute("required",true);
 			$("#gfsh_edit").attr("required",true);
-			$("#gfdz_edit").attr("required",true);
-			$("#gfdh_edit").attr("required",true);
+			//$("#gfdz_edit").attr("required",true);
+			//$("#gfdh_edit").attr("required",true);
 			$("#gfyh_edit").attr("required",true);
 			$("#gfzh_edit").attr("required",true);
 		 }else{
 			document.getElementById("span_gfsh").style.display="none"; 
-			document.getElementById("span_gfdz").style.display="none"; 
-			document.getElementById("span_gfdh").style.display="none"; 
+			//document.getElementById("span_gfdz").style.display="none"; 
+			//document.getElementById("span_gfdh").style.display="none"; 
 	        document.getElementById("span_gfyh").style.display="none"; 
 			document.getElementById("span_gfyhzh").style.display="none"; 
 			$("#gfsh_edit").attr("required",false);
-			$("#gfdz_edit").attr("required",false);
-			$("#gfdh_edit").attr("required",false);
+			//$("#gfdz_edit").attr("required",false);
+			//$("#gfdh_edit").attr("required",false);
 			$("#gfyh_edit").attr("required",false);
 			$("#gfzh_edit").attr("required",false);
 		 }
@@ -1837,25 +1837,25 @@
 		if(fpzldm=='01'){
 			//$("#span_gfsh").style.display="";
 			document.getElementById("span_gfsh_modify").style.display=""; 
-			document.getElementById("span_gfdz_modify").style.display=""; 
-			document.getElementById("span_gfdh_modify").style.display=""; 
+			//document.getElementById("span_gfdz_modify").style.display=""; 
+			//document.getElementById("span_gfdh_modify").style.display=""; 
 			document.getElementById("span_gfyh_modify").style.display=""; 
 			document.getElementById("span_gfyhzh_modify").style.display=""; 
 			//document.getElementById("gfmc_edit").setAttribute("required",true);
 			$("#gfsh_modify").attr("required",true);
-			$("#gfdz_modify").attr("required",true);
-			$("#gfdh_modify").attr("required",true);
+			//$("#gfdz_modify").attr("required",true);
+			//$("#gfdh_modify").attr("required",true);
 			$("#gfyh_modify").attr("required",true);
 			$("#gfzh_modify").attr("required",true);
 		 }else{
 			document.getElementById("span_gfsh_modify").style.display="none"; 
-			document.getElementById("span_gfdz_modify").style.display="none"; 
-			document.getElementById("span_gfdh_modify").style.display="none"; 
+			//document.getElementById("span_gfdz_modify").style.display="none"; 
+			//document.getElementById("span_gfdh_modify").style.display="none"; 
 	        document.getElementById("span_gfyh_modify").style.display="none"; 
 			document.getElementById("span_gfyhzh_modify").style.display="none"; 
 			$("#gfsh_modify").attr("required",false);
-			$("#gfdz_modify").attr("required",false);
-			$("#gfdh_modify").attr("required",false);
+			//$("#gfdz_modify").attr("required",false);
+			//$("#gfdh_modify").attr("required",false);
 			$("#gfyh_modify").attr("required",false);
 			$("#gfzh_modify").attr("required",false);
 		 }
@@ -1866,25 +1866,25 @@
 		if(fpzldm=='01'){
 			//$("#span_gfsh").style.display="";
 			document.getElementById("span_gfsh_modify").style.display=""; 
-			document.getElementById("span_gfdz_modify").style.display=""; 
-			document.getElementById("span_gfdh_modify").style.display=""; 
+			//document.getElementById("span_gfdz_modify").style.display=""; 
+			//document.getElementById("span_gfdh_modify").style.display=""; 
 			document.getElementById("span_gfyh_modify").style.display=""; 
 			document.getElementById("span_gfyhzh_modify").style.display=""; 
 			//document.getElementById("gfmc_edit").setAttribute("required",true);
 			$("#gfsh_modify").attr("required",true);
-			$("#gfdz_modify").attr("required",true);
-			$("#gfdh_modify").attr("required",true);
+			//$("#gfdz_modify").attr("required",true);
+			//$("#gfdh_modify").attr("required",true);
 			$("#gfyh_modify").attr("required",true);
 			$("#gfzh_modify").attr("required",true);
 		 }else{
 			document.getElementById("span_gfsh_modify").style.display="none"; 
-			document.getElementById("span_gfdz_modify").style.display="none"; 
-			document.getElementById("span_gfdh_modify").style.display="none"; 
+			//document.getElementById("span_gfdz_modify").style.display="none"; 
+			//document.getElementById("span_gfdh_modify").style.display="none"; 
 	        document.getElementById("span_gfyh_modify").style.display="none"; 
 			document.getElementById("span_gfyhzh_modify").style.display="none"; 
 			$("#gfsh_modify").attr("required",false);
-			$("#gfdz_modify").attr("required",false);
-			$("#gfdh_modify").attr("required",false);
+			//$("#gfdz_modify").attr("required",false);
+			//$("#gfdh_modify").attr("required",false);
 			$("#gfyh_modify").attr("required",false);
 			$("#gfzh_modify").attr("required",false);
 		 }

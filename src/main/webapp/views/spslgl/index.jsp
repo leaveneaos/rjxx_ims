@@ -265,7 +265,7 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-										<label for="spdj1" class="am-u-sm-4 am-form-label">商品和服务税收分类编码</label>
+										<label for="spdj1" class="am-u-sm-4 am-form-label"><font color="red">*</font>商品和服务税收分类编码</label>
 										<div class="am-u-sm-8" style="height: 35px;">
 											<select id="spbm" name="spbm"
 											data-am-dropdown="{boundary: '#spbm'} style="overflow:auto">
@@ -365,7 +365,7 @@
 										</div>
 								</div>
 								<div class="am-form-group">
-										<label for="spdj1" class="am-u-sm-4 am-form-label">商品和服务税收分类编码</label>
+										<label for="spdj1" class="am-u-sm-4 am-form-label"><font color="red">*</font>商品和服务税收分类编码</label>
 										<div class="am-u-sm-8" style="height: 35px;">
 											<select id="spbm1" name="spbm1"
 											data-am-dropdown="{boundary: '#spbm1'} style="overflow:auto">
