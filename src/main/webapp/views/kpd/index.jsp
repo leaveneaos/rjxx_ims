@@ -136,6 +136,20 @@
 									</div>
 								</div>
 								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">复核人</label>
+									<div class="am-u-sm-3">
+										<input type="text" id="fhr" name="fhr" style="float: left;"
+											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
+											/>
+									</div>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">收款人</label>
+									<div class="am-u-sm-3">
+										<input type="text" id="skr" name="skr" style="float: left;"
+											placeholder="收款人" value="${xf.skr }" class="am-form-field"
+											/>
+									</div>
+								</div>
+								<div class="am-form-group">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red">*</font>开票人</label>
 									<div class="am-u-sm-3">
@@ -151,20 +165,6 @@
 												<option value="${b.id }">${b.bmbbh}</option>
 											</c:forEach>
 										</select>
-									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">复核人</label>
-									<div class="am-u-sm-3">
-										<input type="text" id="fhr" name="fhr" style="float: left;"
-											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
-											/>
-									</div>
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">收款人</label>
-									<div class="am-u-sm-3">
-										<input type="text" id="skr" name="skr" style="float: left;"
-											placeholder="收款人" value="${xf.skr }" class="am-form-field"
-											/>
 									</div>
 								</div>
 								<div class="am-form-group" style="padding-bottom: 1px;">
