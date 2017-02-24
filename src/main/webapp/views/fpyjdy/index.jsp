@@ -49,6 +49,32 @@
 								</div>
 							</div>
 						</div>
+						<div class="am-u-sm-6">
+							<div class="am-form-group">
+								<label for="s_kpdmc" class="am-u-sm-3 am-form-label">开票点名称</label>
+								<div class="am-u-sm-9">
+									<select id="s_skpid" name="skpid">
+									   <option value="">请选择发票开票点</option>
+									   <c:forEach items="${skpList}" var="skp">
+										  <option value="${skp.id}">${skp.kpdmc}</option>
+									   </c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+					    <div class="am-u-sm-6 am-u-end">
+							<div class="am-form-group">
+								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票种类</label>
+								<div class="am-u-sm-9">
+									<select id="s_fplx" name="fpzldm">
+										<option value="">请选择发票类型</option>
+										<c:forEach items="${fplxList}" var="item">
+											<option value="${item.fpzldm}">${item.fpzlmc}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
 					</div>
 				</form>
 				<hr />
@@ -68,9 +94,9 @@
 									<th style="display: none">xfid</th>
 									<th style="display: none">skpid</th>
 									<th>销方名称</th>
-									<th>销方税号</th>
-									<th>税控盘号</th>
+									<th>销方税号</th>									
 									<th>开票点名称</th>
+									<th>发票种类</th>
 									<th>剩余库存(张)</th>
 									<th>首页订阅</th>
 									<th>Email订阅</th>
