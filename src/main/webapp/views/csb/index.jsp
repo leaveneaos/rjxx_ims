@@ -258,21 +258,26 @@
 											<div class="am-u-sm-8">
 												<input type="text" id="xggsdm" name="xggsdm"
 													value="${login_session_key.gsdm}" class="am-form-field"
-													required readonly="readonly" />
+													required/>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">请选择销方</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xgxfid" name="xgxfid"
-													class="am-form-field" readonly="readonly" />
+												<select id="xgxzxf" name="xgxzxf" onchange="xgskp1(this)">
+													<option value="">请选择销方</option>
+													<c:forEach items="${xfs}" var="item">
+														<option value="${item.id}">${item.xfmc}(${item.xfsh})</option>
+													</c:forEach>
+												</select>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="hc_yfpdm" class="am-u-sm-4 am-form-label">请选择开票点</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xgkpdid" name="xgkpdid"
-													class="am-form-field" readonly="readonly" />
+												<select id="xgxzkpd" name="xgxzkpd">
+														<option value="">请选择税控盘</option>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -309,6 +314,17 @@
 			</div>
 		</div>
 	</div>
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-bd">
+      你，确定要删除这条记录吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
@@ -372,6 +388,23 @@
 						trs +="<option value= '"+value.id+"'>"+value.kpdmc+"("+value.kpddm+")</option>"
 					});
 					$('#xzxzkpd').append(trs);
+				}
+			})
+		}
+		function xgskp1(obj){
+			$.ajax({
+				url : 'csb/xzskp',
+				data : {
+					xfid : obj.value
+				},
+				type : 'post',
+				success : function(data) {
+					$('#xgxzkpd').html("");
+					trs="<option value=''>请选择</option>";
+					$.each(data.skp, function(n, value) {
+						trs +="<option value= '"+value.id+"'>"+value.kpdmc+"("+value.kpddm+")</option>"
+					});
+					$('#xgxzkpd').append(trs);
 				}
 			})
 		}

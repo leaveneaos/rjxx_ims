@@ -92,7 +92,7 @@ $(function() {
 				{
 					"data" : null,
 					"render" : function(data) {
-						return '<a class="xiugai">修改</a>';
+						return '<a class="xiugai">修改</a>   '+'<a class="shanchu">删除</a>';
 
 					}
 				// "defaultContent": ' <a class="view" href="' +
@@ -121,8 +121,8 @@ $(function() {
 				$.ajax({
 					url : _this.config.xzCsbUrl,
 					data : {
-						csid : csid,
-						csjb : csjb
+			/*			csid : csid,
+						csjb : csjb*/
 					},
 					 async: false,
 					type : 'post',
@@ -144,8 +144,24 @@ $(function() {
 				_this.resetForm1();
 				$('#cszid').val(row.id);
 				$('#xgxzcs').val(row.csmc+"("+row.csm+")");
-				$('#xgxfid').val(row.xfmc);
-				$('#xgkpdid').val(row.kpdmc)
+				$('#xgxzxf').val(row.xfid);
+				$.ajax({
+					url : 'csb/xzskp',
+					data : {
+						xfid : row.xfid
+					},
+					type : 'post',
+					 async: false,
+					success : function(data) {
+						$('#xgxzkpd').html("");
+						var trs="<option value=''>请选择</option>";
+						$.each(data.skp, function(n, value) {
+							trs +="<option value= '"+value.id+"'>"+value.kpdmc+"("+value.kpddm+")</option>"
+						});
+						$('#xgxzkpd').append(trs);
+					}
+				})
+				$('#xgxzkpd').val(row.kpdid)
 				if("是"==row.csz||"否"==row.csz){
 					$('#xgxzcsz').hide();
 					$('#xgxzcsz2').show();
@@ -161,9 +177,34 @@ $(function() {
 				el.$modalHongchong1.modal('open');
 
 			});
+			// 删除
+			t.on('click', 'a.shanchu', function() {
+				var row = t.row($(this).parents('tr')).data();
+				  $('#my-confirm').modal({
+				        relatedTarget: this,
+				        onConfirm: function(options) {
+							$.ajax({
+								url : 'csb/scCsb',
+								data : {"csid":row.id},
+								method : 'POST',
+								success : function(data) {
+									if(data.msg){
+										alert('操作成功!');
+										_this.tableEx.ajax.reload();
+									}
+								},
+								error : function() {
+									el.$modalHongchong.modal('close'); // close
+									el.$jsLoading.modal('close'); // close loading
+									alert('操作失败!');
+								}
+							});
+				        }
+				      });
+			});
 			return t;
 		},
-
+	
 		/**
 		 * search action
 		 */

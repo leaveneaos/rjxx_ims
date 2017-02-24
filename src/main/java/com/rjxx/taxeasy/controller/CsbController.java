@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Csb;
 import com.rjxx.taxeasy.domains.Cszb;
@@ -136,7 +137,7 @@ public class CsbController extends BaseController {
 		cszb.setLrry(getYhid());
 		cszb.setXgry(getYhid());
 		cszb.setYxbz("1");
-		cszb.setGsdm(xzgsdm);
+		cszb.setGsdm(getGsdm());
 		if ("".equals(xzxzxf)) {
 			cszb.setXfid(null);
 		} else {
@@ -185,17 +186,70 @@ public class CsbController extends BaseController {
 
 	@RequestMapping(value = "/xgCsb")
 	@ResponseBody
-	public Map xgcsb(Integer cszid, String xgxzcsz, String xgxzcsz1) {
+	public Map xgcsb(Integer cszid, String xgxzcsz, String xgxzcsz1, Integer xgxzxf, Integer xgxzkpd) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Cszb cszb = cszbService.findOne(cszid);
+		cszb.setXgsj(new Date());
+		cszb.setXgry(getYhid());
+		cszb.setGsdm(getGsdm());
+		if ("".equals(xgxzxf)) {
+			cszb.setXfid(null);
+		} else {
+			cszb.setXfid(xgxzxf);
+		}
+		if ("".equals(xgxzkpd)) {
+			cszb.setKpdid(null);
+		} else {
+			cszb.setKpdid(xgxzkpd);
+		}
 		if (null != xgxzcsz && !"".equals(xgxzcsz)) {
 			cszb.setCsz(xgxzcsz);
 		} else if (null != xgxzcsz1 && !"".equals(xgxzcsz1)) {
 			cszb.setCsz(xgxzcsz1);
 		}
+		Map params = new HashMap<>();
+		params.put("csid", cszb.getCsid());
+		params.put("gsdm", getGsdm());
+		params.put("xfid", xgxzxf);
+		params.put("kpdid", xgxzkpd);
+		List<Cszb> list = cszbService.findAllByParams(params);
+		for (Cszb cszb3 : list) {
+			if (cszb3.getId().equals(cszb.getId())) {
+				list.remove(cszb3);
+				break;
+			}
+		}
+		boolean flag = false;
+		for (Cszb cszb2 : list) {
+			if (((null == cszb.getXfid() && null == cszb2.getXfid())
+					|| (((null != cszb.getXfid() && null != cszb2.getXfid()))
+							&& (cszb.getXfid().equals(cszb2.getXfid()))))
+					&& ((null == cszb.getKpdid() && null == cszb2.getKpdid())
+							|| ((null != cszb.getKpdid() && null != cszb2.getKpdid())
+									&& (cszb.getKpdid().equals(cszb2.getKpdid()))))
+					&& (cszb.getCsid().equals(cszb2.getCsid()))) {
+				flag = true;
+				break;
+			}
+		}
+		if (flag) {
+			result.put("msg", "相同级别参数已存在,请选择修改!");
+			result.put("success", false);
+			return result;
+		}
 		cszbService.save(cszb);
 		result.put("msg", "修改成功!");
 		result.put("success", true);
+		return result;
+	}
+	@RequestMapping(value = "/scCsb")
+	@ResponseBody
+	public Map<String, Object> scCsb(Integer csid){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Cszb cszb = cszbService.findOne(csid);
+		cszb.setYxbz("0");
+		cszbService.save(cszb);
+		result.put("msg", true);
 		return result;
 	}
 }
