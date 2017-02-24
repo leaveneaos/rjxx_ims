@@ -204,7 +204,7 @@
                 </li>
 <!--循环大菜单 -->
 			<c:forEach items="${privilegeTypes}" varStatus="i" var="privilegeType">
-                <li class="sidebar-nav-link">
+                <li  class="${privilegeType.description } sidebar-nav-link">
                     <a href="#" class="sidebar-nav-sub-title active">
                         <i class="am-icon-table sidebar-nav-link-logo"></i>${privilegeType.name}
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
@@ -215,7 +215,7 @@
                     	<c:forEach items="${privileges}" varStatus="j" var="privilege">
                     	<c:if test="${privilege.privilegetypeid == privilegeType.id}">
                         <li class="sidebar-nav-link">
-                            <a href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" onclick="jznr(this)">
+                            <a class="ejcd" href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" onclick="jznr(this)">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> ${privilege.name}
                             </a>
                         </li>
@@ -512,6 +512,8 @@
     function jznr(th){
     	//获取点击菜单的路劲
     	var v_id = $(th).attr('data');
+     	 $(".ejcd").css('background','none')
+     	$(th).css("background-color","#f2f6f9");
     	$("#mainFrame").attr("src",v_id); 
     }
 	function logout() {

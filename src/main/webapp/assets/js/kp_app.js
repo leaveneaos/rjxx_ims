@@ -250,8 +250,11 @@
                 }
             });
             $("#kp_kp").attr('disabled',"true"); 
+           
+            
         });
         $('#savet').click(function () {
+        	 $("#savet").attr('disabled',"true"); 
             var djhArr = [];
             $('input[name="chk"]:checked').each(function(){    
                     djhArr.push($(this).val()); 
@@ -275,6 +278,7 @@
                     }
                     $("#fpjek").modal("close");
                     $('#kp_kp').removeAttr("disabled");
+                    $('#savet').removeAttr("disabled");
                 }
             });
         })
@@ -435,6 +439,7 @@
         });
         $("#closet").click(function () {
         	 $('#kp_kp').removeAttr("disabled");
+        	  $('#savet').removeAttr("disabled");
            $("#fpjek").modal("close");
         });
         //批量导入
