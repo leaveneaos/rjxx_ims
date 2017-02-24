@@ -157,6 +157,7 @@
 									<label for="xfmc" class="am-u-sm-2 am-form-label"><font color="red">*</font>销方名称</label>
 									<div class="am-u-sm-10">
 										<select id="xfid" name="xfid" data-am-selected="{btnWidth: '100%'}" required>
+											<option value="0">请选择</option>
 											<c:forEach items="${xfs}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
 											</c:forEach>

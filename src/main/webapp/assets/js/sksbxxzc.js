@@ -341,6 +341,10 @@ $(function () {
                     if (formValidity) {
                         el.$jsLoading.modal('toggle');  // show loading
                         //alert('验证成功');
+                        if ($('#xfid').val() == 0) {
+							alert('请选择销方');
+							return;
+						}
                         var data = el.$jsForm.serialize(); // get form data data                        
                         $.ajax({
                             url: url,
