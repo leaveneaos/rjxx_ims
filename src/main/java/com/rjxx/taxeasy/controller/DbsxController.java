@@ -132,7 +132,6 @@ public class DbsxController extends BaseController{
 	public Map<String,Object> getPlot(){
 		Map<String,Object> result = new LinkedHashMap<String,Object>();
 		Integer yhid = this.getYhid();
-		cljlService.saveYhcljl(yhid, "待办事项");
 		Map params = new HashMap<>();
 		params.put("yhid", yhid);
 		List<Yhcljlvo> list = cljlService.findYhcljl(params);
