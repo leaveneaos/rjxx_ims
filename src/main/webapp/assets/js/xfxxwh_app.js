@@ -165,11 +165,19 @@ $(function() {
 			// 新增
 			el.$jsTable1.on('click', el.$jsTable1, function() {
 				_this.resetForm();
+				$('div').removeClass('am-form-error');
+				$('input').removeClass('am-field-error');
+				$('div').removeClass('am-form-success');
+				$('input').removeClass('am-field-success');
 				ur = _this.config.addUrl;
 				el.$modalHongchong.modal({"width": 950, "height": 500});
 			});
 			// 修改
 			t.on('click', 'a.modify', function() {
+				$('div').removeClass('am-form-error');
+				$('input').removeClass('am-field-error');
+				$('div').removeClass('am-form-success');
+				$('input').removeClass('am-field-success');
 				var row = t.row($(this).parents('tr')).data();
 				_this.setForm0(row);				
 				el.$modalHongchong.modal({"width": 950, "height": 500});

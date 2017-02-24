@@ -134,7 +134,7 @@
 						<div class="am-form-group">
 							<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
 							<div class="am-u-sm-10">
-								<select id="sjxf" name="sjxf">
+								<select id="sjxf" name="sjxf" data-am-selected="{btnWidth: '100%'}">
 								<option value="0">请选择</option>
 									<c:forEach items="${xfs }" var="x">
 										<option value="${x.id }">${x.xfmc }</option>
@@ -146,8 +146,8 @@
 							<label for="xfsh" class="am-u-sm-2 am-form-label"><font
 								color="red">*</font>销方税号</label>
 							<div class="am-u-sm-4">
-								<input type="text" id="xfsh"
-									pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18}|[0-9|a-zA-Z]{20})$" name="xfsh"
+								<input type="text" id="xfsh" class="js-pattern-taxid"
+									 name="xfsh"
 									placeholder="请输入税号,15位、18位或20位" required />
 							</div>
 							<label for="xfmc" class="am-u-sm-2 am-form-label"><font
@@ -263,8 +263,8 @@
 								</div>
 							<label for="ppfpje" class="am-u-sm-2 am-form-label am-u-left">普票分票金额</label>
 							<div class="am-u-sm-4">
-								<input type="text" id="ppfpje" name="ppfpje"
-									pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+								<input type="text" id="ppfpje" name="ppfpje" calss="am-text-twomoney"
+									
 									placeholder="大于零且小于开票限额"/>
 							</div>
 						</div>

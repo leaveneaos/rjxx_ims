@@ -15,7 +15,7 @@
     $.ajaxSetup({
         statusCode: {
             401: function () {
-                window.location = "/login/login";
+                window.top.location = "/login/login";
             }
         }
     });

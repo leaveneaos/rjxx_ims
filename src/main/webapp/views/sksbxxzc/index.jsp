@@ -156,7 +156,7 @@
 								<div class="am-form-group">
 									<label for="xfmc" class="am-u-sm-2 am-form-label"><font color="red">*</font>销方名称</label>
 									<div class="am-u-sm-10">
-										<select id="xfid" name="xfid" required>
+										<select id="xfid" name="xfid" data-am-selected="{btnWidth: '100%'}" required>
 											<c:forEach items="${xfs}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
 											</c:forEach>
@@ -178,7 +178,7 @@
 								<div class="am-form-group">
 									<label for="bz" class="am-u-sm-2 am-form-label">设备厂商</label>
 									<div class="am-u-sm-4">
-										<select id="sbcs" name="sbcs">
+										<select id="sbcs" name="sbcs" data-am-selected="{btnWidth: '100%'}">
 											<option value="1">百旺</option>
 											<option value="2">航信</option>
 										</select>
@@ -214,7 +214,7 @@
 									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>联系电话</label>
 									<div class="am-u-sm-4">
 										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
-											placeholder="联系电话" class="am-form-field"
+											placeholder="联系电话" class="am-form-field patternTelephone"
 											required="required"/>
 									</div>
 								</div>													
@@ -254,7 +254,7 @@
 											required="required"/>
 									</div><label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
 									<div class="am-u-sm-4">
-										<select id="pid" name="pid" required>
+										<select id="pid" name="pid" data-am-selected="{btnWidth: '100%'}" required>
 											<option value="0">请选择</option>
 											<c:forEach items="${pps}" var="item">
 												<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
