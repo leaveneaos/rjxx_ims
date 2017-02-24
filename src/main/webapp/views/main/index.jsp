@@ -204,9 +204,9 @@
                 </li>
 <!--循环大菜单 -->
 			<c:forEach items="${privilegeTypes}" varStatus="i" var="privilegeType">
-                <li  class="${privilegeType.description } sidebar-nav-link">
+                <li class=" sidebar-nav-link">
                     <a href="#" class="sidebar-nav-sub-title active">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i>${privilegeType.name}
+                        <i class="${privilegeType.description } sidebar-nav-link-logo"></i>${privilegeType.name}
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
                     </a>
                     <!--循环小菜单 -->
