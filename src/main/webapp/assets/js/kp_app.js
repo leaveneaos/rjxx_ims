@@ -227,15 +227,36 @@
                 alert("请勾选需要开票的交易流水...");
                 return;
             }
+            $("#kp_kp").attr('disabled',"true"); 
+            if (!confirm("您确认全部开票？")) {
+				return;
+			}
+            $.ajax({
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(",")}, success: function (data) {
+                    if (data.success) {
+                        alert("开票成功!");
+                        jyls_table.ajax.reload();
+                    } else {
+                        alert(data.msg);
+                    }
+                 //   $("#fpjek").modal("close");
+                    $('#kp_kp').removeAttr("disabled");
+              //      $('#savet').removeAttr("disabled");
+                }
+            });
+/*            if (djhArr.length == 0) {
+                alert("请勾选需要开票的交易流水...");
+                return;
+            }
             if($("#s_xfsh").val()==""||$("#s_fplx").val()==""){
             	  alert("请选择销方和开票类型...");
                   return;
-            }
+            }*/
 /*            if (!confirm("您确认开票？")) {
 				return;
 			}*/
             //获取分票金额
-            $.ajax({
+/*            $.ajax({
                 url: "fpgz/hqfpxe",
                 type: "post",
                 data: {
@@ -248,8 +269,8 @@
                 	$("#fpjesrk").val("");
                 	$("#fpjesrk").val(data.fpje);
                 }
-            });
-            $("#kp_kp").attr('disabled',"true"); 
+            });*/
+
            
             
         });
@@ -268,19 +289,7 @@
                   return;
             }
             var kpxe = $("#fpjesrk").val()
-            $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","), "kpxe":kpxe}, success: function (data) {
-                    if (data.success) {
-                        alert("开票成功!");
-                        jyls_table.ajax.reload();
-                    } else {
-                        alert(data.msg);
-                    }
-                    $("#fpjek").modal("close");
-                    $('#kp_kp').removeAttr("disabled");
-                    $('#savet').removeAttr("disabled");
-                }
-            });
+
         })
 
         $('#kp_all').click(function () {

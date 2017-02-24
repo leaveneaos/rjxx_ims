@@ -162,7 +162,7 @@ $(function() {
     	$('#mx_jshj').val(row.jshj);
     	$('#formid1').val(row.id);
     });
-    
+    var t;
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -170,7 +170,7 @@ $(function() {
 		},
 		dataTable : function() {
 			var _this = this;
-			var t = el.$jsTable.DataTable({
+			t = el.$jsTable.DataTable({
 				"processing" : true,
 				"serverSide" : true,
 				ordering : false,
@@ -205,6 +205,13 @@ $(function() {
 	                      /*  {"data": "sqlsh"},*/
 	                        {"data": "ddh"},
 	                        {"data": "ddrq"},
+	                        {"data": null,
+	                           "render": function (data) {
+	                        	   var fpjee = FormatFloat(data.fpje, "###,###.00")
+	                                return '<input type="text" class="am-text-money" max="'+data.fpje+'" name="fpje" value="'+fpjee+'">';
+	                                }
+	                        },
+	                    
 	                        {"data": function(data){
 	                        	if("01"==data.fpzldm){
 	                        	 	return "纸质专票";
@@ -424,10 +431,14 @@ $(function() {
 			var _this = this;
 			$("#kpd_kp").on('click', function(e) {
 				var chk_value="" ;
+				var fpxes = "";
 				$('input[name="dxk"]:checked').each(function(){
 				chk_value+=$(this).val()+",";
+				var row = t.row($(this).parents('tr')).data();
+				fpxes+=row.fpje+","
 				});
 				var ddhs = chk_value.substring(0, chk_value.length-1);
+				fpxes = fpxes.substring(0, fpxes.length-1);
 				if(chk_value.length==0){
 					alert("请至少选择一条数据!")
 				}else{
@@ -437,7 +448,7 @@ $(function() {
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
-					data : {"sqlshs":ddhs},
+					data : {"sqlshs":ddhs,"fpxes":fpxes},
 					success : function(data) {
 						alert(data.msg);
 						_this.tableEx.ajax.reload();	

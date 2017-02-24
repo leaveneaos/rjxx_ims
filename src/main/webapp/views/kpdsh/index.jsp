@@ -18,6 +18,7 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="css/main.css">
 <style type="text/css">
 .am-table {
 	margin-bottom: 0rem;
@@ -200,7 +201,7 @@
 				</fieldset>
 				<div style="margin-left: 10px">
 					<table
-						class="js-table am-table am-table-bordered am-text-nowrap am-scrollable-horizontal"
+						class="js-table am-table am-table-bordered am-table-striped am-table-hover  am-text-nowrap "
 						id="jyls_table">
 						<thead>
 							<tr>
@@ -209,6 +210,7 @@
 								<!-- 	<th hidden="true">id</th> -->
 								<th>订单号</th>
 								<th>订单日期</th>
+								<th>分票金额</th>
 								<th>发票类型</th>
 								<th>购方名称</th>
 								<th>购方税号</th>
@@ -226,7 +228,7 @@
 				<fieldset>
 					<legend>商品明细列表</legend>
 					<table
-						class="js-mxtable  am-table am-table-bordered am-table-striped am-text-nowrap"
+						class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 						id="mxTable1">
 						<thead>
 							<tr>
@@ -510,7 +512,22 @@
 
 		</div>
 	</div>
-
+<!-- 	<div id="fpjek" class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+		tabindex="-1">
+	<div class="am-modal-dialog" >
+	<br/>
+		<p>是否确认审核?分票金额为 </p>
+		<input id="fpjesrk" type="text" class="am-text-money" value=""/>
+		<br/>
+		<div class="am-margin">
+			<button type="button" id="savet"
+				class="am-btn am-btn-xs am-btn-secondary">确认</button>
+			<button type="button" id="closet"
+				class="am-btn am-btn-danger am-btn-xs">关闭</button>
+		</div>
+	<br/>
+	</div>
+	</div> -->
 
 
 	<!--[if (gte IE 9)|!(IE)]><!-->

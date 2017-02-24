@@ -150,6 +150,11 @@ var ur;
 				$("#ppxe").val(row.ppxe);
 				$("#pphs").val(row.pphs);
 				$("#dzpxe").val(row.dzpxe);
+				if(row.mrbz=="1"){
+					$("#mrbz").attr("checked","checked");
+				}else{
+					$("#mrbz").attr("checked",false);
+				}
 				$("#idd").val(row.id);
 				$("#dzphs").val(row.dzphs);
 				var xfids = row.xfids.split(',');

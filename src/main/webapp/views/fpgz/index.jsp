@@ -145,6 +145,14 @@
 										</div>
 										<div class="am-u-sm-12">
 											<div class="am-form-group">
+												<label for="mrbz" class="am-u-lg-4 am-form-label">默认标志</label>
+												<div style="margin-top: 5px;" class="am-u-lg-1">
+													<input id="mrbz" value="1" type="checkbox" name="mrbz">
+												</div>
+											</div>
+										</div>
+										<div class="am-u-sm-12">
+											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center">
 													<button type="submit"
 														class="gz_xz am-btn am-btn-primary">确定</button>

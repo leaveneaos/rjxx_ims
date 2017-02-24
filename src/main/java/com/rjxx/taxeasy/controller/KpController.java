@@ -67,6 +67,8 @@ public class KpController extends BaseController {
 
 	@Autowired
 	DrmbService drmbService;
+	@Autowired
+	private YhcljlService cljlService;
 
 	@Autowired
 	XfMbService xfmbService;
@@ -1180,13 +1182,14 @@ public class KpController extends BaseController {
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
              //保存
-             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]), getYhid(),kpxe);
+             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]));
 		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
 			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());
 			return result;
 		}
 		}
+		cljlService.saveYhcljl(getYhid(), "开具发票");
 		result.put("success", true);
 		result.put("msg", "开票成功！");
 	/*	} catch (Exception ex) {
