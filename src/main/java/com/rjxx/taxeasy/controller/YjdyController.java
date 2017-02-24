@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Fpyjdy;
+import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpkcService;
 import com.rjxx.taxeasy.service.FpyjdyService;
+import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.vo.Fpyjdyvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -27,17 +29,23 @@ public class YjdyController extends BaseController {
 	private FpyjdyService dyService;
 	@Autowired
 	private FpkcService kcService;
+	@Autowired
+	private FpzlService fpzlService;
 
 	@RequestMapping
 	public String index() throws Exception {
 		List<Xf> xfList = getXfList();
 		request.setAttribute("xfList", xfList);
+		List<Skp> skpList = getSkpList();
+		request.setAttribute("skpList", skpList);
+		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
+		request.setAttribute("fplxList",fpzlList);
 		return "fpyjdy/index";
 	}
 
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpider,String fpzl) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
 		Pagination pagination = new Pagination();
@@ -63,6 +71,8 @@ public class YjdyController extends BaseController {
 			skpid = null;
 		}
 		pagination.addParam("skpid", skpid);
+		pagination.addParam("skpider", skpider);
+		pagination.addParam("fpzl", fpzl);
 		List<Fpyjdyvo> dyList = dyService.findFpyjdyByPage(pagination);
 		for (Fpyjdyvo item : dyList) {
 			Map params = new HashMap<>();

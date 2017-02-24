@@ -375,8 +375,8 @@
 						data-am-modal-close>&times;</a>
 				</div>
 				<div class="am-modal-bd">
-					<div class="am-g" style="border: solid 1px #CCC;">
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
+					<div class="am-g" style="border: solid 0px #CCC;">
+						<div class="am-form-group" style="border-bottom: solid 0px #CCC; height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户类型</font></label>
 							<div class="am-u-sm-8">
 								<label id="yhlx">
@@ -386,7 +386,7 @@
 								</label>
 							</div>
 						</div>
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
+						<div class="am-form-group" style="border-bottom: solid 0px #CCC; height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户有效期</font></label>
 							<div class="am-u-sm-8">
 								<label id="yhyxq"></label>
@@ -411,7 +411,7 @@
 							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;用户数量：</label>
 							<label id="yhsl" class="am-u-sm-6"></label>
 						</div>
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC;">
+						<div class="am-form-group" style="border-bottom: solid ppx #CCC;">
 							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
 							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;开票数量：</label>
 							<label id="kpsl" class="am-u-sm-6"></label>

@@ -38,6 +38,8 @@ $(function () {
                         data: function (d) {
                             d.xfid= el.$xfid.val(); // search
                             $("#xfidhide").val($("#xfid").val());
+                            d.skpider = $("#s_skpid").val();
+                            d.fpzl = $("#s_fplx").val();
                         }
                     },
                     "columns": [
@@ -58,7 +60,7 @@ $(function () {
                         {"data": "xfmc"},
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
-                        {"data":"skph"},                 
+                        {"data":"fpzlmc"},                 
                         {"data": "kyl"},
                         {"data": "sfsy"},
                         {"data": "sfemail"},
