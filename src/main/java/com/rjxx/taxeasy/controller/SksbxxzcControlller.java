@@ -26,6 +26,7 @@ import com.rjxx.taxeasy.domains.Gsxx;
 import com.rjxx.taxeasy.domains.Pp;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.GroupService;
 import com.rjxx.taxeasy.service.GsxxService;
 import com.rjxx.taxeasy.service.PpService;
@@ -54,6 +55,9 @@ public class SksbxxzcControlller extends BaseController {
 
 	@Autowired
 	GsxxService gs;
+
+	@Autowired
+	FpzlService fs;
 
 	/**
 	 * 导入字段映射
@@ -85,6 +89,7 @@ public class SksbxxzcControlller extends BaseController {
 		prms.put("gsdm", getGsdm());
 		List<Pp> ppList = ps.findAllByParams(prms);
 		request.setAttribute("pps", ppList);
+		request.setAttribute("fpzls", fs.findAllByParams(null));
 		return "sksbxxzc/index";
 	}
 

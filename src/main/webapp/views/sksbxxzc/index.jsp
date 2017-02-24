@@ -140,7 +140,7 @@
 
 		<!-- model -->
 		<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
-			<div class="am-modal-dialog" style="overflow-y: auto">
+			<div class="am-modal-dialog">
 				<div class="am-modal-hd">
 					税控设备信息 <a href="javascript: void(0)" class="am-close am-close-spin"
 						data-am-modal-close>&times;</a>
@@ -154,9 +154,10 @@
 							<div class="am-u-sm-12">
 
 								<div class="am-form-group">
-									<label for="xfmc" class="am-u-sm-4 am-form-label"><font color="red">*</font>销方名称</label>
-									<div class="am-u-sm-8">
-										<select id="xfid" name="xfid" required>
+									<label for="xfmc" class="am-u-sm-2 am-form-label"><font color="red">*</font>销方名称</label>
+									<div class="am-u-sm-10">
+										<select id="xfid" name="xfid" data-am-selected="{btnWidth: '100%'}" required>
+											<option value="0">请选择</option>
 											<c:forEach items="${xfs}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
 											</c:forEach>
@@ -164,171 +165,97 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="kpddm" class="am-u-sm-4 am-form-label"><font color="red">*</font>开票点代码</label>
-									<div class="am-u-sm-8">
+									<label for="kpddm" class="am-u-sm-2 am-form-label"><font color="red">*</font>开票点代码</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="kpddm" name="kpddm"
 											placeholder="请输入开票点代码" required />
 									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="kpdmc" class="am-u-sm-4 am-form-label"><font color="red">*</font>开票点名称</label>
-									<div class="am-u-sm-8">
+									<label for="kpdmc" class="am-u-sm-2 am-form-label"><font color="red">*</font>开票点名称</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="kpdmc" name="kpdmc"
 											placeholder="请输入开票点名称" required />
 									</div>
-								</div>																
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">设备厂商</label>
-									<div class="am-u-sm-8">
-										<select id="sbcs" name="sbcs">
-											<option value="1">百旺(黑色)</option>
-											<option value="2">航行(白色)</option>
-										</select>
-									</div>
 								</div>															
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">税控盘号</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label">设备厂商</label>
+									<div class="am-u-sm-4">
+										<select id="sbcs" name="sbcs" data-am-selected="{btnWidth: '100%'}">
+											<option value="1">百旺</option>
+											<option value="2">航信</option>
+										</select>
+									</div>
+									<label for="bz" class="am-u-sm-2 am-form-label">设备号</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="skph" name="skph"
 											placeholder="请输入税控盘号" />
 									</div>
 								</div>															
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">税控盘密码</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label">设备密码</label>
+									<div class="am-u-sm-4">
 										<input type="password" id="skpmm" name="skpmm" style="float: left;"
 											placeholder="税控盘密码" class="am-form-field"
 											maxlength="30" />
 									</div>
-								</div>															
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">证书密码</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label">证书密码</label>
+									<div class="am-u-sm-4">
 										<input type="password" id="zsmm" name="zsmm" style="float: left;"
 											placeholder="证书密码" class="am-form-field"
 											maxlength="30" />
 									</div>
-								</div>															
+								</div>																
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">联系地址</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>联系地址</label>
+									<div class="am-u-sm-4">
 											<input type="text" id="lxdz" name="lxdz" style="float: left;"
 												placeholder="联系地址" value="${xf.xfdz }" class="am-form-field"
-												/>
+												required="required"/>
 									
 									</div>
-								</div>														
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">联系电话</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>联系电话</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
-											placeholder="联系电话" class="am-form-field"
-											/>
+											placeholder="联系电话" class="am-form-field patternTelephone"
+											required="required"/>
 									</div>
 								</div>													
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">开户银行</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>开户银行</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="khyh" name="khyh" style="float: left;"
 											placeholder="开户银行" value="${xf.xfyh }" class="am-form-field"
-											/>
+											required="required"/>
 									</div>
-								</div>												
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">银行账号</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>银行账号</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
 											placeholder="银行账号" value="${xf.xfyhzh }" class="am-form-field"
-											/>
+											required="required"/>
 									</div>
 								</div>												
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">收款人</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label">收款人</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="skr" name="skr" style="float: left;"
 											placeholder="收款人" value="${xf.skr }" class="am-form-field"
 											/>
 									</div>
-								</div>												
-								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">复核人</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label">复核人</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="fhr" name="fhr" style="float: left;"
 											placeholder="复核人" value="${xf.fhr }" class="am-form-field"
 											/>
 									</div>
-								</div>												
+								</div>													
 								<div class="am-form-group">
-									<label for="bz" class="am-u-sm-4 am-form-label">开票人</label>
-									<div class="am-u-sm-8">
+									<label for="bz" class="am-u-sm-2 am-form-label"><font color="red">*</font>开票人</label>
+									<div class="am-u-sm-4">
 										<input type="text" id="kpr" name="kpr" style="float: left;"
 											placeholder="开票人" value="${xf.kpr }" class="am-form-field"
-											/>
-									</div>
-								</div>
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票开票限额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="kpxe2" name="kpxe2" -->
-<!-- 												style="float: left;" placeholder="开票限额" value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field" /> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">专用发票分票金额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="fpje2" name="fpje2" -->
-<!-- 												style="float: left;" placeholder="分票金额" -->
-<!-- 												value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field" /> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票开票限额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="kpxe1" name="kpxe1" -->
-<!-- 												style="float: left;" placeholder="开票限额" -->
-<!-- 												value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field"/> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">普通发票分票金额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="fpje1" name="fpje1" -->
-<!-- 												style="float: left;" placeholder="分票金额" -->
-<!-- 												value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field"/> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票开票限额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="kpxe3" name="kpxe3" -->
-<!-- 												style="float: left;" placeholder="开票限额" -->
-<!-- 												value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field"/> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="am-form-group"> -->
-<!-- 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">电子发票分票金额</label> -->
-<!-- 										<div class="am-u-sm-8"> -->
-<!-- 											<input type="text" id="fpje3" name="fpje3" -->
-<!-- 												style="float: left;" placeholder="分票金额" -->
-<!-- 												value="" -->
-<!-- 												pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" -->
-<!-- 												class="am-form-field"/> -->
-<!-- 										</div> -->
-<!-- 								</div> -->
-								<div class="am-form-group">
-									<label for="kpdmc" class="am-u-sm-4 am-form-label">开票点品牌</label>
-									<div class="am-u-sm-8">
-										<select id="pid" name="pid" required>
+											required="required"/>
+									</div><label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
+									<div class="am-u-sm-4">
+										<select id="pid" name="pid" data-am-selected="{btnWidth: '100%'}" required>
 											<option value="0">请选择</option>
 											<c:forEach items="${pps}" var="item">
 												<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
@@ -336,11 +263,18 @@
 										</select>
 									</div>
 								</div>
+
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font color="red">*</font>开票类型</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="ptfp" name="fplx" value="02">普通发票</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="zyfp" name="fplx" value="01">专用发票</label>
-									<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="dzfp" name="fplx" value="12">电子发票</label>
+									
+								</div>
+								<div class="am-form-group">
+									<label for="hc_yfphm" class="am-u-sm-2 am-form-label"><font color="red">*</font>开票类型</label>
+									<c:forEach items="${fpzls }" var="f">
+										<label for="hc_yfphm" class="am-u-sm-5"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
+									</c:forEach>
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4"><input type="checkbox" id="ptfp" name="fplx" value="02">普通发票</label> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4"><input type="checkbox" id="zyfp" name="fplx" value="01">专用发票</label> -->
+<!-- 									<label for="hc_yfphm" class="am-u-sm-4"><input type="checkbox" id="dzfp" name="fplx" value="12">电子发票</label> -->
 								</div>	
 							</div>
  						</div>

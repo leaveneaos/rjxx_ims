@@ -64,40 +64,36 @@
 										<input type="text" id="xfsh" name="xfsh" style="float: left;"
 											placeholder="15、18或20位"
 											pattern="^([0-9|a-zA-Z]{15}|[0-9|a-zA-Z]{18}|[0-9|a-zA-Z]{20})$"
-											class="am-form-field" required maxlength="20" />
+											class="am-form-field js-pattern-taxid" required maxlength="20" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font>企业地址</label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">企业地址</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdz" name="dz" style="float: left;"
-											placeholder="企业地址(发票票面)" class="am-form-field" required />
+											placeholder="企业地址(发票票面)" class="am-form-field" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font>企业电话</label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">企业电话</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdh" name="xfdh" style="float: left;"
-											placeholder="企业电话(发票票面)" class="am-form-field" required
+											placeholder="企业电话(发票票面)" class="am-form-field" 
 											maxlength="30" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font>企业银行</label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">企业银行</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="khyh" name="khyh" style="float: left;"
-											placeholder="企业银行(发票票面)" class="am-form-field" required />
+											placeholder="企业银行(发票票面)" class="am-form-field" />
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font>银行账号</label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">银行账号</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="银行账号(发票票面)" class="am-form-field" required
+											placeholder="银行账号(发票票面)" class="am-form-field"
 											maxlength="50" />
 									</div>
 								</div>
@@ -118,11 +114,10 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
-										color="red">*</font>开票人</label>
+									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">开票人</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="kpr" name="kpr" style="float: left;"
-											placeholder="开票人(发票票面)" class="am-form-field" required
+											placeholder="开票人(发票票面)" class="am-form-field"
 											maxlength="50" />
 									</div>
 								</div>

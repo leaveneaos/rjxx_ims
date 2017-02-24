@@ -5,9 +5,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>发票库存管理</title>
-<meta name="description" content="发票库存管理">
-<meta name="keywords" content="发票库存管理">
+<title>发票预警订阅</title>
+<meta name="description" content="发票预警订阅">
+<meta name="keywords" content="发票预警订阅">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
@@ -23,17 +23,13 @@
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
-		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
-		<!-- sidebar end -->
 		<input type="hidden" id="xfidhide">
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">发票库存</strong> / <small>发票预警订阅</small>
+					<strong class="am-text-primary am-text-lg">发票库存</strong> / <strong>发票预警订阅</strong>
 				</div>
 			</div>
 			<hr />
@@ -48,6 +44,32 @@
 									<select id="xfid" name="xfid" class="am-form-field">
 										<c:forEach items="${xfList}" var="xf">
 											<option value="${xf.id}">${xf.xfmc}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-6">
+							<div class="am-form-group">
+								<label for="s_kpdmc" class="am-u-sm-3 am-form-label">开票点名称</label>
+								<div class="am-u-sm-9">
+									<select id="s_skpid" name="skpid">
+									   <option value="">请选择发票开票点</option>
+									   <c:forEach items="${skpList}" var="skp">
+										  <option value="${skp.id}">${skp.kpdmc}</option>
+									   </c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+					    <div class="am-u-sm-6 am-u-end">
+							<div class="am-form-group">
+								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票种类</label>
+								<div class="am-u-sm-9">
+									<select id="s_fplx" name="fpzldm">
+										<option value="">请选择发票类型</option>
+										<c:forEach items="${fplxList}" var="item">
+											<option value="${item.fpzldm}">${item.fpzlmc}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -72,9 +94,9 @@
 									<th style="display: none">xfid</th>
 									<th style="display: none">skpid</th>
 									<th>销方名称</th>
-									<th>销方税号</th>
-									<th>税控盘号</th>
+									<th>销方税号</th>									
 									<th>开票点名称</th>
+									<th>发票种类</th>
 									<th>剩余库存(张)</th>
 									<th>首页订阅</th>
 									<th>Email订阅</th>
@@ -149,7 +171,6 @@
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-	<%@ include file="../../pages/foot.jsp"%>
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>

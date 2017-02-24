@@ -72,6 +72,7 @@
 										<th>角色名称</th>
 										<th style="display: none;">id</th>
 										<th>录入人员</th>
+										<th>修改人员</th>
 										<th>操作</th>
 									</tr>
 								</thead>

@@ -44,15 +44,18 @@ public class DyglController extends BaseController{
 	@ResponseBody
 	public Map<String,Object> getBz(Integer id){
 		Map<String,Object> result = new HashMap<String,Object>();
-		Dyzl item = dyzlService.findOne(id);
-		if(item==null){
-			result.put("bz", "");
-			return result;
+		if(id!=null){
+			Dyzl item = dyzlService.findOne(id);
+			if(item==null){
+				result.put("bz", "");			
+			}else{
+				String bz = item.getBz();
+				result.put("bz", bz);
+			}
 		}else{
-			String bz = item.getBz();
-			result.put("bz", bz);
-			return result;
+			result.put("bz", "");
 		}		
+		return result;
 	}
 	
 	@RequestMapping(value = "/getItems")

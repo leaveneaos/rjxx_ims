@@ -1,4 +1,4 @@
-2<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html class="no-js">
@@ -23,9 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
-		<%@ include file="../../pages/menus.jsp"%>
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
@@ -64,7 +62,7 @@
 						</div>
 					    <div class="am-u-sm-6 am-u-end">
 							<div class="am-form-group">
-								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票类型</label>
+								<label for="s_fplx" class="am-u-sm-3 am-form-label">发票种类</label>
 								<div class="am-u-sm-9">
 									<select id="s_fplx" name="fpzldm">
 										<option value="">请选择发票类型</option>
@@ -107,7 +105,6 @@
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-	<%@ include file="../../pages/foot.jsp"%>
 
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/amazeui.min.js"></script>

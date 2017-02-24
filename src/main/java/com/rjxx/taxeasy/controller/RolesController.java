@@ -136,16 +136,7 @@ public class RolesController extends BaseController {
 			pagination.setPageSize(length);
 			pagination.addParam("roleName", roleName);
 			pagination.addParam("gsdm", this.getGsdm());
-			List<Roles> list1 = rolesService.findByPage(pagination);
-			List<RolesVo> list = new ArrayList<>();
-			for (Roles roles : list1) {
-				RolesVo rolesVo = new RolesVo(roles.getId(), roles.getName(), roles.getDescription(),
-						roles.getPrivilegeids(), roles.getSort(), roles.getYxbz(), roles.getLrsj(), roles.getLrry(),
-						roles.getXgsj(), roles.getXgry(), "");
-				Yh yh1 = yhService.findOne(Integer.valueOf(roles.getLrry()));
-				rolesVo.setLrr(yh1.getYhmc());
-				list.add(rolesVo);
-			}
+			List<RolesVo> list = rolesService.findByPage(pagination);
 			long total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
