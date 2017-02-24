@@ -140,7 +140,7 @@
 											</div>
 											<label for="hc_yfphm" class="am-u-sm-2 am-form-label">用户性别</label>
 											<div class="am-u-sm-4">
-												<select name="xb" id="xb1">
+												<select name="xb" id="xb1" data-am-selected="{btnWidth: '100%'}">
 													<option value="0">男</option>
 													<option value="1">女</option>
 												</select>
