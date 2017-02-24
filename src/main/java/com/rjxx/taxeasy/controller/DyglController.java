@@ -98,7 +98,7 @@ public class DyglController extends BaseController{
 	
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public Map<String,Object> save(Integer dybtid,String dyfs) throws Exception{
+	public Map<String,Object> save(Integer dybtid,String dyfs,String sjhm,String email,String openid) throws Exception{
 		Map<String,Object> result = new HashMap<String,Object>();
 		int yhid = getYhid();
 		Map params = new HashMap<>();
@@ -115,6 +115,9 @@ public class DyglController extends BaseController{
 			yhdy.setYxbz("1");
 			yhdy.setYhid(yhid);
 			yhdy.setLrsj(new Date());
+			yhdy.setSjhm(sjhm);
+			yhdy.setEmail(email);
+			yhdy.setOpenid(openid);
 			dykService.save(yhdy);
 			result.put("success", true);
 			result.put("msg", "保存成功！");

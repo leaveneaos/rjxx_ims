@@ -49,8 +49,10 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>标题</th>									
+									<th>订阅标题</th>									
 									<th>订阅方式</th>
+									<th>手机号码</th>
+									<th>邮箱</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -106,7 +108,7 @@
 
 		<!-- model -->
 		<div class="am-modal am-modal-no-btn" tabindex="-1" id="shezhi">
-			<div class="am-modal-dialog" style="height: 400px; width: 480px">
+			<div class="am-modal-dialog" style="height: auto; width: auto">
 				<form class="js-form-yjsz am-form">
 					<div class="am-tabs" data-am-tabs>
 						<div class="am-tabs-nav am-nav am-nav-tabs">
@@ -117,7 +119,7 @@
 								<div class="am-modal-bd">
 									<div class="am-g">
 										<div class="am-u-sm-12">
-											<table
+											<table id="addTable"
 												class="am-table am-table-bordered am-table-striped am-text-nowrap">
 												<tr>
 													<td><span style="color: red;">*</span>订阅标题</td>
@@ -133,7 +135,20 @@
 												<tr>																					
 													<td colspan="2"><input class="dyfs" type="checkbox" id="${item.dyfsdm}" name="dyfs">&nbsp;&nbsp;${item.dyfsmc}</td>
 												</tr>
-												</c:forEach>							
+												</c:forEach>
+												<tr id="a_sjhm" class="trHidden">
+												    <td><span>&nbsp;手机号码</span></td>
+												    <td><input class="am-form-field dyfsInput" name="sjhm" placeholder="请输入手机号" id="h_sjhm"></td>
+												</tr>
+												<tr id="a_email" class="trHidden">
+												    <td><span>&nbsp;邮箱地址</span></td>
+												    <td><input class="am-form-field dyfsInput" name="email" placeholder="请输入邮箱" id="h_email"></td>
+												</tr>
+												<tr id="a_ewm" class="trHidden">
+												    <td><span>扫描并关注</span></td>																					
+													<td><img src="img/dy.jpg" style="height:200px;width:200px">
+													<input class="dyfsInput" type="hidden" name="openid" id="h_openid"></td>
+												</tr>							
 											</table>
 										</div>
 										<div class="am-u-sm-12">

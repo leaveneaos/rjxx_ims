@@ -42,6 +42,8 @@ $(function () {
                         },
                         {"data": "dybt"},               
                         {"data": "dyfsmc"},
+                        {"data": "sjhm"},
+                        {"data": "email"},
                         {
                             "data": null,
                             "render": function (data) {
@@ -59,19 +61,24 @@ $(function () {
 
             // 新增
             el.$jsAdd.on('click', el.$jsAdd, function () {
+            	var trs = $("tr[class='trHidden']");  
+            	for(var i = 0; i < trs.length; i++){   
+            	    trs[i].style.display = "none"; //这里获取的trs[i]是DOM对象而不是jQuery对象，因此不能直接使用hide()方法  
+            	} 
             	$(".dyfs").attr("checked",false);
             	$("#dybtidinput").find("option").eq(0).attr("selected", true);
+            	$(".dyfsInput").val("");
                 el.$jsdiv.modal('open');
                 ur="mydy/save";
                 
             });
             // 修改
             t.on('click', 'a.update', function () {
-                var row = t.row($(this).parents('tr')).data();
+                var row = t.row($(this).parents('tr')).data();                
                 var str=row.dyfs.split(",");
                 for(var j=0;j<str.length;j++){
                 	$("#"+str[j]+"").attr("checked",true);
-                }                
+                }
                 var dybt = row.dybt;
                 var selectIndex = -1;
                 var options = $("#dybtid").find("option");
@@ -83,6 +90,24 @@ $(function () {
                     }
                 }
                 $("#dybtidinput").find("option").eq(selectIndex).attr("selected", true);
+                $("#h_sjhm").val(row.sjhm);
+                $("#h_email").val(row.email);
+                $("#h_openid").val(row.openid);
+                if($("#01").is(':checked')){
+            		$("#a_sjhm").show();
+            	}else{
+            		$("#a_sjhm").hide();
+            	}
+        		if($("#02").is(':checked')){
+            		$("#a_email").show();
+            	}else{
+            		$("#a_email").hide();
+            	}
+        		if($("#03").is(':checked')){
+            		$("#a_ewm").show();
+            	}else{
+            		$("#a_ewm").hide();
+            	}
                 el.$jsdiv.modal('open');
                 ur='mydy/update?id='+row.id;
             });
@@ -134,18 +159,22 @@ $(function () {
                 		}               		
                 	}
                 	var dybtid = $('#dybtidinput option:selected').val();
+                	var sjhm = $('#h_sjhm').val();
+                	var email = $('#h_email').val();
+                	var openid = $('#h_openid').val();
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                         el.$jsLoading.modal('toggle'); // show loading
                         $.ajax({
                             url: ur,
-                            data: {"dyfs":dyfs,"dybtid":dybtid},
-                            method:"GET",
+                            data: {"dyfs":dyfs,"dybtid":dybtid,"sjhm":sjhm,"email":email,"openid":openid},
+                            method:"POST",
                             success: function (data) {
                              	el.$jsLoading.modal('close');                              	
                                 if (data.success) {
                                     alert(data.msg);
                                     el.$jsdiv.modal('close'); // close
+                                    $(".dyfs").attr("checked",false);
                                     _this.tableEx.ajax.reload();
                                 }else{
                                     alert(data.msg);                                  
@@ -176,6 +205,7 @@ $(function () {
             // close modal
             el.$jsClose.on('click', function () {
                 el.$jsdiv.modal('close');
+                $(".dyfs").attr("checked",false);
             });
         },
       //全选按钮
@@ -195,12 +225,35 @@ $(function () {
                 }
             });
         },
+        
+        //订阅方式选中function
+        checkbox:function(){
+        	$('.dyfs').on('click',function(){
+        		if($("#01").is(':checked')){
+            		$("#a_sjhm").show();
+            	}else{
+            		$("#a_sjhm").hide();
+            	}
+        		if($("#02").is(':checked')){
+            		$("#a_email").show();
+            	}else{
+            		$("#a_email").hide();
+            	}
+        		if($("#03").is(':checked')){
+            		$("#a_ewm").show();
+            	}else{
+            		$("#a_ewm").hide();
+            	}
+        	})       	
+        },
+        
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.xz();
             _this.modalAction(); // hidden action
             _this.checkAllAc();
+            _this.checkbox();
         }
     };
     action.init();
