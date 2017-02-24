@@ -60,13 +60,16 @@
 					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
-					<li class=" am-text-sm"><a href="#"
+					<li id="zhxx"><a href="javascript:zhxx()"
+						data-am-modal="{target: '#doc-modal-3', closeViaDimmer: 0, width: 550}"><span
+							class="am-icon-user"></span> 账号信息</a></li>
+					<li><a href="#"
 						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
-							class="am-icon-user"></span> 资料</a></li>
-					<li class=" am-text-sm"><a href="#"
+							class="am-icon-user"></span> 修改信息</a></li>
+					<li><a href="#"
 						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-cog"></span> 修改密码</a></li>
-					<li class=" am-text-sm"><a href="javascript:logout()"><span
+					<li><a href="javascript:logout()"><span
 							class="am-icon-power-off"></span> 退出</a></li>
 				</ul></li>
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
@@ -201,7 +204,7 @@
                 </li>
 <!--循环大菜单 -->
 			<c:forEach items="${privilegeTypes}" varStatus="i" var="privilegeType">
-                <li class="sidebar-nav-link">
+                <li class=" sidebar-nav-link">
                     <a href="#" class="sidebar-nav-sub-title active">
                         <i class="${privilegeType.description } sidebar-nav-link-logo"></i>${privilegeType.name}
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
@@ -364,6 +367,72 @@
 			</form>
 		</div>
 	</div>
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-3">
+		<div class="am-modal-dialog">
+			<form class="js-form-0 am-form am-form-horizontal">
+				<div class="am-modal-hd">
+					账户资料 <a href="javascript: void(0)" class="am-close am-close-spin"
+						data-am-modal-close>&times;</a>
+				</div>
+				<div class="am-modal-bd">
+					<div class="am-g" style="border: solid 0px #CCC;">
+						<div class="am-form-group" style="border-bottom: solid 0px #CCC; height: 35px;">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户类型</font></label>
+							<div class="am-u-sm-8">
+								<label id="yhlx">
+									<c:if test="${login_session_key.zhlxdm == '01'}">集团账户</c:if>
+									<c:if test="${login_session_key.zhlxdm == '02'}">代理账户</c:if>
+									<c:if test="${login_session_key.zhlxdm == '03'}">企业账户</c:if>
+								</label>
+							</div>
+						</div>
+						<div class="am-form-group" style="border-bottom: solid 0px #CCC; height: 35px;">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户有效期</font></label>
+							<div class="am-u-sm-8">
+								<label id="yhyxq"></label>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">授权信息</font></label>
+							<label class="am-u-sm-8 am-form-label"></label>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
+							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+							<label id="shsl" class="am-u-sm-6"></label>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
+							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;税控设备：</label>
+							<label id="sksb" class="am-u-sm-6"></label>
+						</div>
+						<div class="am-form-group">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
+							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;用户数量：</label>
+							<label id="yhsl" class="am-u-sm-6"></label>
+						</div>
+						<div class="am-form-group" style="border-bottom: solid ppx #CCC;">
+							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
+							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;开票数量：</label>
+							<label id="kpsl" class="am-u-sm-6"></label>
+						</div>
+						<div class="am-form-group" style="height: 30px;">
+							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">登录账号</font></label>
+							<div class="am-u-sm-8" style="margin-top: 8px">
+								<div style="float: left;">
+									<label id="yhzh">${login_session_key.dlyhid}</label>
+								</div>
+								<div style="float: right">
+									<font color="blue"><a href="#"
+						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}" style="color: blue" class="am-modal-btn" data-am-modal-cancel>修改</a></font>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 		<div class="am-modal-dialog">
 			<div class="am-modal-bd">您确定要退出吗？</div>
@@ -378,6 +447,28 @@
     <script src="assets/js/dataTables.responsive.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script language="javascript" type="text/javascript"> 
+    function zhxx(){
+		$.ajax({
+			url : "nyhgl/getGsxx",
+			method : 'POST',
+			success : function(data) {
+				if (data.success) {
+					$('#yhyxq').html(data.gsxx.qsrq + "-" +data.gsxx.jzrq);
+					$('#shsl').html(data.gsxx.xfnum);
+					$('#sksb').html(data.gsxx.kpdnum);
+					$('#yhsl').html(data.gsxx.yhnum);
+					$('#kpsl').html(data.gsxx.kpnum);
+					$('#yhlx').html(data.yh.zhlxdm);
+					$('#yhzh').html(data.yh.dlyhid);
+				} else {
+					alert('后台错误: 数据修改失败' + data.msg);
+				}
+			},
+			error : function() {
+				alert('数据修改失败, 请重新登陆再试...!');
+			}
+		});
+	}
     function dyniframesize(down) { 
         var pTar = null; 
         if (document.getElementById){ 
@@ -421,8 +512,8 @@
     function jznr(th){
     	//获取点击菜单的路劲
     	var v_id = $(th).attr('data');
-    	 $(".ejcd").css('background','none')
-    	$(th).css("background-color","#f2f6f9");
+     	 $(".ejcd").css('background','none')
+     	$(th).css("background-color","#f2f6f9");
     	$("#mainFrame").attr("src",v_id); 
     }
 	function logout() {
