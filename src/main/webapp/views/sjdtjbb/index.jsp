@@ -26,10 +26,8 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-<%@ include file="../../pages/top.jsp" %>
 <div class="am-cf admin-main">
     <!-- sidebar start -->
-    <%@ include file="../../pages/menus.jsp" %>
     <!-- sidebar end -->
 
     <!-- content start -->
@@ -152,7 +150,6 @@
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-<%@ include file="../../pages/foot.jsp" %>
 
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>

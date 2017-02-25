@@ -28,10 +28,8 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
-		<%@ include file="../../pages/menus.jsp"%>
 		<!-- sidebar end -->
 
 		<!-- content start -->
@@ -186,7 +184,6 @@
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-	<%@ include file="../../pages/foot.jsp"%>
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
