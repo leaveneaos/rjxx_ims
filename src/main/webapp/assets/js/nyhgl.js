@@ -19,6 +19,7 @@ $(function() {
 		$s_yhzh : $('#s_yhzh'), // search
 		$s_yhmc : $('#s_yhmc'), // search
 		$jsSearch : $('#button1'),
+		$jsSearch1 : $('#button3'),
 		$jsTable1 : $('#button2'),
 		$yhmm : $('#yhmm'),
 		$yhzh : $('#yhzh'),
@@ -52,9 +53,17 @@ $(function() {
 							url : _this.config.getUrl,
 							type : 'POST',
 							data : function(d) {
-
-								d.yhzh = el.$s_yhzh.val(); // search 用户账号
-								d.yhmc = el.$s_yhmc.val(); // search 用户名称
+								var tip = $('#tip').val();
+								var txt = $('#searchtxt').val();
+								var yhzh = el.$s_yhzh.val(); 
+								var yhmc = el.$s_yhmc.val();
+								if (tip == 1) {
+									yhzh = txt;
+								}else if (tip == 2) {
+									yhmc = txt;
+								}
+								d.yhzh = yhzh;
+								d.yhmc = yhmc;
 
 							}
 						},
@@ -228,6 +237,13 @@ $(function() {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
+				$('#searchform').resetForm();
+				$('#tip').find('option[value=0]').attr('selected', true);
+				_this.tableEx.ajax.reload();
+			});
+			el.$jsSearch1.on('click', function(e) {
+				e.preventDefault();
+				$('#searchform1').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},

@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -28,157 +30,226 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<div class="am-cf admin-main">
-		<!-- sidebar start -->
-		<!-- sidebar end -->
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="am-cf admin-main">
+						<!-- sidebar start -->
+						<!-- sidebar end -->
 
-		<!-- content start -->
-		<div class="admin-content">
-			<div class="am-cf am-padding">
-				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>角色管理</strong>
-				</div>
-			</div>
-			<hr />
-			<div class="am-g  am-padding-top">
-				<form action="#" class="js-search-form  am-form am-form-horizontal">
-					<div class="am-g">
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_fpdm" class="am-u-sm-3 am-form-label">角色名称</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="s_jsmc" name="s_jsmc"
-										placeholder="请输入角色名称" />
+						<!-- content start -->
+						<div class="admin-content">
+							<div class="am-cf am-padding">
+								<div class="am-fl am-cf">
+									<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>角色管理</strong>
 								</div>
 							</div>
-						</div>
-					</div>
-					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-right">
-						<button id="button1" type="button"
-							class="js-search  am-btn am-radius am-btn-success">查询</button>
-						<button id="button2" type="button"
-							class="js-search  am-btn am-radius am-btn-success">新增</button>
-					</div>
+							<hr />
+							<div class="am-g  am-padding-top">
+								<form action="#"
+									class="js-search-form  am-form am-form-horizontal">
 
-					<div class="am-u-sm-12">
-						<div class="am-scrollable-horizontal">
-
-							<table id="tbl"
-								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>角色名称</th>
-										<th style="display: none;">id</th>
-										<th>录入人员</th>
-										<th>修改人员</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-							</table>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<!-- content end -->
-
-		<!-- model -->
-		<div class="am-modal am-modal-no-btn"  tabindex="-1" id="hongchong" data-am-sticky>
-			<div class="am-modal-dialog" style="overflow-y: auto;" data-am-sticky>
-				<form id="form1" class="js-form-0 am-form am-form-horizontal">
-					<div class="am-tabs" data-am-tabs>
-						<ul class="am-tabs-nav am-nav am-nav-tabs">
-							<li class="am-active"><a href="#tab1">角色信息</a></li>
-						</ul>
-
-						<div class="am-tabs-bd">
-							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-								<div class="am-modal-hd" data-am-sticky>
-									 <a href="javascript: void(0)"
-										class="am-close am-close-spin" data-am-modal-close>&times;</a>
-								</div>
-								<div class="am-modal-bd">
-									<hr />
-
-
-									<div class="am-g">
-										<div class="am-u-sm-12" style=" margin-bottom: 5px;">
-											<div class="am-form-group">
-												<label for="hc_yfpdm" class="am-u-sm-4 am-form-label" style=" margin-bottom: 40px;"><font color="red">*</font>角色名称</label>
-												<div class="am-u-sm-8" style=" margin-bottom: 30px;">
-													<input type="text" id="name" name="name"
-														placeholder="请输入名称" class="am-form-field" required
-														maxlength="50" />
-														<input id = "roleid" name = "id" type="hidden"/>
-												</div>
-											</div>
-										</div>
-										<div class="am-u-sm-12">
-											<div style="border: 1px solid #000;padding: 5px;" title="授权">
-												<label> 授权</label>
-												<table style="overflow: auto;">
-													<tr>
-														<td align="left">
-															<table>
-																<c:forEach items="${types}" var="type">
-																		<tr><td colspan="3"><input type="checkbox" id="type-${type.id }" onclick="xzxf(this)"
-																name="firstId" value="${type.id }" />&nbsp;&nbsp;<label  style="text-align: left;"><span>${type.name }</span></label></td></tr>
-																		<c:forEach items="${type.privileges }" var="p" varStatus="h">
-																				<c:if test="${h.count==0 }">
-																					<tr>
-																				</c:if>
-																				<c:if test="${(h.count-1)%3==0 && (h.count != 0)}" >
-																					 </tr>
-																					 <tr>
-																				</c:if>
-																					<td>
-																						&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"
-																						id="privilege-${p.id }" sora="${type.id==11?'a':'s'}"
-																						name="${type.id}" value="${p.id }" onclick="xzskp(this)"/> <span>${p.name }</span>
-																						&nbsp;&nbsp;&nbsp;&nbsp;
-																					</td>
-																		</c:forEach>
-																		</tr>
-																</c:forEach>
-															
-															</table>
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-										<div class="am-u-sm-12" style="margin-top: 5px;">
-											<div class="am-form-group">
-												<div class="am-u-sm-12  am-text-center">
-													<button type="submit"
-														class="js-submit  am-btn am-radius am-btn-success">确定</button>
-													<button type="button"
-														class="js-close  am-btn am-radius am-btn-warning">取消</button>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+										<div class="am-form-group">
+											<div class="am-btn-toolbar">
+												<div class="am-btn-group am-btn-group-xs">
+													<button type="button" id="button2"
+														class="am-btn am-btn-default am-btn-success">新增</button>
 												</div>
 											</div>
 										</div>
 									</div>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="tip" data-am-selected="{btnSize: 'sm'}">
+												<option value="2">角色名称</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+										<div
+											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input type="text" id="s_jsmc" class="am-form-field ">
+											<span class="am-input-group-btn" id="button1">
+												<button
+													class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+													type="button"></button>
+											</span>
+										</div>
+									</div>
+									<!-- 									<div class="am-g"> -->
+									<!-- 										<div class="am-u-sm-6"> -->
+									<!-- 											<div class="am-form-group"> -->
+									<!-- 												<label for="s_fpdm" class="am-u-sm-3 am-form-label">角色名称</label> -->
+									<!-- 												<div class="am-u-sm-9"> -->
+									<!-- 													<input type="text" id="s_jsmc" name="s_jsmc" -->
+									<!-- 														placeholder="请输入角色名称" /> -->
+									<!-- 												</div> -->
+									<!-- 											</div> -->
+									<!-- 										</div> -->
+									<!-- 									</div> -->
+									<!-- 									<hr /> -->
+									<!-- 									<div class="am-u-sm-12  am-padding  am-text-right"> -->
+									<!-- 										<button id="button1" type="button" -->
+									<!-- 											class="js-search  am-btn am-radius am-btn-success">查询</button> -->
+									<!-- 										<button id="button2" type="button" -->
+									<!-- 											class="js-search  am-btn am-radius am-btn-success">新增</button> -->
+									<!-- 									</div> -->
 
+									<div class="am-u-sm-12 am-padding-top">
+										<div class="am-scrollable-horizontal">
+
+											<table id="tbl"
+												class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+												<thead>
+													<tr>
+														<th>序号</th>
+														<th>角色名称</th>
+														<th style="display: none;">id</th>
+														<th>录入人员</th>
+														<th>修改人员</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- content end -->
+
+						<!-- model -->
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong"
+							data-am-sticky>
+							<div class="am-modal-dialog" style="overflow-y: auto;"
+								data-am-sticky>
+								<form id="form1" class="js-form-0 am-form am-form-horizontal">
+									<div class="am-tabs" data-am-tabs>
+										<ul class="am-tabs-nav am-nav am-nav-tabs">
+											<li class="am-active"><a href="#tab1">角色信息</a></li>
+										</ul>
+
+										<div class="am-tabs-bd">
+											<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+												<div class="am-modal-hd" data-am-sticky>
+													<a href="javascript: void(0)"
+														class="am-close am-close-spin" data-am-modal-close>&times;</a>
+												</div>
+												<div class="am-modal-bd">
+													<hr />
+
+
+													<div class="am-g">
+														<div class="am-u-sm-12" style="margin-bottom: 5px;">
+															<div class="am-form-group">
+																<label for="hc_yfpdm" class="am-u-sm-4 am-form-label"
+																	style="margin-bottom: 40px;"><font color="red">*</font>角色名称</label>
+																<div class="am-u-sm-8" style="margin-bottom: 30px;">
+																	<input type="text" id="name" name="name"
+																		placeholder="请输入名称" class="am-form-field" required
+																		maxlength="50" /> <input id="roleid" name="id"
+																		type="hidden" />
+																</div>
+															</div>
+														</div>
+														<div class="am-u-sm-12">
+															<div style="border: 1px solid #000; padding: 5px;"
+																title="授权">
+																<label> 授权</label>
+																<table style="overflow: auto;">
+																	<tr>
+																		<td align="left">
+																			<table>
+																				<c:forEach items="${types}" var="type">
+																					<tr>
+																						<td colspan="3"><input type="checkbox"
+																							id="type-${type.id }" onclick="xzxf(this)"
+																							name="firstId" value="${type.id }" />&nbsp;&nbsp;<label
+																							style="text-align: left;"><span>${type.name }</span></label></td>
+																					</tr>
+																					<c:forEach items="${type.privileges }" var="p"
+																						varStatus="h">
+																						<c:if test="${h.count==0 }">
+																							<tr>
+																						</c:if>
+																						<c:if test="${(h.count-1)%3==0 && (h.count != 0)}">
+																							</tr>
+																							<tr>
+																						</c:if>
+																						<td>&nbsp;&nbsp;&nbsp;&nbsp;<input
+																							type="checkbox" id="privilege-${p.id }"
+																							sora="${type.id==11?'a':'s'}" name="${type.id}"
+																							value="${p.id }" onclick="xzskp(this)" /> <span>${p.name }</span>
+																							&nbsp;&nbsp;&nbsp;&nbsp;
+																						</td>
+																					</c:forEach>
+																					</tr>
+																				</c:forEach>
+
+																			</table>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+														<div class="am-u-sm-12" style="margin-top: 5px;">
+															<div class="am-form-group">
+																<div class="am-u-sm-12  am-text-center">
+																	<button type="submit"
+																		class="js-submit  am-btn am-radius am-btn-success">确定</button>
+																	<button type="button"
+																		class="js-close  am-btn am-radius am-btn-warning">取消</button>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+								</form>
+							</div>
+
+
+							<!-- loading do not delete this -->
+							<div
+								class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+								tabindex="-1">
+								<div class="am-modal-dialog">
+									<div class="am-modal-hd">正在载入...</div>
+									<div class="am-modal-bd">
+										<span class="am-icon-spinner am-icon-spin"></span>
+									</div>
 								</div>
 							</div>
-							
+
+							<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+								<div class="am-modal-dialog">
+									<div class="am-modal-hd">提示</div>
+									<div class="am-modal-bd" id="msg"></div>
+									<div class="am-modal-footer">
+										<span class="am-modal-btn">确定</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="am-modal am-modal-confirm" tabindex="-1"
+								id="my-confirm">
+								<div class="am-modal-dialog">
+									<div class="am-modal-hd">提示</div>
+									<div class="am-modal-bd">你，确定要删除这条记录吗？</div>
+									<div class="am-modal-footer">
+										<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+											class="am-modal-btn" data-am-modal-confirm>确定</span>
+									</div>
+								</div>
+							</div>
 						</div>
-
-					</div>
-				</form>
-			</div>
-
-
-			<!-- loading do not delete this -->
-			<div
-				class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
-				tabindex="-1">
-				<div class="am-modal-dialog">
-					<div class="am-modal-hd">正在载入...</div>
-					<div class="am-modal-bd">
-						<span class="am-icon-spinner am-icon-spin"></span>
 					</div>
 				</div>
 			</div>

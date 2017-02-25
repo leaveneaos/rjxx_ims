@@ -3,7 +3,7 @@
  */
 $(function() {
 	"use strict";
-	var ur;
+	var ur = 'xfxxwh/getXfxx';
 	var el = {
 		$jsTable : $('.js-table'),
 		$modalHongchong : $('#hongchong'),
@@ -19,6 +19,7 @@ $(function() {
 		$ppmax:$('#ppzdje'),
 		$ppfz:$('#ppzdje'),
 		$jsSearch : $('#button1'),
+		$jsSearch1 : $('#button3'),
 		$importExcelForm : $('#importExcelForm'),
 		$jsTable1 : $('#button2'),
 		$jsLoading : $('.js-modal-loading')
@@ -41,11 +42,13 @@ $(function() {
 						ordering : false,
 						searching : false,
 						"ajax" : {
-							url : _this.config.getUrl,
+							url : ur,
 							type : 'POST',
 							data : function(d) {
-								d.xfsh = el.$s_xfsh.val(); // search 用户账号
-								d.xfmc = el.$s_xfmc.val(); // search 用户名称
+								d.xfsh = $('#s_xfsh').val(); 
+								d.xfmc = $('#s_xfmc').val(); 
+								d.tip = $('#tip1').val(); 
+								d.txt = $('#searchtxt').val(); 
 
 							}
 						},
@@ -245,6 +248,14 @@ $(function() {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
+				$('#searchForm1').resetForm();
+				_this.tableEx.ajax.reload();
+			});
+			el.$jsSearch1.on('click', function(e) {
+				e.preventDefault();
+				$('#tip1').find('option[value=0]').attr('selected', true);
+//				$('#searchTxt').val("111");
+				$('#searchForm').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},

@@ -96,12 +96,20 @@ public class XfxxwhController extends BaseController {
 	 */
 	@RequestMapping(value = "/getXfxx")
 	@ResponseBody
-	public Map getXfxx(String xfmc, String xfsh, int length, int start, int draw) {
+	public Map getXfxx(String xfmc, String xfsh, int tip, String txt, int length, int start, int draw) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("xfsh", xfsh);
+		if (tip == 1) {
+			pagination.addParam("xfmc", txt);
+		}else if(tip == 2){
+			pagination.addParam("xfsh", txt);
+		}else{
+			pagination.addParam("xfmc", xfmc);
+			pagination.addParam("xfsh", xfsh);
+		}
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		List<XfVo> list = xfService.findByPages(pagination);

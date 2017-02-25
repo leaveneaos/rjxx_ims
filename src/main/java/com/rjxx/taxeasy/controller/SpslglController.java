@@ -103,13 +103,19 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/getSplist")
 	@ResponseBody
-	public Map getAllSp(int length, int start, int draw, String spmc, String spdm) {
+	public Map getAllSp(int length, int start, int draw, String spmc, String spdm, int tip, String txt) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("spmc", spmc);
-		pagination.addParam("spdm", spdm);
+		if (tip == 0) {
+			pagination.addParam("spmc", spmc);
+			pagination.addParam("spdm", spdm);
+		}else if (tip == 1) {
+			pagination.addParam("spdm", txt);
+		}else if (tip == 2) {
+			pagination.addParam("spmc", txt);
+		}
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		List<Spvo> list = spvoService.findAllOnPage(pagination);

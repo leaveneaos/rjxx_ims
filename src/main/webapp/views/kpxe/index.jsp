@@ -56,10 +56,10 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font>增值税普通发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">增值税普通发票</label>
 									<div class="am-u-sm-4">
 										<select id="kpxe1" name="kpxe1" style="float: left;">
+											<option value="">请选择</option>
 											<c:forEach items="${bc }" var="b">
 												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 											</c:forEach>
@@ -69,14 +69,14 @@
 										<input type="text" id="fpje1" name="fpje1" style="float: left;"
 											placeholder="分票金额" value="${xf.ppfpje }"
 											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-											class="am-form-field" required />
+											class="am-form-field"/>
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font>增值税专用发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">增值税专用发票</label>
 									<div class="am-u-sm-4">
 										<select type="text" id="kpxe2" name="kpxe2" style="float: left;">
+											<option value="">请选择</option>
 											<c:forEach items="${bc }" var="b">
 												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 											</c:forEach>
@@ -86,14 +86,14 @@
 										<input type="text" id="fpje2" name="fpje2" style="float: left;"
 											placeholder="分票金额" value="${xf.zpfpje }"
 											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-											class="am-form-field" required />
+											class="am-form-field"/>
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font>增值税电子普通发票</label>
+									<label for="hc_yfphm" class="am-u-sm-3 am-form-label">增值税电子普通发票</label>
 									<div class="am-u-sm-4">
 										<select type="text" id="kpxe3" name="kpxe3" style="float: left;">
+											<option value="">请选择</option>
 											<c:forEach items="${bc }" var="b">
 												<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
 											</c:forEach>
@@ -103,7 +103,7 @@
 										<input type="text" id="fpje3" name="fpje3" style="float: left;"
 											placeholder="分票金额" value="${xf.dzpfpje }"
 											pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$"
-											class="am-form-field"  required />
+											class="am-form-field"/>
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -171,15 +171,15 @@
 							var fpxe1 = $('#kpxe1').val();
 							var fpxe2 = $('#kpxe2').val();
 							var fpxe3 = $('#kpxe3').val();
-							if (fpje1 - fpxe1 > 0) {
+							if (fpje1 != "" && fpxe1 != "" && fpje1 - fpxe1 > 0) {
 								alert('普票分票金额不能大于限额');
 								return;
 							}
-							if (fpje2 - fpxe2 > 0) {
+							if (fpje2 != "" && fpxe2 != "" && fpje2 - fpxe2 > 0) {
 								alert('专票分票金额不能大于限额');
 								return;
 							}
-							if (fpje3 - fpxe3 > 0) {
+							if (fpje3 != "" && fpxe3 != "" && fpje3 - fpxe3 > 0) {
 								alert('电子发票分票金额不能大于限额');
 								return;
 							}

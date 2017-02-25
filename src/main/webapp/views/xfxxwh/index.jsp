@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="css/main.css" />
 <style>
 .am-u-left {
 	padding-left: 0em;
@@ -48,64 +49,61 @@
 							</div>
 							<!-- 侧边栏内容 -->
 								<div id="doc-oc-demo3" class="am-offcanvas">
-								  <div class="am-offcanvas-bar am-offcanvas-bar-flip">
-								    <div class="am-offcanvas-content">
-									    <div class="am-form-group">
-											<label for="xfmc" class="am-u-sm-4 am-form-label"><font
-												color="red">*</font>销方名称</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xfmc" name="xfmc" placeholder="请输入销方名称"
-													required="required" />
-											</div>
-										</div>
-								    </div>
-								    <div class="am-offcanvas-content">		      
-									    <div class="am-form-group">
-											<label for="xfmc" class="am-u-sm-4 am-form-label"><font
-												color="red">*</font>销方名称</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xfmc" name="xfmc" placeholder="请输入销方名称"
-													required="required" />
-											</div>
-										</div>
-								    </div>
-								    <div style="padding: 32px;">
-                                        <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-search-plus"></span> 查询</button>
-                                    </div>
-								  </div>
+									<form action="" id="searchForm1">
+										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+										    <div class="am-offcanvas-content">
+											    <div class="am-form-group">
+													<label for="xfmc" class="am-u-sm-4 am-form-label">销方税号</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方名称"
+															required="required" />
+													</div>
+												</div>
+										    </div>
+										    <div class="am-offcanvas-content">		      
+											    <div class="am-form-group">
+													<label for="xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
+													<div class="am-u-sm-8">
+														<input type="text" id="s_xfmc" name="xfmc" placeholder="请输入销方名称"
+															required="required" />
+													</div>
+												</div>
+										    </div>
+										    <div style="padding: 32px;">
+		                                        <button id="button3" type="button" class="am-btn am-btn-default am-btn-success"> 查询</button>
+		                                    </div>
+										  </div>
+										  
+									</form>
+								  
 								</div>
 						</div>
 						
 			
 						<div class="am-g  am-padding-top">
-							<form action="#" class="js-search-form  am-form am-form-horizontal">
+							<form action="#" id="searchForm" class="js-search-form  am-form am-form-horizontal">
 							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 新增</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                                     <div class="am-form-group tpl-table-list-select">
-                                        <select data-am-selected="{btnSize: 'sm'}">
-						              <option value="option1">中原地产</option>
-						              <option value="option2">食其家</option>
-						              <option value="option3">滨寿司</option>
-						              <option value="option3">濑户乌冬面</option>
-						              <option value="option3">波奇网</option>
-						            </select>
+                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
+							              <option value="0">请选择</option>
+							              <option value="1">销方名称</option>
+							              <option value="2">销方税号</option>
+							            </select>
                                     </div>
                                 </div>
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field ">
-                                        <span class="am-input-group-btn">
+                                        <input type="text" id="searchtxt" class="am-form-field ">
+                                        <span class="am-input-group-btn" id="button1">
 								            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
 								        </span>
                                     </div>
@@ -144,7 +142,7 @@
 										<span></span> 批量导入
 									</button>
 								</div> -->
-			
+							
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div class="am-scrollable-horizontal">
@@ -336,8 +334,8 @@
 									<div class="am-u-sm-12 am-margin-top-lg">
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
-												<button type="submit" class="js-submit am-btn am-btn-success">保存</button>
-												<button type="button" class="js-close  am-btn am-btn-warning">取消</button>
+												<button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
+												<button type="button" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
 											</div>
 										</div>
 									</div>

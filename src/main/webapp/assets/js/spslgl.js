@@ -22,8 +22,9 @@
         $s_spdm: $('#s_spdm'), // search 商品类别
         $s_spmc: $('#s_spmc'), // search 商品名称
 
-        $jsSearch: $('.js-search'),
+        $jsSearch: $('#button1'),
         $jsSearch1: $('.js-search1'),
+        $jsSearch2: $('#button3'),
         $jsAdd: $('.js-add'),
         $jsDel: $('del'),
         $jsImport: $('.js-import'),
@@ -53,6 +54,8 @@
                     data: function (d) {
                         d.spdm = el.$s_spdm.val(); // search 商品类别
                         d.spmc = el.$s_spmc.val(); // search 商品名称
+                        d.tip = $('#tip').val();
+                        d.txt = $('#searchtxt').val();
                     }
                 },
                 "columns": [
@@ -76,7 +79,7 @@
                             }
                         }, 'sClass': 'right'
                     },
-                    {"data": "spbm"},
+                    {"data": "spbm1"},
                     {
                         "data": null,
                         "defaultContent": '<a class="modify">修改</a> <a class="del">删除</a>'
@@ -340,6 +343,13 @@
             var _this = this;
             el.$jsSearch.on('click', function (e) {
                 e.preventDefault();
+                $('#searchform1').resetForm();
+                _this.tableEx.ajax.reload(); // 重新加载数据
+            });
+            el.$jsSearch2.on('click', function (e) {
+                e.preventDefault();
+				$('#tip').find('option[value=0]').attr('selected', true);
+                $('#searchform').resetForm();
                 _this.tableEx.ajax.reload(); // 重新加载数据
             });
         },

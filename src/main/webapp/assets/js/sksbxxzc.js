@@ -9,6 +9,7 @@ $(function () {
         $jsSubmit: $('.js-submit'),
         $jsSubmit1: $('.js-submit1'),
 		$jsSearch : $('#button1'),
+		$jsSearch1 : $('#button3'),
 		$jsClose : $('.js-close'),
 		$jsClose1 : $('.js-close1'),
 		$xfid : $('#xfid'),
@@ -50,11 +51,11 @@ $(function () {
 					url : _this.config.getUrl,
 					type : 'POST',
 					data : function(d) {
-						d.xfid = el.$xfid.val(); // search 用户账号
-						d.kpdmc = el.$s_kpdmc.val(); // search 用户名称
-						d.kpddm = el.$s_kpddm.val(); // search 用户名称
-						d.xfid1= $('#xfid1').val(); // search 用户名称
-	
+						d.kpdmc = el.$s_kpdmc.val();
+						d.kpddm = el.$s_kpddm.val();
+						d.xfid1= $('#xfid1').val(); 
+						d.tip=$('#tip').val();
+						d.txt = $('#searchtxt').val();
 					}
 				},
                 "columns": [
@@ -425,6 +426,14 @@ $(function () {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
+				$('#searchform1').resetForm();
+				$('#xfid1').find('option[value="0"]').attr('selected', true);
+				_this.tableEx.ajax.reload();
+			});
+			el.$jsSearch1.on('click', function(e) {
+				e.preventDefault();
+				$('#tip').find('option[value=0]').attr('selected', true);
+				$('#searchform').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},

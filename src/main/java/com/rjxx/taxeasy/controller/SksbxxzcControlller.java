@@ -104,13 +104,20 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/getsksblist")
 	@ResponseBody
-	public Map getsksblist(int length, int start, int draw, String kpdmc, String kpddm, Integer xfid1) throws Exception {
+	public Map getsksblist(int length, int start, int draw, String kpdmc, String kpddm, Integer xfid1, int tip, String txt) throws Exception {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("xfid", xfid1);
-		pagination.addParam("kpdmc", kpdmc);
-		pagination.addParam("kpddm", kpddm);
+		if (tip == 0) {
+			pagination.addParam("xfid", xfid1);
+			pagination.addParam("kpdmc", kpdmc);
+			pagination.addParam("kpddm", kpddm);
+		}
+		if (tip == 1) {
+			pagination.addParam("kpddm", txt);
+		}else if (tip == 2) {
+			pagination.addParam("kpdmc", txt);
+		}
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		pagination.addParam("xfs", getXfList());
