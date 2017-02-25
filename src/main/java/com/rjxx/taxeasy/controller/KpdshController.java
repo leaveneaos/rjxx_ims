@@ -83,7 +83,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getItems")
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
-			String spmc, String gfmc, String xfsh) throws Exception {
+			String spmc, String gfmc, String xfsh,String fpzldm) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -124,7 +124,14 @@ public class KpdshController extends BaseController {
 		// pagination.addParam("gsdm", gsdm);
 		// pagination.addParam("xfid", xfid);
 		// pagination.addParam("skpid", skpid);
+		if ("".equals(fpzldm)) {
+			pagination.addParam("fpzldm", null);
+		}else{
+			pagination.addParam("fpzldm", fpzldm);
+		}
 		pagination.addParam("ddh", ddh);
+		pagination.addParam("xfs", xfs);
+		pagination.addParam("skps", skpList);
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);
 		pagination.addParam("gsdm", gsdm);

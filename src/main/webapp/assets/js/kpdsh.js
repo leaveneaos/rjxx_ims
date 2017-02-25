@@ -180,12 +180,18 @@ $(function() {
 					url : _this.config.getUrl,
 					type : 'POST',
 					data : function(d) {
-						d.kprqq = $("#s_kprqq").val(); // search 开票日期
-						d.kprqz = $("#s_kprqz").val(); // search 开票日期
-						d.xfsh=$("#kpd_xfid").val();
-						d.gfmc=$("#kpd_gfmc").val();
-						d.ddh=$("#kpd_ddh").val();
-						d.spmc=$("#kpd_spmc").val();
+						d.kprqq = $("#s_rqq").val(); // search 开票日期
+						d.kprqz = $("#s_rqz").val(); // search 开票日期
+					    d.xfsh = $('#s_xfsh').val();   // search 销方
+		                d.gfmc = $('#s_gfmc').val();	// search 购方名称
+		                d.ddh = $('#s_ddh').val();   // search 订单号
+		                d.fpzldm = $('#s_fplx').val();   // search 发票号码
+		                var csm =  $('#dxcsm').val()
+		                if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){
+		                    d.gfmc = $('#dxcsz').val()
+		                 }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
+		                    d.ddh = $('#dxcsz').val()
+		                  }
 					}
 				},
 	            "columns": [
@@ -216,7 +222,7 @@ $(function() {
 	                        	if("01"==data.fpzldm){
 	                        	 	return "纸质专票";
 	                        	}else if("02"==data.fpzldm){
-	                        	 	return "纸质专票";
+	                        	 	return "纸质普票";
 	                        	}
 	                        	else if("12"==data.fpzldm){
 	                        	 	return "电子票";
@@ -389,11 +395,17 @@ $(function() {
 		 */
 		search_ac : function() {
 			var _this = this;
-			$("#kp_cx").on('click', function(e) {
+			$("#kp_search").on('click', function(e) {
+				$("#ycform").resetForm();
+	        	$('#xzxfq').attr("selected","selected");
+	         	$('#xzlxq').attr("selected","selected");
 				_this.tableEx.ajax.reload();
-				
 			});
-		},
+			$("#kp_search1").on('click', function(e) {
+				$("#dxcsz").val("");
+				_this.tableEx.ajax.reload();
+			})
+			},
 		/**
 		 * 退回
 		 */

@@ -30,6 +30,12 @@
                     d.fpzldm = $('#s_fplx').val();   // search 发票号码
                     d.rqq = $('#s_rqq').val(); // search 开票日期
                     d.rqz = $('#s_rqz').val(); // search 开票日期
+                    var csm =  $('#dxcsm').val()
+                    if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){
+                    	  d.gfmc = $('#dxcsz').val()
+                    }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
+                    	  d.ddh = $('#dxcsz').val()
+                    }
                 }
             },
             "columns": [
@@ -159,24 +165,13 @@
         });
 
         $('#kp_search').click(function () {
-        	var dt1 = new Date($('#s_rqq').val().replace(/-/g, "/"));
-            var dt2 = new Date($('#s_rqz').val().replace(/-/g, "/"));
-            if (($('#s_rqq').val() && $('#s_rqz').val())) {// 都不为空
-                if (dt1.getYear() == dt2.getYear()) {
-                    if (dt1.getMonth() == dt2.getMonth()) {
-                        if (dt1 - dt2 > 0) {
-                            alert('开始日期大于结束日期!');
-                            return false;
-                        }
-                    } else {
-                        alert('请选择同一个年月内的时间!');
-                        return false;
-                    }
-                } else {
-                    alert('请选择同一个年月内的时间!');
-                    return false;
-                }
-            }
+        	$("#ycform").resetForm();
+        	$('#xzxfq').attr("selected","selected");
+         	$('#xzlxq').attr("selected","selected");
+        	jyls_table.ajax.reload();
+        });
+        $('#kp_search1').click(function () {
+        	$("#dxcsz").val("");
         	jyls_table.ajax.reload();
         });
         $('#jyls_table tbody').on('click', 'tr', function () {
@@ -229,6 +224,7 @@
             }
             $("#kp_kp").attr('disabled',"true"); 
             if (!confirm("您确认全部开票？")) {
+            	  $('#kp_kp').removeAttr("disabled");
 				return;
 			}
             $.ajax({
