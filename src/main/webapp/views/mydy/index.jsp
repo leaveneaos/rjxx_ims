@@ -45,36 +45,36 @@
 								<div class="am-tabs-bd">
 									<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-										<div class="am-form-group">
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<input type="hidden" id="searchbz">
-													<button class="am-btn am-btn-secondary" id="jsAdd">
+											<div class="am-form-group">
+												<div class="am-btn-toolbar">
+													<div class="am-btn-group am-btn-group-xs">
+														<input type="hidden" id="searchbz">
+														<button class="am-btn am-btn-secondary" id="jsAdd">
 															<i class="am-icon-plus"></i>&nbsp;新增
 														</button>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-										<div class="am-form-group tpl-table-list-select">
-											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
-												<option value="btmc">订阅标题</option>
-											</select>
+										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+											<div class="am-form-group tpl-table-list-select">
+												<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+													<option value="btmc">订阅标题</option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-										<div
-											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input type="text" class="am-form-field" id="searchValue"> <span
-												class="am-input-group-btn">
-												<button id="searchButton"
-													class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-													type="button"></button>
-											</span>
+										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+											<div
+												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+												<input type="text" class="am-form-field" id="searchValue">
+												<span class="am-input-group-btn">
+													<button id="searchButton"
+														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+														type="button"></button>
+												</span>
+											</div>
 										</div>
-									</div>
-									<table id="mydytable"
+										<table id="mydytable"
 											class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
@@ -89,46 +89,46 @@
 										</table>
 									</div>
 									<div class="am-tab-panel am-fade am-u-sm-12" id="tab2">
-									<form class="am-form">
-										<div class="am-u-sm-12">
-											<div class="am-u-sm-6">
-												<div class="am-form-group">
-													<label for="s_dymc" class="am-u-sm-3 am-form-label">订阅主题</label>
-													<div class="am-u-sm-9">
-														<select id="dybtid" name="dybtid" class="am-u-sm-12"
-															onchange="getBz()">
-															<option value="">----请选择----</option>
-															<c:forEach items="${dybtList}" var="item">
-																<option value="${item.id}">${item.dybt}</option>
-															</c:forEach>
-														</select>
+										<form class="am-form">
+											<div class="am-u-sm-12">
+												<div class="am-u-sm-6">
+													<div class="am-form-group">
+														<label for="s_dymc" class="am-u-sm-3 am-form-label">订阅主题</label>
+														<div class="am-u-sm-9">
+															<select id="dybtid" name="dybtid" class="am-u-sm-12"
+																onchange="getBz()">
+																<option value="">----请选择----</option>
+																<c:forEach items="${dybtList}" var="item">
+																	<option value="${item.id}">${item.dybt}</option>
+																</c:forEach>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="am-u-sm-6">
+													<div class="am-form-group">
+														<label for="gfmc" class="am-u-sm-3 am-form-label"></label>
+														<div class="am-u-sm-9"></div>
 													</div>
 												</div>
 											</div>
-											<div class="am-u-sm-6">
-												<div class="am-form-group">
-													<label for="gfmc" class="am-u-sm-3 am-form-label"></label>
-													<div class="am-u-sm-9"></div>
+											<div class="am-u-sm-12" style="margin-top: 8px">
+												<div class="am-u-sm-6">
+													<div class="am-form-group">
+														<label for="s_ztxq" class="am-u-sm-3 am-form-label">主题详情</label>
+														<div class="am-u-sm-9">
+															<textarea id="ztxq" name="ztxq" class="am-u-sm-12"
+																style="height: 400px"></textarea>
+														</div>
+													</div>
 												</div>
-											</div>
-										</div>
-										<div class="am-u-sm-12" style="margin-top:8px">
-											<div class="am-u-sm-6">
-												<div class="am-form-group">
-													<label for="s_ztxq" class="am-u-sm-3 am-form-label">主题详情</label>
-													<div class="am-u-sm-9">
-														<textarea id="ztxq" name="ztxq" class="am-u-sm-12"
-															style="height: 400px"></textarea>
+												<div class="am-u-sm-6">
+													<div class="am-form-group">
+														<label for="gfmc" class="am-u-sm-3 am-form-label"></label>
+														<div class="am-u-sm-9"></div>
 													</div>
 												</div>
 											</div>
-											<div class="am-u-sm-6">
-												<div class="am-form-group">
-													<label for="gfmc" class="am-u-sm-3 am-form-label"></label>
-													<div class="am-u-sm-9"></div>
-												</div>
-											</div>
-										</div>
 										</form>
 									</div>
 								</div>
@@ -163,19 +163,21 @@
 																</tr>
 																<c:forEach items="${dyfsList}" var="item">
 																	<tr>
-																		<td colspan="2"><input class="dyfs"
-																			type="checkbox" id="${item.dyfsdm}" name="dyfs">&nbsp;&nbsp;${item.dyfsmc}</td>
+																		<td colspan="2"><input class="dyfs" name="dyfs"
+																			type="checkbox" id="${item.dyfsdm}">&nbsp;&nbsp;${item.dyfsmc}</td>
 																	</tr>
 																</c:forEach>
 																<tr id="a_sjhm" class="trHidden">
 																	<td><span>&nbsp;手机号码</span></td>
-																	<td><input type="patternPhone" class="am-form-field dyfsInput"
+																	<td><input
+																		class="js-pattern-patternPhone am-form-field dyfsInput"
 																		name="sjhm" placeholder="请输入手机号" id="h_sjhm"></td>
 																</tr>
 																<tr id="a_email" class="trHidden">
 																	<td><span>&nbsp;邮箱地址</span></td>
-																	<td><input type="email" class="am-form-field dyfsInput" 
-																		name="email" placeholder="请输入邮箱" id="h_email"></td>
+																	<td><input type="email"
+																		class="am-form-field dyfsInput" name="email"
+																		placeholder="请输入邮箱" id="h_email"></td>
 																</tr>
 																<tr id="a_ewm" class="trHidden">
 																	<td><span>扫描并关注</span></td>
@@ -203,6 +205,25 @@
 										</div>
 									</div>
 								</form>
+							</div>
+						</div>
+						<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+							<div class="am-modal-dialog">
+								<div class="am-modal-hd">提示</div>
+								<div class="am-modal-bd" id="alert-msg"></div>
+								<div class="am-modal-footer">
+									<span class="am-modal-btn">确定</span>
+								</div>
+							</div>
+						</div>
+						<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+							<div class="am-modal-dialog">
+								<div class="am-modal-hd">提示</div>
+								<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+								<div class="am-modal-footer">
+									<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+										class="am-modal-btn" data-am-modal-confirm>确定</span>
+								</div>
 							</div>
 						</div>
 					</div>

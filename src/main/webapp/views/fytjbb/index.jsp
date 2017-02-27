@@ -150,6 +150,15 @@
 				</table>
 			</div>
 		</div>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">提示</div>
+				<div class="am-modal-bd" id="alert-msg"></div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn">确定</span>
+					</div>
+			</div>
+		</div>			
 		<div
 			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
 			tabindex="-1">
