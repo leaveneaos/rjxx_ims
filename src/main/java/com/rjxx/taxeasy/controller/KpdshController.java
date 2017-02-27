@@ -147,24 +147,29 @@ public class KpdshController extends BaseController {
 		        xf2.setXfsh(jyxxsqVO.getXfsh());
 		        Xf xf = xfService.findOneByParams(xf2);
 		        double fpje = 0d;
+		        Double zdje = 0d;
 		        if ("01".equals(jyxxsqVO.getFpzldm())) {
 		        	if (xf.getZpfpje()!=null&&(xf.getZpfpje()>0)) {
 		        		  fpje = xf.getZpfpje();
 					}else if(xf.getZpzdje()!=null&&(xf.getZpzdje()>0)){
 						  fpje = xf.getZpzdje();
 					}
+		        	zdje= xf.getZpzdje();
 				}else if ("02".equals(jyxxsqVO.getFpzldm())) {
 					if (xf.getZpfpje()!=null&&(xf.getPpfpje()>0)) {
 		        		  fpje = xf.getPpfpje();
 					}else if(xf.getZpzdje()!=null&&(xf.getPpzdje()>0)){
 						  fpje = xf.getPpzdje();
 					}
+					zdje=xf.getPpzdje();
 				}else if ("12".equals(jyxxsqVO.getFpzldm())) {
 					if (xf.getZpfpje()!=null&&(xf.getDzpfpje()>0)) {
 		        		  fpje = xf.getDzpfpje();
 					}else if(xf.getZpzdje()!=null&&(xf.getDzpzdje()>0)){
 						  fpje = xf.getDzpzdje();
+						  zdje = xf.getDzpzdje();
 					}
+					zdje=xf.getDzpzdje();
 				}
 		        boolean flag=false;
 		        for (Fpgz fpgz : listt) {
@@ -194,6 +199,7 @@ public class KpdshController extends BaseController {
 					}
 				}
 		        jyxxsqVO.setFpje(fpje);
+		        jyxxsqVO.setZdje(zdje);
 		}
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);

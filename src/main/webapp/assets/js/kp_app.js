@@ -108,6 +108,7 @@
             "serverSide": true,
             "sServerMethod": "POST",
             "processing": true,
+            ordering: false,
             ajax: {
                 "url": "kp/getjyspmxlist",
                 data: function (d) {
@@ -219,27 +220,38 @@
                     djhArr.push($(this).val()); 
             });
             if (djhArr.length == 0) {
-                alert("请勾选需要开票的交易流水...");
+            	$("#alertt").html("请勾选需要开票的交易流水");
+            	$("#my-alert").modal('open');
                 return;
             }
             $("#kp_kp").attr('disabled',"true"); 
-            if (!confirm("您确认全部开票？")) {
+            $("#conft").html("确认全部开票么")
+      	  $('#my-confirm').modal({
+		        relatedTarget: this,
+		        onConfirm: function(options) {   
+       /*     if (!confirm("您确认全部开票？")) {
             	  $('#kp_kp').removeAttr("disabled");
 				return;
-			}
+			}*/
             $.ajax({
                 url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(",")}, success: function (data) {
                     if (data.success) {
-                        alert("开票成功!");
+                    	$("#alertt").html("开票成功");
+                    	$("#my-alert").modal('open');
                         jyls_table.ajax.reload();
                     } else {
-                        alert(data.msg);
+                    	$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
                     }
                  //   $("#fpjek").modal("close");
-                    $('#kp_kp').removeAttr("disabled");
+                    
               //      $('#savet').removeAttr("disabled");
                 }
             });
+		        }
+      	  
+      	  });
+      	$('#kp_kp').removeAttr("disabled");
 /*            if (djhArr.length == 0) {
                 alert("请勾选需要开票的交易流水...");
                 return;

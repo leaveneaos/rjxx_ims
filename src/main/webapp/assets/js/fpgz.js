@@ -179,25 +179,28 @@ var ur;
 
 			// 删除
 			t.on('click', 'a.shanchu', function() {
-				   if (!confirm("您确认删除该规则？")) {
-						return;
-					}
-					var row = t.row($(this).parents('tr')).data();
+				var row = t.row($(this).parents('tr')).data();
+		           $("#conft").html("确认删除么")
+		       	  $('#my-confirm').modal({
+		 		   onConfirm: function(options) {  
+				
 				   ur = _this.config.scUrl;
 					$.ajax({
 						url : ur,
 						data : {"id":row.id},
 						method : 'POST',
 						success : function(data) {
-							alert(data.msg);
+							$("#alertt").html(data.msg);
+	                    	$("#my-alert").modal('open');
 							t.ajax.reload(); // reload table
 						},
 						error : function() {
-							alert('操作失败!');
+							$("#alertt").html("操作失败");
+	                    	$("#my-alert").modal('open');
 							t.ajax.reload(); // reload table
 						}
 					});
-					
+		 		        }})
 			});
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
@@ -222,7 +225,8 @@ var ur;
 					chk_value.push($(this).val());
 					}); 
 					if(chk_value.length<1){
-						alert("请至少选择一个销方");
+						$("#alertt").html("请选择销方");
+                    	$("#my-alert").modal('open');
 						return false;
 					}
 					if (formValidity) {
@@ -234,10 +238,12 @@ var ur;
 							success : function(data) {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
-									alert(data.msg);
+									$("#alertt").html(data.msg);
+			                    	$("#my-alert").modal('open');
 								} else {
 									el.$jsLoading.modal('close'); // close
-									alert(data.msg);
+									$("#alertt").html(data.msg);
+			                    	$("#my-alert").modal('open');
 								}
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
@@ -247,12 +253,14 @@ var ur;
 							error : function() {
 								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								alert('操作失败!');
+								$("#alertt").html("操作失败");
+		                    	$("#my-alert").modal('open');
 							}
 						});
 						return false;
 					} else {
-						alert('验证失败,请注意红色输入框内内容!');
+						$("#alertt").html("验证失败");
+                    	$("#my-alert").modal('open');
 						return false;
 					}
 				}
@@ -273,7 +281,8 @@ var ur;
 					chk_value.push($(this).val());
 					}); 
 					if(chk_value.length<1){
-						alert("请至少选择一个销方");
+						$("#alertt").html("请选择销方");
+                    	$("#my-alert").modal('open');
 						return false;
 					}
 					if (formValidity) {
@@ -285,10 +294,12 @@ var ur;
 							success : function(data) {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
-									alert(data.msg);
+									$("#alertt").html(data.msg);
+			                    	$("#my-alert").modal('open');
 								} else {
 									el.$jsLoading.modal('close'); // close
-									alert(data.msg);
+									$("#alertt").html(data.msg);
+			                    	$("#my-alert").modal('open');
 								}
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
@@ -298,12 +309,14 @@ var ur;
 							error : function() {
 								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								alert('操作失败!');
+								$("#alertt").html("操作失败");
+		                    	$("#my-alert").modal('open');
 							}
 						});
 						return false;
 					} else {
-						alert('验证失败,请注意红色输入框内内容!');
+						$("#alertt").html("验证失败");
+                    	$("#my-alert").modal('open');
 						return false;
 					}
 				}

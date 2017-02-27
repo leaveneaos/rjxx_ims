@@ -123,7 +123,7 @@
 										<div style="padding: 32px;">
 											<button type="button" id="kp_search1"
 												class="am-btn am-btn-default am-btn-success">
-												<span class="am-icon-search-plus"></span> 查询
+												<span></span> 查询
 											</button>
 										</div>
 									</form>
@@ -140,11 +140,11 @@
 											<div class="am-btn-group am-btn-group-xs">
 												<button type="button" id="kpd_kp"
 													class="am-btn am-btn-default am-btn-secondary">
-													<span class="am-icon-plus"></span> 审核开票单
+													<span></span> 审核开票单
 												</button>
 												<button type="button" id="kpd_th"
 													class="am-btn am-btn-default am-btn-warning">
-													<span class="am-icon-trash-o"></span> 退回
+													<span></span> 退回
 												</button>
 											</div>
 										</div>
@@ -200,7 +200,7 @@
 							</div>
 							<fieldset>
 								<legend>商品明细列表</legend>
-								<table
+								<table style="margin-bottom: 0px;"
 									class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 									id="mxTable1">
 									<thead>
@@ -486,7 +486,27 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div id="conft" class="am-modal-bd">
+      你，确定要删除这条记录吗？
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div id="alertt" class="am-modal-bd">
+      Hello world！
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>

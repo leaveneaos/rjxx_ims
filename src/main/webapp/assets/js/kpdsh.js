@@ -119,18 +119,22 @@ $(function() {
         ]
     });
     kpspmx_table.on('click', 'a.kpdmx', function () {
-		 if (!confirm("确认删除?")) {
-				return;
-			}
+    	var id = kpspmx_table.row($(this).parents('tr')).data().id;
+        $("#conft").html("确认删除")
+    	  $('#my-confirm').modal({
+		        relatedTarget: this,
+		        onConfirm: function(options) {
 			$.ajax({
 			type : "POST",
 			url : "kpdsh/mxsc",
-			data : {"id":kpspmx_table.row($(this).parents('tr')).data().id},
+			data : {"id":id},
 			success : function(data) {
-				alert(data.msg);
+				$("#alertt").html("删除成功");
+            	$("#my-alert").modal('open');
 				  kpspmx_table.ajax.reload();
 			}
 		});
+		        }})
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
@@ -213,8 +217,8 @@ $(function() {
 	                        {"data": "ddrq"},
 	                        {"data": null,
 	                           "render": function (data) {
-	                        	   var fpjee = FormatFloat(data.fpje, "###,###.00")
-	                                return '<input type="text" class="am-text-money" max="'+data.fpje+'" name="fpje" value="'+fpjee+'">';
+	                        	   //var fpjee = FormatFloat(data.fpje, "###,###.00")
+	                                return '<input type="text" onkeyup="yzje(this)" class="am-text-money" max="'+data.zdje+'" name="fpje" value="'+data.fpje +'">';
 	                                }
 	                        },
 	                    
@@ -354,27 +358,32 @@ $(function() {
 							$('#bz').val(jy.bz);
 							$('#formid').val(jy.sqlsh);
 						} else {
-							alert(data.msg);
+							$("#alertt").html(data.msg);
+	                    	$("#my-alert").modal('open');
 						}
 					},
 					error : function() {
-						alert("出现错误，请稍后重试！");
+						$("#alertt").html("出现错误,请稍后再试");
+                    	$("#my-alert").modal('open');
 					}
 				})
             });
             t.on('click', 'a.kpdth', function () {
-				 if (!confirm("确认退回?")) {
-						return;
-					}
+                $("#conft").html("确认退回么")
+            	  $('#my-confirm').modal({
+      		        relatedTarget: this,
+      		        onConfirm: function(options) {   
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/th",
 					data : {"ddhs":t.row($(this).parents('tr')).data().sqlsh},
 					success : function(data) {
-						alert(data.msg);
+						$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
 						_this.tableEx.ajax.reload();	
 					}
 				});
+      		        }})
             });
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
@@ -418,21 +427,24 @@ $(function() {
 				});
 				var ddhs = chk_value.substring(0, chk_value.length-1);
 				if(chk_value.length==0){
-					alert("请至少选择一条数据!")
+					$("#alertt").html("请至少选择一条数据");
+                	$("#my-alert").modal('open');
 				}else{
-				 if (!confirm("确认退回?")) {
-						return;
-					}
+		            $("#conft").html("确认退回么")
+		        	  $('#my-confirm').modal({
+		  		        relatedTarget: this,
+		  		        onConfirm: function(options) {   
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/th",
 					data : {"ddhs":ddhs},
 					success : function(data) {
-						alert(data.msg);
+						$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
 						_this.tableEx.ajax.reload();	
 					}
 				});
-
+		  		        }})
 				}
 			});
 		},
@@ -452,21 +464,24 @@ $(function() {
 				var ddhs = chk_value.substring(0, chk_value.length-1);
 				fpxes = fpxes.substring(0, fpxes.length-1);
 				if(chk_value.length==0){
-					alert("请至少选择一条数据!")
+					$("#alertt").html("请至少选择一条数据");
+                	$("#my-alert").modal('open');
 				}else{
-				 if (!confirm("确认审核?")) {
-						return;
-					}
+		            $("#conft").html("确认审核么")
+		        	  $('#my-confirm').modal({
+		  		        relatedTarget: this,
+		  		        onConfirm: function(options) {   
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
 					data : {"sqlshs":ddhs,"fpxes":fpxes},
 					success : function(data) {
-						alert(data.msg);
+						$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
 						_this.tableEx.ajax.reload();	
 					}
 				});
-
+		  		        }})
 				}
 			});
 		},
@@ -485,14 +500,16 @@ $(function() {
 					data : $('#main_form').serialize(),
 					success : function(data) {
 						if(data.msg){
-							alert("修改成功!");
+							$("#alertt").html("修改成功");
+	                    	$("#my-alert").modal('open');
 							$('#my-alert-edit').modal('close')
 							_this.tableEx.ajax.reload();	
 						}
 					}
 				});
 		          }else{
-		        	  alert("验证不通过!")
+		        	  $("#alertt").html("验证不成功");
+                  	$("#my-alert").modal('open');
 		          }
 			});
 	         
@@ -512,7 +529,8 @@ $(function() {
 					data : $('#main_form1').serialize(),
 					success : function(data) {
 						if(data.msg){
-							alert("修改成功!");
+							$("#alertt").html("修改成功");
+	                    	$("#my-alert").modal('open');
 							$('#my-alert-edit1').modal('close');
 							_this.tableEx.ajax.reload();	
 							 kpspmx_table.ajax.reload();
@@ -520,7 +538,8 @@ $(function() {
 					}
 				});
 		            }else{
-			        	  alert("验证不通过!")
+		            	$("#alertt").html("验证不通过");
+                    	$("#my-alert").modal('open');
 			          }
 			});
 	           
@@ -742,3 +761,14 @@ $(function() {
 	action.init();
 
 });
+
+function yzje(je){
+	var zdje = $(je).attr("max");
+	var zhi= $(je).val();
+	if(zhi*1>zdje*1){
+		var msg = "不能超过分票金额"+zdje*1;
+		$("#alertt").html(msg);
+    	$("#my-alert").modal('open');
+		$(je).val(zdje);
+	}
+}
