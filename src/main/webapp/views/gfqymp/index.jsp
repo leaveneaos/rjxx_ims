@@ -50,7 +50,7 @@
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
 												 <button type="button" class="js-add  am-btn am-btn-default am-btn-primary">
-													<span class="am-icon-plus"></span> 添加
+													<span class="am-icon-plus"></span> 新增
 												</button>
 											</div>
 										</div>
