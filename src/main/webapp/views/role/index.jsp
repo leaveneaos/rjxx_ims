@@ -77,31 +77,12 @@
 											</span>
 										</div>
 									</div>
-									<hr />
-									<!-- 									<div class="am-g"> -->
-									<!-- 										<div class="am-u-sm-6"> -->
-									<!-- 											<div class="am-form-group"> -->
-									<!-- 												<label for="s_fpdm" class="am-u-sm-3 am-form-label">角色名称</label> -->
-									<!-- 												<div class="am-u-sm-9"> -->
-									<!-- 													<input type="text" id="s_jsmc" name="s_jsmc" -->
-									<!-- 														placeholder="请输入角色名称" /> -->
-									<!-- 												</div> -->
-									<!-- 											</div> -->
-									<!-- 										</div> -->
-									<!-- 									</div> -->
-									<!-- 									<hr /> -->
-									<!-- 									<div class="am-u-sm-12  am-padding  am-text-right"> -->
-									<!-- 										<button id="button1" type="button" -->
-									<!-- 											class="js-search  am-btn am-radius am-btn-success">查询</button> -->
-									<!-- 										<button id="button2" type="button" -->
-									<!-- 											class="js-search  am-btn am-radius am-btn-success">新增</button> -->
-									<!-- 									</div> -->
 
 									<div class="am-u-sm-12 am-padding-top">
-										<div class="am-scrollable-horizontal">
+										<div>
 
 											<table id="tbl"
-												class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+												class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 												<thead>
 													<tr>
 														<th>序号</th>

@@ -94,7 +94,7 @@
 							</form>
 
 						</div>
-						<div class="am-g">
+						<div class="am-g am-padding-top">
 							<form id="searchform"
 								class="js-search-form am-form am-form-horizontal">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -136,10 +136,10 @@
 							
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
-								<div class="am-scrollable-horizontal">
+								<div>
 
 									<table id="tbl"
-										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>
