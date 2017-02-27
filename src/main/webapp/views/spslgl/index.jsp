@@ -58,7 +58,6 @@
 												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 										</div>
 									</div>
-									<hr />
 									<div id="doc-oc-demo3" class="am-offcanvas">
 										<form action="" id="searchform1">
 											<div class="am-offcanvas-bar am-offcanvas-bar-flip">

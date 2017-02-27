@@ -48,14 +48,13 @@
 									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>
 						</div>
-						<hr />
 						<div id="doc-oc-demo3" class="am-offcanvas">
 							<form action="" id="searchform1">
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">销方</label>
+											<div class="am-u-sm-7">
 												<select id="xfid1" name="xfid1"
 													data-am-selected="{btnSize: 'sm'}">
 													<option value="0">请选择</option>
@@ -68,8 +67,8 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点代码</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点代码</label>
+											<div class="am-u-sm-7">
 												<input type="text" id="s_kpddm" name="s_kpddm"
 													placeholder="开票点代码" />
 											</div>
@@ -77,8 +76,8 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点名称</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点名称</label>
+											<div class="am-u-sm-7">
 												<input type="text" id="s_kpdmc" name="s_kpdmc"
 													placeholder="开票点名称" />
 											</div>

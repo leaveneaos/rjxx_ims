@@ -76,7 +76,6 @@
 									</form>
 								  
 								</div>
-							<hr />
 							<div class="am-g am-padding-top">
 								<form action="#" id="searchform"
 									class="js-search-form  am-form am-form-horizontal">
