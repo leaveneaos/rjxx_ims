@@ -18,6 +18,8 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/autocomplete.css"/>
+<link rel="stylesheet" href="assets/css/app.css">
 <style type="text/css">
 	.am-table{
 		margin-bottom : 0rem;
@@ -32,7 +34,10 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
-	<div class="am-cf admin-main">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
 		<!-- content start -->
@@ -1288,6 +1293,10 @@
 
 		</div>
 	</div>
+		</div>
+
+		</div>
+	</div>
 	
 	<form id="downloadDefaultImportTemplateForm"
 		action="<%=request.getContextPath()%>/kp/downloadDefaultImportTemplate"
@@ -1316,6 +1325,8 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/lrkpd.js"></script>
 	<script src="assets/js/format.js"></script>
+	<script src="assets/js/autocomplete.js"></script>
+	<script src="assets/js/getGfxxInput.js"></script>
 	<script>
     $(document).ready(function () {  
         //初始化导入配置
