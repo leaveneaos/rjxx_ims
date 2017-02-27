@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
-
+	<style type="text/css">
+	    html{overflow:hidden;}//隐藏整个页面的滚动条；
+	</style>
 </head>
 
 <body data-type="widgets">
@@ -241,9 +243,7 @@
         <!-- 内容区域 -->
             <iframe id="mainFrame" src="./right.html" frameborder="0" style="min-height:900px;width:100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
         </div>
-        <footer>
-                <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
-        </footer>
+        
     </div>
     </div>
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
@@ -442,6 +442,9 @@
 			</div>
 		</div>
 	</div>
+	<footer>
+                <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
+        </footer>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -630,6 +633,15 @@
 		// 			
 		// 		}
 	}
+	function adjustIfHt(){
+	    var ht = $(window).height();//获取浏览器窗口的整体高度；
+	    var topHeader = $(".warp_header").height();//获取头部高度，定义一个变量名为topHeader
+	    $(".sidebar").height(ht);
+	    $("#rightFrame").height(ht);
+	    $(".sidebar").height(ht-topHeader);//计算左边高度：窗口高度-头部高度
+	    $("#rightFrame").height(ht-topHeader);//计算右边高度：窗口高度-头部高度
+	  }
 </script> 
+
 </body>
 </html>
