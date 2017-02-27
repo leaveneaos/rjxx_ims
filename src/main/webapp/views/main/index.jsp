@@ -483,8 +483,9 @@
         if (pTar && !window.opera){
         //begin resizing iframe 
             pTar.style.display="block";
-            if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight){ 
+            if (pTar.contentDocument && pTar.contentDocument.body && pTar.contentDocument.body.offsetHeight){ 
             //ns6 syntax 
+            //console.log(pTar.contentDocument.body.offsetHeight);
                 pTar.height = pTar.contentDocument.body.offsetHeight + 50; 
                 //pTar.width = pTar.contentDocument.body.scrollWidth+20; 
             } else if (pTar.document && pTar.document.body.scrollHeight){ 
@@ -494,7 +495,7 @@
             }
         }
     }
-    self.setInterval(dyniframesize,200);
+    self.setInterval(dyniframesize,200);//0.2秒刷新一次
     function yccd(){
         if ($('.left-sidebar').is('.active')) {
             if ($(window).width() > 1024) {

@@ -5249,10 +5249,10 @@ OffCanvas.prototype.open = function(relatedElement) {
 
   $element.addClass('am-active');
 
-  $body.css({
-    width: window.innerWidth,
-    height: $win.height()
-  }).addClass('am-offcanvas-page');
+//  $body.css({
+//    width: window.innerWidth,
+//    height: $win.height()
+//  }).addClass('am-offcanvas-page');
 
   if (effect !== 'overlay') {
     $body.css({

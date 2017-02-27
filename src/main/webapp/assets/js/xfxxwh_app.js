@@ -41,6 +41,7 @@ $(function() {
 						"serverSide" : true,
 						ordering : false,
 						searching : false,
+						scrollX : true,
 						"ajax" : {
 							url : ur,
 							type : 'POST',
