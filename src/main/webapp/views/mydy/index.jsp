@@ -89,13 +89,13 @@
 										</table>
 									</div>
 									<div class="am-tab-panel am-fade am-u-sm-12" id="tab2">
-									<form>
+									<form class="am-form">
 										<div class="am-u-sm-12">
 											<div class="am-u-sm-6">
 												<div class="am-form-group">
 													<label for="s_dymc" class="am-u-sm-3 am-form-label">订阅主题</label>
 													<div class="am-u-sm-9">
-														<select id="dybtid" name="dybtid" class="am-u-sm-12" data-am-selected="{btnSize: 'sm'}"
+														<select id="dybtid" name="dybtid" class="am-u-sm-12"
 															onchange="getBz()">
 															<option value="">----请选择----</option>
 															<c:forEach items="${dybtList}" var="item">
@@ -112,7 +112,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="am-u-sm-12">
+										<div class="am-u-sm-12" style="margin-top:8px">
 											<div class="am-u-sm-6">
 												<div class="am-form-group">
 													<label for="s_ztxq" class="am-u-sm-3 am-form-label">主题详情</label>
@@ -169,12 +169,12 @@
 																</c:forEach>
 																<tr id="a_sjhm" class="trHidden">
 																	<td><span>&nbsp;手机号码</span></td>
-																	<td><input class="am-form-field dyfsInput"
+																	<td><input type="patternPhone" class="am-form-field dyfsInput"
 																		name="sjhm" placeholder="请输入手机号" id="h_sjhm"></td>
 																</tr>
 																<tr id="a_email" class="trHidden">
 																	<td><span>&nbsp;邮箱地址</span></td>
-																	<td><input class="am-form-field dyfsInput"
+																	<td><input type="email" class="am-form-field dyfsInput" 
 																		name="email" placeholder="请输入邮箱" id="h_email"></td>
 																</tr>
 																<tr id="a_ewm" class="trHidden">
@@ -190,10 +190,10 @@
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
 																	<button type="submit"
-																		class="js-submit am-btn am-btn-primary">确定</button>
+																		class="js-submit am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
 																		onclick="$('#shezhi').modal('close');"
-																		class="js-close am-btn am-btn-danger">取消</button>
+																		class="js-close am-btn am-radius am-btn-warning">取消</button>
 																</div>
 															</div>
 														</div>
