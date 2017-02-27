@@ -27,9 +27,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
-	<style type="text/css">
-	    html{overflow:hidden;}//隐藏整个页面的滚动条；
-	</style>
+
 </head>
 
 <body data-type="widgets">
@@ -241,9 +239,11 @@
 	</div>
         <div  class="tpl-content-wrapper">
         <!-- 内容区域 -->
-            <iframe id="mainFrame" src="./right.html" frameborder="0" style="min-height:900px;width:100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
+            <iframe id="mainFrame" src="./right.html" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
         </div>
-        
+        <footer>
+                <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
+        </footer>
     </div>
     </div>
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
@@ -442,9 +442,6 @@
 			</div>
 		</div>
 	</div>
-	<footer>
-                <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
-        </footer>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -472,7 +469,10 @@
 			}
 		});
 	}
-    function dyniframesize(down) { 
+    function dyniframesize(down) {
+    	if(!down){
+    		down="mainFrame";
+    	}
         var pTar = null; 
         if (document.getElementById){ 
             pTar = document.getElementById(down); 
@@ -485,15 +485,16 @@
             pTar.style.display="block";
             if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight){ 
             //ns6 syntax 
-                pTar.height = pTar.contentDocument.body.offsetHeight +20; 
-                pTar.width = pTar.contentDocument.body.scrollWidth+20; 
+                pTar.height = pTar.contentDocument.body.offsetHeight + 50; 
+                //pTar.width = pTar.contentDocument.body.scrollWidth+20; 
             } else if (pTar.document && pTar.document.body.scrollHeight){ 
             //ie5+ syntax 
-                pTar.height = pTar.document.body.scrollHeight; 
-                pTar.width = pTar.document.body.scrollWidth; 
+                pTar.height = pTar.document.body.scrollHeight + 50; 
+                //pTar.width = pTar.document.body.scrollWidth; 
             }
         }
-    } 
+    }
+    self.setInterval(dyniframesize,200);
     function yccd(){
         if ($('.left-sidebar').is('.active')) {
             if ($(window).width() > 1024) {
@@ -633,14 +634,7 @@
 		// 			
 		// 		}
 	}
-	function adjustIfHt(){
-	    var ht = $(window).height();//获取浏览器窗口的整体高度；
-	    var topHeader = $(".warp_header").height();//获取头部高度，定义一个变量名为topHeader
-	    $(".sidebar").height(ht);
-	    $("#rightFrame").height(ht);
-	    $(".sidebar").height(ht-topHeader);//计算左边高度：窗口高度-头部高度
-	    $("#rightFrame").height(ht-topHeader);//计算右边高度：窗口高度-头部高度
-	  }
+	
 </script> 
 
 </body>
