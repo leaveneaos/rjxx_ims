@@ -145,7 +145,7 @@
 							
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
-								<div class="am-scrollable-horizontal">
+								<div>
 			
 									<table id="tbl"
 										class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
