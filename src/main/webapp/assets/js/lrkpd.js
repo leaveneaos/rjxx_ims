@@ -26,10 +26,16 @@
                     d.xfsh = $('#xfsh').val();   // search 销方
                     d.gfmc = $('#gfmc').val();	// search 购方名称
                     d.ddh = $('#ddh').val();   // search 订单号
-                    d.spmc = $('#spmc').val();   // search 订单号
-                    //d.jylsh = $('#s_lsh').val();   // search 发票号码
+                    d.fpzldm = $('#fpzldm').val();   // search 发票号码
                     d.rqq = $('#kssj').val(); // search 开票日期
                     d.rqz = $('#jssj').val(); // search 开票日期
+                    d.fpzldm = $('#fplxdm').val(); // search发票种类
+                    var csm =  $('#dxcsm').val()
+	                if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){
+	                    d.gfmc = $('#dxcsz').val()
+	                 }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
+	                    d.ddh = $('#dxcsz').val()
+	                  }
                 }
             },
             "columns": [
@@ -152,7 +158,7 @@
             ]
         });
 
-        $('#kp_search').click(function () {
+        $('#kp_search1').click(function () {
         	var dt1 = new Date($('#kssj').val().replace(/-/g, "/"));
             var dt2 = new Date($('#jssj').val().replace(/-/g, "/"));
             if (($('#kssj').val() && $('#jssj').val())) {// 都不为空
@@ -162,18 +168,20 @@
                             alert('开始日期大于结束日期!');
                             return false;
                         }
-                    } /*else {
-                        alert('请选择同一个年月内的时间!');
-                        return false;
-                    }*/
-                }/* else {
-                    alert('请选择同一个年月内的时间!');
-                    return false;
-                }*/
+                    } 
+                }
             }
-        	//alert("yt");
+            $("#dxcsz").val("");
         	jyls_table.ajax.reload();
         });
+        
+        $('#kp_search').click(function () {
+        	$("#ycform").resetForm();
+        	$('#kssj').attr("selected","selected");
+         	$('#jssj').attr("selected","selected");
+        	jyls_table.ajax.reload();
+        });
+        
         $('#jyls_table tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');

@@ -44,131 +44,157 @@
 		<input type="hidden" id="djh" value="0">
 
 		<div class="admin-content">
-			<div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">业务处理</strong> /
-                <strong>录入开票单</strong>
+			<div class="am-cf widget-head">
+            <div class="widget-title am-cf">
+                <strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>录入开票单</strong>
+                <button class="am-btn am-btn-success am-fr" data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
             </div>
+            
+            <!-- 侧边栏内容 begin-->
+							<div id="doc-oc-demo3" class="am-offcanvas">
+								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+									<form id="ycform">
+										<div class="am-offcanvas-content">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="xfsh"
+														name="xfsh">
+														<option id="xzxfq" value="">选择销方</option>
+														<c:forEach items="${xfList}" var="item">
+															<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 5px;">
+											<div class="am-form-group">
+												<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+												<div class="am-u-sm-8">
+													<input id="gfmc" type="text" placeholder="购方名称">
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 5px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
+												<div class="am-u-sm-8">
+													<input id="ddh" type="text" placeholder="订单号">
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="fplxdm"
+														name="xfsh">
+														<option id="xzlxq" value="">选择类型</option>
+														<option value="12">电子发票</option>
+														<option value="01">专用发票</option>
+														<option value="02">普通发票</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
+												<div class="am-input-group am-datepicker-date am-u-sm-8"
+													data-am-datepicker="{format: 'yyyy-mm-dd'}">
+													<input type="text" id="kssj" class="am-form-field"
+														placeholder="开始时间" readonly> <span
+														class="am-input-group-btn am-datepicker-add-on">
+														<button class="am-btn am-btn-default" type="button">
+															<span class="am-icon-calendar"></span>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
+												<div class="am-input-group am-datepicker-date am-u-sm-8"
+													data-am-datepicker="{format: 'yyyy-mm-dd'}">
+													<input type="text" id="jssj" class="am-form-field"
+														placeholder="截止时间" readonly> <span
+														class="am-input-group-btn am-datepicker-add-on">
+														<button class="am-btn am-btn-default" type="button">
+															<span class="am-icon-calendar"></span>
+														</button>
+													</span>
+												</div>
+
+											</div>
+										</div>
+										<div style="padding: 32px;">
+											<button type="button" id="kp_search1"
+												class="am-btn am-btn-default am-btn-success">
+												<span class="am-icon-search-plus"></span> 查询
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- 侧边内容end -->
             </div>
-			<hr />
-		    <div class="am-g">
-					<form class="am-form am-form-horizontal">
-					   <div class="am-u-sm-12">
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
-								<div class="am-u-sm-8">
-									<select id="xfsh" name="xfsh">
-										<option value="">选择销方</option>
-										<c:forEach items="${xfList}" var="item">
-											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-										</c:forEach>
-									</select>
+		    <div class="am-g am-padding-top">
+					<form class=" am-form am-form-horizontal">
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+									<div class="am-form-group">
+										<div class="am-btn-toolbar">
+											<div class="am-btn-group am-btn-group-xs">
+												<button type="button" id="kp_add"
+													class="am-btn am-btn-default am-btn-primary">
+													<span class="am-icon-plus"></span> 录入
+												</button>
+												<button type="button" id="kp_dr"
+													class="am-btn am-btn-default am-btn-default">
+													<span class="am-icon-plus"></span> 导入
+												</button>
+												<button type="button" id="kp_del"
+													class="am-btn am-btn-default am-btn-danger">
+													<span class="am-icon-trash-o"></span> 删除
+												</button>
+												<button type="button" id="kp_kp"
+													class="am-btn am-btn-default am-btn-secondary">
+													<span class="am-icon-trash-o"></span> 上传
+												</button>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">购方名称</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="gfmc" class="am-form-field" placeholder="">
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_add"
-									class="am-btn am-btn-primary">
-									<span></span> 录入开票单
-								</button>
-							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_dr"
-									class="am-btn am-btn-default">
-									<span></span> 批量导入
-								</button>
-							</div>
-						</div>
-					</div>
-					
-					    <div class="am-u-sm-12">
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="ddh" class="am-form-field" placeholder="" style="width:100%;">
-								</div>
-							</div>
-						</div>
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">商品名称</label>
-								<div class="am-u-sm-8">
-									<input type="text" id ="spmc" class="am-form-field" placeholder="">
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_del"
-									class="am-btn am-btn-danger">
-									<span></span> 删除
-								</button>
-							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_kp"
-									class="am-btn am-btn-secondary">
-									<span></span> 申请开票
-								</button>
-							</div>
-						</div>
-					</div>
-					
-					<div class="am-u-sm-12">
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">起始时间</label>
-								<div class="am-input-group am-datepicker-date am-u-sm-8" data-am-datepicker="{format: 'yyyy-mm-dd'}" >
-  								<input type="text" id="kssj" class="am-form-field" placeholder="" readonly>
-  								<span class="am-input-group-btn am-datepicker-add-on">
-   									 <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-  								</span>
-						   </div>
-				            </div>
-						</div>
-						<div class="am-u-lg-4">
-							<div class="am-form-group">
-								<label for="s_ddh" class="am-u-sm-4 am-form-label">结束时间</label>
-								<div class="am-input-group am-datepicker-date am-u-sm-8" data-am-datepicker="{format: 'yyyy-mm-dd'}" >
-  								<input type="text" id="jssj" class="am-form-field" placeholder="" readonly>
-  								<span class="am-input-group-btn am-datepicker-add-on">
-   									 <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
-  								</span>
-						   </div>
-				            </div>
-						</div>
-						<div class="am-u-sm-2">
+						<!-- <div class="am-u-sm-2">
 							<div class="am-form-group" style="width: 100%;margin-top:16px">
 								<a href="javascript:void(0)" id="day3"><u>近3天</u></a>
 								<a href="javascript:void(0)" id="day7" ><u>近7天</u></a>
 							    <a href="javascript:void(0)" id="day30" ><u>近30天</u></a>
 							</div>
-						</div>
-						<div class="am-u-sm-2">
-							<div class="am-form-group" style="width: 100%">
-								<button type="button" style="width: 100%" id="kp_search"
-									class="am-btn am-btn-secondary">
-									<span></span> 查询
-								</button>
-							</div>
-						</div>
-					</div>
+						</div> -->
+						<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+											<option value="gfmc">购方名称</option>
+											<option value="ddh">订单号</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+									<div
+										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+										<input id="dxcsz" type="text" class="am-form-field ">
+										<span class="am-input-group-btn">
+											<button id="kp_search"
+												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+												type="button"></button>
+										</span>
+									</div>
+								</div>
 					</form>
-				<hr>
-				<div style="margin-left: 10px">
+				<div style="margin-left: 10px" class="am-u-sm-12 am-padding-top">
 					<table
 						class="js-table am-table am-table-bordered am-text-nowrap am-scrollable-horizontal"
 						id="jyls_table">
