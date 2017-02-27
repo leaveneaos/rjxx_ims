@@ -40,12 +40,11 @@
 
 						<!-- content start -->
 						<div class="admin-content">
-							<div class="am-cf am-padding">
-								<div class="am-fl am-cf">
+							<div class="am-cf widget-head">
+								<div class="widget-title am-cf">
 									<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>角色管理</strong>
 								</div>
 							</div>
-							<hr />
 							<div class="am-g  am-padding-top">
 								<form action="#"
 									class="js-search-form  am-form am-form-horizontal">
@@ -78,6 +77,7 @@
 											</span>
 										</div>
 									</div>
+									<hr />
 									<!-- 									<div class="am-g"> -->
 									<!-- 										<div class="am-u-sm-6"> -->
 									<!-- 											<div class="am-form-group"> -->
