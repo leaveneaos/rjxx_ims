@@ -6,8 +6,10 @@ $(function () {
         $jsSubmit: $('.js-submit'),
         $jsClose: $('.js-close'),
         $jsForm0: $('.js-form-0'),     // 红冲 form
+        $s_xfid :$('#s_xfid'),
+        $s_skpid:$('#s_skpid'),
         $s_ddh: $('#s_ddh'), // search 订单号
-        $s_fphm: $('#s_fphm'), // search 发票号码
+        $s_gfmc: $('#s_gfmc'), // search 发票号码
         $s_kprqq: $('#s_kprqq'), // search 开票日期
         $s_kprqz: $('#s_kprqz'), // search 开票日期
         $s_fpzl:$('#s_fpzl'),
@@ -31,11 +33,25 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'GET',
                     data: function (d) {
-                        d.ddh = el.$s_ddh.val();   // search 订单号
-                        d.fphm = el.$s_fphm.val();   // search 发票号码
-                        d.kprqq = el.$s_kprqq.val(); // search 开票日期
-                        d.kprqz = el.$s_kprqz.val(); // search 开票日期
-                        d.fpzl = el.$s_fpzl.val();
+                    	var bz = $('#searchbz').val();
+                    	if(bz=='1'){
+                    		d.xfid = el.$s_xfid.val();
+                        	d.skpid = el.$s_skpid.val();
+                            d.ddh = el.$s_ddh.val();   // search 订单号
+                            d.gfmc = el.$s_gfmc.val();   // search 发票号码
+                            d.kprqq = el.$s_kprqq.val(); // search 开票日期
+                            d.kprqz = el.$s_kprqz.val(); // search 开票日期
+                            d.fpzl = el.$s_fpzl.val();
+                    	}else{
+                    		var item = $('#s_mainkey').val();
+                    		if(item=='ddh'){
+                    			d.ddh = $('#searchValue').val();
+                    		}
+                    		if(item=='gfmc'){
+                    			d.gfmc = $('#searchValue').val();
+                    		}
+                    	}
+                    	
                     }
                 },
                 "columns": [
@@ -138,9 +154,18 @@ $(function () {
                         return false;
                     }
                 }
+                $('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
             });
+        },
+        find_mv:function(){
+        	var _this = this;
+        	$('#jssearch').on('click',function(e){
+        		$('#searchbz').val("0");
+        		e.preventDefault();
+                _this.tableEx.ajax.reload();
+        	})
         },
         /**
          * 导出按钮
@@ -184,6 +209,7 @@ $(function () {
             _this.search_ac();
             _this.exportAc();
             _this.modalAction(); // hidden action
+            _this.find_mv();
         }
     };
     action.init();

@@ -7,6 +7,7 @@ $(function () {
     var el = {
     	$jsTable: $('.js-table'),//查询table
     	$jsForm:$('.js-form-yjsz'),
+    	$jsSearch:$('#searchButton'),
     	$jsAdd: $('#jsAdd'),//添加按钮
         $jsdiv:$("#shezhi"),
         $jssave:$(".js-submit"),
@@ -31,7 +32,7 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                           
+                           d.btmc=$('#searchValue').val();
                         }
                     },
                     "columns": [                    
@@ -74,6 +75,7 @@ $(function () {
             });
             // 修改
             t.on('click', 'a.update', function () {
+            	$(".dyfs").attr("checked",false);
                 var row = t.row($(this).parents('tr')).data();                
                 var str=row.dyfs.split(",");
                 for(var j=0;j<str.length;j++){
@@ -173,8 +175,7 @@ $(function () {
                              	el.$jsLoading.modal('close');                              	
                                 if (data.success) {
                                     alert(data.msg);
-                                    el.$jsdiv.modal('close'); // close
-                                    $(".dyfs").attr("checked",false);
+                                    el.$jsdiv.modal('close'); // close                               
                                     _this.tableEx.ajax.reload();
                                 }else{
                                     alert(data.msg);                                  
@@ -205,7 +206,6 @@ $(function () {
             // close modal
             el.$jsClose.on('click', function () {
                 el.$jsdiv.modal('close');
-                $(".dyfs").attr("checked",false);
             });
         },
       //全选按钮
@@ -254,6 +254,7 @@ $(function () {
             _this.modalAction(); // hidden action
             _this.checkAllAc();
             _this.checkbox();
+            _this.search_ac();
         }
     };
     action.init();

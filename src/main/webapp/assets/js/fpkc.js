@@ -45,10 +45,19 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                        	d.xfids = $('#xfid').val();
-                        	d.skpids = $('#s_skpid').val();
-                            d.fpdm= el.$s_fpdm.val(); // search 用户账号
-                            d.fplx = el.$s_fplx.val();
+                        	var bz = $('#searchbz').val();
+                        	if(bz=='1'){
+                        		d.xfids = $('#xfid').val();
+                            	d.skpids = $('#s_skpid').val();
+                                d.fpdm= el.$s_fpdm.val(); // search 用户账号
+                                d.fplx = el.$s_fplx.val();
+                        	}else{
+                        		var item = $('#s_mainkey').val();
+                        		if(item=='fpdm'){
+                        			d.fpdm = $('#searchValue').val();
+                        		}
+                        	}
+                        	
                         }
                     },
                     "columns": [
@@ -156,9 +165,18 @@ $(function () {
         search_ac: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
+            	$('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
             });
+        },
+        find_mv:function(){
+        	var _this = this;
+        	$('#searchButton').on('click',function(e){
+        		$('#searchbz').val("0");
+        		e.preventDefault();
+                _this.tableEx.ajax.reload();
+        	})
         },
         
         add:function(){
@@ -259,6 +277,7 @@ $(function () {
             _this.add();
             _this.xz();
             _this.modalAction(); // hidden action
+            _this.find_mv();
         }
     };
     action.init();

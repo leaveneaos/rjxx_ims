@@ -60,13 +60,14 @@ public class DyglController extends BaseController{
 	
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String,Object> getItems(int length, int start, int draw){
+	public Map<String,Object> getItems(int length, int start, int draw,String btmc){
 		Map<String,Object> result = new HashMap<String,Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		int yhid = getYhid();
 		pagination.addParam("yhid", yhid);
+		pagination.addParam("btmc", btmc);
 		List<Yhdykvo> list = dykService.findByPage(pagination);
 		if(list !=null&&list.size()>0){			
 			for(Yhdykvo item:list){

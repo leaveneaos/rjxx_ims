@@ -32,6 +32,10 @@ public class FphccxController extends BaseController {
 	public String index() {
 		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
 		request.setAttribute("fpzlList", fpzlList);
+		List<Xf> xfList = getXfList();
+		request.setAttribute("xfList", xfList);
+		List<Skp> skpList = getSkpList();
+		request.setAttribute("skpList", skpList);
 		return "fphccx/index";
 	}
 
@@ -43,7 +47,7 @@ public class FphccxController extends BaseController {
 	 */
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map getKplsList(int length, int start, int draw, String ddh, String fphm, 
+	public Map getKplsList(int length, int start, int draw, Integer xfid,Integer skpid,String ddh, String gfmc, 
 			String kprqq, String kprqz,String fpzl) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
@@ -68,8 +72,10 @@ public class FphccxController extends BaseController {
 		if (skps.size() > 0) {
 			pagination.addParam("skpList", skps);
 		}
+		pagination.addParam("xfid", xfid);
+		pagination.addParam("skpid", skpid);
 		pagination.addParam("ddh", ddh);
-		pagination.addParam("fphm", fphm);
+		pagination.addParam("gfmc", gfmc);
 		if (!"".equals(kprqq)) {
 			pagination.addParam("kprqq", kprqq);
 		}

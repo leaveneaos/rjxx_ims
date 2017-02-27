@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Fpzl;
+import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.KplsvoService;
@@ -31,6 +32,10 @@ public class FphkcxController extends BaseController {
 	public String index() {
 		List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
 		request.setAttribute("fpzlList", fpzlList);
+		List<Xf> xfList = getXfList();
+		request.setAttribute("xfList", xfList);
+		List<Skp> skpList = getSkpList();
+		request.setAttribute("skpList", skpList);
 		return "fphkcx/index";
 	}
 
@@ -42,7 +47,7 @@ public class FphkcxController extends BaseController {
 	 */
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map getKplsList(int length, int start, int draw, String ddh, String fphm, 
+	public Map getKplsList(int length, int start, int draw, Integer xfid,Integer skpid,String ddh, String gfmc, 
 			String kprqq,String kprqz,String fpzl) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
@@ -59,8 +64,10 @@ public class FphkcxController extends BaseController {
 		}
 		pagination.addParam("skps", getSkpList());
 		pagination.addParam("gsdm", getGsdm());
+		pagination.addParam("xfid", xfid);
+		pagination.addParam("skpid", skpid);
 		pagination.addParam("ddh", ddh);
-		pagination.addParam("fphm", fphm);
+		pagination.addParam("gfmc", gfmc);
 		if (!"".equals(kprqq)) {
 			pagination.addParam("kprqq", kprqq);
 		}
