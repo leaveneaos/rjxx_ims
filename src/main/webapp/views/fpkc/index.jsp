@@ -103,7 +103,6 @@
 									</div>
 								</div>
 							</div>
-							<hr />
 							<div class="am-g am-padding-top">
 							    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 										<div class="am-form-group">
