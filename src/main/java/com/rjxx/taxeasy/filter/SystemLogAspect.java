@@ -87,10 +87,16 @@ public class SystemLogAspect extends BaseController {
 
 		try {
 			String key = (String) getControllerMethodDescription(joinPoint).get("key");
-			String value = request.getParameter(key);
-			if(value.length()>50){
-				value=value.substring(0, 50)+"...";
+			//String value = request.getParameter(key);
+		    String[] value=request.getParameterValues(key);
+			StringBuffer str = new StringBuffer();
+			if(null !=value && value.length>=0)
+			for(int i=0;i<value.length;i++){
+				str.append(value[i]+",");
 			}
+			/*if(value.length()>50){
+				value=value.substring(0, 50)+"...";
+			}*/
 			// *========控制台输出=========*//
 			System.out.println("=====前置通知开始=====");
 			System.out.println("请求方法:"
@@ -103,7 +109,7 @@ public class SystemLogAspect extends BaseController {
 			XtLog log = new XtLog();
 			log.setAnctionobj(priList.get(0).getName());
 			log.setDescription(getControllerMethodDescription(joinPoint).get("description").toString());
-			log.setDetails(value);
+			log.setDetails(str.length()>0?str.substring(0,str.length()-1):"");
 			log.setMethod(
 					(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
 			;
