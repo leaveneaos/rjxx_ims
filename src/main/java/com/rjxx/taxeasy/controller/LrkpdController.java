@@ -274,6 +274,7 @@ public class LrkpdController extends BaseController {
 			pagination.addParam("xfsh", xfsh);
 		}
 		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("ztbz", "1");
 		pagination.addParam("ddh", ddh);
 		if ("".equals(fpzldm)) {
 			pagination.addParam("fpzldm", null);
