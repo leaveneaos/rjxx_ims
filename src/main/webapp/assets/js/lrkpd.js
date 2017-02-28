@@ -26,7 +26,7 @@
                     d.xfsh = $('#xfsh').val();   // search 销方
                     d.gfmc = $('#gfmc').val();	// search 购方名称
                     d.ddh = $('#ddh').val();   // search 订单号
-                    d.fpzldm = $('#fpzldm').val();   // search 发票号码
+                   // d.fpzldm = $('#fpzldm').val();   // search 发票号码
                     d.rqq = $('#kssj').val(); // search 开票日期
                     d.rqz = $('#jssj').val(); // search 开票日期
                     d.fpzldm = $('#fplxdm').val(); // search发票种类

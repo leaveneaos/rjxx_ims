@@ -65,7 +65,7 @@
 							<div class="am-scrollable-horizontal">
 
 								<table
-									class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+									class="js-table  am-table am-table-bordered  am-text-nowrap">
 									<thead>
 										<tr>
 											<th>序号</th>
