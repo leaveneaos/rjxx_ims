@@ -16,8 +16,8 @@
 <link rel="apple-touch-icon-precomposed"
 	href="../../assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/autocomplete.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <style type="text/css">
@@ -28,6 +28,7 @@
 .right {
 	text-align: right;
 }
+table thead th { text-align: center; }
 </style>
 </head>
 <body>
@@ -43,8 +44,15 @@
 					<!-- sidebar end -->
 					<!-- content start -->
 					<input type="hidden" id="djh" value="0">
+					<input type="hidden" id="djh2" value="0">
+<div class="am-tabs" data-am-tabs>
+  <ul class="am-tabs-nav am-nav am-nav-tabs">
+    <li class="am-active"><a href="#tab-1-1">录入开票单</a></li>
+    <li><a href="#tab-1-2">已上传</a></li>
+  </ul>
 
-					<div class="admin-content">
+ <div class="am-tabs-bd am-tabs-bd-ofv">
+					<div class="admin-content am-tab-panel am-active" id ="tab-1-1">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
 								<strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>录入开票单</strong>
@@ -244,8 +252,183 @@
 							</fieldset>
 						</div>
 					</div>
+					<!-- tab1-1-2 content begin -->
+
+					<div class="am-tab-panel" id ="tab-1-2">
+						<div class="am-cf widget-head">
+							<div class="widget-title am-cf">
+								<strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>已上传</strong>
+								<button class="am-btn am-btn-success am-fr"
+									data-am-offcanvas="{target: '#doc-oc-demo4'}">更多查询</button>
+							</div>
+
+							<!-- 侧边栏内容 begin-->
+							<div id="doc-oc-demo4" class="am-offcanvas">
+								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+									<form id="ycform2">
+										<div class="am-offcanvas-content">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="xfsh2"
+														name="xfsh">
+														<option id="xzxfq2" value="">选择销方</option>
+														<c:forEach items="${xfList}" var="item">
+															<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 5px;">
+											<div class="am-form-group">
+												<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+												<div class="am-u-sm-8">
+													<input id="gfmc2" type="text" placeholder="购方名称">
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 5px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
+												<div class="am-u-sm-8">
+													<input id="ddh2" type="text" placeholder="订单号">
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="fplxdm2"
+														name="xfsh">
+														<option id="xzlxq2" value="">选择类型</option>
+														<option value="12">电子发票</option>
+														<option value="01">专用发票</option>
+														<option value="02">普通发票</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
+												<div class="am-input-group am-datepicker-date am-u-sm-8"
+													data-am-datepicker="{format: 'yyyy-mm-dd'}">
+													<input type="text" id="kssj2" class="am-form-field"
+														placeholder="开始时间" readonly> <span
+														class="am-input-group-btn am-datepicker-add-on">
+														<button class="am-btn am-btn-default" type="button">
+															<span class="am-icon-calendar"></span>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
+												<div class="am-input-group am-datepicker-date am-u-sm-8"
+													data-am-datepicker="{format: 'yyyy-mm-dd'}">
+													<input type="text" id="jssj2" class="am-form-field"
+														placeholder="截止时间" readonly> <span
+														class="am-input-group-btn am-datepicker-add-on">
+														<button class="am-btn am-btn-default" type="button">
+															<span class="am-icon-calendar"></span>
+														</button>
+													</span>
+												</div>
+
+											</div>
+										</div>
+										<div style="padding: 32px;">
+											<button type="button" id="kp_search3"
+												class="am-btn am-btn-default am-btn-success">
+												<span class="am-icon-search-plus"></span> 查询
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- 侧边内容end -->
+						</div>
+						<div class="am-g am-padding-top">
+							<form class=" am-form am-form-horizontal">
+						       <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+						                 <p>
+							   </div>
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="dxcsm2" data-am-selected="{btnSize: 'sm'}">
+											<option value="gfmc2">购方名称</option>
+											<option value="ddh2">订单号</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-u-end">
+									<div
+										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+										<input id="dxcsz2" type="text" class="am-form-field ">
+										<span class="am-input-group-btn">
+											<button id="kp_search2"
+												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+												type="button"></button>
+										</span>
+									</div>
+								</div>
+							</form>
+							<div style="margin-left: 10px" class="am-u-sm-12 am-padding-top">
+								<table
+									class="js-table am-table am-table-bordered am-text-nowrap am-scrollable-horizontal"
+									id="jyls_table2">
+									<thead>
+										<tr>
+											<th><input type="checkbox" id="check_all2" /></th>
+											<th width="80">交易流水号</th>
+											<th width="80">订单号</th>
+											<th width="80">订单日期</th>
+											<th>发票类型</th>
+											<th>购方名称</th>
+											<th>购方税号</th>
+											<th>地址</th>
+											<th>电话</th>
+											<th>开户行</th>
+											<th>开户账号</th>
+											<th>价税合计</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<fieldset>
+								<legend>商品明细列表</legend>
+								<table
+									class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap"
+									id="jyspmx_table2">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>名称</th>
+											<th>规格型号</th>
+											<th>单位</th>
+											<th>数量</th>
+											<th>单价</th>
+											<th>金额</th>
+											<th>税率</th>
+											<th>税额</th>
+											<th>价税合计</th>
+										</tr>
+									</thead>
+								</table>
+							</fieldset>
+						</div>
+					</div>
+					<!-- tab1-1-2 content end -->
+				 </div>
 					<!-- content end -->
-				</div>
+					
+			</div>
+		</div>
 
 
 				<div class="am-modal am-modal-no-btn" tabindex="-1"
@@ -264,7 +447,7 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12">
 										<input type="file" class="am-u-sm-12" id="importFile"
-											name="importFile" placeholder="选择要上传的文件" required>
+											name="importFile" placeholder="选择要上传的文件"  accept="application/vnd.ms-excel"  required>
 									</div>
 									<div class="am-u-sm-12">
 										<label class="am-u-sm-4 am-form-label">选择销方</label>
@@ -320,15 +503,15 @@
 											</select>
 										</div>
 									</div>
-									<div class="am-u-sm-12">
+									<%-- <div class="am-u-sm-12">
 										<label class="am-u-sm-4 am-form-label">默认模板</label>
 										<div class="am-u-sm-8">
 											<select id="mrmb" name="mrmb" class="am-u-sm-12">
 												<option value="${mrmb.id}">${mrmb.mbmc}</option>
 											</select>
 										</div>
-									</div>
-									<div class="am-u-sm-12" style="margin-top: 10px;">
+									</div> --%>
+									<div class="am-u-sm-12" style="margin-top: 30px;">
 										<button type="button" id="btnImport"
 											class="am-btn am-btn-xs am-btn-primary">导入</button>
 										<button type="button" id="btnMrConfig"
@@ -1388,6 +1571,7 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/lrkpd.js"></script>
+	<script src="assets/js/kpdysc.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/autocomplete.js"></script>
 	<script src="assets/js/getGfxxInput.js"></script>
