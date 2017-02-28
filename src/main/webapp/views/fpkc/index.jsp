@@ -109,9 +109,9 @@
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
 													<input type="hidden" id="searchbz">
-													<button class="am-btn am-btn-secondary" id="jsAdd">
+													<button class="am-btn am-btn-primary" id="jsAdd">
 															<i class="am-icon-plus"></i>&nbsp;新增
-														</button>
+													</button>
 												</div>
 											</div>
 										</div>

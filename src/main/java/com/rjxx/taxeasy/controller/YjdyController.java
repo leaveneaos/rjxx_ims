@@ -45,7 +45,7 @@ public class YjdyController extends BaseController {
 
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpider,String fpzl) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpider,String fpzl,String xfsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
 		Pagination pagination = new Pagination();
@@ -72,6 +72,7 @@ public class YjdyController extends BaseController {
 		}
 		pagination.addParam("skpid", skpid);
 		pagination.addParam("skpider", skpider);
+		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("fpzl", fpzl);
 		List<Fpyjdyvo> dyList = dyService.findFpyjdyByPage(pagination);
 		for (Fpyjdyvo item : dyList) {

@@ -36,10 +36,19 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                            d.xfid= el.$xfid.val(); // search
-                            $("#xfidhide").val($("#xfid").val());
-                            d.skpider = $("#s_skpid").val();
-                            d.fpzl = $("#s_fplx").val();
+                        	 $("#xfidhide").val($("#xfid").val());
+                        	 var bz = $('#searchbz').val();
+                        	 if(bz=='1'){
+                        		 d.xfid= el.$xfid.val(); // search                           
+                                 d.skpider = $("#s_skpid").val();
+                                 d.fpzl = $("#s_fplx").val(); 
+                        	 }else{
+                        		 var item = $('#s_mainkey').val();
+                        		 if(item=='xfsh'){
+                        			 d.xfsh = $('#searchValue').val();
+                        		 }
+                        	 }
+                            
                         }
                     },
                     "columns": [
@@ -55,8 +64,6 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {"data": "xfid"},
-                        {"data": "skpid"},
                         {"data": "xfmc"},
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
@@ -78,8 +85,6 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                $('#yjdytable tr').find('td:eq(2)').hide();
-                $('#yjdytable tr').find('td:eq(3)').hide();
             });
 
             // 批量设置
@@ -125,10 +130,19 @@ $(function () {
         search_ac: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
+            	$('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
                 $("#xfidhide").val($("#xfid").val());
             });
+        },
+        find_mv:function(){
+        	var _this = this;
+        	$('#searchButton').on('click',function(e){
+        		$('#searchbz').val("0");
+        		e.preventDefault();
+                _this.tableEx.ajax.reload();
+        	})
         },
         /**
          * 新增保存
@@ -222,6 +236,7 @@ $(function () {
             _this.xz();
             _this.modalAction(); // hidden action
             _this.checkAllAc();
+            _this.find_mv();
         }
     };
     action.init();

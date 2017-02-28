@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
+<link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
