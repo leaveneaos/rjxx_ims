@@ -20,6 +20,9 @@ $(function() {
 		$jsPrint : $('.js-print'),
 		$checkAll : $('#select_all')
 	};
+		  $(this).removeData('amui.modal');
+
+	
 	 var $tab = $('#doc-tab-demo-1');
 	  //开票商品明细table
     var kpspmx_table3 = $('#mxTable3').DataTable({
@@ -133,6 +136,7 @@ $(function() {
             	$("#cljgbt").hide();
             	$tab.tabs('refresh');
             	$tab.tabs('open', 0);
+            	t.ajax.reload();
 				kpspmx_table.ajax.reload();
 			}
 		});
@@ -142,6 +146,7 @@ $(function() {
     	$("#cljgbt").hide();
     	$tab.tabs('refresh');
     	$tab.tabs('open', 0);
+    	kpspmx_table.ajax.reload();
     	});
     
 	  //开票商品明细table
@@ -236,18 +241,18 @@ $(function() {
             },{
                 "data": null,
                 "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '+
-                        '<a class="kpdmx" href="#">删除</a>'
+                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '/*+
+                        '<a class="kpdmx" href="#">删除</a>'*/
                 }
             }
         ]
     });
     kpspmx_table.on('click', 'a.kpdmx', function () {
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
-        $("#conft").html("确认删除")
-    	  $('#my-confirm').modal({
-		        relatedTarget: this,
-		        onConfirm: function(options) {
+
+    	     if (!confirm("您确认删除？")) {
+				return;
+			}
 			$.ajax({
 			type : "POST",
 			url : "kpdsh/mxsc",
@@ -258,7 +263,6 @@ $(function() {
 				  kpspmx_table.ajax.reload();
 			}
 		});
-		        }})
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
@@ -376,8 +380,8 @@ $(function() {
 	                        }, 'sClass': 'right'},    {
 	                            "data": null,
 	                            "render": function (data) {
-	                                return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>     '+
-	                                    '<a class="kpdth" href="#">退回</a>'
+	                                return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>     '/*+
+	                                    '<a class="kpdth" href="#">退回</a>'*/
 	                            }
 	                        }
 	                    ]
@@ -493,21 +497,21 @@ $(function() {
 				})
             });
             t.on('click', 'a.kpdth', function () {
-                $("#conft").html("确认退回么")
-            	  $('#my-confirm').modal({
-      		        relatedTarget: this,
-      		        onConfirm: function(options) {   
+            	var ddhstha=t.row($(this).parents('tr')).data().sqlsh;
+                if (!confirm("您确认退回么？")) {
+    				return;
+    			}
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/th",
-					data : {"ddhs":t.row($(this).parents('tr')).data().sqlsh},
+					data : {"ddhs":ddhstha},
 					success : function(data) {
 						$("#alertt").html(data.msg);
                     	$("#my-alert").modal('open');
 						_this.tableEx.ajax.reload();	
 					}
 				});
-      		        }})
+
             });
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
@@ -554,10 +558,9 @@ $(function() {
 					$("#alertt").html("请至少选择一条数据");
                 	$("#my-alert").modal('open');
 				}else{
-		            $("#conft").html("确认退回么")
-		        	  $('#my-confirm').modal({
-		  		        relatedTarget: this,
-		  		        onConfirm: function(options) {   
+		     if (!confirm("您确认退回么？")) {
+				return;
+			}
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/th",
@@ -568,7 +571,6 @@ $(function() {
 						_this.tableEx.ajax.reload();	
 					}
 				});
-		  		        }})
 				}
 			});
 		},
@@ -585,20 +587,19 @@ $(function() {
 				var row = t.row($(this).parents('tr')).data();
 				fpxes+=row.fpje+","
 				});
-				var ddhs = chk_value.substring(0, chk_value.length-1);
+				var ddhsthan = chk_value.substring(0, chk_value.length-1);
 				fpxes = fpxes.substring(0, fpxes.length-1);
 				if(chk_value.length==0){
 					$("#alertt").html("请至少选择一条数据");
                 	$("#my-alert").modal('open');
 				}else{
-		            $("#conft").html("确认审核么")
-		        	  $('#my-confirm').modal({
-		  		        relatedTarget: this,
-		  		        onConfirm: function(options) {   
+		     if (!confirm("您确认审核么？")) {
+				return;
+			}
 					$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
-					data : {"sqlshs":ddhs,"fpxes":fpxes},
+					data : {"sqlshs":ddhsthan,"fpxes":fpxes},
 					success : function(data) {
 		            	$("#cljg").show();
 		            	$("#cljgbt").show();
@@ -607,7 +608,6 @@ $(function() {
 						$('#doc-tab-demo-1').tabs('open', 1)
 					}
 				});
-		  		        }})
 				}
 			});
 		},

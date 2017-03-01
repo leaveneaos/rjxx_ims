@@ -175,6 +175,31 @@
         	$("#dxcsz").val("");
         	jyls_table.ajax.reload();
         });
+        //删除
+        $("#kp_del").click(function () {
+            var djhArr = [];
+            $('input[name="chk"]:checked').each(function(){    
+                djhArr.push($(this).val()); 
+        });
+            if (djhArr.length == 0) {
+            	$("#alertt").html("请选择需要删除的交易流水...");
+            	$("#my-alert").modal('open');
+                return;
+            }
+      if (!confirm("确认删除么?")) {
+						return;
+					} 
+                $.post("kp/doDel",
+						"djhArr="+ djhArr.join(","),
+						function(res) {
+							if (res) {
+								$("#alertt").html("删除成功");
+				            	$("#my-alert").modal('open');
+				            	jyls_table.ajax.reload();
+							}
+				});
+        });
+        
         $('#jyls_table tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
@@ -226,9 +251,9 @@
             }
             $("#kp_kp").attr('disabled',"true"); 
             $("#conft").html("确认全部开票么")
-      	  $('#my-confirm').modal({
-		        relatedTarget: this,
-		        onConfirm: function(options) {   
+        if (!confirm("确认全部开票么")) {
+						return;
+					} 
             $.ajax({
                 url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
                     if (data.success) {
@@ -244,9 +269,6 @@
               //      $('#savet').removeAttr("disabled");
                 }
             });
-		        }
-      	  
-      	  });
       	$('#kp_kp').removeAttr("disabled");            
         });
         
@@ -329,10 +351,9 @@
         
         $('#kp_kpdyqr').click(function () {
              $("#kp_kpdyqr").attr('disabled',"true"); 
-            $("#conft").html("确认全部开票打印么,请检查打印机是否放好发票")
-      	  $('#my-confirm').modal({
-		        relatedTarget: this,
-		        onConfirm: function(options) {   
+      	  if (!confirm("确认全部开票打印么,请检查打印机是否放好发票?")) {
+						return;
+					}
             $.ajax({
                 url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
                     if (data.success) {
@@ -346,10 +367,7 @@
                  //   $("#fpjek").modal("close");
                     
               //      $('#savet').removeAttr("disabled");
-                }
-            });
-		        }
-      	  
+                }   	  
       	  });
       	$('#kp_kpdyqr').removeAttr("disabled");  
         });

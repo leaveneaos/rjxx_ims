@@ -307,38 +307,6 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/kp_app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script>
-    $(document).ready(function () {   	
-   //删除
-        $("#kp_del").click(function () {
-            var djhArr = [];
-            $('input[name="chk"]:checked').each(function(){    
-                djhArr.push($(this).val()); 
-        });
-            if (djhArr.length == 0) {
-            	$("#alertt").html("请选择需要删除的交易流水...");
-            	$("#my-alert").modal('open');
-                return;
-            }
-            $("#conft").html("确认删除么")
-      	  $('#my-confirm').modal({
-		        relatedTarget: this,
-		        onConfirm: function(options) {   
-                $.post("<%=request.getContextPath()%>/kp/doDel",
-						"djhArr="+ djhArr.join(","),
-						function(res) {
-							if (res) {
-								$("#alertt").html("删除成功");
-				            	$("#my-alert").modal('open');
-				            	 $('#jyls_table').ajax.reload();
-								/* window.location.reload(true); */
-							}
-				});
-			}
-		});
-        });
-	});
-	</script>
 
 </body>
 </html>

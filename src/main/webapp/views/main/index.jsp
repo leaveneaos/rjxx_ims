@@ -77,12 +77,12 @@
 					class="admin-fullText">开启全屏</span></a></li>
 
                         <!-- 新邮件 -->
-                        <li class="am-dropdown tpl-dropdown" data-am-dropdown>
+                       <!--  <li class="am-dropdown tpl-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
                                 <i style="padding-top: 20px;" class="am-icon-envelope"></i>
                                 <span  class="am-badge am-badge-success am-round item-feed-badge">4</span>
                             </a>
-                            <!-- 弹出列表 -->
+                            弹出列表
                             <ul class="am-dropdown-content tpl-dropdown-content">
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
@@ -127,16 +127,16 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
                         <!-- 新提示 -->
-                        <li class="am-dropdown" data-am-dropdown>
+                        <!-- <li class="am-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
                                 <i style="padding-top: 20px;" class="am-icon-bell"></i>
                                 <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
                             </a>
 
-                            <!-- 弹出列表 -->
+                            弹出列表
                             <ul class="am-dropdown-content tpl-dropdown-content">
                                 <li class="tpl-dropdown-menu-notifications">
                                     <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
@@ -179,7 +179,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
@@ -210,8 +210,7 @@
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
                     </a>
                     <!--循环小菜单 -->
-                    
-                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                    <ul class="sidebar-nav sidebar-nav-sub" id="${privilegeType.name}" style="display: none;">
                     	<c:forEach items="${privileges}" varStatus="j" var="privilege">
                     	<c:if test="${privilege.privilegetypeid == privilegeType.id}">
                         <li class="sidebar-nav-link">
@@ -221,7 +220,6 @@
                         </li>
                         </c:if>
                         </c:forEach>
-
                     </ul>
                 </li>
 
@@ -447,6 +445,9 @@
     <script src="assets/js/dataTables.responsive.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script language="javascript" type="text/javascript"> 
+    $(function(){
+    	$("#业务处理").css('display','block'); 
+    })
     function zhxx(){
 		$.ajax({
 			url : "nyhgl/getGsxx",

@@ -91,6 +91,11 @@
             "serverSide": true,
             "sServerMethod": "POST",
             "processing": true,
+            "bPaginate":false,
+            "bLengthChange":false,
+            "bSort":false,
+            "bInfo": false,
+            "scrollX": true,
             ajax: {
                 "url": "kpdsh/getMx",
                 data: function (d) {
@@ -180,7 +185,7 @@
                 $(this).addClass('selected');
             }
             var data = jyls_table2.row($(this)).data();
-            $("#djh2").val(data.sqlsh);
+            $("#kplsh1").val(data.sqlsh);
             //alert(data.sqlsh);
             //$("#formid").val(data.djh);
             jyspmx_table2.ajax.reload();

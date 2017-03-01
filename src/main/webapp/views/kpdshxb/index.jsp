@@ -673,7 +673,7 @@
 							</div>
 							<fieldset>
 								<legend>商品明细列表</legend>
-								<table
+								<table style="margin-bottom: 0px;"
 									class=" am-table am-table-bordered am-table-striped am-text-nowrap"
 									id="jyspmx_table2">
 									<thead>
