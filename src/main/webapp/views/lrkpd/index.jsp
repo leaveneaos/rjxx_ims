@@ -435,8 +435,8 @@ table thead th { text-align: center; }
 					id="bulk-import-div">
 					<div class="am-modal-dialog">
 						<div class="am-modal-hd am-modal-footer-hd">
-							批量导入 <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a>
+							批量导入<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
+								data-am-modal-close>&times;</a> -->
 						</div>
 
 						<div class="am-tab-panel am-fade am-in am-active">
@@ -514,14 +514,14 @@ table thead th { text-align: center; }
 									<div class="am-u-sm-12" style="margin-top: 30px;">
 										<button type="button" id="btnImport"
 											class="am-btn am-btn-xs am-btn-primary">导入</button>
-										<button type="button" id="btnMrConfig"
-											class="am-btn am-btn-success am-btn-xs">设置默认模板</button>
+										<!-- <button type="button" id="btnMrConfig"
+											class="am-btn am-btn-success am-btn-xs">设置默认模板</button> -->
 										<button type="button" id="close1"
 											class="am-btn am-btn-danger am-btn-xs">关闭</button>
 										<!-- 							<button type="button" id="btnImportConfig" -->
 										<!-- 								class="am-btn am-btn-secondary am-btn-xs">新增模板</button> -->
-										<button type="button" id="update1"
-											class="am-btn am-btn-secondary am-btn-xs">查看模板</button>
+										<!-- <button type="button" id="update1"
+											class="am-btn am-btn-secondary am-btn-xs">查看模板</button> -->
 										<!-- 							<button type="button" id="delete1" -->
 										<!-- 								class="am-btn am-btn-danger am-btn-xs">删除模板</button> -->
 
@@ -543,8 +543,8 @@ table thead th { text-align: center; }
 					id="import_config_div">
 					<div class="am-modal-dialog">
 						<div class="am-modal-hd am-modal-footer-hd">
-							导入配置 <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a>
+							导入配置<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
+								data-am-modal-close>&times;</a> -->
 						</div>
 
 						<div class="am-tab-panel am-fade am-in am-active">
@@ -973,8 +973,8 @@ table thead th { text-align: center; }
 					id="my-alert-edit">
 					<div class="am-modal-dialog" style="overflow: auto">
 						<div class="am-modal-hd am-modal-footer-hd">
-							录入开票单 <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a>
+							开票单录入<!-- <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
 						</div>
 						<div class="am-alert am-alert-success" data-am-alert
 							id="myinfoalert" style="display: none">
@@ -998,7 +998,7 @@ table thead th { text-align: center; }
 												<div class="am-u-sm-4">
 													<select id="select_xfid" name="xfid_edit"
 														onchange="getKpd()" required>
-														<option value="">---选择销方---</option>
+														<option value="">选择销方</option>
 														<c:forEach items="${xfList}" var="item">
 															<option value="${item.id}">${item.xfmc}</option>
 														</c:forEach>
@@ -1019,7 +1019,7 @@ table thead th { text-align: center; }
 												<div class="am-u-sm-4 am-u-end">
 													<select id="fpzl_edit" name="fpzl_edit"
 														onchange="hidespan()" required>
-														<option value="">---选择开票类型---</option>
+														<option value="">选择开票类型</option>
 														<option value="01">专用发票</option>
 														<option value="02">普通发票</option>
 														<option value="12">电子发票</option>
@@ -1132,7 +1132,7 @@ table thead th { text-align: center; }
 
 												<div class="am-u-sm-4">
 													<select id="select_sp" name="select_sp">
-														<option value="">---选择商品---</option>
+														<option value="">选择商品</option>
 														<c:forEach items="${spList}" var="item">
 															<option value="${item.spdm}" class="${item.id}">${item.spmc}(${item.spdm})</option>
 														</c:forEach>
@@ -1250,7 +1250,7 @@ table thead th { text-align: center; }
 
 							<div class="am-margin">
 								<button type="button" id="save"
-									class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
+									class="am-btn am-btn-xs am-btn-secondary">保存</button>
 								<button type="button" id="close"
 									class="am-btn am-btn-danger am-btn-xs">关闭</button>
 							</div>
@@ -1275,8 +1275,8 @@ table thead th { text-align: center; }
 					id="my-alert-modify" style="width: 800px;">
 					<div class="am-modal-dialog" style="overflow: auto; height: 450px;">
 						<div class="am-modal-hd am-modal-footer-hd">
-							修改开票单 <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a>
+							修改开票单<!--  <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
 						</div>
 						<div class="am-alert am-alert-success" data-am-alert
 							id="myinfoalert" style="display: none">
@@ -1292,7 +1292,7 @@ table thead th { text-align: center; }
 											style="color: red;">*</span>销方名称</label>
 										<div class="am-u-sm-4">
 											<select id="select_xfid_modify" name="xfid" required>
-												<option value="">---选择销方---</option>
+												<option value="">选择销方</option>
 												<c:forEach items="${xfList}" var="item">
 													<option value="${item.xfsh}">${item.xfmc}</option>
 												</c:forEach>
@@ -1313,7 +1313,7 @@ table thead th { text-align: center; }
 										<div class="am-u-sm-4 am-u-end">
 											<select id="fpzl_modify" name="fpzldm" onchange="hidespan2()"
 												required>
-												<option value="">---选择开票类型---</option>
+												<option value="">选择开票类型</option>
 												<option value="01">专用发票</option>
 												<option value="02">普通发票</option>
 												<option value="12">电子发票</option>
@@ -1428,8 +1428,8 @@ table thead th { text-align: center; }
 					id="my-alert-edit1" style="width: 480px;">
 					<div class="am-modal-dialog" style="overflow: auto; height: 500px;">
 						<div class="am-modal-hd am-modal-footer-hd">
-							修改商品明细 <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a>
+							修改商品明细 <!-- <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
 						</div>
 						<div class="am-alert am-alert-success" data-am-alert
 							id="myinfoalert1" style="display: none">

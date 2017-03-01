@@ -207,7 +207,7 @@
             mxarr = [];
             $('#mx_form').resetForm();
             $('#main_form').resetForm();
-            $modal.modal({"width": 800, "height": 600});
+            $modal.modal({"width": 820, "height": 600});
         });
         $('#check_all').change(function () {
         	if ($('#check_all').prop('checked')) {
