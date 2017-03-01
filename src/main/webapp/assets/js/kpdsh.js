@@ -20,6 +20,130 @@ $(function() {
 		$jsPrint : $('.js-print'),
 		$checkAll : $('#select_all')
 	};
+	 var $tab = $('#doc-tab-demo-1');
+	  //开票商品明细table
+    var kpspmx_table3 = $('#mxTable3').DataTable({
+        "searching": false,
+        "serverSide": true,
+        "sServerMethod": "POST",
+        "processing": true,
+        "bPaginate":false,
+        "bLengthChange":false,
+        "bSort":false,
+        "bInfo": false,
+        "scrollX": true,
+        ajax: {
+            "url": "kpdsh/kpdshkp",
+            async:false,
+            data: function (d) {
+        		var chk_value="" ;
+				var fpxes = "";
+				$('input[name="dxk"]:checked').each(function(){
+				chk_value+=$(this).val()+",";
+				var row = t.row($(this).parents('tr')).data();
+				fpxes+=row.fpje+","
+				});
+				var ddhs = chk_value.substring(0, chk_value.length-1);
+				fpxes = fpxes.substring(0, fpxes.length-1);
+				d.sqlshs= ddhs;
+				d.fpxes=fpxes;
+            }
+        },
+        "columns": [
+            {"data": "fpnum"},
+            {"data": "djh"},
+            {"data": "gfmc"},
+            {"data": "spmc"},
+            {"data": "spggxh"},
+            {"data": "spdw"},
+            {"data": null,
+                "render": function (data) {
+                    if (data.sps) {
+                        return FormatFloat(data.sps,
+                            "###,###.00");
+                    }else{
+                        return null;
+                    }
+                },
+                'sClass': 'right'
+                
+            },
+            {"data": function (data) {
+                    if (data.spdj) {
+                        return FormatFloat(data.spdj,
+                            "###,###.00");
+                    }else{
+                        return null;
+                    }
+                },
+                'sClass': 'right'
+            		},
+            {"data": function (data) {
+                     if (data.spje) {
+                         return FormatFloat(data.spje,
+                             "###,###.00");
+                     }else{
+                         return null;
+                     }
+                 },
+                 'sClass': 'right'
+            },
+            {"data": function (data) {
+                if (data.spsl) {
+                    return FormatFloat(data.spsl,
+                        "###,###.00");
+                }else{
+                    return null;
+                }
+              },
+              'sClass': 'right'
+            },
+            {"data": function (data) {
+                if (data.spse) {
+                    return FormatFloat(data.spse,
+                        "###,###.00");
+                }else{
+                    return null;
+                }
+            },
+            'sClass': 'right'
+            },
+            {"data": function (data) {
+                if (data.jshj) {
+                    return FormatFloat(data.jshj,
+                        "###,###.00");
+                }else{
+                    return null;
+                }
+            },
+            'sClass': 'right'
+            }
+        ]
+    });
+    
+    $("#yhqrbc").click(function(){
+		$.ajax({
+			type : "POST",
+			url : "kpdsh/yhqrbc",
+			data : {},
+			success : function(data) {
+				$("#alertt").html("保存成功");
+            	$("#my-alert").modal('open');
+            /*	$("#cljg").hide();*/
+            	$("#cljgbt").hide();
+            	$tab.tabs('refresh');
+            	$tab.tabs('open', 0);
+				kpspmx_table.ajax.reload();
+			}
+		});
+    	});
+    $("#yhqx").click(function(){
+     	/*$("#cljg").hide();*/
+    	$("#cljgbt").hide();
+    	$tab.tabs('refresh');
+    	$tab.tabs('open', 0);
+    	});
+    
 	  //开票商品明细table
     var kpspmx_table = $('#mxTable1').DataTable({
         "searching": false,
@@ -301,7 +425,7 @@ $(function() {
 				})
 			});*/
             //选中列查询明细
-            $('.js-table tbody').on('click', 'tr', function () {
+            $('#jyls_table tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
@@ -476,9 +600,11 @@ $(function() {
 					url : "kpdsh/kpdshkp",
 					data : {"sqlshs":ddhs,"fpxes":fpxes},
 					success : function(data) {
-						$("#alertt").html(data.msg);
-                    	$("#my-alert").modal('open');
-						_this.tableEx.ajax.reload();	
+		            	$("#cljg").show();
+		            	$("#cljgbt").show();
+		            	  $tab.tabs('refresh');
+						kpspmx_table3.ajax.reload();
+						$('#doc-tab-demo-1').tabs('open', 1)
 					}
 				});
 		  		        }})
