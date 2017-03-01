@@ -32,6 +32,7 @@ import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.FpgzService;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.JymxsqService;
@@ -74,6 +75,7 @@ public class KpdshController extends BaseController {
 	private SmService smService;
 
 	@RequestMapping
+	@SystemControllerLog(description = "开票单审核页面进入",key = "")
 	public String index() {
 		request.setAttribute("xfList", getXfList());
 		request.setAttribute("skpList", getSkpList());
@@ -226,6 +228,7 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/th")
+	@SystemControllerLog(description = "开票单审核退回",key = "ddhs")
 	public Map<String, Object> th(String ddhs) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sqlshs = ddhs.split(",");
@@ -249,6 +252,7 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/xgbckpd")
+	@SystemControllerLog(description = "开票单审核修改开票单",key = "sqlsh")
 	public Map<String, Object> xgbckpd(Jyxxsq jyxxsq) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Xf xf = new Xf();
@@ -290,6 +294,7 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/mxsc")
+	@SystemControllerLog(description = "开票单审核明细删除",key = "id")
 	public Map<String, Object> mxsc(Integer id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Jymxsq jymxsq = jymxsqService.findOne(id);
@@ -311,6 +316,7 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/xgbcmx")
+	@SystemControllerLog(description = "开票单审核明细修改",key = "id")
 	public Map<String, Object> xgbcmx(Jymxsq jymxsq/* ,Integer spid */) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		/* Sp sp = spService.findOne(spid); */
@@ -338,6 +344,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
 	@Transactional
+	@SystemControllerLog(description = "开票单审核审核开票",key = "sqlshs")
 	public Map<String, Object> kpdshkp(String sqlshs, String fpxes) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Jyxxsq> listsq = new ArrayList<>(); 

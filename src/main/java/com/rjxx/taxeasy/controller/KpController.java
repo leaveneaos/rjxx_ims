@@ -7,6 +7,7 @@ import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.vo.JyspmxVo;
@@ -1171,7 +1172,8 @@ public class KpController extends BaseController {
 	 */
 	@RequestMapping(value = "/doKp")
 	@ResponseBody
-	public Map doKp(String djhArr,Double kpxe) throws Exception {
+	@SystemControllerLog(description = "发票开具",key = "djhArr")
+	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> djhList = convertToList(djhArr);
 	//	try {
@@ -1186,7 +1188,7 @@ public class KpController extends BaseController {
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
              //保存
-             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]));
+             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]),dybz);
 		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
 			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());
