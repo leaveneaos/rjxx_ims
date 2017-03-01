@@ -159,19 +159,19 @@ table thead th { text-align: center; }
 											<div class="am-btn-group am-btn-group-xs">
 												<button type="button" id="kp_add"
 													class="am-btn am-btn-default am-btn-primary">
-													<span class="am-icon-plus"></span> 录入
+													录入
 												</button>
 												<button type="button" id="kp_dr"
 													class="am-btn am-btn-default am-btn-default">
-													<span class="am-icon-plus"></span> 导入
+													导入
 												</button>
 												<button type="button" id="kp_del"
 													class="am-btn am-btn-default am-btn-danger">
-													<span class="am-icon-trash-o"></span> 删除
+													删除
 												</button>
 												<button type="button" id="kp_kp"
 													class="am-btn am-btn-default am-btn-secondary">
-													<span class="am-icon-trash-o"></span> 上传
+													 上传
 												</button>
 											</div>
 										</div>
