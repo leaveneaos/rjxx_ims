@@ -5,6 +5,7 @@ import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JyspmxDecimal;
@@ -44,6 +45,9 @@ public class KpController extends BaseController {
 
 	@Autowired
 	private SpvoService spvoService;
+	
+	@Autowired
+	private SkService skService;
 	
 	@Autowired
 	private DataOperte dataOperate;
@@ -1545,5 +1549,17 @@ public class KpController extends BaseController {
 		BigDecimal b1 = new BigDecimal(Double.toString(value1.doubleValue()));
 		BigDecimal b2 = new BigDecimal(Double.toString(value2.doubleValue()));
 		return b1.subtract(b2).doubleValue();
+	}
+	@RequestMapping(value = "/hqfphm")
+	@ResponseBody
+	public Map<String, Object> hqfphm(String fpzldm,Integer skpid) throws Exception{
+		Map<String, Object> result = new HashMap<>();
+			InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
+		if ("0000".equals(invoiceResponse.getReturnCode())) {
+			result.put("msg", "获取号码成功 ");
+		}else{
+			result.put("msg", invoiceResponse.getReturnMessage());
+		}
+		return result;
 	}
 }

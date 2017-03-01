@@ -26,9 +26,18 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                            d.xfid = $('#s_xfid').val();
-                            d.skpid = $('#s_skpid').val();
-                            d.fplx = $('#s_fplx').val();
+                        	var bz = $('#searchbz').val();
+                        	if(bz=='1'){
+                        		 d.xfid = $('#s_xfid').val();
+                                 d.skpid = $('#s_skpid').val();
+                                 d.fplx = $('#s_fplx').val();
+                        	}else{
+                        		var item = $('#s_mainkey').val();
+                        		if(item=='xfsh'){
+                        			d.xfsh = $('#searchValue').val();
+                        		}
+                        	}
+                           
                         }
                     },
                     "columns": [

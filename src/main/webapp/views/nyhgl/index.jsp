@@ -76,7 +76,6 @@
 									</form>
 								  
 								</div>
-							<hr />
 							<div class="am-g am-padding-top">
 								<form action="#" id="searchform"
 									class="js-search-form  am-form am-form-horizontal">
@@ -135,10 +134,10 @@
 <!-- 									</div> -->
 
 									<div class="am-u-sm-12 am-padding-top">
-										<div class="am-scrollable-horizontal">
+										<div>
 
 											<table
-												class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+												class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 												<thead>
 													<tr>
 														<th>序号</th>

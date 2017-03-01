@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
+<link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
@@ -27,7 +28,7 @@
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">查询统计</strong> / <i>统计报表</i>
+					<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>统计报表</strong>
 				</div>
 			</div>
 			<hr />
@@ -54,8 +55,8 @@
 								</select>
 							</div>
 						</div>
-						<div class="am-u-sm-4">
-							<div class="am-input-group am-datepicker-date am-u-sm-8"
+						<div class="am-u-sm-3">
+							<div class="am-input-group am-datepicker-date am-u-sm-12"
 								data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 								<input type="text" id="s_xzrq" class="am-form-field"
 									placeholder="选择月份" readonly> <span
@@ -66,7 +67,7 @@
 								</span>
 							</div>					
 						</div>
-						<div class="am-u-sm-2">
+						<div class="am-u-sm-3">
 						    <div class="am-u-sm-12">
 							   <button type="button" class="am-btn am-btn-primary" id="jsSearch">查询</button>
 							</div>
@@ -78,7 +79,7 @@
 			<br>
 			<div class="am-u-sm-12">
 				<table
-					class="js-table am-table am-table-bordered am-table-striped">
+					class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 					<thead>
 						<tr>
 							<th colspan="6">发票统计</th>
@@ -128,7 +129,6 @@
 				     <span ><strong>税率统计</strong></span>
 				</div>
 				<br>
-				<br>
 				<table
 					class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 					<thead>
@@ -151,6 +151,15 @@
 				</table>
 			</div>
 		</div>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">提示</div>
+				<div class="am-modal-bd" id="alert-msg"></div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn">确定</span>
+					</div>
+			</div>
+		</div>			
 		<div
 			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
 			tabindex="-1">

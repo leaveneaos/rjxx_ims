@@ -20,8 +20,7 @@ $(function () {
         $fphms: $('#fphms'),//发票号码起
         $fphmz: $('#fphmz'),//发票号码止
         $fpdm: $('#fpdm'),//发票代码
-        $fplx:$('#fplx'),
-        $jsLoading: $('.js-modal-loading')//输在载入特效
+        $fplx:$('#fplx')
     };
     var action = {
         tableEx: null, // cache dataTable
@@ -45,10 +44,19 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                        	d.xfids = $('#xfid').val();
-                        	d.skpids = $('#s_skpid').val();
-                            d.fpdm= el.$s_fpdm.val(); // search 用户账号
-                            d.fplx = el.$s_fplx.val();
+                        	var bz = $('#searchbz').val();
+                        	if(bz=='1'){
+                        		d.xfids = $('#xfid').val();
+                            	d.skpids = $('#s_skpid').val();
+                                d.fpdm= el.$s_fpdm.val(); // search 用户账号
+                                d.fplx = el.$s_fplx.val();
+                        	}else{
+                        		var item = $('#s_mainkey').val();
+                        		if(item=='fpdm'){
+                        			d.fpdm = $('#searchValue').val();
+                        		}
+                        	}
+                        	
                         }
                     },
                     "columns": [
@@ -141,12 +149,15 @@ $(function () {
             // 删除
             t.on('click', 'a.shanchu', function () {
             	  var da = t.row($(this).parents('tr')).data();
-            	 if(confirm("确定要删除该条数据吗？"))
-            	   {
-            		 _this.sc(da);
-            	   }
-                var data = t.row($(this).parents('tr')).data();
-           	 _this.resetForm();
+            	  $('#my-confirm').modal({
+                      relatedTarget: this,
+                      onConfirm: function(options) {                   	
+                    	  _this.sc(da);
+                      },
+                      onCancel: function() {
+                     
+                      }
+                  });
             });
             return t;
         },
@@ -156,9 +167,18 @@ $(function () {
         search_ac: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
+            	$('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
             });
+        },
+        find_mv:function(){
+        	var _this = this;
+        	$('#searchButton').on('click',function(e){
+        		$('#searchbz').val("0");
+        		e.preventDefault();
+                _this.tableEx.ajax.reload();
+        	})
         },
         
         add:function(){
@@ -185,7 +205,8 @@ $(function () {
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                     	if(parseInt(fphms)>parseInt(fphmz)){
-                        	alert("起始号码不能大于截止号码！");
+                    		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
+            				$('#my-alert').modal('open');
                         	return false;
                         }
                         el.$jsLoading.modal('toggle'); // show loading
@@ -197,21 +218,23 @@ $(function () {
                             success: function (data) {
                              	el.$jsLoading.modal('close'); // close loading                              	
                                 if (data.success) {
-                                    alert(data.msg);
                                     el.$modalHongchong.modal('close'); // close
+                                    $('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');
                                     _this.tableEx.ajax.reload();
                                 }else{
-                                    alert(data.msg);                                  
+                                	$('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');                                  
                                 }                             
                             },
                             error: function () {
-                            	el.$jsLoading.modal('close'); // close loading
-                                alert('保存失败，请检查!');
+                            	$('#alert-msg').html("保存失败，请检查！");
+                				$('#my-alert').modal('open');
                             }
                         });
-                        return false;
                     } else {
-                        alert('数据验证失败，请检查！');
+                    	$('#alert-msg').html("数据验证失败，请检查！");
+        				$('#my-alert').modal('open');
                         return false;
                     }
                 }
@@ -225,17 +248,19 @@ $(function () {
             $.ajax({
                 url: _this.config.scUrl,
                 data: {"id":da.id},
-                //method: 'POST',
                 success: function (data) {
                     if (data.success) {
-                        alert(data.msg);
+                    	$('#alert-msg').html(data.msg);
+        				$('#my-alert').modal('open');
                     } else {    
-                        alert('删除失败: ' + data.msg);                       
+                    	$('#alert-msg').html(data.msg);
+        				$('#my-alert').modal('open');                     
                     }
                     _this.tableEx.ajax.reload(); // reload table                 
                 },
                 error: function () {
-                    alert('删除失败，请检查!');
+                	$('#alert-msg').html("删除失败，请检查！");
+    				$('#my-alert').modal('open');
                 }
             });
             	
@@ -259,6 +284,7 @@ $(function () {
             _this.add();
             _this.xz();
             _this.modalAction(); // hidden action
+            _this.find_mv();
         }
     };
     action.init();

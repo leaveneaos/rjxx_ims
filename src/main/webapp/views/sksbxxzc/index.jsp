@@ -48,14 +48,13 @@
 									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>
 						</div>
-						<hr />
 						<div id="doc-oc-demo3" class="am-offcanvas">
 							<form action="" id="searchform1">
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">销方</label>
+											<div class="am-u-sm-7">
 												<select id="xfid1" name="xfid1"
 													data-am-selected="{btnSize: 'sm'}">
 													<option value="0">请选择</option>
@@ -68,8 +67,8 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点代码</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点代码</label>
+											<div class="am-u-sm-7">
 												<input type="text" id="s_kpddm" name="s_kpddm"
 													placeholder="开票点代码" />
 											</div>
@@ -77,8 +76,8 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点名称</label>
-											<div class="am-u-sm-8">
+											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点名称</label>
+											<div class="am-u-sm-7">
 												<input type="text" id="s_kpdmc" name="s_kpdmc"
 													placeholder="开票点名称" />
 											</div>
@@ -95,7 +94,7 @@
 							</form>
 
 						</div>
-						<div class="am-g">
+						<div class="am-g am-padding-top">
 							<form id="searchform"
 								class="js-search-form am-form am-form-horizontal">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -137,10 +136,10 @@
 							
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
-								<div class="am-scrollable-horizontal">
+								<div>
 
 									<table id="tbl"
-										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>

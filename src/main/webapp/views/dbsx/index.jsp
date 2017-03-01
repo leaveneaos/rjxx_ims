@@ -210,13 +210,12 @@
 			 seriesDefaults:{
 				pointLabels: { show: true },				
 				shadow: false,
-				showMarker: true, // 是否强调显示图中的数据节点
-				renderer:$.jqplot.BarRenderer,
-				rendererOptions: {
+				showMarker: true // 是否强调显示图中的数据节点
+				//renderer:$.jqplot.BarRenderer,      //放开的话为柱状图
+				/* rendererOptions: {
 					barWidth: 18,
-					//barMargin: 10
 					barPadding: 8
-				}
+				} */
 			}, 		 
 			axes:{
 				xaxis:{

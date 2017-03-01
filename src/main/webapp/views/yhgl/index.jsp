@@ -35,7 +35,6 @@
                 <small>用户管理</small>
             </div>
         </div>
-        <hr/>
         <div class="am-g">
 
             <div class="am-u-sm-2">

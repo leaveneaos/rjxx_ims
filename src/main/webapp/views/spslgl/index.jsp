@@ -58,7 +58,6 @@
 												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 										</div>
 									</div>
-									<hr />
 									<div id="doc-oc-demo3" class="am-offcanvas">
 										<form action="" id="searchform1">
 											<div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -132,7 +131,7 @@
 											</div>
 										</form>
 										<div class="am-u-sm-12 am-padding-top">
-											<div class="am-scrollable-horizontal">
+											<div>
 
 												<table id="tbl"
 													class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
@@ -205,7 +204,7 @@
 											
 
 											<div class="am-u-sm-12 am-padding-top">
-												<div class="am-scrollable-horizontal">
+												<div>
 
 													<table id="tbl1"
 														class="js-table1  am-table am-table-bordered am-table-striped am-text-nowrap">
@@ -316,7 +315,7 @@
 													color="red">*</font>商品和服务税收分类编码</label>
 												<div class="am-u-sm-8" style="height: 35px;">
 													<select id="spbm" name="spbm"
-														data-am-dropdown="{boundary: '#spbm'} style="overflow:auto">
+														data-am-dropdown="{boundary: '#spbm'}" style="overflow:auto">
 														<c:forEach items="${spbms }" var="bm">
 															<option value="${bm.spbm }">${bm.spbm }|${bm.spmc }</option>
 														</c:forEach>

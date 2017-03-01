@@ -47,6 +47,7 @@ $(function () {
                 "serverSide": true,
                 ordering: false,
                 searching: false,
+				scrollX : true,
 	            "ajax" : {
 					url : _this.config.getUrl,
 					type : 'POST',

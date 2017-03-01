@@ -48,6 +48,7 @@ import com.rjxx.taxeasy.service.SpvoService;
 import com.rjxx.taxeasy.service.XfMbService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.JymxsqVo;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
@@ -185,7 +186,7 @@ public class LrkpdController extends BaseController {
 	@RequestMapping(value = "/getjyxxsqlist")
 	@ResponseBody
 	public Map getjylslist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
-			String spmc, String rqq, String rqz) {
+			String fpzldm, String rqq, String rqz) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -200,7 +201,7 @@ public class LrkpdController extends BaseController {
 		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("gfmc", gfmc);
 		pagination.addParam("ddh", ddh);
-		pagination.addParam("spmc", spmc);
+		pagination.addParam("fpzldm", fpzldm);
 
 		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
 			pagination.addParam("rqq", rqq);
@@ -245,6 +246,65 @@ public class LrkpdController extends BaseController {
 		result.put("recordsFiltered", total);
 		result.put("draw", draw);
 		result.put("data", jymxsqList);
+		return result;
+	}
+	
+	/**
+	 * 初始化已上传显示列表
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getyscjyxxsqlist")
+	@ResponseBody
+	public Map getyscjyxxsqlist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
+			String fpzldm, String rqq, String rqz) {
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		List<Xf> xfs = getXfList();
+		List<Skp> skps = getSkpList();
+		if (xfs != null && xfs.size() > 0) {
+			pagination.addParam("xfs", xfs);
+		}
+		if (skps != null && skps.size() > 0) {
+			pagination.addParam("skps", skps);
+		}
+		if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
+			pagination.addParam("xfsh", xfsh);
+		}
+		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("ztbz", "1");
+		pagination.addParam("ddh", ddh);
+		if ("".equals(fpzldm)) {
+			pagination.addParam("fpzldm", null);
+		}else{
+			pagination.addParam("fpzldm", fpzldm);
+		}
+
+		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
+			pagination.addParam("rqq", rqq);
+			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+		} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
+			pagination.addParam("rqq", rqq);
+			pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
+		} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
+			pagination.addParam("rqq", rqz);
+			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+		}
+		pagination.addParam("clztdm", "00");
+		//pagination.addParam("fpzldm", "12");
+		pagination.addParam("fpczlxdm", "11");
+		pagination.addParam("gsdm", this.getGsdm());
+		pagination.addParam("orderBy", "lrsj desc");
+
+		List<JyxxsqVO> jyxxsqList = jyxxsqservice.findByPage(pagination);
+		int total = pagination.getTotalRecord();
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
+		result.put("data", jyxxsqList);
 		return result;
 	}
 	
@@ -318,7 +378,7 @@ public class LrkpdController extends BaseController {
 		jyxxsq.setGfemail(request.getParameter("gfemail_edit"));
 		jyxxsq.setGfdz(request.getParameter("gfdz_edit"));
 		jyxxsq.setGfdh(request.getParameter("gfdh_edit"));
-		jyxxsq.setZtbz("0");//0待审，1已审
+		jyxxsq.setZtbz("0");//0未提交，1已提交
 		jyxxsq.setSjly("0");//0平台接入，1接口接入
 		String tqm = request.getParameter("tqm_edit");
 		if (StringUtils.isNotBlank(tqm)) {

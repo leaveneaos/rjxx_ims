@@ -81,6 +81,15 @@ public class FpgzController extends BaseController{
 			}
 			xfs=xfs.substring(0,xfs.length()-1);
 		}
+		if (fpgz!=null&&fpgz.getMrbz().equals("1")) {
+			Map map = new HashMap<>();
+			map.put("mrbz", "1");
+			map.put("gsdm", getGsdm());
+			List<Fpgz> listfp = fpgzService.findAllByParams(map);
+			for (Fpgz fpgz3 : listfp) {
+				fpgz3.setMrbz("0");
+			}
+		}
 		fpgz.setXfids(xfs);
 		fpgz.setYxbz("1");
 		fpgz.setLrry(getYhid());
@@ -121,7 +130,7 @@ public class FpgzController extends BaseController{
 			xfs=xfs.substring(0,xfs.length()-1);
 		}
 		fpgz.setId(idd);
-		if (fpgz.getMrbz().equals("1")) {
+		if (fpgz!=null&&fpgz.getMrbz().equals("1")) {
 			Map map = new HashMap<>();
 			map.put("mrbz", "1");
 			map.put("gsdm", getGsdm());

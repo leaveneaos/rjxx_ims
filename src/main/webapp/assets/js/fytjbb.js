@@ -71,12 +71,14 @@ $(function () {
                         $("#ckpfs").val(data.ckpfs);
                 		$("#cdpfs").val(data.cdpfs); 
                 	}else{
-                		 alert('数据读取失败,服务器错误:'+data.msg);     
+                		$('#alert-msg').html(data.msg);
+                		$('#my-alert').modal('open');    
                 	}
                 	el.$jsLoading.modal('close'); // close loading
                 },
                 error: function() {
-                    alert('后台错误,请重新登录！');
+                	$('#alert-msg').html("出错，请检查！");
+                	$('#my-alert').modal('open');
                 }        	
            });
         },
@@ -125,7 +127,8 @@ $(function () {
         		el.$jsLoading.modal('toggle');  // show loading
                 var kprq = el.$jsDate.val();
                 if(kprq==''){
-                	alert("请先选择月份！");
+                	$('#alert-msg').html("请先选择月份！");
+    				$('#my-alert').modal('open');
                 	el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
@@ -188,7 +191,8 @@ $(function () {
                 e.preventDefault();
             	var kprq=el.$jsDate.val();
             	if(""==kprq||null==kprq){
-            		alert("请选择日期");
+            		$('#alert-msg').html("请选择年月！");
+            		$('#my-alert').modal('open');
             		return;
             	}
             	window.location.href = _this.config.exportURL+"?kprq=" +kprq;

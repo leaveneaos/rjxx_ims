@@ -7,12 +7,12 @@ $(function () {
     var el = {
     	$jsTable: $('.js-table'),//查询table
     	$jsForm:$('.js-form-yjsz'),
+    	$jsSearch:$('#searchButton'),
     	$jsAdd: $('#jsAdd'),//添加按钮
         $jsdiv:$("#shezhi"),
         $jssave:$(".js-submit"),
         $jsClose:$('.js_close'),
-        $checkAll: $('#selectAll'),
-        $jsLoading: $('.js-modal-loading')//输在载入特效
+        $checkAll: $('#selectAll')
     };
     var action = {
         tableEx: null, // cache dataTable
@@ -31,7 +31,7 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                           
+                           d.btmc=$('#searchValue').val();
                         }
                     },
                     "columns": [                    
@@ -74,6 +74,7 @@ $(function () {
             });
             // 修改
             t.on('click', 'a.update', function () {
+            	$(".dyfs").attr("checked",false);
                 var row = t.row($(this).parents('tr')).data();                
                 var str=row.dyfs.split(",");
                 for(var j=0;j<str.length;j++){
@@ -115,18 +116,29 @@ $(function () {
             t.on('click','a.del',function(){
             	var row = t.row($(this).parents('tr')).data();
             	var id = row.id;
-            	$.ajax({
-            		url:'mydy/del?id='+id,
-            		method:"GET",
-            		success:function(data){
-            			if(data.success){
-            				alert(data.msg);
-            				t.ajax.reload();
-            			}else{
-            				alert(data.msg);
-            			}
-            		}
-            	})
+            	$('#my-confirm').modal({
+                    relatedTarget: this,
+                    onConfirm: function(options) {                   	
+                    	$.ajax({
+                    		url:'mydy/del?id='+id,
+                    		method:"GET",
+                    		success:function(data){
+                    			if(data.success){
+                    				$('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');
+                    				t.ajax.reload();
+                    			}else{
+                    				$('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');
+                    			}
+                    		}
+                    	})
+                    },
+                    onCancel: function() {
+                   
+                    }
+                });
+            	
             });
             return t;
         },
@@ -172,22 +184,24 @@ $(function () {
                             success: function (data) {
                              	el.$jsLoading.modal('close');                              	
                                 if (data.success) {
-                                    alert(data.msg);
-                                    el.$jsdiv.modal('close'); // close
-                                    $(".dyfs").attr("checked",false);
+                                	el.$jsdiv.modal('close');
+                                	$('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');                            
                                     _this.tableEx.ajax.reload();
                                 }else{
-                                    alert(data.msg);                                  
+                                	$('#alert-msg').html(data.msg);
+                    				$('#my-alert').modal('open');                                 
                                 }                             
                             },
                             error: function () {
-                            	el.$jsLoading.modal('close'); // close loading
-                                alert('保存失败，请检查!');
+                            	$('#alert-msg').html("保存失败，请检查！");
+                				$('#my-alert').modal('open');
                             }
                         });
                         return false;
                     } else {
-                        alert('数据验证失败，请检查！');
+                    	$('#alert-msg').html("数据验证失败，请检查！");
+        				$('#my-alert').modal('open');
                         return false;
                     }
                 }
@@ -205,7 +219,6 @@ $(function () {
             // close modal
             el.$jsClose.on('click', function () {
                 el.$jsdiv.modal('close');
-                $(".dyfs").attr("checked",false);
             });
         },
       //全选按钮
@@ -254,6 +267,7 @@ $(function () {
             _this.modalAction(); // hidden action
             _this.checkAllAc();
             _this.checkbox();
+            _this.search_ac();
         }
     };
     action.init();

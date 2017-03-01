@@ -108,6 +108,7 @@
             "serverSide": true,
             "sServerMethod": "POST",
             "processing": true,
+            ordering: false,
             ajax: {
                 "url": "kp/getjyspmxlist",
                 data: function (d) {
@@ -219,57 +220,141 @@
                     djhArr.push($(this).val()); 
             });
             if (djhArr.length == 0) {
-                alert("请勾选需要开票的交易流水...");
+            	$("#alertt").html("请勾选需要开票的交易流水");
+            	$("#my-alert").modal('open');
                 return;
             }
             $("#kp_kp").attr('disabled',"true"); 
-            if (!confirm("您确认全部开票？")) {
-            	  $('#kp_kp').removeAttr("disabled");
-				return;
-			}
+            $("#conft").html("确认全部开票么")
+      	  $('#my-confirm').modal({
+		        relatedTarget: this,
+		        onConfirm: function(options) {   
             $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(",")}, success: function (data) {
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
                     if (data.success) {
-                        alert("开票成功!");
+                    	$("#alertt").html("开票成功");
+                    	$("#my-alert").modal('open');
                         jyls_table.ajax.reload();
                     } else {
-                        alert(data.msg);
+                    	$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
                     }
                  //   $("#fpjek").modal("close");
-                    $('#kp_kp').removeAttr("disabled");
+                    
               //      $('#savet').removeAttr("disabled");
                 }
             });
-/*            if (djhArr.length == 0) {
-                alert("请勾选需要开票的交易流水...");
+		        }
+      	  
+      	  });
+      	$('#kp_kp').removeAttr("disabled");            
+        });
+        
+        $('#kp_kpdy').click(function () {
+            var djhArr = [];
+            $('input[name="chk"]:checked').each(function(){    
+                    djhArr.push($(this).val());
+                    
+            });
+            if (djhArr.length == 0) {
+            	$("#alertt").html("请勾选需要开票的交易流水");
+            	$("#my-alert").modal('open');
                 return;
             }
-            if($("#s_xfsh").val()==""||$("#s_fplx").val()==""){
-            	  alert("请选择销方和开票类型...");
-                  return;
-            }*/
-/*            if (!confirm("您确认开票？")) {
-				return;
-			}*/
-            //获取分票金额
-/*            $.ajax({
-                url: "fpgz/hqfpxe",
-                type: "post",
-                data: {
-                    xfsh : $('#s_xfsh').val(),
-                    fpzldm :$("#s_fplx").val()// search 销方
-                  
-                }, 
-                success: function (data) {
-                	$("#fpjek").modal("open");
-                	$("#fpjesrk").val("");
-                	$("#fpjesrk").val(data.fpje);
+            var skpid="";
+            var fpzldm="";
+/*            var d = jyls_table.rows().data();*/
+            var flag = true;
+            $(":checkbox:checked","#jyls_table").each(function(){
+            	var tr = $(this).parents("tr");
+            	var data = jyls_table.row(tr).data();
+        		if(skpid==""){
+        			skpid =  data.skpid;
+        		}else{
+        			if(skpid!=data.skpid){
+        				$("#alertt").html("批量勾选的开票点不一致,请重新勾选");
+                    	$("#my-alert").modal('open');
+        				flag = false;
+        				return false;
+        			}
+        		}
+        		if(fpzldm==""){
+        			fpzldm =  data.fpzldm;
+        		}else{
+        			if(fpzldm!=data.fpzldm){
+        				$("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
+                    	$("#my-alert").modal('open');
+                    	flag = false;
+        				return false;
+        			}
+        		}
+            })
+/*            $.each(d,function(n,value) { 
+            	if($(this).find("td[checked='checked']").length>0){//表示此行选中
+            		var data = $("#jyls_table").row($(this)).data();
+            		if(skpid==""){
+            			skpid =  data.skpid;
+            		}else{
+            			if(skpid!=data.skpid){
+            				$("#alertt").html("批量勾选的开票点不一致,请重新勾选");
+                        	$("#my-alert").modal('open');
+            				return ;
+            			}
+            		}
+            		if(fpzldm==""){
+            			fpzldm =  data.fpzldm;
+            		}else{
+            			if(fpzldm!=data.fpzldm){
+            				$("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
+                        	$("#my-alert").modal('open');
+            				return ;
+            			}
+            		}
+            	}
+            	});*/
+            if(flag){
+            $.ajax({
+                url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
+                    if (data.success) {
+                        $("#doc-modal-fphm").modal("open");
+                    } else {
+                    	$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
+                    }
                 }
-            });*/
-
-           
+            });
+            }
             
         });
+        
+        $('#kp_kpdyqr').click(function () {
+             $("#kp_kpdyqr").attr('disabled',"true"); 
+            $("#conft").html("确认全部开票打印么,请检查打印机是否放好发票")
+      	  $('#my-confirm').modal({
+		        relatedTarget: this,
+		        onConfirm: function(options) {   
+            $.ajax({
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
+                    if (data.success) {
+                    	$("#alertt").html("开票成功");
+                    	$("#my-alert").modal('open');
+                        jyls_table.ajax.reload();
+                    } else {
+                    	$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
+                    }
+                 //   $("#fpjek").modal("close");
+                    
+              //      $('#savet').removeAttr("disabled");
+                }
+            });
+		        }
+      	  
+      	  });
+      	$('#kp_kpdyqr').removeAttr("disabled");  
+        });
+        
+        
         $('#savet').click(function () {
         	 $("#savet").attr('disabled',"true"); 
             var djhArr = [];
