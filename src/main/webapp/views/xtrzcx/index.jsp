@@ -40,7 +40,7 @@
 					<div class="admin-content">
 						<div class="am-cf am-padding">
 							<div class="am-fl am-cf">
-								<strong class="am-text-primary am-text-lg">日志管理</strong> / <strong>系统日志查询</strong>
+								<strong class="am-text-primary am-text-lg">设置</strong> / <strong>系统日志</strong>
 							</div>
 						</div>
 						<hr />
