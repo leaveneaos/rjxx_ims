@@ -247,6 +247,7 @@
 															<div style="width:33%;float:left;line-height:30px;font-size:15px;color:#ffffff;font-weight:900" >价税合计：<input id="xsjshj" type="text" border="0" disabled="disabled"></div>
 														</div>  -->
 											<tr>
+												<th>数据条数</th>
 												<th>发票序号</th>
 												<th>申请流水号</th>
 												<th>客户名称</th>

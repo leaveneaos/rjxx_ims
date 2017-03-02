@@ -53,14 +53,14 @@ $(function() {
             }
         },
         "columns": [
+            {"data": "sjts"},
             {"data": "fpnum"},
             {"data": "djh"},
             {"data": "gfmc"},
             {"data": "spmc"},
             {"data": "spggxh"},
             {"data": "spdw"},
-            {"data": null,
-                "render": function (data) {
+            {"data": function (data) {
                     if (data.sps) {
                         return FormatFloat(data.sps,
                             "###,###.00");
@@ -611,18 +611,18 @@ $(function() {
 		     if (!confirm("您确认审核么？")) {
 				return;
 			}
-					$.ajax({
+				/*	$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
 					data : {"sqlshs":ddhsthan,"fpxes":fpxes},
-					success : function(data) {
+					success : function(data) {*/
 		            	$("#cljg").show();
 		            	$("#cljgbt").show();
 		            	  $tab.tabs('refresh');
 						kpspmx_table3.ajax.reload();
 						$('#doc-tab-demo-1').tabs('open', 1)
-					}
-				});
+			/*		}
+				});*/
 				}
 			});
 		},
