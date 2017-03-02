@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Dyfs;
 import com.rjxx.taxeasy.domains.Dyzl;
+import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yhdyk;
 import com.rjxx.taxeasy.service.DyfsService;
 import com.rjxx.taxeasy.service.DyzlService;
@@ -37,6 +39,10 @@ public class DyglController extends BaseController{
 		request.setAttribute("dybtList", dyzlList);
 		List<Dyfs> dyfsList = dyfsService.findAllByParams(new HashMap<>());
 		request.setAttribute("dyfsList", dyfsList);
+		List<Xf> xfList = getXfList();
+		request.setAttribute("xfList", xfList);
+		List<Skp> skpList = getSkpList();
+		request.setAttribute("skpList", skpList);
 		return "mydy/index";
 	}
 	
@@ -99,16 +105,18 @@ public class DyglController extends BaseController{
 	
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public Map<String,Object> save(Integer dybtid,String dyfs,String sjhm,String email,String openid) throws Exception{
+	public Map<String,Object> save(Integer dybtid,Integer xfid,Integer skpid,String dyfs,String sjhm,String email,String openid) throws Exception{
 		Map<String,Object> result = new HashMap<String,Object>();
 		int yhid = getYhid();
 		Map params = new HashMap<>();
 		params.put("yhid", yhid);
 		params.put("dybtid", dybtid);
+		params.put("xfid", xfid);
+		params.put("skpid", skpid);
 		Yhdyk item = dykService.findDyxx(params);
 		if(item !=null){
 			result.put("success", false);
-			result.put("msg", "该标题您已经订阅！");
+			result.put("msg", "重复的订阅，请重新选择！");
 		}else{
 			Yhdyk yhdy = new Yhdyk();
 			yhdy.setDybtid(dybtid);
@@ -119,6 +127,9 @@ public class DyglController extends BaseController{
 			yhdy.setSjhm(sjhm);
 			yhdy.setEmail(email);
 			yhdy.setOpenid(openid);
+			yhdy.setXfid(xfid);
+			yhdy.setSkpid(skpid);
+			yhdy.setGsdm(getGsdm());
 			dykService.save(yhdy);
 			result.put("success", true);
 			result.put("msg", "保存成功！");
@@ -128,25 +139,33 @@ public class DyglController extends BaseController{
 	
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map<String,Object> update(Integer id,Integer dybtid,String dyfs){
+	public Map<String,Object> update(Integer id,Integer dybtid,Integer xfid,Integer skpid,String dyfs,String sjhm,String email,String openid){
 		Map<String,Object> result = new HashMap<String,Object>();
 		int yhid = getYhid();
 		Map params = new HashMap<>();
 		params.put("yhid", yhid);
 		params.put("dybtid", dybtid);
+		params.put("xfid", xfid);
+		params.put("skpid", skpid);
 		params.put("id",id);
 		Yhdyk item = dykService.findDyxx(params);
 		if(item !=null){
 			result.put("success", false);
-			result.put("msg", "该标题您已经订阅！");
+			result.put("msg", "重复的订阅，请重新选择！");
 		}else{
 			Yhdyk yhdy = new Yhdyk();
 			yhdy.setId(id);
 			yhdy.setDybtid(dybtid);
+			yhdy.setXfid(xfid);
+			yhdy.setSkpid(skpid);
 			yhdy.setDyfs(dyfs);
+			yhdy.setSjhm(sjhm);
+			yhdy.setEmail(email);
+			yhdy.setOpenid(openid);			
 			yhdy.setYxbz("1");
 			yhdy.setYhid(yhid);
 			yhdy.setLrsj(new Date());
+			yhdy.setGsdm(getGsdm());
 			dykService.save(yhdy);
 			result.put("success", true);
 			result.put("msg", "保存成功！");

@@ -40,7 +40,9 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {"data": "dybt"},               
+                        {"data": "dybt"},
+                        {"data": "xfmc"},
+                        {"data": "kpdmc"},
                         {"data": "dyfsmc"},
                         {"data": "sjhm"},
                         {"data": "email"},
@@ -67,6 +69,8 @@ $(function () {
             	} 
             	$(".dyfs").attr("checked",false);
             	$("#dybtidinput").find("option").eq(0).attr("selected", true);
+            	$("#a_xfid").find("option").eq(0).attr("selected", true);
+            	$("#a_skpid").find("option").eq(0).attr("selected", true);
             	$(".dyfsInput").val("");
                 el.$jsdiv.modal('open');
                 ur="mydy/save";
@@ -82,7 +86,7 @@ $(function () {
                 }
                 var dybt = row.dybt;
                 var selectIndex = -1;
-                var options = $("#dybtid").find("option");
+                var options = $("#dybtidinput").find("option");
                 for (var j = 0; j < options.size(); j++) {
                     var text = $(options[j]).text();                  
                     if (text == dybt) {
@@ -91,6 +95,28 @@ $(function () {
                     }
                 }
                 $("#dybtidinput").find("option").eq(selectIndex).attr("selected", true);
+                var xfmc = row.xfmc;
+                var selectIndex = -1;
+                var options = $("#a_xfid").find("option");
+                for (var j = 0; j < options.size(); j++) {
+                    var text = $(options[j]).text();                  
+                    if (text == xfmc) {
+                        selectIndex = j;                        
+                        break;
+                    }
+                }
+                $("#a_xfid").find("option").eq(selectIndex).attr("selected", true);
+                var kpdmc = row.kpdmc;
+                var selectIndex = -1;
+                var options = $("#a_skpid").find("option");
+                for (var j = 0; j < options.size(); j++) {
+                    var text = $(options[j]).text();                  
+                    if (text == kpdmc) {
+                        selectIndex = j;                        
+                        break;
+                    }
+                }
+                $("#a_skpid").find("option").eq(selectIndex).attr("selected", true);
                 $("#h_sjhm").val(row.sjhm);
                 $("#h_email").val(row.email);
                 $("#h_openid").val(row.openid);
@@ -174,15 +200,15 @@ $(function () {
                 	var sjhm = $('#h_sjhm').val();
                 	var email = $('#h_email').val();
                 	var openid = $('#h_openid').val();
+                	var xfid = $('#a_xfid').val();
+                	var skpid = $('#a_skpid').val();
                     var formValidity = this.isFormValid();
                     if (formValidity) {
-                        el.$jsLoading.modal('toggle'); // show loading
                         $.ajax({
                             url: ur,
-                            data: {"dyfs":dyfs,"dybtid":dybtid,"sjhm":sjhm,"email":email,"openid":openid},
+                            data: {"dyfs":dyfs,"dybtid":dybtid,"xfid":xfid,"skpid":skpid,"sjhm":sjhm,"email":email,"openid":openid},
                             method:"POST",
-                            success: function (data) {
-                             	el.$jsLoading.modal('close');                              	
+                            success: function (data) {                             	
                                 if (data.success) {
                                 	el.$jsdiv.modal('close');
                                 	$('#alert-msg').html(data.msg);
