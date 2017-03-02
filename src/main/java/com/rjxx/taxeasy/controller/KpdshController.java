@@ -203,7 +203,11 @@ public class KpdshController extends BaseController {
 					}
 				}
 			}
-			jyxxsqVO.setFpje(fpje);
+			if (zdje>=fpje) {
+				jyxxsqVO.setFpje(fpje);
+			}else{
+				jyxxsqVO.setFpje(zdje);
+			}
 			jyxxsqVO.setZdje(zdje);
 		}
 

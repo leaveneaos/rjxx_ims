@@ -80,7 +80,8 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "zphs"},
+                        {"data": "zphs",
+                            'sClass': 'right'},
                         {
                             "data": function (data) {
                                 if (data.ppxe) {
@@ -92,7 +93,8 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "pphs"},
+                        {"data": "pphs",
+                            'sClass': 'right'},
                         {
                             "data": function (data) {
                                 if (data.dzpxe) {
@@ -104,7 +106,8 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "dzphs"},
+                        {"data": "dzphs",
+                            'sClass': 'right'},
                         {
                             "data": null,
                             "render": function (data) {
@@ -163,6 +166,18 @@ var ur;
 							});
 				
 			});
+			
+		      $('#check_all').change(function () {
+		        	if ($('#check_all').prop('checked')) {
+		        		t.column(0).nodes().each(function (cell, i) {
+		                    $(cell).find('input[type="checkbox"]').prop('checked', true);
+		                });
+		            } else {
+		            	t.column(0).nodes().each(function (cell, i) {
+		                    $(cell).find('input[type="checkbox"]').prop('checked', false);
+		                });
+		            }
+		        });
 			
 			// 修改
 			t.on('click', 'a.xiugai', function() {
