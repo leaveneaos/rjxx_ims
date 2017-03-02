@@ -49,7 +49,11 @@
 											<button type="button" id="gz_xzgz"
 												data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}"
 												class="am-btn am-btn-default am-btn-success">
-												<span></span> 新增规则
+												<span></span> 新增
+											</button>
+											<button type="button" id="gz_scgz"
+												class="am-btn am-btn-default am-btn-danger">
+												<span></span> 删除
 											</button>
 										</div>
 									</div>
@@ -66,7 +70,7 @@
 								id="jyls_table">
 								<thead>
 									<tr>
-										<!-- <th><input type="checkbox" id="check_all" /></th> -->
+										<th><input type="checkbox" id="check_all" /></th>
 										<th>序号</th>
 										<th>规则名称</th>
 										<th>专票分票金额</th>

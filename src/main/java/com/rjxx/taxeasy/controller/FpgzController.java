@@ -81,7 +81,7 @@ public class FpgzController extends BaseController{
 			}
 			xfs=xfs.substring(0,xfs.length()-1);
 		}
-		if (fpgz!=null&&fpgz.getMrbz().equals("1")) {
+		if (fpgz!=null&&fpgz.getMrbz()!=null&&fpgz.getMrbz().equals("1")) {
 			Map map = new HashMap<>();
 			map.put("mrbz", "1");
 			map.put("gsdm", getGsdm());
@@ -105,11 +105,14 @@ public class FpgzController extends BaseController{
 	//新增
 	@RequestMapping(value = "/scgz")
 	@ResponseBody
-	public Map<String, Object> scgz(Integer id,String[] xfid){
+	public Map<String, Object> scgz(String id,String[] xfid){
 		Map<String, Object> result = new HashMap<String, Object>();
-		Fpgz fpgz = fpgzService.findOne(id);
-		fpgz.setYxbz("0");
-		fpgzService.save(fpgz);
+		String[] gzid = id.split(",");
+		for (String gzid1 : gzid) {
+			Fpgz fpgz = fpgzService.findOne(Integer.valueOf(gzid1));
+			fpgz.setYxbz("0");
+			fpgzService.save(fpgz);
+		}
 		result.put("msg", "删除成功");
 		return result;
 	}
@@ -130,7 +133,7 @@ public class FpgzController extends BaseController{
 			xfs=xfs.substring(0,xfs.length()-1);
 		}
 		fpgz.setId(idd);
-		if (fpgz!=null&&fpgz.getMrbz().equals("1")) {
+		if (fpgz!=null&&fpgz.getMrbz()!=null&&fpgz.getMrbz().equals("1")) {
 			Map map = new HashMap<>();
 			map.put("mrbz", "1");
 			map.put("gsdm", getGsdm());

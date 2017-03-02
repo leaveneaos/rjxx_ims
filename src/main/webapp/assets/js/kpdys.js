@@ -194,7 +194,7 @@
         var $modal = $("#my-alert-edit");
  
         $('#check_all2').change(function () {
-        	if ($('#check_all').prop('checked')) {
+        	if ($('#check_all2').prop('checked')) {
         		jyls_table2.column(0).nodes().each(function (cell, i) {
                     $(cell).find('input[type="checkbox"]').prop('checked', true);
                 });
