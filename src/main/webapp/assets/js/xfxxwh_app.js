@@ -20,9 +20,12 @@ $(function() {
 		$ppfz:$('#ppzdje'),
 		$jsSearch : $('#button1'),
 		$jsSearch1 : $('#button3'),
+		$jsSearch2 : $('#button4'),  
+        $jsdel: $('.js-sent'), // del all
 		$importExcelForm : $('#importExcelForm'),
 		$jsTable1 : $('#button2'),
-		$jsLoading : $('.js-modal-loading')
+		$jsLoading : $('.js-modal-loading'),
+        $checkAll: $('#check_all')// check all checkbox 
 	};
 	var action = {
 		tableEx : null, // cache dataTable
@@ -50,21 +53,29 @@ $(function() {
 								d.xfmc = $('#s_xfmc').val(); 
 								d.tip = $('#tip1').val(); 
 								d.txt = $('#searchtxt').val(); 
-
+								d.sjgj = $('#sjxf1').val();
 							}
 						},
 						"columns" : [
+					                    {
+					                        "orderable": false,
+					                        "data": null,
+					                        //"defaultContent": '<input type="checkbox" />'
+					                        render: function (data, type, full, meta) {
+					                            return '<input type="checkbox" name="chkb" value="' + data.id + '" class="chk"/>';
+					                        }
+					                    },
 								{
 									"orderable" : false,
 									"data" : null,
 									"defaultContent" : ""
 								},
-								{
-									"data" : "id"
-								},
-								{
-									"data" : "sjjgbm"
-								},
+//								{
+//									"data" : "id"
+//								},
+//								{
+//									"data" : "sjjgbm"
+//								},
 								{
 									"data" : "xfmc"
 								},
@@ -154,16 +165,17 @@ $(function() {
 			                    },
 								{
 									"data": null,
-			                        "defaultContent": "<a class='modify' href='#'>修改</a> <a href='#' class='del'>删除</a>"									
-								} ]
+			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
+								} 
+			                    ]
 					});
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
-				t.column(0).nodes().each(function(cell, i) {
+				t.column(1).nodes().each(function(cell, i) {
 					cell.innerHTML = page + i + 1;
 				});
-				$('#tbl tr').find('td:eq(1)').hide();
-				$('#tbl tr').find('td:eq(2)').hide();
+//				$('#tbl tr').find('td:eq(2)').hide();
+//				$('#tbl tr').find('td:eq(3)').hide();
 			});
 
 			// 新增
@@ -188,35 +200,46 @@ $(function() {
 				$('#xfid').val(row.id);
 				ur = _this.config.editUrl;
 			});
-			// 删除
-			t.on('click', 'a.del', function() {
-				var da = t.row($(this).parents('tr')).data();
-				if (confirm("确定要删除该用户吗")) {
-					_this.sc(da);
-				}
-				var data = t.row($(this).parents('tr')).data();
-				_this.resetForm();
-			});
+			
+//			 t.on('click', 'tr', function () {
+//	              $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");
+//	        });
+			 $('#tbl tbody').on('click', 'tr', function () {
+		            if ($(this).hasClass('selected')) {
+		                $(this).removeClass('selected');
+		            } else {
+		                t.$('tr.selected').removeClass('selected');
+		                $(this).addClass('selected');
+		            }
+		            var data = t.row($(this)).data();
+		            //$("#formid").val(data.djh);
+		        });
 
 	        var $importModal = $("#bulk-import-div");
 	        $("#close1").click(function () {
 	            $importModal.modal("close");
 	        });
+	        $('#xfmc').change(function(){
+	        	$('#kpr').val($(this).val());
+	        });
 	      //导入excel
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
 	            if (filename == null || filename == "") {
-	                alert("请选择要导入的文件");
+	                $('#msg').html('请选择要导入的文件');
+		            $('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var pos = filename.lastIndexOf(".");
 	            if (pos == -1) {
-	                alert("导入的文件必须是excel文件");
+	                $('#msg').html('导入的文件必须是excel文件');
+		            $('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var extName = filename.substring(pos + 1);
 	            if ("xls" != extName && "xlsx" != extName) {
-	                alert("导入的文件必须是excel文件");
+	                $('#msg').html("导入的文件必须是excel文件");
+		            $('#my-alert').modal('open'); 
 	                return;
 	            }
 	            $("#btnImport").attr("disabled", true);
@@ -228,12 +251,14 @@ $(function() {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
 		                        var count = res.count;
-		                        alert("导入成功，共导入" + count + "条数据");
+		    	                $('#msg').html("导入成功，共导入" + count + "条数据");
+		    		            $('#my-alert').modal('open'); 
 		                        window.location.reload();
 		                    } else {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
-		                        alert(res.message);
+		    	                $('#msg').html(res.message);
+		    		            $('#my-alert').modal('open'); 
 		                    }
 		                }
 		            };
@@ -249,7 +274,7 @@ $(function() {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
-				$('#searchForm1').resetForm();
+				$('bz').val('0')
 				_this.tableEx.ajax.reload();
 			});
 			el.$jsSearch1.on('click', function(e) {
@@ -260,6 +285,89 @@ $(function() {
 				_this.tableEx.ajax.reload();
 			});
 		},
+        /**
+         * check all action
+         */
+        checkAllAc: function () {
+            var _this = this;
+            el.$checkAll.on('change', function (e) {
+                var $this = $(this),
+                    check = null;
+                if ($(this).is(':checked')) {
+                    _this.tableEx.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+                    });
+                } else {
+                    _this.tableEx.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+                }
+            });
+        },
+        delAllAc: function () {
+            var _this = this;
+            el.$jsdel.on('click', function (e) {
+                e.preventDefault();
+                var data = '',
+                    row = '',
+                    $tr = null;
+                _this.tableEx.column(0).nodes().each(function (cell, i) {
+
+                    var $checkbox = $(cell).find('input[type="checkbox"]');
+                    if ($checkbox.is(':checked')) {
+
+                        row = _this.tableEx.row(i).data().id;
+                        data += row+ ',';
+                    }
+
+                });
+                if (!data) {
+                	$('#msg').html("请选择要删除的销方");
+                	$('#my-alert').modal('open'); 
+                    return;
+                }
+                data = data.substring(0, data.length - 1);
+                var url = _this.config.scUrl;
+                if (!confirm('是否删除')) {
+					return;
+				}
+//                $('#my-confirm').modal({
+//          	        relatedTarget: this,
+//          	        onConfirm: function(options) {
+          	        	 el.$jsLoading.modal('open');
+          	            $.ajax({
+          	                url: url,
+          	                data: {ids : data},
+          	                type: 'POST',
+          	                success: function (data) {
+          	                    // todo 处理返回结果
+          	                    if (data.success) {
+          		                	$('#msg').html('删除成功');
+          		                	$('#my-alert').modal('open'); 
+          	                        _this.tableEx.ajax.reload(); // reload table data
+          	                    } else {
+          		                	$('#msg').html('删除失败,服务器错误' + data.msg);
+          		                	$('#my-alert').modal('open'); 
+          	                    }
+          	                    el.$jsLoading.modal('close');
+
+          	                },
+          	                error: function () {
+          	                	$('#msg').html('请求失败,请刷新后稍后重试!');
+          	                	$('#my-alert').modal('open'); 
+          	                    el.$jsLoading.modal('close');
+          	                }
+          	            });
+//          	        },
+//          	        // closeOnConfirm: false,
+//          	        onCancel: function() {
+//          	          
+//          	        }
+//          	      });
+//                _this.del({ids: data});
+                el.$checkAll.prop('checked', false);
+            });
+        },
 		/**
 		 * 新增保存
 		 */
@@ -279,24 +387,28 @@ $(function() {
 						var ppmax = $('#ppzdje').val();
 						var ppfz = $('#ppfpje').val();
 						if (parseFloat(dpmax) < parseFloat(fpfz)) {
-                        	alert('电子发票分票金额大于开票限额！');
+        	                $('#msg').html('电子发票分票金额大于开票限额');
+        		            $('#my-alert').modal('open'); 
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         if (parseFloat(zpmax) < parseFloat(zpfz)) {
-                        	alert('普通发票分票金额大于开票限额！');
+        	                $('#msg').html('普通发票分票金额大于开票限额！');
+        		            $('#my-alert').modal('open'); 
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         if (parseFloat(ppmax) < parseFloat(ppfz)) {
-                        	alert('专用发票分票金额大于开票限额！');
+        	                $('#msg').html('专用发票分票金额大于开票限额！');
+        		            $('#my-alert').modal('open'); 
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         var sjxf = $('#sjxf').val();
         				var xfid = $('#xfid').val();
         				if (sjxf == xfid) {
-        					alert("不能选择该销方本身做上级");
+        	                $('#msg').html("不能选择该销方本身做上级");
+        		            $('#my-alert').modal('open'); 
                             el.$jsLoading.modal('close'); 
         					return;
         				}
@@ -309,24 +421,29 @@ $(function() {
 								if (data.success) {
 									// loading
 									el.$modalHongchong.modal('close'); // close
-									alert(data.msg);
+									$('#msg').html(data.msg);
+						            $('#my-alert').modal('open'); 
 									_this.tableEx.ajax.reload(); // reload table
 								} else if (data.repeat) {
-									alert(data.msg);
+									$('#msg').html(data.msg);
+						            $('#my-alert').modal('open'); 
 								}else{
-									alert(data.msg);
+									$('#msg').html(data.msg);
+						            $('#my-alert').modal('open'); 
 								}
 								el.$jsLoading.modal('close'); // close
 
 							},
 							error : function() {
 								el.$jsLoading.modal('close'); // close loading
-								alert('保存失败, 请重新登陆再试...!');
+				                $('#msg').html('保存失败, 请重新登陆再试...!');
+					            $('#my-alert').modal('open'); 
 							}
 						});
 						return false;
 					} else {
-						alert('验证失败');
+		                $('#msg').html('验证失败');
+			            $('#my-alert').modal('open'); 
 						return false;
 					}
 				}
@@ -347,10 +464,12 @@ $(function() {
 					if (data.success) {
 
 						// modal
-						alert(data.msg);
+		                $('#msg').html(data.msg);
+			            $('#my-alert').modal('open'); 
 					} else {
 
-						alert('删除失败: ' + data.msg);
+		                $('#msg').html('删除失败: ' + data.msg);
+			            $('#my-alert').modal('open'); 
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -358,7 +477,8 @@ $(function() {
 
 				},
 				error : function() {
-					alert('删除失败, 请重新登陆再试...!');
+	                $('#msg').html('删除失败, 请重新登陆再试...!');
+		            $('#my-alert').modal('open'); 
 				}
 			});
 
@@ -410,7 +530,9 @@ $(function() {
 		init : function() {
 			var _this = this;
 			_this.tableEx = _this.dataTable();
-			_this.search_ac();
+			_this.search_ac(); 
+            _this.checkAllAc();
+            _this.delAllAc();
 			_this.xz();
 			_this.modalAction(); // hidden action
 			

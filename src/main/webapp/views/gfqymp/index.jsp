@@ -40,7 +40,7 @@
 					<div class="admin-content">
 						<div class="am-g am-padding-top">
 							<div class="am-fl am-cf">
-								<strong class="am-text-primary am-text-lg">门店/品牌管理</strong> / <strong>购方管理</strong>
+								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>购方企业名片</strong>
 							</div>
 						</div>
 						<hr />
@@ -50,7 +50,15 @@
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
 												 <button type="button" class="js-add  am-btn am-btn-default am-btn-primary">
-													 新增
+													录入
+												</button>
+												<button type="button" id="gf_del"
+													class="am-btn am-btn-default am-btn-danger">
+													删除
+												</button>
+												<button type="button" id="gf_xg"
+													class="am-btn am-btn-default am-btn-default">
+													修改
 												</button>
 											</div>
 										</div>
@@ -68,14 +76,14 @@
 									class="js-table  am-table am-table-bordered  am-text-nowrap">
 									<thead>
 										<tr>
-											<th>序号</th>
+											<th><input type="checkbox" id="check_all" /></th>
 											<th>企业名称</th>
 											<th>纳税人识别号</th>
 											<th>地址</th>
 											<th>电话</th>
 											<th>开户银行</th>
 											<th>开户账号</th>
-											<th>操作</th>
+											<!-- <th>操作</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -94,8 +102,8 @@
 				<div class="am-modal am-modal-no-btn" tabindex="-1" id="xiugai">
 					<div class="am-modal-dialog">
 						<div class="am-modal-hd">
-							购方信息修改 <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a>
+							购方信息修改 <!-- <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
 						</div>
 						<div class="am-modal-bd">
 							<hr />
@@ -106,13 +114,13 @@
 											<label for="xq_ddh" class="am-u-sm-4 am-form-label"><span
 												style="color: red;">*</span>企业名称</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfmc" name="xq_ddh" placeholder="" />
+												<input type="text" id="xg_gfmc" name="xq_ddh" placeholder=""  required/>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xq_ddrq" class="am-u-sm-4 am-form-label">纳税人识别号</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfsh" name="xq_ddrq"
+												<input type="text" id="xg_gfsh" name="xq_ddrq" class ="js-pattern-Taxid"
 													placeholder="" />
 											</div>
 										</div>
@@ -123,9 +131,9 @@
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xq_mdh" class="am-u-sm-4 am-form-label">电话</label>
+											<label for="xq_mdh" class="am-u-sm-4 am-form-label ">电话</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfdh" name="xq_mdh" placeholder="" />
+												<input type="text" id="xg_gfdh" name="xq_mdh" placeholder="" class="js-pattern-Telephone"/>
 											</div>
 										</div>
 										<div class="am-form-group">
@@ -162,8 +170,8 @@
 				<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
 					<div class="am-modal-dialog">
 						<div class="am-modal-hd">
-							购方信息 <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a>
+							购方信息 <!-- <a href="javascript: void(0)" class="am-close am-close-spin"
+								data-am-modal-close>&times;</a> -->
 						</div>
 						<div class="am-modal-bd">
 							<hr />
@@ -175,27 +183,27 @@
 												style="color: red;">*</span>企业名称</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfmc" name="xz_gfmc"
-													placeholder="" />
+													placeholder="" required/>
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xq_ddrq" class="am-u-sm-4 am-form-label">纳税人识别号</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfsh" name="xz_gfsh"
+												<input type="text" id="xz_gfsh" name="xz_gfsh" class="js-pattern-Taxid"
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xq_je" class="am-u-sm-4 am-form-label">地址</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfdz" name="xz_gfdz"
+												<input type="text" id="xz_gfdz" name="xz_gfdz" class="js-pattern-Telephone"
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xq_mdh" class="am-u-sm-4 am-form-label">电话</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfdh" name="xz_gfdh"
+												<input type="text" id="xz_gfdh" name="xz_gfdh" class="js-pattern-Telephone"
 													placeholder="" />
 											</div>
 										</div>

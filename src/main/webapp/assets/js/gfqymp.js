@@ -39,11 +39,20 @@ $(function () {
                     }
                 },
               "columns": [
-                    {
+                    /*{
                         "orderable": false,
                         "data": null,
                         "defaultContent": ""
-                    },
+                    },*/
+                    {
+	                        		"orderable" : false,
+	                        		"data" : null,
+	                        		render : function(data, type, full, meta) {
+	                        			return '<input type="checkbox" name= "chk" data="'
+	                        				+ data.id + '" />';
+	                        		}
+	                        	},
+
                     {"data": "gfmc"},
                     {"data": "gfsh"},
                     {"data": "gfdz"},
@@ -51,18 +60,33 @@ $(function () {
                     //{"data": "orderTime"},
                     {"data": "gfyh"},
                     {"data": "gfyhzh"},
-                    {
+                   /* {
 						"data": null,
                         "defaultContent": "<a class='modify' href='javascript:void(0)'>修改</a> <a href='javascript:void(0)' class='del'>删除</a>"									
-					}
-                ]
+					}*/
+                ],
+                /*"createdRow": function (row, data, index) {
+                    $('td', row).eq(0).html('<input type="checkbox" data="' + data.id + '" name="chk"/>');
+                }*/
+            });
+            
+            $('#check_all').change(function () {
+            	if ($('#check_all').prop('checked')) {
+            		t.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+                    });
+                } else {
+                	t.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+                }
             });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+            /*    t.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
-                });
+                });*/
 
             });
          // 删除
@@ -73,6 +97,54 @@ $(function () {
 					//alert(da.id);
 				}
 				_this.resetForm();
+			});
+			
+		    //删除
+	        $("#gf_del").click(function () {
+	            var djhArr = [];
+	            $("input[type='checkbox']:checked").each(function (i, o) {
+	            	if ($(o).attr("data") != null) {
+	                    djhArr.push($(o).attr("data"));
+					}
+	            });
+	            if (djhArr.length == 0) {
+	                alert("请选择需要删除的购方信息...");
+	                return;
+	            }
+	            //alert(djhArr);
+	            if (confirm("您确认删除？")) {
+	                $.post("gfqymp/doDel",
+							"djhArr="+ djhArr.join(","),
+							function(res) {
+								if (res) {
+									alert("删除成功");
+									window.location.reload(true);
+								}
+					});
+				}
+			});
+	        
+	        
+	        //修改
+	        $("#gf_xg").click(function () {
+	            var djhArr = [];
+	            $("input[type='checkbox']:checked").each(function (i, o) {
+	            	if ($(o).attr("data") != null) {
+	                    djhArr.push($(o).attr("data"));
+					}
+	            });
+	            if (djhArr.length == 0) {
+	                alert("请选择需要修改的购方信息...");
+	                return;
+	            }else if(djhArr.length >=2){
+	            	alert("每次只能修改一条数据...");
+	                return;
+	            }
+	            //alert(djhArr);
+	            var ipts = t.row($("input[type='checkbox']:checked").parents("tr")).data();
+	            _this.setForm0(ipts);
+	            el.$xiugai.modal({"width": 600, "height": 400});
+                el.$xiugai.modal('open');
 			});
 			
 			 // 修改
@@ -96,9 +168,9 @@ $(function () {
 			el.$jsUpdate.on('click', el.$jsUpdate, function() {
 				ur = _this.config.updateUrl;
 				var t = _this.update();
-				if(t==true){
+				/*if(t==true){
 					_this.resetForm();
-				}
+				}*/
 				
 			});	
             return t;

@@ -53,14 +53,14 @@ $(function() {
             }
         },
         "columns": [
+            {"data": "sjts"},
             {"data": "fpnum"},
             {"data": "djh"},
             {"data": "gfmc"},
             {"data": "spmc"},
             {"data": "spggxh"},
             {"data": "spdw"},
-            {"data": null,
-                "render": function (data) {
+            {"data": function (data) {
                     if (data.sps) {
                         return FormatFloat(data.sps,
                             "###,###.00");
@@ -281,7 +281,7 @@ $(function() {
 				
 			}
 		});*/
-    	$('#my-alert-edit1').modal('open');
+    	$('#my-alert-edit1').modal({"width": 480, "height": 550});
     	/*$('#mx_spmc').val(row.spid);*/
     	$('#mx_spmx').val(row.spmc);
     	$('#mx_ggxh').val(row.spggxh);
@@ -349,15 +349,14 @@ $(function() {
 	                                return '<input type="text" onkeyup="yzje(this)" class="am-text-money" max="'+data.zdje+'" name="fpje" value="'+data.fpje +'">';
 	                                }
 	                        },
-	                    
 	                        {"data": function(data){
 	                        	if("01"==data.fpzldm){
-	                        	 	return "纸质专票";
+	                        	 	return "增值税专用发票";
 	                        	}else if("02"==data.fpzldm){
-	                        	 	return "纸质普票";
+	                        	 	return "增值税普通发票";
 	                        	}
 	                        	else if("12"==data.fpzldm){
-	                        	 	return "电子票";
+	                        	 	return "电子发票(增普)";
 	                        	}else{
 	                        		return "";
 	                        	}
@@ -443,7 +442,7 @@ $(function() {
             });
             t.on('click', 'a.modify', function () {
             	var row = t.row($(this).parents('tr')).data();
-            	$('#my-alert-edit').modal('open');
+
 				$.ajax({
 					url : 'kpdsh/xgkpd',
 					data : {
@@ -494,7 +493,8 @@ $(function() {
 						$("#alertt").html("出现错误,请稍后再试");
                     	$("#my-alert").modal('open');
 					}
-				})
+				});
+            	$('#my-alert-edit').modal({"width": 800, "height": 450});
             });
             t.on('click', 'a.kpdth', function () {
             	var ddhstha=t.row($(this).parents('tr')).data().sqlsh;
@@ -582,32 +582,47 @@ $(function() {
 			$("#kpd_kp").on('click', function(e) {
 				var chk_value="" ;
 				var fpxes = "";
+				var fla = true;
+				var els =document.getElementsByName("fpje");
+				for(var i=0;i<els.length;i++){
+					var fpje = els[i].value;
+					if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
+        				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
+	                	$("#my-alert").modal('open');
+	                	fla=false;
+	    				return false;
+        			}
+				}
 				$('input[name="dxk"]:checked').each(function(){
 				chk_value+=$(this).val()+",";
 				var row = t.row($(this).parents('tr')).data();
 				fpxes+=row.fpje+","
 				});
+		
 				var ddhsthan = chk_value.substring(0, chk_value.length-1);
 				fpxes = fpxes.substring(0, fpxes.length-1);
 				if(chk_value.length==0){
 					$("#alertt").html("请至少选择一条数据");
                 	$("#my-alert").modal('open');
 				}else{
+					if(!fla){
+						return;
+					}
 		     if (!confirm("您确认审核么？")) {
 				return;
 			}
-					$.ajax({
+				/*	$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
 					data : {"sqlshs":ddhsthan,"fpxes":fpxes},
-					success : function(data) {
+					success : function(data) {*/
 		            	$("#cljg").show();
 		            	$("#cljgbt").show();
 		            	  $tab.tabs('refresh');
 						kpspmx_table3.ajax.reload();
 						$('#doc-tab-demo-1').tabs('open', 1)
-					}
-				});
+			/*		}
+				});*/
 				}
 			});
 		},
@@ -634,8 +649,8 @@ $(function() {
 					}
 				});
 		          }else{
-		        	  $("#alertt").html("验证不成功");
-                  	$("#my-alert").modal('open');
+		        /*	  $("#alertt").html("验证不成功");
+                  	$("#my-alert").modal('open');*/
 		          }
 			});
 	         
@@ -664,8 +679,8 @@ $(function() {
 					}
 				});
 		            }else{
-		            	$("#alertt").html("验证不通过");
-                    	$("#my-alert").modal('open');
+		            /*	$("#alertt").html("验证不通过");
+                    	$("#my-alert").modal('open');*/
 			          }
 			});
 	           

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
@@ -16,6 +17,7 @@ import com.rjxx.taxeasy.domains.Fpkc;
 import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.FpkcService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
@@ -138,8 +140,9 @@ public class FpkcController extends BaseController {
 		return result;
 	}
 
-	@RequestMapping(value = "/save")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
+	@SystemControllerLog(description="发票库存保存",key="fpkcModel")
 	public Map<String, Object> save(Fpkc item) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
@@ -181,10 +184,11 @@ public class FpkcController extends BaseController {
 		return result;
 	}
 
-	@RequestMapping(value = "/update")
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
+	@SystemControllerLog(description="发票库存修改",key="id")
 	public Map<String, Object> update(int id, Integer xfid, Integer skpid, String fpdm, 
-			String fphms, String fphmz,String fplxdm) throws Exception {
+			String fphms, String fphmz,String fpzldm) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
 		int fpkcl = 0;
@@ -192,6 +196,7 @@ public class FpkcController extends BaseController {
 		params.put("id", id);
 		params.put("skpid", skpid);
 		params.put("fpdm", fpdm);
+		params.put("fpzldm", fpzldm);
 		List<Fpkc> kcList = fpkcService.findFphmdxg(params);
 		if (kcList != null && kcList.size() > 0) {
 			for (Fpkc fpkc : kcList) {
@@ -217,6 +222,7 @@ public class FpkcController extends BaseController {
 		param.put("fphms", fphms);
 		param.put("fphmz", fphmz);
 		param.put("fpkcl", fpkcl);
+		param.put("fpzldm", fpzldm);
 		result.put("success", true);
 		result.put("msg", "修改成功！");
 		try {
@@ -230,6 +236,7 @@ public class FpkcController extends BaseController {
 
 	@RequestMapping(value = "/destory")
 	@ResponseBody
+	@SystemControllerLog(description="发票库存删除",key="id")
 	public Map<String, Object> destory(int id) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);

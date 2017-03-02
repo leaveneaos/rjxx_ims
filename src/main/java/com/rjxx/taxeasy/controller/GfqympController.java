@@ -17,6 +17,7 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Gfxx;
 import com.rjxx.taxeasy.domains.Jyxx;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.GfxxService;
 import com.rjxx.taxeasy.service.JyxxService;
 import com.rjxx.taxeasy.service.KplsvoService;
@@ -133,6 +134,31 @@ public class GfqympController extends BaseController {
 			result.put("msg", "保存出现错误: " + ex.getMessage());
 		}
 		return result;
+	}
+	
+
+	/**
+	 * 删除
+	 *
+	 * @param djhArr
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/doDel",method = RequestMethod.POST)
+	@ResponseBody
+	//@SystemControllerLog(description = "开票单删除",key = "djhArr")   
+	public boolean doDel(String djhArr) throws Exception {
+		gfxxservice.delByIdList(convertToList(djhArr));
+		return true;
+	}
+	
+	private List<Integer> convertToList(String sqlshStrs) {
+		String[] sqlshArr = sqlshStrs.split(",");
+		List<Integer> sqlshList = new ArrayList<>();
+		for (String sqlshStr : sqlshArr) {
+			sqlshList.add(new Integer(sqlshStr));
+		}
+		return sqlshList;
 	}
 	
 	/**

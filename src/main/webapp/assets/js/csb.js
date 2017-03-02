@@ -179,10 +179,11 @@ $(function() {
 			});
 			// 删除
 			t.on('click', 'a.shanchu', function() {
-				var row = t.row($(this).parents('tr')).data();
+				
 				  $('#my-confirm').modal({
 				        relatedTarget: this,
 				        onConfirm: function(options) {
+				        	var row = t.row($(this.relatedTarget).parents('tr')).data();
 							$.ajax({
 								url : 'csb/scCsb',
 								data : {"csid":row.id},

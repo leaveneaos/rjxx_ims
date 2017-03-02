@@ -80,6 +80,8 @@
 												<tr>
 													<th>序号</th>
 													<th>订阅标题</th>
+													<th>销方名称</th>
+													<th>开票点</th>
 													<th>订阅方式</th>
 													<th>手机号码</th>
 													<th>邮箱</th>
@@ -158,6 +160,26 @@
 																			<option value="">----请选择----</option>
 																			<c:forEach items="${dybtList}" var="item">
 																				<option value="${item.id}">${item.dybt}</option>
+																			</c:forEach>
+																	</select></td>
+																</tr>
+																<tr>
+																	<td>&nbsp;销方名称</td>
+																	<td><select id="a_xfid" name="xfid"
+																		class="am-form-field">
+																			<option value="">----请选择----</option>
+																			<c:forEach items="${xfList}" var="item">
+																				<option value="${item.id}">${item.xfmc}</option>
+																			</c:forEach>
+																	</select></td>
+																</tr>
+																<tr>
+																	<td>&nbsp;&nbsp;&nbsp;开票点</td>
+																	<td><select id="a_skpid" name="skpid"
+																		class="am-form-field">
+																			<option value="">----请选择----</option>
+																			<c:forEach items="${skpList}" var="item">
+																				<option value="${item.id}">${item.kpdmc}</option>
 																			</c:forEach>
 																	</select></td>
 																</tr>

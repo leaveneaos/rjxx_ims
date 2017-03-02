@@ -1,21 +1,15 @@
 package com.rjxx.taxeasy.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.rjxx.taxeasy.domains.Mkgl;
-import com.rjxx.taxeasy.domains.Mkpz;
 import com.rjxx.taxeasy.service.MkglService;
 import com.rjxx.taxeasy.service.MkpzService;
-import com.rjxx.taxeasy.vo.Mkvo;
 import com.rjxx.taxeasy.web.BaseController;
 
 @Controller
@@ -30,7 +24,7 @@ public class MkglController extends BaseController {
 
 	@RequestMapping
 	public String index() throws Exception {
-		int yhid = getYhid();
+		/*int yhid = getYhid();
 		// 区块内容下拉
 		List<Mkpz> mkpzList = new ArrayList<>();
 		mkpzList = mkpzService.findAll();
@@ -58,10 +52,11 @@ public class MkglController extends BaseController {
 		}
 		params.put("yxbz", "1");
 		mkvoList = mkglService.findAllConnect(params);
-		request.setAttribute("mkglList", mkvoList);
+		request.setAttribute("mkglList", mkvoList);*/
 		return "main/index";
 	}
-
+    
+	
 	// 保存方法
 	@RequestMapping(value = "/save")
 	@ResponseBody

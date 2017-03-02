@@ -49,7 +49,11 @@
 											<button type="button" id="gz_xzgz"
 												data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}"
 												class="am-btn am-btn-default am-btn-success">
-												<span></span> 新增规则
+												<span></span> 新增
+											</button>
+											<button type="button" id="gz_scgz"
+												class="am-btn am-btn-default am-btn-danger">
+												<span></span> 删除
 											</button>
 										</div>
 									</div>
@@ -66,7 +70,7 @@
 								id="jyls_table">
 								<thead>
 									<tr>
-										<!-- <th><input type="checkbox" id="check_all" /></th> -->
+										<th><input type="checkbox" id="check_all" /></th>
 										<th>序号</th>
 										<th>规则名称</th>
 										<th>专票分票金额</th>
@@ -106,7 +110,7 @@
 																	style="color: red;">*</font>规则名称</label>
 																<div class="am-u-sm-8">
 																	<input type="text" id="ggmc" name="ggmc"
-																		placeholder="规则名称" class="am-form-field" required
+																		placeholder="规则名称" class="am-text-left  am-form-field" required
 																		maxlength="20" />
 																</div>
 															</div>
@@ -116,7 +120,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="zpxe" name="zpxe"
 																		placeholder="专票分票金额"
-																		class="am-text-money am-form-field" required
+																		class="js-pattern-Money am-text-right am-form-field" required
 																		maxlength="20" />
 																</div>
 															</div>
@@ -126,7 +130,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="zphs" name="zphs"
 																		placeholder="普票分票行数"
-																		class="js-pattern-integer am-form-field" max="8"
+																		class="js-pattern-integer am-text-right am-form-field" max="8"
 																		min="1" required maxlength="1" />
 																</div>
 															</div>
@@ -136,7 +140,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="ppxe" name="ppxe"
 																		placeholder="普票分票金额"
-																		class="am-text-money am-form-field" required
+																		class="js-pattern-Money am-text-right am-form-field" required
 																		maxlength="20" />
 																</div>
 															</div>
@@ -146,7 +150,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="pphs" name="pphs"
 																		placeholder="普票分票行数"
-																		class="js-pattern-integer am-form-field" max="8"
+																		class="js-pattern-integer am-text-right am-form-field" max="8"
 																		min="1" required maxlength="1" />
 																</div>
 															</div>
@@ -156,7 +160,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="dzpxe" name="dzpxe"
 																		placeholder="电子票分票金额"
-																		class="am-text-money am-form-field" required
+																		class="js-pattern-Money am-text-right am-form-field" required
 																		maxlength="20" />
 																</div>
 															</div>
@@ -166,7 +170,7 @@
 																<div class="am-u-sm-8">
 																	<input type="text" id="dzphs" name="dzphs"
 																		placeholder="电子票分票行数"
-																		class="js-pattern-integer am-form-field" max="100"
+																		class="js-pattern-integer am-text-right am-form-field" max="100"
 																		min="1" required maxlength="3" />
 																</div>
 															</div>

@@ -41,6 +41,7 @@
 
 					<!-- content start -->
 					<div class="admin-content">
+						<input type="hidden" id="bj">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
 								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>税控设备信息注册</strong>
@@ -53,8 +54,35 @@
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-5 am-form-label">销方</label>
-											<div class="am-u-sm-7">
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">开票点代码</label>
+											<div class="am-u-sm-6">
+												<input type="text" id="s_kpddm" name="s_kpddm"
+													placeholder="开票点代码" />
+											</div>
+										</div>
+									</div>
+									<div class="am-offcanvas-content">
+										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">开票点名称</label>
+											<div class="am-u-sm-6">
+												<input type="text" id="s_kpdmc" name="s_kpdmc"
+													placeholder="开票点名称" />
+											</div>
+										</div>
+									</div>
+									<div class="am-offcanvas-content">
+										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">开票人</label>
+											<div class="am-u-sm-6">
+												<input type="text" id="kpr1" name="kpr1"
+													placeholder="开票人" />
+											</div>
+										</div>
+									</div>
+									<div class="am-offcanvas-content">
+										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">销方</label>
+											<div class="am-u-sm-6">
 												<select id="xfid1" name="xfid1"
 													data-am-selected="{btnSize: 'sm'}">
 													<option value="0">请选择</option>
@@ -67,19 +95,28 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点代码</label>
-											<div class="am-u-sm-7">
-												<input type="text" id="s_kpddm" name="s_kpddm"
-													placeholder="开票点代码" />
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">设备厂商</label>
+											<div class="am-u-sm-6">
+												<select id="sbcs1" name="sbcs1"
+														data-am-selected="{{btnSize: 'sm'}">
+														<option value="">请选择</option>
+														<option value="1">百旺</option>
+														<option value="2">航信</option>
+													</select>
 											</div>
 										</div>
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-5 am-form-label">开票点名称</label>
-											<div class="am-u-sm-7">
-												<input type="text" id="s_kpdmc" name="s_kpdmc"
-													placeholder="开票点名称" />
+											<label for="s_fpdm" class="am-u-sm-6 am-form-label">开票类型</label>
+											<div class="am-u-sm-6">
+												<select id="kplx1" name="kplx1"
+														data-am-selected="{{btnSize: 'sm'}">
+														<option value="">请选择</option>
+														<c:forEach items="${fpzls }" var="f">
+															<option value="${f.fpzldm }">${f.fpzlmc }</option>
+														</c:forEach>
+													</select>
 											</div>
 										</div>
 									</div>
@@ -103,12 +140,13 @@
 											<div class="am-btn-group am-btn-group-xs">
 												<button type="button" id="button2"
 													class="am-btn am-btn-default am-btn-success">
-													新增
+													录入
 												</button>
 												<button type="button"
 													class="js-sent am-btn am-btn-default am-btn-danger">
 													删除
 												</button>
+                                                <button type="button" id="kp_dr" class="am-btn am-btn-default"> 导入</button>
 											</div>
 										</div>
 									</div>
@@ -119,6 +157,8 @@
 											<option value="0">请选择</option>
 											<option value="1">开票点代码</option>
 											<option value="2">开票点名称</option>
+											<option value="3" selected="selected">销方名称</option>
+											<option value="4">开票人</option>
 										</select>
 									</div>
 								</div>
@@ -144,10 +184,6 @@
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
-												<th style="display: none;">id</th>
-												<th style="display: none;">pid</th>
-												<th style="display: none;">税控密码</th>
-												<th style="display: none;">证书密码</th>
 												<th>销方名称</th>
 												<th>开票点代码</th>
 												<th>开票点名称</th>
@@ -226,6 +262,7 @@
 												<div class="am-u-sm-4">
 													<select id="sbcs" name="sbcs"
 														data-am-selected="{btnWidth: '100%'}">
+														<option value="0">请选择</option>
 														<option value="1">百旺</option>
 														<option value="2">航信</option>
 													</select>
@@ -310,7 +347,7 @@
 												<label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
 												<div class="am-u-sm-4">
 													<select id="pid" name="pid"
-														data-am-selected="{btnWidth: '100%'}" required>
+														data-am-selected="{btnWidth: '100%'}">
 														<option value="0">请选择</option>
 														<c:forEach items="${pps}" var="item">
 															<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
@@ -530,7 +567,7 @@
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
-												style="text-decoration: underline;">下载默认模板</a>
+												style="text-decoration: underline;">下载导入模板</a>
 										</div>
 									</div>
 								</form>
@@ -555,6 +592,27 @@
 			</div>
 		</div>
 
+	</div>
+	
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd" id="msg"></div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+					class="am-modal-btn" data-am-modal-confirm>确定</span>
+			</div>
+		</div>
 	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"

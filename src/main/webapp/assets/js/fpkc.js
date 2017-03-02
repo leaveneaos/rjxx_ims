@@ -201,7 +201,7 @@ $(function () {
                 submit: function () {
                 	var fpdm = $("#fpdm").val().trim();
                 	var fphms = $("#fphms").val().trim();          
-                    var fphmz = $("#fphmz").val().trim();                           
+                    var fphmz = $("#fphmz").val().trim();
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                     	if(parseInt(fphms)>parseInt(fphmz)){
@@ -209,14 +209,12 @@ $(function () {
             				$('#my-alert').modal('open');
                         	return false;
                         }
-                        el.$jsLoading.modal('toggle'); // show loading
                         var data = el.$jsForm0.serialize(); // get form data
-                        $.ajax({
+                        /*$.ajax({
                             url: ur,
                             data: data,
                             method: 'POST',
-                            success: function (data) {
-                             	el.$jsLoading.modal('close'); // close loading                              	
+                            success: function (data) {                            	
                                 if (data.success) {
                                     el.$modalHongchong.modal('close'); // close
                                     $('#alert-msg').html(data.msg);
@@ -231,11 +229,10 @@ $(function () {
                             	$('#alert-msg').html("保存失败，请检查！");
                 				$('#my-alert').modal('open');
                             }
-                        });
+                        });*/
                     } else {
                     	$('#alert-msg').html("数据验证失败，请检查！");
         				$('#my-alert').modal('open');
-                        return false;
                     }
                 }
             });
@@ -252,11 +249,11 @@ $(function () {
                     if (data.success) {
                     	$('#alert-msg').html(data.msg);
         				$('#my-alert').modal('open');
+        				 _this.tableEx.ajax.reload(); // reload table 
                     } else {    
                     	$('#alert-msg').html(data.msg);
         				$('#my-alert').modal('open');                     
-                    }
-                    _this.tableEx.ajax.reload(); // reload table                 
+                    }                                   
                 },
                 error: function () {
                 	$('#alert-msg').html("删除失败，请检查！");
@@ -265,14 +262,14 @@ $(function () {
             });
             	
         },
-        resetForm: function () {
+        /*resetForm: function () {
             el.$jsForm0[0].reset();
-        },
+        },*/
         modalAction: function () {
             var _this = this;
-            el.$modalHongchong.on('closed.modal.amui', function () {
+            /*el.$modalHongchong.on('closed.modal.amui', function () {
                 el.$jsForm0[0].reset();
-            });
+            });*/
             el.$jsClose.on('click', function () {
                 el.$modalHongchong.modal('close');
             });
@@ -282,12 +279,10 @@ $(function () {
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
             _this.add();
-            _this.xz();
+            //_this.xz();
             _this.modalAction(); // hidden action
             _this.find_mv();
         }
     };
     action.init();
-    
-
 });

@@ -55,6 +55,14 @@ var ur;
                         }
                     },
                     "columns": [
+                            	{
+                            		"orderable" : false,
+                            		"data" : null,
+                            		render : function(data, type, full, meta) {
+                            			return '<input type="checkbox" value="'
+                            				+ data.id + '" name="gzdxk"  />';
+                            		}
+                            	},
                         {
                             "orderable": false,
                             "data": null,
@@ -72,7 +80,8 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "zphs"},
+                        {"data": "zphs",
+                            'sClass': 'right'},
                         {
                             "data": function (data) {
                                 if (data.ppxe) {
@@ -84,7 +93,8 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "pphs"},
+                        {"data": "pphs",
+                            'sClass': 'right'},
                         {
                             "data": function (data) {
                                 if (data.dzpxe) {
@@ -96,11 +106,12 @@ var ur;
                             },
                             'sClass': 'right'
                         },
-                        {"data": "dzphs"},
+                        {"data": "dzphs",
+                            'sClass': 'right'},
                         {
                             "data": null,
                             "render": function (data) {
-                            		return '<a class="xiugai">修改</a>  '+'<a class="shanchu">删除</a>';                
+                            		return '<a class="xiugai">修改</a>  '/*+'<a class="shanchu">删除</a>'*/;                
                             }
                         }]
                 });
@@ -111,32 +122,62 @@ var ur;
 				 var t01 = $("#jyls_table tbody tr").length;
 				 for(var i = 0;i<t01;i++){
 					 var row =  t.row(i).data();
-						var xfds = row.xfids.split(',');
-						for(var j in xfds){
-							var bz = "#type-"+xfds[j];
-							$(bz).hide();
-						/*	$(bz).prop('checked', true);*/
-							  }
+					 if(typeof(row)!="undefined"){
+						 var xfds = row.xfids.split(',');
+							for(var j in xfds){
+								var bz = "#type-"+xfds[j];
+								$(bz).hide();
+								  } 
+					 }	
 				 }
-/*				$.ajax({
-					url : _this.config.xzCsbUrl,
-					data : {
-						csid : csid,
-						csjb : csjb
-					},
-					 async: false,
-					type : 'post',
-					success : function(data) {
-						trs="<option value=''>请选择</option>";
-						$.each(data.list, function(n, value) {
-						
-							trs +="<option value= '"+value.id+"'>"+value.csmc+"("+value.csm+")</option>"
-						});
-						el.$xzcs.append(trs);
-					}
-				})*/
 				ur = _this.config.xzUrl;
 			});
+			//删除
+			$("#gz_scgz").on('click', $("#gz_scgz"), function() {
+			      var djhArr = [];
+		         $('input[name="gzdxk"]:checked').each(function(){    
+		                djhArr.push($(this).val()); 
+		        });
+		            if (djhArr.length == 0) {
+		            	$("#alertt").html("请选择需要删除的数据");
+		            	$("#my-alert").modal('open');
+		                return;
+		            }
+		            
+		            
+		            if (!confirm("确认删除么?")) {
+						return;
+					} 
+						   ur = _this.config.scUrl;
+							$.ajax({
+								url : ur,
+								data : {"id":djhArr.join(",")},
+								method : 'POST',
+								success : function(data) {
+									$("#alertt").html(data.msg);
+			                    	$("#my-alert").modal('open');
+									t.ajax.reload(); // reload table
+								},
+								error : function() {
+									$("#alertt").html("操作失败");
+			                    	$("#my-alert").modal('open');
+									t.ajax.reload(); // reload table
+								}
+							});
+				
+			});
+			
+		      $('#check_all').change(function () {
+		        	if ($('#check_all').prop('checked')) {
+		        		t.column(0).nodes().each(function (cell, i) {
+		                    $(cell).find('input[type="checkbox"]').prop('checked', true);
+		                });
+		            } else {
+		            	t.column(0).nodes().each(function (cell, i) {
+		                    $(cell).find('input[type="checkbox"]').prop('checked', false);
+		                });
+		            }
+		        });
 			
 			// 修改
 			t.on('click', 'a.xiugai', function() {
@@ -179,11 +220,12 @@ var ur;
 
 			// 删除
 			t.on('click', 'a.shanchu', function() {
-				var row = t.row($(this).parents('tr')).data();
+			
 		           $("#conft").html("确认删除么")
 		       	  $('#my-confirm').modal({
+		       		 relatedTarget: this,
 		 		   onConfirm: function(options) {  
-				
+		 				var row = t.row($(this.relatedTarget).parents('tr')).data();
 				   ur = _this.config.scUrl;
 					$.ajax({
 						url : ur,
@@ -204,7 +246,7 @@ var ur;
 			});
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+                t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
 
@@ -248,10 +290,8 @@ var ur;
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
 								// data
-
 							},
 							error : function() {
-								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
 								$("#alertt").html("操作失败");
 		                    	$("#my-alert").modal('open');
