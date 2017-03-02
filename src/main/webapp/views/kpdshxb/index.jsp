@@ -271,7 +271,7 @@
 							<div id="tabs3" class="am-tab-panel">
 								<div class="am-cf widget-head">
 									<div class="widget-title am-cf">
-										<strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>已审核</strong>
+										<strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>开票单审核</strong>
 										<button class="am-btn am-btn-success am-fr"
 											data-am-offcanvas="{target: '#doc-oc-demo4'}">更多查询</button>
 									</div>
