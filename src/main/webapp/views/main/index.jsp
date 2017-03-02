@@ -237,7 +237,7 @@
 	</div>
         <div  class="tpl-content-wrapper">
         <!-- 内容区域 -->
-            <iframe id="mainFrame" src="./right.html" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
+            <iframe id="mainFrame" src="<%=request.getContextPath()%>/mainjsp" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
         </div>
         <footer>
                 <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>

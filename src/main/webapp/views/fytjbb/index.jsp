@@ -28,7 +28,7 @@
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>统计报表</strong>
+					<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>月统计报表</strong>
 				</div>
 			</div>
 			<hr />
