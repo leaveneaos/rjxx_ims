@@ -87,7 +87,7 @@
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
 													<button type="button" id="button2"
-														class="am-btn am-btn-default am-btn-success">新增</button>
+														class="am-btn am-btn-default am-btn-success">录入</button>
 												</div>
 											</div>
 										</div>

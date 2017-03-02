@@ -100,7 +100,7 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 新增</button>
+                                                <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 录入</button>
 <!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
                                                 <button type="button" id="deletexf" class="am-btn am-btn-default am-btn-danger js-sent"> 删除</button>
                                                 <button type="button" id="kp_dr" class="am-btn am-btn-default"> 导入</button>

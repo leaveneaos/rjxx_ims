@@ -119,7 +119,7 @@
 														<div class="am-btn-group am-btn-group-xs">
 															<button type="button" id="button2"
 																class="am-btn am-btn-default am-btn-success js-add">
-																 新增
+																 录入
 															</button>
 															<button type="button"
 																class="js-sent am-btn am-btn-default am-btn-danger">
