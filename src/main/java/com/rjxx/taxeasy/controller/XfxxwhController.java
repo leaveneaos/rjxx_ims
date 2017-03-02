@@ -28,6 +28,7 @@ import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.DmFpbcService;
 import com.rjxx.taxeasy.service.GroupService;
 import com.rjxx.taxeasy.service.GsxxService;
+import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.Spbm;
 import com.rjxx.taxeasy.vo.XfVo;
@@ -50,6 +51,9 @@ public class XfxxwhController extends BaseController {
 
 	@Autowired
 	private DmFpbcService dfs;
+	
+	@Autowired
+	private SkpService ss;
 
 	/**
 	 * 导入字段映射
@@ -96,7 +100,7 @@ public class XfxxwhController extends BaseController {
 	 */
 	@RequestMapping(value = "/getXfxx")
 	@ResponseBody
-	public Map getXfxx(String xfmc, String xfsh, int tip, String txt, int length, int start, int draw) {
+	public Map getXfxx(String xfmc, String xfsh, int tip, String txt, String sjgj, int length, int start, int draw) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -109,6 +113,7 @@ public class XfxxwhController extends BaseController {
 		}else{
 			pagination.addParam("xfmc", xfmc);
 			pagination.addParam("xfsh", xfsh);
+			pagination.addParam("sjgj", sjgj);
 		}
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj");
@@ -313,6 +318,7 @@ public class XfxxwhController extends BaseController {
 				for (Xf xf2 : getXfList()) {
 					if (xf2.equals(xfid)) {
 						xfs3.add(xf2);
+						getXfList().remove(xf2);
 					}
 				}
 				getXfList().removeAll(xfs3);
@@ -386,33 +392,45 @@ public class XfxxwhController extends BaseController {
 	@RequestMapping(value = "/destroy", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
-	public Map destroy(int xfid) {
+	public Map destroy(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			Xf xf = xfService.findOne(xfid);
-			xf.setYxbz("0");
-			xfService.delete(xf);
-			getXfList().remove(xf);
-			Group g = new Group();
-			g.setXfid(xf.getId());
-			List<Group> list = groupService.findAllByParams(g);
-			groupService.save(list);
 			List<Xf> xfs = new ArrayList<>();
-			List<Xf> xflist = getXfList();
-			for (int i = 0; i < xflist.size(); i++) {
-				if (xflist.get(i).getId().equals(xf.getId())) {
-					xfs.add(getXfList().get(i));
-				}
-			}
-			getXfList().removeAll(xfs);
 			List<Skp> skplist = new ArrayList<>();
-			for (Skp skp : skplist) {
-				for (Xf x : xfs) {
-					if (skp.getXfid().equals(x.getId())) {
-						skplist.add(skp);
+			String[] strs = ids.split(",");
+			List<Skp> skpList = new ArrayList<>();
+			Skp s = new Skp();
+			for (String str : strs) {
+				Xf xf = xfService.findOne(Integer.valueOf(str));
+				xf.setYxbz("0");
+				xfService.delete(xf);
+				getXfList().remove(xf);
+				Group g = new Group();
+				g.setXfid(xf.getId());
+				s.setXfid(Integer.valueOf(str));
+				List<Skp> skps = ss.findAllByParams(s);
+				skpList.addAll(skps);
+				List<Group> list = groupService.findAllByParams(g);
+				groupService.save(list);
+				List<Xf> xflist = getXfList();
+				for (int i = 0; i < xflist.size(); i++) {
+					if (xflist.get(i).getId().equals(xf.getId())) {
+						xfs.add(getXfList().get(i));
+					}
+				}
+				for (Skp skp : skplist) {
+					for (Xf x : xfs) {
+						if (skp.getXfid().equals(x.getId())) {
+							skplist.add(skp);
+						}
 					}
 				}
 			}
+			for (Skp skp : skpList) {
+				skp.setYxbz("0");
+			}
+			ss.save(skpList);
+			getXfList().removeAll(xfs);
 			getSkpList().removeAll(skplist);
 			result.put("success", true);
 			result.put("msg", "删除成功");

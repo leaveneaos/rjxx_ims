@@ -104,20 +104,18 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/getsksblist")
 	@ResponseBody
-	public Map getsksblist(int length, int start, int draw, String kpdmc, String kpddm, Integer xfid1, int tip, String txt) throws Exception {
+	public Map getsksblist(int length, int start, int draw, String kpdmc, String kpddm, Integer xfid1, String txt,
+			String xfmc, String kpr, String kplx, String sbcs) throws Exception {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		if (tip == 0) {
-			pagination.addParam("xfid", xfid1);
-			pagination.addParam("kpdmc", kpdmc);
-			pagination.addParam("kpddm", kpddm);
-		}
-		if (tip == 1) {
-			pagination.addParam("kpddm", txt);
-		}else if (tip == 2) {
-			pagination.addParam("kpdmc", txt);
-		}
+		pagination.addParam("xfid", xfid1);
+		pagination.addParam("kpdmc", kpdmc);
+		pagination.addParam("kpddm", kpddm);
+		pagination.addParam("kpr", kpr);
+		pagination.addParam("xfmc", xfmc);
+		pagination.addParam("sbcs", sbcs);
+		pagination.addParam("kplx", kplx);
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		pagination.addParam("xfs", getXfList());
@@ -140,7 +138,7 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping(value = "/getXf")
 	@ResponseBody
-	public Map getXf(Integer xfid){
+	public Map getXf(Integer xfid) {
 		Map<String, Object> result = new HashMap<>();
 		Xf x = null;
 		for (Xf xf : getXfList()) {
@@ -172,12 +170,13 @@ public class SksbxxzcControlller extends BaseController {
 	@ResponseBody
 	@Transactional
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
-			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb, String fplx) {
+			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
+			Integer bmbb, String fplx) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> prms = new HashMap<>();
 			prms.put("gsdm", getGsdm());
-			
+
 			Skp old = new Skp();
 			old.setKpddm(kpddm);
 			old.setKpdmc(kpdmc);
@@ -190,7 +189,8 @@ public class SksbxxzcControlller extends BaseController {
 				result.put("msg", "请选择开票类型");
 				return result;
 			}
-			int sum = skpService.findAllByParams(old).size();;
+			int sum = skpService.findAllByParams(old).size();
+			;
 			Gsxx gsxx = gs.findOneByParams(prms);
 			if (gsxx.getKpdnum() - sum <= 0) {
 				result.put("failure", true);
@@ -201,9 +201,9 @@ public class SksbxxzcControlller extends BaseController {
 			params.put("gsdm", getGsdm());
 			params.put("kpddm", kpddm);
 			if (skpService.findOneByParams(params) != null) {
-				result.put("failure", true); 
+				result.put("failure", true);
 				result.put("msg", "此开票点已经存在！");
-				return result; 
+				return result;
 			}
 			old.setXfid(xfid);
 			old.setKpddm(kpddm);
@@ -265,8 +265,9 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map update(int id,int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
-			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid, Integer bmbb, String fplx) {
+	public Map update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
+			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
+			Integer bmbb, String fplx) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
@@ -279,7 +280,7 @@ public class SksbxxzcControlller extends BaseController {
 				return result;
 			}
 			Skp skp = skpService.findOneByParams(params);
-			
+
 			if (skp != null && !kpddm.equals(skp.getKpddm()) && !kpdmc.equals(skp.getKpdmc())) {
 				result.put("failure", true);
 				result.put("msg", "此开票点已经存在");
@@ -295,7 +296,8 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setSkph(skph);
 			skp.setSbcs(sbcs);
 			skp.setSkpmm(skpmm);
-			skp.setZsmm(zsmm);;
+			skp.setZsmm(zsmm);
+			;
 			skp.setLxdz(lxdz);
 			skp.setLxdh(lxdh);
 			skp.setKhyh(khyh);
@@ -320,33 +322,33 @@ public class SksbxxzcControlller extends BaseController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/updateJe")
 	@ResponseBody
 	public Map updateJe(int skpid, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			
+
 			Skp skp = skpService.findOne(skpid);
 			if (kpxe3 == null) {
 				skp.setDpmax(0.00);
 				skp.setFpfz(0.00);
-			}else{
+			} else {
 				skp.setDpmax(kpxe3);
 				skp.setFpfz(fpje3);
 			}
-			
+
 			if (kpxe1 == null) {
 				skp.setPpmax(0.00);
 				skp.setPpfz(0.00);
-			}else{
+			} else {
 				skp.setPpmax(kpxe1);
 				skp.setPpfz(fpje1);
 			}
 			if (kpxe2 == null) {
 				skp.setZpmax(0.00);
 				skp.setZpfz(0.00);
-			}else{
+			} else {
 				skp.setZpmax(kpxe2);
 				skp.setZpfz(fpje2);
 			}
@@ -374,7 +376,7 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping(value = "/getJe")
 	@ResponseBody
-	public Map<String, Object> getSkp(Integer id){
+	public Map<String, Object> getSkp(Integer id) {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			Skp skp = skpService.findOne(id);
@@ -384,10 +386,9 @@ public class SksbxxzcControlller extends BaseController {
 			result.put("success", false);
 			result.put("msg", "查询异常，请稍后再试");
 		}
-		
+
 		return result;
 	}
-
 
 	@RequestMapping(value = "/del")
 	@ResponseBody
@@ -728,7 +729,7 @@ public class SksbxxzcControlller extends BaseController {
 			int sum = skpService.findAllByParams(sk).size();
 			Gsxx gsxx = gs.findOneByParams(parms);
 			if (gsxx.getKpdnum() - sum < list.size()) {
-				msg = "导入税控盘数量("+list.size()+")已超过可增加税控盘数量("+(gsxx.getKpdnum()-sum)+")，不能导入，如需增加请联系平台开发商";
+				msg = "导入税控盘数量(" + list.size() + ")已超过可增加税控盘数量(" + (gsxx.getKpdnum() - sum) + ")，不能导入，如需增加请联系平台开发商";
 				return msg;
 			}
 			skpService.save(list);

@@ -44,17 +44,18 @@
 					<div class="admin-content">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>销方信息维护</strong>
+								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>销方管理</strong>
 								<button class="am-btn am-btn-success am-fr" data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>
 							<!-- 侧边栏内容 -->
+								<input type="text" hidden="true" id="bz">
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<form action="" id="searchForm1">
 										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 										    <div class="am-offcanvas-content">
 											    <div class="am-form-group">
-													<label for="xfmc" class="am-u-sm-4 am-form-label">销方税号</label>
-													<div class="am-u-sm-8">
+													<label for="xfmc" class="am-u-sm-5 am-form-label">销方税号</label>
+													<div class="am-u-sm-7">
 														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方名称"
 															required="required" />
 													</div>
@@ -62,10 +63,23 @@
 										    </div>
 										    <div class="am-offcanvas-content">		      
 											    <div class="am-form-group">
-													<label for="xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
-													<div class="am-u-sm-8">
+													<label for="xfmc" class="am-u-sm-5 am-form-label">销方名称</label>
+													<div class="am-u-sm-7">
 														<input type="text" id="s_xfmc" name="xfmc" placeholder="请输入销方名称"
 															required="required" />
+													</div>
+												</div>
+										    </div>
+										    <div class="am-offcanvas-content">		      
+											    <div class="am-form-group">
+													<label for="sjxf" class="am-u-sm-5 am-form-label">上级销方</label>
+													<div class="am-u-sm-7">
+														<select id="sjxf1" name="sjxf1" data-am-selected="{btnSize: 'sm'}">
+															<option value="">请选择</option>
+															<c:forEach items="${xfs }" var="x">
+																<option value="${x.id }">${x.xfmc }</option>
+															</c:forEach>
+														</select>
 													</div>
 												</div>
 										    </div>
@@ -87,6 +101,9 @@
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
                                                 <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 新增</button>
+<!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
+                                                <button type="button" id="deletexf" class="am-btn am-btn-default am-btn-danger js-sent"> 删除</button>
+                                                <button type="button" id="kp_dr" class="am-btn am-btn-default"> 导入</button>
                                             </div>
                                         </div>
                                     </div>
@@ -108,52 +125,20 @@
 								        </span>
                                     </div>
                                 </div>
-								<!-- <div class="am-g">
-									<div class="am-u-sm-6">
-										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-3 am-form-label">销方税号</label>
-											<div class="am-u-sm-9">
-												<input type="text" id="s_xfsh" name="s_xfsh"
-													placeholder="请输入销方税号" />
-											</div>
-										</div>
-									</div>
-									<div class="am-u-sm-6">
-										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-3 am-form-label">销方名称</label>
-											<div class="am-u-sm-9">
-												<input type="text" id="s_xfmc" name="s_xfmc"
-													placeholder="请输入销方名称" />
-											</div>
-										</div>
-									</div>
-								</div>
-			
-								<hr />
-								<div class="am-u-sm-12  am-padding  am-text-right">
-									<button id="button1" type="button"
-										class="js-search  am-btn am-btn-success">查询</button>
-									<button id="button2" type="button"
-										class="js-search  am-btn am-btn-success">新增</button>
-			
-									<button type="button" id="kp_dr"
-										class="am-btn am-btn-default am-btn-default"
-										style="margin-right: 10px;">
-										<span></span> 批量导入
-									</button>
-								</div> -->
+								
 							
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
 			
-									<table id="tbl"
+									<table id="tbl" style="margin: 0"
 										class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
+												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
-												<th style="display: none;">销方id</th>
-												<th style="display: none;">上级销方id</th>
+<!-- 												<th style="display: none;">销方id</th> -->
+<!-- 												<th style="display: none;">上级销方id</th> -->
 												<th>销方名称</th>
 												<th>销方税号</th>
 												<th>上级销方</th>
@@ -174,6 +159,9 @@
 												<th>操作</th>
 											</tr>
 										</thead>
+										<tbody>
+										
+										</tbody>
 									</table>
 								</div>
 							</div>
@@ -207,7 +195,7 @@
 										<label for="xfsh" class="am-u-sm-2 am-form-label"><font
 											color="red">*</font>销方税号</label>
 										<div class="am-u-sm-4">
-											<input type="text" class="js-pattern-Taxid" id="xfsh" class="js-pattern-taxid"
+											<input type="text" id="xfsh" class="js-pattern-Taxid"
 												 name="xfsh"
 												placeholder="请输入税号,15位、18位或20位" required />
 										</div>
@@ -238,7 +226,7 @@
 										<label for="xfdh" class="am-u-sm-2 am-form-label">销方电话</label>
 										<div class="am-u-sm-4">
 											<input type="text" maxlength="20" id="xfdh" name="xfdh"
-												placeholder="请输入电话号码">
+												class="js-pattern-Telephone" placeholder="请输入电话号码">
 										</div>
 									</div>
 			
@@ -281,7 +269,7 @@
 									<div class="am-form-group">
 										<label for="dzpzdje" class="am-u-sm-2 am-form-label am-u-left">电子票开票限额</label>
 											<div class="am-u-sm-4">
-												<select id="dzpzdje" name="dzpzdje">
+												<select id="dzpzdje" name="dzpzdje" data-am-selected="{btnWidth: '100%'}">
 													<option value="">请选择</option>
 													<c:forEach items="${bc }" var="b">
 														<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
@@ -290,15 +278,15 @@
 											</div>
 										<label for="dzpfpje" class="am-u-sm-2 am-form-label am-u-left">电子票分票金额</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="dzpfpje" name="dzpfpje"
-												pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+											<input type="text" id="dzpfpje" name="dzpfpje" class="js-pattern-Money am-text-right"
+												
 												placeholder="大于零且小于开票限额"/>
 										</div>
 									</div>
 									<div class="am-form-group">
 										<label for="zpzdje" class="am-u-sm-2 am-form-label am-u-left">专票开票限额</label>
 											<div class="am-u-sm-4">
-												<select id="zpzdje" name="zpzdje">
+												<select id="zpzdje" name="zpzdje" data-am-selected="{btnWidth: '100%'}">
 													<option value="">请选择</option>
 													<c:forEach items="${bc }" var="b">
 														<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
@@ -308,14 +296,14 @@
 										<label for="zpfpje" class="am-u-sm-2 am-form-label am-u-left">专票分票金额</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="zpfpje" name="zpfpje"
-												pattern="^[+]?[\d]+(([\.]{1}[\d]+)|([\d]*))$"
+												 class="js-pattern-Money am-text-right"
 												placeholder="大于零且小于开票限额"/>
 										</div>
 									</div>
 									<div class="am-form-group">
 										<label for="ppzdje" class="am-u-sm-2 am-form-label am-u-left">普票开票限额</label>
 											<div class="am-u-sm-4">
-												<select id="ppzdje" name="ppzdje">
+												<select id="ppzdje" name="ppzdje"data-am-selected="{btnWidth: '100%'}">
 													<option value="">请选择</option>
 													<c:forEach items="${bc }" var="b">
 														<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
@@ -324,7 +312,7 @@
 											</div>
 										<label for="ppfpje" class="am-u-sm-2 am-form-label am-u-left">普票分票金额</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="ppfpje" name="ppfpje" calss="am-text-twomoney"
+											<input type="text" id="ppfpje" name="ppfpje"  class="js-pattern-Money am-text-right"
 												
 												placeholder="大于零且小于开票限额"/>
 										</div>
@@ -370,7 +358,7 @@
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
-												style="text-decoration: underline;">下载默认模板</a>
+												style="text-decoration: underline;">下载导入模板</a>
 										</div>
 									</div>
 								</form>
@@ -395,6 +383,27 @@
 		</div>
 	</div>
 </div>
+
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd" id="msg"></div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+					class="am-modal-btn" data-am-modal-confirm>确定</span>
+			</div>
+		</div>
+	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>

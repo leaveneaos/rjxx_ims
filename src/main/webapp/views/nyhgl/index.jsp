@@ -44,120 +44,100 @@
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
 									<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>用户管理</strong>
-									<button class="am-btn am-btn-success am-fr" data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+									<button class="am-btn am-btn-success am-fr"
+										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
 							</div>
 							<div id="doc-oc-demo3" class="am-offcanvas">
-									<form action="" id="searchform1">
-										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
-										    <div class="am-offcanvas-content">
-											    <div class="am-form-group">
-													<label for="s_fpdm" class="am-u-sm-4 am-form-label">用户账号</label>
-													<div class="am-u-sm-8">
-														<input type="text" id="s_yhzh" name="s_yhzh"
-															placeholder="请输入用户账号" />
-													</div>
+								<form action="" id="searchform1">
+									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+										<div class="am-offcanvas-content">
+											<div class="am-form-group">
+												<label for="s_fpdm" class="am-u-sm-4 am-form-label">用户账号</label>
+												<div class="am-u-sm-8">
+													<input type="text" id="s_yhzh" name="s_yhzh"
+														placeholder="请输入用户账号" />
 												</div>
-										    </div>
-										    <div class="am-offcanvas-content">		      
-											    <div class="am-form-group">
-													<label for="s_fphm" class="am-u-sm-4 am-form-label">用户名称</label>
-													<div class="am-u-sm-8">
-														<input type="text" id="s_yhmc" name="s_yhmc"
-															placeholder="请输入用户名称" />
-													</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content">
+											<div class="am-form-group">
+												<label for="s_fphm" class="am-u-sm-4 am-form-label">用户名称</label>
+												<div class="am-u-sm-8">
+													<input type="text" id="s_yhmc" name="s_yhmc"
+														placeholder="请输入用户名称" />
 												</div>
-										    </div>
-										    <div style="padding: 32px;">
-		                                        <button id="button1" type="button" class="js-search am-btn am-btn-default am-btn-success"> 查询</button>
-		                                    </div>
-										  </div>
-										  
-									</form>
-								  
-								</div>
+											</div>
+										</div>
+										<div style="padding: 32px;">
+											<button id="button1" type="button"
+												class="js-search am-btn am-btn-default am-btn-success">
+												查询</button>
+										</div>
+									</div>
+
+								</form>
+
+							</div>
 							<div class="am-g am-padding-top">
 								<form action="#" id="searchform"
 									class="js-search-form  am-form am-form-horizontal">
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                                    <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 新增</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                    <div class="am-form-group tpl-table-list-select">
-                                        <select id="tip" data-am-selected="{btnSize: 'sm'}">
-							              <option value="0">请选择</option>
-							              <option value="1">用户账号</option>
-							              <option value="2">用户名称</option>
-							            </select>
-                                    </div>
-                                </div>
-                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" id="searchtxt" class="am-form-field ">
-                                        <span class="am-input-group-btn" id="button3">
-								            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-								        </span>
-                                    </div>
-                                </div>
-<!-- 									<div class="am-g"> -->
-<!-- 										<div class="am-u-sm-6"> -->
-<!-- 											<div class="am-form-group"> -->
-<!-- 												<label for="s_fpdm" class="am-u-sm-3 am-form-label">用户账号</label> -->
-<!-- 												<div class="am-u-sm-9"> -->
-<!-- 													<input type="text" id="s_yhzh" name="s_yhzh" -->
-<!-- 														placeholder="请输入用户账号" /> -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="am-u-sm-6"> -->
-<!-- 											<div class="am-form-group"> -->
-<!-- 												<label for="s_fphm" class="am-u-sm-3 am-form-label">用户名称</label> -->
-<!-- 												<div class="am-u-sm-9"> -->
-<!-- 													<input type="text" id="s_yhmc" name="s_yhmc" -->
-<!-- 														placeholder="请输入用户名称" /> -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<hr /> -->
-<!-- 									<div class="am-u-sm-12  am-padding  am-text-right"> -->
-<!-- 										<button id="button1" type="button" -->
-<!-- 											class="js-search  am-btn am-radius am-btn-success">查询</button> -->
-<!-- 										<button id="button2" type="button" -->
-<!-- 											class="js-search  am-btn am-radius am-btn-success">新增</button> -->
-<!-- 									</div> -->
-
-									<div class="am-u-sm-12 am-padding-top">
-										<div>
-
-											<table
-												class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
-												<thead>
-													<tr>
-														<th>序号</th>
-														<th>用户名称</th>
-														<th>性别</th>
-														<th>账号</th>
-														<th>角色</th>
-														<th>手机号码</th>
-														<th>用户邮箱</th>
-														<th>管理员</th>
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody>
-
-												</tbody>
-											</table>
+										<div class="am-form-group">
+											<div class="am-btn-toolbar">
+												<div class="am-btn-group am-btn-group-xs">
+													<button type="button" id="button2"
+														class="am-btn am-btn-default am-btn-success">新增</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="tip" data-am-selected="{btnSize: 'sm'}">
+												<option value="0">请选择</option>
+												<option value="1">用户账号</option>
+												<option value="2">用户名称</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+										<div
+											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input type="text" id="searchtxt" class="am-form-field ">
+											<span class="am-input-group-btn" id="button3">
+												<button
+													class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+													type="button"></button>
+											</span>
 										</div>
 									</div>
 								</form>
+
+								<div class="am-u-sm-12 am-padding-top">
+									<div>
+
+										<table
+											class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
+											<thead>
+												<tr>
+													<th>序号</th>
+													<th>用户名称</th>
+													<th>性别</th>
+													<th>账号</th>
+													<th>角色</th>
+													<th>手机号码</th>
+													<th>用户邮箱</th>
+													<th>管理员</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 						<!-- content end -->
@@ -421,6 +401,27 @@
 					</div>
 				</div>
 
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd" id="msg"></div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+					class="am-modal-btn" data-am-modal-confirm>确定</span>
 			</div>
 		</div>
 	</div>

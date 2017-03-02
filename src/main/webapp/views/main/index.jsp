@@ -459,8 +459,8 @@
 					$('#sksb').html(data.gsxx.kpdnum);
 					$('#yhsl').html(data.gsxx.yhnum);
 					$('#kpsl').html(data.gsxx.kpnum);
-					$('#yhlx').html(data.yh.zhlxdm);
-					$('#yhzh').html(data.yh.dlyhid);
+// 					$('#yhlx').html(data.yh.zhlxdm);
+// 					$('#yhzh').html(data.yh.dlyhid);
 				} else {
 					alert('后台错误: 数据修改失败' + data.msg);
 				}

@@ -67,8 +67,6 @@ public class SpslglController extends BaseController {
 
 	@Autowired
 	private SpzXfService sxs;
-	
-	
 
 	/**
 	 * 导入字段映射
@@ -103,19 +101,16 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/getSplist")
 	@ResponseBody
-	public Map getAllSp(int length, int start, int draw, String spmc, String spdm, int tip, String txt) {
+	public Map getAllSp(int length, int start, int draw, String spmc, String spdm, String txt, Double sl,
+			Integer slid) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		if (tip == 0) {
-			pagination.addParam("spmc", spmc);
-			pagination.addParam("spdm", spdm);
-		}else if (tip == 1) {
-			pagination.addParam("spdm", txt);
-		}else if (tip == 2) {
-			pagination.addParam("spmc", txt);
-		}
+		pagination.addParam("spmc", spmc);
+		pagination.addParam("spdm", spdm);
+		pagination.addParam("slid", slid);
+		pagination.addParam("sl", txt);
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		List<Spvo> list = spvoService.findAllOnPage(pagination);
@@ -129,7 +124,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/getSpzs")
 	@ResponseBody
-	public Map getSpzs(int length, int start, int draw, String spzmc){
+	public Map getSpzs(int length, int start, int draw, String spzmc) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -147,13 +142,13 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
-	public Map add(String sl1, Integer smid1, String spflmc1, String spdj1, String spdw1, String spdm1, String spggxh1,
-			String spmc1, String spbm1) {
+	public Map add(String sl, Integer smid, String spflmc, String spdj, String spdw, String spdm, String spggxh,
+			String spmc, String spbm) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Sp tp = new Sp();
 			tp.setGsdm(getGsdm());
-			tp.setSpdm(spdm1);
+			tp.setSpdm(spdm);
 			Sp sp = spService.findOneByParams(tp);
 			if (sp != null) {
 				result.put("failure", true);
@@ -162,17 +157,17 @@ public class SpslglController extends BaseController {
 			}
 			tp.setLrry(getYhid());
 			tp.setLrsj(TimeUtil.getNowDate());
-			tp.setSmid(smid1);
+			tp.setSmid(smid);
 			;
-			if (spdj1 != null && !"".equals(spdj1)) {
-				tp.setSpdj(Double.parseDouble(spdj1));
+			if (spdj != null && !"".equals(spdj)) {
+				tp.setSpdj(Double.parseDouble(spdj));
 			}
-			tp.setSpdw(spdw1);
-			tp.setSpdm(spdm1);
+			tp.setSpdw(spdw);
+			tp.setSpdm(spdm);
 			tp.setSpfldm("1");
-			tp.setSpggxh(spggxh1);
-			tp.setSpmc(spmc1);
-			tp.setSpbm(spbm1);
+			tp.setSpggxh(spggxh);
+			tp.setSpmc(spmc);
+			tp.setSpbm(spbm);
 			tp.setXgry(getYhid());
 			tp.setXgsj(TimeUtil.getNowDate());
 			tp.setYxbz("1");
@@ -302,14 +297,19 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
-	public Map delete(int id) {
+	public Map delete(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			Sp sp = spService.findOne(id);
-			sp.setYxbz("0");
-			sp.setXgsj(TimeUtil.getNowDate());
-			sp.setXgry(getYhid());
-			spService.save(sp);
+			String[] strs = ids.split(",");
+			List<Sp> list = new ArrayList<>();
+			for (String str : strs) {
+				Sp sp = spService.findOne(Integer.valueOf(str));
+				sp.setYxbz("0");
+				sp.setXgsj(TimeUtil.getNowDate());
+				sp.setXgry(getYhid());
+				list.add(sp);
+			}
+			spService.save(list);
 			result.put("success", true);
 			result.put("msg", "删除成功");
 		} catch (Exception e) {
@@ -320,11 +320,11 @@ public class SpslglController extends BaseController {
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/saveSpz")
 	@ResponseBody
 	@Transactional
-	public Map saveSpz(String spzmc, String zbz){
+	public Map saveSpz(String spzmc, String zbz) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sps = request.getParameterValues("spz");
 		String[] xfids = request.getParameterValues("xfid");
@@ -367,11 +367,11 @@ public class SpslglController extends BaseController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/updateSpz")
 	@ResponseBody
 	@Transactional
-	public Map updateSpz(Integer spzid, String spzmc, String zbz){
+	public Map updateSpz(Integer spzid, String spzmc, String zbz) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sps = request.getParameterValues("spz");
 		String[] xfids = request.getParameterValues("xfid");
@@ -411,10 +411,10 @@ public class SpslglController extends BaseController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/getSpzsp")
 	@ResponseBody
-	public Map getSpzsp(Integer spzid){
+	public Map getSpzsp(Integer spzid) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<>();
 		params.put("gsdm", getGsdm());
@@ -425,10 +425,10 @@ public class SpslglController extends BaseController {
 		result.put("xfs", list1);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/getSpzxf")
 	@ResponseBody
-	public Map getSpzxf(Integer spzid){
+	public Map getSpzxf(Integer spzid) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<>();
 		params.put("gsdm", getGsdm());
@@ -437,20 +437,26 @@ public class SpslglController extends BaseController {
 		result.put("xfs", list);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/deleteSpz")
 	@ResponseBody
-	public Map deleteSpz(Integer spzid){
+	public Map deleteSpz(Integer spzid) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Spz spz = spzService.findOne(spzid);
-		spz.setYxbz("0");
-		spzService.save(spz);
-		saveSpzsp(spzid, null, 1, 0);
-		saveSpzxf(spzid, null, 1, 0);
+		try {
+			Spz spz = spzService.findOne(spzid);
+			spz.setYxbz("0");
+			spzService.save(spz);
+			saveSpzsp(spzid, null, 1, 0);
+			saveSpzxf(spzid, null, 1, 0);
+			result.put("success", true);
+		} catch (Exception e) {
+			result.put("success", false);
+			result.put("msg", "删除出错：" + e);
+		}
 		return result;
 	}
-	
-	public void saveSpzsp(Integer spzid, String[] sps, int tag, int flag){
+
+	public void saveSpzsp(Integer spzid, String[] sps, int tag, int flag) {
 		List<SpzSp> list = new ArrayList<>();
 		SpzSp ss;
 		if (tag == 1) {
@@ -479,8 +485,8 @@ public class SpslglController extends BaseController {
 			sss.save(list);
 		}
 	}
-	
-	public void saveSpzxf(Integer spzid, String[] xfids, int tag, int flag){
+
+	public void saveSpzxf(Integer spzid, String[] xfids, int tag, int flag) {
 		List<SpzXf> list = new ArrayList<>();
 		SpzXf sx;
 		if (tag == 1) {
@@ -659,7 +665,7 @@ public class SpslglController extends BaseController {
 			try {
 				sp.setSpbm(row.get(6) == null ? null : row.get(6).toString());
 			} catch (Exception e) {
-				
+
 			}
 
 			list.add(sp);

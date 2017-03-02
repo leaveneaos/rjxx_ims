@@ -42,30 +42,15 @@
 
 					<!-- content start -->
 					<div class="admin-content">
-
-						<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
-							<ul class="am-tabs-nav am-nav am-nav-tabs">
-								<li class="am-active"><a href="#tab1">商品管理</a></li>
-								<li><a href="#tab2">商品组</a></li>
-							</ul>
-
-							<div class="am-tabs-bd">
-								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-									<div class="am-cf widget-head">
-										<div class="widget-title am-cf">
-											<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品管理</strong>
-											<button class="am-btn am-btn-success am-fr"
-												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
-										</div>
-									</div>
-									<div id="doc-oc-demo3" class="am-offcanvas">
+					<input type="hidden" id="bj">
+						<div id="doc-oc-demo3" class="am-offcanvas">
 										<form action="" id="searchform1">
 											<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_splb" class="am-u-sm-4 am-form-label">商品代码</label>
-															<div class="am-u-sm-8">
+															<label for="s_splb" class="am-u-sm-6 am-form-label">商品代码</label>
+															<div class="am-u-sm-6">
 																<input type="text" id="s_spdm" name="s_spdm"
 																	placeholder="请输入商品代码" />
 															</div>
@@ -75,10 +60,25 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
-															<div class="am-u-sm-8">
+															<label for="s_spmc" class="am-u-sm-6 am-form-label">商品名称</label>
+															<div class="am-u-sm-6">
 																<input type="text" id="s_spmc" name="s_spmc"
 																	placeholder="请输入商品名称" />
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="am-offcanvas-content">
+													<div class="am-form-group">
+														<div class="am-form-group">
+															<label for="s_spmc" class="am-u-sm-6 am-form-label">商品税率</label>
+															<div class="am-u-sm-6">
+																<select id="smid2" name="smid2" data-am-selected="{btnSize: 'sm'}">
+																	<option value="">请选择</option>
+																	<c:forEach items="${smlist}" var="ite">
+																		<option value="${ite.id}">${ite.sl}(税率)</option>
+																	</c:forEach>
+																</select>
 															</div>
 														</div>
 													</div>
@@ -94,6 +94,22 @@
 										</form>
 
 									</div>
+						<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
+							<ul class="am-tabs-nav am-nav am-nav-tabs">
+								<li class="am-active"><a href="#tab1">商品管理</a></li>
+								<li><a href="#tab2">商品组</a></li>
+							</ul>
+
+							<div class="am-tabs-bd">
+								<div class="am-tab-panel am-fade am-in am-active am-padding-top" id="tab1">
+									<div class="am-cf widget-head">
+										<div class="widget-title am-cf">
+											<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品管理</strong>
+											<button class="am-btn am-btn-success am-fr"
+												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+										</div>
+									</div>
+									
 									<div class="am-g  am-padding-top">
 										<form id="searchform"
 											class="js-search-form am-form am-form-horizontal">
@@ -105,6 +121,11 @@
 																class="am-btn am-btn-default am-btn-success js-add">
 																 新增
 															</button>
+															<button type="button"
+																class="js-sent am-btn am-btn-default am-btn-danger">
+																删除
+															</button>
+                                                			<button type="button" id="kp_dr" class="am-btn am-btn-default"> 导入</button>
 														</div>
 													</div>
 												</div>
@@ -114,7 +135,8 @@
 													<select id="tip" data-am-selected="{btnSize: 'sm'}">
 														<option value="0">请选择</option>
 														<option value="1">商品代码</option>
-														<option value="2">商品名称</option>
+														<option value="2" selected="selected">商品名称</option>
+														<option value="3">商品税率</option>
 													</select>
 												</div>
 											</div>
@@ -137,8 +159,8 @@
 													class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 													<thead>
 														<tr>
+															<th><input type="checkbox" id="check_all" /></th>
 															<th>序号</th>
-															<th style="display: none;">id</th>
 															<th>商品代码</th>
 															<th>商品名称</th>
 															<th>税率</th>
@@ -158,7 +180,7 @@
 
 									</div>
 								</div>
-								<div class="am-tab-panel am-fade" id="tab2">
+								<div class="am-tab-panel am-fade am-padding-top" id="tab2">
 									<div class="am-cf am-padding">
 										<div class="am-fl am-cf">
 											<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品组</strong>
@@ -202,6 +224,7 @@
 												</div>
 											</div>
 											
+										</form>
 
 											<div class="am-u-sm-12 am-padding-top">
 												<div>
@@ -211,7 +234,7 @@
 														<thead>
 															<tr>
 																<th>序号</th>
-																<th style="display: none;">id</th>
+<!-- 																<th style="display: none;">id</th> -->
 																<th>商品组名称</th>
 																<th>商品组类别</th>
 																<th>操作</th>
@@ -223,7 +246,6 @@
 													</table>
 												</div>
 											</div>
-										</form>
 
 									</div>
 								</div>
@@ -239,7 +261,7 @@
 					<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
 						<div class="am-modal-dialog">
 							<div class="am-modal-hd">
-								修改商品信息 <a href="javascript: void(0)"
+								商品信息 <a href="javascript: void(0)"
 									class="am-close am-close-spin" data-am-modal-close>&times;</a>
 							</div>
 							<div class="am-modal-bd">
@@ -248,16 +270,6 @@
 									class="js-form  am-form am-form-horizontal">
 									<div class="am-g">
 										<div class="am-u-sm-12">
-											<%--<div class="am-form-group">--%>
-											<%--<label for="spflmc" class="am-u-sm-3 am-form-label">商品类别</label>--%>
-											<%--<div class="am-u-sm-9">--%>
-											<%--<!--  <input type="text" id="spflmc" name="spflmc" placeholder="请输入商品类别" />-->--%>
-											<%--<select data-am-selected="{btnWidth: '100%'}" id="spflmc" name="spflmc">--%>
-											<%--<option value="应税货物">应税货物</option>--%>
-											<%--<option value="应税劳务">应税劳务</option>--%>
-											<%--</select>--%>
-											<%--</div>--%>
-											<%--</div>--%>
 
 											<div class="am-form-group">
 												<label for="spdm" class="am-u-sm-4 am-form-label"><font
@@ -306,7 +318,7 @@
 											<div class="am-form-group">
 												<label for="spdj" class="am-u-sm-4 am-form-label">单价</label>
 												<div class="am-u-sm-8">
-													<input type="text" id="spdj" pattern="^\d+(\.\d+)?$"
+													<input type="text" id="spdj" class="js-pattern-Money am-text-right"
 														name="spdj" placeholder="请输入单价(需为数字)" />
 												</div>
 											</div>
@@ -340,112 +352,7 @@
 						</div>
 					</div>
 
-					<div class="am-modal am-modal-no-btn" tabindex="-1"
-						id="your-modal1">
-						<div class="am-modal-dialog">
-							<div class="am-modal-hd">
-								添加商品 <a href="javascript: void(0)"
-									class="am-close am-close-spin" data-am-modal-close>&times;</a>
-							</div>
-							<div class="am-modal-bd">
-								<hr />
-								<form action="spslgl/add"
-									class="js-form1  am-form am-form-horizontal">
-									<div class="am-g">
-										<div class="am-u-sm-12">
-											<%--<div class="am-form-group">--%>
-											<%--<label for="spflmc1" class="am-u-sm-3 am-form-label">商品类别</label>--%>
-											<%--<div class="am-u-sm-9">--%>
-											<%--<select data-am-selected="{btnWidth: '100%'}" id="spflmc1" name="spflmc1">--%>
-											<%--<!--  <option value="" selected>点击选择...</option>-->--%>
-											<%--<option value="应税货物">应税货物</option>--%>
-											<%--<option value="应税劳务">应税劳务</option>--%>
-											<%--</select>--%>
-											<%--</div>--%>
-											<%--</div>--%>
 
-											<div class="am-form-group">
-												<label for="spdm1" class="am-u-sm-4 am-form-label"><font
-													color="red">*</font>商品代码</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="spdm1" name="spdm1" maxlength="20"
-														placeholder="请输入商品编码(不超过20位)" required />
-												</div>
-											</div>
-
-											<div class="am-form-group">
-												<label for="spmc1" class="am-u-sm-4 am-form-label"><font
-													color="red">*</font>商品名称</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="spmc1" name="spmc1"
-														placeholder="请输入商品名称" required />
-												</div>
-											</div>
-
-											<div class="am-form-group">
-												<label for="smmc1" class="am-u-sm-4 am-form-label"><font
-													color="red">*</font>税率</label>
-												<div class="am-u-sm-8">
-													<select data-am-selected="{btnWidth: '100%'}" id="smid1"
-														name="smid1" required="required">
-														<!--  <option value="" selected>点击选择...</option>-->
-														<c:forEach items="${smlist}" var="ite">
-															<option value="${ite.id}">${ite.sl}(税率)</option>
-														</c:forEach>
-													</select>
-												</div>
-											</div>
-
-											<div class="am-form-group">
-												<label for="spggxh1" class="am-u-sm-4 am-form-label">规格型号</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="spggxh1" name="spggxh1"
-														placeholder="请输入规格型号" />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="spdw1" class="am-u-sm-4 am-form-label">计量单位</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="spdw1" name="spdw1"
-														placeholder="请输入计量单位" />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="spdj1" class="am-u-sm-4 am-form-label">单价</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="spdj1" pattern="(^\d+(\.\d+)?$)?"
-														name="spdj1" placeholder="请输入单价(需为数字)" />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="spdj1" class="am-u-sm-4 am-form-label"><font
-													color="red">*</font>商品和服务税收分类编码</label>
-												<div class="am-u-sm-8" style="height: 35px;">
-													<select id="spbm1" name="spbm1"
-														data-am-dropdown="{boundary: '#spbm1'} style="overflow:auto">
-														<c:forEach items="${spbms }" var="bm">
-															<option value="${bm.spbm }">${bm.spbm }|${bm.spmc }</option>
-														</c:forEach>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="am-u-sm-12">
-											<div class="am-form-group">
-												<div class="am-u-sm-12  am-text-center">
-													<button type="submit"
-														class="js-submit1  am-btn am-radius am-btn-primary">保存</button>
-													<button type="button" id="close1"
-														class="js-close1  am-btn am-radius am-btn-danger"
-														onclick="">取消</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 
 					<div class="am-modal am-modal-no-btn" tabindex="-1"
 						id="bulk-import-div">
@@ -474,7 +381,7 @@
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
-												style="text-decoration: underline;">下载默认模板</a>
+												style="text-decoration: underline;">下载导入模板</a>
 										</div>
 									</div>
 								</form>
@@ -599,6 +506,26 @@
 		</div>
 	</div>
 
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd" id="msg"></div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+					class="am-modal-btn" data-am-modal-confirm>确定</span>
+			</div>
+		</div>
+	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
