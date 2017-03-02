@@ -207,7 +207,7 @@
 										<label for="xfsh" class="am-u-sm-2 am-form-label"><font
 											color="red">*</font>销方税号</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="xfsh" class="js-pattern-taxid"
+											<input type="text" class="js-pattern-Taxid" id="xfsh" class="js-pattern-taxid"
 												 name="xfsh"
 												placeholder="请输入税号,15位、18位或20位" required />
 										</div>

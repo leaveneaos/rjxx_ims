@@ -1,3 +1,4 @@
+
 (function ($) {
     'use strict';
 
@@ -19,6 +20,27 @@
             }
         }
     });
+    if ($.AMUI && $.AMUI.validator) {
+	    // 增加多个正则
+	    $.AMUI.validator.patterns.Taxid = /^([a-z]|[A-Z]|[0-9]){15,20}$/;
+	    //身份证
+	    $.AMUI.validator.patterns.Id = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+	    
+	    //电话号码
+	    $.AMUI.validator.patterns.Telephone = /^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/;
+   
+	    //手机号码
+	    $.AMUI.validator.patterns.Phone = /^(13[0-9])|(15[^4,\\D])|(18[0,5-9])/;
+	    
+	    //数字
+	    $.AMUI.validator.patterns.Number = /^[0-9]*$/;
+	    
+	    //整数
+	    $.AMUI.validator.patterns.Integer = /^-?\d+$/;
+	    
+	    //金额
+	    $.AMUI.validator.patterns.Money = /^\d+\.?\d+?$/;
+	}
 })(jQuery);
 
 
@@ -59,3 +81,7 @@ $('.sidebar-nav-sub-title').on('click', function() {
      .end()
      .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
 })
+
+
+
+
