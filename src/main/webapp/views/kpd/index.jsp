@@ -115,7 +115,7 @@
 										color="red">*</font>联系电话</label>
 									<div class="am-u-sm-3">
 										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
-											placeholder="联系电话" class="am-form-field" required="required"
+											placeholder="联系电话" class="js-pattern-Telephone" required="required"
 											/>
 									</div>
 								</div>
@@ -205,6 +205,27 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd" id="msg"></div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">提示</div>
+			<div class="am-modal-bd">你确定要删除这条记录吗？</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span> <span
+					class="am-modal-btn" data-am-modal-confirm>确定</span>
+			</div>
+		</div>
+	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
@@ -246,21 +267,26 @@
 								success : function(data) {
 									$('#save').attr("disabled", false);
 									if (data.success) {
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 										window.location.reload();
 									} else if (data.repeat) {
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 									}else{
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 									}
 								},
 								error : function() {
-									alert('保存失败, 请重新登陆再试...!');
+				                	$('#msg').html('保存失败, 请重新登陆再试...!');
+				                	$('#my-alert').modal('open'); 
 								}
 							});
 							return false;
 						} else {
-							alert('验证失败');
+		                	$('#msg').html('验证失败');
+		                	$('#my-alert').modal('open'); 
 							$('#save').attr("disabled", false);
 							return false;
 						}

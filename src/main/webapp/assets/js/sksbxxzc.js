@@ -52,11 +52,27 @@ $(function () {
 					url : _this.config.getUrl,
 					type : 'POST',
 					data : function(d) {
-						d.kpdmc = el.$s_kpdmc.val();
-						d.kpddm = el.$s_kpddm.val();
-						d.xfid1= $('#xfid1').val(); 
-						d.tip=$('#tip').val();
-						d.txt = $('#searchtxt').val();
+						if ($('#bj').val() == "1") {
+							var tip = $('#tip').val();
+							var txt = $('#searchtxt').val();
+							if (tip == "1") {
+								d.kpddm = txt;
+							}else if (tip == "2") {
+								d.kpdmc = txt;
+							}else if (tip == "3") {
+								d.xfmc = txt;
+							}else if (tip == "4") {
+								d.kpr = txt;
+							}
+						}else{
+							d.kpdmc = el.$s_kpdmc.val();
+							d.kpddm = el.$s_kpddm.val();
+							d.xfid1= $('#xfid1').val(); 
+							d.kpr = $('#kpr1').val();
+							d.sbcs = $('#sbcs1').val();
+							d.kplx = $('#kplx1').val();
+						}
+						
 					}
 				},
                 "columns": [
@@ -74,18 +90,17 @@ $(function () {
                         "defaultContent": ""
 
                     },
-                    {"data": "id"},
-                    {"data": "pid"},   
-                    {"data": "skpmm"},  
-                    {"data": "zsmm"},
+                  
                     {"data": "xfmc"},
                     {"data": "kpddm"},
                     {"data": "kpdmc"}, 
                     {"data": function(data){
                     	if (data.sbcs == 1) {
 							return "百旺";
-						}else{
+						}else if (data.sbcs == 2){
 							return "航信";
+						}else {
+							return "";
 						}
                     }}, 
                     {"data": "skph"},   
@@ -115,7 +130,7 @@ $(function () {
                     {"data": "ppmc"},  
                     {
                         "data": null,
-                        "defaultContent": "<a class='modify'>修改</a> <a class='del'>删除</a>"
+                        "defaultContent": "<a class='modify'>修改</a>"
                     }
                 ]
             });
@@ -127,10 +142,10 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {//序号
                     cell.innerHTML = page + i + 1;
                 });
-                $('#tbl tr').find('td:eq(2)').hide();
-                $('#tbl tr').find('td:eq(3)').hide();
-                $('#tbl tr').find('td:eq(4)').hide();
-                $('#tbl tr').find('td:eq(5)').hide();
+//                $('#tbl tr').find('td:eq(2)').hide();
+//                $('#tbl tr').find('td:eq(3)').hide();
+//                $('#tbl tr').find('td:eq(4)').hide();
+//                $('#tbl tr').find('td:eq(5)').hide();
             });
 
             t.on('click', 'a.modify', function () {
@@ -150,25 +165,66 @@ $(function () {
                 el.$jsForm.find('[name="skr"]').val(data.skr);
                 el.$jsForm.find('[name="fhr"]').val(data.fhr);
                 el.$jsForm.find('[name="kpr"]').val(data.kpr);
-                var fps = data.kplx.split(",");
-                for(var i = 0; i < fps.length; i++){
-                	var fplx = '#fplx-'+fps[i];
-                	$(fplx).prop('checked', true);
-                }
+                if (data.kplx != null) {
+                	 var fps = data.kplx.split(",");
+                     for(var i = 0; i < fps.length; i++){
+                     	var fplx = '#fplx-'+fps[i];
+                     	$(fplx).prop('checked', true);
+                     }
+				}
                 //el.$jsForm.find('[name="zcm"]').val(data.zcm);
                 url = _this.config.editUrl + "?id=" + data.id;
                 $('#your-modal').modal({"width": 800, "height": 500});
             });
            
             t.on('click', 'a.del', function () {
-                var data = t.row($(this).parents('tr')).data();
+
                 url = _this.config.delUrl;
-                _this.del({ids: data.id});
+            	 $('#my-confirm').modal({
+         	        relatedTarget: this,
+         	        onConfirm: function(options) {
+         	        	var data = t.row($(this.relatedTarget).parents('tr')).data();
+         	        	 el.$jsLoading.modal('open');
+           	            $.ajax({
+           	                url: url,
+           	                data: {ids : data.id},
+           	                type: 'POST',
+           	                success: function (data) {
+           	                    // todo 处理返回结果
+           	                    if (data.success) {
+           		                	$('#msg').html('删除成功');
+           		                	$('#my-alert').modal('open'); 
+           	                        _this.tableEx.ajax.reload(); // reload table data
+           	                    } else {
+           		                	$('#msg').html('删除失败,服务器错误' + data.msg);
+           		                	$('#my-alert').modal('open'); 
+           	                    }
+           	                    el.$jsLoading.modal('close');
+
+           	                },
+           	                error: function () {
+           	                	$('#msg').html('请求失败,请刷新后稍后重试!');
+           	                	$('#my-alert').modal('open'); 
+           	                    el.$jsLoading.modal('close');
+           	                }
+           	            });
+         	        },
+         	        // closeOnConfirm: false,
+         	        onCancel: function() {
+         	          
+         	        }
+         	      });
+//                var data = t.row($(this).parents('tr')).data();
+//                _this.del({ids: data.id});
             });
             
 	        var $importModal = $("#bulk-import-div");
 	        $("#close1").click(function () {
 	            $importModal.modal("close");
+	        });
+	        $("#button2").click(function () {
+	        	url = _this.config.addUrl;
+                $('#your-modal').modal({"width": 800, "height": 500});
 	        });
 	        
 	        $('#xfid').change(function(){
@@ -208,17 +264,20 @@ $(function () {
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
 	            if (filename == null || filename == "") {
-	                alert("请选择要导入的文件");
+                	$('#msg').html("请选择要导入的文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var pos = filename.lastIndexOf(".");
 	            if (pos == -1) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var extName = filename.substring(pos + 1);
 	            if ("xls" != extName && "xlsx" != extName) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            $("#btnImport").attr("disabled", true);
@@ -230,12 +289,14 @@ $(function () {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
 		                        var count = res.count;
-		                        alert("导入成功，共导入" + count + "条数据");
+			                	$('#msg').html("导入成功，共导入" + count + "条数据");
+			                	$('#my-alert').modal('open'); 
 		                        window.location.reload();
 		                    } else {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
-		                        alert(res.message);
+			                	$('#msg').html(res.message);
+			                	$('#my-alert').modal('open'); 
 		                    }
 		                }
 		            };
@@ -259,30 +320,40 @@ $(function () {
          */
         del: function (data) {
             var _this = this;
-            if (!confirm("您确认删除！！！")) {
-                return;
-            }
-            el.$jsLoading.modal('open');
-            $.ajax({
-                url: url,
-                data: {ids : data.ids},
-                type: 'POST',
-                success: function (data) {
-                    // todo 处理返回结果
-                    if (data.success) {
-                        alert('删除成功');
-                        _this.tableEx.ajax.reload(); // reload table data
-                    } else {
-                        alert('删除失败,服务器错误' + data.msg);
-                    }
-                    el.$jsLoading.modal('close');
+            $('#my-confirm').modal({
+      	        relatedTarget: this,
+      	        onConfirm: function(options) {
+      	        	 el.$jsLoading.modal('open');
+      	            $.ajax({
+      	                url: url,
+      	                data: {ids : data.ids},
+      	                type: 'POST',
+      	                success: function (data) {
+      	                    // todo 处理返回结果
+      	                    if (data.success) {
+      		                	$('#msg').html('删除成功');
+      		                	$('#my-alert').modal('open'); 
+      	                        _this.tableEx.ajax.reload(); // reload table data
+      	                    } else {
+      		                	$('#msg').html('删除失败,服务器错误' + data.msg);
+      		                	$('#my-alert').modal('open'); 
+      	                    }
+      	                    el.$jsLoading.modal('close');
 
-                },
-                error: function () {
-                    alert('请求失败,请刷新后稍后重试!');
-                    el.$jsLoading.modal('close');
-                }
-            });
+      	                },
+      	                error: function () {
+      	                	$('#msg').html('请求失败,请刷新后稍后重试!');
+      	                	$('#my-alert').modal('open'); 
+      	                    el.$jsLoading.modal('close');
+      	                }
+      	            });
+      	        },
+      	        // closeOnConfirm: false,
+      	        onCancel: function() {
+      	          
+      	        }
+      	      });
+           
         },
         /**
          * check all action
@@ -322,7 +393,8 @@ $(function () {
 
                 });
                 if (!data) {
-                    alert("请选择要删除的税控盘")
+                	$('#msg').html("请选择要删除的税控盘");
+                	$('#my-alert').modal('open'); 
                     return;
                 }
                 data = data.substring(0, data.length - 1);
@@ -344,7 +416,13 @@ $(function () {
                         el.$jsLoading.modal('toggle');  // show loading
                         //alert('验证成功');
                         if ($('#xfid').val() == 0) {
-							alert('请选择销方');
+		                	$('#msg').html('请选择销方');
+		                	$('#my-alert').modal('open'); 
+							return;
+						}
+                        if ($('#sbcs').val() == 0) {
+                        	$('#msg').html('请选择设备cha');
+		                	$('#my-alert').modal('open'); 
 							return;
 						}
                         var data = el.$jsForm.serialize(); // get form data data                        
@@ -355,25 +433,30 @@ $(function () {
                             success: function (data) {
                                 if (data.success) {
                                     el.$modal.modal('close');   // close modal
-                                    alert(data.msg);
+        		                	$('#msg').html(data.msg);
+        		                	$('#my-alert').modal('open'); 
                                     _this.tableEx.ajax.reload(); // reload table data
                                 } else if (data.failure){ 
-                                	alert(data.msg);
+        		                	$('#msg').html(data.msg);
+        		                	$('#my-alert').modal('open'); 
                                 } else {
-                                    alert('后台错误: 数据操作失败' + data.msg);
+        		                	$('#msg').html('后台错误: 数据操作失败' + data.msg);
+        		                	$('#my-alert').modal('open'); 
                                 }// close loading
 
                                 el.$jsLoading.modal('close'); 
                             },
                             error: function () {
-                                alert('数据操作失败, 请重新登陆再试...!');
+    		                	$('#msg').html('数据操作失败, 请重新登陆再试...!');
+    		                	$('#my-alert').modal('open'); 
                                 el.$jsLoading.modal('close');
                             }
                         });
 
                         return false;
                     } else {
-                        alert('验证失败,请注意格式！');
+	                	$('#msg').html('修改用户失败');
+	                	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -397,9 +480,11 @@ $(function () {
                             success: function (data) {
                                 if (data.success) {
                                     el.$modal1.modal('close');   // close modal
-                                    alert(data.msg);
+        		                	$('#msg').html(data.msg);
+        		                	$('#my-alert').modal('open'); 
                                 } else {
-                                    alert('后台错误: 数据操作失败' + data.msg);
+        		                	$('#msg').html('后台错误: 数据操作失败' + data.msg);
+        		                	$('#my-alert').modal('open'); 
 
                                 }
                                 _this.tableEx.ajax.reload(); // reload table data
@@ -407,14 +492,16 @@ $(function () {
 
                             },
                             error: function () {
-                                alert('数据操作失败, 请重新登陆再试...!');
+    		                	$('#msg').html('数据操作失败, 请重新登陆再试...!');
+    		                	$('#my-alert').modal('open'); 
                                 el.$jsLoading.modal('close');
                             }
                         });
 
                         return false;
                     } else {
-                        alert('验证失败,请注意格式！');
+	                	$('#msg').html('验证失败,请注意格式！');
+	                	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -427,14 +514,16 @@ $(function () {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
-				$('#searchform1').resetForm();
-				$('#xfid1').find('option[value="0"]').attr('selected', true);
+				$('#bj').val('1');
+//				$('#searchform1').resetForm();
+//				$('#xfid1').find('option[value="0"]').attr('selected', true);
 				_this.tableEx.ajax.reload();
 			});
 			el.$jsSearch1.on('click', function(e) {
 				e.preventDefault();
-				$('#tip').find('option[value=0]').attr('selected', true);
-				$('#searchform').resetForm();
+				$('#bj').val('2');
+//				$('#tip').find('option[value=0]').attr('selected', true);
+//				$('#searchform').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},

@@ -111,7 +111,8 @@ $(function () {
     						$('#roleid').val(row.id);
     						  el.$modalHongchong.modal({"width": 700, "height": 450});
     					}else{
-                              alert('查询角色权限异常');        
+      						$('#msg').html('查询角色权限异常');
+                        	$('#my-alert').modal('open');       
     					}
     				}
     			});
@@ -119,13 +120,17 @@ $(function () {
             });
             // 删除
             t.on('click', 'a.shanchu', function () {
-            	  var da = t.row($(this).parents('tr')).data();
-            	 if(confirm("确定要删除该角色吗"))
-            	   {
-            		 _this.sc(da);
-            	   }
-                var data = t.row($(this).parents('tr')).data();
-           	 _this.resetForm();
+            	  $('#my-confirm').modal({
+            	        relatedTarget: this,
+            	        onConfirm: function(options) {
+            	        	var da = t.row($(this.relatedTarget).parents('tr')).data();
+            	        	_this.sc(da);
+            	        },
+            	        // closeOnConfirm: false,
+            	        onCancel: function() {
+            	          
+            	        }
+            	      });
             });
             return t;
         },
@@ -157,7 +162,8 @@ $(function () {
 						}
 					}
 					if (fl == false) {
-						alert("请选择用户权限!");
+						$('#msg').html("请选择用户权限!");
+                    	$('#my-alert').modal('open');
 						return false;
 					}
                     if (formValidity) {
@@ -175,13 +181,14 @@ $(function () {
                               	el.$modalHongchong.modal('close'); // close
                                 if (data.success) {
                                     // modal
-                                    alert(data.msg);
+                                	$('#msg').html(data.msg);
+	                            	$('#my-alert').modal('open');
                                 } else if (!data.success) {
-                                    alert(data.msg);
-                                  
+                                	$('#msg').html(data.msg);
+	                            	$('#my-alert').modal('open');
                                 }else if (data.nopeat){
-                           
-	                                alert(data.msg);
+	                                $('#msg').html(data.msg);
+	                            	$('#my-alert').modal('open');
                                 }
                                 _this.tableEx.ajax.reload(); // reload table
                                 // data
@@ -189,12 +196,14 @@ $(function () {
                             },
                             error: function () {
                             	  el.$jsLoading.modal('close'); // close loading
-                                alert('保存角色失败, 请重新登陆再试...!');
+                            	  $('#msg').html('保存角色失败, 请重新登陆再试...!');
+                              	  $('#my-alert').modal('open');
                             }
                         });
                         return false;
                     } else {
-                        alert('验证失败');
+                    	$('#msg').html('验证失败');
+                    	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -211,12 +220,13 @@ $(function () {
                 method: 'POST',
                 success: function (data) {
                     if (data.success) {
-                      
-                        // modal
-                        alert(data.msg);
+                    	$('#msg').html('删除成功');
+                    	$('#my-alert').modal('open');
+                        
                     } else {
     
-                        alert('删除角色失败: ' + data.msg);
+                    	$('#msg').html('删除角色失败: ' + data.msg);
+                    	$('#my-alert').modal('open');
                        
                     }
                     _this.tableEx.ajax.reload(); // reload table
@@ -224,7 +234,8 @@ $(function () {
                   
                 },
                 error: function () {
-                    alert('删除角色失败, 请重新登陆再试...!');
+                	$('#msg').html('删除角色失败, 请重新登陆再试...!');
+                	$('#my-alert').modal('open'); 
                 }
             });
             	

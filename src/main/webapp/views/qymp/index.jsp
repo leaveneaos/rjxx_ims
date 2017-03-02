@@ -93,7 +93,7 @@
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">银行账号</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="银行账号(发票票面)" class="am-form-field"
+											placeholder="银行账号(发票票面)" class="js-pattern-Telephone"
 											maxlength="50" />
 									</div>
 								</div>
@@ -228,24 +228,29 @@
 								success : function(data) {
 									$('#save').attr("disabled", false);
 									if (data.success) {
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 										location.href= "kpd";
 									} else if (data.repeat) {
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 									}else{
-										alert(data.msg);
+					                	$('#msg').html(data.msg);
+					                	$('#my-alert').modal('open'); 
 									}
 
 								},
 								error : function() {
 									el.$jsLoading.modal('close'); // close loading
-									alert('保存失败, 请重新登陆再试...!');
+				                	$('#msg').html('保存失败, 请重新登陆再试...!');
+				                	$('#my-alert').modal('open'); 
 								}
 							});
 							return false;
 						} else {
 							$('#save').attr("disabled", false);
-							alert('验证失败');
+		                	$('#msg').html('验证失败');
+		                	$('#my-alert').modal('open'); 
 							return false;
 						}
 					}
@@ -264,17 +269,20 @@
 			$("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
 	            if (filename == null || filename == "") {
-	                alert("请选择要导入的文件");
+                	$('#msg').html("请选择要导入的文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var pos = filename.lastIndexOf(".");
 	            if (pos == -1) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var extName = filename.substring(pos + 1);
 	            if ("xls" != extName && "xlsx" != extName) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            $("#btnImport").attr("disabled", true);
@@ -286,11 +294,13 @@
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
 		                        var count = res.count;
-		                        alert("导入成功，共导入" + count + "条数据");
+			                	$('#msg').html("导入成功，共导入" + count + "条数据");
+			                	$('#my-alert').modal('open'); 
 		                    } else {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
-		                        alert(res.message);
+			                	$('#msg').html(res.message);
+			                	$('#my-alert').modal('open'); 
 		                    }
 		                }
 		            };

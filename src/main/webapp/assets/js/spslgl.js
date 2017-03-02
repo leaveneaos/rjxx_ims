@@ -29,7 +29,9 @@
         $jsDel: $('del'),
         $jsImport: $('.js-import'),
         $jsExport: $('.js-export'),
-        $jsLoading: $('.js-modal-loading')
+        $jsLoading: $('.js-modal-loading'),
+        $checkAll: $('#check_all'), // check all checkbox     
+        $jsdel: $('.js-sent') // del all
     };
     var action = {
         tableEx: null, // cache dataTable
@@ -53,19 +55,38 @@
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
-                        d.spdm = el.$s_spdm.val(); // search 商品类别
-                        d.spmc = el.$s_spmc.val(); // search 商品名称
-                        d.tip = $('#tip').val();
-                        d.txt = $('#searchtxt').val();
+                    	if ($('#bj').val() == "1") {
+                            var tip = $('#tip').val();
+                            if (tip == "1") {
+                            	d.spdm = $('#searchtxt').val();
+							}else if (tip == "2") {
+								d.spmc = $('#searchtxt').val();
+							}else if (tip == "3") {
+								d.sl = $('#searchtxt').val();
+							}
+                            
+						}else if ($('#bj').val() == "2") {
+							d.spdm = el.$s_spdm.val(); // search 商品类别
+	                        d.spmc = el.$s_spmc.val(); // search 商品名称
+	                        d.slid = $('#smid2').val();
+						}
+                        
                     }
                 },
-                "columns": [
+                "columns": [ {
+                    "orderable": false,
+                    "data": null,
+                    //"defaultContent": '<input type="checkbox" />'
+                    render: function (data, type, full, meta) {
+                        return '<input type="checkbox" name="chkb" value="' + data.id + '" class="chk"/>';
+                    }
+                },
                     {
                         "orderable": false,
                         "data": null,
                         "defaultContent": ""
                     },
-                    { "data": "id" },
+//                    { "data": "id" },
                     {"data": "spdm"},
                     {"data": "spmc"},
                     {"data": "sl", 'sClass': 'right'},
@@ -83,7 +104,7 @@
                     {"data": "spbm1"},
                     {
                         "data": null,
-                        "defaultContent": '<a class="modify">修改</a> <a class="del">删除</a>'
+                        "defaultContent": '<a class="modify">修改</a>'
                     }
                 ]
             });
@@ -108,7 +129,7 @@
 	                    "data": null,
 	                    "defaultContent": ""
                     },
-                    { "data": "id" },
+//                    { "data": "id" },
                     {"data": "spzmc"},
                     {"data" : function (data) {
                         if (data.zbz == 1) {
@@ -129,11 +150,11 @@
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+                t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
 
-                $('#tbl tr').find('td:eq(1)').hide();
+//                $('#tbl tr').find('td:eq(1)').hide();
             });
             
             spz_table.on('draw.dt', function (e, settings, json) {
@@ -143,7 +164,7 @@
                     cell.innerHTML = page + i + 1;
                 });
 
-                $('#tbl1 tr').find('td:eq(1)').hide();
+//                $('#tbl1 tr').find('td:eq(1)').hide();
             });
 
             t.on('click', 'a.modify', function () {
@@ -181,7 +202,8 @@
 				$('#save').attr("disabled", true);
 				var spzmc = $("#spzmc").val();
 				if (spzmc == null || spzmc == '' || spzmc == "") {
-					alert('请输入商品组名称');
+                	$('#msg').html('请输入商品组名称');
+                	$('#my-alert').modal('open'); 
 					$('#save').attr("disabled", false);
 					return;
 				}
@@ -192,15 +214,18 @@
 					success : function(data) {
 						$('#save').attr("disabled", false);
 						if (data.success) {
-							alert("保存成功");
+		                	$('#msg').html("保存成功");
+		                	$('#my-alert').modal('open'); 
 							$('#hongchong').modal('close');
 							spz_table.ajax.reload();
 						} else {
-							alert(data.msg);
+		                	$('#msg').html(data.msg);
+		                	$('#my-alert').modal('open'); 
 						}
 					},
 					error : function() {
-						alert('保存失败, 请重新登陆再试...!');
+	                	$('#msg').html('保存失败, 请重新登陆再试...!');
+	                	$('#my-alert').modal('open'); 
 						$('#save').attr("disabled", false);
 					}
 				});
@@ -209,17 +234,20 @@
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
 	            if (filename == null || filename == "") {
-	                alert("请选择要导入的文件");
+                	$('#msg').html("请选择要导入的文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var pos = filename.lastIndexOf(".");
 	            if (pos == -1) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            var extName = filename.substring(pos + 1);
 	            if ("xls" != extName && "xlsx" != extName) {
-	                alert("导入的文件必须是excel文件");
+                	$('#msg').html("导入的文件必须是excel文件");
+                	$('#my-alert').modal('open'); 
 	                return;
 	            }
 	            $("#btnImport").attr("disabled", true);
@@ -231,12 +259,14 @@
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
 		                        var count = res.count;
-		                        alert("导入成功，共导入" + count + "条数据");
+			                	$('#msg').html("导入成功，共导入" + count + "条数据");
+			                	$('#my-alert').modal('open'); 
 		                        window.location.reload();
 		                    } else {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
-		                        alert(res.message);
+			                	$('#msg').html(res.message);
+			                	$('#my-alert').modal('open'); 
 		                    }
 		                }
 		            };
@@ -248,14 +278,19 @@
              * 禁用
              */
             t.on('click', 'a.del', function () {
-                var data = t.row($(this).parents('tr')).data(),
-                    isAgree = false,
-                // TODO 删除这条数据
-                    isAgree = confirm('确认要删除这条数据么');
-                if (isAgree) {
-                    el.$jsLoading.modal('open');  // show loading
-                    _this.bear({id: data.id});
-                }
+                
+                $('#my-confirm').modal({
+          	        relatedTarget: this,
+          	        onConfirm: function(options) {
+          	        	var data = t.row($(this.relatedTarget).parents('tr')).data();
+          	        	 el.$jsLoading.modal('open');  // show loading
+                         _this.bear({id: data.id});
+          	        },
+          	        // closeOnConfirm: false,
+          	        onCancel: function() {
+          	          
+          	        }
+          	      });
             });
             spz_table.on('click', 'a.modify1', function () {
                 var data = spz_table.row($(this).parents('tr')).data();
@@ -286,31 +321,39 @@
                 url1 = "spslgl/updateSpz?spzid="+data.id;
             });
             spz_table.on('click', 'a.del1', function () {
-                var data = spz_table.row($(this).parents('tr')).data(),
-                    isAgree = false,
                 // TODO 删除这条数据
-                    isAgree = confirm('确认要删除这条数据么');
-                if (isAgree) {
-                    el.$jsLoading.modal('open');  // show loading
-                    $.ajax({
-                        url: "spslgl/deleteSpz",
-                        data: {spzid: data.id},  // 禁用这条数据的 id
-                        method: 'POST',
-                        //context: null,
-                        success: function (data) {
-                            if (data.failure) {
-                                alert(data.msg);
-                            } else if (data.success){
-                            	alert('删除成功');
-                            	spz_table.ajax.reload(); // 重新加载数据
-                            }
-                            el.$jsLoading.modal('close'); // close loading
-                        },
-                        error: function () {
-                            alert('删除数据失败,请稍后重试');
-                        }
-                    });
-                }
+                $('#my-confirm').modal({
+          	        relatedTarget: this,
+          	        onConfirm: function(options) {
+          	        	var data = spz_table.row($(this.relatedTarget).parents('tr')).data();
+          	        	 el.$jsLoading.modal('open');  // show loading
+                         $.ajax({
+                             url: "spslgl/deleteSpz",
+                             data: {spzid: data.id},  // 禁用这条数据的 id
+                             method: 'POST',
+                             //context: null,
+                             success: function (data) {
+                                 if (data.failure) {
+     			                	$('#msg').html(data.msg);
+     			                	$('#my-alert').modal('open'); 
+                                 } else if (data.success){
+     			                	$('#msg').html('删除成功');
+     			                	$('#my-alert').modal('open'); 
+                                 	spz_table.ajax.reload(); // 重新加载数据
+                                 }
+                                 el.$jsLoading.modal('close'); // close loading
+                             },
+                             error: function () {
+     		                	$('#msg').html('删除数据失败,请稍后重试');
+     		                	$('#my-alert').modal('open'); 
+                             }
+                         });
+          	        },
+          	        // closeOnConfirm: false,
+          	        onCancel: function() {
+          	          
+          	        }
+          	      });
             });
             return t;
         },
@@ -326,16 +369,102 @@
                 //context: null,
                 success: function (data) {
                     if (data.failure) {
-                        alert(data.msg);
+	                	$('#msg').html(data.msg);
+	                	$('#my-alert').modal('open'); 
                     } else if (data.success){
-                    	alert('删除成功');
+	                	$('#msg').html('删除成功');
+	                	$('#my-alert').modal('open'); 
                         _this.tableEx.ajax.reload(); // 重新加载数据
                     }
                     el.$jsLoading.modal('close'); // close loading
                 },
                 error: function () {
-                    alert('删除数据失败,请稍后重试');
+                	$('#msg').html('删除数据失败,请稍后重试');
+                	$('#my-alert').modal('open'); 
                 }
+            });
+        },
+        /**
+         * check all action
+         */
+        checkAllAc: function () {
+            var _this = this;
+            el.$checkAll.on('change', function (e) {
+                var $this = $(this),
+                    check = null;
+                if ($(this).is(':checked')) {
+                    _this.tableEx.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+                    });
+                } else {
+                    _this.tableEx.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+                }
+            });
+        },
+        delAllAc: function () {
+            var _this = this;
+            el.$jsdel.on('click', function (e) {
+                e.preventDefault();
+                var data = '',
+                    row = '',
+                    $tr = null;
+                _this.tableEx.column(0).nodes().each(function (cell, i) {
+
+                    var $checkbox = $(cell).find('input[type="checkbox"]');
+                    if ($checkbox.is(':checked')) {
+
+                        row = _this.tableEx.row(i).data().id;
+                        data += row+ ',';
+                    }
+
+                });
+                if (!data) {
+                	$('#msg').html("请选择要删除的商品");
+                	$('#my-alert').modal('open'); 
+                    return;
+                }
+                data = data.substring(0, data.length - 1);
+                var url = _this.config.delUrl;
+                if (!confirm('是否删除')) {
+					return;
+				}
+//                $('#my-confirm').modal({
+//          	        relatedTarget: this,
+//          	        onConfirm: function(options) {
+          	        	 el.$jsLoading.modal('open');
+          	            $.ajax({
+          	                url: url,
+          	                data: {ids : data},
+          	                type: 'POST',
+          	                success: function (data) {
+          	                    // todo 处理返回结果
+          	                    if (data.success) {
+          		                	$('#msg').html('删除成功');
+          		                	$('#my-alert').modal('open'); 
+          	                        _this.tableEx.ajax.reload(); // reload table data
+          	                    } else {
+          		                	$('#msg').html('删除失败,服务器错误' + data.msg);
+          		                	$('#my-alert').modal('open'); 
+          	                    }
+          	                    el.$jsLoading.modal('close');
+
+          	                },
+          	                error: function () {
+          	                	$('#msg').html('请求失败,请刷新后稍后重试!');
+          	                	$('#my-alert').modal('open'); 
+          	                    el.$jsLoading.modal('close');
+          	                }
+          	            });
+//          	        },
+//          	        // closeOnConfirm: false,
+//          	        onCancel: function() {
+//          	          
+//          	        }
+//          	      });
+//                _this.del({ids: data});
+                el.$checkAll.prop('checked', false);
             });
         },
         /**
@@ -345,13 +474,23 @@
             var _this = this;
             el.$jsSearch.on('click', function (e) {
                 e.preventDefault();
-                $('#searchform1').resetForm();
+                $('#bj').val('1');
+//                $('#searchform1').resetForm();
+                if ($('#tip').val() == '3') {
+					var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+					if (!$('#searchtxt').val().match(reg)) {
+						$('#msg').html('税率格式有误');
+  	                	$('#my-alert').modal('open');
+  	                	return;
+					}
+				}
                 _this.tableEx.ajax.reload(); // 重新加载数据
             });
             el.$jsSearch2.on('click', function (e) {
                 e.preventDefault();
-				$('#tip').find('option[value=0]').attr('selected', true);
-                $('#searchform').resetForm();
+                $('#bj').val('2');
+//				$('#tip').find('option[value=0]').prop('selected', true);
+//                $('#searchform').resetForm();
                 _this.tableEx.ajax.reload(); // 重新加载数据
             });
         },
@@ -359,11 +498,12 @@
             var _this = this;
             el.$jsAdd.on('click', function (e) {
                 e.preventDefault();
-                var smdm = $("#smid1").val();
-                var text = $("#smid1").find("option[value=" + smdm + "]").text();
+                var smdm = $("#smid").val();
+                var text = $("#smid").find("option[value=" + smdm + "]").text();
                 var pos = text.indexOf("(");
                 var sl = text.substring(pos + 1, text.length - 1);
-                el.$modal1.modal('toggle');
+                el.$modal.modal('toggle');
+                url = _this.config.addUrl;
             });
         },
         import_ac: function () {
@@ -391,22 +531,26 @@
                             success: function (data) {
                                 if (data.success) {
                                     el.$modal2.modal('close');   // close modal
-                                    alert(data.msg);
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 } else {
-                                    alert('后台错误: 导入数据失败' + data.msg);
+    			                	$('#msg').html('后台错误: 导入数据失败' + data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 }
                                 _this.tableEx.ajax.reload(); // 重新加载数据
                                 el.$jsLoading.modal('close'); // close loading
 
                             },
                             error: function () {
-                                alert('导入数据失败, 请重新登陆再试...!');
+			                	$('#msg').html('导入数据失败, 请重新登陆再试...!');
+			                	$('#my-alert').modal('open'); 
                             }
 
                         });
                         return false;
                     } else {
-                        alert('验证失败,请选择文件！');
+	                	$('#msg').html('验证失败,请选择文件！');
+	                	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -425,39 +569,44 @@
         addRow: function () {
             var _this = this;
             // $("#sl1").val($("#smmc1").val());
-            el.$jsForm1.validator({
+            el.$jsForm.validator({
                 submit: function () {
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                         el.$jsLoading.modal('toggle');  // show loading
                         //alert('验证成功');                        
-                        var data = el.$jsForm1.serialize(); // get form data data
+                        var data = el.$jsForm.serialize(); // get form data data
                         // TODO save data to serve
                         $.ajax({
-                            url: _this.config.addUrl,
+                            url: url,
                             data: data,
                             method: 'POST',
                             success: function (data) {
                                 if (data.success) {
-                                    el.$modal1.modal('close');   // close modal
-                                    alert(data.msg);
+                                    el.$modal.modal('close');   // close modal
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                     _this.tableEx.ajax.reload(); // 重新加载数据
                                 }else if(data.failure){
-                                	alert(data.msg);
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 } else {
-                                    alert(data.msg);
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 }
                                 el.$jsLoading.modal('close'); // close loading
                             },
                             error: function () {
-                                alert('添加数据失败，商品编码已经存在');
+			                	$('#msg').html('添加数据失败，商品编码已经存在');
+			                	$('#my-alert').modal('open'); 
                                 el.$jsLoading.modal('close'); // close loading
                             }
 
                         });
                         return false;
                     } else {
-                        alert('验证失败，请注意格式！');
+	                	$('#msg').html('验证失败，请注意格式！');
+	                	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -484,24 +633,29 @@
                             success: function (data) {
                                 if (data.success) {
                                     el.$modal.modal('close');   // close modal
-                                    alert(data.msg);
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                     _this.tableEx.ajax.reload(); // reload table data
                                 } else if(data.failure){
-                                	alert(data.msg);
+    			                	$('#msg').html(data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 } else {
-                                    alert('后台错误: 修改数据失败' + data.msg);
+    			                	$('#msg').html('后台错误: 修改数据失败' + data.msg);
+    			                	$('#my-alert').modal('open'); 
                                 }
                                 el.$jsLoading.modal('close'); // close loading
 
                             },
                             error: function () {
-                                alert('修改数据失败!');
+			                	$('#msg').html('修改数据失败!');
+			                	$('#my-alert').modal('open'); 
                             }
                         });
 
                         return false;
                     } else {
-                        alert('验证失败，请注意格式！');
+	                	$('#msg').html('验证失败，请注意格式！');
+	                	$('#my-alert').modal('open'); 
                         return false;
                     }
                 }
@@ -566,6 +720,8 @@
             _this.import_ac();
             _this.import();
             _this.export_ac();
+            _this.checkAllAc();
+            _this.delAllAc();
             _this.editRow();
             _this.addRow();
             _this.modalAction(); // hidden action
