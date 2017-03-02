@@ -56,7 +56,7 @@
 											    <div class="am-form-group">
 													<label for="xfmc" class="am-u-sm-5 am-form-label">销方税号</label>
 													<div class="am-u-sm-7">
-														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方名称"
+														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号"
 															required="required" />
 													</div>
 												</div>
