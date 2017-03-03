@@ -40,7 +40,7 @@
 					<div class="admin-content">
 						<div class="am-g am-padding-top">
 							<div class="am-fl am-cf">
-								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>购方企业名片</strong>
+								<strong class="am-text-primary am-text-lg">基础信息</strong> / <strong>购方企业名片</strong>
 							</div>
 						</div>
 						<hr />
