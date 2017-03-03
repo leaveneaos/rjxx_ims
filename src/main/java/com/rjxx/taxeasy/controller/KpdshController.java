@@ -244,6 +244,22 @@ public class KpdshController extends BaseController {
 		result.put("msg", "退回成功");
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/sc")
+	@SystemControllerLog(description = "开票单审核删除",key = "ddhs")
+	public Map<String, Object> sc(String ddhs) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String[] sqlshs = ddhs.split(",");
+		for (String sqlsh : sqlshs) {
+			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
+			jyxxsq.setZtbz("4");
+			jyxxsqService.save(jyxxsq);
+		}
+		result.put("msg", "删除成功");
+		return result;
+	}
+	
 
 	@ResponseBody
 	@RequestMapping("/xgkpd")
@@ -347,7 +363,6 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
-	@Transactional
 	@SystemControllerLog(description = "开票单审核审核开票",key = "sqlshs")
 	public Map<String, Object> kpdshkp(String sqlshs, String fpxes) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -625,9 +640,15 @@ public class KpdshController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Jyxxsq> listsq = (List<Jyxxsq>) session.getAttribute("listsq");
 		List<List<JyspmxDecimal2>> mxList = (List<List<JyspmxDecimal2>>) session.getAttribute("mxList");
+		Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
 		for (int i = 0; i < listsq.size(); i++) {
-			Jyls jyls = saveJyls(listsq.get(i), mxList.get(i));
-			saveKpspmx(jyls, mxList.get(i));
+			Jyxxsq jyxxsq1 = listsq.get(i);
+			for (List<JyspmxDecimal2> listjy : mxList) {
+				int fpnum = listjy.get(0).getFpnum();
+				Jyls jyls = saveJyls(jyxxsq1, listjy);
+				saveKpspmx(jyls, listjy);
+			}
+
 			listsq.get(i).setZtbz("3");
 			cljlService.saveYhcljl(getYhid(), "开票单审核");
 			jyxxsqService.save(listsq.get(i));
