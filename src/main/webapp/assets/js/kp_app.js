@@ -252,16 +252,18 @@
             $("#kp_kp").attr('disabled',"true"); 
             $("#conft").html("确认开票么")
         if (!confirm("确认开票么")) {
-         	$('#kp_kp').removeAttr("disabled");      
+        	$('#kp_kp').removeAttr("disabled"); 
 						return;
 					} 
             $.ajax({
                 url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
                     if (data.success) {
+                    	$('#kp_kp').removeAttr("disabled"); 
                     	$("#alertt").html("开票成功");
                     	$("#my-alert").modal('open');
                         jyls_table.ajax.reload();
                     } else {
+                    	$('#kp_kp').removeAttr("disabled"); 
                     	jyls_table.ajax.reload();
                     	$("#alertt").html(data.msg);
                     	$("#my-alert").modal('open');
@@ -270,8 +272,7 @@
                     
               //      $('#savet').removeAttr("disabled");
                 }
-            });
-      	$('#kp_kp').removeAttr("disabled");            
+            });        
         });
         
         $('#kp_kpdy').click(function () {
@@ -337,33 +338,50 @@
             	}
             	});*/
             if(flag){
+             $("#kp_kpdy").attr('disabled',"true"); 
             $.ajax({
                 url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
                     if (data.success) {
                         $("#doc-modal-fphm").modal("open");
+                        $("#fpdm").val(data.fpdm);
+                        $("#fphm").val(data.fphm);
+                        $('#kp_kpdy').removeAttr("disabled");         
                     } else {
                     	$("#alertt").html(data.msg);
                     	$("#my-alert").modal('open');
+                    	$('#kp_kpdy').removeAttr("disabled");         
                     }
                 }
             });
+        	   
             }
             
         });
         
         $('#kp_kpdyqr').click(function () {
+        	   var djhArr = [];
+               $('input[name="chk"]:checked').each(function(){    
+                       djhArr.push($(this).val());
+                       
+               });
              $("#kp_kpdyqr").attr('disabled',"true"); 
-      	  if (!confirm("确认全部开票打印么,请检查打印机是否放好发票?")) {
+     /* 	  if (!confirm("确认全部开票打印么,请检查打印机是否放好发票?")) {
 						return;
-					}
+					}*/
+           
             $.ajax({
                 url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
                     if (data.success) {
+                    	  $("#doc-modal-fphm").modal("close");
                     	$("#alertt").html("开票成功");
+                    	$('#kp_kpdyqr').removeAttr("disabled");  
                     	$("#my-alert").modal('open');
                         jyls_table.ajax.reload();
                     } else {
+                    	  $("#doc-modal-fphm").modal("close");
+                    		$('#kp_kpdyqr').removeAttr("disabled");  
                     	$("#alertt").html(data.msg);
+                    	
                     	$("#my-alert").modal('open');
                     }
                  //   $("#fpjek").modal("close");
@@ -371,7 +389,7 @@
               //      $('#savet').removeAttr("disabled");
                 }   	  
       	  });
-      	$('#kp_kpdyqr').removeAttr("disabled");  
+      
         });
         
         
