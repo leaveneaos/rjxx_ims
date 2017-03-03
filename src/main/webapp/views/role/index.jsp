@@ -55,6 +55,10 @@
 												<div class="am-btn-group am-btn-group-xs">
 													<button type="button" id="button2"
 														class="am-btn am-btn-default am-btn-success">录入</button>
+													<button type="button"
+														class="js-sent am-btn am-btn-default am-btn-danger">
+														删除
+													</button>
 												</div>
 											</div>
 										</div>
@@ -86,9 +90,9 @@
 											class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
+													<th class="am-text-left"><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
 													<th>角色名称</th>
-													<th style="display: none;">id</th>
 													<th>录入人员</th>
 													<th>修改人员</th>
 													<th>操作</th>
@@ -102,28 +106,19 @@
 						<!-- content end -->
 
 						<!-- model -->
-						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong"
-							data-am-sticky>
-							<div class="am-modal-dialog" style="overflow-y: auto;"
-								data-am-sticky>
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
+							<div class="am-modal-dialog" style="overflow-y: auto;">
+								<div class="am-modal-hd">
+									角色信息<a href="javascript: void(0)"
+										class="am-close am-close-spin" data-am-modal-close>&times;</a>
+								</div>
 								<form id="form1" class="js-form-0 am-form am-form-horizontal">
 									<div class="am-tabs" data-am-tabs>
-										<ul class="am-tabs-nav am-nav am-nav-tabs">
-											<li class="am-active"><a href="#tab1">角色信息</a></li>
-										</ul>
-
 										<div class="am-tabs-bd">
 											<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-												<div class="am-modal-hd" data-am-sticky>
-													<a href="javascript: void(0)"
-														class="am-close am-close-spin" data-am-modal-close>&times;</a>
-												</div>
 												<div class="am-modal-bd">
-													<hr />
-
-
 													<div class="am-g">
-														<div class="am-u-sm-12" style="margin-bottom: 5px;">
+														<div class="am-u-sm-12">
 															<div class="am-form-group">
 																<label for="hc_yfpdm" class="am-u-sm-4 am-form-label"
 																	style="margin-bottom: 40px;"><font color="red">*</font>角色名称</label>
@@ -136,8 +131,7 @@
 															</div>
 														</div>
 														<div class="am-u-sm-12">
-															<div style="border: 1px solid #000; padding: 5px;"
-																title="授权">
+															<div title="授权">
 																<label> 授权</label>
 																<table style="overflow: auto;">
 																	<tr>
@@ -191,29 +185,28 @@
 											</div>
 
 										</div>
-
-									</div>
 								</form>
 							</div>
+						</div>
 
 
-							<!-- loading do not delete this -->
-							<div
-								class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
-								tabindex="-1">
-								<div class="am-modal-dialog">
-									<div class="am-modal-hd">正在载入...</div>
-									<div class="am-modal-bd">
-										<span class="am-icon-spinner am-icon-spin"></span>
-									</div>
+						<!-- loading do not delete this -->
+						<div
+							class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+							tabindex="-1">
+							<div class="am-modal-dialog">
+								<div class="am-modal-hd">正在载入...</div>
+								<div class="am-modal-bd">
+									<span class="am-icon-spinner am-icon-spin"></span>
 								</div>
 							</div>
-
 						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 

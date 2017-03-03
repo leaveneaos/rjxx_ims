@@ -299,22 +299,27 @@ public class YhglController extends BaseController {
 	@RequestMapping("/yhsc")
 	@ResponseBody
 	@Transactional
-	public Map yhsc(String dlyhid) throws Exception {
+	public Map yhsc(String ids) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			Map params = new HashMap<>();
-			params.put("gsdm", getGsdm());
-			params.put("dlyhid", dlyhid);
-			Yh yh = yhService.findOneByParams(params);
-			yh.setYxbz("0");
-			yhService.save(yh);
-			Group group = new Group();
-			group.setYhid(yh.getId());
-			List<Group> gList = groupService.findAllByParams(group);
-			for (Group group2 : gList) {
-				group2.setYxbz("0");
-				groupService.save(group2);
+			List<Yh> list = new ArrayList<>();
+			String[] strs = ids.split(",");
+			List<Group> groupList = new ArrayList<>();
+			for (String str : strs) {
+				Yh yh = yhService.findOne(Integer.valueOf(str));
+				yh.setYxbz("0");
+				list.add(yh);
+				Group group = new Group();
+				group.setYhid(yh.getId());
+				List<Group> gList = groupService.findAllByParams(group);
+				for (Group group2 : gList) {
+					group2.setYxbz("0");
+				}
+				groupList.addAll(gList);
 			}
+			
+			yhService.save(list);
+			groupService.save(groupList);
 			result.put("success", true);
 			result.put("msg", "删除用户成功");
 		} catch (Exception e) {

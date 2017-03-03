@@ -49,11 +49,24 @@ $(function() {
 							url : ur,
 							type : 'POST',
 							data : function(d) {
-								d.xfsh = $('#s_xfsh').val(); 
-								d.xfmc = $('#s_xfmc').val(); 
-								d.tip = $('#tip1').val(); 
-								d.txt = $('#searchtxt').val(); 
-								d.sjgj = $('#sjxf1').val();
+								var tip = $('#tip1').val();
+								var txt = $('#searchtxt').val(); 
+								if ($('#bj').val() == "1") {
+									if (tip == "1") {
+										d.xfmc = txt; 
+									}else if (tip == "2") {
+										d.xfsh = txt;
+									}else if (tip == "3") {
+										d.sjxfmc = txt;
+									}else if (tip == "4") {
+										d.kpr = txt;
+									}
+								}else{
+									d.xfsh = $('#s_xfsh').val(); 
+									d.xfmc = $('#s_xfmc').val(); 
+									d.kpr = $('#kpr1').val();
+									d.sjgj = $('#sjxf1').val();
+								}
 							}
 						},
 						"columns" : [
@@ -274,14 +287,15 @@ $(function() {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
-				$('bz').val('0')
+				$('#bj').val('1')
 				_this.tableEx.ajax.reload();
 			});
 			el.$jsSearch1.on('click', function(e) {
 				e.preventDefault();
-				$('#tip1').find('option[value=0]').attr('selected', true);
+				
 //				$('#searchTxt').val("111");
-				$('#searchForm').resetForm();
+				$('#bj').val('2')
+//				$('#searchForm').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},
@@ -505,7 +519,15 @@ $(function() {
 			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
 			el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
 			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
-			$('#sjxf').val(data.sjjgbm);
+			el.$jsForm0.find('select[id="sjxf"]').val(data.sjjgbm == null ? "0" : data.sjjgbm);
+//			$('#sjxf').val(data.sjjgbm == null ? 0 : data.sjjgbm);
+//			if (data.sjjgbm != null) {
+//				$("#sjxf").find('option[value=' + data.sjjgbm + ']').attr('selected',
+//						true);
+//			}else{
+//				$("#sjxf").find('option[value=0]').attr('selected',
+//						true);
+//			}
 		},
 		setForm1 : function() {
 			var _this = this, i;

@@ -464,7 +464,7 @@ $(function() {
 							return;
 						}
 						if ($('#sbcs').val() == 0) {
-							$('#msg').html('请选择设备cha');
+							$('#msg').html('请选择设备厂商');
 							$('#my-alert').modal('open');
 							return;
 						}
@@ -501,7 +501,7 @@ $(function() {
 
 						return false;
 					} else {
-						$('#msg').html('修改用户失败');
+						$('#msg').html('验证失败');
 						$('#my-alert').modal('open');
 						return false;
 					}
