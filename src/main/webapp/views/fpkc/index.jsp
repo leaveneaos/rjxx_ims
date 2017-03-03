@@ -110,7 +110,7 @@
 												<div class="am-btn-group am-btn-group-xs">
 													<input type="hidden" id="searchbz">
 													<button class="am-btn am-btn-primary" id="jsAdd">
-															<i class="am-icon-plus"></i>&nbsp;新增
+															&nbsp;新增
 													</button>
 												</div>
 											</div>
@@ -190,7 +190,7 @@
 																	</select></td>
 																</tr>
 																<tr>
-																	<td>发票类型：</td>
+																	<td>发票种类：</td>
 																	<td><select id="fplx" name="fpzldm"
 																		class="am-form-field" required>
 																			<option value="">---请选择---</option>
@@ -218,8 +218,8 @@
 														<div class="am-u-sm-12">
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
-																	<button type="submit"
-																		class="js-submit am-btn am-radius am-btn-success">保存</button>
+																	<button type="submit" 
+																		class="am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
 																		class="js-close  am-btn am-radius am-btn-warning">取消</button>
 																</div>
@@ -270,6 +270,7 @@
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
+	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpkc.js"></script>
 	<script>
 		function getKpd() {
