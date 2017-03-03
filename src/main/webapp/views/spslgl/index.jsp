@@ -49,7 +49,7 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_splb" class="am-u-sm-6 am-form-label">商品代码</label>
+															<label for="s_splb" class="am-u-sm-4 am-form-label">商品代码</label>
 															<div class="am-u-sm-6">
 																<input type="text" id="s_spdm" name="s_spdm"
 																	placeholder="请输入商品代码" />
@@ -60,7 +60,7 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_spmc" class="am-u-sm-6 am-form-label">商品名称</label>
+															<label for="s_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
 															<div class="am-u-sm-6">
 																<input type="text" id="s_spmc" name="s_spmc"
 																	placeholder="请输入商品名称" />
@@ -71,7 +71,7 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_spmc" class="am-u-sm-6 am-form-label">商品税率</label>
+															<label for="s_spmc" class="am-u-sm-4 am-form-label">商品税率</label>
 															<div class="am-u-sm-6">
 																<select id="smid2" name="smid2" data-am-selected="{btnSize: 'sm'}">
 																	<option value="">请选择</option>
@@ -159,7 +159,7 @@
 													class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 													<thead>
 														<tr>
-															<th><input type="checkbox" id="check_all" /></th>
+															<th><input type="checkbox" id="check_all" class=""/></th>
 															<th>序号</th>
 															<th>商品代码</th>
 															<th>商品名称</th>
@@ -199,7 +199,11 @@
 														<div class="am-btn-group am-btn-group-xs">
 															<button type="button" id="new"
 																class="am-btn am-btn-default am-btn-success">
-																新增
+																录入
+															</button>
+															<button type="button" id="deletespz"
+																class="am-btn am-btn-default am-btn-danger">
+																删除
 															</button>
 														</div>
 													</div>
@@ -233,6 +237,7 @@
 														class="js-table1  am-table am-table-bordered am-table-striped am-text-nowrap">
 														<thead>
 															<tr>
+																<th class="am-text-left"><input type="checkbox" id="check_all1"></th>
 																<th>序号</th>
 <!-- 																<th style="display: none;">id</th> -->
 																<th>商品组名称</th>

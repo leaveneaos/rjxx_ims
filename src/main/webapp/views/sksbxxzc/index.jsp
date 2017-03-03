@@ -188,8 +188,8 @@
 												<th>开票点代码</th>
 												<th>开票点名称</th>
 												<th>设备厂商</th>
-												<th>税控盘号</th>
-												<th>税控密码</th>
+												<th>设备号</th>
+												<th>设备密码</th>
 												<th>证书密码</th>
 												<th>联系地址</th>
 												<th>联系电话</th>
@@ -235,7 +235,7 @@
 													color="red">*</font>销方名称</label>
 												<div class="am-u-sm-10">
 													<select id="xfid" name="xfid"
-														data-am-selected="{btnWidth: '100%'}" required>
+														 required>
 														<option value="0">请选择</option>
 														<c:forEach items="${xfs}" var="item">
 															<option value="${item.id}">${item.xfmc}</option>
@@ -258,10 +258,11 @@
 												</div>
 											</div>
 											<div class="am-form-group">
-												<label for="bz" class="am-u-sm-2 am-form-label">设备厂商</label>
+												<label for="bz" class="am-u-sm-2 am-form-label"><font
+													color="red">*</font>设备厂商</label>
 												<div class="am-u-sm-4">
 													<select id="sbcs" name="sbcs"
-														data-am-selected="{btnWidth: '100%'}">
+														>
 														<option value="0">请选择</option>
 														<option value="1">百旺</option>
 														<option value="2">航信</option>
@@ -270,13 +271,13 @@
 												<label for="bz" class="am-u-sm-2 am-form-label">设备号</label>
 												<div class="am-u-sm-4">
 													<input type="text" id="skph" name="skph" autocomplete="off"
-														placeholder="请输入设备号" />
+														placeholder="请输入设备号" required="required"/>
 												</div>
 											</div>
 											<div class="am-form-group">
 												<label for="bz" class="am-u-sm-2 am-form-label">设备密码</label>
 												<div class="am-u-sm-4">
-													<input type="password" id="skpmm" name="skpmm"
+													<input type="password" id="skpmm" name="skpmm" autocomplete="off"
 														style="float: left;" placeholder="设备密码"
 														class="am-form-field" maxlength="30" />
 												</div>
@@ -346,8 +347,7 @@
 												</div>
 												<label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
 												<div class="am-u-sm-4">
-													<select id="pid" name="pid"
-														data-am-selected="{btnWidth: '100%'}">
+													<select id="pid" name="pid">
 														<option value="0">请选择</option>
 														<c:forEach items="${pps}" var="item">
 															<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>

@@ -440,14 +440,34 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/deleteSpz")
 	@ResponseBody
-	public Map deleteSpz(Integer spzid) {
+	public Map deleteSpz(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			Spz spz = spzService.findOne(spzid);
-			spz.setYxbz("0");
-			spzService.save(spz);
-			saveSpzsp(spzid, null, 1, 0);
-			saveSpzxf(spzid, null, 1, 0);
+			List<Spz> list = new ArrayList<>();
+			String[] strs = ids.split(",");
+			for (String str : strs) {
+				Spz spz = spzService.findOne(Integer.valueOf(str));
+				spz.setYxbz("0");
+				list.add(spz);
+			}
+ 			spzService.save(list);
+			Map<String, Object> params = new HashMap<>();
+ 			for (Spz spz : list) {
+ 				params.put("gsdm", getGsdm());
+ 				params.put("spzid", spz.getId());
+ 				List<SpzSp> oldList = sss.findAllByParams(params);
+ 				for (SpzSp spzSp : oldList) {
+ 					spzSp.setYxbz("0");
+ 				}
+ 				sss.save(oldList);
+ 				List<SpzXf> oldList1 = sxs.findAllByParams(params);
+ 				for (SpzXf spzXf : oldList1) {
+ 					spzXf.setYxbz("0");
+ 				}
+ 				sxs.save(oldList1);
+			}
+//			saveSpzsp(spzid, null, 1, 0);
+//			saveSpzxf(spzid, null, 1, 0);
 			result.put("success", true);
 		} catch (Exception e) {
 			result.put("success", false);
@@ -468,6 +488,7 @@ public class SpslglController extends BaseController {
 				spzSp.setYxbz("0");
 			}
 			sss.save(oldList);
+			
 		}
 		if (flag == 1) {
 			for (String s : sps) {

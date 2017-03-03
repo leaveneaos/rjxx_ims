@@ -51,7 +51,7 @@ public class XfxxwhController extends BaseController {
 
 	@Autowired
 	private DmFpbcService dfs;
-	
+
 	@Autowired
 	private SkpService ss;
 
@@ -100,21 +100,15 @@ public class XfxxwhController extends BaseController {
 	 */
 	@RequestMapping(value = "/getXfxx")
 	@ResponseBody
-	public Map getXfxx(String xfmc, String xfsh, int tip, String txt, String sjgj, int length, int start, int draw) {
+	public Map getXfxx(String xfmc, String xfsh, String kpr, String sjxfmc, String sjgj, int length, int start, int draw) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("xfsh", xfsh);
-		if (tip == 1) {
-			pagination.addParam("xfmc", txt);
-		}else if(tip == 2){
-			pagination.addParam("xfsh", txt);
-		}else{
-			pagination.addParam("xfmc", xfmc);
-			pagination.addParam("xfsh", xfsh);
-			pagination.addParam("sjgj", sjgj);
-		}
+		pagination.addParam("sjgj", sjgj);
+		pagination.addParam("kpr", kpr);
+		pagination.addParam("sjxfmc", sjxfmc);
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		List<XfVo> list = xfService.findByPages(pagination);
@@ -206,7 +200,7 @@ public class XfxxwhController extends BaseController {
 				result.put("msg", "保存成功");
 			} else {
 				result.put("repeat", true);
-				result.put("msg", "销方名称已存在，请重新输入");
+				result.put("msg", "销方税号已存在，请重新输入");
 			}
 
 		} catch (Exception e) {
@@ -278,7 +272,7 @@ public class XfxxwhController extends BaseController {
 				for (Xf xf : xfs1) {
 					if (xf.getId().equals(Integer.valueOf(sjxf))) {
 						result.put("failure", true);
-						result.put("msg", "上级销方在【"+xfmc+"】下级存在");
+						result.put("msg", "上级销方在【" + xfmc + "】下级存在");
 						return result;
 					}
 				}
@@ -318,6 +312,7 @@ public class XfxxwhController extends BaseController {
 				for (Xf xf2 : getXfList()) {
 					if (xf2.equals(xfid)) {
 						xfs3.add(xf2);
+						getXfList().remove(xf2);
 						getXfList().remove(xf2);
 					}
 				}

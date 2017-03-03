@@ -389,25 +389,27 @@ public class RolesController extends BaseController {
 	@RequestMapping("destroy")
 	@ResponseBody
 	@Transactional
-	public Map<String, Object> destroy(Integer id) throws Exception {
+	public Map<String, Object> destroy(String ids) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Roles role = rolesService.findOne(id);
-		if (role != null) {
-			Map<String, Object> params = new HashMap<>();
-			params.put("roleid", id);
-			List<Roleprivs> deleteList = RoleprivsService.findAllByParams(params);
-			for (Roleprivs roleprivs : deleteList) {
-				roleprivs.setYxbz("2");
-			}
-			RoleprivsService.save(deleteList);
-
+		List<Roles> list = new ArrayList<>();
+		List<Roleprivs> rlist = new ArrayList<>();
+		Map<String, Object> params = new HashMap<>();
+		String[] strs = ids.split(",");
+		for (String str : strs) {
+			Roles role = rolesService.findOne(Integer.valueOf(str));
 			role.setYxbz("0");
-			rolesService.save(role);
+			list.add(role);
+			params.put("roleid", role.getId());
+			List<Roleprivs> deleteList = RoleprivsService.findAllByParams(params);
+			for (Roleprivs r : deleteList) {
+				r.setYxbz("2");
+			}
+			rlist.addAll(deleteList);
+		}
+			rolesService.save(list);
+			RoleprivsService.save(rlist);
 			result.put("success", true);
 			result.put("msg", "删除角色成功");
-		} else {
-
-		}
 		return result;
 	}
 

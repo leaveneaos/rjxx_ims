@@ -88,6 +88,10 @@
 												<div class="am-btn-group am-btn-group-xs">
 													<button type="button" id="button2"
 														class="am-btn am-btn-default am-btn-success">录入</button>
+													<button type="button"
+														class="js-sent am-btn am-btn-default am-btn-danger">
+														删除
+													</button>
 												</div>
 											</div>
 										</div>
@@ -121,6 +125,7 @@
 											class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
+													<th><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
 													<th>用户名称</th>
 													<th>性别</th>
@@ -145,6 +150,10 @@
 						<!-- model -->
 						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
 							<div class="am-modal-dialog" style="overflow: auto;">
+								<div class="am-modal-hd">
+									用户信息 <a href="javascript: void(0)"
+										class="am-close am-close-spin" data-am-modal-close>&times;</a>
+								</div>
 								<form id="fomm" class="js-form-0 am-form am-form-horizontal">
 									<div class="am-tabs" data-am-tabs>
 										<ul class="am-tabs-nav am-nav am-nav-tabs">
@@ -154,10 +163,6 @@
 										</ul>
 										<div class="am-tabs-bd">
 											<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-												<div class="am-modal-hd">
-													用户信息 <a href="javascript: void(0)"
-														class="am-close am-close-spin" data-am-modal-close>&times;</a>
-												</div>
 												<div class="am-modal-bd">
 													<hr />
 													<div class="am-g">
@@ -167,7 +172,7 @@
 															<div class="am-u-sm-10">
 																<p
 																	style="float: left; text-align: center; width: 15%; color: red; height: 100%; padding-top: 5px;">${gsdm}_</p>
-																<input type="text" id="yhzh" name="yhzh"
+																<input type="text" id="yhzh" name="yhzh" autocomplete="off"
 																	style="width: 85%; float: left;"
 																	placeholder="请输入账号,不允许中文" pattern="^[\x01-\x7f]*$"
 																	class="am-form-field" required maxlength="20" />
@@ -177,7 +182,7 @@
 															<label for="hc_yfphm" class="am-u-sm-2 am-form-label"><font
 																color="red">*</font>用户名称</label>
 															<div class="am-u-sm-4">
-																<input type="text" id="yhmc" name="yhmc"
+																<input type="text" id="yhmc" name="yhmc" autocomplete="off"
 																	placeholder="用户名称" class="am-form-field" required
 																	maxlength="50" />
 															</div>
@@ -193,7 +198,7 @@
 														<div class="am-form-group">
 															<label for="hc_yfphm" class="am-u-sm-2 am-form-label">用户邮箱</label>
 															<div class="am-u-sm-4">
-																<input type="email" id="yx" name="yx" placeholder="用户邮箱" />
+																<input type="email" id="yx" name="yx" class="am-form-field" placeholder="用户邮箱" />
 															</div>
 															<label for="hc_yfphm" class="am-u-sm-2 am-form-label">用户手机</label>
 															<div class="am-u-sm-4">
@@ -207,8 +212,9 @@
 																color="red">*</font>用户密码</label>
 															<div class="am-u-sm-10">
 																<input type="password" id="yhmm" name="yhmm"
-																	placeholder="大小写字母,数字,符号中三种,最少8位" class="am-form-field"
-																	required
+																	placeholder="请输入密码"
+																	data-validation-message="大小写字母,数字,符号中三种,最少8位"
+																	class="am-form-field" required
 																	pattern="^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$"
 																	minlength="8" maxlength="50" />
 															</div>
@@ -222,8 +228,15 @@
 																	class="am-form-field" required maxlength="50" />
 															</div>
 														</div>
+														<div class="am-form-group" id="mm2">
+															<label for="hc_yfphm" class="am-u-sm-2 am-form-label"></label>
+															<div class="am-u-sm-10 am-text-left">
+																<font color="red">注：密码必须为大、小写字母、数字、符号中三种,最少8位</font>
 
-														<div class="am-form-group">
+															</div>
+														</div>
+
+														<div class="am-form-group am-padding-top">
 															<div class="am-u-sm-12  am-text-center">
 																<button type="submit"
 																	class="js-submit  am-btn am-radius am-btn-success">确定</button>
@@ -236,10 +249,6 @@
 												</div>
 											</div>
 											<div class="am-tab-panel am-fade" id="tab2">
-												<div class="am-modal-hd">
-													角色<a href="javascript: void(0)"
-														class="am-close am-close-spin" data-am-modal-close>&times;</a>
-												</div>
 												<table style="width: 100%;">
 													<tr align="left">
 														<td><input type="checkbox" id="roles"
@@ -265,10 +274,6 @@
 												</div>
 											</div>
 											<div class="am-tab-panel am-fade" id="tab3">
-												<div class="am-modal-hd">
-													销方和开票点<a href="javascript: void(0)"
-														class="am-close am-close-spin" data-am-modal-close>&times;</a>
-												</div>
 												<table style="width: 100%;">
 													<tr align="left">
 														<td style="width: 100%" colspan="2">
