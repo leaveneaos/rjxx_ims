@@ -1559,7 +1559,11 @@ public class KpController extends BaseController {
 			InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
 		if ("0000".equals(invoiceResponse.getReturnCode())) {
 			result.put("msg", "获取号码成功 ");
+			result.put("success", true);
+			result.put("fpdm", invoiceResponse.getFpdm());
+			result.put("fphm", invoiceResponse.getFphm());
 		}else{
+			result.put("success", false);
 			result.put("msg", invoiceResponse.getReturnMessage());
 		}
 		return result;
