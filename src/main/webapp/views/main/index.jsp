@@ -42,8 +42,8 @@
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
                 <!-- 侧边切换 -->
-                <div style="padding: 16px 22px;" onclick="yccd();" class="am-fl tpl-header-switch-button am-icon-list">
-                    <span>
+                <div onclick="yccd();" class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>&thinsp; 
                 </span>
                 </div>
                 
