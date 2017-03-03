@@ -146,11 +146,15 @@
 														<div class="am-btn-group am-btn-group-xs">
 															<button type="button" id="kpd_kp"
 																class="am-btn am-btn-default am-btn-secondary">
-																<span></span> 审核开票单
+																<span></span> 审核
 															</button>
 															<button type="button" id="kpd_th"
 																class="am-btn am-btn-default am-btn-warning">
 																<span></span> 退回
+															</button>
+															<button type="button" id="kpd_sc"
+																class="am-btn am-btn-default am-btn-danger">
+																<span></span> 删除
 															</button>
 														</div>
 													</div>
@@ -749,5 +753,157 @@
 			 }); */
 		});
 	</script>
+	<script>
+	function refresh() {
+		this.location = this.location;
+	}
+	$(function() {
+		$("#select_xfid").change(
+				function() {
+		            $('#select_skpid').empty();
+				    var xfsh = $(this).val();
+				    if (xfsh == null || xfsh == '' || xfsh == "") {
+						return;
+					}
+				    var url = "<%=request.getContextPath()%>/kp/getSkpList";
+								$
+										.post(
+												url,
+												{
+													xfsh : xfsh
+												},
+												function(data) {
+													if (data) {
+														var option = $(
+																"<option>")
+																.text('请选择')
+																.val(-1);
+														$('#select_skpid')
+																.append(option);
+														for (var i = 0; i < data.skps.length; i++) {
+															option = $(
+																	"<option>")
+																	.text(
+																			data.skps[i].kpdmc)
+																	.val(
+																			data.skps[i].id);
+															$('#select_skpid')
+																	.append(
+																			option);
+														}
+													}
+												});
+							});
+
+		});
+
+		//je
+		function jsje2() {
+			var sps = $('#mx_spsl').val();
+			var spdj = $('#mx_spdj').val();
+			var spje = $('#mx_spje').val();
+			var spsl = $('#mx_sl').val();
+			var jshj = $('#mx_jshj').val();
+			if ("" != spje && null != spje) {
+				$('#mx_spse').val(Math.round((spje * spsl * 1) * 100) / 100);
+				$('#mx_jshj').val(
+						Math.round((spje * 1 + spje * spsl * 1) * 100) / 100);
+				if (null != spdj && "" != spdj) {
+					$('#mx_spsl').val(
+							Math.round((spje * 1 + spje * spsl * 1) * 100)
+									/ 100 / (spdj * 1));
+				}
+
+			}
+		}
+		//sl
+		function jsje3() {
+			var sps = $('#mx_spsl').val();
+			var spdj = $('#mx_spdj').val();
+			var spje = $('#mx_spje').val();
+			var spsl = $('#mx_sl').val();
+			var jshj = $('#mx_jshj').val();
+			if ("" != jshj && null != jshj) {
+				$('#mx_spje').val(
+						Math.round((jshj / (1 * 1 + spsl * 1)) * 100) / 100);
+				$('#mx_spse').val(
+						Math
+								.round((jshj * 1 - jshj * 1
+										/ (1 * 1 + spsl * 1)) * 100) / 100);
+				if (null != spdj && "" != spdj) {
+					$('#mx_spsl').val(
+							Math.round(jshj * 1 / spdj * 1) * 100 / 100);
+				}
+			} else if ("" != spje && null != spje) {
+				$('#mx_spse').val(Math.round((spje * 1 * spsl) * 100) / 100);
+				$('#mx_jshj').val(
+						Math.round((spje * 1 + spje * spsl * 1) * 100) / 100);
+				if (null != spdj && "" != spdj) {
+					$('#mx_spsl').val(
+							Math.round((spje * 1 + spje * spsl * 1) * 100)
+									/ 100 / (spdj * 1));
+				}
+			}
+
+		}
+		//jshj
+		function jsje4() {
+			var sps = $('#mx_spsl').val();
+			var spdj = $('#mx_spdj').val();
+			var spje = $('#mx_spje').val();
+			var spsl = $('#mx_sl').val();
+			var jshj = $('#mx_jshj').val();
+			if ("" != jshj && null != jshj) {
+				$('#mx_spje')
+						.val(
+								Math
+										.round((jshj * 1 / (1 * 1 + spsl * 1)) * 100) / 100);
+				$('#mx_spse').val(
+						Math
+								.round((jshj * 1 - jshj * 1
+										/ (1 * 1 + spsl * 1)) * 100) / 100);
+				if (null != spdj && "" != spdj) {
+					$('#mx_spsl').val(
+							Math.round((jshj * 1 / spdj * 1) * 100) / 100);
+				}
+			}
+		}
+		function tjbt() {
+			if ($("#select_fplx").val() == "01") {
+				$('#gfdh_edit').attr("required", true);
+				$('#gfsh_edit').attr("required", true);
+				$('#gfmc_edit').attr("required", true);
+				$('#gfyh_edit').attr("required", true);
+				$('#gfyhzh_edit').attr("required", true);
+				$('#gfdz_edit').attr("required", true);
+			} else {
+				$('#gfdh_edit').attr("required", false);
+				$('#gfsh_edit').attr("required", false);
+				$('#gfmc_edit').attr("required", true);
+				$('#gfyh_edit').removeAttr("required");
+				$('#gfyhzh_edit').attr("required", false);
+				$('#gfdz_edit').attr("required", false);
+			}
+		}
+
+		function tzsl() {
+			var spid = $('#mx_spmc').val();
+			$.ajax({
+				type : "POST",
+				url : "kpdsh/hqsl",
+				data : {
+					"spid" : spid
+				},
+				success : function(data) {
+					$('#mx_sl').val(data.sm.sl);
+					$('#mx_spmx').val(data.sp.spmc);
+					$('#mx_spje').val(null);
+					$('#mx_spse').val(null);
+					$('#mx_jshj').val(null);
+				}
+			});
+		}
+	</script>
+	
 </body>
 </html>

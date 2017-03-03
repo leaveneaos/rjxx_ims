@@ -43,8 +43,8 @@ $(function() {
 				var fpxes = "";
 				$('input[name="dxk"]:checked').each(function(){
 				chk_value+=$(this).val()+",";
-				var row = t.row($(this).parents('tr')).data();
-				fpxes+=row.fpje+","
+				var row = $(this).parents('tr').find('input[name="fpje"]');
+				fpxes+=row.val()+","
 				});
 				var ddhs = chk_value.substring(0, chk_value.length-1);
 				fpxes = fpxes.substring(0, fpxes.length-1);
@@ -123,6 +123,8 @@ $(function() {
             }
         ]
     });
+    
+
     
     $("#yhqrbc").click(function(){
 		$.ajax({
@@ -513,6 +515,33 @@ $(function() {
 				});
 
             });
+            //删除
+            $("#kpd_sc").click(function () {
+        		var chk_value="" ;
+        		$('input[name="dxk"]:checked').each(function(){
+        		chk_value+=$(this).val()+",";
+        		});
+        		var ddhs = chk_value.substring(0, chk_value.length-1);
+        		if(chk_value.length==0){
+        			$("#alertt").html("请至少选择一条数据");
+                	$("#my-alert").modal('open');
+        		}else{
+             if (!confirm("您确认删除么？")) {
+        		return;
+        	}
+        			$.ajax({
+        			type : "POST",
+        			url : "kpdsh/sc",
+        			data : {"ddhs":ddhs},
+        			success : function(data) {
+        				$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
+        				_this.tableEx.ajax.reload();	
+        			}
+        		});
+        		}
+            });
+            
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
             		t.column(0).nodes().each(function (cell, i) {
@@ -595,7 +624,7 @@ $(function() {
 				}
 				$('input[name="dxk"]:checked').each(function(){
 				chk_value+=$(this).val()+",";
-				var row = t.row($(this).parents('tr')).data();
+				var row = $(this).parents('tr').find('input[name="fpje"]');
 				fpxes+=row.fpje+","
 				});
 		
