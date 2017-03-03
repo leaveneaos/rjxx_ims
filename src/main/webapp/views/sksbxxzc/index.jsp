@@ -44,7 +44,7 @@
 						<input type="hidden" id="bj">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>开票点管理</strong>
+								<strong class="am-text-primary am-text-lg">基础信息</strong> / <strong>开票点管理</strong>
 								<button class="am-btn am-btn-success am-fr"
 									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>

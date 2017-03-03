@@ -104,7 +104,7 @@
 								<div class="am-tab-panel am-fade am-in am-active am-padding-top" id="tab1">
 									<div class="am-cf widget-head">
 										<div class="widget-title am-cf">
-											<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品管理</strong>
+											<strong class="am-text-primary am-text-lg">基础信息</strong> / <strong>商品管理</strong>
 											<button class="am-btn am-btn-success am-fr"
 												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 										</div>
@@ -183,7 +183,7 @@
 								<div class="am-tab-panel am-fade am-padding-top" id="tab2">
 									<div class="am-cf am-padding">
 										<div class="am-fl am-cf">
-											<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>商品组</strong>
+											<strong class="am-text-primary am-text-lg">基础信息</strong> / <strong>商品组</strong>
 										</div>
 									</div>
 									<hr />
