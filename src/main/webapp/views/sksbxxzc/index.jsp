@@ -44,7 +44,7 @@
 						<input type="hidden" id="bj">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">基础数据</strong> / <strong>税控设备信息注册</strong>
+								<strong class="am-text-primary am-text-lg">基础信息</strong> / <strong>开票点管理</strong>
 								<button class="am-btn am-btn-success am-fr"
 									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>
@@ -224,7 +224,7 @@
 							</div>
 							<div class="am-modal-bd">
 								<hr />
-								<form action="sksbxxzc/save" method="get"
+								<form action="sksbxxzc/save" method="get" autocomplete="off"
 									class="js-form am-form am-form-horizontal">
 									<div class="am-g">
 
@@ -269,7 +269,7 @@
 												</div>
 												<label for="bz" class="am-u-sm-2 am-form-label">设备号</label>
 												<div class="am-u-sm-4">
-													<input type="text" id="skph" name="skph"
+													<input type="text" id="skph" name="skph" autocomplete="off"
 														placeholder="请输入设备号" />
 												</div>
 											</div>

@@ -26,40 +26,40 @@
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
-								<li><a href="./dbsx" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #3F51B5;">
-											<span class="am-icon-clipboard am-icon-lg"></span><span
-												style="font-size: 2.6rem; font-weight: 900; color: 	#FF0000;">&nbsp;${dbsl}</span><br>
+											<span class="am-icon-clipboard am-icon-lg" data="<%=request.getContextPath()%>/dbsx" onclick="jump(this,'/dbsx')"></span>
+											<span style="font-size: 2.6rem; font-weight: 900; color:#FF0000;">&nbsp;${dbsl}</span><br>
 											待办事项
 										</div>
 								</a></li>
-								<li><a href="./fpkc" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
-											<span class="am-icon-list am-icon-lg"></span><br>
+											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')"></span><br>
 											发票库存
 										</div>
 								</a></li>
-								<li><a href="./lrkpd" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #03A9F4;">
-											<span class="am-icon-pencil-square am-icon-lg"></span><br>
+											<span class="am-icon-pencil-square am-icon-lg" data="<%=request.getContextPath()%>/lrkpd" onclick="jump(this,'/lrkpd')"></span><br>
 											录入开票单
 										</div>
 								</a></li>
-								<li><a href="./fpcx" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #00BCD4;">
-											<span class="am-icon-search am-icon-lg"></span><br> 发票查询
+											<span class="am-icon-search am-icon-lg" data="<%=request.getContextPath()%>/fpcx" onclick="jump(this,'/fpcx')"></span><br> 发票查询
 										</div>
 								</a></li>
-								<li><a href="./fytjbb" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #009688;">
-											<span class="am-icon-bar-chart am-icon-lg"></span><br>
-											统计报表
+											<span class="am-icon-bar-chart am-icon-lg" data="<%=request.getContextPath()%>/fytjbb" onclick="jump(this,'/fytjbb')"></span><br>
+											月统计报表
 										</div>
 								</a></li>
 
-								<li><a href="./fpgz" class="am-text-success">
+								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #259B24">
-											<span class="am-icon-archive am-icon-lg"></span><br>
+											<span class="am-icon-archive am-icon-lg"  data="<%=request.getContextPath()%>/fpgdcx" onclick="jump(this,'/fpgdcx')"></span><br>
 											发票归档
 										</div>
 								</a></li>
@@ -102,6 +102,27 @@
 	<script src="assets/js/amazeui.datatables.min.js"></script>
 	<script src="assets/js/dataTables.responsive.min.js"></script>
 	<script src="assets/js/app.js"></script>
-
+   <script type="text/javascript">
+   function jump(da,url){
+	   $.ajax({
+		   url:'mainjsp/getName',
+		   data:{'url':url},
+		   method:'POST',
+		   success:function(data){
+			   var id = data.name;
+			   $("#"+id,parent.document).css('display','block'); 
+		   }
+	   })
+		var v_id = $(da).attr('data');
+    	$(".ejcd",parent.document).css('background','none');
+    	var divs = $('.ejcd',parent.document);
+    	for(var i=0;i<divs.length;i++){
+    		if($(divs[i]).attr('data')==v_id){
+    			$(divs[i]).css("background-color","#f2f6f9");
+    		}
+    	}
+   	    $("#mainFrame",parent.document).attr("src",v_id); 
+	}
+   </script>
 </body>
 </html>

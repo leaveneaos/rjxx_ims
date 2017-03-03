@@ -250,8 +250,9 @@
                 return;
             }
             $("#kp_kp").attr('disabled',"true"); 
-            $("#conft").html("确认全部开票么")
-        if (!confirm("确认全部开票么")) {
+            $("#conft").html("确认开票么")
+        if (!confirm("确认开票么")) {
+         	$('#kp_kp').removeAttr("disabled");      
 						return;
 					} 
             $.ajax({
@@ -261,6 +262,7 @@
                     	$("#my-alert").modal('open');
                         jyls_table.ajax.reload();
                     } else {
+                    	jyls_table.ajax.reload();
                     	$("#alertt").html(data.msg);
                     	$("#my-alert").modal('open');
                     }
@@ -392,7 +394,7 @@
         })
 
         $('#kp_all').click(function () {
-            if (!confirm("您确认全部开票？")) {
+            if (!confirm("您确认开票？")) {
 				return;
 			}
             $.ajax({

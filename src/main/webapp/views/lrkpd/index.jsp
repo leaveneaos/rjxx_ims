@@ -29,6 +29,8 @@
 	text-align: right;
 }
 table thead th { text-align: center; }
+
+
 </style>
 </head>
 <body>
@@ -45,7 +47,7 @@ table thead th { text-align: center; }
 					<!-- content start -->
 					<input type="hidden" id="djh" value="0">
 					<input type="hidden" id="djh2" value="0">
-<div class="am-tabs" data-am-tabs>
+<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
   <ul class="am-tabs-nav am-nav am-nav-tabs">
     <li class="am-active"><a href="#tab-1-1">录入开票单</a></li>
     <li><a href="#tab-1-2">已上传</a></li>
@@ -981,7 +983,7 @@ table thead th { text-align: center; }
 							<button type="button" class="am-close">&times</button>
 							<p id="infomessage"></p>
 						</div>
-						<div class="am-tabs am-margin" data-am-tabs id="main_tab">
+						<div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}" id="main_tab">
 							<ul class="am-tabs-nav am-nav am-nav-tabs">
 								<li class="am-active"><a href="#tab1">基础信息</a></li>
 								<li><a href="#tab2" class="ai">商品明细</a></li>
@@ -1577,6 +1579,9 @@ table thead th { text-align: center; }
 	<script src="assets/js/getGfxxInput.js"></script>
 	<script>
     $(document).ready(function () {  
+    	
+    	
+    	$('#someTabs').tabs({noSwipe: 1});
         //初始化导入配置
         var url = "<%=request.getContextPath()%>/lrkpd/initImportConfig";
         $.post(url, {}, function (res) {

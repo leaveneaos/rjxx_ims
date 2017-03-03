@@ -50,7 +50,7 @@
 													<div class="am-btn-group am-btn-group-xs">
 														<input type="hidden" id="searchbz">
 														<button class="am-btn am-btn-secondary" id="jsAdd">
-															<i class="am-icon-plus"></i>&nbsp;新增
+															&nbsp;新增
 														</button>
 													</div>
 												</div>

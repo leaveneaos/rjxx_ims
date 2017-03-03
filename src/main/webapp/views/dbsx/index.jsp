@@ -44,8 +44,8 @@
 				   <c:if test="${lrkpd==1}">
 		 		   <div class="am-panel-default am-u-sm-2" style="height:160px">						
 						<div class="plane">
-						<a href="<%=request.getContextPath()%>/lrkpd">
-						    <span class="am-icon-list-alt am-icon-lg" style="color:#FF44FF"></span></a>
+						    <a href="#"><span class="am-icon-list-alt am-icon-lg" data="<%=request.getContextPath()%>/lrkpd" 
+						    style="color:#FF44FF" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${lrkpddb}</span>
 							<div style="text-align: center;font-size:14px">录入开票单</div>
 						</div>
@@ -54,8 +54,9 @@
 					<c:if test="${kpdsh==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 					    <div class="plane">
-						<a href="<%=request.getContextPath()%>/kpdsh">
-						    <span class="am-icon-check-square am-icon-lg" style="color:#AAAAFF"></span></a>
+						<a href="#">
+						    <span class="am-icon-check-square am-icon-lg" data="<%=request.getContextPath()%>/kpdsh" 
+						    style="color:#AAAAFF" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${kpdshdb}</span>
 						 </div>
 						<div style="text-align: center;font-size:14px">开票单审核</div>						
@@ -64,8 +65,9 @@
 					<c:if test="${fpkj==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 					    <div class="plane">
-						<a href="<%=request.getContextPath()%>/kp">
-						    <span class="am-icon-print am-icon-lg" style="color:#79FF79"></span></a>
+						<a href="#">
+						    <span class="am-icon-print am-icon-lg" data="<%=request.getContextPath()%>/kp" 
+						    style="color:#79FF79" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${fpkjdb}</span>
 						</div>
 						<div style="text-align: center;font-size:14px">发票开具</div>						
@@ -74,8 +76,9 @@
 					<c:if test="${fphc==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 					    <div class="plane">
-						<a href="<%=request.getContextPath()%>/fphc">
-						    <span class="am-icon-reply am-icon-lg" style="color:#A3D1D1"></span></a>
+						<a href="#">
+						    <span class="am-icon-reply am-icon-lg" data="<%=request.getContextPath()%>/fphc" 
+						    style="color:#A3D1D1" onclick="jump(this)"></span></a>
 						</div>
 						<div style="text-align: center;font-size:14px">发票红冲</div>						
 					</div>
@@ -83,8 +86,9 @@
 					<c:if test="${fphk==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 					    <div class="plane">
-						<a href="<%=request.getContextPath()%>/fphk">
-						    <span class="am-icon-random am-icon-lg" style="color:#C7C7E2"></span></a>
+						<a href="#">
+						    <span class="am-icon-random am-icon-lg" data="<%=request.getContextPath()%>/fphk" 
+						    style="color:#C7C7E2" onclick="jump(this)"></span></a>
 						    </div>
 						<div style="text-align: center;font-size:14px">发票换开</div>						
 					</div>
@@ -92,8 +96,9 @@
 					<c:if test="${fpzf==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 					    <div class="plane">
-						<a href="<%=request.getContextPath()%>/fpzf">
-						    <span class="am-icon-trash am-icon-lg" style="color:#FFBD9D"></span></a>
+						<a href="#">
+						    <span class="am-icon-trash am-icon-lg" data="<%=request.getContextPath()%>/fpzf" 
+						    style="color:#FFBD9D" onclick="jump(this)"></span></a>
 						</div>
 						<div style="text-align: center;font-size:14px">发票作废</div>						
 					</div>
@@ -101,8 +106,9 @@
 					<c:if test="${fpck==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 						<div class="plane">
-						<a href="<%=request.getContextPath()%>/fpzf">
-						    <span class="am-icon-refresh am-icon-lg" style="color:#95CACA"></span></a>
+						<a href="#">
+						    <span class="am-icon-refresh am-icon-lg" data="<%=request.getContextPath()%>/fpck" 
+						    style="color:#95CACA" onclick="jump(this)"></span></a>
 						</div>
 						<div style="text-align: center;font-size:14px">发票重开</div>					
 					</div>
@@ -110,8 +116,9 @@
 					<c:if test="${fpcd==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 						<div class="plane">
-						<a href="<%=request.getContextPath()%>/fpzf">
-						    <span class="am-icon-retweet am-icon-lg" style="color:#B8B8DC"></span></a>
+						<a href="#">
+						    <span class="am-icon-retweet am-icon-lg" data="<%=request.getContextPath()%>/fpcd" 
+						    style="color:#B8B8DC" onclick="jump(this)"></span></a>
 						</div>
 						<div style="text-align: center;font-size:14px">发票重打</div>						
 					</div>
@@ -119,8 +126,9 @@
 					<c:if test="${fpfs==1}">
 					<div class="am-panel-default am-u-sm-2" style="height:160px">
 						<div class="plane">
-						<a href="<%=request.getContextPath()%>/fpzf">
-						    <span class="am-icon-envelope am-icon-lg" style="color:#B3D9D9"></span>
+						<a href="#">
+						    <span class="am-icon-envelope am-icon-lg" data="<%=request.getContextPath()%>/yjfs" 
+						    style="color:#B3D9D9" onclick="jump(this)"></span>
 						    </a></div>
 						<div style="text-align: center;font-size:14px">发票发送</div>					
 					</div>
@@ -128,8 +136,9 @@
 					<c:if test="${fpyj==1}">
 					<div class="am-panel-default am-u-sm-2 am-u-end" style="height:160px">
 						<div class="plane">
-						<a href="<%=request.getContextPath()%>/fpzf">
-						    <span class="am-icon-send am-icon-lg" style="color:#BBFFBB"></span></a>
+						<a href="#">
+						    <span class="am-icon-send am-icon-lg" data="<%=request.getContextPath()%>/fpyj" 
+						    style="color:#BBFFBB" onclick="jump(this)"></span></a>
 						</div>
 					    <div style="text-align: center;font-size:14px">发票邮寄</div>		
 					</div>
@@ -238,14 +247,14 @@
 				yaxis: {
 					label:'已办事项数量',
 					show: true,
-					showTicks: false,        // 是否显示刻度线以及坐标轴上的刻度值  
-					showTickMarks: false,     //设置是否显示刻度
+					showTicks: true,        // 是否显示刻度线以及坐标轴上的刻度值  
+					showTickMarks: true,     //设置是否显示刻度
 					autoscale: true,
 					borderWidth: 1,
 					tickOptions: {
 					     show: true,
-					     showLabel: false,
-					     showMark: false,
+					     showLabel: true,
+					     showMark: true,
 					     showGridline: true
 					}
 				}
@@ -299,6 +308,18 @@
 			}
 		}); */		
     });
+	
+	function jump(da){
+		var v_id = $(da).attr('data');
+     	$(".ejcd",parent.document).css('background','none');
+     	var divs = $('.ejcd',parent.document);
+     	for(var i=0;i<divs.length;i++){
+     		if($(divs[i]).attr('data')==v_id){
+     			$(divs[i]).css("background-color","#f2f6f9");
+     		}
+     	}
+    	$("#mainFrame",parent.document).attr("src",v_id); 
+	}
 	
 	</script>
 </body>

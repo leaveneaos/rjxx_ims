@@ -7,9 +7,8 @@ $(function () {
     var el = {
     	$jsTable: $('.js-table'),//库存table
         $modalHongchong: $('#hongchong'),//弹出div
-        $jsSubmit: $('.js-submit'),//提交按钮
         $jsClose: $('.js-close'),//取消按钮
-        $jsForm0: $('.js-form-kc'), //  form
+        $jsForm: $('.js-form-kc'), //  form
         $s_fplx: $('#cfplx'), // search关键字
         $s_fpdm: $('#cfpdm'), // search关键字
         $jsSearch: $('#jsSearch'),//查询按钮
@@ -186,7 +185,9 @@ $(function () {
         	var _this = this;
             el.$jsAdd.on('click', el.$jsAdd, function () {
             	 _this.resetForm();
-            	 $("#xfsh").find("option").eq(0).attr("selected", true);          	 
+            	 $("#xfsh").find("option").eq(0).attr("selected", true);
+            	 $("#fplx").find("option").eq(0).attr("selected", true);
+            	 $("#kpddm").empty(); 
                  ur = _this.config.xzUrl;
                 el.$modalHongchong.modal('toggle');
             });
@@ -194,49 +195,50 @@ $(function () {
         /**
          * 新增保存
          */
-       
-        xz: function () {
-            var _this = this;            
-            el.$jsForm0.validator({
-                submit: function () {
-                	var fpdm = $("#fpdm").val().trim();
-                	var fphms = $("#fphms").val().trim();          
-                    var fphmz = $("#fphmz").val().trim();
-                    var formValidity = this.isFormValid();
-                    if (formValidity) {
-                    	if(parseInt(fphms)>parseInt(fphmz)){
-                    		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
-            				$('#my-alert').modal('open');
-                        	return false;
-                        }
-                        var data = el.$jsForm0.serialize(); // get form data
-                        /*$.ajax({
-                            url: ur,
-                            data: data,
-                            method: 'POST',
-                            success: function (data) {                            	
-                                if (data.success) {
-                                    el.$modalHongchong.modal('close'); // close
-                                    $('#alert-msg').html(data.msg);
-                    				$('#my-alert').modal('open');
-                                    _this.tableEx.ajax.reload();
-                                }else{
-                                	$('#alert-msg').html(data.msg);
-                    				$('#my-alert').modal('open');                                  
-                                }                             
-                            },
-                            error: function () {
-                            	$('#alert-msg').html("保存失败，请检查！");
-                				$('#my-alert').modal('open');
-                            }
-                        });*/
-                    } else {
-                    	$('#alert-msg').html("数据验证失败，请检查！");
-        				$('#my-alert').modal('open');
-                    }
-                }
-            });
-        },
+       save:function(){
+    	   var _this = this;
+           el.$jsForm.validator({
+               submit: function () {
+               	var fpdm = $("#fpdm").val().trim();
+               	var fphms = $("#fphms").val().trim();          
+                   var fphmz = $("#fphmz").val().trim();
+                   var formValidity = this.isFormValid();
+                   if (formValidity) {
+                   	if(parseInt(fphms)>parseInt(fphmz)){
+                   		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
+           				$('#my-alert').modal('open');
+                       	return false;
+                       }
+                       var data = el.$jsForm.serialize(); // get form data
+                       $.ajax({
+                           url: ur,
+                           data: data,
+                           method: 'POST',
+                           success: function (data) {                            	
+                               if (data.success) {
+                                   el.$modalHongchong.modal('close'); // close
+                                   $('#alert-msg').html(data.msg);
+                   				   $('#my-alert').modal('open');
+                                   _this.tableEx.ajax.reload();
+                               }else{
+                               	$('#alert-msg').html(data.msg);
+                   				$('#my-alert').modal('open');                                  
+                               }                             
+                           },
+                           error: function () {
+                           	$('#alert-msg').html("保存失败，请检查！");
+               				$('#my-alert').modal('open');
+                           }
+                       });
+                       return false;
+                   } else {
+                   	$('#alert-msg').html("数据验证失败，请检查！");
+       				$('#my-alert').modal('open');
+                   }
+               }
+           });
+       },
+        
         /**
          * 删除
          */
@@ -262,9 +264,9 @@ $(function () {
             });
             	
         },
-        /*resetForm: function () {
-            el.$jsForm0[0].reset();
-        },*/
+        resetForm: function () {
+            el.$jsForm[0].reset();
+        },
         modalAction: function () {
             var _this = this;
             /*el.$modalHongchong.on('closed.modal.amui', function () {
@@ -279,7 +281,7 @@ $(function () {
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
             _this.add();
-            //_this.xz();
+            _this.save();
             _this.modalAction(); // hidden action
             _this.find_mv();
         }
