@@ -7,12 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Kpls;
+import com.rjxx.taxeasy.domains.PrivilegeTypes;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpzlService;
+import com.rjxx.taxeasy.service.PrivilegeTypesService;
 import com.rjxx.taxeasy.web.BaseController;
 
 
@@ -22,7 +25,8 @@ public class MainController extends BaseController{
 	
 	@Autowired
 	private FpzlService fpzlService;
-	
+	@Autowired
+	private PrivilegeTypesService ptypeService;
 	@RequestMapping
 	public String index() throws Exception{
 		boolean flag1 = false;
@@ -60,6 +64,21 @@ public class MainController extends BaseController{
 		}
 		
 		return "mainjsp/index";
+	}
+	
+	@RequestMapping(value = "/getName")
+	@ResponseBody
+	public Map<String,Object> getName(String url) throws Exception{
+		Map<String,Object> result = new HashMap<String,Object>();
+		Map params = new HashMap();
+		params.put("url", url);
+		PrivilegeTypes item = ptypeService.findPriviName(params);
+		String name = "业务处理";
+		if(item!=null){
+			name = item.getName();
+		}
+		result.put("name", name);
+		return result;
 	}
 
 }

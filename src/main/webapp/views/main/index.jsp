@@ -627,14 +627,10 @@
 			onConfirm : function(options) {
 				window.location.href = "<c:url value='/login/logout'/>";
 			},
-			// closeOnConfirm: false,
 			onCancel : function() {
 
 			}
 		});
-		// 		if (confirm('是否退出？')) {
-		// 			
-		// 		}
 	}
 	
 </script> 
