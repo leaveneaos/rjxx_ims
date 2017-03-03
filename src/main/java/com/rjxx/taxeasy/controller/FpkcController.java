@@ -255,7 +255,8 @@ public class FpkcController extends BaseController {
 	// 发票监控查询方法
 		@RequestMapping(value = "/getItems2")
 		@ResponseBody
-		public Map<String, Object> getItems2(int length,int start,int draw,Integer xfid,Integer skpid,String fplx,String xfsh) throws Exception {
+		public Map<String, Object> getItems2(int length,int start,int draw,Integer xfid,Integer skpid,String fplx,
+				String xfsh,Integer fpsl) throws Exception {
 			Map<String, Object> result = new HashMap<String, Object>();
 			Pagination pagination = new Pagination();
 			pagination.setPageNo(start / length + 1);
@@ -274,6 +275,7 @@ public class FpkcController extends BaseController {
 			pagination.addParam("skpid", skpid);
 			pagination.addParam("fplx", fplx);
 			pagination.addParam("xfsh", xfsh);
+			pagination.addParam("fpsl", fpsl);
 			List<Fpkcvo> kcjkList = fpkcService.findKcjkByPage(pagination);
 			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);

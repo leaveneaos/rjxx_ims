@@ -31,6 +31,7 @@ $(function () {
                         		 d.xfid = $('#s_xfid').val();
                                  d.skpid = $('#s_skpid').val();
                                  d.fplx = $('#s_fplx').val();
+                                 d.fpsl = $('#s_fpsl').val();
                         	}else{
                         		var item = $('#s_mainkey').val();
                         		if(item=='xfsh'){
@@ -68,15 +69,24 @@ $(function () {
         refresh_ac: function () {
             var _this = this;
             el.$jsRefresh.on('click', function (e) {
+            	$('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
             });
         },
-  
+        find_mv:function(){
+        	var _this = this;
+        	$('#searchButton').on('click',function(e){
+        		$('#searchbz').val("0");
+        		e.preventDefault();
+                _this.tableEx.ajax.reload();
+        	})
+        },
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.refresh_ac();
+            _this.find_mv();
         }
     };
     action.init();

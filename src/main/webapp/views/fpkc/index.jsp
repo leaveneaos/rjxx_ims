@@ -110,7 +110,7 @@
 												<div class="am-btn-group am-btn-group-xs">
 													<input type="hidden" id="searchbz">
 													<button class="am-btn am-btn-primary" id="jsAdd">
-															&nbsp;新增
+															&nbsp;录入&nbsp;
 													</button>
 												</div>
 											</div>

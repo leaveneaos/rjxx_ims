@@ -84,6 +84,19 @@
 													</div>
 												</div>
 											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
+													<label for="s_fpsl" class="am-u-sm-4 am-form-label">剩余库存</label>
+													<div class="am-u-sm-8">
+														<select id="s_fpsl" name="fpsl" data-am-selected="{btnSize: 'sm'}">
+															<option value="">请选择</option>
+															<option value="500">小于500张</option>
+															<option value="200">小于200张</option>
+															<option value="100">小于100张</option>			
+														</select>
+													</div>
+												</div>
+											</div>
 											<div style="padding: 32px;">
 												<button type="button" id="jsSearch"
 													class="am-btn am-btn-default am-btn-success">
