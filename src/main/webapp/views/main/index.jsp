@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>首页</title>
+    <title>泰易（TaxEasy）开票通V2.0</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,13 +37,13 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）电子发票v2.0</a>
+                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
                 <!-- 侧边切换 -->
-                <div style="padding: 16px 22px;" onclick="yccd();" class="am-fl tpl-header-switch-button am-icon-list">
-                    <span>
+                <div onclick="yccd();" class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>&thinsp; 
                 </span>
                 </div>
                 
