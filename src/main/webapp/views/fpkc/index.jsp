@@ -176,7 +176,7 @@
 															<table
 																class="am-table am-table-bordered am-table-striped am-text-nowrap">
 																<tr>
-																	<td>销方名称：</td>
+																	<td><font color="red">*</font>销方名称：</td>
 																	<td><select id="xfsh" name="xfid"
 																		class="am-form-field" required onchange="getKpd()">
 																			<option value="">---请选择---</option>
@@ -184,13 +184,13 @@
 																				<option value="${xf.id}">${xf.xfmc}</option>
 																			</c:forEach>
 																	</select></td>
-																	<td>开票点名称：</td>
+																	<td><font color="red">*</font>开票点名称：</td>
 																	<td><select id="kpddm" name="skpid"
 																		class="am-form-field" required>
 																	</select></td>
 																</tr>
 																<tr>
-																	<td>发票种类：</td>
+																	<td><font color="red">*</font>发票种类：</td>
 																	<td><select id="fplx" name="fpzldm"
 																		class="am-form-field" required>
 																			<option value="">---请选择---</option>
@@ -198,17 +198,17 @@
 																				<option value="${item.fpzldm}">${item.fpzlmc}</option>
 																			</c:forEach>
 																	</select></td>
-																	<td>发票代码：</td>
+																	<td><font color="red">*</font>发票代码：</td>
 																	<td><input type="text" id="fpdm" name="fpdm"
 																		maxlength="12" pattern="^\d{10,12}$"
 																		placeholder="请输入发票代码" class="am-form-field" required /></td>
 																</tr>
 																<tr>
-																	<td>发票号码：</td>
+																	<td><font color="red">*</font>发票号码：</td>
 																	<td><input type="text" id="fphms" name="fphms"
 																		maxlength="10" pattern="^\d{8}$" placeholder="请输入起始号码"
 																		class="am-form-field" required /></td>
-																	<td>——</td>
+																	<td><font color="red">*</font>——</td>
 																	<td><input type="text" id="fphmz" name="fphmz"
 																		maxlength="10" pattern="^\d{8}$" placeholder="请输入截止号码"
 																		class="am-form-field" required /></td>
