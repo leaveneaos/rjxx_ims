@@ -1136,7 +1136,7 @@ table thead th { text-align: center; }
 													<select id="select_sp" name="select_sp">
 														<option value="">选择商品</option>
 														<c:forEach items="${spList}" var="item">
-															<option value="${item.spdm}" class="${item.id}">${item.spmc}(${item.spdm})</option>
+															<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.spbm})</option>
 														</c:forEach>
 													</select>
 												</div>
@@ -1648,7 +1648,7 @@ table thead th { text-align: center; }
                 }, 
                 success: function (res) {
                 	 if (res) {
-                         $("#mx_form #spdm_edit").val(res["spdm"]);
+                         $("#mx_form #spdm_edit").val(res["spbm"]);
                          $("#mx_form #mc_edit").val(res["spmc"]);
                          $("#mx_form #ggxh_edit").val(res["spggxh"] == null ? "" : res["spggxh"]);
                          $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
