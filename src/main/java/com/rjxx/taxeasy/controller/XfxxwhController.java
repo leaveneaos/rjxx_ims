@@ -158,7 +158,7 @@ public class XfxxwhController extends BaseController {
 			params.put("gsdm", getGsdm());
 			int sum = xfService.findAllByMap(params).size();
 			Gsxx gsxx = gs.findOneByParams(params);
-			if (sum >= gsxx.getXfnum()) {
+			if (gsxx.getXfnum() != null && sum >= gsxx.getXfnum()) {
 				result.put("success", true);
 				result.put("msg", "销方数量已达到销方数量设置最大值，不能添加，如需增加请联系平台开发商");
 				return result;

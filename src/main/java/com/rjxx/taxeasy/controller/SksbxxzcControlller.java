@@ -192,7 +192,7 @@ public class SksbxxzcControlller extends BaseController {
 			int sum = skpService.findAllByParams(old).size();
 			;
 			Gsxx gsxx = gs.findOneByParams(prms);
-			if (gsxx.getKpdnum() - sum <= 0) {
+			if (gsxx.getKpdnum() != null && gsxx.getKpdnum() - sum <= 0) {
 				result.put("failure", true);
 				result.put("msg", "税控盘数量已达到税控盘数量设置最大值，不能添加，如需增加请联系平台开发商");
 				return result;

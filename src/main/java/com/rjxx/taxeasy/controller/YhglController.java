@@ -183,7 +183,7 @@ public class YhglController extends BaseController {
 		prms.put("gsdm", getGsdm());
 		int sum = yhService.findAllByParams(prms).size();
 		Gsxx gsxx = gs.findOneByParams(prms);
-		if (sum >= gsxx.getYhnum()) {
+		if (gsxx.getYhnum() != null && sum >= gsxx.getYhnum()) {
 			result.put("success", true);
 			result.put("msg", "用户数量已达到用户数量设置最大值，不能添加，如需增加请联系平台开发商");
 			return result;
