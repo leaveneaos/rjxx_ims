@@ -40,6 +40,15 @@
 	    
 	    //金额
 	    $.AMUI.validator.patterns.Money = /^\d+\.?\d+?$/;
+	    
+	    //发票代码
+	    $.AMUI.validator.patterns.Fpdm = /^\d{10,12}$/;
+	    
+	    //发票号码
+	    $.AMUI.validator.patterns.Fphm = /^\d{8}$/;
+	    
+	    //银行账号
+	    $.AMUI.validator.patterns.Yhzh = /^(\d{16}|\d{19})$/;
 	}
 })(jQuery);
 
