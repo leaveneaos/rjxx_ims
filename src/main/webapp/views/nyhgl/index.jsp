@@ -228,7 +228,7 @@
 																	class="am-form-field" required maxlength="50" />
 															</div>
 														</div>
-														<div class="am-form-group" id="mm2">
+														<div class="am-form-group" id="mm3">
 															<label for="hc_yfphm" class="am-u-sm-2 am-form-label"></label>
 															<div class="am-u-sm-10 am-text-left">
 																<font color="red">注：密码必须为大、小写字母、数字、符号中三种,最少8位</font>
@@ -401,7 +401,6 @@
 									</div>
 								</form>
 							</div>
-
 						</div>
 					</div>
 				</div>

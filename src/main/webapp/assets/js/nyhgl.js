@@ -151,6 +151,7 @@ $(function() {
 				el.$lab1.show();
 				$('#mm1').show();
 				$('#mm2').show();
+				$('#mm3').show();
 				el.$yhzh.removeAttr("readonly");
 				ur = _this.config.xzUrl
 				el.$modalHongchong.modal({
@@ -194,6 +195,7 @@ $(function() {
 				el.$qrmm.hide();
 				$('#mm1').hide();
 				$('#mm2').hide();
+				$('#mm3').hide();
 				el.$lab.hide();
 				el.$lab1.hide();
 				el.$yhzh.attr({

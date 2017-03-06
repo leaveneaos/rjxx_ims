@@ -1041,7 +1041,7 @@ table thead th { text-align: center; }
 													style="color: red; display: none" id="span_gfsh">*</span>购方税号</label>
 
 												<div class="am-u-sm-4">
-													<input type="text" id="gfsh_edit" name="gfsh_edit"
+													<input type="text" id="gfsh_edit" name="gfsh_edit" class ="js-pattern-Taxid"
 														placeholder="输入购方税号...">
 												</div>
 												<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span
@@ -1136,7 +1136,7 @@ table thead th { text-align: center; }
 													<select id="select_sp" name="select_sp">
 														<option value="">选择商品</option>
 														<c:forEach items="${spList}" var="item">
-															<option value="${item.spdm}" class="${item.id}">${item.spmc}(${item.spdm})</option>
+															<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.spbm})</option>
 														</c:forEach>
 													</select>
 												</div>
@@ -1335,7 +1335,7 @@ table thead th { text-align: center; }
 											style="color: red; display: none" id="span_gfsh_modify">*</span>购方税号</label>
 
 										<div class="am-u-sm-4">
-											<input type="text" id="gfsh_modify" name="gfsh"
+											<input type="text" id="gfsh_modify" name="gfsh" class ="js-pattern-Taxid"
 												placeholder="输入购方税号...">
 										</div>
 										<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span
@@ -1648,7 +1648,7 @@ table thead th { text-align: center; }
                 }, 
                 success: function (res) {
                 	 if (res) {
-                         $("#mx_form #spdm_edit").val(res["spdm"]);
+                         $("#mx_form #spdm_edit").val(res["spbm"]);
                          $("#mx_form #mc_edit").val(res["spmc"]);
                          $("#mx_form #ggxh_edit").val(res["spggxh"] == null ? "" : res["spggxh"]);
                          $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);

@@ -168,7 +168,9 @@ public class LrkpdController extends BaseController {
 	public Spvo getSpxq(String spdm, String spmc) throws Exception {
 		Spvo params = new Spvo();
 		params.setGsdm(this.getGsdm());
-		params.setSpdm(spdm);
+		//params.setSpdm(spdm);
+		//使用商品编码查询
+		params.setSpbm(spdm);
 		params.setSpmc(spmc);
 		List<Spvo> list = spvoService.findAllByParams(params);
 		if (!list.isEmpty()) {
@@ -298,7 +300,7 @@ public class LrkpdController extends BaseController {
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj desc");
 
-		List<JyxxsqVO> jyxxsqList = jyxxsqservice.findByPage(pagination);
+		List<JyxxsqVO> jyxxsqList = jyxxsqservice.findYscByPage(pagination);
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
