@@ -298,7 +298,7 @@ public class LrkpdController extends BaseController {
 		pagination.addParam("gsdm", this.getGsdm());
 		pagination.addParam("orderBy", "lrsj desc");
 
-		List<JyxxsqVO> jyxxsqList = jyxxsqservice.findByPage(pagination);
+		List<JyxxsqVO> jyxxsqList = jyxxsqservice.findYscByPage(pagination);
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
