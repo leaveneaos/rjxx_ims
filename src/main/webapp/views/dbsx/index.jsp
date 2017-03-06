@@ -48,6 +48,7 @@
 						    style="color:#FF44FF" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${lrkpddb}</span>
 							<div style="text-align: center;font-size:14px">录入开票单</div>
+							<i></i>	
 						</div>
 					</div>
 					</c:if>
@@ -59,7 +60,8 @@
 						    style="color:#AAAAFF" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${kpdshdb}</span>
 						 </div>
-						<div style="text-align: center;font-size:14px">开票单审核</div>						
+						<div style="text-align: center;font-size:14px">开票单审核</div>	
+						<i></i>					
 					</div>
 					</c:if>
 					<c:if test="${fpkj==1}">
@@ -70,7 +72,8 @@
 						    style="color:#79FF79" onclick="jump(this)"></span></a>
 						    <span class="dbsl">${fpkjdb}</span>
 						</div>
-						<div style="text-align: center;font-size:14px">发票开具</div>						
+						<div style="text-align: center;font-size:14px">发票开具</div>	
+						<i></i>						
 					</div>
 					</c:if>
 					<c:if test="${fphc==1}">
@@ -80,7 +83,8 @@
 						    <span class="am-icon-reply am-icon-lg" data="<%=request.getContextPath()%>/fphc" 
 						    style="color:#A3D1D1" onclick="jump(this)"></span></a>
 						</div>
-						<div style="text-align: center;font-size:14px">发票红冲</div>						
+						<div style="text-align: center;font-size:14px">发票红冲</div>	
+						<i></i>						
 					</div>
 					</c:if>
 					<c:if test="${fphk==1}">
@@ -90,7 +94,8 @@
 						    <span class="am-icon-random am-icon-lg" data="<%=request.getContextPath()%>/fphk" 
 						    style="color:#C7C7E2" onclick="jump(this)"></span></a>
 						    </div>
-						<div style="text-align: center;font-size:14px">发票换开</div>						
+						<div style="text-align: center;font-size:14px">发票换开</div>	
+						<i></i>					
 					</div>
 					</c:if>
 					<c:if test="${fpzf==1}">
@@ -100,7 +105,8 @@
 						    <span class="am-icon-trash am-icon-lg" data="<%=request.getContextPath()%>/fpzf" 
 						    style="color:#FFBD9D" onclick="jump(this)"></span></a>
 						</div>
-						<div style="text-align: center;font-size:14px">发票作废</div>						
+						<div style="text-align: center;font-size:14px">发票作废</div>		
+						<i></i>				
 					</div>
 					</c:if>
 					<c:if test="${fpck==1}">
@@ -110,7 +116,8 @@
 						    <span class="am-icon-refresh am-icon-lg" data="<%=request.getContextPath()%>/fpck" 
 						    style="color:#95CACA" onclick="jump(this)"></span></a>
 						</div>
-						<div style="text-align: center;font-size:14px">发票重开</div>					
+						<div style="text-align: center;font-size:14px">发票重开</div>	
+						<i></i>				
 					</div>
 					</c:if>
 					<c:if test="${fpcd==1}">
@@ -120,7 +127,8 @@
 						    <span class="am-icon-retweet am-icon-lg" data="<%=request.getContextPath()%>/fpcd" 
 						    style="color:#B8B8DC" onclick="jump(this)"></span></a>
 						</div>
-						<div style="text-align: center;font-size:14px">发票重打</div>						
+						<div style="text-align: center;font-size:14px">发票重打</div>
+						<i></i>						
 					</div>
 					</c:if>
 					<c:if test="${fpfs==1}">
@@ -130,7 +138,8 @@
 						    <span class="am-icon-envelope am-icon-lg" data="<%=request.getContextPath()%>/yjfs" 
 						    style="color:#B3D9D9" onclick="jump(this)"></span>
 						    </a></div>
-						<div style="text-align: center;font-size:14px">发票发送</div>					
+						<div style="text-align: center;font-size:14px">发票发送</div>		
+						<i></i>			
 					</div>
 					</c:if>
 					<c:if test="${fpyj==1}">
@@ -140,7 +149,8 @@
 						    <span class="am-icon-send am-icon-lg" data="<%=request.getContextPath()%>/fpyj" 
 						    style="color:#BBFFBB" onclick="jump(this)"></span></a>
 						</div>
-					    <div style="text-align: center;font-size:14px">发票邮寄</div>		
+					    <div style="text-align: center;font-size:14px">发票邮寄</div>	
+					    <i></i>	
 					</div>
 					</c:if>
 				</div>
