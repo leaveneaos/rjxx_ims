@@ -117,26 +117,12 @@ public class FpkcController extends BaseController {
 		pagination.addParam("skpids", skpids);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fplx", fplx);
-		List<Fpkcvo> kcList = fpkcService.findByPage(pagination);
-		List<Fpkcvo> kcList1 = new ArrayList<Fpkcvo>();
-		if (kcList != null) {
-			for (Fpkcvo item : kcList) {
-				Map param = new HashMap<>();
-				param.put("fpdm", item.getFpdm());
-				param.put("fphms", item.getFphms());
-				param.put("fphmz", item.getFphmz());
-				Fpkcvo fpkcItem = fpkcService.findKyl(param);
-				item.setKyl(item.getFpkcl() - fpkcItem.getKpl());
-				if (item.getFpkcl() - fpkcItem.getKpl() > 0) {
-					kcList1.add(item);
-				}
-			}
-		}
+		List<Fpkcvo> kcList = fpkcService.findByPage(pagination);		
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
 		result.put("draw", draw);
-		result.put("data", kcList1);
+		result.put("data", kcList);
 		return result;
 	}
 
