@@ -136,10 +136,9 @@
 						<div class="plane">
 						<a href="#">
 						    <span class="am-icon-envelope am-icon-lg" data="<%=request.getContextPath()%>/yjfs" 
-						    style="color:#B3D9D9" onclick="jump(this)"></span>
+						    style="color:#B3D9D9" onclick="jump(this)"><span class="dian"></span></span>
 						    </a></div>
-						<div style="text-align: center;font-size:14px">发票发送</div>		
-						<i></i>			
+						<div style="text-align: center;font-size:14px">发票发送</div>				
 					</div>
 					</c:if>
 					<c:if test="${fpyj==1}">
@@ -150,7 +149,6 @@
 						    style="color:#BBFFBB" onclick="jump(this)"></span></a>
 						</div>
 					    <div style="text-align: center;font-size:14px">发票邮寄</div>	
-					    <i></i>	
 					</div>
 					</c:if>
 				</div>

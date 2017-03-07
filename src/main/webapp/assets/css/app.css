@@ -1312,13 +1312,13 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 
 
-i{
+.dian{
   display:block;
   background:#f00;
   border-radius:50%;
   width:15px;
   height:15px;
-  top:30px;
-  right:90px;
+  top:20%;
+  right:30%;
   position:absolute;
 }
