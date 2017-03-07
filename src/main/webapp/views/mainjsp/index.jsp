@@ -26,16 +26,23 @@
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
-								<li><a href="#" class="am-text-success">
+								<li class="am-dropdown tpl-dropdown">
+									<a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #3F51B5;">
-											<span class="am-icon-clipboard am-icon-lg" data="<%=request.getContextPath()%>/dbsx" onclick="jump(this,'/dbsx')"></span>
-											<span style="font-size: 2.6rem; font-weight: 900; color:#FF0000;">&nbsp;${dbsl}</span><br>
+											<i class="am-icon-clipboard am-icon-lg" data="<%=request.getContextPath()%>/dbsx" onclick="jump(this,'/dbsx')">
+												<span class="dian"></span>
+											</i>		
+											<br>
 											待办事项
 										</div>
-								</a></li>
+									</a
+								></li>
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
-											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')"></span><br>
+											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
+												<span class="dian"></span>
+											</span>
+											<br>
 											发票库存
 										</div>
 								</a></li>
