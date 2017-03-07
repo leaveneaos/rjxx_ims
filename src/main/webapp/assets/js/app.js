@@ -16,8 +16,8 @@
         
         var cd1 = $('#cd1', parent.document).val();
         var cd2 = $('#cd2', parent.document).val();
-        $("#yjcd").html(cd2);
-        $("#ejcd").html(cd1);
+        $(".am-text-primary").html(cd2);
+        $(".am-text-primary").next().html(cd1);
     });
     //设置Ajax全局参数
     $.ajaxSetup({
