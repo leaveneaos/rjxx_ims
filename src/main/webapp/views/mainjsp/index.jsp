@@ -30,7 +30,7 @@
 									<a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #3F51B5;">
 											<i class="am-icon-clipboard am-icon-lg" data="<%=request.getContextPath()%>/dbsx" onclick="jump(this,'/dbsx')">
-												<span class="dian"></span>
+												<c:if test="${dbsl==1 }"><span class="dian"></span></c:if>
 											</i>		
 											<br>
 											待办事项
@@ -40,7 +40,6 @@
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
 											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
-												<span class="dian"></span>
 											</span>
 											<br>
 											发票库存

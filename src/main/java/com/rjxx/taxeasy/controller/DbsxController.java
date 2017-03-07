@@ -13,17 +13,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rjxx.taxeasy.domains.Jyxxsq;
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.Privileges;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
-import com.rjxx.taxeasy.domains.Yhcljl;
 import com.rjxx.taxeasy.service.FpzlService;
+import com.rjxx.taxeasy.service.JylsService;
+import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.PrivilegesService;
 import com.rjxx.taxeasy.service.YhService;
 import com.rjxx.taxeasy.service.YhcljlService;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.vo.Yhcljlvo;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -31,15 +34,17 @@ import com.rjxx.taxeasy.web.BaseController;
 @Controller
 @RequestMapping("/dbsx")
 public class DbsxController extends BaseController{
-	
-	@Autowired
-	private FpzlService fpzlService;
+
 	@Autowired
     private YhService yhService;
 	@Autowired
     private PrivilegesService privilegesService;
 	@Autowired
 	private YhcljlService cljlService;
+	@Autowired
+	private JyxxsqService jyxxService;
+	@Autowired
+	private JylsService jylsService;
 	
 	@RequestMapping
 	public String index() {
@@ -93,36 +98,38 @@ public class DbsxController extends BaseController{
         	}
         }
         //是否有代办的查询
-        Map param = new HashMap<>();
+        Pagination pagination = new Pagination();
         String gsdm = this.getGsdm();
-		param.put("gsdm", gsdm);
+        pagination.addParam("gsdm", gsdm);
 		List<Xf> xfs = getXfList();
 		if(xfs !=null && xfs.size()>0){
-			param.put("xfs", xfs);
+			pagination.addParam("xfs", xfs);
 		}
 		List<Skp> skps = getSkpList();
 		if(skps !=null && skps.size()>0){
-			param.put("skps", skps);
+			pagination.addParam("skps", skps);
 		}
-		param.put("ztbz", "2");
-		List<Jyxxsq> list1 = fpzlService.findDbsx(param);//录入开票单的代办
+		pagination.addParam("ztbz", "2");
+		List<JyxxsqVO> list1 = jyxxService.findByPage(pagination);//录入开票单的代办
 		if(list1 !=null && list1.size()>0){
-			request.setAttribute("lrkpddb","...");
+			request.setAttribute("lrkpddb",1);
 		}else{
-			request.setAttribute("lrkpddb","");
+			request.setAttribute("lrkpddb",0);
 		}
-		param.put("ztbz", "0");
-		List<Jyxxsq> list2 = fpzlService.findDbsx(param);//开票单审核的代办
+		pagination.addParam("ztbz", "0");
+		List<JyxxsqVO> list2 = jyxxService.findByPage(pagination);//开票单审核的代办
 		if(list2 !=null && list2.size()>0){
-			request.setAttribute("kpdshdb","...");
+			request.setAttribute("kpdshdb",1);
 		}else{
-			request.setAttribute("kpdshdb","");
+			request.setAttribute("kpdshdb",0);
 		}
-		Kpls kpls = fpzlService.findDkpsj(param);
-		if(kpls !=null){
-			request.setAttribute("fpkjdb", "...");
+		pagination.addParam("clztdm", "00");
+		pagination.addParam("fpczlxdm", "11");
+		List<Jyls> list3 = jylsService.findByPage(pagination);
+		if(list1 !=null && list3.size()>0){
+			request.setAttribute("fpkjdb", 1);
 		}else{
-			request.setAttribute("fpkjdb", "");
+			request.setAttribute("fpkjdb", 0);
 		}
 		return "dbsx/index";
 	}

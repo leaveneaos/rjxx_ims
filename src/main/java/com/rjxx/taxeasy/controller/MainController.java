@@ -9,13 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.PrivilegeTypes;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpzlService;
+import com.rjxx.taxeasy.service.JylsService;
+import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.PrivilegeTypesService;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
 
 
@@ -27,40 +32,47 @@ public class MainController extends BaseController{
 	private FpzlService fpzlService;
 	@Autowired
 	private PrivilegeTypesService ptypeService;
+	@Autowired
+	private JyxxsqService jyxxService;
+	@Autowired
+	private JylsService jylsService;
+	
 	@RequestMapping
 	public String index() throws Exception{
 		boolean flag1 = false;
 		boolean flag2 = false;
 		boolean flag3 = false;
-		Map param = new HashMap<>();
+		Pagination pagination = new Pagination();
         String gsdm = this.getGsdm();
-		param.put("gsdm", gsdm);
+        pagination.addParam("gsdm", gsdm);
 		List<Xf> xfs = getXfList();
 		if(xfs !=null && xfs.size()>0){
-			param.put("xfs", xfs);
+			pagination.addParam("xfs", xfs);
 		}
 		List<Skp> skps = getSkpList();
 		if(skps !=null && skps.size()>0){
-			param.put("skps", skps);
+			pagination.addParam("skps", skps);
 		}
-		param.put("ztbz", "2");
-		List<Jyxxsq> list1 = fpzlService.findDbsx(param);//录入开票单的代办
-		param.put("ztbz", "0");
-		List<Jyxxsq> list2 = fpzlService.findDbsx(param);//开票单审核的代办
-		Kpls kpls = fpzlService.findDkpsj(param);
+		pagination.addParam("ztbz", "2");
+		List<JyxxsqVO> list1 = jyxxService.findByPage(pagination);//录入开票单的代办
+		pagination.addParam("ztbz", "0");
+		List<JyxxsqVO> list2 = jyxxService.findByPage(pagination);//开票单审核的代办
+		pagination.addParam("clztdm", "00");
+		pagination.addParam("fpczlxdm", "11");
+		List<Jyls> list3 = jylsService.findByPage(pagination);
 		if(list1 != null && list1.size()>0){
 			flag1 = true;
 		}
 		if(list2 != null && list2.size()>0){
 			flag2 = true;
 		}
-		if(kpls != null){
+		if(list3 != null&& list3.size()>0){
 			flag3 = true;
 		}
 		if(flag1||flag2||flag3){
-			request.setAttribute("dbsl", "...");
+			request.setAttribute("dbsl", 1);
 		}else{
-			request.setAttribute("dbsl", "");
+			request.setAttribute("dbsl", 0);
 		}
 		
 		return "mainjsp/index";
