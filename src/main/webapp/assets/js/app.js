@@ -11,6 +11,13 @@
         $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function () {
             $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
         });
+        
+        
+        
+        var cd1 = $('#cd1', parent.document).val();
+        var cd2 = $('#cd2', parent.document).val();
+        $("#yjcd").html(cd2);
+        $("#ejcd").html(cd1);
     });
     //设置Ajax全局参数
     $.ajaxSetup({

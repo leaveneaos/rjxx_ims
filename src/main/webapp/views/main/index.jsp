@@ -32,6 +32,8 @@
 
 <body data-type="widgets">
     <script src="assets/js/theme.js"></script>
+    <input type="hidden" id="cd1">
+     <input type="hidden" id="cd2">
     <div class="am-g tpl-g">
         <!-- 头部 -->
         <header>
@@ -214,7 +216,7 @@
                     	<c:forEach items="${privileges}" varStatus="j" var="privilege">
                     	<c:if test="${privilege.privilegetypeid == privilegeType.id}">
                         <li class="sidebar-nav-link">
-                            <a class="ejcd" href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" onclick="jznr(this)">
+                            <a class="ejcd" href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" dele="${privilege.name}" onclick="jznr(this,${privilegeType.name})">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> ${privilege.name}
                             </a>
                         </li>
@@ -515,12 +517,15 @@
             
         }
     }
-    function jznr(th){
+    function jznr(th,bt){
     	//获取点击菜单的路劲
     	var v_id = $(th).attr('data');
+    	var ejcd = $(th).attr('dele');
      	 $(".ejcd").css('background','none')
      	$(th).css("background-color","#f2f6f9");
-    	$("#mainFrame").attr("src",v_id); 
+     	 $("#cd1").val(ejcd);
+     	 $("#cd2").val(bt.id);
+    	$("#mainFrame").attr("src",v_id);	  
     }
 	function logout() {
 		$('#my-confirm').modal({

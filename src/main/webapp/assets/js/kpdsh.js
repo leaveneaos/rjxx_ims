@@ -615,6 +615,10 @@ $(function() {
 				var els =document.getElementsByName("fpje");
 				for(var i=0;i<els.length;i++){
 					var fpje = els[i].value;
+					if(fpje=0){
+						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请维护开票限额");
+	                	$("#my-alert").modal('open');
+					}
 					if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
         				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
 	                	$("#my-alert").modal('open');
@@ -935,6 +939,11 @@ $(function() {
 function yzje(je){
 	var zdje = $(je).attr("max");
 	var zhi= $(je).val();
+	if(zdje==0){
+		$("#alertt").html("最大金额为0 ,请维护开票限额");
+    	$("#my-alert").modal('open');
+    	return;
+	}
 	if(zhi*1>zdje*1){
 		var msg = "不能超过分票金额"+zdje*1;
 		$("#alertt").html(msg);
