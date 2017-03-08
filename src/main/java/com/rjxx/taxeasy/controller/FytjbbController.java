@@ -3,8 +3,10 @@ package com.rjxx.taxeasy.controller;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,15 +54,22 @@ public class FytjbbController extends BaseController {
 	//取得每月各种发票的数量
 	@RequestMapping(value = "/getfps")
 	@ResponseBody
-	public Map<String,Object> getFps(Integer xfid,String fpzl,String kprq){
+	public Map<String,Object> getFps(Integer xfid,String fpzl,String kprq,String kprqq,String kprqz){
 		Map<String,Object> result = new HashMap<String,Object>();		
 		String kprq1 = kprq;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		try{
-			if (!kprq.contains("-")) {
-				Date kprq2 = new Date(kprq);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-				kprq1 = sdf.format(kprq2);
-			}
+			/*if (!kprq.contains("-")) {
+				Date kprq2 = new Date(kprq);				
+				kprq1 = sdf.format(kprq2);				
+			}*/
+			if(kprqz !=null && !"".equals(kprqz)){
+				Date date = sdf.parse(kprqz);
+				Calendar calender = Calendar.getInstance();
+		        calender.setTime(date);
+		        calender.add(Calendar.MONTH, 1);
+		        kprqz = sdf.format(calender.getTime());
+			}			
 			Map params = new HashMap<>();
 			params.put("gsdm", getGsdm());
 			List<Xf> xfs = getXfList();
@@ -70,6 +79,8 @@ public class FytjbbController extends BaseController {
 			params.put("xfid", xfid);
 			params.put("fpzl", fpzl);
 			params.put("kprq", kprq1);
+			params.put("kprqq", kprqq);
+			params.put("kprqz", kprqz);
 			List<Fpnum> slList = fpzlService.findGfpsl(params);
 			Integer zspfs = slList.get(0).getFpnum();
 			Integer fspfs = slList.get(1).getFpnum();
@@ -91,6 +102,7 @@ public class FytjbbController extends BaseController {
 			result.put("cdpfs",cdpfs);
 			result.put("success",true);
 		}catch(Exception e){
+			e.printStackTrace();
 			result.put("success",false);
 		}		
 		return result;
@@ -98,12 +110,26 @@ public class FytjbbController extends BaseController {
 	
 	@RequestMapping(value = "/getje")
 	@ResponseBody
-	public Map<String,Object> getTjje(Integer xfid,String fpzl,String kprq){
+	public Map<String,Object> getTjje(Integer xfid,String fpzl,String kprq,String kprqq,String kprqz){
 		Map<String,Object> result = new HashMap<String,Object>();
         if("".equals(kprq)||kprq==null){
-        	result.put("data", new ArrayList<>());
-        	return result;
+        	if("".equals(kprqq)||kprqq==null){
+        		result.put("data", new ArrayList<>());
+            	return result;
+        	}       	
 		}
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        if(kprqz !=null && !"".equals(kprqz)){
+        	try {
+   			 Date date = sdf.parse(kprqz);
+   			 Calendar calender = Calendar.getInstance();
+   	         calender.setTime(date);
+   	         calender.add(Calendar.MONTH, 1);
+   	         kprqz = sdf.format(calender.getTime());
+   		   } catch (ParseException e) {
+   			  e.printStackTrace();
+   		   }
+        }		 
 		Map params = new HashMap<>();
 		params.put("gsdm", getGsdm());
 		List<Xf> xfs = getXfList();
@@ -113,6 +139,8 @@ public class FytjbbController extends BaseController {
 		params.put("xfid", xfid);
 		params.put("fpzl", fpzl);
 		params.put("kprq", kprq);
+		params.put("kprqq", kprqq);
+		params.put("kprqz", kprqz);
 		List<Slcxvo> tjList = fpzlService.findSpje(params);		
 		result.put("data", tjList);
 		return result;

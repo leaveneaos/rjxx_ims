@@ -23,8 +23,12 @@ $(function () {
             url: 'fytjbb/getje',
             type: 'POST',
             data: function (d) {
-                d.xfid = $('#s_xfid option:selected').val(),
-                d.fpzl = $('#s_fpzl option:selected').val(),
+            	var bz = $('#searchbz').val();
+            	if(bz=='1'){
+            		d.xfid = $('#s_xfid option:selected').val(),
+                    d.fpzl = $('#s_fpzl option:selected').val(),
+                    d.kprq = $('#s_kprq').val()
+            	}
                 d.kprq = el.$jsDate.val()
             }
         },
@@ -50,9 +54,16 @@ $(function () {
         },   
         showFp:function(){
         	var _this = this;
-        	var xfid = $('#s_xfid option:selected').val();
-        	var fpzl = $('#s_fpzl option:selected').val();
-        	var kprq = el.$jsDate.val();
+        	var bz = $('#searchbz').val();
+        	if(bz=='1'){
+        		var xfid = $('#s_xfid option:selected').val();
+            	var fpzl = $('#s_fpzl option:selected').val();
+            	var kprq = $('#s_kprq').val();
+        	}else{
+        		var xfid = null;
+        		var fpzl = null;
+        		var kprq = el.$jsDate.val();
+        	}       	
         	el.$jsLoading.modal('toggle'),  // show loading         	
         	$.ajax({  		
                 url: _this.config.getURL,
@@ -122,10 +133,10 @@ $(function () {
         
         searchAc:function(){
         	var _this = this;
-        	//$(".js-sltable  tr:not(:first)").html("");
-        	el.$jsSearch.on('click', function (e) { 
+        	el.$jsSearch.on('click', function (e) {
+        		$('#searchbz').val("1");
         		el.$jsLoading.modal('toggle');  // show loading
-                var kprq = el.$jsDate.val();
+                var kprq = $('#s_kprq').val();
                 if(kprq==''){
                 	$('#alert-msg').html("请先选择月份！");
     				$('#my-alert').modal('open');
@@ -137,50 +148,23 @@ $(function () {
                t.ajax.reload();
             })
         },
-        
-        /**
-         * 后一天
-         */
-        hyt:function(data){
+        find_mv:function(){
         	var _this = this;
-        	el.$jsLoading.modal('toggle'),  // show loading
-        	$.ajax({  		
-                url: _this.config.getLaterDay, 
-               data:data,
-                 type: 'POST',
-                 dataType: 'json', 
-              // context: null, 
-                success: function (data) {  
-                	if(data.success){
-                      $("#s_xzrq").val(data.laterrq);                            
-                      _this.showFp({kprq:data.laterrq}); 
-                	}else{
-                		
-                	}
-                    el.$jsLoading.modal('close'); // close loading
-                 
-                },
-                error: function () {
-                    alert('后台错误,请重新登录！');
+        	$('#searchButton').on('click',function(e){
+        		$('#searchbz').val("0");
+        		el.$jsLoading.modal('toggle');  // show loading
+                var kprq = el.$jsDate.val();
+                if(kprq==''){
+                	$('#alert-msg').html("请先选择月份！");
+    				$('#my-alert').modal('open');
+                	el.$jsLoading.modal('toggle');
+                	return false;               	
                 }
-           }); 
+                _this.showFp();                
+               e.preventDefault();              
+               t.ajax.reload();
+        	})
         },
-        laterAc: function () {
-        	var _this = this;
-            el.$jsLater.on('click', function (e) {
-            	var kprq=el.$jsDate.val();
-            	if(!kprq){
-            		alert('Error,请选择开票日期!');
-                    return false;
-            	}  
-            	 _this.hyt({kprq:kprq});             	      	
-                e.preventDefault();
-            });
-        },
-        /**
-         * 查询
-         */
-        	
       
         /**
          * 导出
@@ -201,7 +185,8 @@ $(function () {
         init: function () {
             var _this = this;
             //_this.tableEx = _this.dataTable();
-            _this.searchAc();            
+            _this.searchAc(); 
+            _this.find_mv();
         }
     }; 
     action.init(); 
