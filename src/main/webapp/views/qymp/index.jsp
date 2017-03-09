@@ -78,7 +78,7 @@
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">企业电话</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdh" name="xfdh" style="float: left;"
-											placeholder="企业电话(发票票面)" class="am-form-field" 
+											placeholder="企业电话(发票票面)" class="am-form-field js-pattern-Telephone" 
 											maxlength="30" />
 									</div>
 								</div>
@@ -93,7 +93,7 @@
 									<label for="hc_yfphm" class="am-u-sm-4 am-form-label">银行账号</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="yhzh" name="yhzh" style="float: left;"
-											placeholder="银行账号(发票票面)" class="js-pattern-Telephone"
+											placeholder="银行账号(发票票面)" class="am-form-field"
 											maxlength="50" />
 									</div>
 								</div>
