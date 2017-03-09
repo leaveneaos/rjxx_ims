@@ -42,7 +42,7 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>角色管理</strong>
+									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
 								</div>
 							</div>
 							<div class="am-g  am-padding-top">

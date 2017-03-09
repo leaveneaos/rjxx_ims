@@ -5,23 +5,30 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header class="am-topbar admin-header">
-	<div class="am-topbar-brand">
-		<strong>泰易（TaxEasy）电子发票</strong> <small>v1.0</small>
-	</div>
+	
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+	 <div class="am-fl tpl-header-logo">
+                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
+            </div>
 	<button
 		class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
 		data-am-collapse="{target: '#topbar-collapse'}">
 		<span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
 	</button>
 
-	<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-		<ul
-			class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-			<%--<li><a href="javascript:;"><span class="am-icon-envelope-o"></span>--%>
-			<%--收件箱 <span class="am-badge am-badge-warning">5</span></a></li>--%>
-			<li class="am-dropdown" data-am-dropdown><a
-				class="am-dropdown-toggle" data-am-dropdown-toggle
+	<div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                       <%--  <li class="am-text-sm tpl-header-navbar-welcome">
+                            <a href="javascript:;"><span>${login_session_key.yhmc} ,你好!</span> </a>
+                        </li> --%>
+                        <li class="am-dropdown" data-am-dropdown><a
+				class="am-text-sm am-dropdown-toggle" data-am-dropdown-toggle
 				href="javascript:;"> <span class="am-icon-users"></span>
 					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
 			</a>
@@ -38,10 +45,10 @@
 					<li><a href="javascript:logout()"><span
 							class="am-icon-power-off"></span> 退出</a></li>
 				</ul></li>
-			<li class="am-hide-sm-only"><a href="javascript:;"
-				id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
+			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
+				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
 					class="admin-fullText">开启全屏</span></a></li>
-		</ul>
+	</ul>
 	</div>
 	<%-- 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
 		<div class="am-modal-dialog">
@@ -212,7 +219,7 @@
 						data-am-modal-close>&times;</a>
 				</div>
 				<div class="am-modal-bd">
-					<div class="am-g" style="border: solid 1px #CCC;">
+					<div class="am-g"">
 						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户类型</font></label>
 							<div class="am-u-sm-8">
@@ -223,7 +230,7 @@
 								</label>
 							</div>
 						</div>
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
+						<div class="am-form-group" style=" height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户有效期</font></label>
 							<div class="am-u-sm-8">
 								<label id="yhyxq"></label>

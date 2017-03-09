@@ -26,6 +26,7 @@ import com.rjxx.taxeasy.domains.Gsxx;
 import com.rjxx.taxeasy.domains.Pp;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.DmFpbcService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.GroupService;
 import com.rjxx.taxeasy.service.GsxxService;
@@ -59,6 +60,9 @@ public class SksbxxzcControlller extends BaseController {
 	@Autowired
 	FpzlService fs;
 
+	@Autowired
+	private DmFpbcService dfs;
+
 	/**
 	 * 导入字段映射
 	 */
@@ -90,6 +94,7 @@ public class SksbxxzcControlller extends BaseController {
 		List<Pp> ppList = ps.findAllByParams(prms);
 		request.setAttribute("pps", ppList);
 		request.setAttribute("fpzls", fs.findAllByParams(null));
+		request.setAttribute("bc", dfs.findAllByParams(null));
 		return "sksbxxzc/index";
 	}
 
@@ -171,7 +176,7 @@ public class SksbxxzcControlller extends BaseController {
 	@Transactional
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx) {
+			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> prms = new HashMap<>();
@@ -200,7 +205,8 @@ public class SksbxxzcControlller extends BaseController {
 			Map<String, Object> params = new HashMap<>();
 			params.put("gsdm", getGsdm());
 			params.put("kpddm", kpddm);
-			if (skpService.findOneByParams(params) != null) {
+			Skp skp = skpService.findOneByParams(params);
+			if (skp != null) {
 				result.put("failure", true);
 				result.put("msg", "此开票点已经存在！");
 				return result;
@@ -219,6 +225,12 @@ public class SksbxxzcControlller extends BaseController {
 			old.setSkr(skr);
 			old.setFhr(fhr);
 			old.setKpr(kpr);
+			old.setDpmax(kpxe3);
+			old.setFpfz(fpje3);
+			old.setZpmax(kpxe2);
+			old.setZpfz(fpje2);
+			old.setPpmax(kpxe1);
+			old.setPpfz(fpje1);
 			old.setLrry(getYhid());
 			old.setLrsj(new Date());
 			old.setXgry(getYhid());
@@ -267,7 +279,7 @@ public class SksbxxzcControlller extends BaseController {
 	@ResponseBody
 	public Map update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx) {
+			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
@@ -307,6 +319,12 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setKpr(kpr);
 			skp.setKplx(fplx);
 			skp.setXfid(xfid);
+			skp.setDpmax(kpxe3);
+			skp.setFpfz(fpje3);
+			skp.setZpmax(kpxe2);
+			skp.setZpfz(fpje2);
+			skp.setPpmax(kpxe1);
+			skp.setPpfz(fpje1);
 			skp.setLrry(skp.getLrry());
 			skp.setLrsj(skp.getLrsj());
 			skp.setXgry(getYhid());

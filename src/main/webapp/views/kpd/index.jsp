@@ -29,7 +29,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<%@ include file="../../pages/top.jsp"%>
+<%-- 	<%@ include file="../../pages/top.jsp"%> --%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
@@ -179,9 +179,9 @@
 									</c:forEach>
 								</div>
 								<div class="am-form-group">
-									<a id="lastStep" class="js-button  am-btn am-radius am-btn-primary">上一步</a>
-									<button id="save" class="js-submit  am-btn am-radius am-btn-success">保存</button>
-									<a id="nextStep" class="js-button  am-btn am-radius am-btn-secondary">下一步</a>
+<!-- 									<a id="lastStep" class="js-button  am-btn am-radius am-btn-primary">上一步</a> -->
+									<button id="save" class="js-submit  am-btn am-radius am-btn-primary">下一步</button>
+<!-- 									<a id="nextStep" class="js-button  am-btn am-radius am-btn-secondary">下一步</a> -->
 								</div>
 							</div>
 						</div>
@@ -241,6 +241,7 @@
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery-ui.js"></script>
+	<script src="assets/js/jquery.form.js"></script>
 	<!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
@@ -269,7 +270,7 @@
 									if (data.success) {
 					                	$('#msg').html(data.msg);
 					                	$('#my-alert').modal('open'); 
-										window.location.reload();
+					                	location.href='xfxe';
 									} else if (data.repeat) {
 					                	$('#msg').html(data.msg);
 					                	$('#my-alert').modal('open'); 

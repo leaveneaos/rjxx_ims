@@ -313,7 +313,6 @@ public class XfxxwhController extends BaseController {
 					if (xf2.equals(xfid)) {
 						xfs3.add(xf2);
 						getXfList().remove(xf2);
-						getXfList().remove(xf2);
 					}
 				}
 				getXfList().removeAll(xfs3);
@@ -324,7 +323,6 @@ public class XfxxwhController extends BaseController {
 				result.put("repeat", true);
 				result.put("msg", "销方税号已存在，请重新输入");
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("failure", true);

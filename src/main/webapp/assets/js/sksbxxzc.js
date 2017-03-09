@@ -190,13 +190,22 @@ $(function() {
 					var fps = data.kplx.split(",");
 					for (var i = 0; i < fps.length; i++) {
 						var fplx = '#fplx-' + fps[i];
+						var id = '#kplx-'+fps[i]
 						$(fplx).prop('checked', true);
+						$(id).show();
 					}
 				}
+				
+				el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
+				el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
+				el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
+				el.$jsForm.find('[id="fpje-01"]').val(data.zpfz);
+				el.$jsForm.find('select[id="kpxe-02"]').val(data.ppmax);
+				el.$jsForm.find('[id="fpje-02"]').val(data.ppfz);
 				// el.$jsForm.find('[name="zcm"]').val(data.zcm);
 				url = _this.config.editUrl + "?id=" + data.id;
 				$('#your-modal').modal({
-					"width" : 800,
+					"width" : 900,
 					"height" : 500
 				});
 			});
@@ -256,21 +265,16 @@ $(function() {
 			});
 			$("#button2").click(function() {
 				url = _this.config.addUrl;
+				$('#kplx-01').hide();
+				$('#kplx-02').hide();
+				$('#kplx-12').hide();
 				$('#your-modal').modal({
-					"width" : 800,
+					"width" : 900,
 					"height" : 500
 				});
 			});
 
 			$('#xfid').change(function() {
-				var lxdz = $('#lxdz').val();
-				var lxdh = $('#lxdh').val();
-				var khyh = $('#khyh').val();
-				var yhzh = $('#yhzh').val();
-				var skr = $('#skr').val();
-				var fhr = $('#fhr').val();
-				var kpr = $('#kpr').val();
-
 				$.ajax({
 					url : _this.config.xfUrl,
 					data : {
@@ -278,27 +282,34 @@ $(function() {
 					},
 					type : 'POST',
 					success : function(data) {
-						// if ((lxdz == "" && lxdh == "" && khyh == "" && yhzh
-						// == "" && skr == ""
-						// && fhr == "" && kpr == "") || (lxdz == data.xf.xfdz
-						// && lxdh == data.xf.xfdh
-						// && khyh == data.xf.khyh && yhzh == data.xf.yhzh &&
-						// skr == data.xf.skr &&
-						// fhr == data.xf.fhr && kpr == data.xf.kpr)) {
 						$('#lxdz').val(data.xf.xfdz);
 						$('#lxdh').val(data.xf.xfdh);
 						$('#khyh').val(data.xf.xfyh);
-						$('#yhzh').val(data.xf.yhzh);
+						$('#yhzh').val(data.xf.xfyhzh);
 						$('#skr').val(data.xf.skr);
 						$('#fhr').val(data.xf.fhr);
 						$('#kpr').val(data.xf.kpr);
-						// }
+						el.$jsForm.find('select[id="kpxe-12"]').val(data.xf.dzpzdje);
+						el.$jsForm.find('[id="fpje-12"]').val(data.xf.dzpfpje);
+						el.$jsForm.find('select[id="kpxe-01"]').val(data.xf.zpzdje);
+						el.$jsForm.find('[id="fpje-01"]').val(data.xf.zpfpje);
+						el.$jsForm.find('select[id="kpxe-02"]').val(data.xf.ppzdje);
+						el.$jsForm.find('[id="fpje-02"]').val(data.xf.ppfpje);
 					},
 					error : function() {
 
 					}
 				});
 
+			});
+			$('#kpxe-01').change(function() {
+				$('#fpje-01').val($('#kpxe-01').val());
+			});
+			$('#kpxe-02').change(function() {
+				$('#fpje-02').val($('#kpxe-02').val());
+			});
+			$('#kpxe-12').change(function() {
+				$('#fpje-12').val($('#kpxe-12').val());
 			});
 			// 导入excel
 			$("#btnImport").click(function() {
@@ -351,7 +362,7 @@ $(function() {
 				e.preventDefault();
 				url = _this.config.addUrl;
 				$('#your-modal').modal({
-					"width" : 800,
+					"width" : 900,
 					"height" : 500
 				});
 

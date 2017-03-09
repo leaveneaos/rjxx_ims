@@ -43,7 +43,7 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>用户管理</strong>
+									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
 									<button class="am-btn am-btn-success am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>

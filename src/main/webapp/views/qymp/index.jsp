@@ -29,7 +29,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<%@ include file="../../pages/top.jsp"%>
+<%-- 	<%@ include file="../../pages/top.jsp"%> --%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
@@ -203,6 +203,7 @@
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery-ui.js"></script>
+	<script src="assets/js/jquery.form.js"></script>
 	<!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
