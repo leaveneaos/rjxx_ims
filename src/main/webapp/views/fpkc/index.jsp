@@ -38,7 +38,7 @@
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
 								<br>
-									<strong class="am-text-primary am-text-lg">发票库存</strong> / <strong>发票库存管理</strong>
+									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
 									<button class="am-btn am-btn-success am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
