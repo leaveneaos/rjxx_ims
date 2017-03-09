@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
@@ -1173,9 +1174,13 @@ public class KpController extends BaseController {
 	@RequestMapping(value = "/doKp")
 	@ResponseBody
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
-	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
+	public Map doKp(String djhArr,Double kpxe,String dybz,String djhArr1,String bckpje) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> djhList = convertToList(djhArr);
+		if (bckpje.equals("")) {
+			result.put("success", false);
+			result.put("msg", "开票金额为0,请重新勾选填写");
+		}
 	//	try {
 			/*Map<String, Object> params = new HashMap<>();
 			params.put("gsdm", getGsdm());
@@ -1186,9 +1191,24 @@ public class KpController extends BaseController {
 				jylsService.updateJylsClzt(djhList, "01");
 			}*/
 		String[] djhs = djhArr.split(",");
+		String[] djh1 = djhArr1.split(",");
+		String[] kpje  =bckpje.split(",");
 		for (int i = 0; i < djhs.length; i++) {
              //保存
-             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]),dybz);
+			List<String> djhlist = new ArrayList<>();
+			List<Double> jelist = new ArrayList<>();
+			double kpe=0d;
+			for (int j = 0; j < djh1.length; j++) {
+				if (djh1[j].equals(djhs[i])) {
+					jelist.add(Double.valueOf(kpje[j]));
+					kpe+=Double.valueOf(kpje[j]);
+				}
+			}
+			if (kpe<=0) {
+				result.put("success", false);
+				result.put("msg", "开具失败,第"+(i+1)+"条数据开票金额为0,请重新勾选");
+			}
+             InvoiceResponse flag = fpclService.kpcl(Integer.valueOf(djhs[i]),dybz,jelist);
 		if (!flag.getReturnCode().equals("0000")) {
 			result.put("success", false);
 			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());
@@ -1278,11 +1298,11 @@ public class KpController extends BaseController {
 
 	@RequestMapping(value = "/getjyspmxlist")
 	@ResponseBody
-	public Map getjyspmxlist(int length, int start, int draw, int djh) {
+	public Map getjyspmxlist( String djh) {
 		String gsdm = this.getGsdm();
 		Pagination pagination = new Pagination();
-		pagination.setPageNo(start / length + 1);
-		pagination.setPageSize(length);
+/*		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);*/
 		pagination.addParam("djh", djh);
 		pagination.addParam("gsdm", gsdm);
 		List<Jyspmx> jyspmxList = jyspmxService.findByPage(pagination);
@@ -1291,7 +1311,7 @@ public class KpController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
-		result.put("draw", draw);
+	/*	result.put("draw", draw);*/
 		result.put("data", jyspmxList);
 		return result;
 	}
@@ -1326,6 +1346,7 @@ public class KpController extends BaseController {
 			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
 		}
 		pagination.addParam("clztdm", "00");
+		pagination.addParam("clztdm1", "30");
 		if ("".equals(fpzldm)) {
 			pagination.addParam("fpzldm", null);
 		}else{

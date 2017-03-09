@@ -37,7 +37,7 @@
 					<div class="admin-content">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票开具</strong>
+								<strong class="am-text-primary am-text-lg">业务</strong> / <strong>发票</strong>
 								<button class="am-btn am-btn-success am-fr"
 									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 							</div>
@@ -217,6 +217,9 @@
 													<th>名称</th>
 													<th>规格型号</th>
 													<th>单位</th>
+													<th>本次开票金额</th>
+													<th>可开票金额</th>
+													<th>已开票金额</th>
 													<th>数量</th>
 													<th>单价</th>
 													<th>金额</th>

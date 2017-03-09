@@ -151,30 +151,30 @@ public class KpdshController extends BaseController {
 			Xf xf2 = new Xf();
 			xf2.setXfsh(jyxxsqVO.getXfsh());
 			Xf xf = xfService.findOneByParams(xf2);
+			Skp skp = skpService.findOne(jyxxsqVO.getSkpid());
 			double fpje = 0d;
 			Double zdje = 0d;
 			if ("01".equals(jyxxsqVO.getFpzldm())) {
-				if (xf.getZpfpje() != null && (xf.getZpfpje() > 0)) {
-					fpje = xf.getZpfpje();
-				} else if (xf.getZpzdje() != null && (xf.getZpzdje() > 0)) {
-					fpje = xf.getZpzdje();
+				if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
+					fpje = skp.getZpfz();
+				} else if (skp.getZpmax() != null && (skp.getZpmax() > 0)) {
+					fpje = skp.getZpmax();
 				}
-				zdje = xf.getZpzdje();
+				zdje = skp.getZpmax();
 			} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-				if (xf.getZpfpje() != null && (xf.getPpfpje() > 0)) {
-					fpje = xf.getPpfpje();
-				} else if (xf.getZpzdje() != null && (xf.getPpzdje() > 0)) {
-					fpje = xf.getPpzdje();
+				if (skp.getPpfz() != null && (skp.getPpfz()  > 0)) {
+					fpje = skp.getPpfz() ;
+				} else if (skp.getPpmax() != null && (skp.getPpmax() > 0)) {
+					fpje = skp.getPpmax();
 				}
-				zdje = xf.getPpzdje();
+				zdje = skp.getPpmax();
 			} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-				if (xf.getZpfpje() != null && (xf.getDzpfpje() > 0)) {
-					fpje = xf.getDzpfpje();
-				} else if (xf.getZpzdje() != null && (xf.getDzpzdje() > 0)) {
-					fpje = xf.getDzpzdje();
-					zdje = xf.getDzpzdje();
+				if (skp.getFpfz() != null && (skp.getFpfz()) > 0) {
+					fpje = skp.getFpfz();
+				} else if (skp.getDpmax() != null && (skp.getDpmax() > 0)) {
+					fpje = skp.getDpmax();
 				}
-				zdje = xf.getDzpzdje();
+				zdje = skp.getDpmax();
 			}
 			boolean flag = false;
 			for (Fpgz fpgz : listt) {
@@ -211,7 +211,6 @@ public class KpdshController extends BaseController {
 			}else{
 				jyxxsqVO.setFpje(zdje);
 			}
-
 			jyxxsqVO.setZdje(zdje);
 		}
 
@@ -398,12 +397,14 @@ public class KpdshController extends BaseController {
 			}
 			int fphs1 = 8;
 			int fphs2 = 100;
+			double zdje=0d;
 			boolean flag = false;
 			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 			Xf x = new Xf();
 			x.setGsdm(getGsdm());
 			x.setXfsh(jyxxsq.getXfsh());
 			Xf xf = xfService.findOneByParams(x);
+			Skp skp = skpService.findOne(jyxxsq.getSkpid());
 			for (Fpgz fpgz : listt) {
 				if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
 					if ("01".equals(jyxxsq.getFpzldm())) {
@@ -430,12 +431,19 @@ public class KpdshController extends BaseController {
 					}
 				}
 			}
+			if ("01".equals(jyxxsq.getFpzldm())) {
+				zdje=skp.getZpmax();
+			}else if ("02".equals(jyxxsq.getFpzldm())) {
+				zdje=skp.getPpmax();
+			}else if ("12".equals(jyxxsq.getFpzldm())) {
+				zdje=skp.getDpmax();
+			}
 			// 分票
 			if (jyxxsq.getFpzldm().equals("12")) {
-				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(fpxels[i])),
+				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 						new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
 			} else {
-				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(fpxels[i])),
+				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 						new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
 			}
 			// 保存进交易流水
@@ -560,8 +568,7 @@ public class KpdshController extends BaseController {
 	public Jyls saveJyls(Jyxxsq jyxxsq, List<JyspmxDecimal2> jyspmxList) throws Exception {
 		Jyls jyls1 = new Jyls();
 		jyls1.setDdh(jyxxsq.getDdh());
-		String jylsh = "JY" + new SimpleDateFormat("yyyyMMddHHmmssSS").format(new Date());
-		jyls1.setJylsh(jylsh);
+		jyls1.setJylsh(jyxxsq.getJylsh());
 		jyls1.setJylssj(TimeUtil.getNowDate());
 		jyls1.setFpzldm(jyxxsq.getFpzldm());
 		jyls1.setFpczlxdm("11");
@@ -629,6 +636,8 @@ public class KpdshController extends BaseController {
 			jymx.setSpse(mxItem.getSpse() == null ? null : mxItem.getSpse().doubleValue());
 			jymx.setJshj(mxItem.getJshj() == null ? null : mxItem.getJshj().doubleValue());
 			jymx.setYkphj(0d);
+			jymx.setYkpje(0d);
+			jymx.setKkpje(jymx.getJshj());
 			jymx.setGsdm(getGsdm());
 			jymx.setLrsj(TimeUtil.getNowDate());
 			jymx.setLrry(getYhid());

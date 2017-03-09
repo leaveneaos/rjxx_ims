@@ -108,11 +108,16 @@
             "serverSide": true,
             "sServerMethod": "POST",
             "processing": true,
+            "bPaginate":false,
             ordering: false,
             ajax: {
                 "url": "kp/getjyspmxlist",
                 data: function (d) {
-                    d.djh = $("#djh").val();
+                	 var djhArr = [];
+                     $('input[name="chk"]:checked').each(function(){    
+                             djhArr.push($(this).val()); 
+                     });
+                    d.djh = djhArr.join(",");
                 }
             },
             "columns": [
@@ -120,6 +125,28 @@
                 {"data": "spmc"},
                 {"data": "spggxh"},
                 {"data": "spdw"},
+                {"data": function (data) {
+                	  if (data.kkpje) {
+                		     return '<input type="text" class="bckpje" name="bckpje" value="'+data.kkpje+'">';
+                      } else {
+                          return 0;
+                      }
+               
+                }, 'sClass': 'right'},
+                {"data": function (data) {
+                    if (data.kkpje) {
+                        return FormatFloat(data.kkpje, "###,###.00");
+                    } else {
+                        return 0;
+                    }
+                }, 'sClass': 'right'},
+                {"data": function (data) {
+                    if (data.ykpje) {
+                        return FormatFloat(data.ykpje, "###,###.00");
+                    } else {
+                        return 0;
+                    }
+                }, 'sClass': 'right'},
                 {"data": function (data) {
                     if (data.sps) {
                         return FormatFloat(data.sps, "###,###.00");
@@ -203,8 +230,10 @@
         $('#jyls_table tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
+                $(this).find('td:eq(0) input').prop('checked',false) 
             } else {
                 jyls_table.$('tr.selected').removeClass('selected');
+                $(this).find('td:eq(0) input').prop('checked',true)  
                 $(this).addClass('selected');
             }
             var data = jyls_table.row($(this)).data();
@@ -236,11 +265,14 @@
                     $(cell).find('input[type="checkbox"]').prop('checked', false);
                 });
             }
+        	  jyspmx_table.ajax.reload();
         });
 
 
         $('#kp_kp').click(function () {
             var djhArr = [];
+            var djhArr1 = [];
+            var bckpje = [];
             $('input[name="chk"]:checked').each(function(){    
                     djhArr.push($(this).val()); 
             });
@@ -249,6 +281,27 @@
             	$("#my-alert").modal('open');
                 return;
             }
+        	var rows = $("#jyspmx_table").find('tr');	
+            var els =document.getElementsByName("bckpje");
+			for(var i=0;i<els.length;i++){
+				var fpje = els[i].value;
+				 bckpje.push(fpje); 
+				if(fpje==0){
+				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
+    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
+                	$("#my-alert").modal('open');
+    				return false;
+    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
+    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
+                	$("#my-alert").modal('open');
+                	return false;
+    			}
+			}
+            var d = jyspmx_table.rows().data();
+            d.each(function (data, index) {
+            	 djhArr1.push(data.djh); 
+            	
+            })
             $("#kp_kp").attr('disabled',"true"); 
             $("#conft").html("确认开票么")
         if (!confirm("确认开票么")) {
@@ -256,7 +309,7 @@
 						return;
 					} 
             $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0","djhArr1":djhArr1.join(","),"bckpje":bckpje.join(",")}, success: function (data) {
                     if (data.success) {
                     	$('#kp_kp').removeAttr("disabled"); 
                     	$("#alertt").html("开票成功");
@@ -286,6 +339,27 @@
             	$("#my-alert").modal('open');
                 return;
             }
+          	var rows = $("#jyspmx_table").find('tr');	
+            var els =document.getElementsByName("bckpje");
+			for(var i=0;i<els.length;i++){
+				var fpje = els[i].value;
+				 bckpje.push(fpje); 
+				if(fpje==0){
+				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
+    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
+                	$("#my-alert").modal('open');
+    				return false;
+    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
+    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
+                	$("#my-alert").modal('open');
+                	return false;
+    			}
+			}
+            var d = jyspmx_table.rows().data();
+            d.each(function (data, index) {
+            	 djhArr1.push(data.djh); 
+            	 bckpje.push(data.djh); 
+            })
             var skpid="";
             var fpzldm="";
 /*            var d = jyls_table.rows().data();*/
@@ -368,9 +442,28 @@
      /* 	  if (!confirm("确认全部开票打印么,请检查打印机是否放好发票?")) {
 						return;
 					}*/
-           
+           	var rows = $("#jyspmx_table").find('tr');	
+            var els =document.getElementsByName("bckpje");
+			for(var i=0;i<els.length;i++){
+				var fpje = els[i].value;
+				if(fpje==0){
+				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
+    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
+                	$("#my-alert").modal('open');
+    				return false;
+    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
+    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
+                	$("#my-alert").modal('open');
+                	return false;
+    			}
+			}
+            var d = jyspmx_table.rows().data();
+            d.each(function (data, index) {
+            	 djhArr1.push(data.djh); 
+            	 bckpje.push(data.djh); 
+            })
             $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1","djhArr1":djhArr1.join(","),"bckpje":bckpje.join(",")}, success: function (data) {
                     if (data.success) {
                     	  $("#doc-modal-fphm").modal("close");
                     	$("#alertt").html("开票成功");
@@ -593,3 +686,10 @@
         });
     });
 })(jQuery);
+function delcommafy(num){
+	   if((num+"").trim()==""){
+	      return "";
+	   }
+	   num=num.replace(/,/gi,'');
+	   return num;
+	}

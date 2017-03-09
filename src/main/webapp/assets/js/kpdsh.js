@@ -615,9 +615,11 @@ $(function() {
 				var els =document.getElementsByName("fpje");
 				for(var i=0;i<els.length;i++){
 					var fpje = els[i].value;
-					if(fpje=0){
-						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请维护开票限额");
+					if(fpje==0){
+						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
 	                	$("#my-alert").modal('open');
+	                	fla=false;
+	    				return false;
 					}
 					if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
         				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
