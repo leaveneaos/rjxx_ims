@@ -40,7 +40,7 @@
 				<div class="am-fl am-cf" style="background: ccccff">
 					<strong class="am-text-default am-text-lg">1创建企业名片&nbsp;></strong>&nbsp;&nbsp;<strong
 						class="am-text-default am-text-lg">2开票点信息</strong>&nbsp;>&nbsp;&nbsp;<strong
-						class="am-text-primary am-text-lg">3开票限额</strong>>&nbsp;&nbsp;<strong class="am-text-default am-text-lg">4下载客户端</strong>
+						class="am-text-default am-text-lg">3开票限额</strong>>&nbsp;&nbsp;<strong class="am-text-primary am-text-lg">4下载客户端</strong>
 				</div>
 			</div>
 			<hr />
@@ -48,81 +48,13 @@
 				<div class="am-modal-bd" style="border: none">
 					<div class="am-g">
 						<form id="frm" class="js-form-0 am-form am-form-horizontal">
+							
 							<div class="am-form-group">
-								<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-									color="red">*</font>开票点</label>
-								<div class="am-u-sm-9">
-									<select id="skpid" name="skpid">
-										<option value="${skp.id }">${skp.kpdmc }&nbsp;${skp.kpddm}</option>
-									</select>
-								</div>
-							</div>
-							<c:forEach items="${kplxs }" var="k">
-								<c:if test="${k=='01' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税专用发票</label>
-										<div class="am-u-sm-4">
-											<select id="kpxe2" name="kpxe2" required="required">
-												<option value="">请选择</option>
-												<c:forEach items="${bc }" var="b">
-													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje2" name="fpje2"
-												style="float: left;" placeholder="分票金额" value="${skp.zpfz }"
-												class="am-form-field am-text-right js-pattern-Money" required />
-										</div>
-									</div>
-								</c:if>
-								<c:if test="${k=='02' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税普通发票</label>
-										<div class="am-u-sm-4">
-											<select id="kpxe1" name="kpxe1" required="required">
-												<option value="">请选择</option>
-												<c:forEach items="${bc }" var="b">
-													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje1" name="fpje1"
-												style="float: left;" placeholder="分票金额" value="${skp.ppfz }"
-												class="am-form-field am-text-right js-pattern-Money" required />
-										</div>
-									</div>
-								</c:if>
-								<c:if test="${k=='12' }">
-									<div class="am-form-group">
-										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-											color="red">*</font>增值税电子普通发票</label>
-										<div class="am-u-sm-4">
-											<select id="kpxe3" name="kpxe3" required="required">
-												<option value="">请选择</option>
-												<c:forEach items="${bc }" var="b">
-													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="am-u-sm-5">
-											<input type="text" id="fpje3" name="fpje3"
-												style="float: left;" placeholder="分票金额" value="${skp.fpfz }"
-												class="am-form-field am-text-right js-pattern-Money" required />
-										</div>
-									</div>
-								</c:if>
-
-							</c:forEach>
-							<div class="am-form-group">
-<!-- 								<a id="last" class="js-button  am-btn am-radius am-btn-primary">上一步</a> -->
-								<button id="save"
-									class="js-button  am-btn am-radius am-btn-primary">下一步</button>
-<!-- 								<a id="finish" -->
-<!-- 									class="js-button  am-btn am-radius am-btn-success">完成</a> -->
+								<a href="http://invoice.datarj.com/update/kpt2/kpt2.0.0.0.zip" class="js-button  am-btn am-radius am-btn-primary">下载客户端</a>
+<!-- 								<button id="save" -->
+<!-- 									class="js-button am-btn am-radius am-btn-primary">下载客户端</button> -->
+								<a id="finish"
+									class="js-button  am-btn am-radius am-btn-success">完成</a>
 							</div>
 
 						</form>
@@ -260,7 +192,7 @@
 									if (data.success) {
 					                	$('#msg').html(data.msg);
 					                	$('#my-alert').modal('open'); 
-										location.href = 'download';
+										location.href = 'main';
 // 										window.location.reload();
 									} else if (data.repeat) {
 					                	$('#msg').html(data.msg);
