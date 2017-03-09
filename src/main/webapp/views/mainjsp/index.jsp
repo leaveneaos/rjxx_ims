@@ -87,7 +87,8 @@
 											</thead>
 											<tbody>
 												<tr class="gradeX">
-													<td><a href="">恭祝泰易发票2.0平台正式上线</a></td>
+													<td><a href="https://mp.weixin.qq.com/s?__biz=MzAxMTg2MzQ3NQ==&mid=2247483912&idx=1&sn=9a2316b7e5bf7744fabf32a29147f97c&chksm=9bbbd6d4accc5fc2f99d56b14b4f1fc67bdb186c642ae08b5884bd6283c1ac3e0bae59f5cff1#rd 
+													">【泰易】开票通云服务平台2.0重磅发布</a></td>
 													<td></td>
 													<td>2017-03-01</td>
 												</tr>												

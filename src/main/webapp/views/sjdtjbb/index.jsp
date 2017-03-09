@@ -37,8 +37,7 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<br> <strong class="am-text-primary am-text-lg">发票查询</strong>
-									/ <strong>时间段统计报表</strong>
+									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
 									<button class="am-btn am-btn-success am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
@@ -94,7 +93,7 @@
 													<div class="am-input-group am-datepicker-date am-u-sm-8"
 														data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 														<input type="text" id="s_kprqz" class="am-form-field"
-															placeholder="选择起始月份" readonly> <span
+															placeholder="选择终止月份" readonly> <span
 															class="am-input-group-btn am-datepicker-add-on">
 															<button class="am-btn am-btn-default" type="button">
 																<span class="am-icon-calendar"></span>
