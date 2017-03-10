@@ -1216,6 +1216,8 @@ public class LrkpdController extends BaseController {
 			jymxsq.setSpje(spje);
 			jymxsq.setSpsl(spsl);
 			jymxsq.setJshj(jshj);
+			jymxsq.setKkjje(jshj);
+			jymxsq.setYkjje(0d);
 			jymxsq.setSpse(Double.valueOf(getValue("spse", pzMap, columnIndexMap, row)));
 			if (jymxsq.getSpje() != null && jymxsq.getSpse() == 0) {
 				Double temp = div(jymxsq.getJshj(), (1 + jymxsq.getSpsl()), 100);
