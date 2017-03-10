@@ -171,6 +171,28 @@ $(function() {
         "columns": [
             {"data": "spmxxh"},
             {"data": "spmc"},
+            {"data": function (data) {
+          	  if (data.kkjje) {
+          		     return '<input type="text" class="bckpje" name="bckpje" value="'+data.kkjje+'">';
+                } else {
+                    return 0;
+                }
+         
+          }, 'sClass': 'right'},
+          {"data": function (data) {
+              if (data.kkjje) {
+                  return FormatFloat(data.kkjje, "###,###.00");
+              } else {
+                  return 0;
+              }
+          }, 'sClass': 'right'},
+          {"data": function (data) {
+              if (data.ykjje) {
+                  return FormatFloat(data.ykjje, "###,###.00");
+              } else {
+                  return 0;
+              }
+          }, 'sClass': 'right'},
             {"data": "spggxh"},
             {"data": "spdw"},
             {

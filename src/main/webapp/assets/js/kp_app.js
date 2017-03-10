@@ -99,16 +99,15 @@
 			});
 
 		});
-        jyls_table.on('click', 'tr', function () {
+   /*     jyls_table.on('click', 'tr', function () {
               $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");
-        });
+        });*/
 
         var jyspmx_table = $('#jyspmx_table').DataTable({
             "searching": false,
             "serverSide": true,
             "sServerMethod": "POST",
             "processing": true,
-            "bPaginate":false,
             ordering: false,
             ajax: {
                 "url": "kp/getjyspmxlist",
@@ -125,28 +124,6 @@
                 {"data": "spmc"},
                 {"data": "spggxh"},
                 {"data": "spdw"},
-                {"data": function (data) {
-                	  if (data.kkpje) {
-                		     return '<input type="text" class="bckpje" name="bckpje" value="'+data.kkpje+'">';
-                      } else {
-                          return 0;
-                      }
-               
-                }, 'sClass': 'right'},
-                {"data": function (data) {
-                    if (data.kkpje) {
-                        return FormatFloat(data.kkpje, "###,###.00");
-                    } else {
-                        return 0;
-                    }
-                }, 'sClass': 'right'},
-                {"data": function (data) {
-                    if (data.ykpje) {
-                        return FormatFloat(data.ykpje, "###,###.00");
-                    } else {
-                        return 0;
-                    }
-                }, 'sClass': 'right'},
                 {"data": function (data) {
                     if (data.sps) {
                         return FormatFloat(data.sps, "###,###.00");
@@ -191,7 +168,13 @@
                 }, 'sClass': 'right'}
             ]
         });
+        jyspmx_table.on('draw.dt', function(e, settings, json) {
+			var x = jyspmx_table, page = x.page.info().start; // 设置第几页
+			jyspmx_table.column(0).nodes().each(function(cell, i) {
+				cell.innerHTML = page + i + 1;
+			});
 
+		});
         $('#kp_search').click(function () {
         	$("#ycform").resetForm();
         	$('#xzxfq').attr("selected","selected");
@@ -216,9 +199,15 @@
       if (!confirm("确认删除么?")) {
 						return;
 					} 
+      $("#kp_kp").attr('disabled',"true"); 
+      $("#kp_kpdy").attr('disabled',"true"); 
+      $("#kp_del").attr('disabled',"true"); 
                 $.post("kp/doDel",
 						"djhArr="+ djhArr.join(","),
 						function(res) {
+                	$('#kp_kp').removeAttr("disabled"); 
+                	$('#kp_kpdy').removeAttr("disabled"); 
+                	$('#kp_del').removeAttr("disabled");  
 							if (res) {
 								$("#alertt").html("删除成功");
 				            	$("#my-alert").modal('open');
@@ -232,7 +221,7 @@
                 $(this).removeClass('selected');
                 $(this).find('td:eq(0) input').prop('checked',false) 
             } else {
-                jyls_table.$('tr.selected').removeClass('selected');
+               // jyls_table.$('tr.selected').removeClass('selected');
                 $(this).find('td:eq(0) input').prop('checked',true)  
                 $(this).addClass('selected');
             }

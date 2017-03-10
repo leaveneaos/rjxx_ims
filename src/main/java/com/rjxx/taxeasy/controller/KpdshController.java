@@ -652,17 +652,20 @@ public class KpdshController extends BaseController {
 		List<Jyxxsq> listsq = (List<Jyxxsq>) session.getAttribute("listsq");
 		List<List<JyspmxDecimal2>> mxList = (List<List<JyspmxDecimal2>>) session.getAttribute("mxList");
 		Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
-		for (int i = 0; i < listsq.size(); i++) {
-			Jyxxsq jyxxsq1 = listsq.get(i);
-			for (List<JyspmxDecimal2> listjy : mxList) {
-				int fpnum = listjy.get(0).getFpnum();
-				Jyls jyls = saveJyls(jyxxsq1, listjy);
-				saveKpspmx(jyls, listjy);
+		for (int i = 0; i < mxList.size(); i++) {
+			Jyxxsq jyxxsq1 =new Jyxxsq();
+			for (Jyxxsq jyxxsq : listsq) {
+				if (jyxxsq.getSqlsh().equals(mxList.get(i).get(0).getsqlsh())) {
+					 jyxxsq1 = jyxxsq;
+				}
 			}
-
-			listsq.get(i).setZtbz("3");
+			Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
+			saveKpspmx(jyls, mxList.get(i));
+		}
+		for (Jyxxsq jyxxsq : listsq) {
+			jyxxsq.setZtbz("3");
 			cljlService.saveYhcljl(getYhid(), "开票单审核");
-			jyxxsqService.save(listsq.get(i));
+			jyxxsqService.save(jyxxsq);
 		}
 		result.put("msg", true);
 		return result;

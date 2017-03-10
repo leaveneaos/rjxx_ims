@@ -217,6 +217,9 @@
 													<tr>
 														<th>序号</th>
 														<th>名称</th>
+														<th>本次开具金额</th>
+														<th>可开具金额</th>
+														<th>已开具金额</th>
 														<th>规格型号</th>
 														<th>单位</th>
 														<th>数量</th>
@@ -239,8 +242,7 @@
 								</div>
 							</div>
 							<div id="cljg" class="am-tab-panel">
-								<fieldset>
-									<legend>处理结果展示列表</legend>
+									<legend>处理结果展示列表</legend>	
 									<table style="margin-bottom: 0px;"
 										class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 										id="mxTable3">
@@ -267,7 +269,7 @@
 											</tr>
 										</thead>
 									</table>
-								</fieldset>
+						
 								<button id="yhqrbc" type="button"
 									class="am-btn am-btn-primary js-append-tab">确认保存</button>
 								<button id="yhqx" type="button"
