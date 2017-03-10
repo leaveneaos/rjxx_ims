@@ -270,27 +270,7 @@
             	$("#my-alert").modal('open');
                 return;
             }
-        	var rows = $("#jyspmx_table").find('tr');	
-            var els =document.getElementsByName("bckpje");
-			for(var i=0;i<els.length;i++){
-				var fpje = els[i].value;
-				 bckpje.push(fpje); 
-				if(fpje==0){
-				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
-                	$("#my-alert").modal('open');
-    				return false;
-    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
-    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
-                	$("#my-alert").modal('open');
-                	return false;
-    			}
-			}
-            var d = jyspmx_table.rows().data();
-            d.each(function (data, index) {
-            	 djhArr1.push(data.djh); 
-            	
-            })
+        	
             $("#kp_kp").attr('disabled',"true"); 
             $("#kp_kpdy").attr('disabled',"true"); 
             $("#kp_del").attr('disabled',"true"); 
@@ -302,7 +282,7 @@
 						return;
 					} 
             $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0","djhArr1":djhArr1.join(","),"bckpje":bckpje.join(",")}, success: function (data) {
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
                     if (data.success) {
                     	$('#kp_kp').removeAttr("disabled"); 
                     	$('#kp_kpdy').removeAttr("disabled"); 
@@ -336,27 +316,7 @@
             	$("#my-alert").modal('open');
                 return;
             }
-          	var rows = $("#jyspmx_table").find('tr');	
-            var els =document.getElementsByName("bckpje");
-			for(var i=0;i<els.length;i++){
-				var fpje = els[i].value;
-				 bckpje.push(fpje); 
-				if(fpje==0){
-				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
-                	$("#my-alert").modal('open');
-    				return false;
-    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
-    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
-                	$("#my-alert").modal('open');
-                	return false;
-    			}
-			}
-            var d = jyspmx_table.rows().data();
-            d.each(function (data, index) {
-            	 djhArr1.push(data.djh); 
-            	 bckpje.push(data.djh); 
-            })
+
             var skpid="";
             var fpzldm="";
 /*            var d = jyls_table.rows().data();*/
@@ -445,28 +405,8 @@
      /* 	  if (!confirm("确认全部开票打印么,请检查打印机是否放好发票?")) {
 						return;
 					}*/
-           	var rows = $("#jyspmx_table").find('tr');	
-            var els =document.getElementsByName("bckpje");
-			for(var i=0;i<els.length;i++){
-				var fpje = els[i].value;
-				if(fpje==0){
-				}else if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-    				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
-                	$("#my-alert").modal('open');
-    				return false;
-    			}else if(Number(fpje)>Number(delcommafy(rows[i+1].cells[5].innerHTML))){
-    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
-                	$("#my-alert").modal('open');
-                	return false;
-    			}
-			}
-            var d = jyspmx_table.rows().data();
-            d.each(function (data, index) {
-            	 djhArr1.push(data.djh); 
-            	 bckpje.push(data.djh); 
-            })
             $.ajax({
-                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1","djhArr1":djhArr1.join(","),"bckpje":bckpje.join(",")}, success: function (data) {
+                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
                     if (data.success) {
                     	  $("#doc-modal-fphm").modal("close");
                     	$("#alertt").html("开票成功");
