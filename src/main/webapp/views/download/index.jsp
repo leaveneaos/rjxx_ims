@@ -29,7 +29,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-<%-- 	<%@ include file="../../pages/top.jsp"%> --%>
+	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main" style="margin-top: 0px;">
 		<!-- sidebar start -->
 		<!-- sidebar end -->

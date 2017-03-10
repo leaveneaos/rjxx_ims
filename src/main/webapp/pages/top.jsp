@@ -288,6 +288,13 @@
 	</div>
 </header>
 <script type="text/javascript">
+	$(function(){
+        $('.left-sidebar').addClass('active');
+        if ($(window).width() > 1024) {
+            $('.tpl-content-wrapper').addClass('active');
+            $('.tpl-content-wrapper').css("margin-left","0");
+        }
+	});
 	function zhxx(){
 		$.ajax({
 			url : "nyhgl/getGsxx",

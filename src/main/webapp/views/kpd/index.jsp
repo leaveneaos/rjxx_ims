@@ -29,7 +29,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-<%-- 	<%@ include file="../../pages/top.jsp"%> --%>
+	<%@ include file="../../pages/top.jsp"%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
@@ -170,11 +170,11 @@
 								<div class="am-form-group" style="padding-bottom: 1px;">
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label" style=""><font color="red">*</font>开票类型</label>
 									<c:forEach items="${fpzls }" var="f" varStatus="i">
-										<c:if test="${i.index%2==0 }">
-											<label for="hc_yfphm" class="am-u-sm-4"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
+										<c:if test="${i.index%3==0 }">
+											<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
 										</c:if>
-										<c:if test="${i.index%2!=0 }">
-											<label for="hc_yfphm" class="am-u-sm-5"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
+										<c:if test="${i.index%3!=0 }">
+											<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
 										</c:if>
 									</c:forEach>
 								</div>
