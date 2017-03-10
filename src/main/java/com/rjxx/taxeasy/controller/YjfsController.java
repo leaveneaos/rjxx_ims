@@ -45,6 +45,7 @@ public class YjfsController extends BaseController {
 
 	@RequestMapping
 	public String index() {
+		request.setAttribute("xfs", getXfList());
 		return "yjfs/index";
 	}
 
@@ -109,7 +110,7 @@ public class YjfsController extends BaseController {
 	@RequestMapping(value = "/getYjfsList")
 	@ResponseBody
 	public Map getYjfsList(int length, int start, int draw, String jyrqq, String jyrqz, String kprqq, String kprqz,
-			String gfmc, String ddh) throws Exception {
+			String gfmc, String ddh, String fpdm, String fphm, String xfmc, Integer xfid) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -126,8 +127,19 @@ public class YjfsController extends BaseController {
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("gfmc", gfmc);
 		pagination.addParam("ddh", ddh);
-		pagination.addParam("jyrqq", jyrqq);
-		pagination.addParam("jyrqz", jyrqz);
+		pagination.addParam("fphm", fphm);
+		pagination.addParam("fpdm", fpdm);
+		pagination.addParam("xfmc", xfmc);
+		pagination.addParam("xfid", xfid);
+		pagination.addParam("fpzl", "12");
+//		pagination.addParam("jyrqq", jyrqq);
+//		pagination.addParam("jyrqz", jyrqz);
+		if (!"".equals(jyrqq)) {
+			pagination.addParam("jyrqq", jyrqq);
+		}
+		if (!"".equals(jyrqz)) {
+			pagination.addParam("jyrqz", jyrqz);
+		}
 		if (!"".equals(kprqq)) {
 			pagination.addParam("kprqq", kprqq);
 		}

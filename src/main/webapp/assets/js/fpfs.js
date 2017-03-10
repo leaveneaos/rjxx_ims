@@ -20,10 +20,14 @@ $(function () {
         $s_kprqz: $('#s_kprqz'), // search 开票日期止
         $s_gfmc: $('#s_gfmc'), // search 购房名称
         $s_ddh: $('#s_ddh'), // search 订单号
+        $s_fpdm: $('#s_fpdm'), // search 购房名称
+        $s_fphm: $('#s_fphm'), // search 订单号
+        $xfid: $('#xfid'), // search 订单号
 
         $checkAll: $('#check_all'), // check all checkbox
         $jsSearch: $('.js-search'),
-        $jsSent: $('.js-sent'), // sent all
+        $jsSent: $('.js-sent'),// sent all
+        $button3: $('#button3'), 
 
         $jsLoading: $('.js-modal-loading')
     };
@@ -45,17 +49,37 @@ $(function () {
                 "serverSide": true,
                 ordering: false,
                 searching: false,
+				scrollX : true,
 
                 "ajax": {
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
-                        d.jyrqq = el.$s_jyrqq.val(); // search 交易日期起
-                        d.jyrqz = el.$s_jyrqz.val(); // search 交易日期止
-                        d.kprqq = el.$s_kprqq.val(); // search 开票日期起
-                        d.kprqz = el.$s_kprqz.val(); // search 开票日期止
-                        d.gfmc = el.$s_gfmc.val(); // search 购方名称
-                        d.ddh = el.$s_ddh.val();//订单号
+                       var tip = $('#tip').val();
+                       var txt = $('#searchtxt').val();
+                       if ($('#bj').val() == 1) {
+                    	   if (tip == "1") {
+                    		   d.gfmc = txt;
+                    	   }else if (tip == "2") {
+                    		   d.ddh = txt;
+                    	   }else if (tip == "3") {
+                    		   d.fphm = txt;
+                    	   }else if (tip == "4") {
+                    		   d.fpdm = txt;
+                    	   }else if (tip == "5") {
+                    		   d.xfmc = txt;
+                    	   }
+                       }else{
+                    	   d.jyrqq = el.$s_jyrqq.val(); // search 交易日期起
+                           d.jyrqz = el.$s_jyrqz.val(); // search 交易日期止
+                           d.kprqq = el.$s_kprqq.val(); // search 开票日期起
+                           d.kprqz = el.$s_kprqz.val(); // search 开票日期止
+                           d.gfmc = el.$s_gfmc.val(); // search 购方名称
+                           d.ddh = el.$s_ddh.val();//订单号
+                           d.fpdm = el.$s_fpdm.val();//发票代码
+                           d.fphm = el.$s_fphm.val();//发票号码
+                           d.xfid = el.$xfid.val();//发票号码
+                       }
                     }
                 },
                 "columns": [
@@ -75,6 +99,7 @@ $(function () {
                     {"data": "ddh"},
                     {"data": "jylssj"},
                     {"data": "gfmc"},
+                    {"data": "xfmc"},
                     {"data": "kprq"},
                     {"data": "fpdm"},
                     {"data": "fphm"},
@@ -197,7 +222,12 @@ $(function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
                 e.preventDefault();
-
+                $('#bj').val('1');
+                _this.tableEx.ajax.reload();
+            });
+            el.$button3.on('click', function (e) {
+                e.preventDefault();
+                $('#bj').val('2');
                 _this.tableEx.ajax.reload();
             });
         },
