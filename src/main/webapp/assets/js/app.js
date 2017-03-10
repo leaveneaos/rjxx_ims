@@ -56,6 +56,9 @@
 	    
 	    //银行账号
 	    $.AMUI.validator.patterns.Yhzh = /^(\d{16}|\d{19})$/;
+	    
+	    //判断最多两位小数
+	    $.AMUI.validator.patterns.lwxx = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
 	}
 })(jQuery);
 
