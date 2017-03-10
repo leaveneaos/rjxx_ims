@@ -459,6 +459,8 @@ public class LrkpdController extends BaseController {
 					jymxsq.setSpsl(Double.valueOf(spsls[c]));
 				}
 				jymxsq.setJshj(Double.valueOf(jshjs[c]));
+				jymxsq.setKkjje(Double.valueOf(jshjs[c]));
+				jymxsq.setYkjje(0d);
 				if (spges.length != 0) {
 					try {
 						jymxsq.setSpggxh(spges[c]);
@@ -498,6 +500,7 @@ public class LrkpdController extends BaseController {
 				jymxsq.setXgsj(TimeUtil.getNowDate());
 				jymxsq.setXgry(yhid);
 				jymxsq.setGsdm(gsdm);
+				
 				jshj += jymxsq.getJshj();
 				jymxsqList.add(jymxsq);
 			}
