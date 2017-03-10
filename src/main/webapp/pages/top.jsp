@@ -90,7 +90,10 @@
 			</div>
 		</div>
 	</div> --%>
-	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+	
+</header>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
 		<div class="am-modal-dialog">
 			<form class="js-form-0 am-form am-form-horizontal">
 				<div class="am-modal-hd">
@@ -98,65 +101,62 @@
 						data-am-modal-close>&times;</a>
 				</div>
 				<div class="am-modal-bd">
-					<div class="am-modal-bd" style="overflow: auto;" >
-					<div class="am-g">
-						<div class="am-u-sm-12">
-						<div class="am-form-group">
-							<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户名称</label>
-							<div class="am-u-sm-8">
-								<input type="text" id="yhmc"
-									value="${login_session_key.yhmc}" class="am-form-field"
-									required maxlength="50" />
-							</div>
-						</div>
-						<div class="am-form-group">
-							<label for="hc_yfpdm" class="am-u-sm-3 am-form-label">选择性别</label>
-							<div class="am-u-sm-8">
-								<c:if test="${login_session_key.xb == 1}">
-									<select id="xb" name="xb" class="am-field-valid"
-										>
-										<option value="0" selected="selected">男</option>
-										<option value="1">女</option>
-									</select>
-								</c:if>
-								<c:if test="${login_session_key.xb == 0}">
-									<select id="xb" name="xb" class="am-field-valid">
-										<option value="0">男</option>
-										<option value="1" selected="selected">女</option>
-									</select>
-								</c:if>
-							</div>
-						</div>
-						<div class="am-form-group">
-							<label for="hc_kpje" class="am-u-sm-3 am-form-label">手机号</label>
-							<div class="am-u-sm-8">
-								<input type="text" id="sjhm"
-									value="${login_session_key.sjhm}" placeholder="请输入手机号"
-									class="am-form-field" maxlength="50" />
-							</div>
-						</div>
-						<div class="am-form-group">
-							<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户邮箱</label>
-							<div class="am-u-sm-8">
-								<input type="email" id="yx" value="${login_session_key.yx}"
-									placeholder="请输入用户邮箱" class="am-form-field" maxlength="100" />
-							</div>
-						</div>
-						<div class="am-u-sm-12 am-margin-top-lg">
-							<div class="am-form-group">
-								<div class="am-u-sm-12  am-text-center">
-									<button id="btnSaveUserInfo" type="button"
-										class="am-btn am-btn-primary" data-am-modal-close onclick="save()">保存</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<button id="btnCancelUserInfo" type="button"
-										class="am-btn am-btn-primary" data-am-modal-close
-										>取消</button>
+					<div class="am-modal-bd" style="overflow: auto;">
+						<div class="am-g">
+							<div class="am-u-sm-12">
+								<div class="am-form-group">
+									<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户名称</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="yhmc" value="${login_session_key.yhmc}"
+											class="am-form-field" required maxlength="50" />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_yfpdm" class="am-u-sm-3 am-form-label">选择性别</label>
+									<div class="am-u-sm-8">
+										<c:if test="${login_session_key.xb == 1}">
+											<select id="xb" name="xb" class="am-field-valid">
+												<option value="0" selected="selected">男</option>
+												<option value="1">女</option>
+											</select>
+										</c:if>
+										<c:if test="${login_session_key.xb == 0}">
+											<select id="xb" name="xb" class="am-field-valid">
+												<option value="0">男</option>
+												<option value="1" selected="selected">女</option>
+											</select>
+										</c:if>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_kpje" class="am-u-sm-3 am-form-label">手机号</label>
+									<div class="am-u-sm-8">
+										<input type="text" id="sjhm" value="${login_session_key.sjhm}"
+											placeholder="请输入手机号" class="am-form-field" maxlength="50" />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="hc_kpje" class="am-u-sm-3 am-form-label">用户邮箱</label>
+									<div class="am-u-sm-8">
+										<input type="email" id="yx" value="${login_session_key.yx}"
+											placeholder="请输入用户邮箱" class="am-form-field" maxlength="100" />
+									</div>
+								</div>
+								<div class="am-u-sm-12 am-margin-top-lg">
+									<div class="am-form-group">
+										<div class="am-u-sm-12  am-text-center">
+											<button id="btnSaveUserInfo" type="button"
+												class="am-btn am-btn-primary" data-am-modal-close
+												onclick="save()">保存</button>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<button id="btnCancelUserInfo" type="button"
+												class="am-btn am-btn-primary" data-am-modal-close>取消</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					</div>
-				</div>
 				</div>
 			</form>
 		</div>
@@ -286,9 +286,9 @@
 			</div>
 		</div>
 	</div>
-</header>
 <script type="text/javascript">
 	$(function(){
+
         $('.left-sidebar').addClass('active');
         if ($(window).width() > 1024) {
             $('.tpl-content-wrapper').addClass('active');

@@ -30,132 +30,117 @@
 <![endif]-->
 
 	<%@ include file="../../pages/top.jsp"%>
+	
+	<div class="am-cf admin-main" style="margin-top: 0px;">
+		<!-- sidebar start -->
+		<!-- sidebar end -->
 
-	<div class="row-content am-cf">
-		<div class="row">
-			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-				<div class="widget am-cf">
-					<div class="am-cf admin-main" style="margin-top: 0px;">
-						<!-- sidebar start -->
-						<!-- sidebar end -->
-
-						<!-- content start -->
-						<div class="admin-content">
-							<div class="am-cf am-padding">
-								<div class="am-fl am-cf" style="background: ccccff">
-									<strong class="am-text-default am-text-lg">1创建企业名片&nbsp;></strong>&nbsp;&nbsp;<strong
-										class="am-text-default am-text-lg">2开票点信息</strong>&nbsp;>&nbsp;&nbsp;<strong
-										class="am-text-primary am-text-lg">3开票限额</strong>>&nbsp;&nbsp;<strong
-										class="am-text-default am-text-lg">4下载客户端</strong>
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="am-cf am-padding">
+				<div class="am-fl am-cf" style="background: ccccff">
+					<strong class="am-text-default am-text-lg">1创建企业名片&nbsp;></strong>&nbsp;&nbsp;<strong
+						class="am-text-default am-text-lg">2开票点信息</strong>&nbsp;>&nbsp;&nbsp;<strong
+						class="am-text-primary am-text-lg">3开票限额</strong>>&nbsp;&nbsp;<strong class="am-text-default am-text-lg">4下载客户端</strong>
+				</div>
+			</div>
+			<hr />
+			<div style="padding: 100px; padding-top: 10px; width: 1200px;">
+				<div class="am-modal-bd" style="border: none">
+					<div class="am-g">
+						<form id="frm" class="js-form-0 am-form am-form-horizontal">
+							<div class="am-form-group">
+								<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+									color="red">*</font>开票点</label>
+								<div class="am-u-sm-9">
+									<select id="skpid" name="skpid">
+										<option value="${skp.id }">${skp.kpdmc }&nbsp;${skp.kpddm}</option>
+									</select>
 								</div>
 							</div>
-							<hr />
-							<div style="padding: 100px; padding-top: 10px; width: 1200px;">
-								<div class="am-modal-bd" style="border: none">
-									<div class="am-g">
-										<form id="frm" class="js-form-0 am-form am-form-horizontal">
-											<div class="am-form-group">
-												<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-													color="red">*</font>开票点</label>
-												<div class="am-u-sm-9">
-													<select id="skpid" name="skpid">
-														<option value="${skp.id }">${skp.kpdmc }&nbsp;${skp.kpddm}</option>
-													</select>
-												</div>
-											</div>
-											<c:forEach items="${kplxs }" var="k">
-												<c:if test="${k=='01' }">
-													<div class="am-form-group">
-														<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-															color="red">*</font>增值税专用发票</label>
-														<div class="am-u-sm-4">
-															<select id="kpxe2" name="kpxe2" required="required">
-																<option value="">请选择</option>
-																<c:forEach items="${bc }" var="b">
-																	<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-																</c:forEach>
-															</select>
-														</div>
-														<div class="am-u-sm-5">
-															<input type="text" id="fpje2" name="fpje2"
-																style="float: left;" placeholder="分票金额"
-																value="${skp.zpfz }"
-																class="am-form-field am-text-right js-pattern-Money"
-																required />
-														</div>
-													</div>
-												</c:if>
-												<c:if test="${k=='02' }">
-													<div class="am-form-group">
-														<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-															color="red">*</font>增值税普通发票</label>
-														<div class="am-u-sm-4">
-															<select id="kpxe1" name="kpxe1" required="required">
-																<option value="">请选择</option>
-																<c:forEach items="${bc }" var="b">
-																	<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-																</c:forEach>
-															</select>
-														</div>
-														<div class="am-u-sm-5">
-															<input type="text" id="fpje1" name="fpje1"
-																style="float: left;" placeholder="分票金额"
-																value="${skp.ppfz }"
-																class="am-form-field am-text-right js-pattern-Money"
-																required />
-														</div>
-													</div>
-												</c:if>
-												<c:if test="${k=='12' }">
-													<div class="am-form-group">
-														<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-															color="red">*</font>增值税电子普通发票</label>
-														<div class="am-u-sm-4">
-															<select id="kpxe3" name="kpxe3" required="required">
-																<option value="">请选择</option>
-																<c:forEach items="${bc }" var="b">
-																	<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
-																</c:forEach>
-															</select>
-														</div>
-														<div class="am-u-sm-5">
-															<input type="text" id="fpje3" name="fpje3"
-																style="float: left;" placeholder="分票金额"
-																value="${skp.fpfz }"
-																class="am-form-field am-text-right js-pattern-Money"
-																required />
-														</div>
-													</div>
-												</c:if>
-
-											</c:forEach>
-											<div class="am-form-group">
-												<!-- 								<a id="last" class="js-button  am-btn am-radius am-btn-primary">上一步</a> -->
-												<button id="save"
-													class="js-button  am-btn am-radius am-btn-primary">下一步</button>
-												<!-- 								<a id="finish" -->
-												<!-- 									class="js-button  am-btn am-radius am-btn-success">完成</a> -->
-											</div>
-
-										</form>
+							<c:forEach items="${kplxs }" var="k">
+								<c:if test="${k=='01' }">
+									<div class="am-form-group">
+										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+											color="red">*</font>增值税专用发票</label>
+										<div class="am-u-sm-4">
+											<select id="kpxe2" name="kpxe2" required="required">
+												<option value="">请选择</option>
+												<c:forEach items="${bc }" var="b">
+													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="am-u-sm-5">
+											<input type="text" id="fpje2" name="fpje2"
+												style="float: left;" placeholder="分票金额" value="${skp.zpfz }"
+												class="am-form-field am-text-right js-pattern-Money" required />
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						<!-- content end -->
+								</c:if>
+								<c:if test="${k=='02' }">
+									<div class="am-form-group">
+										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+											color="red">*</font>增值税普通发票</label>
+										<div class="am-u-sm-4">
+											<select id="kpxe1" name="kpxe1" required="required">
+												<option value="">请选择</option>
+												<c:forEach items="${bc }" var="b">
+													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="am-u-sm-5">
+											<input type="text" id="fpje1" name="fpje1"
+												style="float: left;" placeholder="分票金额" value="${skp.ppfz }"
+												class="am-form-field am-text-right js-pattern-Money" required />
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${k=='12' }">
+									<div class="am-form-group">
+										<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
+											color="red">*</font>增值税电子普通发票</label>
+										<div class="am-u-sm-4">
+											<select id="kpxe3" name="kpxe3" required="required">
+												<option value="">请选择</option>
+												<c:forEach items="${bc }" var="b">
+													<option value="${b.zdkpxe }">${b.fpbcmc }(${b.zdkpxe })</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="am-u-sm-5">
+											<input type="text" id="fpje3" name="fpje3"
+												style="float: left;" placeholder="分票金额" value="${skp.fpfz }"
+												class="am-form-field am-text-right js-pattern-Money" required />
+										</div>
+									</div>
+								</c:if>
 
-						<!-- loading do not delete this -->
-						<div
-							class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
-							tabindex="-1">
-							<div class="am-modal-dialog">
-								<div class="am-modal-hd">正在载入...</div>
-								<div class="am-modal-bd">
-									<span class="am-icon-spinner am-icon-spin"></span>
-								</div>
+							</c:forEach>
+							<div class="am-form-group">
+<!-- 								<a id="last" class="js-button  am-btn am-radius am-btn-primary">上一步</a> -->
+								<button id="save"
+									class="js-button  am-btn am-radius am-btn-primary">下一步</button>
+<!-- 								<a id="finish" -->
+<!-- 									class="js-button  am-btn am-radius am-btn-success">完成</a> -->
 							</div>
-						</div>
+
+						</form>
 					</div>
+				</div>
+			</div>
+		</div>
+		<!-- content end -->
+
+		<!-- loading do not delete this -->
+		<div
+			class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
+			tabindex="-1">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">正在载入...</div>
+				<div class="am-modal-bd">
+					<span class="am-icon-spinner am-icon-spin"></span>
 				</div>
 			</div>
 		</div>
