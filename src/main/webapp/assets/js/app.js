@@ -113,7 +113,6 @@ var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:1
 //监听加载状态改变  
 document.onreadystatechange = completeLoading;  
 
-
 document.write(_LoadingHtml); 
   
 //加载状态为complete时移除loading效果  
@@ -126,6 +125,3 @@ function completeLoading() {
     },300);
     }  
 }  
-
-
-
