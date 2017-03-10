@@ -636,8 +636,6 @@ public class KpdshController extends BaseController {
 			jymx.setSpse(mxItem.getSpse() == null ? null : mxItem.getSpse().doubleValue());
 			jymx.setJshj(mxItem.getJshj() == null ? null : mxItem.getJshj().doubleValue());
 			jymx.setYkphj(0d);
-			jymx.setYkpje(0d);
-			jymx.setKkpje(jymx.getJshj());
 			jymx.setGsdm(getGsdm());
 			jymx.setLrsj(TimeUtil.getNowDate());
 			jymx.setLrry(getYhid());

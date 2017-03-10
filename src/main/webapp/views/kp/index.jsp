@@ -178,7 +178,7 @@
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
-									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap "
 										id="jyls_table">
 										<thead>
 											<tr>
@@ -202,14 +202,14 @@
 											</tr>
 										</thead>
 									</table>
+										<legend>商品明细列表</legend> 
 							</div>
 							</div>
-							<fieldset>
-								<legend>商品明细列表</legend>
-								<div class="am-u-sm-12">
-									<div>
-										<table 
-											class="js-mxtable am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap"
+							
+								<div style="margin-top:0px;margin-left: 0px; " class="am-u-sm-12">
+								<div>
+										<table  style="margin-bottom: 0px;"
+											class="js-mxtable am-table am-table-bordered am-table-hover am-text-nowrap am-table-striped"
 											id="jyspmx_table">
 											<thead>
 												<tr>
@@ -217,9 +217,6 @@
 													<th>名称</th>
 													<th>规格型号</th>
 													<th>单位</th>
-													<th>本次开票金额</th>
-													<th>可开票金额</th>
-													<th>已开票金额</th>
 													<th>数量</th>
 													<th>单价</th>
 													<th>金额</th>
@@ -229,9 +226,8 @@
 												</tr>
 											</thead>
 										</table>
-									</div>
 								</div>
-							</fieldset>
+								</div>
 						</div>
 					</div>
 				</div>
