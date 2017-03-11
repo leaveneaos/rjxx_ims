@@ -475,7 +475,9 @@ public class KpdshController extends BaseController {
 						String.valueOf(jyxxsq.getSqlsh()), Integer.valueOf(jysmx.getSpmxxh()), jyxxsq.getXfid(), jyxxsq.getFpzldm(),
 						"1", Integer.valueOf(1), jysmx.getGsdm());
 				fpcljlVo.setSjts(i+1);
-				listfpcl.add(fpcljlVo);
+				if (fpcljlVo.getJshj()>0) {
+					listfpcl.add(fpcljlVo);
+				}
 				int fpnum = jysmx.getFpnum();
 				List<JyspmxDecimal2> list2 = fpMap.get(fpnum);
 				
@@ -490,8 +492,13 @@ public class KpdshController extends BaseController {
 			for (Map.Entry<Integer, List<JyspmxDecimal2>> entry : fpMap.entrySet()) {
 				int fpNum = entry.getKey();
 				List<JyspmxDecimal2> fpJyspmxList = entry.getValue();
-		
-				mxList.add(fpJyspmxList);
+				List<JyspmxDecimal2> fpJyspmxList1 =new ArrayList<>();
+				for (JyspmxDecimal2 jyspmxDecimal2 : fpJyspmxList) {
+					if (jyspmxDecimal2.getJshj()!=null&&jyspmxDecimal2.getJshj().compareTo(new BigDecimal("0"))>0) {
+						fpJyspmxList1.add(jyspmxDecimal2);
+					}
+				}
+				mxList.add(fpJyspmxList1);
 	/*			Jyls jyls = saveJyls(jyxxsq, fpJyspmxList);
 				saveKpspmx(jyls, fpJyspmxList);*/
 				// fpNumKplshMap.put(fpNum, kpls.getKplsh());
