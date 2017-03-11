@@ -183,7 +183,7 @@
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table style="margin-bottom: 0px;"
-													class="js-table am-table am-table-bordered am-table-hover am-text-nowrap "
+													class="js-table am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
 													id="jyls_table">
 													<thead>
 														<tr>

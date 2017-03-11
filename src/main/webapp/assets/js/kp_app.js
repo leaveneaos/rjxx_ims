@@ -113,10 +113,11 @@
                 "url": "kp/getjyspmxlist",
                 data: function (d) {
                 	 var djhArr = [];
-                     $('input[name="chk"]:checked').each(function(){    
+                  /*   $('input[name="chk"]:checked').each(function(){    
                              djhArr.push($(this).val()); 
                      });
-                    d.djh = djhArr.join(",");
+                    d.djh = djhArr.join(",");*/
+                	 d.djh = $("#djh").val();
                 }
             },
             "columns": [

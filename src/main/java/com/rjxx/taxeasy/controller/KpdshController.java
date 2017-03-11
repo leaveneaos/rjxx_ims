@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import org.aspectj.weaver.ast.Var;
 import org.eclipse.jdt.internal.compiler.ast.DoubleLiteral;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.config.SpringDataJacksonConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -136,6 +137,7 @@ public class KpdshController extends BaseController {
 		pagination.addParam("ddh", ddh);
 		pagination.addParam("xfs", xfs);
 		pagination.addParam("ztbz", "1");
+		pagination.addParam("bfzt", "5");
 		pagination.addParam("skps", skpList);
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);
@@ -367,8 +369,9 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
 	@SystemControllerLog(description = "开票单审核审核开票",key = "sqlshs")
-	public Map<String, Object> kpdshkp(String sqlshs, String fpxes) throws Exception {
+	public Map<String, Object> kpdshkp(String sqlshs, String fpxes,String bckpje) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
+		String[] bckkje = bckpje.split(",");
 		List<Jyxxsq> listsq = new ArrayList<>(); 
 		List<List<JyspmxDecimal2>>mxList=new ArrayList<>();
 		List<FpcljlVo> listfpcl = new ArrayList<>();
@@ -391,9 +394,20 @@ public class KpdshController extends BaseController {
 			Map<String, Object> params1 = new HashMap<>();
 			params1.put("sqlsh", sqh);
 			List<JyspmxDecimal2> jyspmxs = jyspmxService.getNeedToKP3(params1);
+
 			// 价税分离
 			if ("1".equals(jyxxsq.getHsbz())) {
 				jyspmxs = SeperateInvoiceUtils.separatePrice2(jyspmxs);
+			}
+			for (int j = 0; j < jyspmxs.size(); j++) {
+				jyspmxs.get(j).setJshj(new BigDecimal(bckkje[j]));
+				jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),BigDecimal.ROUND_HALF_UP));
+				jyspmxs.get(j).setSpse(jyspmxs.get(j).getJshj().subtract(jyspmxs.get(j).getSpje()));
+				if (jyspmxs.get(j).getSpdj()!=null) {
+					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj(),BigDecimal.ROUND_HALF_UP));
+				}else{
+					jyspmxs.get(j).setSps(null);
+				}
 			}
 			int fphs1 = 8;
 			int fphs2 = 100;
@@ -487,6 +501,9 @@ public class KpdshController extends BaseController {
 		}
 		session.setAttribute("listsq", listsq);
 		session.setAttribute("mxList", mxList);
+		if (listsq.size()==1) {
+			session.setAttribute("bckkje", bckkje);
+		}
 		/*
 		 * for (String str : sqlsht) { Jyxxsq jyxxsq =
 		 * jyxxsqService.findOne(Integer.valueOf(str)); Jyls jyls1 = new Jyls();
@@ -647,11 +664,49 @@ public class KpdshController extends BaseController {
 	}
 	@ResponseBody
 	@RequestMapping("/yhqrbc")
+	@Transactional
 	public Map<String, Object> yhqrbc() throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Jyxxsq> listsq = (List<Jyxxsq>) session.getAttribute("listsq");
 		List<List<JyspmxDecimal2>> mxList = (List<List<JyspmxDecimal2>>) session.getAttribute("mxList");
 		Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
+		if (listsq.size()==1) {
+		String[] bckkje =(String[]) session.getAttribute("bckkje");
+		Jyxxsq jyxxsq1 =listsq.get(0);
+		//保存交易流水
+		for (int i = 0; i < mxList.size(); i++) {
+			Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
+			saveKpspmx(jyls, mxList.get(i));
+		}
+		//保存审核状态
+		double zje = 0d;
+		double zje1 =0d;
+		for (String bck : bckkje) {
+			zje+=Double.valueOf(bck);
+		}
+		//保存剩余明细
+		Map<String, Object> params = new HashMap<>();
+		params.put("sqlsh", jyxxsq1.getSqlsh());
+		List<Jymxsq> list= jymxsqService.findAllByParams(params);
+		for (int i = 0; i < bckkje.length; i++) {
+			zje1+=list.get(i).getKkjje();
+			list.get(i).setYkjje(Double.valueOf(bckkje[i])+list.get(i).getYkjje());
+			list.get(i).setKkjje(list.get(i).getJshj()-list.get(i).getYkjje());
+			
+		}
+		System.out.println(zje);
+		System.out.println(zje1);
+		if (zje==zje1) {
+			jyxxsq1.setZtbz("3");
+			cljlService.saveYhcljl(getYhid(), "开票单审核");
+			jyxxsqService.save(jyxxsq1);
+		}else{
+			jyxxsq1.setZtbz("5");
+			cljlService.saveYhcljl(getYhid(), "开票单审核");
+			jyxxsqService.save(jyxxsq1);
+		}
+		jymxsqService.save(list);
+		}else {
 		for (int i = 0; i < mxList.size(); i++) {
 			Jyxxsq jyxxsq1 =new Jyxxsq();
 			for (Jyxxsq jyxxsq : listsq) {
@@ -666,7 +721,8 @@ public class KpdshController extends BaseController {
 			jyxxsq.setZtbz("3");
 			cljlService.saveYhcljl(getYhid(), "开票单审核");
 			jyxxsqService.save(jyxxsq);
-		}
+		}		
+	}
 		result.put("msg", true);
 		return result;
 	}
