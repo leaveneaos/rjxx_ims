@@ -11,14 +11,15 @@ $(function() {
 		$jsClose : $('.js-close'),
 		$jsForm0 : $('#importConfigForm'), // 红冲 form
 		$s_xfsh : $('#xfsh'), // search
-		$s_mbmc : $('#s_mbmc'), // search
+		$c_mbmc : $('#c_mbmc'), // search
 		$dpmax:$('#dzpzdje'),
 		$fpfz:$('#dzpfpje'),
 		$zpmax:$('#zpzdje'),
 		$zpfz:$('#zpfpje'),
 		$ppmax:$('#ppzdje'),
 		$ppfz:$('#ppzdje'),
-		$jsSearch : $('#button1'),
+		$jsSearch :$("#kp_search"),
+		$jsSearch1 : $('#kp_search1'),
 		$importExcelForm : $('#importExcelForm'),
 		$jsTable1 : $('#button2'),
 		$jsLoading : $('.js-modal-loading')
@@ -45,16 +46,29 @@ $(function() {
 							type : 'POST',
 							data : function(d) {
 								d.xfsh = el.$s_xfsh.val(); // search 用户账号
-								d.mbmc = el.$s_mbmc.val(); // search 用户名称
-
+								d.mbmc = el.$c_mbmc.val(); // search 用户名称
+								d.gxbz =  $('#sfgx').val();
+								var csm =  $('#dxcsm').val();
+								//alert($('#sfgx').val());
+					                if("s_mbmc"==csm&&(d.mbmc==null||d.mbmc=="")){
+					                    d.mbmc = $('#dxcsz').val()
+					                 }
 							}
 						},
 						"columns" : [
-								{
-									"orderable" : false,
-									"data" : null,
-									"defaultContent" : ""
-								},
+								 {
+	                        		"orderable" : false,
+	                        		"data" : null,
+	                        		render : function(data, type, full, meta) {
+	                        			return '<input type="checkbox" name= "chk" data="'
+	                        				+ data.id + '" />';
+	                        		}
+	                        	},
+	                        	/*{
+								"orderable" : false,
+								"data" : null,
+								"defaultContent" : ""
+							    },*/
 								{
 									"data" : "id"
 								},
@@ -81,14 +95,26 @@ $(function() {
 								},
 								{
 									"data": null,
-			                        "defaultContent": "<a class='modify' href='#'>修改</a> <a href='#' class='del'>删除</a>"									
+			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
 								} ]
 					});
+			//<a href='#' class='del'>删除</a>
+			 $('#check_all').change(function () {
+	            	if ($('#check_all').prop('checked')) {
+	            		t.column(0).nodes().each(function (cell, i) {
+	                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+	                    });
+	                } else {
+	                	t.column(0).nodes().each(function (cell, i) {
+	                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+	                    });
+	                }
+	            });
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
-				t.column(0).nodes().each(function(cell, i) {
+				/*t.column(0).nodes().each(function(cell, i) {
 					cell.innerHTML = page + i + 1;
-				});
+				});*/
 				$('#tbl tr').find('td:eq(1)').hide();
 				$('#tbl tr').find('td:eq(5)').hide();
 			});
@@ -182,6 +208,32 @@ $(function() {
 				_this.resetForm();
 			});
 
+		     //删除
+			$("#del").on('click', function() {
+	            var mbidArr = [];
+	            $("input[type='checkbox']:checked").each(function (i, o) {
+	            	if ($(o).attr("data") != null) {
+	                    mbidArr.push($(o).attr("data"));
+					}
+	            });
+	            if (mbidArr.length == 0) {
+	                alert("请选择需要删除的模板记录...");
+	                return;
+	            }
+	            if (confirm("您确认删除？")) {
+	                $.post("mbsz/doDel",
+							"mbidArr="+ mbidArr.join(","),
+							function(res) {
+								if (res.success) {
+									alert("删除成功");
+									_this.tableEx.ajax.reload();
+								}else{
+									alert(res.msg);
+								}
+					});
+				}
+			});
+			
 	        var $importModal = $("#bulk-import-div");
 	        $("#close2").click(function () {
 	        	$("#hongchong").modal("close");
@@ -236,7 +288,13 @@ $(function() {
 		search_ac : function() {
 			var _this = this;
 			el.$jsSearch.on('click', function(e) {
+				$("#ycform").resetForm();
 				e.preventDefault();
+				_this.tableEx.ajax.reload();
+			});
+			el.$jsSearch1.on('click', function(e) {
+				e.preventDefault();
+				  $("#dxcsz").val("");
 				_this.tableEx.ajax.reload();
 			});
 		},

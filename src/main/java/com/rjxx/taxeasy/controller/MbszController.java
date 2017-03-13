@@ -95,7 +95,7 @@ public class MbszController extends BaseController {
 	 */
 	@RequestMapping(value = "/getItem")
 	@ResponseBody
-	public Map getItems(String xfsh, String mbmc, int length, int start, int draw) {
+	public Map getItems(String xfsh, String mbmc,String gxbz, int length, int start, int draw) {
 		Map<String, Object> result = new HashMap<>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -106,6 +106,7 @@ public class MbszController extends BaseController {
 		}
 		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("mbmc", mbmc);
+		pagination.addParam("gxbz", gxbz);
 		pagination.addParam("gsdm", getGsdm());
 		List<DrmbVo> list = drmbService.findByPage(pagination);
 		if (!list.isEmpty()) {
@@ -453,6 +454,54 @@ public class MbszController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 删除模板
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/doDel", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public Map doDel(String mbidArr) throws Exception {
+		List mbidList = convertToList(mbidArr);
+		Map result = new HashMap();
+		String tmp ="";
+		
+		for(int i=0;i<mbidList.size();i++){
+			Integer mbid =(Integer) mbidList.get(i);
+			Drmb drmb = drmbService.findOne(mbid);
+			if (!drmb.getYhid().equals(getYhid())) {
+				/*result.put("success", false);
+				result.put("msg", "你没有权限删除模板！");*/
+				tmp =tmp +" "+drmb.getMbmc();
+				//return result;
+			}
+			
+			
+		}
+		if(tmp.equals("")){
+			for(int i=0;i<mbidList.size();i++){
+				Integer mbid =(Integer) mbidList.get(i);
+				result = deleteMb(mbid);
+			}
+		}else{
+			result.put("success", false);
+			result.put("msg", tmp+"没有权限删除！");
+		}
+		return result;
+	}
+
+	
+	private List<Integer> convertToList(String sqlshStrs) {
+		String[] sqlshArr = sqlshStrs.split(",");
+		List<Integer> sqlshList = new ArrayList<>();
+		for (String sqlshStr : sqlshArr) {
+			sqlshList.add(new Integer(sqlshStr));
+		}
+		return sqlshList;
+	}
+	
 	/**
 	 * 获取销方信息
 	 *

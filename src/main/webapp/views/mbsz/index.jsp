@@ -18,6 +18,7 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/app.css">
 <style>
  .am-u-left{
     padding-left:0em;
@@ -30,22 +31,77 @@
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
     以获得更好的体验！</p>
 <![endif]-->
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="am-cf am-padding">
-				<div class="am-fl am-cf">
+				<div class="widget-title am-cf">
 					<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>导入模板设置</strong>
+					<button class="am-btn am-btn-success am-fr"
+									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 				</div>
+				   <!-- 侧边栏内容 begin-->
+							<div id="doc-oc-demo3" class="am-offcanvas">
+								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+									<form id="ycform">
+										<div class="am-offcanvas-content">
+											<div class="am-form-group">
+												<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="xfsh"
+														name="xfsh">
+														<option id="xzxfq" value="">选择销方</option>
+														<c:forEach items="${xfList}" var="item">
+															<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 8px;">
+											<div class="am-form-group">
+												<label for="s_fplx" class="am-u-sm-4 am-form-label">是否共享</label>
+												<div class="am-u-sm-8">
+													<select data-am-selected="{btnSize: 'sm'}" id="sfgx"
+														name="sfgx">
+														<option id="xzlxq" value="">选择类型</option>
+														<option value="0">不共享</option>
+														<option value="1">共享</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="am-offcanvas-content" style="margin-top: 5px;">
+											<div class="am-form-group">
+												<label for="c_mbmc" class="am-u-sm-4 am-form-label">模板名称</label>
+												<div class="am-u-sm-8">
+													<input id="c_mbmc" type="text" placeholder="模板名称">
+												</div>
+											</div>
+										</div>
+										<div style="padding: 32px;">
+											<button type="button" id="kp_search1"
+												class="am-btn am-btn-default am-btn-success">
+												<span class="am-icon-search-plus"></span> 查询
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- 侧边内容end -->
 			</div>
 			<hr />
 
 			<div class="am-g  am-padding-top">
 				<form action="#" class="js-search-form  am-form am-form-horizontal">
 					<div class="am-g">
-						<div class="am-u-sm-6">
+						<%-- <div class="am-u-sm-6">
 							<div class="am-form-group">
 								<label for="s_fpdm" class="am-u-sm-3 am-form-label">销方税号</label>
 								<div class="am-u-sm-9">
@@ -66,17 +122,55 @@
 										placeholder="请输入模板名称" />
 								</div>
 							</div>
-						</div>
+						</div> --%>
+						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+									<div class="am-form-group">
+										<div class="am-btn-toolbar">
+											<div class="am-btn-group am-btn-group-xs">
+												<button type="button" id="button2"
+													class="am-btn am-btn-default am-btn-primary">
+													录入
+												</button>
+												<button type="button" id="del"
+													class="am-btn am-btn-default am-btn-danger">
+													删除
+												</button>
+												<!-- <button type="button" id="modify"
+													class="am-btn am-btn-default am-btn-secondary">
+													修改
+												</button> -->
+											</div>
+										</div>
+									</div>
+								</div>
+						<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+											<option value="s_mbmc">模板名称</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+									<div
+										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+										<input id="dxcsz" type="text" class="am-form-field ">
+										<span class="am-input-group-btn">
+											<button id="kp_search"
+												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+												type="button"></button>
+										</span>
+									</div>
+								</div>
 					</div>
 
 					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-center">
+					<!-- <div class="am-u-sm-12  am-padding  am-text-center">
 						<button id="button1" type="button"
 							class="js-search  am-btn am-btn-primary">查询</button>
 						<button id="button2" type="button"
 							class="js-search  am-btn am-btn-secondary">新增</button>
 
-					</div>
+					</div> -->
 
 				</form>
 				<div class="am-u-sm-12">
@@ -86,7 +180,8 @@
 							class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 							<thead>
 								<tr>
-									<th>序号</th>
+								    <th><input type="checkbox" id="check_all" /></th>
+								<!-- 	<th>序号</th -->
 									<th style="display: none;">销方id</th>
 									<th>模板名称</th>
 									<th>销方名称</th>
@@ -1002,7 +1097,10 @@
 			</div>
 		</div>
 	</div>
-
+</div>
+</div>
+</div>
+</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
@@ -1145,6 +1243,10 @@
 		                }
 		            })
 		        });
+		            
+		            
+		   
+		            
 		        //导入配置选择销方
 		        $("#selectImportConfigXf1").change(function () {
 		            var xfid = $(this).val();
