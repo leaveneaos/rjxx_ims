@@ -67,8 +67,8 @@ public class FpcxController extends BaseController {
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String fphm, String kprqq,
-			String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx,String xfsh,String sk)
-			throws Exception {
+			String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx,
+			String xfsh, String sk, String xfmc) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -118,11 +118,12 @@ public class FpcxController extends BaseController {
 		pagination.addParam("gfmc", gfmc);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fpzt", fpzt);
+		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("fpczlx", fpczlx);
-		if (null!=xfsh&&!"".equals(xfsh)&&!"-1".equals(xfsh)) {
+		if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
 			pagination.addParam("xfsh", xfsh);
 		}
-		if (null!=sk&&!"".equals(sk)&&!"-1".equals(sk)) {
+		if (null != sk && !"".equals(sk) && !"-1".equals(sk)) {
 			pagination.addParam("sk", sk);
 		}
 		List<Fpcxvo> ykfpList = kplsService.findByPage(pagination);
@@ -139,12 +140,40 @@ public class FpcxController extends BaseController {
 		result.put("data", ykfpList);
 		return result;
 	}
+	
+
+
+	/**
+	 * 获取销方下的有操作权限的开票点
+	 * 
+	 * @param xfsh
+	 * @return
+	 */
+	@RequestMapping(value = "/getSkpList")
+	@ResponseBody
+	public Map getSkpList(String xfsh) {
+		Map<String, Object> result = new HashMap<>();
+		Integer xfid = null;
+		List<Skp> list = new ArrayList<>();
+		for (Xf xf : getXfList()) {
+			if (xfsh.equals(xf.getXfsh())) {
+				xfid = xf.getId();
+			}
+		}
+		for (Skp skp : getSkpList()) {
+			if (xfid != null && skp.getXfid().equals(xfid)) {
+				list.add(skp);
+			}
+		}
+		result.put("skps", list);
+		return result;
+	}
 
 	// 文件导出
 	@RequestMapping(value = "/exportExcel")
 	@ResponseBody
 	public Map<String, Object> exportExcel(String ddh, String kprqq, String kprqz, String spmc, String fphm,
-			String printflag, String gfmc, String fpdm, String fpzt,String fpczlx) throws Exception {
+			String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt) throws Exception {
 		String gsdm = this.getGsdm();
 		String xfStr = "";
 		List<Xf> xfs = getXfList();
@@ -178,7 +207,20 @@ public class FpcxController extends BaseController {
 		if (skpid.length == 0) {
 			skpid = null;
 		}
-		Map params = new HashMap<>();
+		Map<String, Object> params = new HashMap<>();
+		if (tip == "1") {
+			params.put("gfmc", txt);
+		}else if (tip == "2") {
+			params.put("ddh", txt);
+		}else if (tip == "3") {
+			params.put("spmc", txt);
+		}else if (tip == "4"){
+			params.put("xfmc", txt);
+		}else if (tip == "5") {
+			params.put("fphm", txt);
+		}else if (tip == "6") {
+			params.put("fpdm", txt);
+		}
 		params.put("gsdm", gsdm);
 		params.put("xfid", xfid);
 		params.put("skpid", skpid);
@@ -196,11 +238,11 @@ public class FpcxController extends BaseController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("yhid", getYhid());
 		List<DczydlVo> list = yhDczdylService.findAllByParams(map);
-		String headers1 =  "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票状态";
+		String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票状态";
 		for (DczydlVo yhDczdyl : list) {
-			headers1+=","+yhDczdyl.getZdzwm();
+			headers1 += "," + yhDczdyl.getZdzwm();
 		}
-		String [] headers =headers1.split(",");
+		String[] headers = headers1.split(",");
 		// 第一步，创建一个webbook，对应一个Excel文件
 		HSSFWorkbook wb = new HSSFWorkbook();
 		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
@@ -223,7 +265,7 @@ public class FpcxController extends BaseController {
 			row = sheet.createRow((short) i + 1);
 			ykfpcx = ykfpList.get(i);
 			row.createCell(0).setCellValue(ykfpcx.getDdh());
-			
+
 			String czlx = ykfpcx.getFpczlxdm();
 			if (czlx != null) {
 				if ("00".equals(czlx)) {
@@ -243,106 +285,107 @@ public class FpcxController extends BaseController {
 			row.createCell(1).setCellValue(czlx == null ? "" : czlx);
 			row.createCell(2).setCellValue(ykfpcx.getFpdm() == null ? "" : ykfpcx.getFpdm());
 			row.createCell(3).setCellValue(ykfpcx.getFphm() == null ? "" : ykfpcx.getFphm());
-			row.createCell(4)
-			.setCellValue(ykfpcx.getJshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getJshj()));
+			row.createCell(4).setCellValue(ykfpcx.getJshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getJshj()));
 			row.createCell(5).setCellValue(ykfpcx.getGfmc() == null ? "" : ykfpcx.getGfmc());
 			row.createCell(6).setCellValue(ykfpcx.getKprq() == null ? "" : ykfpcx.getKprq());
 			row.createCell(7).setCellValue(ykfpcx.getFpzlmc() == null ? "" : ykfpcx.getFpzlmc());
-			int k= 8;
+			int k = 8;
 			for (DczydlVo dczydlVo : list) {
 				if ("gfsjh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfsjh() == null ? "" : ykfpcx.getGfsjh());
-				}else if ("jylsh".equals(dczydlVo.getZddm())) {
+				} else if ("jylsh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getJylsh() == null ? "" : ykfpcx.getJylsh());
-				}else if ("jylssj".equals(dczydlVo.getZddm())) {
+				} else if ("jylssj".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(sdf1.format(ykfpcx.getJylssj()));
-				}else if ("xfsh".equals(dczydlVo.getZddm())) {
+				} else if ("xfsh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfsh() == null ? "" : ykfpcx.getXfsh());
-				}else if ("xfmc".equals(dczydlVo.getZddm())) {
+				} else if ("xfmc".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfmc() == null ? "" : ykfpcx.getXfmc());
-				}else if ("xfyh".equals(dczydlVo.getZddm())) {
+				} else if ("xfyh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfyh() == null ? "" : ykfpcx.getXfyh());
-				}else if ("xfyhzh".equals(dczydlVo.getZddm())) {
+				} else if ("xfyhzh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfyhzh() == null ? "" : ykfpcx.getXfyhzh());
-				}else if ("xfdz".equals(dczydlVo.getZddm())) {
+				} else if ("xfdz".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfdz() == null ? "" : ykfpcx.getXfdz());
-				}else if ("xfdh".equals(dczydlVo.getZddm())) {
+				} else if ("xfdh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfdh() == null ? "" : ykfpcx.getXfdh());
-				}else if ("xfyb".equals(dczydlVo.getZddm())) {
+				} else if ("xfyb".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getXfyb() == null ? "" : ykfpcx.getXfyb());
-				}else if ("gfsh".equals(dczydlVo.getZddm())) {
+				} else if ("gfsh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfsh() == null ? "" : ykfpcx.getGfsh());
-				}else if ("gfyh".equals(dczydlVo.getZddm())) {
+				} else if ("gfyh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfyh() == null ? "" : ykfpcx.getGfyh());
-				}else if ("skpid".equals(dczydlVo.getZddm())) {
-					if (null!=ykfpcx.getSkpid()) {
+				} else if ("skpid".equals(dczydlVo.getZddm())) {
+					if (null != ykfpcx.getSkpid()) {
 						Skp skp = skpService.findOne(ykfpcx.getSkpid());
 						row.createCell(k).setCellValue(skp.getKpdmc());
-					}else{
+					} else {
 						row.createCell(k).setCellValue("");
 					}
-				}else if ("gfyhzh".equals(dczydlVo.getZddm())) {
+				} else if ("gfyhzh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfyhzh() == null ? "" : ykfpcx.getGfyhzh());
-				}else if ("gfdz".equals(dczydlVo.getZddm())) {
+				} else if ("gfdz".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfdz() == null ? "" : ykfpcx.getGfdz());
-				}else if ("gfdh".equals(dczydlVo.getZddm())) {
+				} else if ("gfdh".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfdh() == null ? "" : ykfpcx.getGfdh());
-				}else if ("gfemail".equals(dczydlVo.getZddm())) {
+				} else if ("gfemail".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getGfemail() == null ? "" : ykfpcx.getGfemail());
-				}else if ("bz".equals(dczydlVo.getZddm())) {
+				} else if ("bz".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getBz() == null ? "" : ykfpcx.getBz());
-				}else if ("skr".equals(dczydlVo.getZddm())) {
+				} else if ("skr".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getSkr() == null ? "" : ykfpcx.getSkr());
-				}else if ("kpr".equals(dczydlVo.getZddm())) {
+				} else if ("kpr".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getKpr() == null ? "" : ykfpcx.getKpr());
-				}else if ("fhr".equals(dczydlVo.getZddm())) {
+				} else if ("fhr".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getFhr() == null ? "" : ykfpcx.getFhr());
-				}else if ("ssyf".equals(dczydlVo.getZddm())) {
+				} else if ("ssyf".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getSsyf() == null ? "" : ykfpcx.getSsyf());
-				}else if ("yfphm".equals(dczydlVo.getZddm())) {
+				} else if ("yfphm".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getYfphm() == null ? "" : ykfpcx.getYfphm());
-				}else if ("yfpdm".equals(dczydlVo.getZddm())) {
+				} else if ("yfpdm".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getYfpdm() == null ? "" : ykfpcx.getYfpdm());
-				}else if ("ykpjshj".equals(dczydlVo.getZddm())) {
-					row.createCell(k).setCellValue(ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getYkpjshj()));
-				}else if ("tqm".equals(dczydlVo.getZddm())) {
+				} else if ("ykpjshj".equals(dczydlVo.getZddm())) {
+					row.createCell(k).setCellValue(
+							ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getYkpjshj()));
+				} else if ("tqm".equals(dczydlVo.getZddm())) {
 					row.createCell(k).setCellValue(ykfpcx.getTqm() == null ? "" : ykfpcx.getTqm());
-				}else if ("kpddm".equals(dczydlVo.getZddm())) {
-					if (null!=ykfpcx.getSkpid()) {
+				} else if ("kpddm".equals(dczydlVo.getZddm())) {
+					if (null != ykfpcx.getSkpid()) {
 						Skp skp = skpService.findOne(ykfpcx.getSkpid());
 						row.createCell(k).setCellValue(skp.getKpddm());
-					}else{
+					} else {
 						row.createCell(k).setCellValue("");
 					}
-				}
-				else if ("hjje".equals(dczydlVo.getZddm())) {
-					row.createCell(k).setCellValue(ykfpcx.getHjje() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjje()));
-				}
-				else if ("hjse".equals(dczydlVo.getZddm())) {
-					row.createCell(k).setCellValue(ykfpcx.getHjse() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjse()));
+				} else if ("hjje".equals(dczydlVo.getZddm())) {
+					row.createCell(k)
+							.setCellValue(ykfpcx.getHjje() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjje()));
+				} else if ("hjse".equals(dczydlVo.getZddm())) {
+					row.createCell(k)
+							.setCellValue(ykfpcx.getHjse() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjse()));
 				}
 				k++;
 			}
-			//row.createCell(4).setCellValue(ykfpcx.getDdh() == null ? "" : ykfpcx.getDdh());
-			
-			/*row.createCell(6).setCellValue(ykfpcx.getSpmc() == null ? "" : ykfpcx.getSpmc());// 主要商品名称
-			row.createCell(7).setCellValue ("");
-			row.createCell(8).setCellValue(ykfpcx.getHjse() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjse()));
-			row.createCell(9).setCellValue(ykfpcx.getHjje() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjje()));
-			
-			row.createCell(11).setCellValue(ykfpcx.getHzyfphm() == null ? "" : ykfpcx.getHzyfphm());
-			String hkfp = ykfpcx.getFpzt();
-			if (hkfp != null) {
-				if ("被换开".equals(hkfp)) {
-					hkfp = "是";
-				} else {
-					hkfp = "否";
-				}
-			}
-			row.createCell(12).setCellValue(hkfp == null ? "" : hkfp);
-			row.createCell(13).setCellValue(ykfpcx.getKpr() == null ? "" : ykfpcx.getKpr());*/
-			//row.createCell(14).setCellValue(ykfpcx.getKprq() == null ? "" : sdf.format(ykfpcx.getKprq()));
-			
+			// row.createCell(4).setCellValue(ykfpcx.getDdh() == null ? "" :
+			// ykfpcx.getDdh());
+
+			/*
+			 * row.createCell(6).setCellValue(ykfpcx.getSpmc() == null ? "" :
+			 * ykfpcx.getSpmc());// 主要商品名称 row.createCell(7).setCellValue ("");
+			 * row.createCell(8).setCellValue(ykfpcx.getHjse() == null ? "0.00"
+			 * : String.format("%.2f", ykfpcx.getHjse()));
+			 * row.createCell(9).setCellValue(ykfpcx.getHjje() == null ? "0.00"
+			 * : String.format("%.2f", ykfpcx.getHjje()));
+			 * 
+			 * row.createCell(11).setCellValue(ykfpcx.getHzyfphm() == null ? ""
+			 * : ykfpcx.getHzyfphm()); String hkfp = ykfpcx.getFpzt(); if (hkfp
+			 * != null) { if ("被换开".equals(hkfp)) { hkfp = "是"; } else { hkfp =
+			 * "否"; } } row.createCell(12).setCellValue(hkfp == null ? "" :
+			 * hkfp); row.createCell(13).setCellValue(ykfpcx.getKpr() == null ?
+			 * "" : ykfpcx.getKpr());
+			 */
+			// row.createCell(14).setCellValue(ykfpcx.getKprq() == null ? "" :
+			// sdf.format(ykfpcx.getKprq()));
+
 		}
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		String filename = timeFormat.format(new Date()) + ".xls";

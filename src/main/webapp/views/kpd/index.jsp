@@ -254,13 +254,14 @@
 	<script type="text/javascript">
 		$(function(){
 			$('#save').click(function(){
-				var data = $("#frm").serialize();
+				var kpddm = $('#kpddm').val();
 				$('#save').attr("disabled", true);
 				$("#frm").validator({
 					submit : function() {
 						var formValidity = this.isFormValid();
 						if (formValidity) {
 							$('#save').attr("disabled", false);
+							var data = $("#frm").serialize();
 							$.ajax({
 								url : "<%=request.getContextPath()%>/sksbxxzc/save",
 								data : data,
