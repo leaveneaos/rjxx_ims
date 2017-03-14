@@ -226,19 +226,36 @@ $(function() {
 				 if (xfsh == null || xfsh == '' || xfsh == "") {
 					 return;
 				 }
-				 var url = "<%=request.getContextPath()%>/fpcx/getSkpList";
-				 $.post(url, {
-					 xfsh : xfsh
-				 }, function(data) {
-					 if (data) {
-						 var option = $("<option>").text('请选择').val(-1);
-						 $('#mb_skp').append(option);
-						 for (var i = 0; i < data.skps.length; i++) {
-							 option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
-							 $('#mb_skp').append(option);
-						 }
-					 }
+				 var url = "fpcx/getSkpList";
+				 $.ajax({
+						type : "POST",
+						url : url,
+						data : {
+							 xfsh : xfsh
+						 },
+						success : function(data) {
+							if (data) {
+								 var option = $("<option>").text('请选择').val(-1);
+								 $('#mb_skp').append(option);
+								 for (var i = 0; i < data.skps.length; i++) {
+									 option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
+									 $('#mb_skp').append(option);
+								 }
+							 }
+						}
 				 });
+//				 $.post(url, {
+//					 xfsh : xfsh
+//				 }, function(data) {
+//					 if (data) {
+//						 var option = $("<option>").text('请选择').val(-1);
+//						 $('#mb_skp').append(option);
+//						 for (var i = 0; i < data.skps.length; i++) {
+//							 option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
+//							 $('#mb_skp').append(option);
+//						 }
+//					 }
+//				 });
 			 });
 			
 			
