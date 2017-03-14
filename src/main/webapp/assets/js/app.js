@@ -16,8 +16,14 @@
         
         var cd1 = $('#cd1', parent.document).val();
         var cd2 = $('#cd2', parent.document).val();
-        $(".am-text-primary").html(cd2);
-        $(".am-text-primary").next().html(cd1);
+        if(cd1!=null&&cd1!=""){
+        	   $(".am-text-primary").next().html(cd1);
+        }
+        if(cd2!=null&&cd2!=""){
+            $(".am-text-primary").html(cd2);
+        }
+
+     
     });
     //设置Ajax全局参数
     $.ajaxSetup({

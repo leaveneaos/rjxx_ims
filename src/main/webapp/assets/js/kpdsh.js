@@ -185,7 +185,7 @@ $(function() {
           	  if (data.kkjje) {
           		     return '<input type="text" class="bckpje" name="bckpje" value="'+data.kkjje+'">';
                 } else {
-                    return 0;
+                	  return '<input readonly="readonly" type="text" class="bckpje" name="bckpje" value="'+data.kkjje+'">';
                 }
          
           }, 'sClass': 'right'},
