@@ -498,8 +498,8 @@ $(function() {
 	            $('#main_form').resetForm();
 	            $modal.modal({"width": 800, "height": 600});
 	        });
-	        $('#check_all').change(function () {
-	        	if ($('#check_all').prop('checked')) {
+	        $('#check_all1').change(function () {
+	        	if ($('#check_all1').prop('checked')) {
 	        		jyls_table.column(0).nodes().each(function (cell, i) {
 	                    $(cell).find('input[type="checkbox"]').prop('checked', true);
 	                });
