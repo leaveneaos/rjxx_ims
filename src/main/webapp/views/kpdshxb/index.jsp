@@ -206,10 +206,11 @@
 														</tr>
 													</thead>
 												</table>
+													<legend>商品明细列表</legend>
 											</div>
 										</div>
-										<fieldset>
-											<legend>商品明细列表</legend>
+										<div style="margin-top: 0px; margin-left: 0px;"
+										class="am-u-sm-12">
 											<table style="margin-bottom: 0px;"
 												class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 												id="mxTable1">
@@ -232,7 +233,7 @@
 													</tr>
 												</thead>
 											</table>
-										</fieldset>
+											</div>
 									</div>
 
 									<!-- content end -->

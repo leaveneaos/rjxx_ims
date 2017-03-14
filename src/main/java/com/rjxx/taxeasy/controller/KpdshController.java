@@ -258,7 +258,7 @@ public class KpdshController extends BaseController {
 		String[] sqlshs = ddhs.split(",");
 		for (String sqlsh : sqlshs) {
 			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
-			jyxxsq.setZtbz("4");
+			jyxxsq.setYxbz("0");
 			jyxxsqService.save(jyxxsq);
 		}
 		result.put("msg", "删除成功");
