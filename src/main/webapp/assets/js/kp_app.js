@@ -150,7 +150,7 @@ $(function() {
 							}else if (tip == "6") {
 								d.fpdm = txt;
 							}
-						}else{
+						}else if (bj ==  "2") {
 							d.ddh = el.$s_ddh.val(); // search 订单号
 							d.gfmc = el.$s_gfmc.val(); //购方名称
 							d.fpdm = el.$s_fpdm.val(); //发票代码
@@ -163,6 +163,8 @@ $(function() {
 							d.printflag = el.$s_dyzt.val();//打印状态
 							d.xfsh=$("#mb_xfsh").val();
 							d.sk =$("#mb_skp").val();
+						}else{
+							d.ddh = "-11111111";
 						}
 					}
 				},
@@ -289,7 +291,7 @@ $(function() {
 							}else if (dxcsm == "ddh"){
 								d.ddh = dxcsz;
 							}
-						}else{
+						}else if (bz == "2"){
 							d.xfsh = $('#s_xfsh1').val();   // search 销方
 		                    d.gfmc = $('#s_gfmc1').val();	// search 购方名称
 		                    d.ddh = $('#s_ddh1').val();   // search 订单号

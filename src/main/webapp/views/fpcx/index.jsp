@@ -126,6 +126,7 @@
 											<div class="am-u-sm-7">
 												<select id="s_dyzt" name="printflag"
 													data-am-selected="{btnSize: 'sm'}">
+													<option value="">------请选择------</option>
 													<option value="0">未打印</option>
 													<option value="1">已打印</option>
 												</select>
