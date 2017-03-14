@@ -216,7 +216,7 @@
                     	<c:forEach items="${privileges}" varStatus="j" var="privilege">
                     	<c:if test="${privilege.privilegetypeid == privilegeType.id}">
                         <li class="sidebar-nav-link">
-                            <a class="ejcd" href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" dele="${privilege.name}" onclick="jznr(this,${privilegeType.name})">
+                            <a class="ejcd" href="javascript:void(0)" data="<%=request.getContextPath()%>${privilege.urls}" parname="${privilegeType.name}" dele="${privilege.name}" onclick="jznr(this,${privilegeType.name})">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> ${privilege.name}
                             </a>
                         </li>

@@ -126,6 +126,8 @@
     	for(var i=0;i<divs.length;i++){
     		if($(divs[i]).attr('data')==v_id){
     			$(divs[i]).css("background-color","#f2f6f9");
+    			$("#cd1",parent.document).val($(divs[i]).attr("dele"));
+				$("#cd2",parent.document).val($(divs[i]).attr("parname"));
     		}
     	}
    	    $("#mainFrame",parent.document).attr("src",v_id); 
