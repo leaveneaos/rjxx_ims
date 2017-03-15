@@ -25,114 +25,7 @@ $(function() {
 	
 	 var $tab = $('#doc-tab-demo-1');
 	  //开票商品明细table
-    var kpspmx_table3 = $('#mxTable3').DataTable({
-        "searching": false,
-        "serverSide": true,
-        "sServerMethod": "POST",
-        "processing": true,
-        "bPaginate":false,
-        "bLengthChange":false,
-        "bSort":false,
-        "bInfo": false,
-        "scrollX": true,
-        ajax: {
-            "url": "kpdsh/kpdshkp",
-            async:false,
-            data: function (d) {
-        		var chk_value="" ;
-				var fpxes = "";
-				$('input[name="dxk"]:checked').each(function(){
-				chk_value+=$(this).val()+",";
-				var row = $(this).parents('tr').find('input[name="fpje"]');
-				fpxes+=row.val()+","
-				});
-				var ddhs = chk_value.substring(0, chk_value.length-1);
-				fpxes = fpxes.substring(0, fpxes.length-1);
-				d.sqlshs= ddhs;
-				d.fpxes=fpxes;
-				var bckpje = [];
-				if($("input[name='dxk']:checked").length==1){
-				
-		            var els1 =document.getElementsByName("bckpje");
-					for(var i=0;i<els1.length;i++){
-						var fpp = els1[i].value;
-						bckpje.push(fpp); 
-					}
-				}
-				d.bckpje=bckpje.join(",");
-            }
-        },
-        "columns": [
-            {"data": "sjts"},
-            {"data": "fpnum"},
-            {"data": "djh"},
-            {"data": "gfmc"},
-            {"data": "spmc"},
-            {"data": "spggxh"},
-            {"data": "spdw"},
-            {"data": function (data) {
-                    if (data.sps) {
-                        return FormatFloat(data.sps,
-                            "###,###.00");
-                    }else{
-                        return null;
-                    }
-                },
-                'sClass': 'right'
-                
-            },
-            {"data": function (data) {
-                    if (data.spdj) {
-                        return FormatFloat(data.spdj,
-                            "###,###.00");
-                    }else{
-                        return null;
-                    }
-                },
-                'sClass': 'right'
-            		},
-            {"data": function (data) {
-                     if (data.spje) {
-                         return FormatFloat(data.spje,
-                             "###,###.00");
-                     }else{
-                         return null;
-                     }
-                 },
-                 'sClass': 'right'
-            },
-            {"data": function (data) {
-                if (data.spsl) {
-                    return FormatFloat(data.spsl,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-              },
-              'sClass': 'right'
-            },
-            {"data": function (data) {
-                if (data.spse) {
-                    return FormatFloat(data.spse,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
-            },
-            {"data": function (data) {
-                if (data.jshj) {
-                    return FormatFloat(data.jshj,
-                        "###,###.00");
-                }else{
-                    return null;
-                }
-            },
-            'sClass': 'right'
-            }
-        ]
-    });
+
     
 
     
@@ -272,13 +165,13 @@ $(function() {
                 }
             },
             'sClass': 'right'
-            },{
+            }/*,{
                 "data": null,
                 "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '/*+
-                        '<a class="kpdmx" href="#">删除</a>'*/
+                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '+
+                        '<a class="kpdmx" href="#">删除</a>'
                 }
-            }
+            }*/
         ]
     });
     $('#mxTable1').on( 'draw.dt', function () {
@@ -337,6 +230,7 @@ $(function() {
     	$('#formid1').val(row.id);
     });
     var t;
+    var kpspmx_table3
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -427,7 +321,125 @@ $(function() {
 	                        }
 	                    ]
 			});
+		    kpspmx_table3 = $('#mxTable3').DataTable({
+		        "searching": false,
+		        "serverSide": true,
+		        "sServerMethod": "POST",
+		        "processing": true,
+		        "bPaginate":false,
+		        "bLengthChange":false,
+		        "bSort":false,
+		        "bInfo": false,
+		        "scrollX": true,
+		        ajax: {
+		            "url": "kpdsh/kpdshkp",
+		            async:false,
+		            data: function (d) {
+		        		var chk_value="" ;
+						var fpxes = "";
+						var hsbzs = "";
+						
+						$('input[name="dxk"]:checked').each(function(cell,i){
+						chk_value+=$(this).val()+",";
+						var row = $(this).parents('tr').find('input[name="fpje"]');
+						fpxes+=row.val()+","
+						});
+						t.column(0).nodes().each(function(cell, i) {
+							var $checkbox = $(cell).find('input[type="checkbox"]');
+							if ($checkbox.is(':checked')) {
+								var hsbz =t.row(i).data().fpjshsbz;
+								hsbzs+=hsbz+","
+							}
 
+						});
+						d.fpjshsbz= hsbzs;
+						var ddhs = chk_value.substring(0, chk_value.length-1);
+						fpxes = fpxes.substring(0, fpxes.length-1);
+						d.sqlshs= ddhs;
+						d.fpxes=fpxes;
+						var bckpje = [];
+						if($("input[name='dxk']:checked").length==1){
+						
+				            var els1 =document.getElementsByName("bckpje");
+							for(var i=0;i<els1.length;i++){
+								var fpp = els1[i].value;
+								bckpje.push(fpp); 
+							}
+						}
+						d.bckpje=bckpje.join(",");
+		            }
+		        },
+		        "columns": [
+		            {"data": "sjts"},
+		            {"data": "fpnum"},
+		            {"data": "djh"},
+		            {"data": "gfmc"},
+		            {"data": "spmc"},
+		            {"data": "spggxh"},
+		            {"data": "spdw"},
+		            {"data": function (data) {
+		                    if (data.sps) {
+		                        return FormatFloat(data.sps,
+		                            "###,###.00");
+		                    }else{
+		                        return null;
+		                    }
+		                },
+		                'sClass': 'right'
+		                
+		            },
+		            {"data": function (data) {
+		                    if (data.spdj) {
+		                        return FormatFloat(data.spdj,
+		                            "###,###.00");
+		                    }else{
+		                        return null;
+		                    }
+		                },
+		                'sClass': 'right'
+		            		},
+		            {"data": function (data) {
+		                     if (data.spje) {
+		                         return FormatFloat(data.spje,
+		                             "###,###.00");
+		                     }else{
+		                         return null;
+		                     }
+		                 },
+		                 'sClass': 'right'
+		            },
+		            {"data": function (data) {
+		                if (data.spsl) {
+		                    return FormatFloat(data.spsl,
+		                        "###,###.00");
+		                }else{
+		                    return null;
+		                }
+		              },
+		              'sClass': 'right'
+		            },
+		            {"data": function (data) {
+		                if (data.spse) {
+		                    return FormatFloat(data.spse,
+		                        "###,###.00");
+		                }else{
+		                    return null;
+		                }
+		            },
+		            'sClass': 'right'
+		            },
+		            {"data": function (data) {
+		                if (data.jshj) {
+		                    return FormatFloat(data.jshj,
+		                        "###,###.00");
+		                }else{
+		                    return null;
+		                }
+		            },
+		            'sClass': 'right'
+		            }
+		        ]
+		    });
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
 				t.column(1).nodes().each(function(cell, i) {

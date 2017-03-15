@@ -156,6 +156,7 @@ public class KpdshController extends BaseController {
 			Skp skp = skpService.findOne(jyxxsqVO.getSkpid());
 			double fpje = 0d;
 			Double zdje = 0d;
+			String hsbz="";
 			if ("01".equals(jyxxsqVO.getFpzldm())) {
 				if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
 					fpje = skp.getZpfz();
@@ -189,6 +190,8 @@ public class KpdshController extends BaseController {
 						fpje = fpgz.getDzpxe();
 					}
 					flag = true;
+					hsbz = fpgz.getHsbz();
+					break;
 				}
 			}
 			if (!flag) {
@@ -203,10 +206,15 @@ public class KpdshController extends BaseController {
 					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
 						fpje = fpgz2.getDzpxe();
 					}
+					hsbz = fpgz2.getHsbz();
 				}
 			}
 			if (null==zdje) {
 				zdje=0d;
+			}
+			if (hsbz!=null&&hsbz.equals("1")) {
+				zdje=(double) Math.round(zdje*1.17*100)/100;
+				System.out.println(zdje);
 			}
 			if (zdje>=fpje) {
 				jyxxsqVO.setFpje(fpje);
@@ -214,6 +222,7 @@ public class KpdshController extends BaseController {
 				jyxxsqVO.setFpje(zdje);
 			}
 			jyxxsqVO.setZdje(zdje);
+			jyxxsqVO.setFpjshsbz(hsbz);
 		}
 
 		int total = pagination.getTotalRecord();
@@ -369,9 +378,10 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
 	@SystemControllerLog(description = "开票单审核审核开票",key = "sqlshs")
-	public Map<String, Object> kpdshkp(String sqlshs, String fpxes,String bckpje) throws Exception {
+	public Map<String, Object> kpdshkp(String sqlshs, String fpxes,String bckpje,String fpjshsbz) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] bckkje = bckpje.split(",");
+		String[] fpjehsbzs = fpjshsbz.split(",");
 		List<Jyxxsq> listsq = new ArrayList<>(); 
 		List<List<JyspmxDecimal2>>mxList=new ArrayList<>();
 		List<FpcljlVo> listfpcl = new ArrayList<>();
@@ -401,10 +411,10 @@ public class KpdshController extends BaseController {
 			}
 			for (int j = 0; j < jyspmxs.size(); j++) {
 				jyspmxs.get(j).setJshj(new BigDecimal(bckkje[j]));
-				jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),BigDecimal.ROUND_HALF_UP));
+				jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),6,BigDecimal.ROUND_HALF_UP));
 				jyspmxs.get(j).setSpse(jyspmxs.get(j).getJshj().subtract(jyspmxs.get(j).getSpje()));
 				if (jyspmxs.get(j).getSpdj()!=null) {
-					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj(),BigDecimal.ROUND_HALF_UP));
+					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj()));
 				}else{
 					jyspmxs.get(j).setSps(null);
 				}
@@ -454,11 +464,19 @@ public class KpdshController extends BaseController {
 			}
 			// 分票
 			if (jyxxsq.getFpzldm().equals("12")) {
-				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-						new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
+				if (null!=fpjehsbzs[i]&&"1".equals(fpjehsbzs[i])) {
+					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
+				}else{
+					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
+				}
 			} else {
-				jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-						new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
+				if (null!=fpjehsbzs[i]&&"1".equals(fpjehsbzs[i])) {
+					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
+				}else{
+					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
+				}
 			}
 			// 保存进交易流水
 			Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();

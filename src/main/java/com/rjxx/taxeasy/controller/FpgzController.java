@@ -89,6 +89,7 @@ public class FpgzController extends BaseController{
 			for (Fpgz fpgz3 : listfp) {
 				fpgz3.setMrbz("0");
 			}
+			fpgzService.save(listfp);
 		}
 		fpgz.setXfids(xfs);
 		fpgz.setYxbz("1");
@@ -102,7 +103,7 @@ public class FpgzController extends BaseController{
 		result.put("msg", "新增规则成功");
 		return result;
 	}
-	//新增
+	//删除
 	@RequestMapping(value = "/scgz")
 	@ResponseBody
 	public Map<String, Object> scgz(String id,String[] xfid){

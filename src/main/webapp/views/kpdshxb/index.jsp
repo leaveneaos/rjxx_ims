@@ -229,7 +229,7 @@
 														<th>税率</th>
 														<th>税额</th>
 														<th>价税合计</th>
-														<th>操作</th>
+													<!-- 	<th>操作</th> -->
 													</tr>
 												</thead>
 											</table>

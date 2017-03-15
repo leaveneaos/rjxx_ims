@@ -64,7 +64,7 @@
 						class="am-btn am-btn-primary am-radius am-icon-plus"
 						style="margin-left: 70%" href="#"
 						data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}">增加规则</a> -->
-						<div>
+						<div  class="am-u-sm-12">
 							<table
 								class="js-table am-table am-table-bordered am-text-nowrap am-scrollable-horizontal"
 								id="jyls_table">
@@ -79,6 +79,8 @@
 										<th>普票分票行数</th>
 										<th>电子盘分票金额</th>
 										<th>电子盘分票行数</th>
+										<th>是否默认</th>
+										<th>是否含税</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -180,6 +182,10 @@
 																<label for="mrbz" class="am-u-lg-4 am-form-label">默认标志</label>
 																<div style="margin-top: 5px;" class="am-u-lg-1">
 																	<input id="mrbz" value="1" type="checkbox" name="mrbz">
+																</div>
+																<label for="hsbz" class="am-u-lg-4 am-form-label">含税标志</label>
+																<div style="margin-top: 5px;" class="am-u-lg-1">
+																	<input id="hsbz" value="1" type="checkbox" name="hsbz">
 																</div>
 															</div>
 														</div>

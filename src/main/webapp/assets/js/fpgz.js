@@ -44,6 +44,7 @@ var ur;
                 .DataTable({
                     "processing": true,
                     "serverSide": true,
+                    "scrollX": true,
                     ordering: false,
                     searching: false,
 
@@ -108,6 +109,20 @@ var ur;
                         },
                         {"data": "dzphs",
                             'sClass': 'right'},
+                        {"data": function (data) {
+                           if (data.mrbz==1) {
+                                   return "是";
+                              }else{
+                                    return "否";
+                             }
+                            }},  
+                        {"data":function (data) {
+                                if (data.hsbz==1) {
+                                    return "是";
+                                 }else{
+                                     return "否";
+                                 }
+                             }},
                         {
                             "data": null,
                             "render": function (data) {
@@ -118,6 +133,8 @@ var ur;
 			// 新增
 			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
 				$("#fpform")[0].reset();
+				$("#mrbz").attr("checked",false);
+				$("#hsbz").attr("checked",false);
 				$(".chk").show();
 				 var t01 = $("#jyls_table tbody tr").length;
 				 for(var i = 0;i<t01;i++){
@@ -195,6 +212,11 @@ var ur;
 					$("#mrbz").attr("checked","checked");
 				}else{
 					$("#mrbz").attr("checked",false);
+				}
+				if(row.hsbz=="1"){
+					$("#hsbz").attr("checked","checked");
+				}else{
+					$("#hsbz").attr("checked",false);
 				}
 				$("#idd").val(row.id);
 				$("#dzphs").val(row.dzphs);
