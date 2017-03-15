@@ -451,7 +451,7 @@ public class KpdshController extends BaseController {
 					} else if ("02".equals(jyxxsq.getFpzldm())) {
 						fphs1 = fpgz2.getPphs();
 					} else if ("12".equals(jyxxsq.getFpzldm())) {
-						fphs1 = fpgz2.getDzphs();
+						fphs2 = fpgz2.getDzphs();
 					}
 				}
 			}
