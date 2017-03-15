@@ -443,7 +443,7 @@ public class KpdshController extends BaseController {
 			}
 			if (!flag) {
 				Map<String, Object> paramse = new HashMap<>();
-				params.put("mrbz", "1");
+				paramse.put("mrbz", "1");
 				Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
 				if (null != fpgz2) {
 					if ("01".equals(jyxxsq.getFpzldm())) {
