@@ -82,7 +82,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 if (confirm("您确认暂停定时任务？")) {
                     $.ajax({
-                        url: "/quartz/pause/"+data.jobName+"/"+data.jobGroup,
+                        url: "quartz/pause/"+data.jobName+"/"+data.jobGroup,
                         type: "post",
                         data: {
                             jobName : data.jobName,
@@ -106,7 +106,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 if (confirm("您确认开始定时任务？")) {
                     $.ajax({
-                        url:"/quartz/resume/"+data.jobName+"/"+data.jobGroup,
+                        url:"quartz/resume/"+data.jobName+"/"+data.jobGroup,
                         type: "post",
                         data: {
                             jobName : data.jobName,
@@ -166,7 +166,7 @@ $(function () {
                     el.$modalhuankai.modal({"width": 820, "height": 300});
                     el.$jsSubmit.click(function(){
                         $.ajax({
-                            url:"/quartz/save",
+                            url:"quartz/save",
                             type: "post",
                             data: {
                                 bz:"0",
@@ -206,7 +206,7 @@ $(function () {
                         el.$modalhuankai.modal({"width": 820, "height": 300});
                         el.$jsSubmit.click(function(){
                             $.ajax({
-                                url:"/quartz/save",
+                                url:"quartz/save",
                                 type: "post",
                                 data: {
                                     bz:"1",
@@ -243,7 +243,7 @@ $(function () {
             $("#delete").click(function(){
                    if (confirm("您确认删除定时任务？")) {
                        $.ajax({
-                           url:"/quartz/delete/"+$("#jobname").val()+"/"+$("#jobgroup").val(),
+                           url:"quartz/delete/"+$("#jobname").val()+"/"+$("#jobgroup").val(),
                            type: "post",
                            data: {
                                jobName : $("#jobname").val(),
