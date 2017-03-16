@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
+import com.rjxx.taxeasy.bizcomm.utils.FphkService;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.JylsService;
@@ -31,6 +32,8 @@ public class FphkController extends BaseController {
 	private JyspmxService jymxService;
 	@Autowired
 	private DataOperte ac;
+	@Autowired
+	private FphkService fphkservice;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -73,17 +76,71 @@ public class FphkController extends BaseController {
 
 	@RequestMapping(value = "/ykfphk")
 	@ResponseBody
-	public Map<String, Object> hk(Integer kplsh, String djh, String yfpdm, String yfphm, String xfsh, String jylsh)
+	public Map<String, Object> hk(Integer kplsh,String xfsh,String jylsh )
 			throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		int id = Integer.parseInt(djh);
 		List<Integer> kplshList = new ArrayList<>();
+		
+		String djh =request.getParameter("djh");
+
+		int id = Integer.parseInt(djh);
+
+		String gfbz =request.getParameter("gfbz_edit");
+		String gfemail =request.getParameter("gfemail_edit");
+		String gfdz =request.getParameter("gfdz_edit");
+		String gfdh =request.getParameter("gfdh_edit");
+		String tqm = request.getParameter("tqm_edit");
+		Map map=new HashMap();
+		
+		String yfpdm =request.getParameter("yfpdm");   
+		String yfphm =request.getParameter("yfphm");
+		String fpzl =request.getParameter("fpzl_edit");  
+		String gfsh =request.getParameter("gfsh_edit");  
+		String gfyh =request.getParameter("gfyh_edit");  
+		String gfzh =request.getParameter("gfzh_edit");  
+		String gfmc =request.getParameter("gfmc_edit");  
+		String kpje =request.getParameter("kpje");  
+		String dybz =request.getParameter("dybz");  
+
+		
+		
+		map.put("yfpdm", yfpdm);
+		
+		map.put("yfphm", yfphm);
+		map.put("dybz", dybz);
+
+
+
+		map.put("fpzl", fpzl);
+		map.put("gfsh", gfsh);
+		map.put("gfyh", gfyh);
+		map.put("gfzh", gfzh);
+		map.put("gfmc", gfmc);
+		map.put("hcjshj", kpje);
+		
+		map.put("tqm", tqm);
+		map.put("gfdh", gfdh);
+		map.put("gfdz", gfdz);
+		map.put("gfemail", gfemail);
+		map.put("gfbz", gfbz);
+		map.put("gsdm", getGsdm());
 		kplshList.add(kplsh);
 		try {
-			ac.addJyls(kplshList, id, "13", getYhid());
+		    Map hkczMap=fphkservice.fphk(map,kplshList, id, getYhid(),getGsdm());
 			ac.saveLog(id, "01", "0", "电子发票服务平台换开操作", "已向服务端发送换开请求", getYhid(), xfsh, jylsh);
-			result.put("success", true);
-			result.put("msg", "换开请求提交成功，请注意查看操作结果！");
+			
+			String hkcz=hkczMap.get("hkcz").toString();
+			
+			if(hkcz.equals("0")){
+				result.put("success", true);
+				result.put("msg", "换开请求提交成功，请注意查看操作结果！");
+			}else if(hkcz.equals("1")){
+			    String hkMessage=hkczMap.get("hkMessage").toString();
+				result.put("failure", false);
+				result.put("msg", "换开请求提交失败，原因:"+hkMessage);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("failure", true);
