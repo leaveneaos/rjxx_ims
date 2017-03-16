@@ -931,6 +931,24 @@
     </div>
   </div>
 </div>
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fphm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">核对发票号码代码,打印机是否放好发票
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+    <div style="margin-top: 10px;">
+     	发票代码: <input id="fpdm2" type="text" disabled="disabled"></div>
+       <div style="margin-top: 10px;">	发票号码: <input id="fphm2" type="text" disabled="disabled"></div>
+     	  <div style="margin-top: 20px;"><button id="kp_kpdyqr"
+  type="button"
+  class="am-btn am-btn-primary"
+  data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 400, height: 225}">
+   确认开票
+</button></div>
+    </div>
+  </div>
+</div>
 	<input type="hidden" id="kplshStr">
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"

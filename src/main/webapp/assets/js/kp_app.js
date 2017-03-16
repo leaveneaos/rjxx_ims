@@ -669,8 +669,8 @@ $(function() {
 	                url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
 	                    if (data.success) {
 	                        $("#doc-modal-fphm").modal("open");
-	                        $("#fpdm").val(data.fpdm);
-	                        $("#fphm").val(data.fphm);
+	                        $("#fpdm2").val(data.fpdm);
+	                        $("#fphm2").val(data.fphm);
 	                        $('#kp_kp').removeAttr("disabled"); 
 	                    	$('#kp_kpdy').removeAttr("disabled"); 
 	                    	$('#kp_del').removeAttr("disabled");     
