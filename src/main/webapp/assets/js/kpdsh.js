@@ -75,10 +75,16 @@ $(function() {
             {"data": "spmxxh"},
             {"data": "spmc"},
             {"data": function (data) {
+            	var kkjje
+            	if(data.kkjje!=0){
+            		 kkjje = FormatFloat(data.kkjje, "###,###.00");
+            	}else{
+            		kkjje=data.kkjje;
+            	}  
           	  if (data.kkjje) {
-          		     return '<input type="text" class="bckpje" name="bckpje" value="'+data.kkjje+'">';
+          		     return '<input type="text" Style="text-align:right"  class="bckpje" name="bckpje" value="'+kkjje+'">';
                 } else {
-                	  return '<input readonly="readonly" type="text" class="bckpje" name="bckpje" value="'+data.kkjje+'">';
+                	  return '<input readonly="readonly" Style="text-align:right"  type="text"  class="js-pattern-Money bckpje" name="bckpje" value="'+kkjje+'">';
                 }
          
           }, 'sClass': 'right'},
@@ -281,9 +287,10 @@ $(function() {
 	                        {"data": "ddrq"},
 	                        {"data": null,
 	                           "render": function (data) {
-	                        	   //var fpjee = FormatFloat(data.fpje, "###,###.00")
-	                                return '<input type="text" onkeyup="yzje(this)" class="am-text-money" max="'+data.zdje+'" name="fpje" value="'+data.fpje +'">';
-	                                }
+	                        	   var zdjeh = FormatFloat(data.zdje, "###,###.00");
+	                        	   var fpjeh = FormatFloat(data.fpje, "###,###.00")
+	                                return '<input type="text" Style="text-align:right" onkeyup="yzje(this)" class="js-pattern-Money" max="'+zdjeh+'" name="fpje" value="'+fpjeh +'">';
+	                                }, 'sClass': 'right'
 	                        },
 	                        {"data": function(data){
 	                        	if("01"==data.fpzldm){
@@ -342,7 +349,7 @@ $(function() {
 						$('input[name="dxk"]:checked').each(function(cell,i){
 						chk_value+=$(this).val()+",";
 						var row = $(this).parents('tr').find('input[name="fpje"]');
-						fpxes+=row.val()+","
+						fpxes+=row.val().replace(',','')+","
 						});
 						t.column(0).nodes().each(function(cell, i) {
 							var $checkbox = $(cell).find('input[type="checkbox"]');
@@ -362,7 +369,7 @@ $(function() {
 						
 				            var els1 =document.getElementsByName("bckpje");
 							for(var i=0;i<els1.length;i++){
-								var fpp = els1[i].value;
+								var fpp = els1[i].value.replace(',','');
 								bckpje.push(fpp); 
 							}
 						}
@@ -607,6 +614,7 @@ $(function() {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
+            	  kpspmx_table.ajax.reload();	
             });
 			return t;
 		},
@@ -669,7 +677,7 @@ $(function() {
 				var fla = true;
 				var els =document.getElementsByName("fpje");
 				for(var i=0;i<els.length;i++){
-					var fpje = els[i].value;
+					var fpje = els[i].value.replace(',','');
 					if(fpje==0){
 						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
 	                	$("#my-alert").modal('open');
@@ -689,7 +697,7 @@ $(function() {
 					var rows1 = $("#mxTable1").find('tr');	
 		            var els1 =document.getElementsByName("bckpje");
 					for(var i=0;i<els1.length;i++){
-						var fpp = els1[i].value;
+						var fpp = els1[i].value.replace(',','');
 						je+=fpp*1;
 						bckpje.push(fpp); 
 						if(fpp==0){

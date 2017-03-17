@@ -409,6 +409,7 @@ public class KpdshController extends BaseController {
 			if ("1".equals(jyxxsq.getHsbz())) {
 				jyspmxs = SeperateInvoiceUtils.separatePrice2(jyspmxs);
 			}
+			if(sqlsht.length==1){
 			for (int j = 0; j < jyspmxs.size(); j++) {
 				jyspmxs.get(j).setJshj(new BigDecimal(bckkje[j]));
 				jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),6,BigDecimal.ROUND_HALF_UP));
@@ -417,6 +418,18 @@ public class KpdshController extends BaseController {
 					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj()));
 				}else{
 					jyspmxs.get(j).setSps(null);
+				}
+			}
+			}else{
+				for (int j = 0; j < jyspmxs.size(); j++) {
+					jyspmxs.get(j).setJshj(jyspmxs.get(j).getKkjje());
+					jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),6,BigDecimal.ROUND_HALF_UP));
+					jyspmxs.get(j).setSpse(jyspmxs.get(j).getJshj().subtract(jyspmxs.get(j).getSpje()));
+					if (jyspmxs.get(j).getSpdj()!=null) {
+						jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj()));
+					}else{
+						jyspmxs.get(j).setSps(null);
+					}
 				}
 			}
 			int fphs1 = 8;
