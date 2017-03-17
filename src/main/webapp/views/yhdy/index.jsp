@@ -135,13 +135,21 @@
 								</div>
 							</div>
 						</div>
+						<div class="am-u-sm-12 top-position" id="div-scewm">
+							<div class="am-form-group">
+								<a href="javascript:scEwm()"><label class="am-u-sm-4 am-form-label">重新绑定微信</label></a>
+								<div class="am-u-sm-8">
+									
+								</div>
+							</div>
+						</div>
 						<div class="am-u-sm-12 top-position" id="div-wx">
 							<div class="am-form-group">
 								<label for="ewm" class="am-u-sm-4 am-form-label">微信扫描关注</label>
 								<div class="am-u-sm-8">
-									<img src="img/dy.jpg"
-										style="height: 160px; width: 160px; float: left"> <input
-										type="hidden" name="wx_openid" id="s_openid">
+									<img id="doc-qrcode" 
+									style="width: 160px;height: 160px;float: left;">
+									<input type="hidden" name="wx_openid" id="s_openid">
 								</div>
 							</div>
 						</div>
@@ -185,5 +193,24 @@
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/yhdy.js"></script>
+	<script type="text/javascript">
+	    function scEwm(){
+	    	$('#div-scewm').hide();
+	    	var url = window.location.href;
+			//生成二维码
+			$.ajax({
+				url : 'wxdy/getEwm',
+				data:{"url":url},
+				method : 'post',
+				success : function(data) {
+					if (data.success) {
+						$('#doc-qrcode').attr("src",data.id);
+						//$('#doc-qrcode').qrcode({text:data.url,width:160,height:160});
+					}
+				}
+			});
+			$('#div-wx').show();
+	    }
+	</script>
 </body>
 </html>

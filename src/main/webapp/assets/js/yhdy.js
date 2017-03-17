@@ -40,25 +40,6 @@ $(function () {
     				$('#my-alert').modal('open');
     				return false;
         		}
-        		var dys = '';
-            	var dyArr = new Array();
-            	$('#div-dx').hide();
-            	$('#div-yx').hide();
-            	$('#div-wx').hide();
-    			for(var i=0;i<dyfss.length;i++){
-    				var cla = $(dyfss[i]).attr("class");
-    				dyArr[i] = cla;    				
-    			}
-    			for(var j=0;j<dyArr.length;j++){
-    				var bz = dyArr[j];
-    				if(bz=='dx'){
-    					$('#div-dx').show();
-    				}else if(bz=='yj'){
-    					$('#div-yx').show();
-    				}else if(bz=='wx'){
-    					$('#div-wx').show();
-    				}
-    			}
         		$.ajax({
         			url:'yhdy/getyhxx',
         			method:'POST',
@@ -67,13 +48,50 @@ $(function () {
         					$("#s_yhmc").val(data.yhmc);
         					$("#s_sjhm").val(data.sjhm);
         					$("#s_email").val(data.email);
+        					$("#s_openid").val(data.openid);
         				}else{
         					$('#alert-msg').html(data.msg);
             				$('#my-alert').modal('open');
         				}
         			}
         			
-        		})
+        		});
+        		var dys = '';
+            	var dyArr = new Array();
+            	$('#div-dx').hide();
+            	$('#div-yx').hide();
+            	$('#div-wx').hide();
+            	$('#div-scewm').hide();
+    			for(var i=0;i<dyfss.length;i++){
+    				var cla = $(dyfss[i]).attr("class");
+    				dyArr[i] = cla;    				
+    			}
+    			var openid = $("#s_openid").val();
+    			for(var j=0;j<dyArr.length;j++){    				
+    				var bz = dyArr[j];
+    				if(bz=='dx'){
+    					$('#div-dx').show();
+    				}else if(bz=='yj'){
+    					$('#div-yx').show();
+    				}else if(bz=='wx'&&openid==''){				
+    					var url = window.location.href;
+    					//生成二维码
+    					$.ajax({
+    						url : 'wxdy/getEwm',
+    						data:{"url":url},
+    						method : 'post',
+    						success : function(data) {
+    							if (data.success) {
+    								$('#doc-qrcode').attr("src",data.id);
+    								//$('#doc-qrcode').qrcode({text:data.url,width:160,height:160});
+    							}
+    						}
+    					});
+    					$('#div-wx').show();
+    				}else if(bz=='wx'&&openid !=''){
+    					$('#div-scewm').show();
+    				}
+    			}       		
         		el.$jsModal.modal('open');
         	})
         },

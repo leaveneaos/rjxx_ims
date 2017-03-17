@@ -91,6 +91,7 @@ public class YhdyController extends BaseController{
 				result.put("yhmc", name);
 				result.put("sjhm", sjhm);
 				result.put("email", email);
+				result.put("openid", "");
 				result.put("success", true);
 			}else{
 				result.put("msg", "session超时，请重新登录！");
@@ -102,13 +103,12 @@ public class YhdyController extends BaseController{
 	
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public Map<String,Object> save(String dyfsstr,String yhmc,String sjhm,String email,String openid){
+	public Map<String,Object> save(String dyfsstr,String yhmc,String sjhm,String email){
 		Map<String,Object> result = new HashMap<String,Object>();
 		Integer yhid = this.getYhid();
 		Map params = new HashMap<>();
 		params.put("yhid", yhid);
 		wddyService.updateYxbz(params);
-		yhlxfsService.updateYxbz(params);
 		String[] dyfs = dyfsstr.split(",");
 		List<DyWddy> list = new ArrayList<DyWddy>();		
 		String gsdm = this.getGsdm();
@@ -126,16 +126,24 @@ public class YhdyController extends BaseController{
 				list.add(item);
 			}
 			wddyService.save(list);
-			DyYhlxfs item = new DyYhlxfs();
-			item.setYhid(yhid);
-			item.setSjhm(sjhm);
-			item.setYx(email);
-			item.setXm(yhmc);
-			item.setWxOpenid(openid);
-			item.setYxbz("1");
-			item.setLrry(yhid);
-			item.setLrsj(new Date());
-			yhlxfsService.save(item);
+			DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
+			if(lxfs==null){
+				DyYhlxfs item = new DyYhlxfs();
+				item.setYhid(yhid);
+				item.setSjhm(sjhm);
+				item.setYx(email);
+				item.setXm(yhmc);
+				item.setYxbz("1");
+				item.setLrry(yhid);
+				item.setLrsj(new Date());
+				yhlxfsService.save(item);
+			}else{
+				lxfs.setSjhm(sjhm);
+				lxfs.setXm(yhmc);
+				lxfs.setYx(email);
+				lxfs.setLrsj(new Date());
+				yhlxfsService.save(lxfs);
+			}			
 			result.put("success", true);
 			result.put("msg", "保存成功！");
 		}catch(Exception e){
