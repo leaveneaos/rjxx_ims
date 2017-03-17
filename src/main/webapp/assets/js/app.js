@@ -133,4 +133,54 @@ function completeLoading() {
         console.log(this);
     },300);
     }  
-}  
+} 
+
+//提示层封装
+$('#ck').click(function() {
+    $.alert({
+            text: '指定传入html片断文本',
+           // type: 'alert'
+        },
+        function() {
+            alert('回调函数')
+        }
+    )
+});
+
+$.extend({
+    alert: function(options, callback) {
+        var self = this;
+        var mask = $('<div class="windowMask" style="width:100%; height:100%; position:fixed; z-index:100000; top:0px; left;0px; background-color:#000000; display:none"></div>');
+        $('body').append(mask);
+        mask.fadeTo(500, 0.6);
+        var alertWindow = $('<div class="alertWindow" style="width:80%; left:10%; position:fixed; font-weight:bold; margin: 0 auto;z-index:1000001; font-size:17px; color:#000;  display:none; top:150px; background:#fafafa; box-shadow:0px 15px 12px 0px rgba(0,0,0,0.22), 0px 19px 38px 0px rgba(0,0,0,0.30);	text-align:center; -webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;">' +
+            '<div style="width:auto; padding:25px 30px 5px;text-align:center; ">' + options.text + '</div>' +
+            '</div>');
+        $('body').append(alertWindow);
+        alertWindow.delay(200).fadeIn();
+        if (!options.type || options.type != 'loading') {
+            if (!options.confirmBtnText) options.confirmBtnText = '确定';
+            var buttonContainer = $('<div style="width:60px; float:right; padding:12px 12px 20px;text-align:center; color:#157efb;cursor:pointer;">' + options.confirmBtnText + '</div>');
+            buttonContainer.on('click', function() {
+                self.closeMsgBox();
+                if ($.isFunction(callback)) {
+                    callback();
+                }
+            });
+            alertWindow.append(buttonContainer);
+            if (!options.type || options.type != 'alert') {
+                var buttonContainer2 = $('<div style="width:60px; float:right;padding:12px 12px 20px;text-align:center; color:#157efb;cursor:pointer;">取消</div>');
+                buttonContainer2.on('click', function() {
+                    self.closeMsgBox();
+                });
+                alertWindow.append(buttonContainer2);
+            }
+        }
+        alertWindow.css('top', (($(window).height() - alertWindow.height()) / 2));
+        self.extend({
+            closeMsgBox: function() {
+                $('.windowMask,.alertWindow').remove();
+            }
+        })
+    }
+})
