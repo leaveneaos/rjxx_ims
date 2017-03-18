@@ -81,6 +81,17 @@ public class WxdyController extends BaseController{
 	@RequestMapping(value = "/wxCallBack",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public void wxCallBack(String xml,HttpServletRequest request,HttpServletResponse response){
+		String echostr = request.getParameter("echostr");
+        String sign = request.getParameter("signature");
+		String times = request.getParameter("timestamp");
+		String nonce = request.getParameter("nonce");		
+        try {
+        	if (SigCheck.checkSignature(sign, times, nonce)) {
+        		response.getOutputStream().print(echostr);
+        	}			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(xml);
 		WeixinCommon wxc = new WeixinCommon();
 		Map<String,Object> result = wxc.wxCallBack(xml);
@@ -110,18 +121,7 @@ public class WxdyController extends BaseController{
 			wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法
 		}else{
 			System.out.println("没有读取到微信回调信息！");
-		}
-		String echostr = request.getParameter("echostr");
-        String sign = request.getParameter("signature");
-		String times = request.getParameter("timestamp");
-		String nonce = request.getParameter("nonce");		
-        try {
-        	if (SigCheck.checkSignature(sign, times, nonce)) {
-        		response.getOutputStream().print(echostr);
-        	}			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}		
 	}
 	
 	
