@@ -80,41 +80,40 @@ public class WxdyController extends BaseController{
 	@RequestMapping(value = "/wxCallBack")
 	@ResponseBody
 	public void wxCallBack()throws Exception{
-		System.out.println("ok");
 		String echostr = request.getParameter("echostr");
         String sign = request.getParameter("signature");
 		String times = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");		
         if (SigCheck.checkSignature(sign, times, nonce)) {
-        	response.getOutputStream().print(echostr);
+        	InputStream inputStream = request.getInputStream();  // 读取输入流  
+            SAXReader reader = new SAXReader();  
+            Document document = reader.read(inputStream);
+            Element rootElt = document.getRootElement();
+            String openid = rootElt.elementText("FromUserName");
+            String eventKey = rootElt.elementText("EventKey");
+            String serverid = rootElt.elementText("ToUserName");
+            String msgType = rootElt.elementText("MsgType");
+            if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
+            	eventKey = eventKey.replaceAll("qrscene_", "");
+            }
+            Integer yhid = Integer.parseInt(eventKey);
+    		Map params = new HashMap<>();
+    		params.put("yhid", yhid);
+    		DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
+    		if(lxfs==null){
+    			DyYhlxfs item = new DyYhlxfs();
+    			item.setYhid(yhid);
+    			item.setWxOpenid(openid);
+    			item.setYxbz("1");
+    			yhlxfsService.save(item);
+    		}else{
+    			lxfs.setWxOpenid(openid);
+    			yhlxfsService.save(lxfs);
+    		}
+    		sentMsg(openid,serverid,msgType,"恭喜您，微信订阅成功！");
         	logger.error("isSuccess:" + echostr);
         }			
-        InputStream inputStream = request.getInputStream();  // 读取输入流  
-        SAXReader reader = new SAXReader();  
-        Document document = reader.read(inputStream);
-        Element rootElt = document.getRootElement();
-        String openid = rootElt.elementText("FromUserName");
-        String eventKey = rootElt.elementText("EventKey");
-        String serverid = rootElt.elementText("ToUserName");
-        String msgType = rootElt.elementText("MsgType");
-        if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
-        	eventKey = eventKey.replaceAll("qrscene_", "");
-        }
-        Integer yhid = Integer.parseInt(eventKey);
-		Map params = new HashMap<>();
-		params.put("yhid", yhid);
-		DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
-		if(lxfs==null){
-			DyYhlxfs item = new DyYhlxfs();
-			item.setYhid(yhid);
-			item.setWxOpenid(openid);
-			item.setYxbz("1");
-			yhlxfsService.save(item);
-		}else{
-			lxfs.setWxOpenid(openid);
-			yhlxfsService.save(lxfs);
-		}
-		sentMsg(openid,serverid,msgType,"恭喜您，微信订阅成功！");
+        
 		/*//订阅成功，推送微信消息
 		Map<Object, Object> data1 = new HashMap<>();
 		Map<Object, Object> data2 = new HashMap<>();		
