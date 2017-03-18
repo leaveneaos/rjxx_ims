@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,11 +80,11 @@ public class WxdyController extends BaseController{
 	}
 	
 	/**
-	 * 微信回调方法推送微信消息
+	 * 微信回调方法，推送微信消息
 	 * */
 	@RequestMapping(value = "/wxCallBack",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public void wxCallBack(String xml,HttpServletRequest request,HttpServletResponse response){
+	public void wxCallBack(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String echostr = request.getParameter("echostr");
         String sign = request.getParameter("signature");
 		String times = request.getParameter("timestamp");
@@ -92,36 +96,39 @@ public class WxdyController extends BaseController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(xml);
-		WeixinCommon wxc = new WeixinCommon();
-		Map<String,Object> result = wxc.wxCallBack(xml);
-		if(result !=null && !result.isEmpty()){
-			String openid = (String) result.get("openid");
-			Integer yhid = (Integer)result.get("value");
-			Map params = new HashMap<>();
-			params.put("yhid", yhid);
-			DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
-			if(lxfs==null){
-				DyYhlxfs item = new DyYhlxfs();
-				item.setYhid(yhid);
-				item.setWxOpenid(openid);
-				item.setYxbz("1");
-				yhlxfsService.save(item);
-			}else{
-				lxfs.setWxOpenid(openid);
-				yhlxfsService.save(lxfs);
-			}
-			//订阅成功，推送微信消息
-			Map<Object, Object> data1 = new HashMap<>();
-			Map<Object, Object> data2 = new HashMap<>();		
-			data2.put("value", "恭喜你微信订阅成功！");
-			data1.put("first", data2);
-			String template_id = "PrajnuAdIL_icjPZA5TgdqcNZUoOavCDyH1B29TstzY";
-			String url = null;
-			wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法
+        InputStream inputStream = request.getInputStream();  
+        // 读取输入流  
+        SAXReader reader = new SAXReader();  
+        Document document = reader.read(inputStream);
+        Element rootElt = document.getRootElement();
+        String openid = rootElt.elementText("FromUserName");
+        String eventKey = rootElt.elementText("EventKey");
+        if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
+        	eventKey = eventKey.replaceAll("qrscene_", "");
+        }
+        Integer yhid = Integer.parseInt(eventKey);
+		Map params = new HashMap<>();
+		params.put("yhid", yhid);
+		DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
+		if(lxfs==null){
+			DyYhlxfs item = new DyYhlxfs();
+			item.setYhid(yhid);
+			item.setWxOpenid(openid);
+			item.setYxbz("1");
+			yhlxfsService.save(item);
 		}else{
-			System.out.println("没有读取到微信回调信息！");
-		}		
+			lxfs.setWxOpenid(openid);
+			yhlxfsService.save(lxfs);
+		}
+		//订阅成功，推送微信消息
+		Map<Object, Object> data1 = new HashMap<>();
+		Map<Object, Object> data2 = new HashMap<>();		
+		data2.put("value", "恭喜你微信订阅成功！");
+		data1.put("first", data2);
+		String template_id = "PrajnuAdIL_icjPZA5TgdqcNZUoOavCDyH1B29TstzY";
+		String url = null;
+		WeixinCommon wxc = new WeixinCommon();
+		wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法		
 	}
 	
 	
