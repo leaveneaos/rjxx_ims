@@ -27,7 +27,23 @@ $(function () {
         				$("#"+name+"").attr("checked",true);
         			}
         		}
-        	})
+        	});
+        	$.ajax({
+    			url:'yhdy/getyhxx',
+    			method:'POST',
+    			success:function(data){
+    				if(data.success){
+    					$("#s_yhmc").val(data.yhmc);
+    					$("#s_sjhm").val(data.sjhm);
+    					$("#s_email").val(data.email);
+    					$("#s_openid").val(data.openid);
+    				}else{
+    					$('#alert-msg').html(data.msg);
+        				$('#my-alert').modal('open');
+    				}
+    			}
+    			
+    		});
         },
         /**
          * 保存弹出
@@ -40,22 +56,6 @@ $(function () {
     				$('#my-alert').modal('open');
     				return false;
         		}
-        		$.ajax({
-        			url:'yhdy/getyhxx',
-        			method:'POST',
-        			success:function(data){
-        				if(data.success){
-        					$("#s_yhmc").val(data.yhmc);
-        					$("#s_sjhm").val(data.sjhm);
-        					$("#s_email").val(data.email);
-        					$("#s_openid").val(data.openid);
-        				}else{
-        					$('#alert-msg').html(data.msg);
-            				$('#my-alert').modal('open');
-        				}
-        			}
-        			
-        		});
         		var dys = '';
             	var dyArr = new Array();
             	$('#div-dx').hide();
@@ -139,11 +139,6 @@ $(function () {
         			}
         			if(yxflag==true&&email==''){
         				$('#alert-msg').html("已勾选邮箱订阅，邮箱不能为空！");
-        				$('#my-alert').modal('open');
-        				return false;
-        			}
-        			if(wxflag==true&&openid==''){
-        				$('#alert-msg').html("已勾选微信订阅，请先扫码关注！");
         				$('#my-alert').modal('open');
         				return false;
         			}
