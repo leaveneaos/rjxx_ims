@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +108,18 @@ public class WxdyController extends BaseController{
 			wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法
 		}else{
 			System.out.println("没有读取到微信回调信息！");
-		}		        
+		}
+        String echostr = request.getParameter("echostr");                   
+        PrintWriter out; 
+        try { 
+            out = response.getWriter(); 
+            out.println(echostr); 
+            out.close(); 
+            response.flushBuffer(); 
+        } catch (IOException e) { 
+            // TODO Auto-generated catch block 
+            e.printStackTrace(); 
+        }
 	}
 	
 	
