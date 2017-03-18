@@ -84,7 +84,7 @@ public class WxdyController extends BaseController{
 	 * */
 	@RequestMapping(value = "/wxCallBack",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public void wxCallBack(HttpServletRequest request,HttpServletResponse response)throws Exception{
+	public void wxCallBack()throws Exception{
 		String echostr = request.getParameter("echostr");
         String sign = request.getParameter("signature");
 		String times = request.getParameter("timestamp");
