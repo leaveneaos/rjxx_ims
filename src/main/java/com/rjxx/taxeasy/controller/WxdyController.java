@@ -96,8 +96,7 @@ public class WxdyController extends BaseController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        InputStream inputStream = request.getInputStream();  
-        // 读取输入流  
+        /*InputStream inputStream = request.getInputStream();  // 读取输入流  
         SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);
         Element rootElt = document.getRootElement();
@@ -129,7 +128,7 @@ public class WxdyController extends BaseController{
 		String url = null;
 		WeixinCommon wxc = new WeixinCommon();
 		wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法		
-	}
+*/	}
 	
 	
 	
