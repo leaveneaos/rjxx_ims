@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.rjxx.taxeasy.bizcomm.utils.SigCheck;
 import com.rjxx.taxeasy.bizcomm.utils.WeixinCommon;
 import com.rjxx.taxeasy.domains.DyYhlxfs;
 import com.rjxx.taxeasy.service.DyYhlxfsService;
@@ -109,17 +111,17 @@ public class WxdyController extends BaseController{
 		}else{
 			System.out.println("没有读取到微信回调信息！");
 		}
-        String echostr = request.getParameter("echostr");                   
-        PrintWriter out; 
-        try { 
-            out = response.getWriter(); 
-            out.println(echostr); 
-            out.close(); 
-            response.flushBuffer(); 
-        } catch (IOException e) { 
-            // TODO Auto-generated catch block 
-            e.printStackTrace(); 
-        }
+		String echostr = request.getParameter("echostr");
+        String sign = request.getParameter("signature");
+		String times = request.getParameter("timestamp");
+		String nonce = request.getParameter("nonce");		
+        try {
+        	if (SigCheck.checkSignature(sign, times, nonce)) {
+        		response.getOutputStream().print(echostr);
+        	}			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
