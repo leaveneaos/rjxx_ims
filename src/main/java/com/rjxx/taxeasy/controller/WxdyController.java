@@ -2,13 +2,9 @@ package com.rjxx.taxeasy.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -16,7 +12,6 @@ import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.taxeasy.bizcomm.utils.SigCheck;
@@ -82,26 +77,26 @@ public class WxdyController extends BaseController{
 	/**
 	 * 微信回调方法，推送微信消息
 	 * */
-	@RequestMapping(value = "/wxCallBack",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/wxCallBack")
 	@ResponseBody
 	public void wxCallBack()throws Exception{
+		System.out.println("ok");
 		String echostr = request.getParameter("echostr");
         String sign = request.getParameter("signature");
 		String times = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");		
-        try {
-        	if (SigCheck.checkSignature(sign, times, nonce)) {
-        		response.getOutputStream().print(echostr);
-        	}			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        /*InputStream inputStream = request.getInputStream();  // 读取输入流  
+        if (SigCheck.checkSignature(sign, times, nonce)) {
+        	response.getOutputStream().print(echostr);
+        	logger.error("isSuccess:" + echostr);
+        }			
+        InputStream inputStream = request.getInputStream();  // 读取输入流  
         SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);
         Element rootElt = document.getRootElement();
         String openid = rootElt.elementText("FromUserName");
         String eventKey = rootElt.elementText("EventKey");
+        String serverid = rootElt.elementText("ToUserName");
+        String msgType = rootElt.elementText("MsgType");
         if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
         	eventKey = eventKey.replaceAll("qrscene_", "");
         }
@@ -119,7 +114,8 @@ public class WxdyController extends BaseController{
 			lxfs.setWxOpenid(openid);
 			yhlxfsService.save(lxfs);
 		}
-		//订阅成功，推送微信消息
+		sentMsg(openid,serverid,msgType,"恭喜您，微信订阅成功！");
+		/*//订阅成功，推送微信消息
 		Map<Object, Object> data1 = new HashMap<>();
 		Map<Object, Object> data2 = new HashMap<>();		
 		data2.put("value", "恭喜你微信订阅成功！");
@@ -129,6 +125,27 @@ public class WxdyController extends BaseController{
 		WeixinCommon wxc = new WeixinCommon();
 		wxc.sentWxMsg(data1, openid, template_id, url);     //微信消息推送方法		
 */	}
+	
+	/**
+	 * 订阅成功，发送文本消息
+	 * */
+	public void sentMsg(String customid,String serverid,String msgType,String content){
+		StringBuffer str = new StringBuffer();  
+		Long returnTime = Calendar.getInstance().getTimeInMillis() / 1000;// 返回时间
+        str.append("<xml>");  
+        str.append("<ToUserName><![CDATA[" + customid + "]]></ToUserName>");  
+        str.append("<FromUserName><![CDATA[" + serverid + "]]></FromUserName>");  
+        str.append("<CreateTime>" + returnTime + "</CreateTime>");  
+        str.append("<MsgType><![CDATA[" + msgType + "]]></MsgType>");  
+        str.append("<Content><![CDATA["+ content + "]]></Content>");  
+        str.append("</xml>");  
+        System.out.println(str.toString());  
+        try {
+			response.getWriter().write(str.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
 	
 	
 	
