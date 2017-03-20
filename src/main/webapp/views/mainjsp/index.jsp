@@ -26,17 +26,6 @@
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
-								<li class="am-dropdown tpl-dropdown">
-									<a href="#" class="am-text-success">
-										<div style="font-size: 2.5rem; color: #3F51B5;">
-											<i class="am-icon-clipboard am-icon-lg" data="<%=request.getContextPath()%>/dbsx" onclick="jump(this,'/dbsx')">
-												<c:if test="${dbsl==1 }"><span class="dian"></span></c:if>
-											</i>		
-											<br>
-											待办事项
-										</div>
-									</a
-								></li>
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
 											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
