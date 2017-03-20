@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.FpkcYzsz;
 import com.rjxx.taxeasy.domains.Fpyjdy;
 import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.FpkcService;
+import com.rjxx.taxeasy.service.FpkcYzszService;
 import com.rjxx.taxeasy.service.FpyjdyService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
@@ -31,6 +33,8 @@ public class YjdyController extends BaseController {
 	private FpkcService kcService;
 	@Autowired
 	private FpzlService fpzlService;
+	@Autowired
+	private FpkcYzszService yzszService;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -80,25 +84,12 @@ public class YjdyController extends BaseController {
 			params.put("gsdm", gsdm);
 			params.put("xfid", item.getXfid());
 			params.put("skpid", item.getSkpid());
+			params.put("fpzldm",item.getFpzldm());
 			params.put("yhid", yhid);
 			Fpyjdyvo dybz = dyService.findDyxx(params);
-			if (dybz == null) {
-				item.setSfsy("未订阅");
-				item.setSfemail("未订阅");
-				item.setYjkcl("");
-			} else {
-				if (dybz.getSfsy() != null && "1".equals(dybz.getSfsy())) {
-					item.setSfsy("已订阅");
-				} else {
-					item.setSfsy("未订阅");
-				}
-				if (dybz.getSfemail() != null && "1".equals(dybz.getSfemail())) {
-					item.setSfemail("已订阅");
-				} else {
-					item.setSfemail("未订阅");
-				}
+			if(dybz!=null){
 				item.setYjkcl(dybz.getYjkcl());
-			}
+			}			
 		}
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
@@ -110,7 +101,7 @@ public class YjdyController extends BaseController {
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map<String, Object> update(Integer xfid, Integer skpid, String sfsy, String sfemail, Integer yjkcl) {
+	public Map<String, Object> update(Integer xfid, Integer skpid,String fpzldm,Integer yjkcl) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
 		result.put("msg", "保存成功！");
@@ -121,26 +112,22 @@ public class YjdyController extends BaseController {
 		params.put("gsdm", gsdm);
 		params.put("xfid", xfid);
 		params.put("skpid", skpid);
+		params.put("fpzldm", fpzldm);
 		try {
-			Fpyjdy item = dyService.findOneByParams(params);
+			FpkcYzsz item = yzszService.findOneByParams(params);
 			if (item == null) {
-				Fpyjdy yjdy = new Fpyjdy();
+				FpkcYzsz yjdy = new FpkcYzsz();
 				yjdy.setYhid(yhid);
 				yjdy.setGsdm(gsdm);
 				yjdy.setXfid(xfid);
 				yjdy.setSkpid(skpid);
-				yjdy.setSfsy(sfsy);
-				yjdy.setSfemail(sfemail);
-				yjdy.setYjkcl(yjkcl);
+				yjdy.setFpzldm(fpzldm);
+				yjdy.setYjyz(yjkcl);
 				yjdy.setYxbz("1");
-				dyService.save(yjdy);
+				yzszService.save(yjdy);
 			} else {
-				Integer id = item.getId();
-				params.put("id", id);
-				params.put("sfsy", sfsy);
-				params.put("sfemail", sfemail);
-				params.put("yjkcl", yjkcl);
-				dyService.updateDyxx(params);
+				item.setYjyz(yjkcl);
+				yzszService.save(item);
 			}
 		} catch (Exception e) {
 			result.put("success", false);
@@ -152,7 +139,7 @@ public class YjdyController extends BaseController {
 
 	@RequestMapping(value = "/plupdate")
 	@ResponseBody
-	public Map<String, Object> plupdate(Integer xfid, String skpids, String sfsy, String sfemail, Integer yjkcl) {
+	public Map<String, Object> plupdate(String skpids,String fpzldms,Integer yjkcl) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
 		result.put("msg", "保存成功！");
@@ -161,30 +148,27 @@ public class YjdyController extends BaseController {
 		Map params = new HashMap<>();
 		String[] skpid = skpids.substring(0, skpids.length() - 1).split(",");
 		for (int i = 0; i < skpid.length; i++) {
+			String[] sf = skpid[i].split("-");
 			params.put("yhid", yhid);
 			params.put("gsdm", gsdm);
-			params.put("xfid", xfid);
-			params.put("skpid", skpid[i]);
+			params.put("xfid", sf[0]);
+			params.put("skpid", sf[1]);
+			params.put("fpzldm", sf[2]);
 			try {
-				Fpyjdy item = dyService.findOneByParams(params);
+				FpkcYzsz item = yzszService.findOneByParams(params);
 				if (item == null) {
-					Fpyjdy yjdy = new Fpyjdy();
+					FpkcYzsz yjdy = new FpkcYzsz();
 					yjdy.setYhid(yhid);
 					yjdy.setGsdm(gsdm);
-					yjdy.setXfid(xfid);
-					yjdy.setSkpid(Integer.parseInt(skpid[i]));
-					yjdy.setSfsy(sfsy);
-					yjdy.setSfemail(sfemail);
-					yjdy.setYjkcl(yjkcl);
+					yjdy.setXfid(Integer.parseInt(sf[0]));
+					yjdy.setSkpid(Integer.parseInt(sf[1]));
+					yjdy.setFpzldm(sf[2]);
+					yjdy.setYjyz(yjkcl);
 					yjdy.setYxbz("1");
-					dyService.save(yjdy);
+					yzszService.save(yjdy);
 				} else {
-					Integer id = item.getId();
-					params.put("id", id);
-					params.put("sfsy", sfsy);
-					params.put("sfemail", sfemail);
-					params.put("yjkcl", yjkcl);
-					dyService.updateDyxx(params);
+					item.setYjyz(yjkcl);
+					yzszService.save(item);
 				}
 			} catch (Exception e) {
 				result.put("success", false);

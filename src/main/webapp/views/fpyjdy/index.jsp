@@ -142,8 +142,6 @@
 													<th>开票点名称</th>
 													<th>发票种类</th>
 													<th>剩余库存(张)</th>
-													<th>首页订阅</th>
-													<th>Email订阅</th>
 													<th>库存预警阈值</th>
 													<th>操作</th>
 												</tr>
@@ -169,12 +167,7 @@
 													<div class="am-g">
 														<div class="am-u-sm-12">
 															<table
-																class="am-table am-table-bordered am-table-striped am-text-nowrap">
-																<tr>
-																	<td><input type="checkbox" id="sfsy" name="sfsy">首页订阅</td>
-																	<td><input type="checkbox" id="sfemail"
-																		name="sfemail">email订阅</td>
-																</tr>
+																class="am-table am-table-bordered">								
 																<tr>
 																	<td><span style="color: red;">*</span>库存预警阈值</td>
 																	<td><input type="text" id="yjkcl" name="yjkcl"

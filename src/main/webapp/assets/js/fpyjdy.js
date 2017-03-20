@@ -56,7 +56,7 @@ $(function () {
                             "orderable": false,
                             "data": null,
                             render: function (data, type, full, meta) {
-                                 return '<input type="checkbox" value="'+data.skpid+'"/>';
+                                 return '<input type="checkbox" value="'+data.xfid+'-'+data.skpid+'-'+data.fpzldm+'"/>';
                             }
                         },
                         {
@@ -69,8 +69,6 @@ $(function () {
                         {"data": "kpdmc"},
                         {"data":"fpzlmc"},                 
                         {"data": "kyl"},
-                        {"data": "sfsy"},
-                        {"data": "sfemail"},
                         {"data": "yjkcl"},
                         {
                             "data": null,
@@ -89,11 +87,10 @@ $(function () {
 
             // 批量设置
             el.$jsTable1.on('click', el.$jsTable1, function () {
-            	$("#sfsy").attr("checked",false);
-            	$("#sfemail").attr("checked",false);
             	$("#yjkcl").val("");
             	var xfid = $("#xfidhide").val();
             	var skpids = "";
+            	var fpzldms = "";
             	_this.tableEx.column(0).nodes().each(function (cell, i) {
         			var $checkbox = $(cell).find('input[type="checkbox"]');     			
              		if ($checkbox.is(':checked')) {
@@ -103,7 +100,7 @@ $(function () {
             	if(skpids==''){
             		alert("请至少选择一条记录！");
             	}else{
-            		ur = _this.config.plszUrl+'?skpids='+skpids+'&xfid='+xfid;
+            		ur = _this.config.plszUrl+'?skpids='+skpids;
                     el.$jsdiv.modal('open');
                     skpids="";
             	}
@@ -111,16 +108,10 @@ $(function () {
             });
             // 单个设置
             t.on('click', 'a.shezhi', function () {
-                var row = t.row($(this).parents('tr')).data();
-                if(row.sfsy=='已订阅'){
-                	$("#sfsy").attr("checked",true);
-                }
-                if(row.sfemail=='已订阅'){
-                	$("#sfemail").attr("checked",true);
-                }
+                var row = t.row($(this).parents('tr')).data();       
                 $("#yjkcl").val(row.yjkcl);
                 el.$jsdiv.modal('open');
-                ur =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid;   			 
+                ur =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm;   			 
             });            
             return t;
         },
@@ -150,30 +141,14 @@ $(function () {
         xz: function () {
             var _this = this;
             el.$jsForm.validator({
-                submit: function () {
-                	var sfsy = '';
-                	var sfemail ='';
-                	if($("#sfsy").is(':checked')){
-                		sfsy = "1";
-                	}else{
-                		sfsy="0";
-                	}
-                	if($("#sfemail").is(':checked')){
-                		sfemail="1";
-                	}else{
-                		sfemail = "0";
-                	}
+                submit: function () {            
                 	var yjkcl = $('#yjkcl').val();
                     var formValidity = this.isFormValid();
-                    if (formValidity) {
-                    	if(sfsy=="0" && sfemail=="0"){
-                        	alert("请至少选择一种订阅方式！");
-                        	return false;
-                        }
+                    if (formValidity) {                  
                         el.$jsLoading.modal('toggle'); // show loading
                         $.ajax({
                             url: ur,
-                            data: {"sfsy":sfsy,"sfemail":sfemail,"yjkcl":yjkcl},
+                            data: {"yjkcl":yjkcl},
                             method:"GET",
                             success: function (data) {
                              	el.$jsLoading.modal('close'); // close loading                              	
