@@ -50,7 +50,6 @@
 													<div class="am-u-sm-8">
 														<select id="s_xfid" name="xfid"
 															data-am-selected="{btnSize: 'sm'}">
-															<option value="">请选择销方</option>
 															<c:forEach items="${xfs}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
 															</c:forEach>
@@ -100,7 +99,14 @@
 							<br>
 							<form action="#" class="js-form am-form am-form-horizontal">
 								<div class="am-g">
-									<div class="am-u-sm-12">											
+									<div class="am-u-sm-12">
+									    <div class="am-u-sm-4">
+									         <select id="m_xfid" name="xfid">
+												<c:forEach items="${xfs}" var="xf">
+												<option value="${xf.id}">${xf.xfmc}</option>
+												</c:forEach>
+											</select>
+									    </div>											
 										<div class="am-u-sm-4">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
 												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">

@@ -29,6 +29,7 @@ $(function () {
                     d.fpzl = $('#s_fpzl option:selected').val(),
                     d.kprq = $('#s_kprq').val()
             	}
+            	d.xfid = $('#m_xfid').val();
                 d.kprq = el.$jsDate.val()
             }
         },
