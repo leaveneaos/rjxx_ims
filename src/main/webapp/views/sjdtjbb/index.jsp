@@ -22,6 +22,10 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet"
+	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
+<link rel="stylesheet"
+	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.css" />
 <style type="text/css">
 .top-position {
 	margin-top: 8px
@@ -37,7 +41,8 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
+									<strong id="yjcd" class="am-text-primary am-text-lg"></strong>
+									/ <strong id="ejcd"></strong>
 									<button class="am-btn am-btn-success am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
@@ -48,9 +53,8 @@
 												<div class="am-form-group">
 													<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
 													<div class="am-u-sm-8">
-														<select id="s_xfid" name="xfid"
+														<select id="s_xfid" name="xfid" onchange="getKpd()"
 															data-am-selected="{btnSize: 'sm'}">
-															<option value="">请选择销方</option>
 															<c:forEach items="${xfs}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
 															</c:forEach>
@@ -60,14 +64,11 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="s_fplx" class="am-u-sm-4 am-form-label">发票种类</label>
+													<label for="s_kpd" class="am-u-sm-4 am-form-label">开票点</label>
 													<div class="am-u-sm-8">
-														<select id="s_fpzl" name="fpzldm"
+														<select id="s_skpid" name="skpid" 
 															data-am-selected="{btnSize: 'sm'}">
-															<option value="">请选择发票种类</option>
-															<c:forEach items="${fpzlList}" var="item">
-																<option value="${item.fpzldm}">${item.fpzlmc}</option>
-															</c:forEach>
+															
 														</select>
 													</div>
 												</div>
@@ -116,7 +117,15 @@
 								<div class="am-g">
 									<br>
 									<div class="am-u-sm-12">
-										<div class="am-u-sm-4">
+									    <div class="am-u-sm-1">&nbsp;</div>
+										<div class="am-u-sm-3">
+											<select id="m_xfid" name="xfid">
+												<c:forEach items="${xfs}" var="xf">
+													<option value="${xf.id}">${xf.xfmc}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="am-u-sm-3">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
 												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 												<input type="text" id="s_xzrq" class="am-form-field"
@@ -128,7 +137,7 @@
 												</span>
 											</div>
 										</div>
-										<div class="am-u-sm-4">
+										<div class="am-u-sm-3">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
 												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 												<input type="text" id="s_xzrq1" class="am-form-field"
@@ -140,13 +149,13 @@
 												</span>
 											</div>
 										</div>
-										<div class="am-u-sm-4">
+										<div class="am-u-sm-2">
 											<div class="am-u-sm-12">
 												<button type="button" id="searchButton"
 													class="am-btn am-btn-default am-btn-success">
 													<span class="am-icon-search-plus"></span> 查询
 												</button>
-												<input type="hidden" id="searchbz">
+												<input type="hidden" id="searchbz" value="0">
 											</div>
 										</div>
 									</div>
@@ -154,49 +163,16 @@
 							</form>
 							<br> <br>
 							<div class="am-u-sm-12">
-								<table
-									class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
-									<thead>
-										<tr>
-											<th colspan="6">发票统计</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>正数票份数</td>
-											<td><input type="text" id="zspfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>负数票份数</td>
-											<td><input type="text" id="fspfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>合计</td>
-											<td><input type="text" id="hjpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-										</tr>
-										<tr>
-											<td>正常发票份数</td>
-											<td><input type="text" id="zcpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>红冲发票份数</td>
-											<td><input type="text" id="hcpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>换开发票份数</td>
-											<td><input type="text" id="hkpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-										</tr>
-										<tr>
-											<td>作废发票份数</td>
-											<td><input type="text" id="zfpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>重开发票份数</td>
-											<td><input type="text" id="ckpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-											<td>重打发票份数</td>
-											<td><input type="text" id="cdpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
-										</tr>
-									</tbody>
-								</table>
+								<!-- 折线图开始 -->
+							<div class="am-u-sm-6" style="padding-left: 20px">
+								<div id="chart1" style="width: 500px; height: 300px"></div>
+							</div>
+							<!-- 折线图结束 -->
+							<!-- 折线图开始 -->
+							<div class="am-u-sm-6" style="padding-left: 20px">
+								<div id="chart2" style="width: 500px; height: 300px"></div>
+							</div>
+							<!-- 折线图结束 -->
 								<br>
 								<div class="am-u-sm-12" style="text-align: center">
 									<span><strong>税率统计</strong></span>
@@ -259,8 +235,55 @@
 		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
+	<script src="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.js"></script>
+	<script src="plugins/jquery.jqplot.1.0.8/dist/excanvas.min.js"></script>
+	<script src="plugins/jquery.jqplot.1.0.8/dist/excanvas.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pieRenderer.min.js"></script>
+	<script src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pieRenderer.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasAxisTickRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasAxisLabelRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasTextRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.enhancedLegendRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.dateAxisRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.highlighter.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pointLabels.min.js"></script>
+	<script src="plugins/jquery.jqplot.1.0.8/dist/jqplot.cursor.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.categoryAxisRenderer.min.js"></script>
+	<script
+		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.barRenderer.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/Sjdtjbb.js"></script>
+	<script type="text/javascript">
+		function getKpd() {
+			var xfid = $('#s_xfid').val();
+			var skpid = $("#s_skpid");
+			$("#s_skpid").empty();
+			$.ajax({
+				url : "fpkc/getKpd",
+				data : {
+					"xfid" : xfid
+				},
+				success : function(data) {
+					var option = $("<option>").text("请选择开票点").val("");
+					skpid.append(option);
+					for (var i = 0; i < data.length; i++) {						
+						option = $("<option>").text(data[i].kpdmc).val(
+								data[i].skpid);
+						skpid.append(option);
+					}
+				}
 
+			});
+		}
+	</script>
 </body>
 </html>

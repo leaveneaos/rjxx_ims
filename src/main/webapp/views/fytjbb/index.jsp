@@ -125,7 +125,7 @@
 													class="am-btn am-btn-default am-btn-success">
 													<span class="am-icon-search-plus"></span> 查询
 												</button>
-												<input type="hidden" id="searchbz">
+												<input type="hidden" id="searchbz" value="0">
 											</div>
 										</div>
 									</div>

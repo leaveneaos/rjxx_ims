@@ -63,7 +63,13 @@ $(function () {
                             "orderable": false,
                             "data": null,
                             "defaultContent": ""
-                        },                  
+                        },
+                        {
+                            "data": null,
+                            "render": function (data) {
+                                return '<a class="xiugai">修改</a> <a class="shanchu">删除</a> '
+                            }
+                        },
                         {"data": "xfmc"},
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
@@ -74,13 +80,8 @@ $(function () {
                         {"data": "fpkcl"},
                         {"data": "kyl"},
                         {"data": "yhmc"},
-                        {"data": "lrsj"},
-                        {
-                            "data": null,
-                            "render": function (data) {
-                                return '<a class="xiugai">修改</a> <a class="shanchu">删除</a> '
-                            }
-                        }]
+                        {"data": "lrsj"}
+                        ]
                 });
             	   
             t.on('draw.dt', function (e, settings, json) {
@@ -96,6 +97,8 @@ $(function () {
             // 修改
             t.on('click', 'a.xiugai', function () {
                 var row = t.row($(this).parents('tr')).data();
+                $('#tablediv').hide();
+                $('.autowrite').hide();
                 var xfmc = row.xfmc;
                 var selectIndex = -1;
                 var options = $("#xfsh").find("option");
@@ -185,12 +188,27 @@ $(function () {
         	var _this = this;
             el.$jsAdd.on('click', el.$jsAdd, function () {
             	 _this.resetForm();
+            	 $('#tablediv').hide();
             	 $("#xfsh").find("option").eq(0).attr("selected", true);
             	 $("#fplx").find("option").eq(0).attr("selected", true);
             	 $("#kpddm").empty(); 
                  ur = _this.config.xzUrl;
                 el.$modalHongchong.modal('toggle');
             });
+        },
+        
+        autoWrite:function(){
+        	$('.autowrite').on('click',$('.autowrite'),function(){
+        		$('#formdiv').hide();
+            	$('#tablediv').show();
+        	});        	
+        },
+        
+        retu:function(){
+        	$('.js-return').on('click',$('.js-return'),function(){
+        		$('#tablediv').hide();
+            	$('#formdiv').show();
+        	});       	
         },
         /**
          * 新增保存
@@ -284,6 +302,8 @@ $(function () {
             _this.save();
             _this.modalAction(); // hidden action
             _this.find_mv();
+            _this.autoWrite();
+            _this.retu();
         }
     };
     action.init();

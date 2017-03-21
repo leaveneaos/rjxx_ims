@@ -141,6 +141,7 @@
 											<thead>
 												<tr>
 													<th>序号</th>
+													<th>操作</th>
 													<th>销方名称</th>
 													<th>销方税号</th>
 													<th>开票点名称</th>
@@ -151,8 +152,7 @@
 													<th>库存(张)</th>
 													<th>剩余库存(张)</th>
 													<th>录入人</th>
-													<th>录入时间</th>
-													<th>操作</th>
+													<th>录入时间</th>													
 												</tr>
 											</thead>
 										</table>
@@ -171,10 +171,10 @@
 										<div class="am-tabs-bd">
 											<div class="am-tab-panel am-in am-active" id="tab1">
 												<div class="am-modal-bd">
-													<div class="am-g">
+													<div class="am-g" id="formdiv">
 														<div class="am-u-sm-12">
 															<table
-																class="am-table am-table-bordered am-table-striped am-text-nowrap">
+																class="am-table am-table-bordered">
 																<tr>
 																	<td><font color="red">*</font>销方名称：</td>
 																	<td><select id="xfsh" name="xfid"
@@ -221,7 +221,34 @@
 																	<button type="submit" 
 																		class="am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
-																		class="js-close  am-btn am-radius am-btn-warning">取消</button>
+																		class="js-close am-btn am-radius am-btn-warning">取消</button>
+																		<button type="button"
+																		class="autowrite am-btn am-radius am-btn-success">自动读取</button>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="am-g" id="tablediv">
+													<div class="am-u-12">
+													     <table class="am-table am-table-bordered am-text-nowrap">
+													         <tr>
+													           <th>销方名称</th>
+													           <th>销方税号</th>
+													           <th>开票点名称</th>
+													           <th>发票种类</th>
+													           <th>起始发票号码</th>
+													           <th>终止发票号码</th>
+													           <th>剩余库存</th>
+													           </tr>
+														 </table>
+														 </div>
+														 <div class="am-u-sm-12">
+															<div class="am-form-group">
+																<div class="am-u-sm-12  am-text-center">
+																	<button type="button" 
+																		class="am-btn am-radius am-btn-success">保存</button>
+																	<button type="button"
+																		class="js-return am-btn am-radius am-btn-warning">返回</button>																
 																</div>
 															</div>
 														</div>
