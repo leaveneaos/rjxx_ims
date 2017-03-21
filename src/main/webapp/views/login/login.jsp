@@ -18,11 +18,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/web.css"/>
     <script src="../assets/js/jquery.min.js"></script>
     <script language="javascript">
-    	$(function(){
-    	    if(window !=top){  
-    	        top.location.href=location.href;  
-    	    }  
-    	});
+        if(window !=top){
+            top.location.href=location.href;
+        }
         function loadimage() {
             document.getElementById("randImage").src = "<%=request.getContextPath()%>/image.jsp?" + Math.random();
         }
