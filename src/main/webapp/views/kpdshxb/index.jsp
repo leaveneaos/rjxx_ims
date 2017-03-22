@@ -43,9 +43,9 @@ table thead th { text-align: center; }
 					<div class="am-tabs" data-am-tabs="{noSwipe: 1}"
 						id="doc-tab-demo-1">
 						<ul id="btbq" class="am-tabs-nav am-nav am-nav-tabs">
-							<li class="am-active"><a href="#tabs1">待审</a></li>
+							<li class="am-active"><a href="#tabs1">待处理</a></li>
 							<li id="cljgbt"><a href="#cljg">处理结果</a></li>
-							<li><a href="#tabs3">已审</a></li>
+							<li><a href="#tabs3">已处理</a></li>
 						</ul>
 
 						<div id="nrbq" class="am-tabs-bd">
