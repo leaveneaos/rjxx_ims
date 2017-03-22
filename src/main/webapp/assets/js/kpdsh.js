@@ -20,14 +20,35 @@ $(function() {
 		$jsPrint : $('.js-print'),
 		$checkAll : $('#select_all')
 	};
-		  $(this).removeData('amui.modal');
-
+    //批量导入
+    var $importModal = $("#bulk-import-div");
+    $("#kp_dr").click(function () {
+    	$('#importExcelForm').resetForm();
+        $importModal.modal({"width": 600, "height": 350});
+    });
 	
+	
+	
+    $(this).removeData('amui.modal');
+	 var mxarr = [];
+	 var $modal = $("#my-alert-edit2");
 	 var $tab = $('#doc-tab-demo-1');
 	  //开票商品明细table
 
-    
-
+	    $("#my-alert-edit2").on("open.modal.amui", function () {
+	        $("#mx_form").validator("destroy");
+	        $("#main_form").validator("destroy");
+	        jyspmx_edit_table.clear();
+	        jyspmx_edit_table.draw();
+	    });
+     var jyspmx_edit_table = $('#jyspmx_edit_table').DataTable({
+         "searching": false,
+         "bPaginate": false,
+         "bAutoWidth": false,
+         "bSort": false,
+         "scrollY": "70",
+         "scrollCollapse": "true"
+     });
     
     $("#yhqrbc").click(function(){
 		$.ajax({
@@ -53,7 +74,128 @@ $(function() {
     	$tab.tabs('open', 0);
     	kpspmx_table.ajax.reload();
     	});
-    
+    $("#my-alert-edit2").on("open.modal.amui", function () {
+        $("#mx_form").validator("destroy");
+        $("#main_form").validator("destroy");
+       
+    });
+    $('#kp_add').click(function () {
+        mxarr = [];
+        $('#lrmx_form').resetForm();
+        $('#main_form2').resetForm();
+        $modal.modal({"width": 820, "height": 600});
+        jyspmx_edit_table.clear();
+        jyspmx_edit_table.draw();
+    });
+    $("#lrclose").click(function () {
+        $modal.modal("close");
+    });
+/*    $("#kpdmx_xgbc").click(function () {
+        var r = $("#main_form1").validator("isFormValid");
+        if (r) {
+        	$('#mx_spse1').val($('#mx_spse').val());
+            var frmData = $("#main_form1").serialize();
+            $.ajax({
+                url: "kpdsh/xgbcmx", "type": "POST", context: document.body, data: frmData, success: function (data) {
+                    if (data.msg) {
+                        alert("保存成功!");
+						$('#my-alert-edit1').modal('close');
+                        jyls_table.ajax.reload();
+                        jyspmx_table.ajax.reload();
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        } else {
+            ///如果校验不通过
+            $("#lrmain_tab").tabs('open', 0);
+        }
+    });*/
+    var index = 1;
+    $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
+        jyspmx_edit_table.draw();
+    })
+    $("#addRow").click(function () {
+        var r = $("#lrmx_form").validator("isFormValid");
+        if (r) {
+            var spdm = $("#lrspdm_edit").val();
+            var mc = $("#lrmc_edit").val();
+            var ggxh = $("#lrggxh_edit").val();
+            var dw = $("#lrdw_edit").val();
+            var sl = $("#lrsl_edit").val();
+
+            var dj = $("#lrdj_edit").val();
+            var je = $("#lrje_edit").val();
+            var sltaxrate = $("#lrsltaxrate_edit").val();
+            var se = $("#lrse_edit").val();
+            var jshj = $("#lrjshj_edit").val();
+            index = mxarr.length + 1;
+            jyspmx_edit_table.row.add([
+                "<span class='index'>" + index + "</span>", spdm, mc, ggxh, dw, sl, dj, je, sltaxrate, se, jshj, "<a href='#'>删除</a>"
+            ]).draw();
+            mxarr.push(index);
+        }
+    });
+    $('#jyspmx_edit_table tbody').on('click', 'a', function () {
+        jyspmx_edit_table.row($(this).parents("tr")).remove().draw(false);
+        mxarr.pop();
+        $('#jyspmx_edit_table tbody').find("span.index").each(function (index, object) {
+            $(object).html(index + 1);
+        });
+    });
+    $("#lrsave").click(function () {
+        var r = $("#main_form2").validator("isFormValid");
+        if (r) {
+            var ps = [];
+            var d = jyspmx_edit_table.rows().data();
+            if (d.length == 0) {
+                $("#lrmain_tab").tabs('open', 1);
+                return;
+            }
+            ps.push("mxcount=" + d.length);
+            d.each(function (data, index) {
+                $(data).each(function (i, c) {
+                    if (i == 1) {
+                        ps.push("spdm=" + c);
+                    } else if (i == 2) {
+                        ps.push("spmc=" + c);
+                    } else if (i == 3) {
+                        ps.push("ggxh=" + c);
+                    } else if (i == 4) {
+                        ps.push("dw=" + c);
+                    } else if (i == 5) {
+                        ps.push("sl=" + c);
+                    } else if (i == 6) {
+                        ps.push("dj=" + c);
+                    } else if (i == 7) {
+                        ps.push("je=" + c);
+                    } else if (i == 8) {
+                        ps.push("rate=" + c);
+                    } else if (i == 9) {
+                        ps.push("se=" + c);
+                    } else if (i == 10) {
+                        ps.push("jshj=" + c);
+                    }
+                });
+            });
+            var frmData = $("#main_form2").serialize() + "&" + ps.join("&");
+            $.ajax({
+                url: "lrkpd/save1", "type": "POST", context: document.body, data: frmData, success: function (data) {
+                    if (data.success) {
+                        alert("保存成功!");
+                        $modal.modal("close");
+                        t.ajax.reload();
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        } else {
+            ///如果校验不通过
+            $("#lrmain_tab").tabs('open', 0);
+        }
+    });
 	  //开票商品明细table
     var kpspmx_table = $('#mxTable1').DataTable({
         "searching": false,
@@ -171,13 +313,13 @@ $(function() {
                 }
             },
             'sClass': 'right'
-            }/*,{
+            },{
                 "data": null,
                 "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '+
-                        '<a class="kpdmx" href="#">删除</a>'
+                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '/*+
+                        '<a class="kpdmx" href="#">删除</a>'*/
                 }
-            }*/
+            }
         ]
     });
     $('#mxTable1').on( 'draw.dt', function () {
@@ -207,6 +349,11 @@ $(function() {
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
+    	if(row.ykjje!=null&&row.ykjje>0){
+    		$("#alertt").html("明细已经部分开具");
+        	$("#my-alert").modal('open');
+        	return;
+    	}
 /*		$.ajax({
 			type : "POST",
 			url : "kpdsh/cxsp",
@@ -292,6 +439,24 @@ $(function() {
 	                                return '<input type="text" Style="text-align:right" onkeyup="yzje(this)" class="js-pattern-Money" max="'+zdjeh+'" name="fpje" value="'+fpjeh +'">';
 	                                }, 'sClass': 'right'
 	                        },
+	                        {"data": null,
+		                           "render": function (data) {
+		                        	   if(data.fpjshsbz==1){
+		                        		   return '<select name="hsbz" Style="width:100%"><option selected="selected" value="1">是</option><option value="0">否</option></select>';
+		                        	   }else{
+		                        		   return '<select name="hsbz" Style="width:100%"><option value="1">是</option><option selected="selected" value="0">否</option></select>';
+		                        	   }   
+		                                }
+		                        },
+		                    {"data": null,
+			                       "render": function (data) {
+			                    	   if(data.qdbz==1){
+		                        		   return '<select  name="qdbz" Style="width:100%"><option selected="selected" value="1">是</option><option value="0">否</option></select>';
+		                        	   }else{
+		                        		   return '<select name="qdbz" Style="width:100%"><option value="1">是</option><option selected="selected" value="0">否</option></select>';
+		                        	   }
+			                            }
+			                    },
 	                        {"data": function(data){
 	                        	if("01"==data.fpzldm){
 	                        	 	return "增值税专用发票";
@@ -345,21 +510,27 @@ $(function() {
 		        		var chk_value="" ;
 						var fpxes = "";
 						var hsbzs = "";
+						var qdbzs = "";
 						
 						$('input[name="dxk"]:checked').each(function(cell,i){
 						chk_value+=$(this).val()+",";
 						var row = $(this).parents('tr').find('input[name="fpje"]');
+						var row2 = $(this).parents('tr').find('select[name="hsbz"]');
+						var row3 = $(this).parents('tr').find('select[name="qdbz"]');
 						fpxes+=row.val().replace(',','')+","
+						hsbzs+=row2.val()+","
+						qdbzs+=row3.val()+","
 						});
-						t.column(0).nodes().each(function(cell, i) {
+					/*	t.column(0).nodes().each(function(cell, i) {
 							var $checkbox = $(cell).find('input[type="checkbox"]');
 							if ($checkbox.is(':checked')) {
 								var hsbz =t.row(i).data().fpjshsbz;
 								hsbzs+=hsbz+","
 							}
 
-						});
+						});*/
 						d.fpjshsbz= hsbzs;
+						d.qdbzs= qdbzs;
 						var ddhs = chk_value.substring(0, chk_value.length-1);
 						fpxes = fpxes.substring(0, fpxes.length-1);
 						d.sqlshs= ddhs;
@@ -787,7 +958,7 @@ $(function() {
 			var _this = this;
 			$("#kpdmx_xgbc").on('click', function(e) {
 		var r = $("#main_form1").validator("isFormValid");
-	 if (r) {
+		if (r) {
 				$('#mx_spse1').val($('#mx_spse').val());
 				$.ajax({
 					type : "POST",

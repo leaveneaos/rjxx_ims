@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
+import com.rjxx.taxeasy.domains.Drmb;
 import com.rjxx.taxeasy.domains.Fpgz;
 import com.rjxx.taxeasy.domains.Fpzt;
 import com.rjxx.taxeasy.domains.Jyls;
@@ -34,6 +35,7 @@ import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.DrmbService;
 import com.rjxx.taxeasy.service.FpgzService;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.JymxsqService;
@@ -42,12 +44,14 @@ import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.SmService;
 import com.rjxx.taxeasy.service.SpService;
+import com.rjxx.taxeasy.service.SpvoService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.service.YhcljlService;
 import com.rjxx.taxeasy.vo.FpcljlVo;
 import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.vo.JyspmxDecimal2;
 import com.rjxx.taxeasy.vo.JyxxsqVO;
+import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 
@@ -69,12 +73,15 @@ public class KpdshController extends BaseController {
 	@Autowired
 	private XfService xfService;
 	@Autowired
+	DrmbService drmbService;
+	@Autowired
 	private SpService spService;
 	@Autowired
 	private SkpService skpService;
 	@Autowired
 	private SmService smService;
-
+	@Autowired
+	private SpvoService spvoService;
 	@RequestMapping
 	@SystemControllerLog(description = "开票单审核页面进入",key = "")
 	public String index() {
@@ -82,7 +89,35 @@ public class KpdshController extends BaseController {
 		request.setAttribute("skpList", getSkpList());
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
-		return "kpdsh/index";
+		String gsdm = this.getGsdm();
+		List<Object> argList = new ArrayList<>();
+		argList.add(gsdm);
+		List<Spvo> spList = spvoService.findAllByGsdm(gsdm);
+		List<Xf> xfList = this.getXfList();
+		if (!spList.isEmpty()) {
+			request.setAttribute("sp", spList.get(0));
+		}
+		if (xfList.size() == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("xfsh", xfList.get(0).getXfsh());
+			map.put("xfs", getXfList());
+			map.put("gsdm", gsdm);
+			List<Drmb> mbList = drmbService.findAllByParams(map);
+			Drmb mb = new Drmb();
+			mb.setXfsh(xfList.get(0).getXfsh());
+			request.setAttribute("skps", getSkpList());
+			request.setAttribute("skpSum", getSkpList().size());
+			request.setAttribute("mrmb", drmbService.findMrByParams(mb));
+			request.setAttribute("mbList", mbList);
+			request.setAttribute("mbSum", mbList.size());
+		}
+		if (xfList != null && xfList.size() > 0) {
+			request.setAttribute("xf", xfList.get(0));
+		}
+		request.setAttribute("spList", spList);
+		request.setAttribute("xfSum", xfList.size());
+
+		return "kpdshxb/index";
 	}
 
 	@ResponseBody
@@ -136,7 +171,7 @@ public class KpdshController extends BaseController {
 		}
 		pagination.addParam("ddh", ddh);
 		pagination.addParam("xfs", xfs);
-		pagination.addParam("ztbz", "1");
+		pagination.addParam("ztbz", "6");
 		pagination.addParam("bfzt", "5");
 		pagination.addParam("skps", skpList);
 		pagination.addParam("kprqq", kprqq);
@@ -157,6 +192,7 @@ public class KpdshController extends BaseController {
 			double fpje = 0d;
 			Double zdje = 0d;
 			String hsbz="";
+			String qdbz="";
 			if ("01".equals(jyxxsqVO.getFpzldm())) {
 				if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
 					fpje = skp.getZpfz();
@@ -191,6 +227,7 @@ public class KpdshController extends BaseController {
 					}
 					flag = true;
 					hsbz = fpgz.getHsbz();
+					qdbz = fpgz.getQdbz();
 					break;
 				}
 			}
@@ -207,6 +244,7 @@ public class KpdshController extends BaseController {
 						fpje = fpgz2.getDzpxe();
 					}
 					hsbz = fpgz2.getHsbz();
+					qdbz = fpgz2.getQdbz();
 				}
 			}
 			if (null==zdje) {
@@ -223,6 +261,7 @@ public class KpdshController extends BaseController {
 			}
 			jyxxsqVO.setZdje(zdje);
 			jyxxsqVO.setFpjshsbz(hsbz);
+			jyxxsqVO.setQdbz(qdbz);
 		}
 
 		int total = pagination.getTotalRecord();
@@ -368,7 +407,14 @@ public class KpdshController extends BaseController {
 		Jyxxsq jyxxsq = jyxxsqService.findOne(jymxsq2.getSqlsh());
 		jyxxsq.setJshj(jyxxsq.getJshj() + jymxsq.getJshj() - jymxsq2.getJshj());
 		jymxsq2.setJshj(jymxsq.getJshj());
-
+		if (null==jymxsq.getYkjje()) {
+			jymxsq.setYkjje(0d);
+		}
+		if (null==jymxsq.getKkjje()) {
+			jymxsq.setKkjje(0d);
+		}
+		jymxsq2.setYkjje(jymxsq.getYkjje());
+		jymxsq2.setKkjje(jymxsq2.getJshj()-jymxsq2.getYkjje());
 		jymxsqService.save(jymxsq2);
 		jyxxsqService.save(jyxxsq);
 		result.put("msg", true);
@@ -378,7 +424,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/kpdshkp")
 	@SystemControllerLog(description = "开票单审核审核开票",key = "sqlshs")
-	public Map<String, Object> kpdshkp(String sqlshs, String fpxes,String bckpje,String fpjshsbz) throws Exception {
+	public Map<String, Object> kpdshkp(String sqlshs, String fpxes,String bckpje,String fpjshsbz,String qdbzs) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] bckkje = bckpje.split(",");
 		String[] fpjehsbzs = fpjshsbz.split(",");
@@ -393,9 +439,11 @@ public class KpdshController extends BaseController {
 		}
 		String[] sqlsht = sqlshs.split(",");
 		String[] fpxels = fpxes.split(",");
+		String[] qdbz = qdbzs.split(",");
 		int i = 0;
 		for (String sqh : sqlsht) {
 			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqh));
+			jyxxsq.setSfdyqd(qdbz[i]);
 			listsq.add(jyxxsq);
 			Map<String, Object> params = new HashMap<>();
 			params.put("sqlsh", jyxxsq.getSqlsh());
@@ -442,29 +490,34 @@ public class KpdshController extends BaseController {
 			x.setXfsh(jyxxsq.getXfsh());
 			Xf xf = xfService.findOneByParams(x);
 			Skp skp = skpService.findOne(jyxxsq.getSkpid());
-			for (Fpgz fpgz : listt) {
-				if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
-					if ("01".equals(jyxxsq.getFpzldm())) {
-						fphs1 = fpgz.getZphs();
-					} else if ("02".equals(jyxxsq.getFpzldm())) {
-						fphs1 = fpgz.getPphs();
-					} else if ("12".equals(jyxxsq.getFpzldm())) {
-						fphs2 = fpgz.getDzphs();
+			if (null!=qdbz[i]&&qdbz[i].equals("1")) {
+				fphs1=99999;
+				fphs2=99999;
+			}else{
+				for (Fpgz fpgz : listt) {
+					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
+						if ("01".equals(jyxxsq.getFpzldm())) {
+							fphs1 = fpgz.getZphs();
+						} else if ("02".equals(jyxxsq.getFpzldm())) {
+							fphs1 = fpgz.getPphs();
+						} else if ("12".equals(jyxxsq.getFpzldm())) {
+							fphs2 = fpgz.getDzphs();
+						}
+						flag = true;
 					}
-					flag = true;
 				}
-			}
-			if (!flag) {
-				Map<String, Object> paramse = new HashMap<>();
-				paramse.put("mrbz", "1");
-				Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
-				if (null != fpgz2) {
-					if ("01".equals(jyxxsq.getFpzldm())) {
-						fphs1 = fpgz2.getZphs();
-					} else if ("02".equals(jyxxsq.getFpzldm())) {
-						fphs1 = fpgz2.getPphs();
-					} else if ("12".equals(jyxxsq.getFpzldm())) {
-						fphs2 = fpgz2.getDzphs();
+				if (!flag) {
+					Map<String, Object> paramse = new HashMap<>();
+					paramse.put("mrbz", "1");
+					Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
+					if (null != fpgz2) {
+						if ("01".equals(jyxxsq.getFpzldm())) {
+							fphs1 = fpgz2.getZphs();
+						} else if ("02".equals(jyxxsq.getFpzldm())) {
+							fphs1 = fpgz2.getPphs();
+						} else if ("12".equals(jyxxsq.getFpzldm())) {
+							fphs2 = fpgz2.getDzphs();
+						}
 					}
 				}
 			}
@@ -475,6 +528,7 @@ public class KpdshController extends BaseController {
 			}else if ("12".equals(jyxxsq.getFpzldm())) {
 				zdje=skp.getDpmax();
 			}
+		
 			// 分票
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null!=fpjehsbzs[i]&&"1".equals(fpjehsbzs[i])) {
@@ -534,7 +588,7 @@ public class KpdshController extends BaseController {
 				saveKpspmx(jyls, fpJyspmxList);*/
 				// fpNumKplshMap.put(fpNum, kpls.getKplsh());
 			}
-		
+			
 			i++;
 		}
 		session.setAttribute("listsq", listsq);
@@ -647,6 +701,7 @@ public class KpdshController extends BaseController {
 		jyls1.setGfyb(jyxxsq.getGfyb());
 		jyls1.setGfemail(jyxxsq.getGfemail());
 		jyls1.setClztdm("00");
+		jyls1.setSfdyqd(jyxxsq.getSfdyqd());
 		jyls1.setBz(jyxxsq.getBz());
 		jyls1.setSkr(jyxxsq.getSkr());
 		jyls1.setKpr(jyxxsq.getKpr());

@@ -1151,7 +1151,7 @@ public class LrkpdController extends BaseController {
 				}
 			}
 			jyxxsq.setGfsjh(sjh);
-			jyxxsq.setZtbz("0");
+			jyxxsq.setZtbz("6");
 			jyxxsq.setSjly("0");
 			jyxxsq.setBz(getValue("bz", pzMap, columnIndexMap, row));
 			jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
@@ -1318,9 +1318,20 @@ public class LrkpdController extends BaseController {
 				msg += msgg;
 			}
 			String gfsh = jyxxsq.getGfsh();// 购方税号校验
-			if (gfsh != null && !(gfsh.length() == 15 || gfsh.length() == 18)) { // 购方税号长度的判断
-				msgg = "第" + (i+2) + "行购方税号不是15位或18位，请重新填写！";
-				msg += msgg;
+			if (fpzldm.equals("01")) {
+				if (gfsh==null||gfsh.equals("")) {
+					msgg = "第" + (i+2) + "行专票购方税号为空，请重新填写！";
+				}else{
+					if (gfsh != null && !(gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
+						msgg = "第" + (i+2) + "行购方税号不是15位到20位，请重新填写！";
+						msg += msgg;
+					}
+				}
+			}else{
+				if (gfsh != null && !(gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
+					msgg = "第" + (i+2) + "行购方税号不是15位到20位，请重新填写！";
+					msg += msgg;
+				}
 			}
 			String gfmc = jyxxsq.getGfmc();// 购方名称校验
 			if (gfmc == null || "".equals(gfmc)) {
@@ -1560,6 +1571,242 @@ public class LrkpdController extends BaseController {
 			return value;
 		}
 	}
+//开票单审核保存
+	/**
+	 * 保存交易信息申请表和交易明细申请表
+	 *
+	 * @param 
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/save1", method = RequestMethod.POST)
+	@ResponseBody
+	@SystemControllerLog(description = "开票单保存",key = "ddh_edit")
+	public Map save1() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String gsdm = getGsdm();
+		String xfid = request.getParameter("lrxfid_edit");
+		int yhid = getYhid();
+		com.rjxx.taxeasy.domains.Xf xf = xfService.findOne(Integer.parseInt(xfid));
+		Jyxxsq jyxxsq = new Jyxxsq();
+		jyxxsq.setClztdm("00");
+		jyxxsq.setDdh(request.getParameter("lrddh_edit"));
+		jyxxsq.setGfsh(request.getParameter("lrgfsh_edit"));
 
+		jyxxsq.setGfmc(request.getParameter("lrgfmc_edit"));
+		jyxxsq.setGfyh(request.getParameter("lrgfyh_edit"));
+		jyxxsq.setGfyhzh(request.getParameter("lrgfzh_edit"));
+		jyxxsq.setGfsjh(request.getParameter("lrgfsjh_edit"));
+
+		jyxxsq.setGflxr(request.getParameter("lrgflxr_edit"));
+		jyxxsq.setBz(request.getParameter("lrgfbz_edit"));
+		jyxxsq.setGfemail(request.getParameter("lrgfemail_edit"));
+		jyxxsq.setGfdz(request.getParameter("lrgfdz_edit"));
+		jyxxsq.setGfdh(request.getParameter("lrgfdh_edit"));
+		jyxxsq.setZtbz("6");//0未提交，1已提交
+		jyxxsq.setSjly("0");//0平台接入，1接口接入
+		String tqm = request.getParameter("lrtqm_edit");
+		if (StringUtils.isNotBlank(tqm)) {
+			Map params = new HashMap();
+			params.put("gsdm", gsdm);
+			params.put("tqm", tqm);
+			Jyxxsq tmp = jyxxsqservice.findOneByParams(params);
+			if (tmp != null) {
+				result.put("failure", true);
+				result.put("msg", "提取码已经存在");
+				return result;
+			}
+		}
+		jyxxsq.setTqm(tqm);
+		jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+		jyxxsq.setJshj(0.00);
+		jyxxsq.setYkpjshj(0.00);
+		jyxxsq.setHsbz("0");
+		jyxxsq.setXfid(xf.getId());
+		jyxxsq.setXfsh(xf.getXfsh());
+		jyxxsq.setXfmc(xf.getXfmc());
+		jyxxsq.setLrsj(TimeUtil.getNowDate());
+		jyxxsq.setXgsj(TimeUtil.getNowDate());
+		jyxxsq.setDdrq(TimeUtil.getNowDate());
+		jyxxsq.setFpzldm(request.getParameter("lrfpzl_edit"));
+		jyxxsq.setFpczlxdm("11");
+		jyxxsq.setXfyh(xf.getXfyh());
+		jyxxsq.setXfyhzh(xf.getXfyhzh());
+		jyxxsq.setXfdz(xf.getXfdz());
+		jyxxsq.setXfdh(xf.getXfdh());
+		if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
+			jyxxsq.setSffsyj("1");
+		}
+		jyxxsq.setKpr(xf.getKpr());
+		jyxxsq.setFhr(xf.getFhr());
+		jyxxsq.setSkr(xf.getSkr());
+		jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
+		jyxxsq.setLrry(yhid);
+		jyxxsq.setXgry(yhid);
+		jyxxsq.setYxbz("1");
+		jyxxsq.setGsdm(gsdm);
+		String skpid = request.getParameter("lrskpid_edit");
+		if (skpid != null && !"".equals(skpid)) {
+			jyxxsq.setSkpid(Integer.parseInt(skpid));
+		}
+		Map paramskp = new HashMap();
+		paramskp.put("id", skpid);
+		Skp skp = skpservice.findOneByParams(paramskp);
+		jyxxsq.setKpddm(skp.getKpddm());
+		try {
+			// Map<String, Object> params = null;
+			Map params = Tools.getParameterMap(request);
+			int mxcount = Integer.valueOf(params.get("mxcount").toString());
+			String[] spdms = ((String) params.get("spdm")).split(",");
+			String[] spmcs = ((String) params.get("spmc")).split(",");
+			String[] spjes = ((String) params.get("je")).split(",");
+			String[] spsls = ((String) params.get("rate")).split(",");
+			String[] jshjs = ((String) params.get("jshj")).split(",");
+			String[] spges = ((String) params.get("ggxh")).split(",");
+			String[] spss = ((String) params.get("sl")).split(",");
+			String[] spdws = ((String) params.get("dw")).split(",");
+			String[] spdjs = ((String) params.get("dj")).split(",");
+			String[] spses = ((String) params.get("se")).split(",");
+
+			double jshj = 0.00;
+			List<Jymxsq> jymxsqList = new ArrayList<>();
+			for (int c = 0; c < mxcount; c++) {
+				Jymxsq jymxsq = new Jymxsq();
+				int xxh = c + 1;
+				jymxsq.setSpmxxh(xxh);
+				jymxsq.setFphxz("0");
+				jymxsq.setSpdm(spdms[c]);
+				jymxsq.setSpmc(spmcs[c]);
+				jymxsq.setSpje(Double.valueOf(spjes[c]));
+				if (spsls.length != 0) {
+					jymxsq.setSpsl(Double.valueOf(spsls[c]));
+				}
+				jymxsq.setJshj(Double.valueOf(jshjs[c]));
+				jymxsq.setKkjje(Double.valueOf(jshjs[c]));
+				jymxsq.setYkjje(0d);
+				if (spges.length != 0) {
+					try {
+						jymxsq.setSpggxh(spges[c]);
+					} catch (Exception e) {
+						jymxsq.setSpggxh(null);
+
+					}
+				}
+				try {
+					jymxsq.setSps(Double.valueOf(spss[c]));
+				} catch (Exception e) {
+					jymxsq.setSps(null);
+				}
+				if (spdws.length != 0) {
+					try {
+						jymxsq.setSpdw(spdws[c]);
+					} catch (Exception e) {
+						jymxsq.setSpdw(null);
+
+					}
+				}
+				if (spdjs.length != 0) {
+					try {
+						jymxsq.setSpdj(Double.valueOf(spdjs[c]));
+					} catch (Exception e) {
+						jymxsq.setSpdj(null);
+
+					}
+				}
+				if (spses.length != 0) {
+					jymxsq.setSpse(Double.valueOf(spses[c]));
+				}
+				//jymxsq.setYkphj(0.00);
+				jymxsq.setLrry(yhid);
+				jymxsq.setYxbz("1");
+				jymxsq.setLrsj(TimeUtil.getNowDate());
+				jymxsq.setXgsj(TimeUtil.getNowDate());
+				jymxsq.setXgry(yhid);
+				jymxsq.setGsdm(gsdm);
+				
+				jshj += jymxsq.getJshj();
+				jymxsqList.add(jymxsq);
+			}
+			jyxxsq.setJshj(jshj);
+			jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+			result.put("success", true);
+			result.put("djh", jyxxsq.getSqlsh());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result.put("failure", true);
+			result.put("msg", "保存出现错误: " + ex.getMessage());
+		}
+		return result;
+	}
 	
+	
+	/**
+	 * 导入excel数据
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/importExcel1", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public Map importExcel1(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp)
+			throws Exception {
+		Map<String, Object> result = new HashMap<>();
+		if (importFile == null || importFile.isEmpty()) {
+			result.put("success", false);
+			result.put("message", "请选择要导入的文件");
+			return result;
+		}
+		List<List> resultList = ExcelUtil.exportListFromExcel(importFile.getInputStream(),
+				FilenameUtils.getExtension(importFile.getOriginalFilename()), 0);
+		if (resultList.size() < 2) {
+			result.put("success", false);
+			result.put("message", "行数少于2行，没有数据");
+			return result;
+		}
+		try {
+			String fileName = importFile.getOriginalFilename();
+			if (fileName != null && fileName.length() > 0) {
+				fileName = fileName.substring(0, fileName.lastIndexOf("."));
+				if (mb > 0) {
+					Drmb d = drmbService.findOne(mb);
+					if (d != null && fileName.equals(d.getMbmc())) {
+						XfMb mr = new XfMb();
+						mr.setMbid(mb);
+						mr.setXfsh(mb_xfsh);
+						mr.setYxbz("1");
+						mr.setLrry(getYhid());
+						mr.setLrsj(new Date());
+						mr.setXgry(getYhid());
+						mr.setXgsj(new Date());
+						xfmbService.save(mr);
+						result.put("yes", true);
+					}
+				}
+			}
+			if (mb == null || mb < 1) {
+				mb = mrmb;
+			}
+			String msg = processExcelList(resultList, mb, mb_xfsh, mb_skp);
+			if (!"".equals(msg)) {
+				result.put("success", false);
+				result.put("message", msg);
+				return result;
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			result.put("success", false);
+			result.put("message", "模板的配置和excel表格表头不一致，请修改模板或表头使两者一致再导入！");
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", false);
+			result.put("message", "导入出错");
+			return result;
+		}
+
+		result.put("success", true);
+		result.put("count", resultList.size() - 1);
+		return result;
+	}
 }

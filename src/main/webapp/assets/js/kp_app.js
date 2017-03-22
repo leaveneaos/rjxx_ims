@@ -31,6 +31,7 @@ $(function() {
 		$checkAll : $('#select_all')
 	};
 
+
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -221,7 +222,26 @@ $(function() {
 					}
 				})
 			});
-			
+		    //预览
+		    $("#kp_yl").click(function () {
+		 	   if($("input[name='chk']:checked").length!=1){
+		 		  $("#alertt").html("请选择一条数据预览");
+		      	$("#my-alert").modal('open');
+		      	return;
+		  	   }
+		 	  var djhArr = [];
+		    		  $('input[name="chk"]:checked').each(function(cell,i){
+		    			  djhArr.push($(this).val()); 
+		    		  })
+		    		var djh= djhArr.join(",");
+		    		  $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+djh);
+	                	$("#doc-modal-fpyl").modal("open");
+		    	/*	    $.ajax({
+			                url: "kp/kpyl", data:{ "kpsqhs" :djh }, success: function (data) {
+			                	
+			                }
+			                })*/
+		    })
 			$("#mb_xfsh").change(function() {
 			     $('#mb_skp').empty();
 				 var xfsh = $(this).val();
@@ -570,7 +590,7 @@ $(function() {
 	                    	$('#kp_kp').removeAttr("disabled"); 
 	                    	$('#kp_kpdy').removeAttr("disabled"); 
 	                    	$('#kp_del').removeAttr("disabled");  
-	                    	$("#alertt").html("开票成功");
+	                    	$("#alertt").html("申请开票成功");
 	                    	$("#my-alert").modal('open');
 	                        jyls_table.ajax.reload();
 	                    } else {
@@ -712,7 +732,7 @@ $(function() {
 	                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
 	                    if (data.success) {
 	                    	  $("#doc-modal-fphm").modal("close");
-	                    	$("#alertt").html("开票成功");
+	                    	$("#alertt").html("申请开票成功");
 	                    	$('#kp_kpdyqr').removeAttr("disabled");  
 	                    	$("#my-alert").modal('open');
 	                        jyls_table.ajax.reload();

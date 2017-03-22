@@ -1,22 +1,17 @@
 package com.rjxx.taxeasy.controller;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.bizcomm.utils.FpclService;
-import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
-import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
-import com.rjxx.taxeasy.bizcomm.utils.SkService;
-import com.rjxx.taxeasy.domains.*;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.vo.JyspmxDecimal;
-import com.rjxx.taxeasy.vo.JyspmxVo;
-import com.rjxx.taxeasy.vo.Spvo;
-import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.ExcelUtil;
-import com.rjxx.utils.Tools;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -30,12 +25,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
+import com.rjxx.taxeasy.bizcomm.utils.FpclService;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.domains.DrPz;
+import com.rjxx.taxeasy.domains.Drmb;
+import com.rjxx.taxeasy.domains.Fpzt;
+import com.rjxx.taxeasy.domains.Gsxx;
+import com.rjxx.taxeasy.domains.Jyls;
+import com.rjxx.taxeasy.domains.Jyspmx;
+import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.domains.Sm;
+import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.domains.XfMb;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.DrPzService;
+import com.rjxx.taxeasy.service.DrmbService;
+import com.rjxx.taxeasy.service.FpztService;
+import com.rjxx.taxeasy.service.GsxxService;
+import com.rjxx.taxeasy.service.JylsService;
+import com.rjxx.taxeasy.service.JyspmxService;
+import com.rjxx.taxeasy.service.SmService;
+import com.rjxx.taxeasy.service.SpvoService;
+import com.rjxx.taxeasy.service.XfMbService;
+import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.service.YhcljlService;
+import com.rjxx.taxeasy.vo.JyspmxVo;
+import com.rjxx.taxeasy.vo.Spvo;
+import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.ChinaNumber;
+import com.rjxx.utils.ExcelUtil;
+import com.rjxx.utils.Tools;
 
 /**
  * Created by lenovo on 2015/12/14.
@@ -47,6 +70,9 @@ public class KpController extends BaseController {
 
 	@Autowired
 	private SpvoService spvoService;
+	
+	@Autowired
+	private FpztService ztService;
 	
 	@Autowired
 	private SkService skService;
@@ -92,6 +118,11 @@ public class KpController extends BaseController {
 		String gsdm = this.getGsdm();
 		List<Object> argList = new ArrayList<>();
 		argList.add(gsdm);
+		Map params = new HashMap<>();
+		List<Fpzt> ztList = ztService.findAllByParams(params);
+		if (ztList != null) {
+			request.setAttribute("ztList", ztList);
+		}
 		List<Spvo> spList = spvoService.findAllByGsdm(gsdm);
 		List<Xf> xfList = this.getXfList();
 		if (!spList.isEmpty()) {
@@ -1179,16 +1210,16 @@ public class KpController extends BaseController {
 		List<Integer> djhList = convertToList(djhArr);
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
-             InvoiceResponse flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz);
-		if (!flag.getReturnCode().equals("0000")) {
+             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz);
+		if (!flag) {
 			result.put("success", false);
-			result.put("msg", "第"+(i+1)+"条流水开具失败,"+flag.getReturnMessage());
+			result.put("msg", "第"+(i+1)+"条流水申请开具失败");
 			return result;
 		}
 		}
-		cljlService.saveYhcljl(getYhid(), "开具发票");
+		cljlService.saveYhcljl(getYhid(), "申请开具发票");
 		result.put("success", true);
-		result.put("msg", "开票成功！");
+		result.put("msg", "申请开票成功！");
 	/*	} catch (Exception ex) {
 			ex.printStackTrace();
 			result.put("failure", true);
@@ -1559,4 +1590,46 @@ public class KpController extends BaseController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/kpyl")
+	public String kpyl(String kpsqhs) throws Exception {
+		Map<String, Object> result = new HashMap<>();
+		String kpsqh= kpsqhs.split(",")[0];
+		Jyspmx jyspmx = new Jyspmx();
+		jyspmx.setDjh(Integer.valueOf(kpsqh));
+		List<Jyspmx> mxcl = jyspmxService.findAllByParams(jyspmx);
+		Jyls jyls = jylsService.findOne(Integer.valueOf(kpsqh));
+		List dxlist = new ArrayList();
+		ChinaNumber cn = new ChinaNumber();
+		Double aa = 0.00;
+		for (int x = 0; x < mxcl.size(); x++) {
+			aa = aa + mxcl.get(x).getJshj();
+		}
+		String jshjstr = new DecimalFormat("0.00").format(aa);
+		dxlist.add(cn.getCHSNumber(jshjstr));
+		session.setAttribute("cffplList", mxcl);
+		session.setAttribute("jyls", jyls);
+		session.setAttribute("zwlist", dxlist);
+		return "kp/kpyl";
+	}
+    /**
+     * 提供精确的加法运算。
+     *
+     * @param value1 被加数
+     * @param value2 加数
+     * @return 两个参数的和
+     */
+    public Double add(Number value1, Number value2) {
+        if (value1 == null) {
+            value1 = 0;
+            return null;
+        }
+        if (value2 == null) {
+            value2 = 0;
+            return null;
+        }
+        BigDecimal b1 = new BigDecimal(Double.toString(value1.doubleValue()));
+        BigDecimal b2 = new BigDecimal(Double.toString(value2.doubleValue()));
+        return b1.add(b2).doubleValue();
+    }
 }

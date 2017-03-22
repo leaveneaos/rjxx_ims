@@ -28,6 +28,26 @@ $(function () {
         $jsLoading: $('.js-modal-loading')
     };
 var ur;
+$("#qdbz").change(function () {
+    if($(this).is(':checked')){
+    	$("#zphs").attr("required",false);
+    	$("#pphs").attr("required",false);
+    	$("#dzphs").attr("required",false);
+    	$("#zphs").attr("readonly",true);
+    	$("#pphs").attr("readonly",true);
+    	$("#dzphs").attr("readonly",true);
+    	$("#zphs").val("");
+    	$("#pphs").val("");
+    	$("#dzphs").val("");
+    }else{
+    	$("#zphs").attr("readonly",false);
+    	$("#pphs").attr("readonly",false);
+    	$("#dzphs").attr("readonly",false);
+      	$("#zphs").attr("required",true);
+    	$("#pphs").attr("required",true);
+       $("#dzphs").attr("required",true);
+    }
+});
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -123,6 +143,13 @@ var ur;
                                      return "否";
                                  }
                              }},
+                             {"data":function (data) {
+                                 if (data.qdbz==1) {
+                                     return "是";
+                                  }else{
+                                      return "否";
+                                  }
+                              }},
                         {
                             "data": null,
                             "render": function (data) {
@@ -135,6 +162,7 @@ var ur;
 				$("#fpform")[0].reset();
 				$("#mrbz").attr("checked",false);
 				$("#hsbz").attr("checked",false);
+				$("#qdbz").attr("checked",false);
 				$(".chk").show();
 				 var t01 = $("#jyls_table tbody tr").length;
 				 for(var i = 0;i<t01;i++){
@@ -217,6 +245,11 @@ var ur;
 					$("#hsbz").attr("checked","checked");
 				}else{
 					$("#hsbz").attr("checked",false);
+				}
+				if(row.qdbz=="1"){
+					$("#qdbz").attr("checked","checked");
+				}else{
+					$("#qdbz").attr("checked",false);
 				}
 				$("#idd").val(row.id);
 				$("#dzphs").val(row.dzphs);

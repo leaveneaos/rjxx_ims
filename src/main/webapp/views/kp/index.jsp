@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page  contentType="text/html; charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html class="no-js">
@@ -157,10 +157,14 @@
 															class="am-btn am-btn-default am-btn-danger">
 															<span></span> 删除
 														</button>
-														<button type="button" id="kp_kpdy"
+														<button type="button" id="kp_yl"
+															class="am-btn am-btn-default am-btn-success">
+															<span></span> 预览
+														</button>
+													<!-- 	<button type="button" id="kp_kpdy"
 															class="am-btn am-btn-default am-btn-success">
 															<span></span> 开票并打印
-														</button>
+														</button> -->
 													</div>
 												</div>
 											</div>
@@ -947,6 +951,18 @@
    确认开票
 </button></div>
     </div>
+  </div>
+</div>
+<div style="margin-left: -40%;width: 80%;overflow: auto; background-color: white;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+     <div class="am-modal-hd">
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+  <div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+       <div class="am-modal-bd" >
+       <div id="doc-modal-fpyll">
+		<%@ include file="kpyl.jsp" %>
+		</div>
+	</div>
   </div>
 </div>
 	<input type="hidden" id="kplshStr">
