@@ -64,12 +64,12 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {
+                        /*{
                             "data": null,
                             "render": function (data) {
                                 return '<a class="xiugai">修改</a> <a class="shanchu">删除</a> '
                             }
-                        },
+                        },*/
                         {"data": "xfmc"},
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
@@ -78,9 +78,7 @@ $(function () {
                         {"data": "fphms"},
                         {"data": "fphmz"},
                         {"data": "fpkcl"},
-                        {"data": "kyl"},
-                        {"data": "yhmc"},
-                        {"data": "lrsj"}
+                        {"data": "kyl"}
                         ]
                 });
             	   
@@ -89,8 +87,6 @@ $(function () {
                 t.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#search-table tr').find('td:eq(1)').hide();
-                //$('#search-table tr').find('td:eq(4)').hide();
             });
 
             
