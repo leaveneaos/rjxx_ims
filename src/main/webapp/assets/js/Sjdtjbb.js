@@ -237,22 +237,23 @@ $(function () {
         	var _this = this;
         	el.$jsSearch.on('click', function (e) {
         		$('#searchbz').val("1");
-        		el.$jsLoading.modal('toggle');  // show loading
+        		//el.$jsLoading.modal('toggle');  // show loading
                 var kprqq = $('#s_kprqq').val();
                 var kprqz = $('#s_kprqz').val();
                 if(kprqq==''||kprqz==''){
                 	$('#alert-msg').html("请先选择起始月份，终止月份！");
     				$('#my-alert').modal('open');
-                	el.$jsLoading.modal('toggle');
+                	//el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
                 if(kprqq>kprqz){
                 	$('#alert-msg').html("起始月份不能大于终止月份！");
     				$('#my-alert').modal('open');
-                	el.$jsLoading.modal('toggle');
+                	//el.$jsLoading.modal('toggle');
                 	return false;               
                 }
-                _this.getPlot1();                
+                _this.getPlot1();
+                _this.getPlot2();
                e.preventDefault();              
                t.ajax.reload();
             })
