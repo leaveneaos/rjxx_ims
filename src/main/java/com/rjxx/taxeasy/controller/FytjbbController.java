@@ -110,7 +110,7 @@ public class FytjbbController extends BaseController {
 	
 	@RequestMapping(value = "/getje")
 	@ResponseBody
-	public Map<String,Object> getTjje(Integer xfid,String fpzl,String kprq,String kprqq,String kprqz){
+	public Map<String,Object> getTjje(Integer xfid,Integer skpid,String fpzl,String kprq,String kprqq,String kprqz){
 		Map<String,Object> result = new HashMap<String,Object>();
         if("".equals(kprq)||kprq==null){
         	if("".equals(kprqq)||kprqq==null){
@@ -137,6 +137,7 @@ public class FytjbbController extends BaseController {
 			params.put("xfs", xfs);
 		}
 		params.put("xfid", xfid);
+		params.put("skpid", skpid);
 		params.put("fpzl", fpzl);
 		params.put("kprq", kprq);
 		params.put("kprqq", kprqq);

@@ -25,8 +25,8 @@ $(function () {
             data: function (d) {
             	var bz = $('#searchbz').val();
             	if(bz=='1'){
-            		d.xfid = $('#s_xfid option:selected').val(),
-                    d.fpzl = $('#s_fpzl option:selected').val(),
+            		d.xfid = $('#s_xfid').val(),
+                    d.skpid = $('#s_skpid').val(),
                     d.kprqq = $('#s_kprqq').val(),
                     d.kprqz = $('#s_kprqq').val()
             	}else{
@@ -57,7 +57,7 @@ $(function () {
             getURL:'fytjbb/getfps',
             getJE:'fytjbb/getje'
         },
-        getPlot1:function(){
+        getPlot1:function(){       //用票量折线图
         	$('#chart1').html("");
         	var bz = $('#searchbz').val();
         	var xfid = null;
@@ -66,9 +66,9 @@ $(function () {
         	var kprqz = null;
         	if(bz=='1'){
         		xfid = $('#s_xfid').val(),
-                skpid = $('#s_spid').val(),
+                skpid = $('#s_spkid').val(),
                 kprqq = $('#s_kprqq').val(),
-                kprqz = $('#s_kprqq').val()
+                kprqz = $('#s_kprqz').val()
         	}else{
         		xfid = $('#m_xfid').val();
         		kprqq = el.$jsDate.val(),
@@ -145,7 +145,7 @@ $(function () {
         	});
         },
         
-        getPlot2:function(){
+        getPlot2:function(){               //提取量折线图
         	$('#chart2').html("");
         	var bz = $('#searchbz').val();
         	var xfid = null;
@@ -156,7 +156,7 @@ $(function () {
         		xfid = $('#s_xfid').val(),
                 skpid = $('#s_skpid').val(),
                 kprqq = $('#s_kprqq').val(),
-                kprqz = $('#s_kprqq').val()
+                kprqz = $('#s_kprqz').val()
         	}else{
         		xfid = $('#m_xfid').val();
         		kprqq = el.$jsDate.val(),

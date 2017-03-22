@@ -63,11 +63,39 @@ public class SjdtjbbController extends BaseController {
 		params.put("kprqz", kprqz);
 		List<Cxtjvo> list = ks.findYypl(params);
 		if(list !=null && list.size()>0){
-			for(Cxtjvo tjvo:list){
-				result.put(tjvo.getKpny(),tjvo.getFpsl());
-			}
+			long start = Long.valueOf(kprqq.replaceAll("-", ""));
+			long end = Long.valueOf(kprqz.replaceAll("-", ""));
+			String dateStr = kprqq;
+			long time = Long.valueOf(dateStr.replaceAll("-", ""));
+			int i=0;
+			while(start<=time&&time<end){
+				if(dateStr.equals(list.get(i>list.size()-1?list.size()-1:i).getKpny())){
+					result.put(list.get(i).getKpny(),list.get(i).getFpsl());
+					i++;
+				}else{
+					result.put(dateStr, 0);
+				}
+				Date date = sdf.parse(dateStr);
+				Calendar calender = Calendar.getInstance();
+			    calender.setTime(date);
+			    calender.add(Calendar.MONTH, 1);
+			    dateStr = sdf.format(calender.getTime());
+			    time = Long.valueOf(dateStr.replaceAll("-", ""));
+			}				
 		}else{
-			result.put(" ", 0);
+			long start = Long.valueOf(kprqq.replaceAll("-", ""));
+			long end = Long.valueOf(kprqz.replaceAll("-", ""));
+			String dateStr = kprqq;
+			long time = Long.valueOf(dateStr.replaceAll("-", ""));
+			while(start<=time&&time<end){
+				result.put(dateStr, 0);
+				Date date = sdf.parse(dateStr);
+				Calendar calender = Calendar.getInstance();
+		        calender.setTime(date);
+		        calender.add(Calendar.MONTH, 1);
+		        dateStr = sdf.format(calender.getTime());
+		        time = Long.valueOf(dateStr.replaceAll("-", ""));
+			}
 		}
 		return result;
 	}
@@ -101,11 +129,39 @@ public class SjdtjbbController extends BaseController {
 		params.put("kprqz", kprqz);
 		List<Cxtjvo> list = ks.findYtql(params);
 		if(list !=null && list.size()>0){
-			for(Cxtjvo tjvo:list){
-				result.put(tjvo.getTqny(),tjvo.getTqsl());
-			}
+			long start = Long.valueOf(kprqq.replaceAll("-", ""));
+			long end = Long.valueOf(kprqz.replaceAll("-", ""));
+			String dateStr = kprqq;
+			long time = Long.valueOf(dateStr.replaceAll("-", ""));
+			int i=0;
+			while(start<=time&&time<=end){
+				if(dateStr.equals(list.get(i>list.size()-1?list.size()-1:i).getTqny())){
+					result.put(list.get(i).getTqny(),list.get(i).getTqsl());
+					i++;
+				}else{
+					result.put(dateStr, 0);
+				}
+				Date date = sdf.parse(dateStr);
+				Calendar calender = Calendar.getInstance();
+			    calender.setTime(date);
+			    calender.add(Calendar.MONTH, 1);
+			    dateStr = sdf.format(calender.getTime());
+			    time = Long.valueOf(dateStr.replaceAll("-", ""));
+			}				
 		}else{
-			result.put(" ", 0);
+			long start = Long.valueOf(kprqq.replaceAll("-", ""));
+			long end = Long.valueOf(kprqz.replaceAll("-", ""));
+			String dateStr = kprqq;
+			long time = Long.valueOf(dateStr.replaceAll("-", ""));
+			while(start<=time&&time<=end){
+				result.put(dateStr, 0);
+				Date date = sdf.parse(dateStr);
+				Calendar calender = Calendar.getInstance();
+		        calender.setTime(date);
+		        calender.add(Calendar.MONTH, 1);
+		        dateStr = sdf.format(calender.getTime());
+		        time = Long.valueOf(dateStr.replaceAll("-", ""));
+			}
 		}
 		return result;
 	}
