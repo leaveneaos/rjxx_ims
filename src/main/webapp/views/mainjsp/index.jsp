@@ -26,23 +26,24 @@
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
-								<li><a href="#" class="am-text-success">
+								<%-- <li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
 											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
 											</span>
 											<br>
-											发票库存
+											发票库存查询
 										</div>
-								</a></li>
+								</a></li> --%>
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #03A9F4;">
-											<span class="am-icon-pencil-square am-icon-lg" data="<%=request.getContextPath()%>/lrkpd" onclick="jump(this,'/lrkpd')"></span><br>
-											录入开票单
+											<span class="am-icon-pencil-square am-icon-lg" data="<%=request.getContextPath()%>/kpdshxb" onclick="jump(this,'/kpdshxb')"></span><br>
+											开票流水处理
 										</div>
 								</a></li>
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #00BCD4;">
-											<span class="am-icon-search am-icon-lg" data="<%=request.getContextPath()%>/fpcx" onclick="jump(this,'/fpcx')"></span><br> 发票查询
+											<span class="am-icon-search am-icon-lg" data="<%=request.getContextPath()%>/fpcx" onclick="jump(this,'/fpcx')"></span><br> 
+											发票查询
 										</div>
 								</a></li>
 								<li><a href="#" class="am-text-success">
