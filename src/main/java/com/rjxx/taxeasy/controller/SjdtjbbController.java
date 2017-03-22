@@ -53,13 +53,13 @@ public class SjdtjbbController extends BaseController {
 		params.put("xfid", xfid);
 		params.put("skpid", skpid);
 		params.put("kprqq", kprqq);
-		if(kprqz !=null && !"".equals(kprqz)){
+		/*if(kprqz !=null && !"".equals(kprqz)){
 			Date date = sdf.parse(kprqz);
 			Calendar calender = Calendar.getInstance();
 	        calender.setTime(date);
 	        calender.add(Calendar.MONTH, 1);
 	        kprqz = sdf.format(calender.getTime());
-		}
+		}*/
 		params.put("kprqz", kprqz);
 		List<Cxtjvo> list = ks.findYypl(params);
 		if(list !=null && list.size()>0){
@@ -68,7 +68,7 @@ public class SjdtjbbController extends BaseController {
 			String dateStr = kprqq;
 			long time = Long.valueOf(dateStr.replaceAll("-", ""));
 			int i=0;
-			while(start<=time&&time<end){
+			while(start<=time&&time<=end){
 				if(dateStr.equals(list.get(i>list.size()-1?list.size()-1:i).getKpny())){
 					result.put(list.get(i).getKpny(),list.get(i).getFpsl());
 					i++;
@@ -87,7 +87,7 @@ public class SjdtjbbController extends BaseController {
 			long end = Long.valueOf(kprqz.replaceAll("-", ""));
 			String dateStr = kprqq;
 			long time = Long.valueOf(dateStr.replaceAll("-", ""));
-			while(start<=time&&time<end){
+			while(start<=time&&time<=end){
 				result.put(dateStr, 0);
 				Date date = sdf.parse(dateStr);
 				Calendar calender = Calendar.getInstance();
