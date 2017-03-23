@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,31 +35,34 @@
 											发票库存查询
 										</div>
 								</a></li> --%>
+								<c:if test="${kplscl==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #03A9F4;">
 											<span class="am-icon-pencil-square am-icon-lg" data="<%=request.getContextPath()%>/kpdshxb" onclick="jump(this,'/kpdshxb')"></span><br>
 											开票流水处理
 										</div>
-								</a></li>
+								</a></li></c:if>
+								<c:if test="${fpcx==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #00BCD4;">
 											<span class="am-icon-search am-icon-lg" data="<%=request.getContextPath()%>/fpcx" onclick="jump(this,'/fpcx')"></span><br> 
 											发票查询
 										</div>
-								</a></li>
+								</a></li></c:if>
+								<c:if test="${ytjbb==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #009688;">
 											<span class="am-icon-bar-chart am-icon-lg" data="<%=request.getContextPath()%>/fytjbb" onclick="jump(this,'/fytjbb')"></span><br>
 											月统计报表
 										</div>
-								</a></li>
-
+								</a></li></c:if>
+                                <c:if test="${fpgd==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #259B24">
 											<span class="am-icon-archive am-icon-lg"  data="<%=request.getContextPath()%>/fpgdcx" onclick="jump(this,'/fpgdcx')"></span><br>
 											发票归档
 										</div>
-								</a></li>
+								</a></li></c:if>
 							</ul>
 
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">

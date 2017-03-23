@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,16 @@ import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.PrivilegeTypes;
+import com.rjxx.taxeasy.domains.Privileges;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.domains.Yh;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.PrivilegeTypesService;
+import com.rjxx.taxeasy.service.PrivilegesService;
+import com.rjxx.taxeasy.service.YhService;
 import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -29,17 +34,15 @@ import com.rjxx.taxeasy.web.BaseController;
 public class MainController extends BaseController{
 	
 	@Autowired
-	private FpzlService fpzlService;
+    private YhService yhService;
 	@Autowired
 	private PrivilegeTypesService ptypeService;
 	@Autowired
-	private JyxxsqService jyxxService;
-	@Autowired
-	private JylsService jylsService;
+    private PrivilegesService privilegesService;
 	
 	@RequestMapping
 	public String index() throws Exception{
-		boolean flag1 = false;
+		/*boolean flag1 = false;
 		boolean flag2 = false;
 		boolean flag3 = false;
 		Pagination pagination = new Pagination();
@@ -73,8 +76,38 @@ public class MainController extends BaseController{
 			request.setAttribute("dbsl", 1);
 		}else{
 			request.setAttribute("dbsl", 0);
-		}
-		
+		}*/
+		Map params = new HashMap<>();
+		Integer yhid = this.getYhid();
+		params.put("yhid", yhid);
+		Yh yh = yhService.findOneByParams(params);
+		String roleIds = yh.getRoleids();
+		List<Integer> paramsList = new ArrayList<>();
+        String[] arr = roleIds.split(",");
+        for (String str : arr) {
+            paramsList.add(Integer.valueOf(str));
+        }
+        params.put("roleIds", paramsList);
+        List<Privileges> privilegesList = privilegesService.findByRoleIds(params);
+        List<String> list = new ArrayList<String>();
+        for(Privileges item:privilegesList){
+        	String url = item.getUrls();
+        	list.add(url);
+        }
+        if(list !=null && list.size()>0){
+        	if(list.contains("/kpdshxb")){
+        		request.setAttribute("kplscl", 1);
+        	}
+        	if(list.contains("/fpcx")){
+        		request.setAttribute("fpcx", 1);
+        	}
+        	if(list.contains("/fytjbb")){
+        		request.setAttribute("ytjbb", 1);
+        	}
+        	if(list.contains("/fpgdcx")){
+        		request.setAttribute("fpgd", 1);
+        	}
+        }
 		return "mainjsp/index";
 	}
 	
