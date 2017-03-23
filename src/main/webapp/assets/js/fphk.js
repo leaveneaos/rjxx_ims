@@ -301,7 +301,7 @@ $(function () {
             
          });
             
-            $("#huankaidy").click(function(){
+          /*  $("#huankaidy").click(function(){
           	   var kplsh = [];
                  $('input[name="chk"]:checked').each(function(){    
               	   kplsh.push($(this).val()); 
@@ -356,7 +356,7 @@ $(function () {
                  }
                
              
-          });
+          });*/
             
            
         },

@@ -139,10 +139,10 @@
 													<span></span> 换开
 												</button>
 												
-												<button type="button" id="huankaidy"
+												<!-- <button type="button" id="huankaidy"
 													class="am-btn am-btn-default am-btn-secondary">
 													<span></span> 换开并打印
-												</button>
+												</button> -->
 											<!-- 	<button type="button" id="huankaipl"
 													class="am-btn am-btn-default am-btn-success">
 													<span></span> 批量换开
