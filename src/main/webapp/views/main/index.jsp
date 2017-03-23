@@ -51,7 +51,9 @@
                 
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
+                
                     <ul>
+                    <li><a class="am-text-sm" href="khdxz" target="_blank"><span class="am-icon-download"></span> 客户端下载</a></li>
                         <!-- 欢迎语 -->
                        <%--  <li class="am-text-sm tpl-header-navbar-welcome">
                             <a href="javascript:;"><span>${login_session_key.yhmc} ,你好!</span> </a>
