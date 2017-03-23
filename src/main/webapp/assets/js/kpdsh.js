@@ -74,11 +74,11 @@ $(function() {
     	$tab.tabs('open', 0);
     	kpspmx_table.ajax.reload();
     	});
-    $("#my-alert-edit2").on("open.modal.amui", function () {
+/*    $("#my-alert-edit2").on("open.modal.amui", function () {
         $("#mx_form").validator("destroy");
         $("#main_form").validator("destroy");
        
-    });
+    });*/
     $('#kp_add').click(function () {
         mxarr = [];
         $('#lrmx_form').resetForm();
@@ -903,7 +903,7 @@ $(function() {
 					if(!fla){
 						return;
 					}
-		     if (!confirm("您确认审核么？")) {
+		     if (!confirm("您确认处理该记录？")) {
 				return;
 			}
 				/*	$.ajax({
