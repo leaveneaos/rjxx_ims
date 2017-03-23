@@ -44,7 +44,7 @@
 							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 								<div class="am-cf widget-head">
 									<input type="hidden" id="djh" value="0">
-									<input type="hidden" id="bz" value="0">
+									<input type="hidden" id="bz123" value="0">
 									<div class="widget-title am-cf">
 										<strong class="am-text-primary am-text-lg">业务</strong> / <strong>发票</strong>
 										<button class="am-btn am-btn-success am-fr"

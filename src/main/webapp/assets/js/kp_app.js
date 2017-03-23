@@ -302,7 +302,7 @@ $(function() {
 	                "url": "kp/getjylslist?clztdm=00",
 	                type: 'post',
 	                data: function (d) {
-	                	var bz = $('#bz').val();
+	                	var bz = $('#bz123').val();
 	                	var dxcsm = $('#dxcsm').val();
 	                	var dxcsz = $('#dxcsz').val();
 	                	if (bz == "1") {
@@ -315,7 +315,7 @@ $(function() {
 							d.xfsh = $('#s_xfsh1').val();   // search 销方
 		                    d.gfmc = $('#s_gfmc1').val();	// search 购方名称
 		                    d.ddh = $('#s_ddh1').val();   // search 订单号
-		                    d.fpzldm = $('#s_fplx1').val();   // search 发票号码
+		                    d.fpzldm = $('#s_fplx').val();   // search 发票号码
 		                    d.rqq = $('#s_rqq1').val(); // search 开票日期
 		                    d.rqz = $('#s_rqz1').val(); // search 开票日期
 						}
@@ -460,13 +460,13 @@ $(function() {
 
 			});
 	        $('#kp_search').click(function () {
-	        	$("#bz").val("1");
+	        	$("#bz123").val("1");
 	        	$('#xzxfq').attr("selected","selected");
 	         	$('#xzlxq').attr("selected","selected");
 	        	jyls_table.ajax.reload();
 	        });
 	        $('#kp_search1').click(function () {
-	        	$("#bj").val("2");
+	        	$("#bz123").val("2");
 	        	jyls_table.ajax.reload();
 	        });
 	        //删除
