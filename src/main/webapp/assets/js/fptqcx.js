@@ -4,14 +4,14 @@
 $(function () {
     "use strict";
     var el = {
-        $jsTable: $('.js-table'),
+        $jsTable: $('#fptq_table'),
         $s_ddh: $('#s_ddh'), // search 订单号
         $s_gfmc:$('#s_gfmc'),  //关键字购方名称
-        $s_kprqq: $('#s_kprqq'), // search 开票日期
-        $s_kprqz: $('#s_kprqz'), // search 开票日期
+        $s_kprqq: $('#s_rqq'), // search 开票日期
+        $s_kprqz: $('#s_rqz'), // search 开票日期
         $s_tqsb: $('#s_tqsb'), // search 
         $s_jlly: $('#s_jlly'), // search 
-        $jsSearch: $('.js-search'),
+        //$jsSearch: $('.js-search'),
         $jsLoading: $('.js-modal-loading')
     };
 
@@ -38,6 +38,15 @@ $(function () {
                         d.tqrqz = el.$s_kprqz.val(); // search 开票日期
                         d.tqsb = el.$s_tqsb.val();
                         d.jlly = el.$s_jlly.val();
+                        var csm =  $('#dxcsm').val()
+                        if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
+                      	  d.gfmc = $('#dxcsz').val()
+                      }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
+                      	  d.ddh = $('#dxcsz').val()
+                      }
+                        
+                        
+                        
                     }
                 },
                 "columns": [                    
@@ -79,7 +88,7 @@ $(function () {
          */
         search_ac: function () {
             var _this = this;
-            el.$jsSearch.on('click', function (e) {
+            $("#kplscx_search1").on('click', function (e) {
                 if ((!el.$s_kprqq.val() && el.$s_kprqz.val()) || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
                     alert('Error,请选择开始和结束时间!');
                     return false;
@@ -105,9 +114,15 @@ $(function () {
                     }
                 }
                 e.preventDefault();
+                $("#dxcsz").val("");
                 _this.tableEx.ajax.reload();
 
             });
+            
+            $('#kplscx_search').click(function () {
+             	$("#ycform").resetForm();
+              	_this.tableEx.ajax.reload();
+             });
         },
         
        
