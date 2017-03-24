@@ -5,13 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Fpkc;
 import com.rjxx.taxeasy.domains.Fpzl;
@@ -20,6 +18,8 @@ import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.FpkcService;
 import com.rjxx.taxeasy.service.FpzlService;
+import com.rjxx.taxeasy.service.SkpService;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -30,6 +30,10 @@ public class FpkcController extends BaseController {
 	private FpkcService fpkcService;
 	@Autowired
 	private FpzlService fpzlService;
+	@Autowired
+	private SkpService skpService;
+	@Autowired
+	private XfService xfService;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -268,6 +272,54 @@ public class FpkcController extends BaseController {
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
 			result.put("data", kcjkList);
+			return result;
+		}
+		
+		@RequestMapping(value = "/getServerFpkc")
+		@ResponseBody
+		public Map<String,Object> getFpkc(List<Map<Object,Object>> list){
+			Map<String,Object> result = new HashMap<String,Object>();
+			List<Fpkcvo> fpkcList = new ArrayList<Fpkcvo>();
+			if(list !=null && list.size()>0){
+				for(Map<Object,Object> map:list){
+					Integer skpid = (Integer) map.get("skpid");
+					Map params = new HashMap<>();
+					params.put("id",skpid);
+					Skp skp = skpService.findOneByParams(params);
+					String gsdm = skp.getGsdm();
+					Integer xfid = skp.getXfid();
+					Xf xf = new Xf();
+					xf.setId(xfid);
+					xf = xfService.findOneByParams(xf);
+					String xfmc = xf.getXfmc();
+					String xfsh = xf.getXfsh();
+					String kpdmc = skp.getKpdmc();
+					String fpzldm = (String)map.get("fpzldm");
+					params.put("fpzldm", fpzldm);
+					Fpzl fpzl = fpzlService.findOneByParams(params);
+					String fpzlmc = fpzl.getFpzlmc();
+					String fpdm = (String)map.get("fpdm");
+					String fphms = (String)map.get("fphms");
+					String fphmz = (String)map.get("fphmz");
+					Integer kyl = (Integer)map.get("kyl");
+					Fpkcvo fpkc = new Fpkcvo();
+					fpkc.setXfmc(xfmc);
+					fpkc.setXfsh(xfsh);
+					fpkc.setKpdmc(kpdmc);
+					fpkc.setFpzlmc(fpzlmc);
+					fpkc.setFpdm(fpdm);
+					fpkc.setFphms(fphms);
+					fpkc.setFphmz(fphmz);
+					fpkc.setFpkcl(Integer.parseInt(fphms)-Integer.parseInt(fphmz));
+					fpkc.setKyl(kyl);
+					fpkcList.add(fpkc);
+				}
+				result.put("success", true);
+				result.put("data", fpkcList);
+			}else{
+				result.put("success", false);
+				result.put("msg", "请先启动客户端！");
+			}			
 			return result;
 		}
 

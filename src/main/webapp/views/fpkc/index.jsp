@@ -109,9 +109,9 @@
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
 													<input type="hidden" id="searchbz">
-													<!-- <button class="am-btn am-btn-primary" id="jsAdd">
+													 <button class="am-btn am-btn-primary" id="jsAdd">
 															&nbsp;录入&nbsp;
-													</button> -->
+													</button> 
 												</div>
 											</div>
 										</div>
@@ -141,6 +141,7 @@
 											<thead>
 												<tr>
 													<th>序号</th>
+													<th>操作</th>
 													<th>销方名称</th>
 													<th>销方税号</th>
 													<th>开票点名称</th>
@@ -219,8 +220,8 @@
 																		class="am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
 																		class="js-close am-btn am-radius am-btn-warning">取消</button>
-																		<button type="button"
-																		class="autowrite am-btn am-radius am-btn-success">自动读取</button>
+																		<!-- <button type="button"
+																		class="autowrite am-btn am-radius am-btn-success">自动读取</button> -->
 																</div>
 															</div>
 														</div>
