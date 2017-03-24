@@ -275,6 +275,7 @@ $(function () {
                         {"data": "fpdm"},
                         {"data": "fphm"},
                         {"data": "gfmc"},
+                        {"data": "fpzlmc"},
                         {
                             "data": function (data) {
                                 if (data.hjje) {
@@ -361,6 +362,7 @@ $(function () {
                     {"data": "fpdm"},
                     {"data": "fphm"},
                     {"data": "gfmc"},
+                    {"data": "fpzlmc"},
                     {
                         "data": function (data) {
                             if (data.hjje) {

@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyspmx;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.JylsvoService;
+import com.rjxx.taxeasy.service.JymxsqService;
 import com.rjxx.taxeasy.service.JyspmxService;
+import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.vo.Jylsvo;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 
@@ -26,10 +30,10 @@ import com.rjxx.time.TimeUtil;
 public class DdcxController extends BaseController {
 
 	@Autowired
-	private JylsvoService jylsvoService;
+	private JyxxsqService jyxxsqservice;
 
 	@Autowired
-	private JyspmxService jyspmxService;
+	private JymxsqService jymxsqservice;
 
 	@Autowired
 	private KplsService kplsService;
@@ -74,9 +78,9 @@ public class DdcxController extends BaseController {
 			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
 		}
 
-		pagination.addParam("orderBy", "jylssj desc");
+		pagination.addParam("orderBy", "ddrq desc");
 		pagination.addParam("gsdm", this.getGsdm());
-		List<Jylsvo> list = jylsvoService.findByPage(pagination);
+		List<JyxxsqVO> list = jyxxsqservice.findBykplscxPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
@@ -87,14 +91,14 @@ public class DdcxController extends BaseController {
 
 	@RequestMapping(value = "/getMx")
 	@ResponseBody
-	public Map getMx(int length, int start, int draw, String djh) {
+	public Map getMx(int length, int start, int draw, String sqlsh) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("djh", djh);
+		pagination.addParam("sqlsh", sqlsh);
 		pagination.addParam("gsdm", this.getGsdm());
-		List<Jyspmx> list = jyspmxService.findByPage(pagination);
+		List<Jymxsq> list = jymxsqservice.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
@@ -105,10 +109,10 @@ public class DdcxController extends BaseController {
 
 	@RequestMapping(value = "/getFp")
 	@ResponseBody
-	public Map getFp(Integer djh) {
+	public Map getFp(Integer sqlsh) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Kpls kp = new Kpls();
-		kp.setDjh(djh);
+		kp.setDjh(sqlsh);
 		kp.setGsdm(getGsdm());
 		List<Kpls> list = kplsService.findAllByKpls(kp);
 		if (!list.isEmpty()) {

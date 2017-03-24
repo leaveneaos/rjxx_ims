@@ -63,7 +63,7 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "djh"},
+                    {"data": "sqlsh"},
                     {"data": "jylsh"},
                     {"data": "ddh"},
                     {
@@ -76,9 +76,21 @@ $(function () {
                         }, 'sClass': 'right'
                     },
                     {"data": "gfmc"},
-                    {"data": "jylssj"},
+                    {"data": "ddrq"},
                     {"data": "fpzlmc"},
                     {"data":"tqm"},
+                    {"data":function(data){
+                    	var sjly = data.sjly;
+                    	switch (sjly) {
+                        case '0':
+                        	sjly = '平台接入';
+                            break;
+                        case '1':
+                        	sjly = '接口接入';
+                            break;
+                    	}
+                    	return sjly;
+                    }},
                     {
                         "data": function (data) {
                             var zt = data.clztdm;
@@ -130,7 +142,7 @@ $(function () {
                 "ajax": {
                     "url": "ddcx/getMx",
                     data: function (d) {
-                        d.djh = $("#djh").val();
+                        d.sqlsh = $("#djh").val();
                     }
                 },
 
@@ -177,11 +189,11 @@ $(function () {
              var data = t.row( $(this).parents('tr')).data();
              // todo
              _this.setForm0(data);
-             _this.fpdhAc(data.djh);
-             $("#djh").val(data.djh);
+             _this.fpdhAc(data.sqlsh);
+             $("#djh").val(data.sqlsh);
              //$("#formid").val(data.djh);
              jyspmx_table.ajax.reload();
-             el.$modalfpxx.modal({"width": 800, "height": 650});
+             el.$modalfpxx.modal({"width": 1000, "height": 550});
 
              }); 
             return t;
@@ -249,7 +261,7 @@ $(function () {
             $.ajax({
                 url: "ddcx/getFp",
                 data: {
-                	'djh' : djh
+                	'sqlsh' : djh
                 },
                 type: 'POST',
                 dataType: 'json',
