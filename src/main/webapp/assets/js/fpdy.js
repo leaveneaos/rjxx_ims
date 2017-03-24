@@ -341,7 +341,7 @@ $(function () {
     	           	$("#alertt").html("请勾选需要重打的开票流水");
     	           	$("#my-alert").modal('open');
     	               return;
-    	           }else if(kplsh.length>1){
+    	           }else if(kplsh.length>0){
     		 
     		 window.open('fpdy/printmany?ids='
 						+ kplsh, '',
