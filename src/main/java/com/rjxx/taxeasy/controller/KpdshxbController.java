@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Drmb;
 import com.rjxx.taxeasy.domains.Sm;
+import com.rjxx.taxeasy.domains.Sp;
+import com.rjxx.taxeasy.domains.Spz;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.DrmbService;
 import com.rjxx.taxeasy.service.SmService;
 import com.rjxx.taxeasy.service.SpvoService;
+import com.rjxx.taxeasy.service.SpzService;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -25,9 +30,12 @@ public class KpdshxbController extends BaseController{
 	
 	@Autowired
 	private SmService smService;
-	
+	@Autowired
+	private CszbService cszbService;
 	@Autowired
 	private SpvoService spvoService;
+	@Autowired
+	private SpzService spzService;
 	@Autowired
 	DrmbService drmbService;
 	@RequestMapping
@@ -40,10 +48,20 @@ public class KpdshxbController extends BaseController{
 		String gsdm = this.getGsdm();
 		List<Object> argList = new ArrayList<>();
 		argList.add(gsdm);
-		List<Spvo> spList = spvoService.findAllByGsdm(gsdm);
+		Cszb cszb = cszbService.getSpbmbbh(gsdm, getXfid(), null, "sfqyspz");
+		List<Spvo> list2 = new ArrayList<>();
+		if (null!=cszb&&cszb.getCsz().equals("是")) {
+			Map<String, Object> pMap = new HashMap<>();
+			pMap.put("xfs", getXfList());
+			list2 = spzService.findAllByParams(pMap);
+		}
+		if (list2.size()==0) {
+			list2 = spvoService.findAllByGsdm(gsdm);
+		}
+		
 		List<Xf> xfList = this.getXfList();
-		if (!spList.isEmpty()) {
-			request.setAttribute("sp", spList.get(0));
+		if (!list2.isEmpty()) {
+			request.setAttribute("sp", list2.get(0));
 		}
 		if (xfList.size() == 1) {
 			Map<String, Object> map = new HashMap<>();
@@ -62,7 +80,7 @@ public class KpdshxbController extends BaseController{
 		if (xfList != null && xfList.size() > 0) {
 			request.setAttribute("xf", xfList.get(0));
 		}
-		request.setAttribute("spList", spList);
+		request.setAttribute("spList", list2);
 		request.setAttribute("xfSum", xfList.size());
 
 		return "kpdshxb/index";

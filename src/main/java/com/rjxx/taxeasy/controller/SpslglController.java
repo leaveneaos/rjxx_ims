@@ -173,9 +173,13 @@ public class SpslglController extends BaseController {
 			tp.setYxbz("1");
 			tp.setGsdm(getGsdm());
 			spService.save(tp);
-			;
+			Sm sm = smService.findOne(tp.getSmid());
+			result.put("spfhsl", sm.getSl());
+			result.put("spfh", tp);
 			result.put("success", true);
 			result.put("msg", "保存成功");
+			
+	
 		} catch (Exception e) {
 			result.put("failure", false);
 			result.put("msg", "保存出现错误:服务异常或者该记录已存在" + e);

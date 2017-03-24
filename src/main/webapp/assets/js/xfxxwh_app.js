@@ -122,7 +122,7 @@ $(function() {
 								{
 									"data" : "zfr"
 								},
-								{
+								/*{
 			                        "data": function (data) {
 			                            if (data.dzpzdje) {
 			                                return FormatFloat(data.dzpzdje, "###,###.00");
@@ -175,7 +175,7 @@ $(function() {
 			                                return null;
 			                            }
 			                        }, 'sClass': 'right'
-			                    },
+			                    },*/
 								{
 									"data": null,
 			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
