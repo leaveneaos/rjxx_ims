@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration scan="true" scanPeriod="10 seconds">
     <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>${LOG_PATH}/debug.log</File>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -36,22 +42,17 @@
     </appender>
 
 
-    <!-- hibernate日志输入 -->
-    <!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder"-->
-    <!--level="TRACE"/>-->
-    <!--<logger name="org.hibernate.type.descriptor.sql.BasicExtractor"-->
-    <!--level="TRACE"/>-->
     <logger name="org.hibernate.SQL" level="DEBUG"/>
-    <!--<logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>-->
-    <!--<logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>-->
     <logger name="com.rjxx" level="DEBUG"/>
 
-    <logger name="com.rjxx.taxeasy.filter.LoggingWebExceptionFilter" level="ERROR" additivity="false">
+    <logger name="com.rjxx.filter.ProcessExceptionFilter" level="ERROR" additivity="false">
         <appender-ref ref="ERROR_FILE"/>
     </logger>
 
     <root level="INFO">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG_FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
     </root>
 
 </configuration>
