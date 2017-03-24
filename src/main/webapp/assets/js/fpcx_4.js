@@ -5,21 +5,18 @@ $(function () {
     "use strict";
 
     var el = {
-        $jsTable: $('.js-table'),
+        $jsTable: $('#kpls_table'),
         //$jsTablemx: $('.js-table-mx'),
         $modalfpxx: $('#my-alert-edit'),
         $jsClose: $('.js-close'),
         $jsForm0: $('.js-form-0'),     // form
 
         $s_ddh: $('#s_ddh'), // search 订单号
-        $s_lsh: $('#s_lsh'), // search 发票号码
+        $s_lsh: $('#s_lsh'), // search 流水号
         $s_rqq: $('#s_rqq'), // search 开票日期
         $s_rqz: $('#s_rqz'),  // search 发票号码
-        $xfsh: $('#xfsh'), // search 
-        $gfmc: $('#gfmc'),// search 
-        $jsSearch: $('.js-search'),
-        $jsExport: $('.js-export'),
-
+        $xfsh: $('#s_xfsh'), // search 
+        $gfmc: $('#s_gfmc'),// search 
         $jsLoading: $('.js-modal-loading')
     };
     var mxarr = [];
@@ -38,6 +35,7 @@ $(function () {
                 "serverSide": true,
                 ordering: false,
                 searching: false,
+                "scrollX": true,
 
                 "ajax": {
                     url: _this.config.getUrl,
@@ -46,9 +44,17 @@ $(function () {
                         d.xfsh = el.$xfsh.val();   // search 销方
                         d.gfmc = el.$gfmc.val();	// search 购方名称
                         d.ddh = el.$s_ddh.val();   // search 订单号
-                        d.jylsh = el.$s_lsh.val();   // search 发票号码
+                        d.jylsh = el.$s_lsh.val();   // search 流水号
                         d.rqq = el.$s_rqq.val(); // search 开票日期
                         d.rqz = el.$s_rqz.val(); // search 开票日期
+                        
+                        var csm =  $('#dxcsm').val()
+                        if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
+                      	  d.gfmc = $('#dxcsz').val()
+                      }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
+                      	  d.ddh = $('#dxcsz').val()
+                      }
+                        
                     }
                 },
                 "columns": [
@@ -71,25 +77,26 @@ $(function () {
                     },
                     {"data": "gfmc"},
                     {"data": "jylssj"},
+                    {"data": "fpzlmc"},
                     {"data":"tqm"},
                     {
                         "data": function (data) {
                             var zt = data.clztdm;
                             switch (zt) {
                                 case '00':
-                                    zt = '(电子)未处理';
+                                    zt = '未处理';
                                     break;
                                 case '99':
-                                    zt = '(纸质)未处理';
+                                    zt = '未处理';
                                     break;
                                 case '91':
-                                    zt = '(电子)处理成功';
+                                    zt = '处理成功';
                                     break;
                                 case '92':
-                                    zt = '(电子)处理异常';
+                                    zt = '处理异常';
                                     break;
                                 default:
-                                    zt = '(电子)处理中';
+                                    zt = '处理中';
                                     break;
                             }
                             return "<a class = 'view'>" + zt + "</a>";
@@ -193,7 +200,7 @@ $(function () {
          */
         search_ac: function () {
             var _this = this;
-            el.$jsSearch.on('click', function (e) {
+            $("#kplscx_search1").on('click', function (e) {
                 var dt1 = new Date(el.$s_rqq.val().replace(/-/g, "/"));
                 var dt2 = new Date(el.$s_rqz.val().replace(/-/g, "/"));
                 if ((el.$s_rqq.val() && el.$s_rqz.val())) {// 都不为空
@@ -213,19 +220,26 @@ $(function () {
                     }
                 }
                 e.preventDefault();
+                $("#dxcsz").val("");
                 _this.tableEx.ajax.reload();
 
             });
+            
+            $('#kplscx_search').click(function () {
+             	$("#ycform").resetForm();
+              	_this.tableEx.ajax.reload();
+             });
+            
         },
         /**
          * 导出按钮
          */
-        exportAc: function () {
+     /*   exportAc: function () {
             el.$jsExport.on('click', function (e) {
                 // todo
                 alert('导出成功');
             });
-        },
+        },*/
         /**
          * 根据单据号来获得fphm、fpdm
          */
@@ -285,7 +299,7 @@ $(function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable     
             _this.search_ac();
-            _this.exportAc();
+            //_this.exportAc();
             _this.modalAction(); // hidden action
         }
     };
