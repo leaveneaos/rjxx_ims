@@ -10,10 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.rjxx.taxeasy.bizcomm.utils.FpzfService;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
@@ -40,7 +39,7 @@ public class FpzfController extends BaseController{
 	@Autowired
 	private JyspmxService jymxService;
 	@Autowired
-	private FpclService FpclService;
+	private FpzfService FpzfService;
 	@Autowired
 	private DataOperte dc;
 
@@ -55,8 +54,24 @@ public class FpzfController extends BaseController{
 
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, String kprqq, String kprqz,
-			 String gfmc,Integer xfi) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw) throws Exception {
+		
+		String kprqq=request.getParameter("kprqq");//开票日期起
+		String kprqz=request.getParameter("kprqz");//开票日期止
+
+		String gfmc=request.getParameter("gfmc");//购方名称
+
+		String xfi=request.getParameter("xfi");//销方税号
+
+		String fplx=request.getParameter("fplx");//发票类型
+		
+		String ddh=request.getParameter("ddh");//订单号
+
+		String fpdm=request.getParameter("fpdm");//发票代码
+		
+		String fphm=request.getParameter("fphm");//发票号码
+		
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -94,6 +109,7 @@ public class FpzfController extends BaseController{
 		if (skpid.length == 0) {
 			skpid = null;
 		}
+		pagination.addParam("fpzldm", fplx);
 		pagination.addParam("gsdm", gsdm);
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("xfi", xfi);
@@ -101,6 +117,10 @@ public class FpzfController extends BaseController{
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);
 		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("ddh", ddh);
+		pagination.addParam("fpdm", fpdm);
+		pagination.addParam("fphm", fphm);
+		
 		List<Fpcxvo> khcfpList = kplsService.findKzffpByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
@@ -111,7 +131,23 @@ public class FpzfController extends BaseController{
 	}
 	@RequestMapping(value = "/getKplsList1")
 	@ResponseBody
-	public Map<String, Object> getItems1(int length, int start, int draw, String kprqq, String kprqz,  String gfmc, Integer xfi) throws Exception {
+	public Map<String, Object> getItems1(int length, int start, int draw) throws Exception {
+		
+		String kprqq=request.getParameter("kprqq");//开票日期起
+		String kprqz=request.getParameter("kprqz");//开票日期止
+
+		String gfmc=request.getParameter("gfmc");//购方名称
+
+		String xfi=request.getParameter("xfi");//销方税号
+
+		String fplx=request.getParameter("fplx");//发票类型
+		
+		String ddh=request.getParameter("ddh");//订单号
+
+		String fpdm=request.getParameter("fpdm");//发票代码
+		
+		String fphm=request.getParameter("fphm");//发票号码
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -149,6 +185,7 @@ public class FpzfController extends BaseController{
 		if (skpid.length == 0) {
 			skpid = null;
 		}
+		pagination.addParam("fpzldm", fplx);
 		pagination.addParam("gsdm", gsdm);
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("xfi", xfi);
@@ -156,6 +193,11 @@ public class FpzfController extends BaseController{
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);
 		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("ddh", ddh);
+		pagination.addParam("fpdm", fpdm);
+		pagination.addParam("fphm", fphm);
+		
+		
 		List<Fpcxvo> khcfpList = kplsService.findKzffpByPage1(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
@@ -189,10 +231,9 @@ public class FpzfController extends BaseController{
 	@Transactional
 	@RequestMapping(value = "/zf")
 	@ResponseBody
-	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh) throws Exception {
+	public Map<String, Object> update(Integer kplsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		//try {
-			InvoiceResponse flag = FpclService.zfcl(kplsh, getYhid(), getGsdm());
+			InvoiceResponse flag = FpzfService.zfcl(kplsh, getYhid(), getGsdm());
 			if (flag.getReturnCode().equals("0000")) {
 				result.put("success", true);
 				result.put("msg", "作废成功");
@@ -200,12 +241,6 @@ public class FpzfController extends BaseController{
 				result.put("success", true);
 				result.put("msg", "作废请求失败!"+flag.getReturnMessage());
 			}
-		
-/*		} catch (Exception e) {
-			e.printStackTrace();
-			result.put("success", false);
-			result.put("msg", "后台出现错误: " + e.getMessage());
-		}*/
 		return result;
 	}
 }
