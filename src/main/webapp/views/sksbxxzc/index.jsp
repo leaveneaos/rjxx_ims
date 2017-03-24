@@ -100,8 +100,8 @@
 												<select id="sbcs1" name="sbcs1"
 													data-am-selected="{{btnSize: 'sm'}">
 													<option value="">请选择</option>
-													<option value="1">百旺</option>
-													<option value="2">航信</option>
+													<option value="1">税控盘</option>
+													<option value="2">金税盘</option>
 												</select>
 											</div>
 										</div>
