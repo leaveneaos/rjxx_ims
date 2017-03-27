@@ -40,12 +40,12 @@ colgroup {display: table-column-group;}/* clear---------------------------------
     List zwlist = (List)session.getAttribute("zwlist");
     if(null==zwlist){zwlist = new ArrayList();}
     String fpzl = "";
-     if(jyls.getFpzldm().equals("01")){
+     if(jyls!=null&&jyls.getFpzldm().equals("01")){
     	fpzl = "增值税专用发票";
-    }else if(jyls.getFpzldm().equals("02")){
+    }else if(jyls!=null&&jyls.getFpzldm().equals("02")){
     	fpzl = "增值税普通发票";
     }
-    else if(jyls.getFpzldm().equals("12")){
+    else if(jyls!=null&&jyls.getFpzldm().equals("12")){
     	fpzl = "增值税电子普通发票";
     } 
 %>
