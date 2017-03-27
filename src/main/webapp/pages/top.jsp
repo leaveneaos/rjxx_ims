@@ -41,7 +41,7 @@
 							class="am-icon-user"></span> 修改用户资料</a></li>
 					<li><a href="#"
 						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
-							class="am-icon-cog"></span> 修改密码</a></li>
+							class="am-icon-user"></span> 修改密码</a></li>
 				</ul></li>
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
 				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
