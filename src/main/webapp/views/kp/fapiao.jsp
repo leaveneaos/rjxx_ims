@@ -11,11 +11,35 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  	<style type="text/css" rel="stylesheet">
-/* reset--------------------------------------------------------------------*/
-body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{ margin:0; padding:0;}fieldset,img{ border:0;}q:before,q:after{ content:'';}abbr[title]{ border-bottom:1px dotted; cursor:help;}address,cite,dfn,em,var{ font-style:normal;}legend{ color:#000;}code,kbd,samp{ font-family:"Courier New",monospace;}hr{ border:none; height:1px;}h1,h2,h3,h4,h5,h6{ font-size:100%;}ol,ul {list-style:none outside none;}li {list-style: none;}
-input, select, textarea, button { font-size: 100%; line-height: inherit;}button { cursor: pointer;}table, thead, tbody, tfoot, tr, th, td, caption, col, colgroup { text-align: inherit; line-height: inherit;	font-size: 100%;}table {border-collapse: collapse; border-spacing: 0;}thead {display: table-header-group;}tbody {display: table-row-group;}tfoot {display: table-footer-group;}tr {display: table-row;}th,td {display: table-cell;}caption {display: table-caption;}col {display: table-column;}
-colgroup {display: table-column-group;}/* clear--------------------------------------------------------------------*/.clearfix:after,.main:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}.clearfix {display: inline-block;}/*IE7*/* html .clearfix { zoom: 1; display: inline-block;}/* Hides from IE-mac \*/.clearfix { display:block;}/* End hide from IE-mac */.zoom { zoom: 1; overow: hidden;}.clear { clear:both;}/* layout--------------------------------------------------------------------*/body { background-color:#f7f7f7; font:normal 12px "MicroSoft YaHei","SimHei"; color:#525252; text-align:center;}#header, #nav .nav_main, #banner, #content, .footMain_main, #footer {margin:0 auto;width:1000px;text-align:left;position:relative;}p, b { line-height:20px; clear:both; overflow:hidden;}h1, h2{ font:normal 18px "MicroSoft YaHei","SimHei"; margin-top:5px; clear:both; overflow:hidden;}h2{ font-size:16px; color:#69C; width:746px; margin:20px auto 5px; font-weight:bold;}a {color:#999999; text-decoration:none;}a:hover{color:#3667d3;}a:active { star:expression(this.onFocus=this.blur());}:focus { outline:0;}.title { font:bold 15px/38px "MicroSoft YaHei","SimHei"; height:40px; background-color:#3667d3; width:100%; color:#fff; overflow:hidden; clear:both;}.title span { margin-left:10px;}#content .cms_r { min-height:500px; margin:0 auto;}#content .cms_r .title { background:none; color:#666;}
-/* 通用表格样式--------------------------------------------------------------------*/.comm_table{ text-align:center;}.comm_table,.comm_table td,.comm_table th{ border:1px solid #b8b7b7;padding:10px;}.lr_txt{width:100%; background:; border:0px; text-align:center;font-family:"MicroSoft YaHei";}.comm_btn_div{margin:20px auto; text-align:center;}.comm_table2{ margin:0 auto;}.comm_table2 td{padding:10px; text-align:left;}.comm_table2 td input[type=text]{padding:5px; width:230px;}.tip_common{ background:url(images/pencil.png) no-repeat left center; padding-left:30px; line-height:30px;}.tip_error{ background:url(images/cross.png) no-repeat left center;padding-left:30px;line-height:30px;}.tip_right{ background:url(images/ico_right2.jpg) no-repeat left center;padding-left:30px;line-height:30px;}.font_red{ color:#f00;}.chayan_div{background:#fff; padding:30px 0px;box-shadow:0 4px 5px rgba(0,0,0,0.3); border:1px solid #ccc;}.chayan_title{ background:#09F; height:40px; line-height:40px;}.td_left{ text-align:left;}.td_center{ text-align:center; background:#e0f2fe;}/*----resule table----*/.fppy_table,.fppy_table td{ border:1px solid #aaa; border-collapse:collapse; line-height:25px; background:#fafafa; margin:0 auto;}.fppy_table td.borderBottomNo{border:0px;}.fppy_table td.borderRightNo{border:0px;}.fppy_table td.borderNo{border:0px;}table.fppy_table_box{border:0px;border-collapse:collapse;}table.fppy_table_box td{border:0px solid #ccc; border-collapse:collapse;}.fppy_table_box td.borderTop{border-top:1px solid #aaa;}.fppy_table_box td.borderRight{ border-right:1px solid #aaa;}.align_center{ text-align:center;}.align_left{ text-align:left;}.content_td_blue{color:#574B9D;}button{box-shadow:0 1px 2px rgba(0,0,0,0.2); height:30px; line-height:30px; padding:0 20px;-moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;font:normal 12px "MicroSoft YaHei","SimSun"; margin:0 5px; z-index:1000; position:relative;}
+/* 通用表格样式--------------------------------------------------------------------*/
+.comm_table{ text-align:center;}
+.comm_table,.comm_table td,.comm_table th{ border:1px solid #b8b7b7;padding:10px;}
+.lr_txt{width:100%; background:; border:0px; text-align:center;font-family:"MicroSoft YaHei";}
+.comm_btn_div{margin:20px auto; text-align:center;}
+.comm_table2{ margin:0 auto;}
+.comm_table2 td{padding:10px; text-align:left;}
+
+.tip_common{ background:url(images/pencil.png) no-repeat left center; padding-left:30px; line-height:30px;}
+.tip_error{ background:url(images/cross.png) no-repeat left center;padding-left:30px;line-height:30px;}
+.tip_right{ background:url(images/ico_right2.jpg) no-repeat left center;padding-left:30px;line-height:30px;}
+.font_red{ color:#f00;}
+.chayan_div{background:#fff; padding:30px 0px;box-shadow:0 4px 5px rgba(0,0,0,0.3); border:1px solid #ccc;}
+.chayan_title{ background:#09F; height:40px; line-height:40px;}
+.td_left{ text-align:left;}
+.td_center{ text-align:center; background:#e0f2fe;}
+/*----resule table----*/
+.fppy_table,.fppy_table td{ border:1px solid #aaa; border-collapse:collapse; line-height:25px; background:#fafafa; margin:0 auto;margin-bottom: 15px;}
+.fppy_table td.borderBottomNo{border:0px;}
+.fppy_table td.borderRightNo{border:0px;}
+.fppy_table td.borderNo{border:0px;}
+table.fppy_table_box{border:0px;border-collapse:collapse;}
+table.fppy_table_box td{border:0px solid #ccc; border-collapse:collapse;}
+.fppy_table_box td.borderTop{border-top:1px solid #aaa;}
+.fppy_table_box td.borderRight{ border-right:1px solid #aaa;}
+.align_center{ text-align:center;}
+.align_left{ text-align:left;}
+.content_td_blue{color:#574B9D;}
+button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;font:normal 12px "MicroSoft YaHei","SimSun";z-index:1000; position:relative;}
 .gray_button{border:1px solid #c5c5c5; background:#f7f7f7;box-shadow:0 1px 2px rgba(0,0,0,0.2);}
 .white_button{border:1px solid #888; background:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
 .blue_button{border:1px solid #005bbb; background:#007bd5; color:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
@@ -34,7 +58,7 @@ colgroup {display: table-column-group;}/* clear---------------------------------
 <body>
 <%
     List<Jyspmx> list = (List<Jyspmx>)session.getAttribute("cffplList");
-	if(null==list){list = new ArrayList();}
+ 	 		if(null==list){list = new ArrayList();}
     Jyls jyls = (Jyls)session.getAttribute("jyls");
     if(null==jyls){jyls = new Jyls();}
     List zwlist = (List)session.getAttribute("zwlist");
@@ -49,7 +73,7 @@ colgroup {display: table-column-group;}/* clear---------------------------------
     	fpzl = "增值税电子普通发票";
     } 
 %>
-	            <div class="tab-page" id="tabPage-dzfp" style="display: block;">
+	            <div class="tab-page" id="tabPage-dzfp" style="display: block;font-size: 12px;">
 	                      <%
             double je = 0.00;
             double se = 0.00;
