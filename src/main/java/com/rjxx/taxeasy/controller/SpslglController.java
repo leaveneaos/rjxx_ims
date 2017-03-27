@@ -27,6 +27,7 @@ import com.rjxx.taxeasy.domains.Spz;
 import com.rjxx.taxeasy.domains.SpzSp;
 import com.rjxx.taxeasy.domains.SpzXf;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.SmService;
 import com.rjxx.taxeasy.service.SpService;
 import com.rjxx.taxeasy.service.SpbmService;
@@ -142,6 +143,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
+	@SystemControllerLog(description = "新增商品",key = "spdm")  
 	public Map add(String sl, Integer smid, String spflmc, String spdj, String spdw, String spdm, String spggxh,
 			String spmc, String spbm) {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -191,6 +193,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
+	@SystemControllerLog(description = "修改商品",key = "id")  
 	public Map udpate(int id, String sl, Integer smid, String spflmc, String spdj, String spdw, String spdm,
 			String spggxh, String spmc, String spbm) {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -301,6 +304,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
+	@SystemControllerLog(description = "删除商品",key = "ids")  
 	public Map delete(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -328,6 +332,7 @@ public class SpslglController extends BaseController {
 	@RequestMapping(value = "/saveSpz")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "新增商品组",key = "spzmc")  
 	public Map saveSpz(String spzmc, String zbz) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sps = request.getParameterValues("spz");
@@ -375,6 +380,7 @@ public class SpslglController extends BaseController {
 	@RequestMapping(value = "/updateSpz")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改商品组",key = "spzid")  
 	public Map updateSpz(Integer spzid, String spzmc, String zbz) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sps = request.getParameterValues("spz");
@@ -444,6 +450,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/deleteSpz")
 	@ResponseBody
+	@SystemControllerLog(description = "删除商品组",key = "ids")  
 	public Map deleteSpz(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -558,6 +565,7 @@ public class SpslglController extends BaseController {
 
 	@RequestMapping(value = "/importExcel", method = RequestMethod.POST)
 	@ResponseBody
+	@SystemControllerLog(description = "导入商品",key = "importFile")  
 	public Map importExcel(MultipartFile importFile) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (importFile == null || importFile.isEmpty()) {

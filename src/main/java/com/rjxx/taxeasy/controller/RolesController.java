@@ -24,6 +24,7 @@ import com.rjxx.taxeasy.domains.Privileges;
 import com.rjxx.taxeasy.domains.Roleprivs;
 import com.rjxx.taxeasy.domains.Roles;
 import com.rjxx.taxeasy.domains.Yh;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.PrivilegeTypesService;
 import com.rjxx.taxeasy.service.PrivilegesService;
 import com.rjxx.taxeasy.service.RoleprivsService;
@@ -184,6 +185,7 @@ public class RolesController extends BaseController {
 	@RequestMapping("save")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改角色",key = "name")  
 	public Map<String, Object> save(Roles role, String[] firstId, String[] cms) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (firstId == null || firstId.length < 1) {
@@ -284,6 +286,7 @@ public class RolesController extends BaseController {
 	@RequestMapping("update")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改角色",key = "id")  
 	public Map<String, Object> update(String rolename, String[] firstId, String[] cms, Integer id, String dis, String name,
 			String description) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -389,6 +392,7 @@ public class RolesController extends BaseController {
 	@RequestMapping("destroy")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "删除角色",key = "ids")  
 	public Map<String, Object> destroy(String ids) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Roles> list = new ArrayList<>();

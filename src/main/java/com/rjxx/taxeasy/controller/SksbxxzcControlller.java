@@ -26,6 +26,7 @@ import com.rjxx.taxeasy.domains.Gsxx;
 import com.rjxx.taxeasy.domains.Pp;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.DmFpbcService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.GroupService;
@@ -174,6 +175,7 @@ public class SksbxxzcControlller extends BaseController {
 	@RequestMapping(value = "/save")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "新增开票点",key = "kpddm")  
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
 			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
@@ -277,6 +279,7 @@ public class SksbxxzcControlller extends BaseController {
 	 */
 	@RequestMapping(value = "/update")
 	@ResponseBody
+	@SystemControllerLog(description = "修改开票点",key = "id")  
 	public Map update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
 			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
@@ -343,6 +346,7 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping(value = "/updateJe")
 	@ResponseBody
+	@SystemControllerLog(description = "修改金额",key = "skpid")  
 	public Map updateJe(int skpid, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -411,6 +415,7 @@ public class SksbxxzcControlller extends BaseController {
 	@RequestMapping(value = "/del")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "删除开票点",key = "ids")  
 	public Map delete(int ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -446,6 +451,7 @@ public class SksbxxzcControlller extends BaseController {
 	@RequestMapping(value = "/delele")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "删除开票点",key = "ids")  
 	public Map delete(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (!"".equals(ids)) {
@@ -501,6 +507,7 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping(value = "/importExcel", method = RequestMethod.POST)
 	@ResponseBody
+	@SystemControllerLog(description = "导入开票点",key = "importFile")  
 	public Map importExcel(MultipartFile importFile) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (importFile == null || importFile.isEmpty()) {

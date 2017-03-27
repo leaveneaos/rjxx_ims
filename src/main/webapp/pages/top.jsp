@@ -260,18 +260,7 @@
 							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;开票数量：</label>
 							<label id="kpsl" class="am-u-sm-6"></label>
 						</div>
-						<div class="am-form-group" style="height: 30px;">
-							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">登录账号</font></label>
-							<div class="am-u-sm-8">
-								<div style="float: left;">
-									<label id="yhzh">${login_session_key.dlyhid}</label>
-								</div>
-								<div style="float: right">
-									<font color="blue"><a href="#"
-						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}" style="color: blue" class="am-modal-btn" data-am-modal-cancel>修改</a></font>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</form>

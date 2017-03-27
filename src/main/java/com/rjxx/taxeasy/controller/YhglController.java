@@ -22,6 +22,7 @@ import com.rjxx.taxeasy.domains.Roles;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.security.SecurityContextUtils;
 import com.rjxx.taxeasy.security.WebPrincipal;
 import com.rjxx.taxeasy.service.GroupService;
@@ -166,6 +167,7 @@ public class YhglController extends BaseController {
 	@RequestMapping("/yhxz")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "新增用户",key = "")  
 	public Map<String, Object> yhxz() throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String yhmm = request.getParameter("yhmm");
@@ -299,6 +301,7 @@ public class YhglController extends BaseController {
 	@RequestMapping("/yhsc")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "删除用户",key = "ids")  
 	public Map yhsc(String ids) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -367,6 +370,7 @@ public class YhglController extends BaseController {
 	@RequestMapping("/yhxg")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改用户",key = "yhzh")  
 	public Map<String, Object> yhxg(String yhzh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String xb = request.getParameter("xb");
@@ -482,6 +486,7 @@ public class YhglController extends BaseController {
 	@RequestMapping("/update")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改用户资料",key = "yhmc")  
 	public Map<String, Object> update(String yhmc, String xb, String sjhm, String yx) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -528,6 +533,7 @@ public class YhglController extends BaseController {
 	@RequestMapping("/resetPassword")
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "重置密码",key = "dlyhid")  
 	public Map<String, Object> resetPassword(String dlyhid, String czmm) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -550,6 +556,7 @@ public class YhglController extends BaseController {
 	@RequestMapping(value="/updatePwd",method= RequestMethod.POST)
 	@ResponseBody
 	@Transactional
+	@SystemControllerLog(description = "修改密码",key = "")  
 	public Map<String, Object> updatePwd(String oldPass, String newPass) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
