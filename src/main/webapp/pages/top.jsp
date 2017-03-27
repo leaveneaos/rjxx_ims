@@ -38,16 +38,19 @@
 							class="am-icon-user"></span> 账号信息</a></li>
 					<li><a href="#"
 						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
-							class="am-icon-user"></span> 修改信息</a></li>
+							class="am-icon-user"></span> 修改用户资料</a></li>
 					<li><a href="#"
 						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-cog"></span> 修改密码</a></li>
-					<li><a href="javascript:logout()"><span
-							class="am-icon-power-off"></span> 退出</a></li>
 				</ul></li>
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
 				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
 					class="admin-fullText">开启全屏</span></a></li>
+					<li class="am-text-sm">
+                            <a href="javascript:logout()">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
 	</ul>
 	</div>
 	<%-- 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
@@ -220,10 +223,10 @@
 				</div>
 				<div class="am-modal-bd">
 					<div class="am-g"">
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC; height: 35px;">
+						<div class="am-form-group" style="height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户类型</font></label>
 							<div class="am-u-sm-8">
-								<label id="yhlx">
+								<label id="yhlx" style="line-height: 44px">
 									<c:if test="${login_session_key.zhlxdm == '01'}">集团账户</c:if>
 									<c:if test="${login_session_key.zhlxdm == '02'}">代理账户</c:if>
 									<c:if test="${login_session_key.zhlxdm == '03'}">企业账户</c:if>
@@ -233,7 +236,7 @@
 						<div class="am-form-group" style=" height: 35px;">
 							<label for="hc_kpje" class="am-u-sm-4 am-form-label"><font color="#AAAAAA">账户有效期</font></label>
 							<div class="am-u-sm-8">
-								<label id="yhyxq"></label>
+								<label id="yhyxq" style="line-height: 44px"></label>
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -255,7 +258,7 @@
 							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;用户数量：</label>
 							<label id="yhsl" class="am-u-sm-6"></label>
 						</div>
-						<div class="am-form-group" style="border-bottom: solid 1px #CCC;">
+						<div class="am-form-group">
 							<label for="hc_kpje" class="am-u-sm-3 am-form-label"></label>
 							<label for="hc_kpje" class="am-u-sm-3">&nbsp;&nbsp;&nbsp;&nbsp;开票数量：</label>
 							<label id="kpsl" class="am-u-sm-6"></label>
