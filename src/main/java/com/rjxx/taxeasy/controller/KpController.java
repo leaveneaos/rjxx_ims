@@ -1610,7 +1610,7 @@ public class KpController extends BaseController {
 		session.setAttribute("cffplList", mxcl);
 		session.setAttribute("jyls", jyls);
 		session.setAttribute("zwlist", dxlist);
-		return "kp/kpyl";
+		return "kp/fapiao";
 	}
     /**
      * 提供精确的加法运算。

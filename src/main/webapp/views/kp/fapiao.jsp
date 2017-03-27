@@ -1,8 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@page import="com.rjxx.taxeasy.domains.Jyls"%>
+<%@page import="com.rjxx.taxeasy.controller.KpController"%>
+<%@page import="com.rjxx.taxeasy.domains.Jyspmx"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="models.*"%>
+
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<style type="text/css" rel="stylesheet">
 /* reset--------------------------------------------------------------------*/
 body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{ margin:0; padding:0;}fieldset,img{ border:0;}q:before,q:after{ content:'';}abbr[title]{ border-bottom:1px dotted; cursor:help;}address,cite,dfn,em,var{ font-style:normal;}legend{ color:#000;}code,kbd,samp{ font-family:"Courier New",monospace;}hr{ border:none; height:1px;}h1,h2,h3,h4,h5,h6{ font-size:100%;}ol,ul {list-style:none outside none;}li {list-style: none;}
@@ -25,19 +32,41 @@ colgroup {display: table-column-group;}/* clear---------------------------------
 </style>
 </head>
 <body>
+<%
+    List<Jyspmx> list = (List<Jyspmx>)session.getAttribute("cffplList");
+	if(null==list){list = new ArrayList();}
+    Jyls jyls = (Jyls)session.getAttribute("jyls");
+    if(null==jyls){jyls = new Jyls();}
+    List zwlist = (List)session.getAttribute("zwlist");
+    if(null==zwlist){zwlist = new ArrayList();}
+    String fpzl = "";
+    if(jyls.getFpzldm().equals("01")){
+    	fpzl = "增值税专用发票";
+    }else if(jyls.getFpzldm().equals("02")){
+    	fpzl = "增值税普通发票";
+    }
+    else if(jyls.getFpzldm().equals("12")){
+    	fpzl = "增值税电子普通发票";
+    }
+%>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;">
-              <h1 id="fpcc_dzfp" style="padding: 5px 0px; text-align: center; color: rgb(87, 75, 157);">增值税电子普通发票</h1>
+	                      <%
+            double je = 0.00;
+            double se = 0.00;
+            double jshj = 0.00;
+    %>
+              <h1 id="fpcc_dzfp" style="padding: 5px 0px; text-align: center; color: rgb(87, 75, 157);"><%=fpzl%></h1>
               <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
                 <tbody><tr height="30">                  
-                  <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp">1234567898765</span></td>
+                  <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp">************</span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp">12345678</span></td>
+                  <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp">********</span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp">2017年3月24日</span></td>
+                  <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp">****年**月**日</span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">校验码：<span class="content_td_blue" id="jym_dzfp">123</span></td>
+                  <td class="align_left">校验码：<span class="content_td_blue" id="jym_dzfp">**************</span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">机器编号：<span class="content_td_blue" id="sbbh_dzfp">123456789876</span></td>
+                  <td class="align_left">机器编号：<span class="content_td_blue" id="sbbh_dzfp">***************</span></td>
                   <td>&nbsp;</td>
                 </tr>
               </tbody></table>
@@ -49,7 +78,7 @@ colgroup {display: table-column-group;}/* clear---------------------------------
                   <p>方</p>
                 </td>
                 <td width="85" class="align_left borderNo">名称：</td>
-                <td class="align_left borderNo bgcolorWhite" nowrap=""><span class="content_td_blue" id="gfmc_dzfp">刘炎</span></td>
+                <td class="align_left borderNo bgcolorWhite" nowrap=""><span class="content_td_blue" id="gfmc_dzfp"><%=jyls.getGfmc() %></span></td>
                 <td width="20" class="align_center" rowspan="4"> 
                   <p>密</p>
                   <p>码</p>
@@ -59,15 +88,15 @@ colgroup {display: table-column-group;}/* clear---------------------------------
                 </tr>
                 <tr>
                   <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfsbh_dzfp">12345678 </span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfsbh_dzfp"><%=jyls.getGfsh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfdzdh_dzfp">上海市漕宝路光大会展中心E座2802室</span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfdzdh_dzfp"><%=jyls.getGfdz() %><%=jyls.getGfdh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfyhzh_dzfp">123456789 </span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfyhzh_dzfp"><%=jyls.getGfyh() %><%=jyls.getGfyhzh() %></span></td>
                 </tr>
                 
                 <!--表头-->
@@ -84,29 +113,41 @@ colgroup {display: table-column-group;}/* clear---------------------------------
                       <td width="5%" class="align_center borderRight">税率</td>
                       <td width="15%" class="align_center">税额</td>
                     </tr>
+                          <%
+                                            for(int j=0;j<list.size();j++){
+                                            	Jyspmx jyspmx = list.get(j);
+                                                	KpController kp = new KpController();
+                                                   je=kp.add(je, jyspmx.getSpje());
+                                                   se=kp.add(se,jyspmx.getSpse());
+                                                   jshj = kp.add(je,se);
+                                        %>
                     <tr>
-                      <td class="align_center borderRight"><span class="content_td_blue">电脑</span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue"> </span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue">台</span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue">1</span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">6000.00</span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">6000.00</span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">1%</span></td>
-                      <td class="align_center" style="text-align: right;"><span class="content_td_blue">60.00</span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
+                      <td class="align_center" style="text-align: right;"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
                     </tr>
+                      <%
+                                            }
+                                        %>
+                    
                     <tr>
                       <td class="align_center borderRight">合计</td>
                       <td class="align_center borderRight">&nbsp;</td>
                       <td class="align_center borderRight">&nbsp;</td>
                       <td class="align_center borderRight">&nbsp;</td>
                       <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue" id="je_dzfp">￥6000.00</span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue" id="je_dzfp">￥<%=new DecimalFormat("#.00").format(je)%></span></td>
                       <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center" style="text-align: right;"><span class="content_td_blue" id="se_dzfp">￥60.00</span></td>
+                      <td class="align_center" style="text-align: right;"><span class="content_td_blue" id="se_dzfp">￥<%=new DecimalFormat("#.00").format(se)%></span></td>
                     </tr>
                     <tr>
                       <td class="align_center borderRight borderTop">价税合计（大写）</td>
-                      <td class="align_center borderTop" colspan="7"><span class="align_left"><span class="content_td_blue" id="jshjdx_dzfp">六千零六十元</span><span style="padding: 0px 20px;">（小写）</span><span class="content_td_blue" id="jshjxx_dzfp">￥6060.00</span></span></td>
+                      <td class="align_center borderTop" colspan="7"><span class="align_left"><span class="content_td_blue" id="jshjdx_dzfp"> <%=zwlist.size()==0?"":zwlist.get(0)%></span><span style="padding: 0px 20px;">（小写）</span><span class="content_td_blue" id="jshjxx_dzfp">￥<%=new DecimalFormat("#.00").format(jshj)%></span></span></td>
                     </tr>
                   </tbody></table>
                   </td>
@@ -119,24 +160,24 @@ colgroup {display: table-column-group;}/* clear---------------------------------
                     <p>方</p>
                   </td>
                   <td class="align_left borderNo">名称：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfmc_dzfp">京东旗舰店</span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfmc_dzfp"><%=jyls.getXfmc() %></span></td>
                   <td width="20" class="align_center" rowspan="4">
                     <p>备</p>
                     <p>注</p>
                   </td>
-                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4">机器编号:123456789876</td>
+                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4">机器编号:**********<p><%=jyls.getBz() %></p></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfsbh_dzfp">123456789876</span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfsbh_dzfp"><%=jyls.getXfsh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfdzdh_dzfp">-</span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfdzdh_dzfp"><%=jyls.getXfdz() %><%=jyls.getXfdh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfyhzh_dzfp">-</span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfyhzh_dzfp"><%=jyls.getXfyh() %><%=jyls.getXfyhzh() %></span></td>
                 </tr>
               </tbody></table>
               
