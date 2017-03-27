@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<style type="text/css" rel="stylesheet">
+ 	<style type="text/css" rel="stylesheet">
 /* reset--------------------------------------------------------------------*/
 body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{ margin:0; padding:0;}fieldset,img{ border:0;}q:before,q:after{ content:'';}abbr[title]{ border-bottom:1px dotted; cursor:help;}address,cite,dfn,em,var{ font-style:normal;}legend{ color:#000;}code,kbd,samp{ font-family:"Courier New",monospace;}hr{ border:none; height:1px;}h1,h2,h3,h4,h5,h6{ font-size:100%;}ol,ul {list-style:none outside none;}li {list-style: none;}
 input, select, textarea, button { font-size: 100%; line-height: inherit;}button { cursor: pointer;}table, thead, tbody, tfoot, tr, th, td, caption, col, colgroup { text-align: inherit; line-height: inherit;	font-size: 100%;}table {border-collapse: collapse; border-spacing: 0;}thead {display: table-header-group;}tbody {display: table-row-group;}tfoot {display: table-footer-group;}tr {display: table-row;}th,td {display: table-cell;}caption {display: table-caption;}col {display: table-column;}
@@ -40,14 +40,14 @@ colgroup {display: table-column-group;}/* clear---------------------------------
     List zwlist = (List)session.getAttribute("zwlist");
     if(null==zwlist){zwlist = new ArrayList();}
     String fpzl = "";
-    if(jyls.getFpzldm().equals("01")){
+     if(jyls.getFpzldm().equals("01")){
     	fpzl = "增值税专用发票";
     }else if(jyls.getFpzldm().equals("02")){
     	fpzl = "增值税普通发票";
     }
     else if(jyls.getFpzldm().equals("12")){
     	fpzl = "增值税电子普通发票";
-    }
+    } 
 %>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;">
 	                      <%
