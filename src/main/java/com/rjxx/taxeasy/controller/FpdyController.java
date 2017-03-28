@@ -232,8 +232,8 @@ public class FpdyController extends BaseController{
 		//try {
 		   
 		   String []kplsh2=kplsh.split(",");
-		   String []fphm2=kplsh.split(",");
-		   String []fpdm2=kplsh.split(",");
+		   String []fphm2=fphm.split(",");
+		   String []fpdm2=fpdm.split(",");
 
 		   
 		   if(checkFpdm(fpdm2)){
@@ -254,7 +254,7 @@ public class FpdyController extends BaseController{
 			   InvoiceResponse flag = fpcdService.cdcl(Integer.valueOf(kplsh2[i]), getYhid(), getGsdm());
 			   if (!flag.getReturnCode().equals("0000")) {
 					result.put("success", false);
-					result.put("msg", "第"+(i+1)+"条流水申请重打失败");
+					result.put("msg", "第"+(i+1)+"条流水申请重打失败"+flag.getReturnMessage());
 					return result;
 
 				}
@@ -310,21 +310,19 @@ public class FpdyController extends BaseController{
 		for(int i=0;i<arr.length-1;i++){
 			for(int j=0;j<arr.length-1-i;j++){
 				
-				if(Integer.valueOf(arr[j])>Integer.valueOf(arr[j+1])){
+				if(Long.parseLong(arr[j])>Long.parseLong(arr[j+1])){
 					String temp = arr[j];
 					arr[j]=arr[j+1];
 					arr[j+1]=temp;
 				}
 			}
 		}
-		for(int i=0;i<arr.length-1;i++){
-			for(int j=0;j<arr.length-1-i;j++){
+			for(int j=0;j<arr.length-1;j++){
 				
-				if((Integer.valueOf(arr[j+1])-Integer.valueOf(arr[j]))>1){
+				if((Long.parseLong(arr[j+1])-Long.parseLong(arr[j]))>1){
 					f=false;
 				}
 			}
-		}
 		return f;
 	
 	}
@@ -337,14 +335,15 @@ public class FpdyController extends BaseController{
 		
 		boolean f=true;
 
-		for(int i=0;i<arr.length-1;i++){
-			for(int j=0;j<arr.length-1-i;j++){
+			for(int j=0;j<arr.length-1;j++){
 				
-				if((Integer.valueOf(arr[j+1])-Integer.valueOf(arr[j]))==0){
+				if((Long.parseLong(arr[j+1])-Long.parseLong(arr[j]))!=0){
 					f=false;
+					
 				}
+				
 			}
-		}
+			
 		return f;
 	
 	}

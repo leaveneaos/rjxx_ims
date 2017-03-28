@@ -185,6 +185,7 @@ $(function () {
                     "sServerMethod": "POST",
                     "processing": true,
                     "bSort":true,
+                    "scrollX": true,
                     ordering: false,
                     "ajax": {
                         url: _this.config.getUrl,
@@ -212,7 +213,19 @@ $(function () {
                         }
                     },
                     "columns": [
-                       {"data":null},        
+                       {
+							"orderable" : true,
+							"data" : null,
+							render : function(data, type, full, meta) {
+								return '<input type="checkbox" value="'
+									+ data.kplsh + '" name="chk"  id="chk"/>';
+							}
+						},
+						{
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
+                        },        
                         {"data": "ddh"},
                         {"data": "kprq"},
                         {"data": "fpdm"},
@@ -220,39 +233,39 @@ $(function () {
                         {"data": "gfmc"},
                         {"data": "fpzlmc"},
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.hjje) {
                                     return FormatFloat(data.hjje,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"hjje",
+                            },
+                            	//"hjje",
                             'sClass': 'right'
                         },
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.hjse) {
                                     return FormatFloat(data.hjse,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"hjse",
+                            },
+                            	//"hjse",
                             'sClass': 'right'
                         },
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.jshj) {
                                     return FormatFloat(data.jshj,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"jshj",
+                            },
+                            	//"jshj",
                             'sClass': 'right'
                         },
                         {
@@ -271,6 +284,7 @@ $(function () {
                 "sServerMethod": "POST",
                 "processing": true,
                 "bSort":true,
+                "scrollX": true,
                 ordering: false,
                 "ajax": {
                     url: "fpzf/getKplsList1",
@@ -304,39 +318,39 @@ $(function () {
                     {"data": "gfmc"},
                     {"data": "fpzlmc"},
                     {
-                        "data":/* function (data) {
+                        "data": function (data) {
                             if (data.hjje) {
                                 return FormatFloat(data.hjje,
                                     "###,###.00");
                             }else{
                                 return null;
                             }
-                        }*/
-                        	"hjje",
+                        },
+                        	//"hjje",
                         'sClass': 'right'
                     },
                     {
-                        "data":/* function (data) {
+                        "data": function (data) {
                             if (data.hjse) {
                                 return FormatFloat(data.hjse,
                                     "###,###.00");
                             }else{
                                 return null;
                             }
-                        }*/
-                        	"hjse",
+                        },
+                        	//"hjse",
                         'sClass': 'right'
                     },
                     {
-                        "data":/* function (data) {
+                        "data": function (data) {
                             if (data.jshj) {
                                 return FormatFloat(data.jshj,
                                     "###,###.00");
                             }else{
                                 return null;
                             }
-                        }*/
-                        	"jshj",
+                        },
+                        	//"jshj",
                         'sClass': 'right'
                     },
                     {
@@ -350,7 +364,7 @@ $(function () {
             });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+                t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
                 //$('#fpTable tr').find('td:eq(0)').hide();
@@ -368,13 +382,27 @@ $(function () {
             $('.js-table2 tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
+	                $(this).find('td:eq(0) input').prop('checked',false);
                 } else {
+	                $(this).find('td:eq(0) input').prop('checked',true); 
                 	t.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected'); 
                 }
                 $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
                 var data = t.row($(this)).data();
                 $("#kplsh").val(data.kplsh);
+                var kplshStr = [];
+                $('#chk:checked').each(function(){    
+               	 kplshStr.push($(this).val()); 
+                });
+             	if(kplshStr.length>1){
+           		$("#alertt").html("不能批量作废！");
+                  	$("#my-alert").modal('open');
+                 	$('input[type="checkbox"]').prop('checked', false);     
+
+                      return;
+           		
+           	    }
                 kpspmx_table.ajax.reload();
             });
             $('#ysTable').on('click', 'tr', function () {
@@ -389,7 +417,7 @@ $(function () {
                 $("#kplsh").val(data.kplsh);
                 kpspmx_table1.ajax.reload();
             });
-          /*$('#check_all').change(function () {
+          $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
             		t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', true);
@@ -399,7 +427,7 @@ $(function () {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
-            });*/
+            });
             $('#zf_search').click(function () {
 	        	$("#bj").val("2");
 	        	$('#xzxfq').attr("selected","selected");
@@ -488,6 +516,27 @@ $(function () {
     	}
     //作废操作
     $('#kp_zf').click(function () {
+    	
+    	 var kplshStr = [];
+         $('#chk:checked').each(function(){    
+        	 kplshStr.push($(this).val()); 
+         });
+    	if(kplshStr.length>1){
+    		$("#alertt").html("不能批量作废！");
+           	$("#my-alert").modal('open');
+          	$('input[type="checkbox"]').prop('checked', false);     
+
+               return;
+    		
+    	}else if(kplshStr.length==0){
+    		$("#alertt").html("请选择一条记录！");
+           	$("#my-alert").modal('open');
+          	$('input[type="checkbox"]').prop('checked', false);     
+
+               return;
+    	}
+    	
+    	
     	var kplsh = $('#kplsh').val();
     	if(kplsh!=0){
     		if(confirm("确定要作废该条数据吗？")){
@@ -500,20 +549,25 @@ $(function () {
         			data:{"kplsh":kplsh},
         		    success:function(data){
         		    	if(data.success){
-        		    		alert(data.msg);
+        		    		$("#alertt").html(data.msg);
+            	           	$("#my-alert").modal('open');
         		    		$("#kplsh").val("");
         		    		window.location.reload();
         		    	}else{
-        		    		alert(data.msg);
+        		    		$("#alertt").html(data.msg);
+            	           	$("#my-alert").modal('open');
         		    	}   		    	    		    	
         		    },
         		    error:function(){
-        		    	alert("程序出错，请联系开发人员！");
+        		    	$("#alertt").html("程序出错，请联系开发人员！");
+        	           	$("#my-alert").modal('open');
+        		    	
         		    }
         		});
         	}
     	}else{
-    		alert("请选择一条记录！");
+    		$("#alertt").html("请选择一条记录！");
+           	$("#my-alert").modal('open');
     	}    	  
     });
 });

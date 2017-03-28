@@ -207,6 +207,7 @@
 												id="fpTable">
 												<thead>
 													<tr>
+													    <th><input type="checkbox" id="check_all" /></th>
 														<th>序号</th>
 														<th>订单号</th>
 														<th>开票日期</th>

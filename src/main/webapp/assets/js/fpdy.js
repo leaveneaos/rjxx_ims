@@ -119,6 +119,7 @@ $(function () {
                     "sServerMethod": "POST",
                     "processing": true,
                     "bSort":true,
+                    "scrollX": true,
                     ordering: false,
                     "ajax": {
                         url: _this.config.getUrl,
@@ -166,39 +167,39 @@ $(function () {
                         {"data": "gfmc"},
                         {"data": "fpzlmc"},
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.hjje) {
                                     return FormatFloat(data.hjje,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"hjje",
+                            },
+                            	//"hjje",
                             'sClass': 'right'
                         },
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.hjse) {
                                     return FormatFloat(data.hjse,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"hjse",
+                            },
+                            	//"hjse",
                             'sClass': 'right'
                         },
                         {
-                            "data":/* function (data) {
+                            "data": function (data) {
                                 if (data.jshj) {
                                     return FormatFloat(data.jshj,
                                         "###,###.00");
                                 }else{
                                     return null;
                                 }
-                            }*/
-                            	"jshj",
+                            },
+                            	//"jshj",
                             'sClass': 'right'
                         },
                         {
@@ -229,18 +230,30 @@ $(function () {
                     var index2 = $.inArray(data.fpdm,fpdm);
                     fpdm.splice(index2,1);
                 }
+               
             });
             
             //选中列查询明细
             $('.js-table2 tbody').on('click', 'tr', function () {
+            	var data = t.row($(this)).data();
                 if ($(this).hasClass('selected')) {
+	                $(this).find('td:eq(0) input').prop('checked',false); 
                     $(this).removeClass('selected');
                 } else {
+	                $(this).find('td:eq(0) input').prop('checked',true); 
                 	t.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected'); 
                 }
+                if ($('input[name="chk'+data.kplsh+'"]').prop('checked')){
+                	fphm.push(data.fphm);
+                    fpdm.push(data.fpdm);
+                }else{
+                	var index = $.inArray(data.fphm,fphm);
+                    fphm.splice(index,1);
+                    var index2 = $.inArray(data.fpdm,fpdm);
+                    fpdm.splice(index2,1);
+                }
                 $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
-                var data = t.row($(this)).data();
                 $("#kplsh").val(data.kplsh);
                 kpspmx_table.ajax.reload();
             });
@@ -394,7 +407,8 @@ $(function () {
 		        		});
 		        	}
 		    	}else{
-		    		alert("请选择一条记录！");
+		    		$("#alertt").html("请选择一条记录！");
+		          	$("#my-alert").modal('open');
 		    	}    
     	   }
       });
