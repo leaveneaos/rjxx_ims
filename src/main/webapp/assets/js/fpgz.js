@@ -46,6 +46,9 @@ $("#qdbz").change(function () {
       	$("#zphs").attr("required",true);
     	$("#pphs").attr("required",true);
        $("#dzphs").attr("required",true);
+   	$("#zphs").val("");
+	$("#pphs").val("");
+	$("#dzphs").val("");
     }
 });
     var action = {
@@ -248,7 +251,22 @@ $("#qdbz").change(function () {
 				}
 				if(row.qdbz=="1"){
 					$("#qdbz").attr("checked","checked");
+					$("#zphs").attr("required",false);
+			    	$("#pphs").attr("required",false);
+			    	$("#dzphs").attr("required",false);
+			    	$("#zphs").attr("readonly",true);
+			    	$("#pphs").attr("readonly",true);
+			    	$("#dzphs").attr("readonly",true);
+			    	$("#zphs").val("");
+			    	$("#pphs").val("");
+			    	$("#dzphs").val("");
 				}else{
+			    	$("#zphs").attr("readonly",false);
+			    	$("#pphs").attr("readonly",false);
+			    	$("#dzphs").attr("readonly",false);
+			      	$("#zphs").attr("required",true);
+			    	$("#pphs").attr("required",true);
+			       $("#dzphs").attr("required",true);
 					$("#qdbz").attr("checked",false);
 				}
 				$("#idd").val(row.id);

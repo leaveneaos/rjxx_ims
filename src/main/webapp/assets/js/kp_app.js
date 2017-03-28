@@ -109,7 +109,7 @@ $(function() {
 				}
 			})
 
-			var end = {
+	/*		var end = {
 				"data" : null,//
 				//"defaultContent": '<a class="view">查看</a>'
 				"render" : function(data) {
@@ -122,7 +122,7 @@ $(function() {
 					}
 				}
 			}
-			start.push(end);
+			start.push(end);*/
 			var _this = this;
 			var t = el.$jsTable.DataTable({
 				"processing" : true,
@@ -577,7 +577,7 @@ $(function() {
 	            $("#kp_kp").attr('disabled',"true"); 
 	            $("#kp_kpdy").attr('disabled',"true"); 
 	            $("#kp_del").attr('disabled',"true"); 
-	            $("#conft").html("确认开票么")
+	            $("#conft").html("确认开票吗?")
 	        if (!confirm("确认开票么")) {
 	        	$('#kp_kp').removeAttr("disabled"); 
 	        	$('#kp_kpdy').removeAttr("disabled"); 
@@ -589,23 +589,35 @@ $(function() {
 	                    if (data.success) {
 	                    	$('#kp_kp').removeAttr("disabled"); 
 	                    	$('#kp_kpdy').removeAttr("disabled"); 
-	                    	$('#kp_del').removeAttr("disabled");  
-	                    	$("#alertt").html("申请开票成功");
-	                    	$("#my-alert").modal('open');
-	                        jyls_table.ajax.reload();
-	                    } else {
-	                    	$('#kp_kp').removeAttr("disabled"); 
-	                    	$('#kp_kpdy').removeAttr("disabled"); 
-	                    	$('#kp_del').removeAttr("disabled"); 
-	                    	jyls_table.ajax.reload();
-	                    	$("#alertt").html(data.msg);
-	                    	$("#my-alert").modal('open');
-	                    }
-	                 //   $("#fpjek").modal("close");
-	                    
-	              //      $('#savet').removeAttr("disabled");
-	                }
-	            });        
+	                    	$('#kp_del').removeAttr("disabled");
+	                    	if(data.csz==0){
+	                    		$("#alertt").html("申请开票成功");
+	                    		$("#my-alert").modal('open');
+		                        jyls_table.ajax.reload();
+	                    	}else if(data.csz==1){
+	                    		$("#alertt").html("开票成功");
+	                    		$("#my-alert").modal('open');
+		                        jyls_table.ajax.reload();
+	                    	}else if(data.csz==2){
+	    	                    if (data.success) {
+	    	                        $("#doc-modal-fphm").modal("open");
+	    	                        $("#fpdm2").val(data.fpdm);
+	    	                        $("#fphm2").val(data.fphm);
+	    	                    } else {
+	    	                    	$("#alertt").html(data.msg);
+	    	                    	$("#my-alert").modal('open');                    
+	                    	}
+	                    	
+	                    } 
+	                }else {
+                    	$('#kp_kp').removeAttr("disabled"); 
+                    	$('#kp_kpdy').removeAttr("disabled"); 
+                    	$('#kp_del').removeAttr("disabled"); 
+                    	jyls_table.ajax.reload();
+                    	$("#alertt").html(data.msg);
+                    	$("#my-alert").modal('open');
+                    }
+	                }});        
 	        });
 	        
 	        $('#kp_kpdy').click(function () {
@@ -710,15 +722,9 @@ $(function() {
 	        
 	        $('#kp_kpdyqr').click(function () {
 	        	   var djhArr = [];
-//	               $('input[name="chk"]:checked').each(function(){    
-//	                       djhArr.push($(this).val());
-//	                       
-//	               });
 	               jyls_table.column(0).nodes().each(function(cell, i) {
-
 						var $checkbox = $(cell).find('input[type="checkbox"]');
 						if ($checkbox.is(':checked')) {
-
 							var row =jyls_table.row(i).data().djh;
 							djhArr.push(row);
 						}
@@ -729,10 +735,10 @@ $(function() {
 							return;
 						}*/
 	            $.ajax({
-	                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
+	                url: "kp/doKp1", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
 	                    if (data.success) {
 	                    	  $("#doc-modal-fphm").modal("close");
-	                    	$("#alertt").html("申请开票成功");
+	                    	$("#alertt").html("开票成功");
 	                    	$('#kp_kpdyqr').removeAttr("disabled");  
 	                    	$("#my-alert").modal('open');
 	                        jyls_table.ajax.reload();

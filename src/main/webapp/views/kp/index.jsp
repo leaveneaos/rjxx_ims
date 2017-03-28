@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+<script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-form-horizontal .am-form-label {
 	text-align: left;
@@ -456,7 +457,7 @@
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table
-													class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+													class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 													<thead>
 														<tr id="bt">
 															<th><input type="checkbox" id="select_all" /></th>
@@ -953,7 +954,7 @@
     </div>
   </div>
 </div>
-<div style="margin-left: -30%;overflow: auto; background-color: white;width:880px;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
      <div class="am-modal-hd">
       <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
     </div>

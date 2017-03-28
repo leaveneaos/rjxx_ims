@@ -80,20 +80,16 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
             double jshj = 0.00;
     %>
               <h1 id="fpcc_dzfp" style="padding: 5px 0px; text-align: center; color: rgb(87, 75, 157);"><%=fpzl%></h1>
-              <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
+       <!--        <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
                 <tbody><tr height="30">                  
-                  <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp">************</span></td>
+                  <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp"></span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp">********</span></td>
+                  <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp"></span></td>
                   <td>&nbsp;</td>
-                  <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp">****年**月**日</span></td>
-                  <td>&nbsp;</td>
-                  <td class="align_left">校验码：<span class="content_td_blue" id="jym_dzfp">**************</span></td>
-                  <td>&nbsp;</td>
-                  <td class="align_left">机器编号：<span class="content_td_blue" id="sbbh_dzfp">***************</span></td>
+                  <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp"></span></td>
                   <td>&nbsp;</td>
                 </tr>
-              </tbody></table>
+              </tbody></table> -->
               <table class="fppy_table" style="width: 850px;" border="0" cellspacing="0" cellpadding="0">
               <tbody><tr>
                 <td width="20" class="align_center" rowspan="4">
@@ -189,7 +185,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                     <p>备</p>
                     <p>注</p>
                   </td>
-                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4">机器编号:**********<p><%=jyls.getBz() %></p></td>
+                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4"><p><%=jyls.getBz() %></p></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">纳税人识别号：</td>

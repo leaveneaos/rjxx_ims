@@ -86,7 +86,7 @@ public class ZdylController extends BaseController {
 			bt += "<th>" + yhCxzdyl.getZdzwm() + "</th>";
 
 		}
-		bt += "<th>操作</th>";
+	/*	bt += "<th>操作</th>";*/
 		result.put("bt", bt);
 		result.put("da", da);
 		result.put("list", list);

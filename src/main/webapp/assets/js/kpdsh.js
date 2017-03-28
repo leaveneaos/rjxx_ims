@@ -442,18 +442,18 @@ $(function() {
 	                        {"data": null,
 		                           "render": function (data) {
 		                        	   if(data.fpjshsbz==1){
-		                        		   return '<select name="hsbz" Style="width:100%"><option selected="selected" value="1">是</option><option value="0">否</option></select>';
+		                        		   return '<select name="hsbz" Style="width:100%"><option selected="selected" value="1">含税</option><option value="0">不含税</option></select>';
 		                        	   }else{
-		                        		   return '<select name="hsbz" Style="width:100%"><option value="1">是</option><option selected="selected" value="0">否</option></select>';
+		                        		   return '<select name="hsbz" Style="width:100%"><option value="1">含税</option><option selected="selected" value="0">不含税</option></select>';
 		                        	   }   
 		                                }
 		                        },
 		                    {"data": null,
 			                       "render": function (data) {
 			                    	   if(data.qdbz==1){
-		                        		   return '<select  name="qdbz" Style="width:100%"><option selected="selected" value="1">是</option><option value="0">否</option></select>';
+		                        		   return '<select  name="qdbz" Style="width:100%"><option selected="selected" value="1">打印</option><option value="0">不打印</option></select>';
 		                        	   }else{
-		                        		   return '<select name="qdbz" Style="width:100%"><option value="1">是</option><option selected="selected" value="0">否</option></select>';
+		                        		   return '<select name="qdbz" Style="width:100%"><option value="1">打印</option><option selected="selected" value="0">不打印</option></select>';
 		                        	   }
 			                            }
 			                    },

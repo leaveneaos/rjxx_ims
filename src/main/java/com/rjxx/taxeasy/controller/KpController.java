@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.DrPz;
 import com.rjxx.taxeasy.domains.Drmb;
 import com.rjxx.taxeasy.domains.Fpzt;
@@ -41,6 +43,8 @@ import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.XfMb;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.CsbService;
+import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.DrPzService;
 import com.rjxx.taxeasy.service.DrmbService;
 import com.rjxx.taxeasy.service.FpztService;
@@ -59,6 +63,7 @@ import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ChinaNumber;
 import com.rjxx.utils.ExcelUtil;
 import com.rjxx.utils.Tools;
+import com.sun.tools.classfile.Opcode.Set;
 
 /**
  * Created by lenovo on 2015/12/14.
@@ -99,6 +104,8 @@ public class KpController extends BaseController {
 
 	@Autowired
 	DrmbService drmbService;
+	@Autowired
+	CszbService cszbService;
 	@Autowired
 	private YhcljlService cljlService;
 
@@ -1207,19 +1214,55 @@ public class KpController extends BaseController {
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
 	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
+		boolean fl=true;
 		List<Integer> djhList = convertToList(djhArr);
 		String[] djhs = djhArr.split(",");
+		HashSet<Integer> set = new HashSet<>();
+		for (String st : djhs) {
+			Jyls jyls = jylsService.findOne(Integer.valueOf(st));
+			set.add(jyls.getSkpid());
+		}
+		if (set.size()!=djhs.length) {
+			fl=false;
+		}
 		for (int i = 0; i < djhs.length; i++) {
-             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz);
-		if (!flag) {
-			result.put("success", false);
-			result.put("msg", "第"+(i+1)+"条流水申请开具失败");
-			return result;
+			//判断是否直连开票
+			Jyls jyls = jylsService.findOne(Integer.valueOf(djhs[i]));
+			Cszb cszb = cszbService.getSpbmbbh(getGsdm(), jyls.getXfid(), jyls.getSkpid(), "sfzlkp");
+			if (null!=cszb&&cszb.getCsz().equals("是")) {
+				if (!fl) {
+					result.put("csz", "2");
+					InvoiceResponse invoiceResponse = skService.getCodeAndNo(jyls.getSkpid(), jyls.getFpzldm());
+					if ("0000".equals(invoiceResponse.getReturnCode())) {
+						result.put("msg", "获取号码成功 ");
+						result.put("success", true);
+						result.put("fpdm", invoiceResponse.getFpdm());
+						result.put("fphm", invoiceResponse.getFphm());
+						return result;
+					}else{
+						result.put("success1", false);
+						result.put("msg", invoiceResponse.getReturnMessage());
+						return result;
+					}
+				}else{
+					result.put("csz", "1");
+					InvoiceResponse invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,1);
+					 if (!invoiceResponse.getReturnCode().equals("0000")) {
+							result.put("success", false);
+							result.put("msg", "第"+(i+1)+"条流水申请开具失败"+invoiceResponse.getReturnMessage());
+							return result;
+						}
+				}
+			}else{
+				result.put("csz", "0");
+				fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,0);
+
+			}
+			cljlService.saveYhcljl(getYhid(), "申请开具发票");
+			result.put("success", true);
+			result.put("msg", "申请开票成功！");
 		}
-		}
-		cljlService.saveYhcljl(getYhid(), "申请开具发票");
-		result.put("success", true);
-		result.put("msg", "申请开票成功！");
+		
 	/*	} catch (Exception ex) {
 			ex.printStackTrace();
 			result.put("failure", true);
@@ -1228,6 +1271,26 @@ public class KpController extends BaseController {
 		return result;
 	}
 
+	
+	@RequestMapping(value = "/doKp1")
+	@ResponseBody
+	@SystemControllerLog(description = "发票开具",key = "djhArr")
+	public Map doKp1(String djhArr,Double kpxe,String dybz) throws Exception {
+		Map<String, Object> result = new HashMap<>();
+		String[] djhs = djhArr.split(",");
+			for (int j = 0; j < djhs.length; j++) {
+			InvoiceResponse invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[j]),dybz,1);
+			 if (!invoiceResponse.getReturnCode().equals("0000")) {
+					result.put("success", false);
+					result.put("msg", "第"+(j+1)+"条流水申请开具失败"+invoiceResponse.getReturnMessage());
+					return result;
+				}
+		}
+			result.put("success", true);
+			result.put("msg", "开票成功");
+		return result;
+	}
+	
 	/**
 	 * 开票
 	 *

@@ -108,7 +108,7 @@ $(function() {
 				}
 			})
 
-			var end = {
+/*			var end = {
 				"data" : null,//
 				//"defaultContent": '<a class="view">查看</a>'
 				"render" : function(data) {
@@ -121,7 +121,7 @@ $(function() {
 					}
 				}
 			}
-			start.push(end);
+			start.push(end);*/
 			var _this = this;
 			var t = el.$jsTable.DataTable({
 				"processing" : true,
