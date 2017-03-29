@@ -129,15 +129,15 @@ public class FphkController extends BaseController {
 		    Map hkczMap=fphkservice.fphk(map,kplshList, id, getYhid(),getGsdm());
 			ac.saveLog(id, "01", "0", "电子发票服务平台换开操作", "已向服务端发送换开请求", getYhid(), xfsh, jylsh);
 			
-			String hkcz=hkczMap.get("hkcz").toString();
+			String dhkcz=hkczMap.get("dhkcz").toString();
 			
-			if(hkcz.equals("0")){
+			if(dhkcz.equals("0")){
 				result.put("success", true);
 				result.put("msg", "换开请求提交成功，请注意查看操作结果！");
-			}else if(hkcz.equals("1")){
-			    String hkMessage=hkczMap.get("hkMessage").toString();
+			}else if(dhkcz.equals("1")){
+			    //String hkMessage=hkczMap.get("hkMessage").toString();
 				result.put("failure", false);
-				result.put("msg", "换开请求提交失败，原因:"+hkMessage);
+				result.put("msg", "换开请求提交失败!");
 			}
 			
 			
