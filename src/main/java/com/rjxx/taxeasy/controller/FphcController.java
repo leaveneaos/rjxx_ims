@@ -1,5 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FphcService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.domains.Jyls;
+import com.rjxx.taxeasy.domains.Jyspmx;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.JylsService;
+import com.rjxx.taxeasy.service.JyspmxService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.service.KpspmxService;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Kpspmxvo;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.utils.ChinaNumber;
 
 @Controller
 @RequestMapping("/fphc")
@@ -31,8 +38,10 @@ public class FphcController extends BaseController {
 	private KpspmxService mxService;
 	@Autowired
 	private FphcService FphcService;
-	 
-
+	@Autowired 
+	private JylsService jylsService;
+	@Autowired 
+	private JyspmxService jyspmxService;
 	
 	@RequestMapping
 	public String index() throws Exception {
@@ -253,5 +262,26 @@ public class FphcController extends BaseController {
 			result.put("msg", "红冲请求失败!"+flag.getReturnMessage());
 		}
 		return result;
+	}
+	@RequestMapping(value = "/kpyl")
+	public String kpyl(String kpsqhs) throws Exception {
+		Map<String, Object> result = new HashMap<>();
+		String kpsqh= kpsqhs.split(",")[0];
+		Jyspmx jyspmx = new Jyspmx();
+		jyspmx.setDjh(Integer.valueOf(kpsqh));
+		List<Jyspmx> mxcl = jyspmxService.findAllByParams(jyspmx);
+		Jyls jyls = jylsService.findOne(Integer.valueOf(kpsqh));
+		List dxlist = new ArrayList();
+		ChinaNumber cn = new ChinaNumber();
+		Double aa = 0.00;
+		for (int x = 0; x < mxcl.size(); x++) {
+			aa = aa + mxcl.get(x).getJshj();
+		}
+		String jshjstr = new DecimalFormat("0.00").format(aa);
+		dxlist.add(cn.getCHSNumber(jshjstr));
+		session.setAttribute("cffplList", mxcl);
+		session.setAttribute("jyls", jyls);
+		session.setAttribute("zwlist", dxlist);
+		return "fphc/fapiao";
 	}
 }

@@ -316,15 +316,7 @@
 													<input type="text" id="gfdz_edit" name="gfdz_edit"
 														placeholder="输入购方地址...">
 												</div>
-												<label for="tqm_edit" class="am-u-sm-2 am-form-label">提取码</label>
-
-												<div class="am-u-sm-4">
-													<input type="text" id="tqm_edit" name="tqm_edit"
-														placeholder="输入提取码...">
-												</div>
-											</div>
-											<div class="am-form-group">
-
+												
 												<label for="ddh_edit" class="am-u-sm-2 am-form-label"><span
 													style="color: red;">*</span>订单号</label>
 
@@ -332,8 +324,19 @@
 													<input type="text" id="ddh_edit" name="ddh_edit"
 														placeholder="输入订单号..." required>
 												</div>
-												<label for="gfsjh_edit" class="am-u-sm-2 am-form-label">手机号</label>
-												<div class="am-u-sm-4">
+												
+												
+											</div>
+											<div class="am-form-group" style="display:none">
+
+							                    <label for="tqm_edit" class="am-u-sm-2 am-form-label" style="display:none" >提取码</label>
+
+												<div class="am-u-sm-4" style="display:none">
+													<input type="text" id="tqm_edit" name="tqm_edit"
+														placeholder="输入提取码...">
+												</div>
+												<label for="gfsjh_edit" class="am-u-sm-2 am-form-label" style="display:none" >手机号</label>
+												<div class="am-u-sm-4" style="display:none">
 													<input type="text" id="gfsjh_edit" name="gfsjh_edit"
 														placeholder="输入购方手机号...">
 												</div>
