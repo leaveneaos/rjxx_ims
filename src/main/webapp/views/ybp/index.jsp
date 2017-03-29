@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
-
+<script src="assets/js/loading.js"></script>
     <!-- jqplot style -->
     <link rel="stylesheet" href="/plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>

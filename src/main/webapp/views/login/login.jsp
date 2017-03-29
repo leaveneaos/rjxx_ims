@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/web.css"/>
     <script src="../assets/js/jquery.min.js"></script>
+    <script src="assets/js/loading.js"></script>
     <script language="javascript">
         if(window !=top){
             top.location.href=location.href;

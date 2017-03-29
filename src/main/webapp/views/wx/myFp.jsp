@@ -7,6 +7,7 @@
     <title>我的发票</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="<%=request.getContextPath()%>/css/mui.min.css" rel="stylesheet"/>
+    <script src="assets/js/loading.js"></script>
 </head>
 <body ng-app="ngApp" ng-controller="mainCtrl">
 <header class="mui-bar mui-bar-nav">

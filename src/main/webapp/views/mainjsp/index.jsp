@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
+<script src="assets/js/loading.js"></script>
 </head>
 <body>
  <div class="am-g tpl-g">
