@@ -31,6 +31,8 @@ public class FphcController extends BaseController {
 	private KpspmxService mxService;
 	@Autowired
 	private FphcService FphcService;
+	 
+
 	
 	@RequestMapping
 	public String index() throws Exception {
@@ -245,6 +247,7 @@ public class FphcController extends BaseController {
 		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
 			result.put("msg", "红冲成功!");
+			
 		}else{
 			result.put("success", false);
 			result.put("msg", "红冲请求失败!"+flag.getReturnMessage());
