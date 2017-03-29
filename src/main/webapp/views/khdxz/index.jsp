@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main.css"/>
+    <script src="assets/js/loading.js"></script>
 </head>
 <body>
 <header class="am-topbar admin-header">

@@ -16,6 +16,7 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
+    <script src="assets/js/loading.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>

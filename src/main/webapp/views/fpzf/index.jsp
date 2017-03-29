@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+<script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-form-horizontal .am-form-label {
 	text-align: left;
@@ -460,7 +461,18 @@
 				</div>
 			</div>
 		</div>
-
+            <div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+			     <div class="am-modal-hd">
+			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			    </div>
+			  <div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+			       <div class="am-modal-bd" >
+			       <div id="doc-modal-fpyll">
+                      <%@ include file="fapiao.jsp" %>
+					</div>
+				</div>
+			  </div>
+			</div>
 
 		<!-- loading do not delete this -->
 		<div

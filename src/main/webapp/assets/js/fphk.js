@@ -270,17 +270,20 @@ $(function () {
                                     success: function (data) {
                                         if (data.success) {
                                             el.$modalhuankai.modal('close'); // close
-                                            alert(data.msg);
-
+                                            $("#alertt").html(data.msg);
+                                        	$("#my-alert").modal('open');
+                                            _this.tableEx.ajax.reload(); // reload table
                                         } else {
-                                            alert(data.msg);
+                                        	$("#alertt").html(data.msg);
+                                        	$("#my-alert").modal('open');
                                         }
                                         _this.tableEx.ajax.reload(); // reload table
                                         el.$jsLoading.modal('close'); // close loading
 
                                     },
                                     error: function () {
-                                        alert('换开操作失败, 请重新登陆再试...!');
+                                        $("#alertt").html('换开操作失败, 请重新登陆再试...!');
+                                    	$("#my-alert").modal('open');
                                     }
                                 });
                                 return false;

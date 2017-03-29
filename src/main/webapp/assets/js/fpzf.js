@@ -271,9 +271,16 @@ $(function () {
                         {
                             "data": null,
                             "render": function (data) {
-                                return '<a class="view" href="'
+                            	if(data.fpzldm=='12'){
+                            		return '<a class="view" href="'
                                     + data.pdfurl
                                     + '" target="_blank">查看</a>'
+                            	}else{
+                            		return '<a class="view" target="_blank">查看</a>'
+                            		
+                            	}
+                            	
+                                
                             }
                         }]
                 });
@@ -356,9 +363,14 @@ $(function () {
                     {
                         "data": null,
                         "render": function (data) {
-                            return '<a class="view" href="'
+                        	if(data.fpzldm=='12'){
+                        		return '<a class="view" href="'
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
+                        	}else{
+                        		return '<a class="view"  target="_blank">查看</a>'
+                        		
+                        	}
                         }
                     }]
             });
@@ -377,7 +389,16 @@ $(function () {
                 //$('#fpTable tr').find('td:eq(0)').hide();
             });
      
-            
+             t.on('click', 'a.view', function () {
+            	 var data = t.row($(this).parents('tr')).data();
+            	 $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
+             	 $("#doc-modal-fpyl").modal("open");
+            });
+             t1.on('click', 'a.view', function () {
+            	 var data = t.row($(this).parents('tr')).data();
+            	 $("#doc-modal-fpyll").load('fpzf/kpyl?kpsqhs='+data.djh);
+             	 $("#doc-modal-fpyl").modal("open");
+            });
             //选中列查询明细
             $('.js-table2 tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
@@ -454,6 +475,63 @@ $(function () {
              	t1.ajax.reload();
 
             });
+            
+          //作废操作
+            $('#kp_zf').click(function () {
+            	
+            	 var kplshStr = [];
+                 $('#chk:checked').each(function(){    
+                	 kplshStr.push($(this).val()); 
+                 });
+            	if(kplshStr.length>1){
+            		$("#alertt").html("不能批量作废！");
+                   	$("#my-alert").modal('open');
+                  	$('input[type="checkbox"]').prop('checked', false);     
+
+                       return;
+            		
+            	}else if(kplshStr.length==0){
+            		$("#alertt").html("请选择一条记录！");
+                   	$("#my-alert").modal('open');
+                  	$('input[type="checkbox"]').prop('checked', false);     
+
+                       return;
+            	}
+            	
+            	
+            	var kplsh = $('#kplsh').val();
+            	if(kplsh!=0){
+            		if(confirm("确定要作废该条数据吗？")){
+                		var xhStr = "";
+                    	var hcjeStr="";
+                    	var zhcje = 0;
+                		var rows = $("#mxTable").find('tr');		
+                		$.ajax({
+                			url:"fpzf/zf",
+                			data:{"kplsh":kplsh},
+                		    success:function(data){
+                		    	if(data.success){
+                		    		$("#alertt").html(data.msg);
+                    	           	$("#my-alert").modal('open');
+                		    		$("#kplsh").val("");
+                		    		t.ajax.reload();
+                		    	}else{
+                		    		$("#alertt").html(data.msg);
+                    	           	$("#my-alert").modal('open');
+                		    	}   		    	    		    	
+                		    },
+                		    error:function(){
+                		    	$("#alertt").html("程序出错，请联系开发人员！");
+                	           	$("#my-alert").modal('open');
+                		    	
+                		    }
+                		});
+                	}
+            	}else{
+            		$("#alertt").html("请选择一条记录！");
+                   	$("#my-alert").modal('open');
+            	}    	  
+            });
             return t;
         },
         /**
@@ -499,10 +577,14 @@ $(function () {
                 el.$modalHongchong.modal('close');
             });
         },*/
+       
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
+            
         }
+        
+       
     };
     action.init();
     //定义鼠标样式
@@ -514,60 +596,5 @@ $(function () {
     	   num=num.replace(/,/gi,'');
     	   return num;
     	}
-    //作废操作
-    $('#kp_zf').click(function () {
-    	
-    	 var kplshStr = [];
-         $('#chk:checked').each(function(){    
-        	 kplshStr.push($(this).val()); 
-         });
-    	if(kplshStr.length>1){
-    		$("#alertt").html("不能批量作废！");
-           	$("#my-alert").modal('open');
-          	$('input[type="checkbox"]').prop('checked', false);     
-
-               return;
-    		
-    	}else if(kplshStr.length==0){
-    		$("#alertt").html("请选择一条记录！");
-           	$("#my-alert").modal('open');
-          	$('input[type="checkbox"]').prop('checked', false);     
-
-               return;
-    	}
-    	
-    	
-    	var kplsh = $('#kplsh').val();
-    	if(kplsh!=0){
-    		if(confirm("确定要作废该条数据吗？")){
-        		var xhStr = "";
-            	var hcjeStr="";
-            	var zhcje = 0;
-        		var rows = $("#mxTable").find('tr');		
-        		$.ajax({
-        			url:"fpzf/zf",
-        			data:{"kplsh":kplsh},
-        		    success:function(data){
-        		    	if(data.success){
-        		    		$("#alertt").html(data.msg);
-            	           	$("#my-alert").modal('open');
-        		    		$("#kplsh").val("");
-        		    		window.location.reload();
-        		    	}else{
-        		    		$("#alertt").html(data.msg);
-            	           	$("#my-alert").modal('open');
-        		    	}   		    	    		    	
-        		    },
-        		    error:function(){
-        		    	$("#alertt").html("程序出错，请联系开发人员！");
-        	           	$("#my-alert").modal('open');
-        		    	
-        		    }
-        		});
-        	}
-    	}else{
-    		$("#alertt").html("请选择一条记录！");
-           	$("#my-alert").modal('open');
-    	}    	  
-    });
+    
 });

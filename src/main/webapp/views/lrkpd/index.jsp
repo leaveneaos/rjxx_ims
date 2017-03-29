@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/autocomplete.css" />
 <link rel="stylesheet" href="assets/css/app.css">
+<script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-table {
 	margin-bottom: 0rem;

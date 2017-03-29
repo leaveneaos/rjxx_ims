@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css"/>
     <!-- jqplot style -->
     <link rel="stylesheet" href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css"/>
-
+<script src="assets/js/loading.js"></script>
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>

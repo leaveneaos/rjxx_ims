@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
-
+<script src="assets/js/loading.js"></script>
 </head>
 
 <body data-type="widgets">

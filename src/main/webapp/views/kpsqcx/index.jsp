@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<script src="assets/js/loading.js"></script>
 </head>
 <body>
 	<div class="am-cf admin-main">

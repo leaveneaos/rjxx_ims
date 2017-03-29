@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css">
+<script src="assets/js/loading.js"></script>
 </head>
 <body>
 	<!--[if lte IE 9]>
