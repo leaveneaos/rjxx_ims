@@ -1213,7 +1213,7 @@ public class KpController extends BaseController {
 	@ResponseBody
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
 	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
-		Map<String, Object> result = new HashMap<String, Object>();
+/*		Map<String, Object> result = new HashMap<String, Object>();
 		boolean fl=true;
 		List<Integer> djhList = convertToList(djhArr);
 		String[] djhs = djhArr.split(",");
@@ -1263,6 +1263,26 @@ public class KpController extends BaseController {
 			result.put("msg", "申请开票成功！");
 		}
 		
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result.put("failure", true);
+			result.put("msg", "保存出现错误: " + ex.getMessage());
+		}
+		return result;*/
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Integer> djhList = convertToList(djhArr);
+		String[] djhs = djhArr.split(",");
+		for (int i = 0; i < djhs.length; i++) {
+             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz);
+		if (!flag) {
+			result.put("success", false);
+			result.put("msg", "第"+(i+1)+"条流水申请开具失败");
+			return result;
+		}
+		}
+		cljlService.saveYhcljl(getYhid(), "申请开具发票");
+		result.put("success", true);
+		result.put("msg", "申请开票成功！");
 	/*	} catch (Exception ex) {
 			ex.printStackTrace();
 			result.put("failure", true);
@@ -1279,10 +1299,10 @@ public class KpController extends BaseController {
 		Map<String, Object> result = new HashMap<>();
 		String[] djhs = djhArr.split(",");
 			for (int j = 0; j < djhs.length; j++) {
-			InvoiceResponse invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[j]),dybz,1);
-			 if (!invoiceResponse.getReturnCode().equals("0000")) {
+			boolean invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[j]),dybz);
+			 if (!invoiceResponse) {
 					result.put("success", false);
-					result.put("msg", "第"+(j+1)+"条流水申请开具失败"+invoiceResponse.getReturnMessage());
+					result.put("msg", "第"+(j+1)+"条流水申请开具失败");
 					return result;
 				}
 		}
