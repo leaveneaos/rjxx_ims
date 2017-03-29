@@ -463,7 +463,7 @@ public class KpdshController extends BaseController {
 				jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),6,BigDecimal.ROUND_HALF_UP));
 				jyspmxs.get(j).setSpse(jyspmxs.get(j).getJshj().subtract(jyspmxs.get(j).getSpje()));
 				if (jyspmxs.get(j).getSpdj()!=null) {
-					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj()));
+					jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj(),6,BigDecimal.ROUND_HALF_UP));
 				}else{
 					jyspmxs.get(j).setSps(null);
 				}
@@ -474,7 +474,7 @@ public class KpdshController extends BaseController {
 					jyspmxs.get(j).setSpje(jyspmxs.get(j).getJshj().divide(new BigDecimal("1").add(jyspmxs.get(j).getSpsl()),6,BigDecimal.ROUND_HALF_UP));
 					jyspmxs.get(j).setSpse(jyspmxs.get(j).getJshj().subtract(jyspmxs.get(j).getSpje()));
 					if (jyspmxs.get(j).getSpdj()!=null) {
-						jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj()));
+						jyspmxs.get(j).setSps(jyspmxs.get(j).getJshj().divide(jyspmxs.get(j).getSpdj(),6,BigDecimal.ROUND_HALF_UP));
 					}else{
 						jyspmxs.get(j).setSps(null);
 					}
