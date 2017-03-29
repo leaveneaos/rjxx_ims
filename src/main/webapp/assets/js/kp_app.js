@@ -552,6 +552,72 @@ $(function() {
 
 
 	        $('#kp_kp').click(function () {
+//	            var djhArr = [];
+//	            var djhArr1 = [];
+//	            var bckpje = [];
+////	            $('#jyspmx_table input[name="chk"]:checked').each(function(){    
+////	                    djhArr.push($(this).val()); 
+////	            });
+//	            jyls_table.column(0).nodes().each(function(cell, i) {
+//
+//					var $checkbox = $(cell).find('input[type="checkbox"]');
+//					if ($checkbox.is(':checked')) {
+//
+//						var row =jyls_table.row(i).data().djh;
+//						djhArr.push(row);
+//					}
+//
+//				});
+//	            if (djhArr.length == 0) {
+//	            	$("#alertt").html("请勾选需要开票的交易流水");
+//	            	$("#my-alert").modal('open');
+//	                return;
+//	            }
+//	        	
+//	            $("#kp_kp").attr('disabled',"true"); 
+//	            $("#kp_kpdy").attr('disabled',"true"); 
+//	            $("#kp_del").attr('disabled',"true"); 
+//	            $("#conft").html("确认开票吗?")
+//	        if (!confirm("确认开票么")) {
+//	        	$('#kp_kp').removeAttr("disabled"); 
+//	        	$('#kp_kpdy').removeAttr("disabled"); 
+//	        	$('#kp_del').removeAttr("disabled"); 
+//							return;
+//						} 
+//	            $.ajax({
+//	                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
+//	                    if (data.success) {
+//	                    	$('#kp_kp').removeAttr("disabled"); 
+//	                    	$('#kp_kpdy').removeAttr("disabled"); 
+//	                    	$('#kp_del').removeAttr("disabled");
+//	                    	if(data.csz==0){
+//	                    		$("#alertt").html("申请开票成功");
+//	                    		$("#my-alert").modal('open');
+//		                        jyls_table.ajax.reload();
+//	                    	}else if(data.csz==1){
+//	                    		$("#alertt").html("开票成功");
+//	                    		$("#my-alert").modal('open');
+//		                        jyls_table.ajax.reload();
+//	                    	}else if(data.csz==2){
+//	    	                    if (data.success) {
+//	    	                        $("#doc-modal-fphm").modal("open");
+//	    	                        $("#fpdm2").val(data.fpdm);
+//	    	                        $("#fphm2").val(data.fphm);
+//	    	                    } else {
+//	    	                    	$("#alertt").html(data.msg);
+//	    	                    	$("#my-alert").modal('open');                    
+//	                    	}
+//	                    	
+//	                    } 
+//	                }else {
+//                    	$('#kp_kp').removeAttr("disabled"); 
+//                    	$('#kp_kpdy').removeAttr("disabled"); 
+//                    	$('#kp_del').removeAttr("disabled"); 
+//                    	jyls_table.ajax.reload();
+//                    	$("#alertt").html(data.msg);
+//                    	$("#my-alert").modal('open');
+//                    }
+//	                }});
 	            var djhArr = [];
 	            var djhArr1 = [];
 	            var bckpje = [];
@@ -577,7 +643,7 @@ $(function() {
 	            $("#kp_kp").attr('disabled',"true"); 
 	            $("#kp_kpdy").attr('disabled',"true"); 
 	            $("#kp_del").attr('disabled',"true"); 
-	            $("#conft").html("确认开票吗?")
+	            $("#conft").html("确认开票么")
 	        if (!confirm("确认开票么")) {
 	        	$('#kp_kp').removeAttr("disabled"); 
 	        	$('#kp_kpdy').removeAttr("disabled"); 
@@ -589,35 +655,23 @@ $(function() {
 	                    if (data.success) {
 	                    	$('#kp_kp').removeAttr("disabled"); 
 	                    	$('#kp_kpdy').removeAttr("disabled"); 
-	                    	$('#kp_del').removeAttr("disabled");
-	                    	if(data.csz==0){
-	                    		$("#alertt").html("申请开票成功");
-	                    		$("#my-alert").modal('open');
-		                        jyls_table.ajax.reload();
-	                    	}else if(data.csz==1){
-	                    		$("#alertt").html("开票成功");
-	                    		$("#my-alert").modal('open');
-		                        jyls_table.ajax.reload();
-	                    	}else if(data.csz==2){
-	    	                    if (data.success) {
-	    	                        $("#doc-modal-fphm").modal("open");
-	    	                        $("#fpdm2").val(data.fpdm);
-	    	                        $("#fphm2").val(data.fphm);
-	    	                    } else {
-	    	                    	$("#alertt").html(data.msg);
-	    	                    	$("#my-alert").modal('open');                    
-	                    	}
-	                    	
-	                    } 
-	                }else {
-                    	$('#kp_kp').removeAttr("disabled"); 
-                    	$('#kp_kpdy').removeAttr("disabled"); 
-                    	$('#kp_del').removeAttr("disabled"); 
-                    	jyls_table.ajax.reload();
-                    	$("#alertt").html(data.msg);
-                    	$("#my-alert").modal('open');
-                    }
-	                }});        
+	                    	$('#kp_del').removeAttr("disabled");  
+	                    	$("#alertt").html("申请开票成功");
+	                    	$("#my-alert").modal('open');
+	                        jyls_table.ajax.reload();
+	                    } else {
+	                    	$('#kp_kp').removeAttr("disabled"); 
+	                    	$('#kp_kpdy').removeAttr("disabled"); 
+	                    	$('#kp_del').removeAttr("disabled"); 
+	                    	jyls_table.ajax.reload();
+	                    	$("#alertt").html(data.msg);
+	                    	$("#my-alert").modal('open');
+	                    }
+	                 //   $("#fpjek").modal("close");
+	                    
+	              //      $('#savet').removeAttr("disabled");
+	                }
+	            }); 
 	        });
 	        
 	        $('#kp_kpdy').click(function () {
