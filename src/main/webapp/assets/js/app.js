@@ -62,7 +62,7 @@
         $.AMUI.validator.patterns.Integer = /^-?\d+$/;
 
         //金额
-        $.AMUI.validator.patterns.Money = /^\d+\.?\d+?$/;
+        $.AMUI.validator.patterns.Money = /^([+-]?)((\d{1,3}(,\d{3})*)|(\d+))(\.\d{2})?$/;
 
         //发票代码
         $.AMUI.validator.patterns.Fpdm = /^\d{10,12}$/;
