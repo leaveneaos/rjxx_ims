@@ -643,8 +643,8 @@ $(function() {
 	            $("#kp_kp").attr('disabled',"true"); 
 	            $("#kp_kpdy").attr('disabled',"true"); 
 	            $("#kp_del").attr('disabled',"true"); 
-	            $("#conft").html("确认开票么")
-	        if (!confirm("确认开票么")) {
+	            $("#conft").html("确认开票吗")
+	        if (!confirm("确认开票吗")) {
 	        	$('#kp_kp').removeAttr("disabled"); 
 	        	$('#kp_kpdy').removeAttr("disabled"); 
 	        	$('#kp_del').removeAttr("disabled"); 
