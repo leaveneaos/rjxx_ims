@@ -165,6 +165,11 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data(),
                     $sentType = null,
                     row = '';
+                if (data.gfemail == null || data.gfemail == "") {
+    				$('#msg').html('没有邮箱，请增加邮箱后在发送');
+    				$('#my-alert').modal('open');
+                	return;    
+				}
                 $(this).parents('tr').find('.sentType').each(function (i, el) {
                     $sentType = $(el);
                     if ($sentType.is(':checked')) {
@@ -190,7 +195,8 @@ $(function () {
             var _this = this;
             el.$jsLoading.modal('open');
             if(data.ids==''){
-            	alert("请先选择至少一条数据！");
+				$('#msg').html('请先选择至少一条数据');
+				$('#my-alert').modal('open');
             	el.$jsLoading.modal('close');
             	return;            	
             }
@@ -202,14 +208,17 @@ $(function () {
                 success: function (data) {
                     // todo 处理返回结果
                     if (data.statu === '0') {
-                        alert('发送成功');
+    					$('#msg').html(data.msg);
+    					$('#my-alert').modal('open');
                     } else {
-                        alert('发送失败,服务器错误' + data.message);
+    					$('#msg').html('发送失败,服务器错误' + data.message);
+    					$('#my-alert').modal('open');
                     }
                     el.$jsLoading.modal('close');
                 },
                 error: function () {
-                    alert('请求失败,请刷新后稍后重试!');
+					$('#msg').html('请求失败,请刷新后稍后重试!');
+					$('#my-alert').modal('open');
                 }
             });
 
@@ -324,7 +333,8 @@ $(function () {
                                     _this.tableEx.ajax.reload(); // reload table data
 
                                 } else {
-                                    alert('后台错误: 保存数据失败' + data.message);
+                					$('#msg').html('后台错误: 保存数据失败' + data.message);
+                					$('#my-alert').modal('open');
                                 }
 
 
@@ -332,13 +342,15 @@ $(function () {
 
                             },
                             error: function () {
-                                alert('保存数据失败, 请刷新后再试...!');
+            					$('#msg').html('保存数据失败, 请刷新后再试...!');
+            					$('#my-alert').modal('open');
                             }
                         });
 
                         return false;
                     } else {
-                        alert('验证失败');
+    					$('#msg').html('验证失败');
+    					$('#my-alert').modal('open');
                         return false;
                     }
                 }

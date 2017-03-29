@@ -14,6 +14,7 @@ import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
 import com.rjxx.taxeasy.domains.Jyls;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.GsxxService;
 import com.rjxx.taxeasy.service.JylsService;
 import com.rjxx.taxeasy.service.KplsService;
@@ -39,7 +40,7 @@ public class YjfsController extends BaseController {
 
 	@Autowired
 	private GsxxService gs;
-	
+
 	@Autowired
 	private SendalEmail se;
 
@@ -51,9 +52,11 @@ public class YjfsController extends BaseController {
 
 	@RequestMapping(value = "/send")
 	@ResponseBody
+	@SystemControllerLog(description = "发送邮件",key = "ids")  
 	public Map send(String ids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<>();
+		String msg = "";
 		if (!"".equals(ids)) {
 			String[] idls = ids.split(",");
 			for (int i = 0; i < idls.length; i++) {
@@ -64,16 +67,28 @@ public class YjfsController extends BaseController {
 				try {
 					params.put("kplsh", id);
 					final Kpls kpls = ks.findOneByParams(params);
+					if (kpls.getGfemail() == null || "".equals(kpls.getGfemail())) {
+//						if ("".equals(msg)) {
+//							msg += "发送失败，";
+//						}
+						msg += "发票代码：" + kpls.getFpdm() + "|发票号码：" + kpls.getFphm() + "无邮箱,发送失败;";
+						continue;
+					}
 					Jyls jyls = js.findOne(kpls.getDjh());
-					GetYjnr getYjnr = new GetYjnr();					
-					String content = getYjnr.getFpkjYj(jyls.getDdh(), new ArrayList<String>(){{add(kpls.getPdfurl());}},kpls.getXfmc());
-					se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件", String.valueOf(kpls.getDjh()), content, "电子发票");
-					/*SendEmail se = new SendEmail();
-					se.sendMail(jyls.getDdh(), kpls.getGfemail(), new ArrayList<String>() {
+					GetYjnr getYjnr = new GetYjnr();
+					String content = getYjnr.getFpkjYj(jyls.getDdh(), new ArrayList<String>() {
 						{
 							add(kpls.getPdfurl());
 						}
-					}, gsxx.getGsmc());*/
+					}, kpls.getXfmc());
+					se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
+							String.valueOf(kpls.getDjh()), content, "电子发票");
+					/*
+					 * SendEmail se = new SendEmail();
+					 * se.sendMail(jyls.getDdh(), kpls.getGfemail(), new
+					 * ArrayList<String>() { { add(kpls.getPdfurl()); } },
+					 * gsxx.getGsmc());
+					 */
 				} catch (Exception e) {
 					e.printStackTrace();
 					result.put("statu", "1");
@@ -82,7 +97,11 @@ public class YjfsController extends BaseController {
 				}
 			}
 		}
+		if ("".equals(msg)) {
+			msg = "发送成功";
+		}
 		result.put("statu", "0");
+		result.put("msg", msg);
 		return result;
 	}
 
@@ -132,8 +151,8 @@ public class YjfsController extends BaseController {
 		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("fpzl", "12");
-//		pagination.addParam("jyrqq", jyrqq);
-//		pagination.addParam("jyrqz", jyrqz);
+		// pagination.addParam("jyrqq", jyrqq);
+		// pagination.addParam("jyrqz", jyrqz);
 		if (!"".equals(jyrqq)) {
 			pagination.addParam("jyrqq", jyrqq);
 		}
