@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css" />
+<script src="assets/js/loading.js"></script>
 <link rel="stylesheet"
 	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
 <link rel="stylesheet"

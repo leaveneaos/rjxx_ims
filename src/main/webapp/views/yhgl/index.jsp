@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="../../assets/css/amazeui.tree.min.css">
+    <script src="assets/js/loading.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>

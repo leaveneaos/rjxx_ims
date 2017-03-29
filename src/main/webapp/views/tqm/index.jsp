@@ -10,6 +10,7 @@
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <link href="<%=request.getContextPath()%>/css/mui.min.css" rel="stylesheet"/>
     <%--<script src="assets/js/jquery.min.js"></script>--%>
+    <script src="assets/js/loading.js"></script>
 </head>
 <body>
 <script src="<%=request.getContextPath()%>/assets/js/mui.min.js"></script>

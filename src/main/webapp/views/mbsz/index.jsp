@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
+<script src="assets/js/loading.js"></script>
 <style>
  .am-u-left{
     padding-left:0em;
