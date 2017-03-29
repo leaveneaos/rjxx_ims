@@ -1322,13 +1322,13 @@ public class LrkpdController extends BaseController {
 				if (gfsh==null||gfsh.equals("")) {
 					msgg = "第" + (i+2) + "行专票购方税号为空，请重新填写！";
 				}else{
-					if (gfsh != null && !(gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
+					if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
 						msgg = "第" + (i+2) + "行购方税号不是15位到20位，请重新填写！";
 						msg += msgg;
 					}
 				}
 			}else{
-				if (gfsh != null && !(gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
+				if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
 					msgg = "第" + (i+2) + "行购方税号不是15位到20位，请重新填写！";
 					msg += msgg;
 				}
