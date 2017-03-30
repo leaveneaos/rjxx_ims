@@ -166,17 +166,17 @@
 							<div class="am-u-sm-12">
 								<!-- 折线图开始 -->
 							<div class="am-u-sm-6" style="padding-left: 20px">
-								<div id="chart1" style="width: 500px; height: 300px"></div>
+								<div id="chart1" style="width: 1000px; height: 300px"></div>
 							</div>
 							<!-- 折线图结束 -->
 							<!-- 折线图开始 -->
-							<div class="am-u-sm-6" style="padding-left: 20px">
+							<!-- <div class="am-u-sm-6" style="padding-left: 20px">
 								<div id="chart2" style="width: 500px; height: 300px"></div>
-							</div>
+							</div> -->
 							<!-- 折线图结束 -->
 								<br>
 								<div class="am-u-sm-12" style="text-align: center">
-									<span><strong></strong></span>
+									<span><strong>&nbsp;</strong></span>
 								</div>
 								<br>
 								<table
