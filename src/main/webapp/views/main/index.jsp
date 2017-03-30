@@ -81,57 +81,42 @@
 					class="admin-fullText">开启全屏</span></a></li>
 
                         <!-- 新邮件 -->
-                       <!--  <li class="am-dropdown tpl-dropdown" data-am-dropdown>
+                       <li class="am-dropdown tpl-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
                                 <i style="padding-top: 20px;" class="am-icon-envelope"></i>
-                                <span  class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                                <c:if test="${xxsl !=null }">
+								<span class="am-badge am-badge-success am-round item-feed-badge">${xxsl}</span>
+							</c:if>
                             </a>
                             弹出列表
-                            <ul class="am-dropdown-content tpl-dropdown-content">
-                                <li class="tpl-dropdown-menu-messages">
+                            <ul class="am-dropdown-content tpl-dropdown-content" id="xxul">
+                            <c:forEach items="${xxList}" var="var">
+                                <li class="tpl-dropdown-menu-messages" id="${var.id}" onclick="look(this)">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
                                             <img src="" alt="">
                                         </div>
                                         <div class="menu-messages-time">
-                                            3小时前
+                                            
                                         </div>
                                         <div class="menu-messages-content">
                                             <div class="menu-messages-content-title">
                                                 <i class="am-icon-circle-o am-text-success"></i>
-                                                <span>中原地产</span>
+                                                <span>${var.title}</span>
                                             </div>
-                                            <div class="am-text-truncate"> 中原地产发来的消息xxxxxxxx。 </div>
-                                            <div class="menu-messages-content-time">2017-01-18 下午 16:40</div>
+                                            <div class="am-text-truncate">${var.content} </div>
+                                            <div class="menu-messages-content-time">${var.lrsj}</div>
                                         </div>
                                     </a>
                                 </li>
-
+                                </c:forEach>                            
                                 <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <div class="menu-messages-ico">
-                                            <img src="" alt="">
-                                        </div>
-                                        <div class="menu-messages-time">
-                                            5天前
-                                        </div>
-                                        <div class="menu-messages-content">
-                                            <div class="menu-messages-content-title">
-                                                <i class="am-icon-circle-o am-text-warning"></i>
-                                                <span>食其家</span>
-                                            </div>
-                                            <div class="am-text-truncate"> 食其家发来的消息xxxxxxxxxx。 </div>
-                                            <div class="menu-messages-content-time">2017-01-13 上午 09:23</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                    <a href="javascript:jumpJsp();" class="tpl-dropdown-menu-messages-item am-cf">
                                         <i class="am-icon-circle-o"></i> 进入列表…
                                     </a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li> 
 
                         <!-- 新提示 -->
                         <!-- <li class="am-dropdown" data-am-dropdown>
@@ -315,6 +300,37 @@
 					</div>
 					</div>
 				</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="x_div">
+		<div class="am-modal-dialog">
+			<form class="js-form-0 am-form am-form-horizontal">
+				<div class="am-modal-bd">
+					<div class="am-g">
+						<div class="am-form-group">							
+							<div class="am-u-sm-12">
+								<label id="x_title" class="am-u-sm-12"></label>
+							</div>
+						</div>
+						<br>
+						<div class="am-form-group">
+							<div class="am-u-sm-12">
+								<div id="x_content"></div>
+							</div>
+						</div>
+						<br><br>
+						<div class="am-form-group">
+							<div class="am-u-sm-12">
+								<div class="am-u-sm-5" id="x_lrsj"></div>
+								<div class="am-u-sm-3"></div>
+								<div class="am-u-sm-4">
+								     <button type="button" onclick="closeModel()" class="am-btn am-btn-warning">确定</button>
+								</div>
+							</div>
+						</div>										
+					</div>
 				</div>
 			</form>
 		</div>
@@ -639,6 +655,30 @@
 			}
 		});
 	}
+	function look(da){
+		var id = $(da).attr("id");
+		$.ajax({
+			url:'main/getXxmx',
+			data:{"id":id},
+			success:function(data){
+				$("#x_title").html(data.title);
+				$("#x_content").html(data.content);
+				$("#x_lrsj").html(data.lrsj);
+				$("#x_div").modal("open");
+			}
+		})
+	}
+	function closeModel(){
+		$("#x_div").modal("close");
+		window.location.reload();
+	}
+	
+	function jumpJsp(){
+		$('#xxul').toggle();
+		$("#mainFrame").attr("src","<%=request.getContextPath()%>/xtxx");
+		
+	}
+
 	
 </script> 
 
