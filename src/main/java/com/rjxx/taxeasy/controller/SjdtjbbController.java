@@ -34,7 +34,30 @@ public class SjdtjbbController extends BaseController {
 		request.setAttribute("xfs", xfs);
 		return "sjdtjbb/index";
 	}
-
+    
+	@RequestMapping(value = "/getList")
+	@ResponseBody
+	public Map<String,Object> getItems(Integer xfid,Integer skpid,String kprqq,String kprqz)throws Exception{		
+		Map<String,Object> result = new LinkedHashMap<String,Object>();
+		Map<String,Object> yplResult = getYypl(xfid,skpid,kprqq,kprqz);
+		Map<String,Object> tqlResult = getYtql(xfid,skpid,kprqq,kprqz);
+		List<Cxtjvo> tjList = new ArrayList<Cxtjvo>();
+		if(kprqq==null||"".equals(kprqq)){
+			result.put("data", tjList);
+			return result;
+		}
+		for(String key:yplResult.keySet()){
+			Cxtjvo item = new Cxtjvo();
+			Integer kpl = (Integer) yplResult.get(key);
+			Integer tql = (Integer) tqlResult.get(key);
+			item.setKpny(key);
+			item.setFpsl(kpl);
+			item.setTqsl(tql);
+			tjList.add(item);			
+		}
+		result.put("data", tjList);
+		return result;
+	}
 	/**
 	 * 每月用票量的查询
 	 * */

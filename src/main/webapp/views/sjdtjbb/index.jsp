@@ -176,23 +176,17 @@
 							<!-- 折线图结束 -->
 								<br>
 								<div class="am-u-sm-12" style="text-align: center">
-									<span><strong>税率统计</strong></span>
+									<span><strong></strong></span>
 								</div>
 								<br>
 								<table
 									class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 									<thead>
 										<tr>
-											<th>税率(%)</th>
-											<th>销方名称</th>
-											<th>发票种类</th>
-											<th>税率类型</th>
-											<th>销项正数金额</th>
-											<th>销项负数金额</th>
-											<th>合计金额</th>
-											<th>正数税额</th>
-											<th>负数税额</th>
-											<th>合计税额</th>
+											<th>序号</th>
+											<th>统计年月</th>
+											<th>用票量</th>
+											<th>提取量</th>
 										</tr>
 									</thead>
 									<tbody>
