@@ -20,7 +20,7 @@ $(function () {
         bInfo:false,
         bPaginate:false,
         "ajax": {
-            url: 'fytjbb/getje',
+            url: 'sjdtjbb/getList',
             type: 'POST',
             data: function (d) {
             	var bz = $('#searchbz').val();
@@ -38,17 +38,23 @@ $(function () {
             }
         },
         "columns": [                 
-            {"data": "sl"},
-            {"data": "xfmc"},
-            {"data": "fpzl"},
-            {"data": "jzjtbz"},                   
-            {"data": "zsje"},
-            {"data": "fsje"},
-            {"data": "hjje"},
-            {"data": "zsse"},
-            {"data": "fsse"},
-            {"data": "hjse"}
+            {
+               "orderable": false,
+               "data": null,
+               "defaultContent": ""
+            },
+            {"data": "kpny"},
+            {"data": "fpsl"},
+            {"data": "tqsl"}                  
             ]
+    });
+    t.on('draw.dt', function (e, settings, json) {
+        var x = t,
+            page = x.page.info().start; // 设置第几页
+        t.column(0).nodes().each(function (cell, i) {
+            cell.innerHTML = page + i + 1;
+        });
+
     });
     
     var action = {
