@@ -6,6 +6,7 @@ $(function () {
     var ur ;
     var el = {
     	$jsTable: $('.js-table'),//库存table
+    	$jsNewTable:$('#jsNewTable'),
         $modalHongchong: $('#hongchong'),//弹出div
         $jsClose: $('.js-close'),//取消按钮
         $jsForm: $('.js-form-kc'), //  form
@@ -21,6 +22,35 @@ $(function () {
         $fpdm: $('#fpdm'),//发票代码
         $fplx:$('#fplx')
     };
+    
+    var tb = el.$jsNewTable.DataTable({
+        "processing": true,
+        "serverSide": true,
+        ordering: false,
+        searching: false,
+        "bPaginate":false,
+        "bLengthChange":false,
+        "bSort":false,
+        "bInfo": false,
+        "ajax": {
+            url:'fpkc/getServerFpkc',
+            type: 'POST',
+            data: function (d) {                      
+            	d.skpid = $('#kpddm').val();
+            }
+        },
+        "columns": [                        
+            {"data": "xfmc"},
+            {"data": "xfsh"},
+            {"data": "kpdmc"},
+            {"data":"fpzlmc"},
+            {"data": "fpdm"},
+            {"data": "fphms"},
+            {"data": "fphmz"},
+            {"data": "kyl"}
+            ]
+    });
+    
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -194,9 +224,18 @@ $(function () {
         },
         
         autoWrite:function(){
-        	$('.autowrite').on('click',$('.autowrite'),function(){
-        		$('#formdiv').hide();
-            	$('#tablediv').show();
+        	$('.autowrite').on('click',$('.autowrite'),function(e){
+        		var skpid = $('#kpddm').val();
+        		if(skpid==''||skpid==null){
+        			$('#alert-msg').html("请先选择销方及开票点！");
+       				$('#my-alert').modal('open');
+        		}else{
+        			e.preventDefault();  
+        			tb.ajax.reload();
+        			$('#formdiv').hide();
+                	$('#tablediv').show();
+        		}
+        		
         	});        	
         },
         
@@ -209,6 +248,35 @@ $(function () {
         /**
          * 新增保存
          */
+        saveAllKc:function(){
+        	$('#autoKc').validator({
+        		submit:function(){
+        			var len = $("#jsNewTable").children("tr").length;
+        			alert(len)
+        			if(len<1){
+        				$('#alert-msg').html("没有取到数据不能保存,请先检查开票通是否启动！");
+           				$('#my-alert').modal('open');
+                       	return false;
+        			}else{
+        				var data = $('#autoKc').serialize();
+        				$.ajax({
+        					url:'fpkc/saveAllkc',
+        					data:data,
+        					method: 'POST',
+        					success:function(data){
+        						 if(data.success){
+        							 el.$modalHongchong.modal('close'); // close
+        							 $('#alert-msg').html(data.msg);
+        		           			 $('#my-alert').modal('open');
+        		           			 _this.tableEx.ajax.reload();
+        						 }
+        					 }
+        				})
+        			}
+        			return false;
+        		}
+        	})
+        },
        save:function(){
     	   var _this = this;
            el.$jsForm.validator({
@@ -300,6 +368,7 @@ $(function () {
             _this.find_mv();
             _this.autoWrite();
             _this.retu();
+            _this.saveAllKc();
         }
     };
     action.init();

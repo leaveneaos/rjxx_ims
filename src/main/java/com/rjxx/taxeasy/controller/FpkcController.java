@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.Fpkc;
 import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
@@ -22,6 +23,7 @@ import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.utils.Tools;
 
 @Controller
 @RequestMapping("/fpkc")
@@ -34,6 +36,8 @@ public class FpkcController extends BaseController {
 	private SkpService skpService;
 	@Autowired
 	private XfService xfService;
+	@Autowired
+	private SkService skService;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -140,6 +144,7 @@ public class FpkcController extends BaseController {
 		Map params = new HashMap<>();
 		params.put("skpid", item.getSkpid());
 		params.put("fpdm", item.getFpdm());
+		params.put("fpzldm", item.getFpzldm());
 		List<Fpkc> kcList = fpkcService.findFphmd(params);
 		if (kcList != null && kcList.size() > 0) {
 			for (Fpkc fpkc : kcList) {
@@ -274,15 +279,21 @@ public class FpkcController extends BaseController {
 			result.put("data", kcjkList);
 			return result;
 		}
-		
+		/**
+		 * 自动读取发票库存
+		 * */
 		@RequestMapping(value = "/getServerFpkc")
 		@ResponseBody
-		public Map<String,Object> getFpkc(List<Map<Object,Object>> list){
+		public Map<String,Object> getFpkc(Integer skpid){
 			Map<String,Object> result = new HashMap<String,Object>();
 			List<Fpkcvo> fpkcList = new ArrayList<Fpkcvo>();
+			if(skpid==null||"".equals(skpid)){
+				result.put("data", fpkcList);
+				return result;
+			}
+			List<Map<String,Object>> list = skService.getKc(skpid);
 			if(list !=null && list.size()>0){
-				for(Map<Object,Object> map:list){
-					Integer skpid = (Integer) map.get("skpid");
+				for(Map<String,Object> map:list){
 					Map params = new HashMap<>();
 					params.put("id",skpid);
 					Skp skp = skpService.findOneByParams(params);
@@ -303,6 +314,9 @@ public class FpkcController extends BaseController {
 					String fphmz = (String)map.get("fphmz");
 					Integer kyl = (Integer)map.get("kyl");
 					Fpkcvo fpkc = new Fpkcvo();
+					fpkc.setGsdm(gsdm);
+					fpkc.setXfid(xfid);
+					fpkc.setSkpid(skpid);
 					fpkc.setXfmc(xfmc);
 					fpkc.setXfsh(xfsh);
 					fpkc.setKpdmc(kpdmc);
@@ -318,10 +332,59 @@ public class FpkcController extends BaseController {
 				result.put("data", fpkcList);
 			}else{
 				result.put("success", false);
-				result.put("msg", "请先启动客户端！");
+				result.put("data", fpkcList);
 			}			
 			return result;
 		}
-
+        
+		/**
+		 * 发票自动获取库存后保存
+		 * */
+		@RequestMapping(value = "/saveAllkc")
+		@ResponseBody
+		public Map<String,Object> savekc()throws Exception{
+			Map<String,Object> result = new HashMap<String,Object>();
+			Map params = Tools.getParameterMap(request);
+			String[] gsdm = ((String) params.get("gsdm")).split(",");
+			String[] xfid = ((String) params.get("xfid")).split(",");
+			String[] skpid = ((String) params.get("skpid")).split(",");
+			String[] fpzldm = ((String) params.get("fpzldm")).split(",");
+			String[] fpdm = ((String) params.get("fpdm")).split(",");
+			String[] fphms = ((String) params.get("fphms")).split(",");
+			String[] fphmz = ((String) params.get("fphmz")).split(",");
+			String[] kyl = ((String) params.get("kyl")).split(",");
+			for(int i=0;i<fpzldm.length;i++){
+				Map param = new HashMap<>();
+				param.put("gsdm", gsdm[0]);
+				param.put("xfid", Integer.parseInt(xfid[0]));
+				param.put("skpid", Integer.parseInt(skpid[0]));
+				param.put("fpzldm", fpzldm[i]);
+				param.put("fpdm", fpdm[i]);
+				param.put("fphms", fphms[i]);
+				Fpkc item = fpkcService.findOneByParams(param);
+				if(item==null){
+					Fpkc fpkc = new Fpkc();
+					fpkc.setGsdm(gsdm[0]);
+					fpkc.setXfid(Integer.parseInt(xfid[0]));
+					fpkc.setSkpid(Integer.parseInt(skpid[0]));
+					fpkc.setFpzldm(fpzldm[i]);
+					fpkc.setFpdm(fpdm[i]);
+					fpkc.setFphms(fphms[i]);
+					fpkc.setFphmz(fphmz[i]);
+					fpkc.setFpkcl(Integer.parseInt(kyl[i]));
+					fpkc.setYxbz("1");
+					fpkc.setLrsj(new Date());
+					fpkc.setLrry(getYhid());
+					fpkcService.save(fpkc);
+				}else{
+					item.setFphmz(fphmz[i]);
+					item.setFpkcl(Integer.parseInt(kyl[i]));
+					fpkcService.save(item);
+				}				
+			}
+			result.put("success", true);
+			result.put("msg", "保存成功！");
+			return result;
+		}
 
 }

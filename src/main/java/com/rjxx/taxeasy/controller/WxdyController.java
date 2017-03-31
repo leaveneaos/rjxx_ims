@@ -90,28 +90,33 @@ public class WxdyController extends BaseController{
             Document document = reader.read(inputStream);
             Element rootElt = document.getRootElement();
             String openid = rootElt.elementText("FromUserName");
-            String eventKey = rootElt.elementText("EventKey");
-            String serverid = rootElt.elementText("ToUserName");
-            String msgType = rootElt.elementText("MsgType");
-            if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
-            	eventKey = eventKey.replaceAll("qrscene_", "");
+            try{
+            	String eventKey = rootElt.elementText("EventKey");
+                String serverid = rootElt.elementText("ToUserName");
+                String msgType = rootElt.elementText("MsgType");
+                if(eventKey !=null&&eventKey.indexOf("qrscene")<0){    //以前未关注，扫码后关注
+                	eventKey = eventKey.replaceAll("qrscene_", "");
+                }
+                Integer yhid = Integer.parseInt(eventKey);
+        		Map params = new HashMap<>();
+        		params.put("yhid", yhid);
+        		DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
+        		if(lxfs==null){
+        			DyYhlxfs item = new DyYhlxfs();
+        			item.setYhid(yhid);
+        			item.setWxOpenid(openid);
+        			item.setYxbz("1");
+        			yhlxfsService.save(item);
+        		}else{
+        			lxfs.setWxOpenid(openid);
+        			yhlxfsService.save(lxfs);
+        		}
+        		sentMsg(openid,serverid,msgType,"恭喜您，微信订阅成功！");
+            	logger.error("isSuccess:" + echostr);
+            }catch(Exception e){
+            	logger.error("isSuccess:" + echostr);
             }
-            Integer yhid = Integer.parseInt(eventKey);
-    		Map params = new HashMap<>();
-    		params.put("yhid", yhid);
-    		DyYhlxfs lxfs = yhlxfsService.findOneByParams(params);
-    		if(lxfs==null){
-    			DyYhlxfs item = new DyYhlxfs();
-    			item.setYhid(yhid);
-    			item.setWxOpenid(openid);
-    			item.setYxbz("1");
-    			yhlxfsService.save(item);
-    		}else{
-    			lxfs.setWxOpenid(openid);
-    			yhlxfsService.save(lxfs);
-    		}
-    		sentMsg(openid,serverid,msgType,"恭喜您，微信订阅成功！");
-        	logger.error("isSuccess:" + echostr);
+            
         }			
         
 		/*//订阅成功，推送微信消息

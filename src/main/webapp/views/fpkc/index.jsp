@@ -38,8 +38,8 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-								<br>
-									<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong id="ejcd"></strong>
+									<br> <strong id="yjcd" class="am-text-primary am-text-lg"></strong>
+									/ <strong id="ejcd"></strong>
 									<button class="am-btn am-btn-success am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
@@ -47,10 +47,11 @@
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 										<form class="js-search-form am-form">
 											<div class="am-offcanvas-content">
-											     <div class="am-form-group">
+												<div class="am-form-group">
 													<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
 													<div class="am-u-sm-8">
-														<select id="xfid" name="xfid" data-am-selected="{btnSize: 'sm'}">
+														<select id="xfid" name="xfid"
+															data-am-selected="{btnSize: 'sm'}">
 															<option value="">请选择销方</option>
 															<c:forEach items="${xfList}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
@@ -60,10 +61,11 @@
 												</div>
 											</div>
 											<div class="am-offcanvas-content top-position">
-											     <div class="am-form-group">
+												<div class="am-form-group">
 													<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点</label>
 													<div class="am-u-sm-8">
-														<select id="s_skpid" name="skpid" data-am-selected="{btnSize: 'sm'}">
+														<select id="s_skpid" name="skpid"
+															data-am-selected="{btnSize: 'sm'}">
 															<option value="">请选择开票点</option>
 															<c:forEach items="${skpList}" var="skp">
 																<option value="${skp.id}">${skp.kpdmc}</option>
@@ -73,10 +75,11 @@
 												</div>
 											</div>
 											<div class="am-offcanvas-content top-position">
-											     <div class="am-form-group">
+												<div class="am-form-group">
 													<label for="s_fplx" class="am-u-sm-4 am-form-label">发票种类</label>
 													<div class="am-u-sm-8">
-														<select id="cfplx" name="fpzldm" data-am-selected="{btnSize: 'sm'}">
+														<select id="cfplx" name="fpzldm"
+															data-am-selected="{btnSize: 'sm'}">
 															<option value="">请选择发票种类</option>
 															<c:forEach items="${fplxList}" var="item">
 																<option value="${item.fpzldm}">${item.fpzlmc}</option>
@@ -86,7 +89,7 @@
 												</div>
 											</div>
 											<div class="am-offcanvas-content top-position">
-											     <div class="am-form-group">
+												<div class="am-form-group">
 													<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 													<div class="am-u-sm-8">
 														<input type="text" id="cfpdm" name="fpdm"
@@ -105,36 +108,35 @@
 								</div>
 							</div>
 							<div class="am-g am-padding-top">
-							    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-										<div class="am-form-group">
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<input type="hidden" id="searchbz">
-													 <button class="am-btn am-btn-primary" id="jsAdd">
-															&nbsp;录入&nbsp;
-													</button> 
-												</div>
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+									<div class="am-form-group">
+										<div class="am-btn-toolbar">
+											<div class="am-btn-group am-btn-group-xs">
+												<input type="hidden" id="searchbz">
+												<button class="am-btn am-btn-primary" id="jsAdd">
+													&nbsp;录入&nbsp;</button>
 											</div>
 										</div>
 									</div>
-									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-										<div class="am-form-group tpl-table-list-select">
-											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
-												<option value="fpdm">发票代码</option>
-											</select>
-										</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+									<div class="am-form-group tpl-table-list-select">
+										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+											<option value="fpdm">发票代码</option>
+										</select>
 									</div>
-									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-										<div
-											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input type="text" class="am-form-field" id="searchValue"> <span
-												class="am-input-group-btn">
-												<button id="searchButton"
-													class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-													type="button"></button>
-											</span>
-										</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+									<div
+										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+										<input type="text" class="am-form-field" id="searchValue">
+										<span class="am-input-group-btn">
+											<button id="searchButton"
+												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+												type="button"></button>
+										</span>
 									</div>
+								</div>
 								<div class="am-u-sm-12">
 									<div>
 										<table id="search-table"
@@ -151,7 +153,7 @@
 													<th>起始发票号码</th>
 													<th>终止发票号码</th>
 													<th>库存(张)</th>
-													<th>剩余库存(张)</th>												
+													<th>剩余库存(张)</th>
 												</tr>
 											</thead>
 										</table>
@@ -161,19 +163,18 @@
 						</div>
 
 						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
-							<div class="am-modal-dialog" style="height: 320px; width: 700px">
-								<form class="js-form-kc am-form">
-									<div class="am-tabs" data-am-tabs>
-										<div class="am-tabs-nav am-nav am-nav-tabs">
-											<label>发票库存管理</label>
-										</div>
-										<div class="am-tabs-bd">
-											<div class="am-tab-panel am-in am-active" id="tab1">
-												<div class="am-modal-bd">
-													<div class="am-g" id="formdiv">
+							<div class="am-modal-dialog" style="height: 320px; width: 800px">
+								<div class="am-tabs" data-am-tabs>
+									<div class="am-tabs-nav am-nav am-nav-tabs">
+										<label>发票库存管理</label>
+									</div>
+									<div class="am-tabs-bd">
+										<div class="am-tab-panel am-in am-active" id="tab1">
+											<div class="am-modal-bd">
+												<div class="am-g" id="formdiv">
+													<form class="js-form-kc am-form">
 														<div class="am-u-sm-12">
-															<table
-																class="am-table am-table-bordered">
+															<table class="am-table am-table-bordered">
 																<tr>
 																	<td><font color="red">*</font>销方名称：</td>
 																	<td><select id="xfsh" name="xfid"
@@ -217,46 +218,55 @@
 														<div class="am-u-sm-12">
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
-																	<button type="submit" 
+																	<button type="submit"
 																		class="am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
 																		class="js-close am-btn am-radius am-btn-warning">取消</button>
-																		<!-- <button type="button"
-																		class="autowrite am-btn am-radius am-btn-success">自动读取</button> -->
+																	<button type="button"
+																		class="autowrite am-btn am-radius am-btn-success">自动读取</button>
 																</div>
 															</div>
 														</div>
-													</div>
-													<div class="am-g" id="tablediv">
-													<div class="am-u-12">
-													     <table class="am-table am-table-bordered am-text-nowrap">
-													         <tr>
-													           <th>销方名称</th>
-													           <th>销方税号</th>
-													           <th>开票点名称</th>
-													           <th>发票种类</th>
-													           <th>起始发票号码</th>
-													           <th>终止发票号码</th>
-													           <th>剩余库存</th>
-													           </tr>
-														 </table>
-														 </div>
-														 <div class="am-u-sm-12">
+													</form>
+												</div>
+												<div class="am-u-sm-12" id="tablediv">
+													 <form class="am-form" id="autoKc"> 
+														<div class="am-u-sm-12">
+															<table class="am-table am-table-bordered am-text-nowrap"
+																id="jsNewTable">
+																<thead>
+																	<tr>
+																		<th>销方名称</th>
+																		<th>销方税号</th>
+																		<th>开票点名称</th>
+																		<th>发票种类</th>
+																		<th>发票代码</th>
+																		<th>起始发票号码</th>
+																		<th>终止发票号码</th>
+																		<th>剩余库存</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	
+																</tbody>
+															</table>
+														</div>
+														<div class="am-u-sm-12">
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
-																	<button type="button" 
+																	<button type="submit"
 																		class="am-btn am-radius am-btn-success">保存</button>
 																	<button type="button"
-																		class="js-return am-btn am-radius am-btn-warning">返回</button>																
+																		class="js-return am-btn am-radius am-btn-warning">返回</button>
 																</div>
 															</div>
 														</div>
-													</div>
+													 </form> 
 												</div>
 											</div>
 										</div>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 						<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
@@ -268,7 +278,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+						<div class="am-modal am-modal-confirm" tabindex="-1"
+							id="my-confirm">
 							<div class="am-modal-dialog">
 								<div class="am-modal-hd">提示</div>
 								<div class="am-modal-bd">你确定要删除这条记录吗？</div>
@@ -277,7 +288,7 @@
 										class="am-modal-btn" data-am-modal-confirm>确定</span>
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
 			</div>

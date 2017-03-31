@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.domains.Gfxx;
 import com.rjxx.taxeasy.domains.Jyxx;
+import com.rjxx.taxeasy.domains.Qympk;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.GfxxService;
 import com.rjxx.taxeasy.service.JyxxService;
 import com.rjxx.taxeasy.service.KplsvoService;
+import com.rjxx.taxeasy.service.QympkService;
 import com.rjxx.taxeasy.vo.KplsVO;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.ChinaInitial;
@@ -31,7 +33,9 @@ public class GfqympController extends BaseController {
 
 	@Autowired
 	private GfxxService gfxxservice;
-
+	@Autowired
+	private QympkService qympkService;
+	
 	@RequestMapping
 	public String index() {
 		return "gfqymp/index";
@@ -51,7 +55,12 @@ public class GfqympController extends BaseController {
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String gsdm = getGsdm();
-
+		
+		String gfmc=request.getParameter("gfmc");
+		String nsrsbh=request.getParameter("nsrsbh");
+		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("nsrsbh", nsrsbh);
+		pagination.addParam("gsdm", gsdm);
 		// pagination.addParam("fpczlxdm", "12");
 		List<Gfxx> list = gfxxservice.findByPage(pagination);
 		int total = pagination.getTotalRecord();
@@ -78,6 +87,11 @@ public class GfqympController extends BaseController {
 		String gfdh = request.getParameter("gfdh");
 		String gfyh = request.getParameter("gfyh");
 		String gfyhzh = request.getParameter("gfyhzh");
+		String lxr = request.getParameter("lxr");
+		String lxdh = request.getParameter("lxdh");
+		String yjdz = request.getParameter("yjdz");
+		
+		
 
 		// 校验数据 未完成
 		try {
@@ -97,6 +111,31 @@ public class GfqympController extends BaseController {
 			gfxx.setLrry(1);
 			gfxx.setXgsj(new Date());
 			gfxx.setXgry(1);
+			gfxx.setGsdm(getGsdm());
+			gfxx.setLxr(lxr);
+			gfxx.setLxdh(lxdh);
+			gfxx.setYjdz(yjdz);
+			Map map=new HashMap();
+			map.put("gsdm", getGsdm());
+			map.put("gfmc", gfmc);
+			map.put("nsrsbh", gfsh);
+			List<Qympk> list=qympkService.findAllByParams(map);
+            if(list.size()==0){
+            	Qympk qympk=new Qympk();
+            	qympk.setDwmc(gfmc);
+            	qympk.setNsrsbh(gfsh);
+            	qympk.setKhyh(gfyh);
+            	qympk.setYhzh(gfyhzh);
+            	qympk.setZcdz(gfdz);
+            	qympk.setZcdh(gfdh);
+            	qympk.setGsdm(getGsdm());
+            	qympk.setYxbz("1");
+            	qympk.setLxr(lxr);
+            	qympk.setLxdh(lxdh);
+            	qympk.setYjdz(yjdz);
+            	qympkService.save(qympk);
+            }
+			
 			gfxxservice.save(gfxx);
 			result.put("success", true);
 			result.put("msg", "保存成功");
@@ -178,6 +217,9 @@ public class GfqympController extends BaseController {
 		String gfdh = request.getParameter("gfdh");
 		String gfyh = request.getParameter("gfyh");
 		String gfyhzh = request.getParameter("gfyhzh");
+		String lxr = request.getParameter("lxr");
+		String lxdh = request.getParameter("lxdh");
+		String yjdz = request.getParameter("yjdz");
 		// 校验数据 未完成
 		try {
 			// 购房名称生成首字母缩写
@@ -193,10 +235,14 @@ public class GfqympController extends BaseController {
 			gfxx.setGfyhzh(gfyhzh);
 			gfxx.setMcszmsx(mcszmsx);
 			gfxx.setYxbz("1");
+			gfxx.setGsdm(getGsdm());
 			//gfxx.setLrsj(new Date());
 			gfxx.setLrry(1);
 			gfxx.setXgsj(new Date());
 			gfxx.setXgry(1);
+			gfxx.setLxr(lxr);
+			gfxx.setLxdh(lxdh);
+			gfxx.setYjdz(yjdz);
 			gfxxservice.save(gfxx);
 			result.put("success", true);
 			result.put("msg", "更新成功");

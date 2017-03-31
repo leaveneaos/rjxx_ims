@@ -39,7 +39,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="<%=request.getContextPath()%>/main" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
+                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -118,59 +118,6 @@
                                 </li>
                             </ul>
                         </li> 
-
-                        <!-- 新提示 -->
-                        <!-- <li class="am-dropdown" data-am-dropdown>
-                            <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
-                                <i style="padding-top: 20px;" class="am-icon-bell"></i>
-                                <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
-                            </a>
-
-                            弹出列表
-                            <ul class="am-dropdown-content tpl-dropdown-content">
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <div class="tpl-dropdown-menu-notifications-title">
-                                            <i class="am-icon-line-chart"></i>
-                                            <span> 有6笔新的订单</span>
-                                        </div>
-                                        <div class="tpl-dropdown-menu-notifications-time">
-                                            12分钟前
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <div class="tpl-dropdown-menu-notifications-title">
-                                            <i class="am-icon-star"></i>
-                                            <span> 有3个新的管理员</span>
-                                        </div>
-                                        <div class="tpl-dropdown-menu-notifications-time">
-                                            30分钟前
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <div class="tpl-dropdown-menu-notifications-title">
-                                            <i class="am-icon-folder-o"></i>
-                                            <span> 上午开会记录存档</span>
-                                        </div>
-                                        <div class="tpl-dropdown-menu-notifications-time">
-                                            1天前
-                                        </div>
-                                    </a>
-                                </li>
-
-
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <i class="am-icon-bell"></i> 进入列表…
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
-
                         <!-- 退出 -->
                         <li class="am-text-sm">
                             <a href="javascript:logout()">
@@ -183,36 +130,131 @@
 
         </header>
         <!-- 侧边导航栏 -->
-        <div class="am-g doc-am-g" >
-		 <div class="am-u-sm-8 am-u-md-8 am-u-lg-8" style="margin-top:50px; margin-left: 16.7%;">
-		 <div style="border: 1px solid gray;min-height: 500px;">
-		 	<div  style="background-color: gray; height: 50px;"></div>
-		 	
-		 	<div class="am-u-sm-2 am-u-md-2 am-u-lg-2" style="background-color:#00C957; height: 50px;color: white;text-align: center;line-height: 50px;">
-				客户端下载
-		 	</div>
-				
-		 	<div class="am-u-sm-10 am-u-md-10 am-u-lg-10" style="height: 50px;text-align: left;line-height:50px;border-bottom:1px solid gray;">
-		 		客户端下载
-		 	</div>
-		 	<div class="am-u-sm-2 am-u-md-2 am-u-lg-2" style="border-right:1px solid gray;height: 398px;">
-		 	</div>
-		 	
-		 	<div class="am-u-sm-10 am-u-md-10 am-u-lg-10 .am-u-end">
-		 		<ul style="font-size: 13px;color: gray;list-style-type: none;">
-		 			<li>开票通客户端是联通云平台数据。直连税控设备的专用工具软件，必须在开票机下载安装使用，具有以下功能</li>
-		 			<li>1、可支持金税盘、税控盘等税控设备；</li>
-		 			<li>2、与平台开票数据双向交互，开票结果回写平台；</li>
-		 			<li>3、可完成开票、打印、作废、红冲等操作，无需人工值守；</li>
-		 		</ul>
-		 		<div class="am-u-sm-5 am-u-md-5 am-u-lg-5 am-u-sm-centered" style="margin-top: 100px;">
-		 			<a href="http://invoice.datarj.com/update/kpt2/kpt2.0.0.0.zip"><button id="btnSaveUserInfo" style="width: 100%;" type="button" class="am-btn am-btn-success">下载客户端</button></a>
-		 		</div>
-		 	</div>
-		 	
-		 </div>
+      <!--   
+        <div class="amz-container am-cf">
+        <h1><a href="/">Amaze UI</a></h1>
+        <button class="am-btn am-btn-primary am-show-sm-only" data-am-collapse="{target: '.amz-header-nav'}">
+        <span class="am-sr-only">导航切换</span>
+         <span class="am-icon-bars"></span></button>
+         <nav><ul class="amz-header-nav am-collapse">
+         <li><a href="/getting-started">开始使用</a></li>
+         <li class="am-active"><a href="/css">CSS</a></li>
+         <li><a href="/javascript">JS 插件</a></li>
+         <li><a href="/widgets">Web 组件</a></li>
+         <li><a href="http://amazeui.org/react/" target="_blank">React</a></li>
+         <li class="amz-cse">
+         <form action="http://zhannei.baidu.com/cse/search" method="get" target="_blank" class="cse-form">
+         <input type="hidden" name="s" value="13988471460650623274"> 
+         <input type="hidden" name="entry" value="1"> 
+         <input type="text" required="" name="q" placeholder="搜索" autocomplete="off"> <button>
+         <span class="am-icon-search"></span></button>
+         </form>
+         </li>
+         </ul>
+         </nav>
+         </div> -->
+        
+        
+        
+       <div class="row-content am-cf" >
+          <div class="row">
+			 <div class="am-u-sm-8 am-u-md-8 am-u-lg-8" style="margin-top:50px; margin-left: 16.7%;" >
+				 <div style="border: 1px solid gray;min-height: 500px;">
+				 	<div  style="background-color: #D3D3D3; height: 50px;" >
+				 	           <div  style="float:left">
+				 	     	                 企业名片库
+				 	           </div>
+				 	     	   <div class="am-g" >
+								  <div class="am-u-lg-6" style="float:right">
+								    <div class="am-input-group" >
+								      <input type="text" class="am-form-field" id="searchtext"  placeholder="请输入纳税人识别号或销方名称 " style="background-color:#FAFAFA">
+								      <span class="am-input-group-btn">
+								        <button class="am-btn am-btn-default" type="button"><span class="am-icon-search"></span> </button>
+								      </span>
+								      
+								    </div>
+								  </div>
+								
+								</div>
+				 	  
+				         	<div class="am-u-sm-12 am-padding-top" style="background-color:#FAFAFA">
+										<div>
+											<table style="margin-bottom: 0px;" style="background-color:#FAFAFA"   class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
+												id="mpk_table">
+												<thead>
+													<tr>
+														<th>序号</th>
+						                                <th>操作</th>
+						                                <th>单位名称</th>
+						                                <th>纳税人识别号</th>
+						                                <th>注册地址</th>
+						                                <th>注册电话</th>
+						                                <th>开户银行</th>
+						                                <th>银行账号</th>
+						                                <th>邮递信息</th>
+													</tr>
+												</thead>
+											</table>
+									     </div>
+							</div>
+				 	    </div>
+				 	  </div>
+			    </div>
 		 </div>
 	  </div>
+        
+        
+       <!--  <div class="row-content am-cf">
+	        <div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+					<div class="widget am-cf">
+						<div class="admin-content">
+						   <div class="am-cf widget-head">
+						         
+						      <div id="doc-oc-demo3" class="am-offcanvas">
+						         <div class="am-offcanvas-bar am-offcanvas-bar-flip"></div>
+						      </div>
+						   </div>
+						   
+						   <div class="am-g  am-padding-top">
+							   <form action="#"
+								class="js-search-form  am-form am-form-horizontal">
+								       <div class="am-u-sm-12 am-u-md-6 am-u-lg-6" align="left">
+										    <div class="am-form-group">
+													<div class="am-btn-toolbar">
+														<div class="am-btn-group am-btn-group-xs">
+													    </div>
+												    </div>
+											</div>
+										</div>
+								
+								
+									    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+										       <div class="am-form-group tpl-table-list-select">
+													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+															<option value="gfmc">购方名称</option>
+															<option value="ddh">订单号</option>
+													</select>
+											   </div>
+										  </div>
+										  <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+												<div
+													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+													<input id="dxcsz" type="text" class="am-form-field "> <span
+														class="am-input-group-btn">
+														<button id="hk_search"
+															class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+															type="button"></button>
+													</span>
+												</div>
+										 </div>
+								</form>
+							</div>
+			            </div>
+			        </div>
+			     </div>
+		  </div>
+	  </div> -->
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 		<div class="am-modal-dialog">
 			<div class="am-modal-bd">您确定要退出吗？</div>
@@ -222,12 +264,12 @@
 			</div>
 		</div>
 	</div>
-       
+        
         <footer>
                 <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
         </footer>
     </div>
-    </div>
+
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
 		<div class="am-modal-dialog">
 			<form class="js-form-0 am-form am-form-horizontal">
@@ -380,6 +422,90 @@
 			</form>
 		</div>
 	</div>
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="xiugai">
+					<div class="am-modal-dialog">
+						<div class="am-modal-hd">
+							邮递信息详情 <!-- <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
+						</div>
+						<div class="am-modal-bd">
+							<hr />
+							<form action="#" class="js-form-0  am-form am-form-horizontal">
+								<div class="am-g">
+									<div class="am-u-sm-12">
+										<div class="am-form-group">
+											<label for="xg_gfmc" class="am-u-sm-4 am-form-label"><span
+												style="color: red;">*</span>企业名称</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfmc" name="xg_gfmc" placeholder="" readonly required/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_gfsh" class="am-u-sm-4 am-form-label">纳税人识别号</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfsh" name="xg_gfsh" class ="js-pattern-Taxid"
+													placeholder=""  readonly/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_gfdz" class="am-u-sm-4 am-form-label">地址</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfdz" name="xg_gfdz" placeholder="" readonly/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_gfdh" class="am-u-sm-4 am-form-label ">电话</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfdh" name="xg_gfdh" placeholder="" class="js-pattern-Telephone" readonly/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_gfyh" class="am-u-sm-4 am-form-label">开户银行</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfyh" name="xg_gfyh" placeholder="" readonly />
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_gfyhzh" class="am-u-sm-4 am-form-label">开户账号</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_gfyhzh" name="xg_gfyhzh"
+													placeholder="" readonly />
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xq_lxr" class="am-u-sm-4 am-form-label">联系人</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_lxr" name="xq_lxr"
+													placeholder="" readonly/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_lxdh" class="am-u-sm-4 am-form-label">联系电话</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_lxdh" name="xg_lxdh"  class="js-pattern-Telephone"
+													placeholder="" readonly/>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xg_yjdz" class="am-u-sm-4 am-form-label">邮寄地址</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_yjdz" name="xg_yjdz"
+													placeholder="" readonly/>
+											</div>
+										</div>
+									</div>
+									<div class="am-u-sm-12">
+										<div class="am-form-group">
+											<div class="am-u-sm-12  am-text-center">
+												<button type="button" id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-3">
 		<div class="am-modal-dialog">
 			<form class="js-form-0 am-form am-form-horizontal">
@@ -456,13 +582,13 @@
 		</div>
 	</div>
     <script src="assets/js/amazeui.min.js"></script>
+     <script
+		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
-    <script src="assets/js/dataTables.responsive.min.js"></script>
+   
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/qympk.js"></script>
     <script language="javascript" type="text/javascript"> 
-    $(function(){
-    	$("#业务处理").css('display','block'); 
-    })
     function zhxx(){
 		$.ajax({
 			url : "nyhgl/getGsxx",
@@ -673,9 +799,7 @@
 		$("#mainFrame").attr("src","<%=request.getContextPath()%>/xtxx");
 		
 	}
-    function back(){
-    	window.history.go(-1);
-    }
+
 	
 </script> 
 
