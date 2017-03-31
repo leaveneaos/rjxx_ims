@@ -2,11 +2,11 @@ $(function () {
     "use strict";
     var ur;
     var el = {
-        $jsTable: $('.js-table'),
+        $jsTable: $('#gfxx_table'),
         $modalHongchong: $('#hongchong'),
-        $jsClose: $('.js-close'),
+        $jsClose: $('#close1'),
         $jsForm0: $('.js-form-0'),     // 红冲 form
-        $jsAdd: $('.js-add'),
+        $jsAdd: $('#gf_add'),
         $jsExport: $('.js-export'),
         $jsLoading: $('.js-modal-loading'),
         $jsSave: $('#save'),
@@ -27,15 +27,21 @@ $(function () {
                 "processing": true,
                 "serverSide": true,
                 ordering: false,
+                "scrollX": true,
                 searching: false,
                   "ajax": {
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
-                        d.ddh = "";   // search 订单号
-                        d.kpddm = "";   // search 发票号码
-                        d.ddrqq = ""; // search 开票日期
-                        d.ddrqz = ""; // search 开票日期
+                    	d.gfmc = $("#s_gfmc").val(); // search 
+                        d.nsrsbh = $("#s_nsrsbh").val(); // search 
+                        
+                        var csm =  $('#dxcsm').val()
+                        if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
+                      	  d.gfmc = $('#dxcsz').val()
+                      }else if("nsrsbh"==csm&&(d.nsrsbh==null||d.nsrsbh=="")){//订单号
+                      	  d.nsrsbh = $('#dxcsz').val()
+                      }
                     }
                 },
               "columns": [
@@ -57,13 +63,12 @@ $(function () {
                     {"data": "gfsh"},
                     {"data": "gfdz"},
                     {"data": "gfdh"},
-                    //{"data": "orderTime"},
                     {"data": "gfyh"},
                     {"data": "gfyhzh"},
-                   /* {
-						"data": null,
-                        "defaultContent": "<a class='modify' href='javascript:void(0)'>修改</a> <a href='javascript:void(0)' class='del'>删除</a>"									
-					}*/
+                    {"data": "lxr"},
+                    {"data": "lxdh"},
+                    {"data": "yjdz"}
+                    
                 ],
                 /*"createdRow": function (row, data, index) {
                     $('td', row).eq(0).html('<input type="checkbox" data="' + data.id + '" name="chk"/>');
@@ -143,7 +148,7 @@ $(function () {
 	            //alert(djhArr);
 	            var ipts = t.row($("input[type='checkbox']:checked").parents("tr")).data();
 	            _this.setForm0(ipts);
-	            el.$xiugai.modal({"width": 600, "height": 400});
+	            el.$xiugai.modal({"width": 600, "height": 500});
                 el.$xiugai.modal('open');
 			});
 			
@@ -152,7 +157,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 // todo
                 _this.setForm0(data);
-                el.$xiugai.modal({"width": 600, "height": 400});
+                el.$xiugai.modal({"width": 600, "height": 500});
                 el.$xiugai.modal('open');
             });
             
@@ -161,7 +166,7 @@ $(function () {
 				_this.resetForm();
 				ur = _this.config.addUrl;
 				//alert("新增");
-				el.$modalHongchong.modal({"width": 600, "height": 400});
+				el.$modalHongchong.modal({"width": 600, "height": 500});
 			});	
 			
 			// 修改数据保存按钮
@@ -173,6 +178,14 @@ $(function () {
 				}*/
 				
 			});	
+			 $('#search').click(function () {
+	             	$("#ycform").resetForm();
+	              	t.ajax.reload();
+	             });
+	             $('#search1').click(function () {
+	             	$("#dxcsz").val("");
+	             	t.ajax.reload();
+	             });
             return t;
         },
         
@@ -195,7 +208,11 @@ $(function () {
                      gfdz : $('#xg_gfdz').val(), // 购方地址
                      gfdh : $('#xg_gfdh').val(), // 购方电话
                      gfyh : $('#xg_gfyh').val(), // 购方银行
-                     gfyhzh : $('#xg_gfyhzh').val() // 购方银行账号      
+                     gfyhzh : $('#xg_gfyhzh').val(), // 购方银行账号     
+                     lxr : $('#xg_lxr').val(), // 联系人
+                     lxdh : $('#xg_lxdh').val(), // 联系电话
+                     yjdz : $('#xg_yjdz').val() // 邮寄地址
+                     
 				},
 				method : 'POST',
 				success : function(data) {
@@ -278,7 +295,10 @@ $(function () {
 			                        gfdz : $('#xz_gfdz').val(), // 购方地址
 			                        gfdh : $('#xz_gfdh').val(), // 购方电话
 			                        gfyh : $('#xz_gfyh').val(), // 购方银行
-			                        gfyhzh : $('#xz_gfyhzh').val() // 购方银行账号        
+			                        gfyhzh : $('#xz_gfyhzh').val(), // 购方银行账号   
+			                        lxr : $('#xz_lxr').val(), // 联系人
+			                        lxdh : $('#xz_lxdh').val(), // 联系电话
+			                        yjdz : $('#xz_yjdz').val() // 邮寄地址
 			                    },
 							method : 'POST',
 							success : function(data) {
@@ -318,6 +338,10 @@ $(function () {
 			el.$jsForm0.find('input[id="xg_gfdh"]').val(data.gfdh);
 			el.$jsForm0.find('input[id="xg_gfyh"]').val(data.gfyh);
 			el.$jsForm0.find('input[id="xg_gfyhzh"]').val(data.gfyhzh);
+			el.$jsForm0.find('input[id="xg_lxr"]').val(data.lxr);
+			el.$jsForm0.find('input[id="xg_lxdh"]').val(data.lxdh);
+			el.$jsForm0.find('input[id="xg_yjdz"]').val(data.yjdz);
+			
 			$('#gfid').val(data.id);
 		},
         resetForm: function () {
@@ -327,11 +351,14 @@ $(function () {
             var _this = this;
             el.$modalHongchong.on('closed.modal.amui', function () {
                 el.$jsForm0[0].reset();
-            });
+            }); 
             // close modal
-            el.$jsClose.on('click', function () {
-                el.$modalHongchong.modal('close');
+            $("#close2").on('click', function () {
                 el.$xiugai.modal('close');
+            });
+            
+            $("#close1").on('click', function () {
+                el.$modalHongchong.modal('close');
             });
         },
         init: function () {
