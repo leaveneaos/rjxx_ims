@@ -259,8 +259,8 @@
 												<div class="am-u-sm-4">
 													<select id="sbcs" name="sbcs">
 														<option value="0">请选择</option>
-														<option value="1">百旺</option>
-														<option value="2">航信</option>
+														<option value="1">税控盘</option>
+														<option value="2">金税盘</option>
 													</select>
 												</div>
 												<label for="bz" class="am-u-sm-2 am-form-label">设备号</label>

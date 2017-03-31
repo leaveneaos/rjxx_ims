@@ -100,9 +100,9 @@ $(function() {
 						}, {
 							"data" : function(data) {
 								if (data.sbcs == 1) {
-									return "百旺";
+									return "税控盘";
 								} else if (data.sbcs == 2) {
-									return "航信";
+									return "金税盘";
 								} else {
 									return "";
 								}
@@ -174,7 +174,7 @@ $(function() {
 						'option[value=' + data.pid + ']')
 						.prop('selected', true);
 				el.$jsForm.find('[name="sbcs"]').find(
-						'option[value=' + (data.sbcs == "百旺" ? 1 : 2) + ']')
+						'option[value=' + (data.sbcs == "1" ? 1 : 2) + ']')
 						.prop('selected', true);
 				el.$jsForm.find('[name="skpmm"]').val(data.skpmm);
 				el.$jsForm.find('[name="zsmm"]').val(data.zsmm);

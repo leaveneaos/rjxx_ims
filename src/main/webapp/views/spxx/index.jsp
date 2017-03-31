@@ -69,7 +69,7 @@
 			
 			<div style="margin-top: 100px;" class="am-u-sm-12  am-text-center">
 													<button type="submit" id="xyb" style="width: 30%;" onclick="xyb()"
-														class="js-submit  am-btn am-radius am-btn-primary">下载客户端</button>
+														class="js-submit  am-btn am-radius am-btn-primary">下一步</button>
 					
 		</div>
 		<!-- content end -->

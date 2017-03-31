@@ -138,7 +138,7 @@
 								<div class="am-u-sm-12">
 									<div>
 										<table id="dyzytable"
-											class="am-table am-table-bordered am-table-compact am-text-nowrap">
+											class="am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
 													<th>序号</th>
