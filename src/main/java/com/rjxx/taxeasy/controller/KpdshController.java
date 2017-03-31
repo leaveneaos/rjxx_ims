@@ -187,6 +187,7 @@ public class KpdshController extends BaseController {
 			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 			Xf xf2 = new Xf();
 			xf2.setXfsh(jyxxsqVO.getXfsh());
+			xf2.setGsdm(gsdm);
 			Xf xf = xfService.findOneByParams(xf2);
 			Skp skp = skpService.findOne(jyxxsqVO.getSkpid());
 			double fpje = 0d;

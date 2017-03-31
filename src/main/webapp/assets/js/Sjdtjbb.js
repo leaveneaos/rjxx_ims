@@ -120,7 +120,7 @@ $(function () {
 										label : '月份',
 										labelOptions: {
 									        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-									        fontSize: '14px'
+									        fontSize: '18px'
 									    },
 										tickRenderer : $.jqplot.CanvasAxisTickRenderer,
 										renderer : $.jqplot.CategoryAxisRenderer,
@@ -141,7 +141,7 @@ $(function () {
 										label : '票量',
 										labelOptions: {
 									        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-									        fontSize: '14px'
+									        fontSize: '18px'
 									    },
 										show : true,
 										showTicks : true, // 是否显示刻度线以及坐标轴上的刻度值  

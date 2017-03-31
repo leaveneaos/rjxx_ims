@@ -517,7 +517,7 @@ $(function() {
 						var row = $(this).parents('tr').find('input[name="fpje"]');
 						var row2 = $(this).parents('tr').find('select[name="hsbz"]');
 						var row3 = $(this).parents('tr').find('select[name="qdbz"]');
-						fpxes+=row.val().replace(',','')+","
+						fpxes+=row.val().replace(/,/g,'')+","
 						hsbzs+=row2.val()+","
 						qdbzs+=row3.val()+","
 						});
@@ -540,7 +540,7 @@ $(function() {
 						
 				            var els1 =document.getElementsByName("bckpje");
 							for(var i=0;i<els1.length;i++){
-								var fpp = els1[i].value.replace(',','');
+								var fpp = els1[i].value.replace(/,/g,'');
 								bckpje.push(fpp); 
 							}
 						}
@@ -848,7 +848,7 @@ $(function() {
 				var fla = true;
 				var els =document.getElementsByName("fpje");
 				for(var i=0;i<els.length;i++){
-					var fpje = els[i].value.replace(',','');
+					var fpje = els[i].value.replace(/,/g,'');
 					if(fpje==0){
 						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
 	                	$("#my-alert").modal('open');
@@ -868,7 +868,7 @@ $(function() {
 					var rows1 = $("#mxTable1").find('tr');	
 		            var els1 =document.getElementsByName("bckpje");
 					for(var i=0;i<els1.length;i++){
-						var fpp = els1[i].value.replace(',','');
+						var fpp = els1[i].value.replace(/,/g,'');
 						je+=fpp*1;
 						bckpje.push(fpp); 
 						if(fpp==0){
