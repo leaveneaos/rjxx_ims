@@ -67,7 +67,7 @@ public class FpcxController extends BaseController {
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String fphm, String kprqq,
-			String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx,
+			String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx,String fpzldm,
 			String xfsh, String sk, String xfmc) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
@@ -110,6 +110,7 @@ public class FpcxController extends BaseController {
 		pagination.addParam("xfid", xfid);
 		pagination.addParam("skpid", skpid);
 		pagination.addParam("ddh", ddh);
+		pagination.addParam("fpzldm", fpzldm);
 		pagination.addParam("fphm", fphm);
 		pagination.addParam("kprqq", kprqq);
 		pagination.addParam("kprqz", kprqz);

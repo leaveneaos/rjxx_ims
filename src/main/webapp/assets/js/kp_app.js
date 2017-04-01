@@ -58,6 +58,18 @@ $(function() {
 						"data" : "fpdm"
 					}, {
 						"data" : "fphm"
+					},{
+						"data" : function(data) {
+							if (data.fpzldm=="01") {
+								return "增值税专用发票";
+							} else if(data.fpzldm=="02"){
+								return "增值税普通发票";
+							}else if(data.fpzldm=="12"){
+								return "电子发票(增普)";
+							}else{
+								return "";
+							}
+						}
 					}, {
 						"data" : function(data) {
 							if (data.jshj) {
@@ -164,6 +176,7 @@ $(function() {
 							d.printflag = el.$s_dyzt.val();//打印状态
 							d.xfsh=$("#mb_xfsh").val();
 							d.sk =$("#mb_skp").val();
+							d.fpzldm =$("#s_fpzldm").val();
 						}else{
 							d.ddh = "-11111111";
 						}
