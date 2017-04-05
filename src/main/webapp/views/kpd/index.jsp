@@ -67,7 +67,7 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red">*</font>开票点名称</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="kpdmc" name="kpdmc" value="${xf.xfmc }_01" style="float: left;width: 80%;"
+										<input type="text" id="kpdmc" name="kpdmc" value="${xf.xfmc }_01" style="float: left;width: 90%;"
 											placeholder="开票点名称"
 											class="am-form-field" required />
 									</div>
@@ -84,10 +84,10 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red"></font>设备号</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="skph" name="skph" style="float: left;width: 80%;" value=" "
+										<input type="text" id="skph" name="skph" style="float: left;width: 90%;" value=" "
 											placeholder="税控盘号"
 											class="am-form-field" />
-											<span onclick="xssbh()" class="am-icon-question"></span>
+											<span onclick="xssbh()" class="am-icon-question" style="color: blue;"></span>
 									</div>
 								</div>
 							 	<div style="display: none;" class="am-form-group">
@@ -170,7 +170,7 @@
 									</div>
 								</div>
 								<div class="am-form-group" style="padding-bottom: 1px;">
-									<label for="hc_yfphm" class="am-u-sm-3 am-form-label" style=""><font color="red">*</font>开票类型</label>
+									<label for="hc_yfphm" class="am-u-sm-3" style="text-align: right;"><font color="red">*</font>开票类型</label>
 									<c:forEach items="${fpzls }" var="f" varStatus="i">
 										<c:if test="${i.index%3==0 }">
 											<label for="hc_yfphm" class="am-u-sm-3"><input type="checkbox" id="fplx-${f.fpzldm }" name="fplx" value="${f.fpzldm }">${f.fpzlmc }</label>
