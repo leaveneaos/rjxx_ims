@@ -31,7 +31,7 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
-                        d.searchtext = $("searchtext").val()  // search 
+                        d.searchtext = $("#searchtext").val()  // search 
                     }
                 },
               "columns": [
@@ -89,21 +89,10 @@ $(function () {
 	                 "data": null,
 	                 "defaultContent": ""
 	                },
-                    {"data": "dwmc"},
-                    {"data": "nsrsbh"},
-                    {"data": "zcdz"},
-                    {"data": "zcdh"},
-                    {"data": "khyh"},
-                    {"data": "yhzh"},
                     {"data": "lxr"},
                     {"data": "lxdh"},
                     {"data": "yjdz"},
                     {"data": "email"},
-                    {
-    					"data": null,
-                        "defaultContent": "<a class='view' href='javascript:void(0)'>添加</a> "									
-    				}
-                   
                 ],
                
             });
@@ -127,6 +116,7 @@ $(function () {
                     var next = $($(trs[i-1]).find("td")[3]).text();
                     if(cur==next){
                         rows++;
+                        $($(trs[i]).find("td")[9]).remove();
                         $($(trs[i]).find("td")[1]).remove();
                         $($(trs[i]).find("td")[1]).remove();
                         $($(trs[i]).find("td")[1]).remove();
@@ -138,6 +128,8 @@ $(function () {
                              $($(trs[i]).find("td")[2]).css({"text-align":"center","line-height":40*rows+"px"});
                              $($(trs[i]).find("td")[3]).attr("rowspan",rows);
                              $($(trs[i]).find("td")[3]).css({"text-align":"center","line-height":40*rows+"px"});
+                             $($(trs[i]).find("td")[9]).attr("rowspan",rows);
+                             $($(trs[i]).find("td")[9]).css({"text-align":"center","line-height":40*rows+"px"});
                     	}
                         rows=1;
                     }
@@ -179,7 +171,10 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 $("#nsrsbh").val(data.nsrsbh);
                 t1.ajax.reload();
-                el.$xiugai.modal({"width": 1000, "height": 500});
+                el.$xiugai.modal({"width": 600, "height": 500});
+            });
+            $("#search").click(function(){
+            	t.ajax.reload();
             });
             return t;
         },

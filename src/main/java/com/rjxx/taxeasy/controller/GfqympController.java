@@ -90,7 +90,8 @@ public class GfqympController extends BaseController {
 		String lxr = request.getParameter("lxr");
 		String lxdh = request.getParameter("lxdh");
 		String yjdz = request.getParameter("yjdz");
-		
+		String email = request.getParameter("email");
+
 		
 
 		// 校验数据 未完成
@@ -115,6 +116,7 @@ public class GfqympController extends BaseController {
 			gfxx.setLxr(lxr);
 			gfxx.setLxdh(lxdh);
 			gfxx.setYjdz(yjdz);
+			gfxx.setEmail(email);
 			Map map=new HashMap();
 			map.put("gsdm", getGsdm());
 			map.put("gfmc", gfmc);
@@ -133,6 +135,7 @@ public class GfqympController extends BaseController {
             	qympk.setLxr(lxr);
             	qympk.setLxdh(lxdh);
             	qympk.setYjdz(yjdz);
+            	qympk.setEmail(email);
             	qympkService.save(qympk);
             }
 			
@@ -220,6 +223,8 @@ public class GfqympController extends BaseController {
 		String lxr = request.getParameter("lxr");
 		String lxdh = request.getParameter("lxdh");
 		String yjdz = request.getParameter("yjdz");
+		String email = request.getParameter("email");
+
 		// 校验数据 未完成
 		try {
 			// 购房名称生成首字母缩写
@@ -243,6 +248,7 @@ public class GfqympController extends BaseController {
 			gfxx.setLxr(lxr);
 			gfxx.setLxdh(lxdh);
 			gfxx.setYjdz(yjdz);
+			gfxx.setEmail(email);
 			gfxxservice.save(gfxx);
 			result.put("success", true);
 			result.put("msg", "更新成功");

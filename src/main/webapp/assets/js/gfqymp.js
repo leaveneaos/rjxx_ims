@@ -67,7 +67,8 @@ $(function () {
                     {"data": "gfyhzh"},
                     {"data": "lxr"},
                     {"data": "lxdh"},
-                    {"data": "yjdz"}
+                    {"data": "yjdz"},
+                    {"data": "email"}
                     
                 ],
                 /*"createdRow": function (row, data, index) {
@@ -211,8 +212,8 @@ $(function () {
                      gfyhzh : $('#xg_gfyhzh').val(), // 购方银行账号     
                      lxr : $('#xg_lxr').val(), // 联系人
                      lxdh : $('#xg_lxdh').val(), // 联系电话
-                     yjdz : $('#xg_yjdz').val() // 邮寄地址
-                     
+                     yjdz : $('#xg_yjdz').val(), // 邮寄地址
+                     email : $('#xg_email').val()  //email
 				},
 				method : 'POST',
 				success : function(data) {
@@ -298,7 +299,8 @@ $(function () {
 			                        gfyhzh : $('#xz_gfyhzh').val(), // 购方银行账号   
 			                        lxr : $('#xz_lxr').val(), // 联系人
 			                        lxdh : $('#xz_lxdh').val(), // 联系电话
-			                        yjdz : $('#xz_yjdz').val() // 邮寄地址
+			                        yjdz : $('#xz_yjdz').val(), // 邮寄地址
+			                        email : $('#xz_email').val() // email
 			                    },
 							method : 'POST',
 							success : function(data) {

@@ -136,7 +136,8 @@
 												<th>银行账号</th>
 												<th>联系人</th>
 												<th>联系电话</th>
-												<th>邮件地址</th>
+												<th>邮寄地址</th>
+												<th>Email</th>
 											</tr>
 										</thead>
 									</table>
@@ -215,6 +216,13 @@
 													placeholder="" />
 											</div>
 										</div>
+										<div class="am-form-group">
+											<label for="xg_email" class="am-u-sm-4 am-form-label">Email</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xg_email" name="xg_email"
+													placeholder="" />
+											</div>
+										</div>
 									</div>
 									<div class="am-u-sm-12">
 										<div class="am-form-group">
@@ -259,49 +267,56 @@
 										<div class="am-form-group">
 											<label for="xz_gfdz" class="am-u-sm-4 am-form-label">地址</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfdz" name="xz_gfdz" required
+												<input type="text" id="xz_gfdz" name="xz_gfdz" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_gfdh" class="am-u-sm-4 am-form-label">电话</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfdh" name="xz_gfdh" required
+												<input type="text" id="xz_gfdh" name="xz_gfdh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_gfyh" class="am-u-sm-4 am-form-label">开户银行</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfyh" name="xz_gfyh" required
+												<input type="text" id="xz_gfyh" name="xz_gfyh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_gfyhzh" class="am-u-sm-4 am-form-label">开户账号</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_gfyhzh" name="xz_gfyhzh" required
+												<input type="text" id="xz_gfyhzh" name="xz_gfyhzh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_lxr" class="am-u-sm-4 am-form-label">联系人</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_lxr" name="xz_lxr" required
+												<input type="text" id="xz_lxr" name="xz_lxr" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_lxdh" class="am-u-sm-4 am-form-label">联系电话</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_lxdh" name="xz_lxdh"  required
+												<input type="text" id="xz_lxdh" name="xz_lxdh"  
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
 											<label for="xz_yjdz" class="am-u-sm-4 am-form-label">邮寄地址</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xz_yjdz" name="xz_yjdz" required
+												<input type="text" id="xz_yjdz" name="xz_yjdz" 
+													placeholder="" />
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label for="xz_email" class="am-u-sm-4 am-form-label">Email</label>
+											<div class="am-u-sm-8">
+												<input type="text" id="xz_email" name="xz_email" 
 													placeholder="" />
 											</div>
 										</div>
