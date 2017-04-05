@@ -343,7 +343,7 @@ $(function () {
 			el.$jsForm0.find('input[id="xg_lxr"]').val(data.lxr);
 			el.$jsForm0.find('input[id="xg_lxdh"]').val(data.lxdh);
 			el.$jsForm0.find('input[id="xg_yjdz"]').val(data.yjdz);
-			
+			el.$jsForm0.find('input[id="xg_email"]').val(data.email);
 			$('#gfid').val(data.id);
 		},
         resetForm: function () {
