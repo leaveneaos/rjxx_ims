@@ -96,7 +96,7 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">设备厂商</label>
+											<label for="s_fpdm" class="am-u-sm-4 am-form-label">设备类型</label>
 											<div class="am-u-sm-7">
 												<select id="sbcs1" name="sbcs1"
 													data-am-selected="{{btnSize: 'sm'}">
@@ -184,10 +184,10 @@
 												<th>销方名称</th>
 												<th>开票点代码</th>
 												<th>开票点名称</th>
-												<th>设备厂商</th>
+												<th>设备类型</th>
 												<th>设备号</th>
-												<th>设备密码</th>
-												<th>证书密码</th>
+											<!-- 	<th>设备密码</th>
+												<th>证书密码</th> -->
 												<th>联系地址</th>
 												<th>联系电话</th>
 												<th>开户银行</th>
@@ -255,7 +255,7 @@
 											</div>
 											<div class="am-form-group">
 												<label for="bz" class="am-u-sm-2 am-form-label"><font
-													color="red">*</font>设备厂商</label>
+													color="red">*</font>设备类型</label>
 												<div class="am-u-sm-4">
 													<select id="sbcs" name="sbcs">
 														<option value="0">请选择</option>
@@ -269,7 +269,7 @@
 														placeholder="请输入设备号"/>
 												</div>
 											</div>
-											<div class="am-form-group">
+									<!-- 		<div  class="am-form-group">
 												<label for="bz" class="am-u-sm-2 am-form-label">设备密码</label>
 												<div class="am-u-sm-4">
 													<input type="password" id="skpmm" name="skpmm"
@@ -282,7 +282,7 @@
 														style="float: left;" placeholder="证书密码"
 														class="am-form-field" maxlength="30" />
 												</div>
-											</div>
+											</div> -->
 											<div class="am-form-group">
 												<label for="bz" class="am-u-sm-2 am-form-label"><font
 													color="red">*</font>联系地址</label>

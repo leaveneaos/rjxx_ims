@@ -109,7 +109,7 @@ $(function() {
 							}
 						}, {
 							"data" : "skph"
-						}, {
+						}, /*{
 							"data" : function(data) {
 								if (data.skpmm == null || data.skpmm == "") {
 									return "";
@@ -125,7 +125,7 @@ $(function() {
 									return "******";
 								}
 							}
-						}, {
+						},*/ {
 							"data" : "lxdz"
 						}, {
 							"data" : "lxdh"
