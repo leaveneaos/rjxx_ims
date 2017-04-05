@@ -129,50 +129,124 @@
             </div>
 
         </header>
-       <div class="row-content am-cf" >
+        <!-- 侧边导航栏 -->
+        <div class="row-content am-cf" >
           <div class="row">
 			 <div class="am-u-sm-8 am-u-md-8 am-u-lg-8" style="margin-top:50px; margin-left: 16.7%;" >
-				 <div style="min-height: 500px;">
-				 	<div style="background-color: #D3D3D3; height: 50px;line-height: 50px;" >
-				 	           <input type="hidden" id="nsrsbh">
-				 	           <div class="am-u-lg-6" style="float:left;">
-				 	     	                 企业名片库
-				 	           </div>
-				 	     	   <div class="am-u-lg-6" class="am-g" >
-								  <div style="margin-top: 6px;">
-								    <div class="am-input-group" >
-								      <input type="text" class="am-form-field" id="searchtext"  placeholder="请输入纳税人识别号或销方名称 " style="background-color:#FAFAFA">
-								      <span class="am-input-group-btn">
-								        <button class="am-btn am-btn-default" id="search"   type="button"><span class="am-icon-search"></span> </button>
-								      </span>
-								      
-								    </div>
-								  </div>
-								
-								</div>
-				 	  
-				         	<div class="am-u-sm-12 am-padding-top" style="background-color:#FAFAFA">
-										<div>
-											<table style="margin-bottom: 0px;background-color:#FAFAFA;text-align:center;"   class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
-												id="mpk_table">
-												<thead>
-													<tr style="text-align:center">
-														<th style="text-align:center">序号</th>
-						                                <th style="text-align:center">操作</th>
-						                                <th style="text-align:center">单位名称</th>
-						                                <th style="text-align:center">纳税人识别号</th>
-						                                <th style="text-align:center">注册地址</th>
-						                                <th style="text-align:center">注册电话</th>
-						                                <th style="text-align:center">开户银行</th>
-						                                <th style="text-align:center">银行账号</th>
-						                                <th style="text-align:center">邮箱</th>
-						                                <th style="text-align:center">邮递信息</th>
-													</tr>
-												</thead>
-											</table>
-									     </div>
-							</div>
-				 	    </div>
+				       <div style="border: 1px solid gray;min-height: 1350px;">
+					 	     <div style="background-color: #D3D3D3; height: 50px;line-height: 50px;" >
+					 	           <input type="hidden" id="nsrsbh">
+					 	           <div class="am-u-lg-6" style="float:left;">
+					 	     	                 账户详情
+					 	           </div>
+					 	    </div>
+					 	    <div class="am-u-sm-2 am-u-md-2 am-u-lg-2" style="background-color:#00C957; height: 50px;color: white;text-align: center;line-height: 50px;">
+								账户类型介绍
+						 	</div>
+					
+						 	<div class="am-u-sm-10 am-u-md-10 am-u-lg-10" style="height: 50px;text-align: left;line-height:50px;border-bottom:1px solid gray;">
+						 		账户类型介绍
+						 	</div>
+						 	<div class="am-u-sm-2 am-u-md-2 am-u-lg-2" style="border-right:1px solid gray;height: 1249px;">
+						 	</div>
+			 	
+						 	<div class="am-u-sm-10 am-u-md-10 am-u-lg-10 .am-u-end">
+						 		<ul style="font-size: 13px;color: gray;list-style-type: none;">
+						 			<li>1、账户说明如下</li>
+						 			<li>&nbsp;&nbsp;泰易的账户共分为3中类型，分别为：免费试用账户、企业账户和集团账户。</li>
+						 			<li>免费试用账户：</li>
+						 			<li>&nbsp;&nbsp;免费试用账户是容津隆重退出的构建在互联网+的基础上的发票管理系统，跨越了传统开票的地域性限制，同时满足企业批量开具发票发需求，帮助企业更加便捷的开具发票，但是每个税号的试用期只有一年，企业如需继续使用本平台，则必须升级为企业账户或集团账户；
+                                    </li>
+						 		    <li>企业账户：</li>
+						 		    <li>&nbsp;&nbsp;企业账户是提供单税号注册，按年收费，提供纸质发票和电子发票批量导入、开具和打印功能，提高销项发票管理效率。
+						 		    </li>
+						 		    <li>集团账户：</li>
+						 		    <li>&nbsp;&nbsp;集团账户提供多税号管理，用户可自行内部授权，提供集团企业的统计报表功能，按年收费。</li>
+						 		    <li></li>
+						 		    <li>&nbsp;&nbsp;如需详细了解账户信息，请咨询：021-55571833/021-33566700 &nbsp;&nbsp; QQ群：481606445</li>
+						 		    <li>2、账户享有的服务</li>
+						 		    <li>
+						 		       <table style="margin-bottom: 0px;text-align:center;"   class="js-table am-table am-table-bordered am-table-hover">
+						 		          <tr>
+							 		           <th style="text-align: center;" >账户类型</th>
+							 		           <th style="text-align: center;">免费试用账户</th>
+							 		           <th style="text-align: center;">企业账户</th>
+							 		           <th style="text-align: center;">集团账户</th>
+						 		          </tr>
+						 		          <tr>
+						 		               <td>有效期</td>
+						 		               <td>3个月</td>
+						 		               <td>一年</td>
+						 		               <td>一年</td>
+						 		          </tr>
+						 		           <tr>
+						 		               <td>年用票量</td>
+						 		               <td>1000张/年</td>
+						 		               <td>2-10万张/年</td>
+						 		               <td>60万张/年</td>
+						 		          </tr> <tr>
+						 		               <td>应用税号</td>
+						 		               <td>一个</td>
+						 		               <td>一个</td>
+						 		               <td>多个</td>
+						 		          </tr> <tr>
+						 		               <td>应用税控设备</td>
+						 		               <td>一个</td>
+						 		               <td>多个</td>
+						 		               <td>多个</td>
+						 		          </tr> <tr>
+						 		               <td>开票点接入（纸质发票和电子发票打印）</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		          </tr> <tr>
+						 		               <td>安装服务</td>
+						 		               <td>无</td>
+						 		               <td>可选</td>
+						 		               <td>有</td>
+						 		          </tr> <tr>
+						 		               <td>与企业ERP系统对接</td>
+						 		               <td>提供标准接口</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		          </tr> <tr>
+						 		               <td>税控设备授权（发票打印更加快捷、性能稳定）</td>
+						 		               <td>无</td>
+						 		               <td>可选</td>
+						 		               <td>可选</td>
+						 		          </tr> <tr>
+						 		               <td>技术支持（5*8小时）</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		          </tr> <tr>
+						 		               <td>现场培训</td>
+						 		               <td>无</td>
+						 		               <td>有</td>
+						 		               <td>有</td>
+						 		          </tr> <tr>
+						 		               <td>短信包</td>
+						 		               <td>可选</td>
+						 		               <td>可选</td>
+						 		               <td>可选</td>
+						 		          </tr> <tr>
+						 		               <td>软件功能</td>
+						 		               <td>基础信息、业务处理、查询统计、发票库存、订阅管理、系统管理、设置</td>
+						 		               <td>基础信息、业务处理、查询统计、发票库存、订阅管理、系统管理、设置</td>
+						 		               <td>基础信息、业务处理、查询统计、发票库存、订阅管理、系统管理、设置<br/>
+													1、	开票单移动端、外部接入；<br/>
+													2、	统计分析用户、税号和开票点属性<br/>
+													3、	根据企业需求进行个性化报表定制<br/>
+													4、	自定义订阅内容<br/>
+													5、	多用户多角色管理
+						 		               </td>
+						 		          </tr>
+						 		       </table>
+						 		    
+						 		    </li>
+						 		</ul>
+						 		
+						 	</div>
 				 	  </div>
 			    </div>
 		 </div>
@@ -344,33 +418,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="am-modal am-modal-no-btn" tabindex="-1" id="xiugai">
-					<div class="am-modal-dialog">
-						<div class="am-modal-hd">
-							邮递信息详情 <!-- <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
-						</div>
-						<div class="am-modal-bd">
-							<hr />
-								<div class="am-u-sm-12 am-padding-top">
-								<div>
-									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
-										id="detail_table">
-										<thead>
-											<tr>
-												<th style="text-align:center">序号</th>
-						                        <th style="text-align:center">联系人</th>
-						                        <th style="text-align:center">联系电话</th>
-						                        <th style="text-align:center">邮寄地址</th>
-						                        <th style="text-align:center">邮箱</th>
-											</tr>
-										</thead>
-									</table>
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>
+	
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-3">
 		<div class="am-modal-dialog">
 			<form class="js-form-0 am-form am-form-horizontal">
