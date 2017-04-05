@@ -216,7 +216,7 @@
 					<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
 						<div class="am-modal-dialog" style="overflow-y: auto;">
 							<div class="am-modal-hd">
-								设备信息 <a href="javascript: void(0)"
+								开票点信息 <a href="javascript: void(0)"
 									class="am-close am-close-spin" data-am-modal-close>&times;</a>
 							</div>
 							<div class="am-modal-bd">
