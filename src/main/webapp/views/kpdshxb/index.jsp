@@ -1136,13 +1136,21 @@ table thead th {
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 10px;">
 							<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
-								style="text-decoration: underline;">下载默认模板</a>
+								style="text-decoration: underline;">下载模板</a>
 							<!-- 								<a -->
 							<!-- 								href="javascript:void(0)" id="btnImportConfig" -->
 							<!-- 								style="text-decoration: underline; margin-left: 10px;">配置导入文件对照关系</a> -->
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div id="alertt" class="am-modal-bd">Hello world！</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
 			</div>
 		</div>
 	</div>
@@ -1297,7 +1305,25 @@ table thead th {
             }
         });
         $("#btnDownloadDefaultTemplate").click(function () {
-    		window.location.href='lrkpd/downloadDefaultImportTemplate';
+        	var mbid = $('#mb').val();
+        	if(null==mbid||""==mbid){
+        		/* $("#alertt").html("请选择模板后下载");
+            	$("#my-alert").modal('open'); */
+            	alert("请选择模板后下载");
+        	}else{
+    			$.ajax({
+    				type : "POST",
+    				url : "kpdsh/bmlj",
+    				data : {"mbid":mbid},
+    				success : function(data) {
+						if(data.drmb.xzlj!=null&&data.drmb.xzlj!=""){
+						  window.location.href='lrkpd/downloadDefaultImportTemplate?xzlj='+data.drmb.xzlj;
+						}else{
+							window.location.href='kpdsh/xzmb?mbid='+mbid;
+						}
+    				}
+    			});
+        	}
 //         $("#downloadDefaultImportTemplateForm").submit();
     });
         //导入excel

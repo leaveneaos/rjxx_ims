@@ -717,8 +717,8 @@ public class LrkpdController extends BaseController {
 	 */
 	@RequestMapping(value = "/downloadDefaultImportTemplate")
 	@ResponseBody
-	public void downloadDefaultImportTemplate() throws Exception {
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("/template/importTemplate.xls");
+	public void downloadDefaultImportTemplate(String xzlj) throws Exception {
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(xzlj);
 		// 1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
 		response.setContentType("multipart/form-data");
 		response.setHeader("Content-Disposition", "attachment;fileName=importTemplate.xls");

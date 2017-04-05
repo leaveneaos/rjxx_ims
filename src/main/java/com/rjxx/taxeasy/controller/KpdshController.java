@@ -1,6 +1,9 @@
 package com.rjxx.taxeasy.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +13,11 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.aspectj.weaver.ast.Var;
 import org.eclipse.jdt.internal.compiler.ast.DoubleLiteral;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
+import com.rjxx.taxeasy.domains.DrPz;
 import com.rjxx.taxeasy.domains.Drmb;
 import com.rjxx.taxeasy.domains.Fpgz;
 import com.rjxx.taxeasy.domains.Fpzt;
@@ -35,6 +44,7 @@ import com.rjxx.taxeasy.domains.Sm;
 import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.DrPzService;
 import com.rjxx.taxeasy.service.DrmbService;
 import com.rjxx.taxeasy.service.FpgzService;
 import com.rjxx.taxeasy.service.JylsService;
@@ -74,6 +84,8 @@ public class KpdshController extends BaseController {
 	private XfService xfService;
 	@Autowired
 	DrmbService drmbService;
+	@Autowired
+	DrPzService drPzService;
 	@Autowired
 	private SpService spService;
 	@Autowired
@@ -873,5 +885,48 @@ public class KpdshController extends BaseController {
 		result.put("data", jyxxsqList);
 		return result;
 	}
-	
+	//下载模板
+	@RequestMapping(value = "/xzmb")
+	public void xzmb(Integer mbid ) throws IOException{
+		//查询需要的表头
+		DrPz drPz = new DrPz();
+		drPz.setMbid(mbid);
+		List<DrPz> drPzs = drPzService.findAllByParams(drPz);
+		// 第一步，创建一个webbook，对应一个Excel文件
+		HSSFWorkbook wb = new HSSFWorkbook();
+		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
+		HSSFSheet sheet = wb.createSheet("已开发票");
+		// 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short
+		HSSFRow row = sheet.createRow(0);
+		// 第四步，创建单元格，并设置值表头 设置表头居中
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		HSSFCell cell = null;
+		int i = 0;
+		for (DrPz drPz2 : drPzs) {
+			if (drPz2.getPzlx().equals("config")&&null!=drPz2.getPzz()&&!"".equals(drPz2.getPzz())) {
+				cell = row.createCell(i);
+				cell.setCellValue(drPz2.getPzz());
+				cell.setCellStyle(style);
+				i++;
+			}
+		}
+		//SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		String filename ="ImportTemplate.xls";
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=".concat(String.valueOf(URLEncoder.encode(filename, "UTF-8"))));
+		OutputStream out = response.getOutputStream();
+		wb.write(out);
+		out.close();
+	} 
+	@RequestMapping(value = "/bmlj")
+	@ResponseBody
+	public Map<String, Object>  getxzlj(Integer mbid){
+		Map<String, Object> result = new HashMap<>();
+		Drmb drmb = drmbService.findOne(mbid);
+		result.put("drmb", drmb);
+		return result;
+	}
 }
