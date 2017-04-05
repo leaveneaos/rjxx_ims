@@ -94,8 +94,13 @@ $(function() {
 									}
 								},
 								{
-									"data": null,
-			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
+									"data": function(data) {
+										if (data.tybz == "1") {
+											return "<a class='xiazai' href='#'>下载</a>";
+										} else {
+											return "<a class='modify' href='#'>修改</a>  <a class='xiazai' href='#'>下载</a> "	;	
+										}
+									}						
 								} ]
 					});
 			//<a href='#' class='del'>删除</a>
@@ -198,6 +203,18 @@ $(function() {
 				$('#bulk-import-div').modal({"width": 700, "height": 600});
 				ur = _this.config.editUrl + "?mbid="+mbid;
 			});
+			
+			// 下载
+			t.on('click', 'a.xiazai', function() {
+				var row = t.row($(this).parents('tr')).data();
+	        	var mbid = row.id;
+	        	var xzlj = row.xzlj;
+	        	if(xzlj!=null&&xzlj!=""){
+					  window.location.href='lrkpd/downloadDefaultImportTemplate?xzlj='+xzlj;
+					}else{
+						window.location.href='kpdsh/xzmb?mbid='+mbid;
+					}
+	        	})
 			// 删除
 			t.on('click', 'a.del', function() {
 				var da = t.row($(this).parents('tr')).data();

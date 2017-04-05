@@ -110,7 +110,7 @@ public class MbszController extends BaseController {
 		pagination.addParam("gsdm", getGsdm());
 		List<DrmbVo> list = drmbService.findByPage(pagination);
 		if (!list.isEmpty()) {
-			for (DrmbVo drmbVo : list) {
+			for (DrmbVo drmbVo : list) { 
 				for (Xf xf : xfs) {
 					if (drmbVo.getXfsh().equals(xf.getXfsh())) {
 						drmbVo.setXfmc(xf.getXfmc());
