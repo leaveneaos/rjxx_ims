@@ -306,6 +306,19 @@
 														</div>
 													</div>
 												</div>
+													<div class="am-offcanvas-content">
+										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票类型</label>
+											<div class="am-u-sm-7">
+												<select id="s_fpzldm" name="fpzldm" data-am-selected="{btnSize: 'sm'}">
+													<option value="">----请选择----</option>
+													<option value="01">增值税专用发票</option>
+													<option value="02">增值税普通发票</option>
+													<option value="12">电子发票(增普)</option>
+												</select>
+											</div>
+										</div>
+									</div>
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">操作类型</label>
@@ -466,6 +479,7 @@
 															<th>操作类型</th>
 															<th>发票代码</th>
 															<th>发票号码</th>
+															<th>发票类型</th>
 															<th>价稅合计</th>
 															<th>购方名称</th>
 															<th>开票日期</th>
