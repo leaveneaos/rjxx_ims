@@ -59,35 +59,89 @@ $(function () {
                     {"data": "zcdh"},
                     {"data": "khyh"},
                     {"data": "yhzh"},
+                    {"data": "email"},
                     {
     					"data": null,
                         "defaultContent": "<a class='view' href='javascript:void(0)'>查看</a> "									
     				}
                    
                 ],
-                /*"createdRow": function (row, data, index) {
-                    $('td', row).eq(0).html('<input type="checkbox" data="' + data.id + '" name="chk"/>');
-                }*/
+               
             });
-            
-          /*  $('#check_all').change(function () {
-            	if ($('#check_all').prop('checked')) {
-            		t.column(0).nodes().each(function (cell, i) {
-                        $(cell).find('input[type="checkbox"]').prop('checked', true);
-                    });
-                } else {
-                	t.column(0).nodes().each(function (cell, i) {
-                        $(cell).find('input[type="checkbox"]').prop('checked', false);
-                    });
-                }
-            });*/
+            var t1 = $('#detail_table').DataTable({
+            	"searching": false,
+                "serverSide": true,
+                "sServerMethod": "POST",
+                "processing": true,
+                "scrollX": true,
+                ordering: false,
+                  "ajax": {
+                    url: "qympk/getDetailList",
+                    type: 'POST',
+                    data: function (d) {
+                        d.nsrsbh =$("#nsrsbh").val();  // search 
+                    }
+                },
+              "columns": [
+                   
+	               {
+	                 "orderable": false,
+	                 "data": null,
+	                 "defaultContent": ""
+	                },
+                    {"data": "dwmc"},
+                    {"data": "nsrsbh"},
+                    {"data": "zcdz"},
+                    {"data": "zcdh"},
+                    {"data": "khyh"},
+                    {"data": "yhzh"},
+                    {"data": "lxr"},
+                    {"data": "lxdh"},
+                    {"data": "yjdz"},
+                    {"data": "email"},
+                    {
+    					"data": null,
+                        "defaultContent": "<a class='view' href='javascript:void(0)'>添加</a> "									
+    				}
+                   
+                ],
+               
+            });
+            t1.on('draw.dt', function (e, settings, json) {
+                var x = t,
+                    page = x.page.info().start; // 设置第几页
+                t1.column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = page + i + 1;
+                });
+            });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
                 t.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-
+                var trs=$('#mpk_table').find('tr');
+                var rows = 1;
+                for(var i=trs.length;i>0;i--){
+                    var cur = $($(trs[i]).find("td")[3]).text();
+                    var next = $($(trs[i-1]).find("td")[3]).text();
+                    if(cur==next){
+                        rows++;
+                        $($(trs[i]).find("td")[1]).remove();
+                        $($(trs[i]).find("td")[1]).remove();
+                        $($(trs[i]).find("td")[1]).remove();
+                    } else {
+                    	if(rows>1){
+                    		 $($(trs[i]).find("td")[1]).attr("rowspan",rows);
+                    		 $($(trs[i]).find("td")[1]).css({"text-align":"center","line-height":40*rows+"px"});
+                    		 $($(trs[i]).find("td")[2]).attr("rowspan",rows);
+                             $($(trs[i]).find("td")[2]).css({"text-align":"center","line-height":40*rows+"px"});
+                             $($(trs[i]).find("td")[3]).attr("rowspan",rows);
+                             $($(trs[i]).find("td")[3]).css({"text-align":"center","line-height":40*rows+"px"});
+                    	}
+                        rows=1;
+                    }
+                }
             });
             // 添加
 			t.on('click', 'a.add', function() {
@@ -123,15 +177,13 @@ $(function () {
 			 //查看
             t.on('click', 'a.view', function () {
                 var data = t.row($(this).parents('tr')).data();
-                _this.setForm0(data); 
-                el.$xiugai.modal({"width": 600, "height": 650});
+                $("#nsrsbh").val(data.nsrsbh);
+                t1.ajax.reload();
+                el.$xiugai.modal({"width": 1000, "height": 500});
             });
             return t;
         },
         setForm0 : function(data) {
-			//var _this = this, i;
-			// todo set data
-			// debugger
 			el.$jsForm0.find('input[id="xg_gfmc"]').val(data.dwmc);
 			el.$jsForm0.find('input[id="xg_gfsh"]').val(data.nsrsbh);
 			el.$jsForm0.find('input[id="xg_gfdz"]').val(data.zcdz);
@@ -153,18 +205,15 @@ $(function () {
                 el.$xiugai.modal('close');
             });
         },
+       
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
-        	//_this.xz();
-            //_this.exportAc();
             _this.modalAction(); // hidden action
         }
     };
     action.init();
 });
-
-
 
 
 	function dateFormat(str){

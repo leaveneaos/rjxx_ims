@@ -161,6 +161,7 @@
 			 <div class="am-u-sm-8 am-u-md-8 am-u-lg-8" style="margin-top:50px; margin-left: 16.7%;" >
 				 <div style="border: 1px solid gray;min-height: 500px;">
 				 	<div  style="background-color: #D3D3D3; height: 50px;" >
+				 	           <input type="hidden" id="nsrsbh">
 				 	           <div  style="float:left">
 				 	     	                 企业名片库
 				 	           </div>
@@ -179,19 +180,20 @@
 				 	  
 				         	<div class="am-u-sm-12 am-padding-top" style="background-color:#FAFAFA">
 										<div>
-											<table style="margin-bottom: 0px;" style="background-color:#FAFAFA"   class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
+											<table style="margin-bottom: 0px;background-color:#FAFAFA;text-align:center;"   class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
 												id="mpk_table">
 												<thead>
-													<tr>
-														<th>序号</th>
-						                                <th>操作</th>
-						                                <th>单位名称</th>
-						                                <th>纳税人识别号</th>
-						                                <th>注册地址</th>
-						                                <th>注册电话</th>
-						                                <th>开户银行</th>
-						                                <th>银行账号</th>
-						                                <th>邮递信息</th>
+													<tr style="text-align:center">
+														<th style="text-align:center">序号</th>
+						                                <th style="text-align:center">操作</th>
+						                                <th style="text-align:center">单位名称</th>
+						                                <th style="text-align:center">纳税人识别号</th>
+						                                <th style="text-align:center">注册地址</th>
+						                                <th style="text-align:center">注册电话</th>
+						                                <th style="text-align:center">开户银行</th>
+						                                <th style="text-align:center">银行账号</th>
+						                                <th style="text-align:center">邮箱</th>
+						                                <th style="text-align:center">邮递信息</th>
 													</tr>
 												</thead>
 											</table>
@@ -430,79 +432,29 @@
 						</div>
 						<div class="am-modal-bd">
 							<hr />
-							<form action="#" class="js-form-0  am-form am-form-horizontal">
-								<div class="am-g">
-									<div class="am-u-sm-12">
-										<div class="am-form-group">
-											<label for="xg_gfmc" class="am-u-sm-4 am-form-label"><span
-												style="color: red;">*</span>企业名称</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfmc" name="xg_gfmc" placeholder="" readonly required/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_gfsh" class="am-u-sm-4 am-form-label">纳税人识别号</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfsh" name="xg_gfsh" class ="js-pattern-Taxid"
-													placeholder=""  readonly/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_gfdz" class="am-u-sm-4 am-form-label">地址</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfdz" name="xg_gfdz" placeholder="" readonly/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_gfdh" class="am-u-sm-4 am-form-label ">电话</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfdh" name="xg_gfdh" placeholder="" class="js-pattern-Telephone" readonly/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_gfyh" class="am-u-sm-4 am-form-label">开户银行</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfyh" name="xg_gfyh" placeholder="" readonly />
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_gfyhzh" class="am-u-sm-4 am-form-label">开户账号</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfyhzh" name="xg_gfyhzh"
-													placeholder="" readonly />
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xq_lxr" class="am-u-sm-4 am-form-label">联系人</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_lxr" name="xq_lxr"
-													placeholder="" readonly/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_lxdh" class="am-u-sm-4 am-form-label">联系电话</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_lxdh" name="xg_lxdh"  class="js-pattern-Telephone"
-													placeholder="" readonly/>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="xg_yjdz" class="am-u-sm-4 am-form-label">邮寄地址</label>
-											<div class="am-u-sm-8">
-												<input type="text" id="xg_yjdz" name="xg_yjdz"
-													placeholder="" readonly/>
-											</div>
-										</div>
-									</div>
-									<div class="am-u-sm-12">
-										<div class="am-form-group">
-											<div class="am-u-sm-12  am-text-center">
-												<button type="button" id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
+								<div class="am-u-sm-12 am-padding-top">
+								<div>
+									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+										id="detail_table">
+										<thead>
+											<tr>
+												<th style="text-align:center">序号</th>
+						                        <th style="text-align:center">单位名称</th>
+						                        <th style="text-align:center">纳税人识别号</th>
+						                        <th style="text-align:center">注册地址</th>
+						                        <th style="text-align:center">注册电话</th>
+						                        <th style="text-align:center">开户银行</th>
+						                        <th style="text-align:center">银行账号</th>
+						                        <th style="text-align:center">联系人</th>
+						                        <th style="text-align:center">联系电话</th>
+						                        <th style="text-align:center">邮寄地址</th>
+						                        <th style="text-align:center">邮箱</th>
+						                        <th style="text-align:center">操作</th>
+											</tr>
+										</thead>
+									</table>
+							</div>
+							</div>
 						</div>
 					</div>
 				</div>

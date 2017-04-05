@@ -53,7 +53,7 @@
                 <div class="am-fr tpl-header-navbar">
                 
                     <ul>
-                    <li><a class="am-text-sm" href="qympk" ><span class=""></span> 企业名片库</a></li>
+                    <li><a class="am-text-sm" href="qympk"  target="_blank" ><span class=""></span> 企业名片库</a></li>
                     <li><a class="am-text-sm" href="khdxz" target="_blank"><span class="am-icon-download"></span> 客户端下载</a></li>
                         <!-- 欢迎语 -->
                        <%--  <li class="am-text-sm tpl-header-navbar-welcome">
@@ -65,13 +65,13 @@
 					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
-					<li id="zhxx"><a href="javascript:zhxx()"
+					<li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
 						data-am-modal="{target: '#doc-modal-3', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-user"></span> 账号信息</a></li>
-					<li><a href="#"
+					<li class="am-u-sm-12"><a href="#"
 						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-user"></span> 修改用户资料</a></li>
-					<li><a href="#"
+					<li class="am-u-sm-12"><a href="#"
 						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-cog"></span> 修改密码</a></li>
 		<!-- 			<li><a href="javascript:logout()"><span
