@@ -447,7 +447,6 @@ table thead th {
 											</thead>
 										</table>
 									</div>
-									<fieldset>
 										<legend>商品明细列表</legend>
 										<table style="margin-bottom: 0px;"
 											class=" am-table am-table-bordered am-table-striped am-text-nowrap"
@@ -467,7 +466,6 @@ table thead th {
 												</tr>
 											</thead>
 										</table>
-									</fieldset>
 								</div>
 							</div>
 						</div>
