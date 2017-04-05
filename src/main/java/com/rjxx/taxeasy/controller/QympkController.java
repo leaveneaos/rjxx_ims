@@ -47,15 +47,50 @@ public class QympkController extends BaseController{
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
+		
+		String searchtext = request.getParameter("searchtext");
 
+		pagination.addParam("text", searchtext);
 		List<Qympk> list = qympkService.findByPage(pagination);
+		
 		int total = pagination.getTotalRecord();
+		
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
 		result.put("draw", draw);
 		result.put("data", list);
 		return result;
 	}
+	/**
+	 * 初始化显示列表
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getDetailList")
+	@ResponseBody
+	public Map getDetailList(int length, int start, int draw) throws Exception {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		String searchtext = request.getParameter("searchtext");
+		String nsrsbh = request.getParameter("nsrsbh");
+		pagination.addParam("nsrsbh", nsrsbh);
+		pagination.addParam("text", searchtext);
+		List<Qympk> list = qympkService.findByPage(pagination);
+		
+		int total = pagination.getTotalRecord();
+		
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
+		result.put("data", list);
+		return result;
+	}
+	
+	
 	/**
 	 * 保存购方企业信息
 	 *
