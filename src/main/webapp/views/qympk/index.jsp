@@ -65,13 +65,13 @@
 					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
-					<li id="zhxx"><a href="javascript:zhxx()"
+					<li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
 						data-am-modal="{target: '#doc-modal-3', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-user"></span> 账号信息</a></li>
-					<li><a href="#"
+					<li class="am-u-sm-12"><a href="#"
 						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-user"></span> 修改用户资料</a></li>
-					<li><a href="#"
+					<li class="am-u-sm-12"><a href="#"
 						data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-cog"></span> 修改密码</a></li>
 		<!-- 			<li><a href="javascript:logout()"><span
@@ -159,14 +159,14 @@
        <div class="row-content am-cf" >
           <div class="row">
 			 <div class="am-u-sm-8 am-u-md-8 am-u-lg-8" style="margin-top:50px; margin-left: 16.7%;" >
-				 <div style="border: 1px solid gray;min-height: 500px;">
-				 	<div  style="background-color: #D3D3D3; height: 50px;" >
+				 <div style="min-height: 500px;">
+				 	<div style="background-color: #D3D3D3; height: 50px;line-height: 50px;" >
 				 	           <input type="hidden" id="nsrsbh">
-				 	           <div  style="float:left">
+				 	           <div class="am-u-lg-6" style="float:left;">
 				 	     	                 企业名片库
 				 	           </div>
-				 	     	   <div class="am-g" >
-								  <div class="am-u-lg-6" style="float:right">
+				 	     	   <div class="am-u-lg-6" class="am-g" >
+								  <div style="margin-top: 6px;">
 								    <div class="am-input-group" >
 								      <input type="text" class="am-form-field" id="searchtext"  placeholder="请输入纳税人识别号或销方名称 " style="background-color:#FAFAFA">
 								      <span class="am-input-group-btn">

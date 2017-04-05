@@ -426,9 +426,9 @@ public class LrkpdController extends BaseController {
 		if (skpid != null && !"".equals(skpid)) {
 			jyxxsq.setSkpid(Integer.parseInt(skpid));
 		}
-		Map paramskp = new HashMap();
-		paramskp.put("id", skpid);
-		Skp skp = skpservice.findOneByParams(paramskp);
+		//Map paramskp = new HashMap();
+		//paramskp.put("id", skpid);
+		Skp skp = skpservice.findOne(Integer.valueOf(skpid));
 		jyxxsq.setKpddm(skp.getKpddm());
 		try {
 			// Map<String, Object> params = null;
@@ -1650,9 +1650,9 @@ public class LrkpdController extends BaseController {
 		if (skpid != null && !"".equals(skpid)) {
 			jyxxsq.setSkpid(Integer.parseInt(skpid));
 		}
-		Map paramskp = new HashMap();
-		paramskp.put("id", skpid);
-		Skp skp = skpservice.findOneByParams(paramskp);
+		//Map paramskp = new HashMap();
+		//paramskp.put("id", skpid);
+		Skp skp = skpservice.findOne(Integer.valueOf(skpid));
 		jyxxsq.setKpddm(skp.getKpddm());
 		try {
 			// Map<String, Object> params = null;
