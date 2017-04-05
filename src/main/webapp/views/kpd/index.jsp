@@ -67,7 +67,7 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red">*</font>开票点名称</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="kpdmc" name="kpdmc" value="${xf.xfmc }_01" style="float: left;"
+										<input type="text" id="kpdmc" name="kpdmc" value="${xf.xfmc }_01" style="float: left;width: 80%;"
 											placeholder="开票点名称"
 											class="am-form-field" required />
 									</div>
@@ -84,9 +84,10 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red"></font>设备号</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="skph" name="skph" style="float: left;" value=" "
+										<input type="text" id="skph" name="skph" style="float: left;width: 80%;" value=" "
 											placeholder="税控盘号"
 											class="am-form-field" />
+											<span onclick="xssbh()" class="am-icon-question"></span>
 									</div>
 								</div>
 							 	<div style="display: none;" class="am-form-group">
@@ -117,6 +118,7 @@
 										<input type="text" id="lxdh" name="lxdh" value="${xf.xfdh }" style="float: left;"
 											placeholder="联系电话" class="js-pattern-Telephone" required="required"
 											/>
+											
 									</div>
 								</div>
 								<div style="display: none;" class="am-form-group">
@@ -215,7 +217,9 @@
 			</div>
 		</div>
 	</div>
-
+<div class="am-modal am-modal-alert" tabindex="-1" id="sbh">
+	<img alt="" src="img/sbh.png">
+</div>
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">提示</div>
@@ -302,7 +306,9 @@
 				location.href='xfxe';
 			});
 		});
-		
+		function xssbh(){
+			$("#sbh").modal("open");
+		}
 	</script>
 </body>
 </html>
