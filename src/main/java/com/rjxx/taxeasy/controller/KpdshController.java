@@ -887,6 +887,7 @@ public class KpdshController extends BaseController {
 	}
 	//下载模板
 	@RequestMapping(value = "/xzmb")
+	@ResponseBody
 	public void xzmb(Integer mbid ) throws IOException{
 		//查询需要的表头
 		DrPz drPz = new DrPz();
