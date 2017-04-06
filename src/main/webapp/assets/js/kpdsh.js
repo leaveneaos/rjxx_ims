@@ -51,11 +51,13 @@ $(function() {
      });
     
     $("#yhqrbc").click(function(){
+    	$("#yhqrbc").attr('disabled',"true"); 
 		$.ajax({
 			type : "POST",
 			url : "kpdsh/yhqrbc",
 			data : {},
 			success : function(data) {
+				$('#yhqrbc').removeAttr("disabled");
 				$("#alertt").html("保存成功");
             	$("#my-alert").modal('open');
             /*	$("#cljg").hide();*/
@@ -66,6 +68,7 @@ $(function() {
 				kpspmx_table.ajax.reload();
 			}
 		});
+		
     	});
     $("#yhqx").click(function(){
      	/*$("#cljg").hide();*/
