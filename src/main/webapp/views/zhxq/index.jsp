@@ -67,7 +67,7 @@
 						 		账户余额:1000元(代金券)
 						 	 </div>
 						 	 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="width：659px;height: 50px;text-align: left;line-height:50px;">
-						 		账户积分:0
+						 		账户积分:1000分
 						 	 </div>
 						  </div>
 						

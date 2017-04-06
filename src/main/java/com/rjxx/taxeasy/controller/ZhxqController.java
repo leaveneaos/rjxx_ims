@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,24 +42,66 @@ public class ZhxqController extends BaseController{
 	public String index() {
 		Map map =new HashMap<>();
 		map.put("gsdm", getGsdm());
+		map.put("id", getYhid());
 		Gsxx gsxx=gsxxservice.findOneByParams(map);
 		YhVO yh=yhservice.findOneByYhVo(map);
 		XfVo xfvo= xfservice.findAllByXfxx(map);
 		SkpVo skpvo=skpservice.findXfSkpNum(map);
 		Fpcxvo fpcxvo=kplsservice.findykpCount(map);
 		YhVO yhvo = yhservice.findAllByYHCount(map);
-		
+		String zhlxmc=null;
+		if(yh==null){
+			zhlxmc="免费测试用户";
+		}else{
+			zhlxmc=yh.getZhlxmc();
+		}
+		Date yxqsrq=null;
+		if(gsxx.getYxqsrq()==null){
+			yxqsrq=new Date();
+		}else{
+			yxqsrq=gsxx.getYxqsrq();
+		}
+		Date yxjzrq=null;
+		if(gsxx.getYxjzrq()==null){
+			yxjzrq=new Date();
+		}else{
+			yxjzrq=gsxx.getYxjzrq();
+		}
+		Integer xfnum=0;
+		if(gsxx.getXfnum()==null){
+			xfnum=0;
+		}else{
+			xfnum=gsxx.getXfnum();
+		}
+		Integer yhnum=null;
+		if(gsxx.getYhnum()==null){
+			yhnum=0;
+		}else{
+			yhnum=gsxx.getYhnum();
+		}
+		Integer kpnum=null;
+		if(gsxx.getKpnum()==null){
+			kpnum=0;
+		}else{
+			kpnum=gsxx.getKpnum();
+		}
+		Integer kpdnum=null;
+		if(gsxx.getKpdnum()==null){
+			kpdnum=0;
+		}else{
+			kpdnum=gsxx.getKpdnum();
+		}
 		request.setAttribute("yhcount", yhvo.getYhcount());//已开票数
 		request.setAttribute("kpcount", fpcxvo.getKpcount());//已开票数
 		request.setAttribute("skpcount", skpvo.getSkpcount());//已使用税控盘数
 		request.setAttribute("XfCount", xfvo.getCount());//已使用税号数
-		request.setAttribute("zhlxmc", yh.getZhlxmc());//账户类型名称
-		request.setAttribute("yxqsrq", gsxx.getYxqsrq());//有效起始日期
-		request.setAttribute("yxjzrq", gsxx.getYxjzrq());//有效截止日期
-		request.setAttribute("xfnum", gsxx.getXfnum());//税号数量
-		request.setAttribute("yhnum", gsxx.getYhnum());//用户数量
-		request.setAttribute("kpnum", gsxx.getKpnum());//开票数量
-		request.setAttribute("kpdnum",gsxx.getKpdnum());//税控设备
+		request.setAttribute("zhlxmc", zhlxmc);//账户类型名称
+		request.setAttribute("yxqsrq", yxqsrq);//有效起始日期
+		request.setAttribute("yxjzrq", yxjzrq);//有效截止日期
+		request.setAttribute("xfnum", xfnum);//税号数量
+		request.setAttribute("yhnum", yhnum);//用户数量
+		request.setAttribute("kpnum", kpnum);//开票数量
+		request.setAttribute("kpdnum",kpdnum);//税控设备
 		return "zhxq/index";
 	}
 }
