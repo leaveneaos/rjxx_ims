@@ -83,6 +83,7 @@
 										<th>是否默认</th>
 										<th>是否含税</th>
 										<th>是否打印清单</th>
+										<th>是否强制分票</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -181,20 +182,29 @@
 														</div>
 														<div class="am-u-sm-12">
 															<div class="am-form-group">
-																<label for="mrbz" class="am-u-lg-3 am-form-label">默认标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-1">
+																<label for="mrbz" class="am-u-lg-4 am-form-label">默认标志</label>
+																<div style="margin-top: 10px;" class="am-u-lg-2">
 																	<input id="mrbz" value="1" type="checkbox" name="mrbz">
 																</div>
-																<label for="hsbz" class="am-u-lg-3 am-form-label">含税标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-1">
+																<label for="hsbz" class="am-u-lg-4 am-form-label">含税标志</label>
+																<div style="margin-top: 10px;" class="am-u-lg-2">
 																	<input id="hsbz" value="1" type="checkbox" name="hsbz">
 																</div>
-																<label for="qdbz" class="am-u-lg-3 am-form-label">清单标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-1">
-																	<input id="qdbz" value="1" type="checkbox" name="qdbz">
-																</div>
+															
 															</div>
 														</div>
+															<div class="am-u-sm-12">
+															<div class="am-form-group">
+																	<label for="qdbz" class="am-u-lg-4 am-form-label">清单标志</label>
+																<div style="margin-top: 10px;" class="am-u-lg-2">
+																	<input id="qdbz" value="1" type="checkbox" name="qdbz">
+																</div>
+																<label for="qzfp" class="am-u-lg-4 am-form-label">强制分票</label>
+																<div style="margin-top: 10px;" class="am-u-lg-2">
+																	<input id="qzfp" value="1" type="checkbox" name="sfqzfp">
+																</div>
+															</div>
+															</div>
 														<div class="am-u-sm-12">
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">

@@ -152,7 +152,13 @@ $("#qdbz").change(function () {
                                   }else{
                                       return "否";
                                   }
-                              }},
+                              }},   {"data":function (data) {
+                                  if (data.sfqzfp==1) {
+                                      return "是";
+                                   }else{
+                                       return "否";
+                                   }
+                               }},
                         {
                             "data": null,
                             "render": function (data) {
@@ -166,6 +172,7 @@ $("#qdbz").change(function () {
 				$("#mrbz").attr("checked",false);
 				$("#hsbz").attr("checked",false);
 				$("#qdbz").attr("checked",false);
+				$("#qzfp").attr("checked",false);
 				$(".chk").show();
 				 var t01 = $("#jyls_table tbody tr").length;
 				 for(var i = 0;i<t01;i++){
@@ -248,6 +255,11 @@ $("#qdbz").change(function () {
 					$("#hsbz").attr("checked","checked");
 				}else{
 					$("#hsbz").attr("checked",false);
+				}
+				if(row.sfqzfp=="1"){
+					$("#qzfp").attr("checked","checked");
+				}else{
+					$("#qzfp").attr("checked",false);
 				}
 				if(row.qdbz=="1"){
 					$("#qdbz").attr("checked","checked");
