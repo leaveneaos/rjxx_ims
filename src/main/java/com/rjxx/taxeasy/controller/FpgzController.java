@@ -72,6 +72,9 @@ public class FpgzController extends BaseController{
 	@ResponseBody
 	public Map<String, Object> xzgz(Fpgz fpgz,String[] xfid){
 		Map<String, Object> result = new HashMap<String, Object>();
+		if (null==fpgz.getSfqzfp()) {
+			fpgz.setSfqzfp("0");
+		}
 		String xfs="";
 		if (null==xfid||xfid.length==0) {
 			
@@ -143,6 +146,9 @@ public class FpgzController extends BaseController{
 				fpgz3.setMrbz("0");
 			}
 			fpgzService.save(listfp);
+		}
+		if (null==fpgz.getSfqzfp()) {
+			fpgz.setSfqzfp("0");
 		}
 		fpgz.setYxbz("1");
 		fpgz.setLrry(fpgz2.getLrry());

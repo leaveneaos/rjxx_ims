@@ -497,6 +497,7 @@ public class KpdshController extends BaseController {
 			int fphs2 = 100;
 			double zdje=0d;
 			boolean flag = false;
+			boolean qzfp = true;
 			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 			Xf x = new Xf();
 			x.setGsdm(getGsdm());
@@ -516,7 +517,11 @@ public class KpdshController extends BaseController {
 						} else if ("12".equals(jyxxsq.getFpzldm())) {
 							fphs2 = fpgz.getDzphs();
 						}
+						if (fpgz.getSfqzfp().equals("0")) {
+							qzfp=false;
+						}
 						flag = true;
+						break;
 					}
 				}
 				if (!flag) {
@@ -530,6 +535,9 @@ public class KpdshController extends BaseController {
 							fphs1 = fpgz2.getPphs();
 						} else if ("12".equals(jyxxsq.getFpzldm())) {
 							fphs2 = fpgz2.getDzphs();
+						}
+						if (fpgz2.getSfqzfp().equals("0")) {
+							qzfp=false;
 						}
 					}
 				}
@@ -545,17 +553,17 @@ public class KpdshController extends BaseController {
 			// 分票
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null!=fpjehsbzs[i]&&"1".equals(fpjehsbzs[i])) {
-					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
+					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2,qzfp);
 				}else{
 					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs2);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2,qzfp);
 				}
 			} else {
 				if (null!=fpjehsbzs[i]&&"1".equals(fpjehsbzs[i])) {
-					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
+					jyspmxs=SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1,qzfp);
 				}else{
 					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs1);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1,qzfp);
 				}
 			}
 			// 保存进交易流水
@@ -596,7 +604,10 @@ public class KpdshController extends BaseController {
 						fpJyspmxList1.add(jyspmxDecimal2);
 					}
 				}
-				mxList.add(fpJyspmxList1);
+				if (null!=fpJyspmxList1&&fpJyspmxList1.size()>0) {
+					mxList.add(fpJyspmxList1);
+				}
+	
 	/*			Jyls jyls = saveJyls(jyxxsq, fpJyspmxList);
 				saveKpspmx(jyls, fpJyspmxList);*/
 				// fpNumKplshMap.put(fpNum, kpls.getKplsh());
