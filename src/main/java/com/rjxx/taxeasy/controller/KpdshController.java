@@ -191,6 +191,8 @@ public class KpdshController extends BaseController {
 		pagination.addParam("gsdm", gsdm);
 		pagination.addParam("spmc", spmc);
 		pagination.addParam("gfmc", gfmc);
+		pagination.addParam("order", "ddh");
+		pagination.addParam("ord", "desc");
 		if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
 			pagination.addParam("xfsh", xfsh);
 		}
