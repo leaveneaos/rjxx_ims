@@ -529,6 +529,7 @@ public class KpdshController extends BaseController {
 				if (!flag) {
 					Map<String, Object> paramse = new HashMap<>();
 					paramse.put("mrbz", "1");
+					paramse.put("gsdm", getGsdm());
 					Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
 					if (null != fpgz2) {
 						if ("01".equals(jyxxsq.getFpzldm())) {
