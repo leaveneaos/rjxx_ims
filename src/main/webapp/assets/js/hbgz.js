@@ -27,6 +27,27 @@ $(function () {
 
         $jsLoading: $('.js-modal-loading')
     };
+	 $('#pxbz').click(function(){
+		  if($('input[name="pxbz"]').prop("checked"))
+	        {
+			  $('#spmcbz').prop('checked', false);
+			  $('#spbhb').prop('checked', false);
+	        }
+	 });
+	  $('#spmcbz').click(function(){
+		  if($('input[name="spmcbz"]').prop("checked"))
+	        {
+			  $('#pxbz').prop('checked', false);
+			  $('#spbhb').prop('checked', false);
+	        }
+	 })
+	   $('#spbhb').click(function(){
+		  if($('input[name="spbhb"]').prop("checked"))
+	        {
+			  $('#pxbz').prop('checked', false);
+			  $('#spmcbz').prop('checked', false);
+	        }
+	 })
 var ur;
 $("#qdbz").change(function () {
     if($(this).is(':checked')){
@@ -54,10 +75,10 @@ $("#qdbz").change(function () {
     var action = {
         tableEx: null, // cache dataTable
         config: {
-            getUrl: 'fpgz/getList',
-            xzUrl: 'fpgz/xzgz',
-            xgUrl: 'fpgz/xggz',
-            scUrl: 'fpgz/scgz'
+            getUrl: 'hbgz/getList',
+            xzUrl: 'hbgz/add',
+            xgUrl: 'hbgz/update',
+            scUrl: 'hbgz/delete'
         },
 
         dataTable: function () {
@@ -68,6 +89,7 @@ $("#qdbz").change(function () {
                     "processing": true,
                     "serverSide": true,
                     "scrollX": true,
+                    "bPaginate":true,
                     ordering: false,
                     searching: false,
 
@@ -92,73 +114,27 @@ $("#qdbz").change(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {"data": "ggmc"},
+                        {"data": "gzmc"},
                         {
                             "data": function (data) {
-                                if (data.zpxe) {
-                                    return FormatFloat(data.zpxe,
-                                        "###,###.00");
+                                if (data.mrbz=="1") {
+                                    return "是"
                                 }else{
-                                    return null;
-                                }
-                            },
-                            'sClass': 'right'
-                        },
-                        {"data": "zphs",
-                            'sClass': 'right'},
-                        {
-                            "data": function (data) {
-                                if (data.ppxe) {
-                                    return FormatFloat(data.ppxe,
-                                        "###,###.00");
-                                }else{
-                                    return null;
-                                }
-                            },
-                            'sClass': 'right'
-                        },
-                        {"data": "pphs",
-                            'sClass': 'right'},
-                        {
-                            "data": function (data) {
-                                if (data.dzpxe) {
-                                    return FormatFloat(data.dzpxe,
-                                        "###,###.00");
-                                }else{
-                                    return null;
-                                }
-                            },
-                            'sClass': 'right'
-                        },
-                        {"data": "dzphs",
-                            'sClass': 'right'},
-                        {"data": function (data) {
-                           if (data.mrbz==1) {
-                                   return "是";
-                              }else{
                                     return "否";
-                             }
-                            }},  
-                        {"data":function (data) {
-                                if (data.hsbz==1) {
-                                    return "是";
-                                 }else{
-                                     return "否";
-                                 }
-                             }},
-                             {"data":function (data) {
-                                 if (data.qdbz==1) {
-                                     return "是";
-                                  }else{
-                                      return "否";
-                                  }
-                              }},   {"data":function (data) {
-                                  if (data.sfqzfp==1) {
-                                      return "是";
-                                   }else{
-                                       return "否";
-                                   }
-                               }},
+                                }
+                            }
+                        },
+                        {"data":  function (data) {
+                            if (data.pxbz=="1") {
+                                return "商品按分类编码,名称,规格型号,单位,单价,税率合并;"
+                            }else if(data.spmcbz=="1"){
+                                return "商品按分类编码,名称,税率合并;";
+                            }else{
+                            	return "商品不合并;"
+                            }
+                        }
+                        },
+                        {"data": "bz"}, 
                         {
                             "data": null,
                             "render": function (data) {
@@ -169,22 +145,6 @@ $("#qdbz").change(function () {
 			// 新增
 			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
 				$("#fpform")[0].reset();
-				$("#mrbz").attr("checked",false);
-				$("#hsbz").attr("checked",false);
-				$("#qdbz").attr("checked",false);
-				$("#qzfp").attr("checked",false);
-				$(".chk").show();
-				 var t01 = $("#jyls_table tbody tr").length;
-				 for(var i = 0;i<t01;i++){
-					 var row =  t.row(i).data();
-					 if(typeof(row)!="undefined"){
-						 var xfds = row.xfids.split(',');
-							for(var j in xfds){
-								var bz = "#type-"+xfds[j];
-								$(bz).hide();
-								  } 
-					 }	
-				 }
 				ur = _this.config.xzUrl;
 			});
 			$("#gz_cxgz").on('click', $("#gz_scgz"), function() {
@@ -209,7 +169,7 @@ $("#qdbz").change(function () {
 						   ur = _this.config.scUrl;
 							$.ajax({
 								url : ur,
-								data : {"id":djhArr.join(",")},
+								data : {"gzid":djhArr.join(",")},
 								method : 'POST',
 								success : function(data) {
 									$("#alertt").html(data.msg);
@@ -240,69 +200,31 @@ $("#qdbz").change(function () {
 			// 修改
 			t.on('click', 'a.xiugai', function() {
 				var row = t.row($(this).parents('tr')).data();
-				$(".chk").show();
 				$("#fpform")[0].reset();
-				$("#doc-modal-4").modal('open');
-				$("#ggmc").val(row.ggmc);
-				$("#zpxe").val(row.zpxe);
-				$("#zphs").val(row.zphs);
-				$("#ppxe").val(row.ppxe);
-				$("#pphs").val(row.pphs);
-				$("#dzpxe").val(row.dzpxe);
+				$("#doc-modal-4").modal({"width": 650})
+				$("#gzmc").val(row.gzmc);
+				$("#bz").val(row.bz);
 				if(row.mrbz=="1"){
 					$("#mrbz").attr("checked","checked");
 				}else{
 					$("#mrbz").attr("checked",false);
 				}
-				if(row.hsbz=="1"){
-					$("#hsbz").attr("checked","checked");
-				}else{
-					$("#hsbz").attr("checked",false);
+				if (row.pxbz == "1") {
+					$('#pxbz').prop('checked', true);
+				} else {
+					$('#pxbz').prop('checked', false);
 				}
-				if(row.sfqzfp=="1"){
-					$("#qzfp").attr("checked","checked");
-				}else{
-					$("#qzfp").attr("checked",false);
+				if (row.spmcbz == "1") {
+					$('#spmcbz').prop('checked', true);
+				} else {
+					$('#spmcbz').prop('checked', false);
 				}
-				if(row.qdbz=="1"){
-					$("#qdbz").attr("checked","checked");
-					$("#zphs").attr("required",false);
-			    	$("#pphs").attr("required",false);
-			    	$("#dzphs").attr("required",false);
-			    	$("#zphs").attr("readonly",true);
-			    	$("#pphs").attr("readonly",true);
-			    	$("#dzphs").attr("readonly",true);
-			    	$("#zphs").val("");
-			    	$("#pphs").val("");
-			    	$("#dzphs").val("");
-				}else{
-			    	$("#zphs").attr("readonly",false);
-			    	$("#pphs").attr("readonly",false);
-			    	$("#dzphs").attr("readonly",false);
-			      	$("#zphs").attr("required",true);
-			    	$("#pphs").attr("required",true);
-			       $("#dzphs").attr("required",true);
-					$("#qdbz").attr("checked",false);
+				if (row.spbhb == "1") {
+					$('#spbhb').prop('checked', true);
+				} else {
+					$('#spbhb').prop('checked', false);
 				}
 				$("#idd").val(row.id);
-				$("#dzphs").val(row.dzphs);
-				var xfids = row.xfids.split(',');
-				 var t01 = $("#jyls_table tbody tr").length;
-				 for(var i = 0;i<t01;i++){
-					 var row =  t.row(i).data();
-						var xfds = row.xfids.split(',');
-						for(var j in xfds){
-							var bz = "#type-"+xfds[j];
-							$(bz).hide();
-						/*	$(bz).prop('checked', true);*/
-							  }
-				 }
-				for(var i in xfids){
-					var bz = "#yhjg1-"+xfids[i];
-					var bz1 = "#type-"+xfids[i];
-					$(bz1).show();
-					$(bz).prop('checked', true);
-					  }
 				ur = _this.config.xgUrl
 			});
 
@@ -349,16 +271,12 @@ $("#qdbz").change(function () {
 			var _this = this;
 			el.$jsForm0.validator({
 				submit : function() {
-					var formValidity = this.isFormValid();
-					var chk_value =[];
-					$('input[name="xfid"]:checked').each(function(){
-					chk_value.push($(this).val());
-					}); 
-					if(chk_value.length<1){
-						$("#alertt").html("请选择销方");
-                    	$("#my-alert").modal('open');
+					if($('#pxbz').prop('checked') == false && $('#spmcbz').prop('checked') == false&& $('#spbhb').prop('checked') == false){
+						$("#alertt").html("必选选中一条合并项");
+		            	$("#my-alert").modal('open');
 						return false;
 					}
+					var formValidity = this.isFormValid();
 					if (formValidity) {
 						var data = el.$jsForm0.serialize(); // get form data
 						$.ajax({
@@ -366,15 +284,9 @@ $("#qdbz").change(function () {
 							data : data,
 							method : 'POST',
 							success : function(data) {
-								if (data.success) {
 									el.$jsLoading.modal('close'); // close
 									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
-								} else {
-									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
-								}
+			                    	$("#my-alert").modal('open');	
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
 								// data
@@ -403,16 +315,12 @@ $("#qdbz").change(function () {
 			var _this = this;
 			el.$jsForm0.validator({
 				submit : function() {
-					var formValidity = this.isFormValid();
-					var chk_value =[];
-					$('input[name="xfid"]:checked').each(function(){
-					chk_value.push($(this).val());
-					}); 
-					if(chk_value.length<1){
-						$("#alertt").html("请选择销方");
-                    	$("#my-alert").modal('open');
+					if($('#pxbz').prop('checked') == false && $('#spmcbz').prop('checked') == false&& $('#spbhb').prop('checked') == false){
+						$("#alertt").html("必选选中一条合并项");
+		            	$("#my-alert").modal('open');
 						return false;
 					}
+					var formValidity = this.isFormValid();
 					if (formValidity) {
 						var data = el.$jsForm0.serialize(); // get form data
 						$.ajax({

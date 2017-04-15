@@ -56,6 +56,10 @@
 												class="am-btn am-btn-default am-btn-danger">
 												<span></span> 删除
 											</button>
+												<button type="button" id="gz_cxgz"
+												class="am-btn am-btn-default  am-btn-success">
+												<span></span> 查询
+											</button>
 										</div>
 									</div>
 								</div>
