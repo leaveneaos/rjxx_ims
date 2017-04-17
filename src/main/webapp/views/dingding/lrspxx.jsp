@@ -67,13 +67,13 @@
 
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" href="#tabbar-with-chat">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">价税合计：45.00</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">继续添加</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map" onclick="lrkpd2();">
+			<a class="mui-tab-item" onclick="lrkpd2();" >
 				<span class="mui-tab-label">完成（2）</span>
 			</a>
 		</nav>

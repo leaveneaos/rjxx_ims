@@ -10,22 +10,24 @@
   
     <link rel="stylesheet" href="css/mui.min.css">
     <script src="js/mui.min.js"></script>
-    
+    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
   </head>  
   <body>  
   	<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 15px;">开票通</span></a>
 		</header>
 		<div class="mui-content">
-	    <div class="mui-content-padded" style="margin: 5px;">    
+	    <div class="mui-content-padded" style="margin: 5px;">
+	    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
 	      <form class="mui-input-group">
 			    <div class="mui-input-row">
 			        <label>*销方名称</label>
-			        <input type="text" class="mui-input-clear" placeholder="上海容津信息技术有限公司">
+			        <input type="text" id="xfmc" class="mui-input-clear" placeholder="上海容津信息技术有限公司">
 			    </div>
 			    <div class="mui-input-row">
 			        <label>*合同/订单号</label>
-			        <input type="text" class="mui-input-clear" placeholder="请输入合同或订单号">
+			        <input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 			    </div>
 			    <div class="mui-input-row">
 			        <label>*开票日期</label>
@@ -58,10 +60,10 @@
     
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" href="#tabbar-with-chat">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map" onclick="lrgfxx();">
+			<a class="mui-tab-item"  onclick="lrgfxx();">
 				<span class="mui-tab-label">下一步</span>
 			</a>
 		</nav>
@@ -71,5 +73,70 @@
      function lrgfxx(){
     	 window.location.href="dinglrgfxx";
      }
+     $(function () {
+    	 var url= window.location.href;
+			var corpId =$("#corpid").val();
+			alert(corpId);
+			var signature = "";
+			var nonce = "";
+			var timeStamp = "";
+			var agentId = "";
+    	 $.ajax({
+    		 url:"dinglrkpd/jssqm",
+             data: {"url":url,"corpId":corpId},
+             method: 'POST',
+             success: function (data) {
+            	  signature = data.signature;
+    			  nonce = data.nonce;
+    			  timeStamp = data.timeStamp;
+    			  agentId = data.agentId;
+    			  corpId = data.corpId;
+             }
+    	 });
+    	 
+    	 dd.config({
+				"agentId": agentId,
+				"corpId": corpId,
+				"timeStamp": timeStamp,
+				"nonceStr": nonce,
+				"signature": signature,
+				jsApiList: ['device.notification.confirm',
+					'device.notification.alert',
+					'device.notification.prompt',
+					'biz.chat.chooseConversation',
+					'biz.ding.post']
+			});
+    	 
+    	  dd.ready(function() {
+              alert('dd ready');
+
+              document.addEventListener('pause', function() {
+                  alert('pause');
+              });
+
+              document.addEventListener('resume', function() {
+                  alert('resume');
+              });
+
+              //var head = document.querySelector('h1');
+              //head.innerHTML = head.innerHTML + ' It rocks!';
+
+              dd.device.notification.alert({
+                  message: 'dd.device.notification.alert',
+                  title: 'This is title',
+                  buttonName: 'button',
+                  onSuccess: function(data) {
+                      alert('win: ' + JSON.stringify(data));
+                  },
+                  onFail: function(err) {
+                      alert('fail: ' + JSON.stringify(err));
+                  }
+              });
+          });
+
+          dd.error(function(err) {
+              alert('dd error: ' + JSON.stringify(err));
+          });
+     });
   </script>
 </html>  

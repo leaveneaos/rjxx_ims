@@ -67,13 +67,13 @@
 
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" href="#tabbar-with-chat">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">价税合计：45.00</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map" onclick="qkp();">
+			<a class="mui-tab-item" onclick="qkp();" >
 				<span class="mui-tab-label">去开票</span>
 			</a>
 		</nav>

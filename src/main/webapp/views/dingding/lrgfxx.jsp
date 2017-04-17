@@ -94,10 +94,10 @@
 		
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" href="#tabbar-with-chat">
+			<a class="mui-tab-item" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map" onclick="lrspxx();">
+			<a class="mui-tab-item" onclick="lrspxx();">
 				<span class="mui-tab-label">下一步</span>
 			</a>
 		</nav>

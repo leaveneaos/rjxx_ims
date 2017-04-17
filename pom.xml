@@ -92,6 +92,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.laiwang.lippi</groupId>
+            <artifactId>lippi.oapi.encryt</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+       </dependency>
     </dependencies>
     <build>
         <resources>

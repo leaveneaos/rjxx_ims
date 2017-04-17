@@ -29,8 +29,7 @@
     	<div class="t2"><a href="">不会操作？请点这里</a></div>
     	<div class="mui-button-row">
         <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
-			<button type="button" class="mui-btn mui-btn-success" ><a href="dinglrkpd">录入开票单</a></button>
-        
+			<button type="button" class="mui-btn mui-btn-success" ><a href="dinglrkpd?corpid=<c:out value="${corpid}"/>">录入开票单</a></button>
     </div>
     	
     </div>
