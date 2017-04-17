@@ -11,6 +11,7 @@ public class DingLrGfxxController extends BaseController{
 	
 	@RequestMapping
     public String index() throws Exception {
+		
         return "dingding/lrgfxx";
     }
 }
