@@ -2,8 +2,6 @@ package com.rjxx.taxeasy.controller;
 
 import java.net.URL;
 import java.net.URLDecoder;
-import java.security.MessageDigest;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dingtalk.oapi.lib.aes.DingTalkEncryptException;
 import com.dingtalk.oapi.lib.aes.DingTalkJsApiSingnature;
 import com.dingtalk.oapi.lib.aes.Utils;
 import com.rjxx.taxeasy.domains.IsvCorpApp;
@@ -58,7 +55,7 @@ public class DingLrKpdController extends BaseController{
      
     	 String nonce = Utils.getRandomStr(8);
          Long timeStamp = System.currentTimeMillis();
-         String sign = this.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
+         String sign = DingTalkJsApiSingnature.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
          System.out.println(sign);
          Map<String,Object> jsapiConfig = new HashMap<String, Object>();
          jsapiConfig.put("signature",sign);
@@ -92,29 +89,4 @@ public class DingLrKpdController extends BaseController{
         }
         return url;
     }
-    public static String getJsApiSingnature(String url, String nonce, Long timeStamp, String jsTicket)
-			throws DingTalkEncryptException {
-		String plainTex = "noncestr=" + nonce +"&jsapi_ticket=" + jsTicket +  "&timestamp=" + timeStamp + "&url=" + url;
-		System.out.println(plainTex);
-		String signature = "";
-		try {
-			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-			crypt.reset();
-			crypt.update(plainTex.getBytes("UTF-8"));
-			signature = byteToHex(crypt.digest());
-			return signature;
-		} catch (Exception e) {
-			throw new DingTalkEncryptException(Integer.valueOf(900006));
-		}
-	}
-
-	private static String byteToHex(byte[] hash) {
-		Formatter formatter = new Formatter();
-		for (byte b : hash) {
-			formatter.format("%02x", new Object[] { Byte.valueOf(b) });
-		}
-		String result = formatter.toString();
-		formatter.close();
-		return result;
-	}
 }
