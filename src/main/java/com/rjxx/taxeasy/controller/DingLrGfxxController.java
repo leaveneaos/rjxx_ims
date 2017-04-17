@@ -11,7 +11,8 @@ public class DingLrGfxxController extends BaseController{
 	
 	@RequestMapping
     public String index() throws Exception {
-		
+		String corpid=request.getParameter("corpid");//企业id
+        request.setAttribute("corpid", corpid);
         return "dingding/lrgfxx";
     }
 }
