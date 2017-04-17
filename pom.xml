@@ -96,7 +96,9 @@
             <groupId>com.laiwang.lippi</groupId>
             <artifactId>lippi.oapi.encryt</artifactId>
             <version>1.0.3-SNAPSHOT</version>
-       </dependency>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/lippi-oapi-encrpt.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <resources>
