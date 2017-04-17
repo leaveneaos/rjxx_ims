@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dingtalk.oapi.lib.aes.DingTalkJsApiSingnature;
+import com.dingtalk.oapi.lib.aes.Utils;
 import com.rjxx.taxeasy.domains.IsvCorpApp;
 import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
 import com.rjxx.taxeasy.service.IsvCorpAppService;
@@ -48,7 +49,7 @@ public class DingLrKpdController extends BaseController{
     	params.put("corpId", corpid);
     	IsvCorpSuiteJsapiTicket isvCorpSuiteJsapiTicket=isvcorpsuitejsapiticketservice.findOneByParams(params);
     	IsvCorpApp isvCorpApp=isvcorpappservice.findOneByParams(params);
-    	 String nonce = com.dingtalk.oapi.lib.aes.Utils.getRandomStr(8);
+    	 String nonce = Utils.getRandomStr(8);
          Long timeStamp = System.currentTimeMillis();
          String sign = DingTalkJsApiSingnature.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
          Map<String,Object> jsapiConfig = new HashMap<String, Object>();
