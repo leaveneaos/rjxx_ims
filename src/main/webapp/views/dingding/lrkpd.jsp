@@ -89,13 +89,13 @@
             	  signature = data.signature;
             	  alert(signature);
     			  nonce = data.nonce;
-    			  alert(signature);
+    			  alert(nonce);
     			  timeStamp = data.timeStamp;
-    			  alert(signature);
+    			  alert(timeStamp);
     			  agentId = data.agentId;
-    			  alert(signature);
+    			  alert(agentId);
     			  corpId = data.corpId;
-    			  alert(signature);
+    			  alert(corpId);
              }
     	 });
     	 
