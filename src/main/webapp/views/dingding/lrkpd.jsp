@@ -76,7 +76,7 @@
      $(function () {
     	 var url= window.location.href;
 			var corpId =$("#corpid").val();
-			alert(corpId);
+			
 			var signature = "";
 			var nonce = "";
 			var timeStamp = "";
