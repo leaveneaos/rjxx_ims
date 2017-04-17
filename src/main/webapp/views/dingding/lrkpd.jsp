@@ -87,10 +87,15 @@
              method: 'POST',
              success: function (data) {
             	  signature = data.signature;
+            	  alert(signature);
     			  nonce = data.nonce;
+    			  alert(signature);
     			  timeStamp = data.timeStamp;
+    			  alert(signature);
     			  agentId = data.agentId;
+    			  alert(signature);
     			  corpId = data.corpId;
+    			  alert(signature);
              }
     	 });
     	 
