@@ -47,7 +47,6 @@ public class DingLrKpdController extends BaseController{
     public Map<String, Object> getItems() throws Exception {
     	String corpid=request.getParameter("corpId");//企业id
     	String url=request.getParameter("url");//当前网页url
-    	url=url.substring(0, url.indexOf("?"));
     	Map params=new HashMap();
     	params.put("corpId", corpid);
     	IsvCorpSuiteJsapiTicket isvCorpSuiteJsapiTicket=isvcorpsuitejsapiticketservice.findOneByParams(params);
@@ -57,6 +56,7 @@ public class DingLrKpdController extends BaseController{
     	 String nonce = Utils.getRandomStr(8);
          Long timeStamp = System.currentTimeMillis();
          String sign = DingTalkJsApiSingnature.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
+         System.out.println(sign);
          Map<String,Object> jsapiConfig = new HashMap<String, Object>();
          jsapiConfig.put("signature",sign);
          jsapiConfig.put("nonce",nonce);
