@@ -7,11 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
     <meta name="apple-mobile-web-app-capable" content="yes">    
     <meta name="apple-mobile-web-app-status-bar-style" content="black">    
-  
     <link rel="stylesheet" href="css/mui.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="js/mui.min.js"></script>
-   
   </head>  
   <body>  
   	<header class="mui-bar mui-bar-nav">
@@ -73,7 +70,7 @@
 			<a class="mui-tab-item" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" onclick="qkp();" >
+			<a class="mui-tab-item" href="dingqkp" >
 				<span class="mui-tab-label">去开票</span>
 			</a>
 		</nav>

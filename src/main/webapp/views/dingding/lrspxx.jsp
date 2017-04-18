@@ -9,8 +9,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">    
   
     <link rel="stylesheet" href="css/mui.min.css">
-    <script src="js/mui.min.js"></script>
-    
   </head>  
   <body>  
   	<header class="mui-bar mui-bar-nav">
@@ -73,7 +71,7 @@
 			<a class="mui-tab-item" >
 				<span class="mui-tab-label">继续添加</span>
 			</a>
-			<a class="mui-tab-item" onclick="lrkpd2();" >
+			<a class="mui-tab-item" href="dinglrkpd2" >
 				<span class="mui-tab-label">完成（2）</span>
 			</a>
 		</nav>
