@@ -7,13 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
     <meta name="apple-mobile-web-app-capable" content="yes">    
     <meta name="apple-mobile-web-app-status-bar-style" content="black">    
-    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/mui.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="js/mui.min.js"></script>
   </head>  
   <body>  
-  	<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 15px;">开票通</span></a>
-		</header>
+ 
 		<div class="mui-content">
 			<div class="mui-card">
 				<div class="mui-card-header">
@@ -64,20 +63,18 @@
 
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" >
+			<a class="lrkpd" >
 				<span class="mui-tab-label">价税合计：45.00</span>
 			</a>
-			<a class="mui-tab-item" >
+			<a class="lrkpd" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" href="dingqkp" >
+			<a class="lrkpd" href="dingqkp" >
 				<span class="mui-tab-label">去开票</span>
 			</a>
 		</nav>
   </body>  
   <script>
-     function qkp(){
-    	 window.location.href="dingqkp";
-     }
+     
   </script>
 </html>  
