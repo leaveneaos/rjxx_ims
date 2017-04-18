@@ -6,10 +6,8 @@
     <title>录入开票单</title>  
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
     <meta name="apple-mobile-web-app-capable" content="yes">    
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">    
-  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
     <link rel="stylesheet" href="css/mui.min.css">
-    <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
     <script src="js/jquery.1.7.2.min.js"></script>
     <script src="js/mobiscroll_002.js" type="text/javascript"></script>
@@ -71,7 +69,7 @@
 			<a class="mui-tab-item" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" id="lrgfxx" >
+			<a class="mui-tab-item" href="dinglrgfxx" >
 				<span class="mui-tab-label">下一步</span>
 			</a>
 		</nav>
@@ -82,6 +80,21 @@
     	 window.location.href="dinglrgfxx";
      } */
      $(function () {
+    	 var currYear = (new Date()).getFullYear();	
+			  var opt={};
+			  opt.date = {preset : 'date'};
+			  opt.appdate = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 10 //结束年份
+			  };
+		  	$("#kprq").mobiscroll($.extend(opt['date'], opt['appdate']));
     	 var url= window.location.href;
 			var corpId =$("#corpid").val();
 			var signature = "";
@@ -163,34 +176,7 @@
     	              document.addEventListener('resume', function() {
     	                  
     	              });
-    	              document.getElementById("#lrgfxx").addEventListener("click", function(){
-    	            	  dd.biz.util.openLink({
-    	            		  "url":"dinglrgfxx?corpid="+corpId,
-    	            	      "enableShare":true,
-    	            	      onSuccess: function(result) {
-    	            	    	    //成功回调
-    	            	    	    },
-    	            	    	    onFail: function(){
-    	            	    	     alert("跳转失败！");
-    	            	    	    },
-    	            	  });
-    	            	});
     	              
-    	              var currYear = (new Date()).getFullYear();	
-    	  			 var opt={};
-    	  			 opt.date = {preset : 'date'};
-    	  			 opt.appdate = {
-    	  				theme: 'android-ics light', //皮肤样式
-    	  		        display: 'modal', //显示方式 
-    	  		        mode: 'scroller', //日期选择模式
-    	  				dateFormat: 'yyyy-mm-dd',
-    	  				lang: 'zh',
-    	  				showNow: true,
-    	  				nowText: "今天",
-    	  		        startYear: currYear - 10, //开始年份
-    	  		        endYear: currYear + 10 //结束年份
-    	  			 };
-    	  		  	$("#kprq").mobiscroll($.extend(opt['date'], opt['appdate']));
     	          });
 
     	          dd.error(function(err) {
