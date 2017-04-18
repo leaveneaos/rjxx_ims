@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.service.SpvoService;
@@ -43,7 +44,7 @@ public class DinglrspxxController extends BaseController{
 		Jyxxsq Jyxxsq=new Jyxxsq();
 		Jyxxsq.setBz(bz);
 		Jyxxsq.setDdh(ddh);
-		SimpleDateFormat sdf=new SimpleDateFormat();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		Jyxxsq.setDdrq(sdf.parse(kprq));
 		Jyxxsq.setFpzldm(fpzldm);
 		Jyxxsq.setGfdh(zcdh);
@@ -62,9 +63,34 @@ public class DinglrspxxController extends BaseController{
 		Jyxxsq.setXfyhzh(yhzh);
 		Jyxxsq.setXfsh(nsrsbh);*/
 		List<Spvo>list2 = spvoService.findAllByGsdm("zydc");
+		String jyxxsq="&xfmc="+xfmc+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz+"&ddh="+
+		ddh+"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+
+		"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh+"&lxdz="+lxdz+"&yjdz="+yjdz+"&tqm="+tqm;
+		request.setAttribute("Jyxxsq", jyxxsq);
 		request.setAttribute("spList", list2);
         request.setAttribute("corpid", corpid);
-        request.setAttribute("Jyxxsq", Jyxxsq);
         return "dingding/lrspxx";
     }
+	/**
+	 * 获取商品详情
+	 *
+	 * @param spdm
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getSpxq")
+	@ResponseBody
+	public Spvo getSpxq(String spdm, String spmc) throws Exception {
+		Spvo params = new Spvo();
+		params.setGsdm("zydc");
+		//params.setSpdm(spdm);
+		//使用商品编码查询
+		params.setSpbm(spdm);
+		params.setSpmc(spmc);
+		List<Spvo> list = spvoService.findAllByParams(params);
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+		return null;
+	}
 }
