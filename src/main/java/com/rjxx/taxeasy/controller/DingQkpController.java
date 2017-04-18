@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.rjxx.taxeasy.web.BaseController;
 
 @Controller
-@RequestMapping("dingqkp")
+@RequestMapping("/dingqkp")
 public class DingQkpController extends BaseController{
 	@RequestMapping
     public String index() throws Exception {

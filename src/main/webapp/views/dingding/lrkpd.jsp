@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
     <meta name="apple-mobile-web-app-capable" content="yes">    
     <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/mui.css">
+    <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
     <script src="js/jquery.1.7.2.min.js"></script>
     <script src="js/mobiscroll_002.js" type="text/javascript"></script>
@@ -20,9 +21,7 @@
 	<link href="css/mobiscroll_003.css" rel="stylesheet" type="text/css">
   </head>  
   <body>  
-  	<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 15px;">开票通</span></a>
-		</header>
+  	
 		<div class="mui-content">
 	    <div class="mui-content-padded" style="margin: 5px;">
 	    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
@@ -37,7 +36,7 @@
 			    </div>
 			    <div class="mui-input-row">
 			        <label>*开票日期</label>
-			        <input value=""   class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
+			        <input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 			    </div>
 			</form>
 			<h5 class="mui-content-padded">*发票种类</h5>
@@ -45,40 +44,37 @@
 				<form class="mui-input-group">
 					<div class="mui-input-row mui-radio">
 						<label>电子发票</label>
-						<input name="radio1" type="radio" checked>
+						<input name="radio1" id="dzfp" value="12" type="radio" checked>
 					</div>
 					<div class="mui-input-row mui-radio">
-						<label>纸质普通</label>
-						<input name="radio1" type="radio">
+						<label>纸质普票</label>
+						<input name="radio1" id="zzpp" value="02"  type="radio">
 					</div>
 					<div class="mui-input-row mui-radio">
-						<label>纸质专用</label>
-						<input name="radio1" type="radio">
+						<label>纸质专票</label>
+						<input name="radio1" id="zzzp" value="01" type="radio">
 					</div>
 				</form>
 			</div>
 	    </div> 
 	    <h5 class="mui-content-padded">备注：</h5>
 	    <div class="mui-input-row" style="margin: 10px 15px;">
-				<textarea id="textarea" rows="5" placeholder=""></textarea>
+				<textarea id="bz" rows="5" placeholder=""></textarea>
 			</div>
     </div>
     
     
-    <nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item" >
+        <nav class="mui-bar mui-bar-tab">
+			<a class="lrkpd" >
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="mui-tab-item" href="dinglrgfxx" >
+			<a class="lrkpd" id="baocun">
 				<span class="mui-tab-label">下一步</span>
 			</a>
 		</nav>
   </body>
    
   <script>
-     /* function lrgfxx(){
-    	 window.location.href="dinglrgfxx";
-     } */
      $(function () {
     	 var currYear = (new Date()).getFullYear();	
 			  var opt={};
@@ -177,6 +173,48 @@
     	                  
     	              });
     	              
+    	              document.getElementById("baocun").addEventListener('tap', function() {
+    		          	var xfmc=$("#xfmc").val();   
+    		          	var kprq=$("#kprq").val();
+    		          	var ddh=$("#ddh").val();
+    		          /* 	var dzfp=$("#dzfp").val();
+    		          	var zzpp=$("#zzpp").val();
+    		          	var zzzp=$("#zzzp").val(); */
+    		          	var fpzl=$("input[type='radio']:checked").val();
+    		          	var bz=$("#bz").val();
+    		          	if(xfmc==null||xfmc==""){
+    		          		mui.alert('请输入销方名称！', function() {
+    							return;
+    						});
+    		          	 }
+    		          	if(ddh==null||ddh==""){
+    		          		mui.alert('请输入订单号！', function() {
+    							return;
+    						});
+    		          	 }
+    		          	if(kprq==null||kprq==""){
+    		          		mui.alert('请输入开票日期！', function() {
+    							return;
+    						});
+    		          	 }
+    		          	if(fpzl==null||fpzl==""){
+    		          		mui.alert('请选择发票种类！', function() {
+    							return;
+    						});
+    		          	 }
+    	            	 /*  $.ajax({
+    		          	    	 url:"dinglrkpd/save",
+    		                     data: {"xfmc":xfmc,"kprq":kprq,"fpzldm":fpzl,"bz":bz},
+    		                     method: 'POST',
+    		                     success: function (data) {
+    		                    	 
+    		                    	 
+    		                     }
+    		          	    	 
+    		          	     }); */
+    		          	href="dinglrgfxx?corpid="+corpId+"&xfmc="+xfmc+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+bz; 
+    		          	$("#baocun").attr("href",href);
+    		          	 });
     	          });
 
     	          dd.error(function(err) {

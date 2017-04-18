@@ -6,14 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>首页</title>
-    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.css" rel="stylesheet"/>
     <link href="css/index.css" rel="stylesheet"/>
 
 </head>
 <body>
-	<header class="mui-bar mui-bar-nav">
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 15px;">开票通</span></a>
-	</header>
+	
 	<div class="mui-content">
 		<ul class="mui-table-view mui-grid-view"">
 		    <li class="mui-table-view-cell mui-media mui-col-xs-12">

@@ -23,7 +23,7 @@ import com.rjxx.taxeasy.web.BaseController;
  * Created by xlm on 2017/4/14.
  */
 @Controller
-@RequestMapping("dinglrkpd")
+@RequestMapping("/dinglrkpd")
 public class DingLrKpdController extends BaseController{
     
 	@Autowired
