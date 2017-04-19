@@ -51,7 +51,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">订单号</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_ddh" name="ddh"
 													placeholder="请输入订单号" />
 											</div>
@@ -60,7 +60,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">购方名称</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_gfmc" name="gfmc"
 													placeholder="请输入购方名称" />
 											</div>
@@ -69,7 +69,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">商品名称</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_spmc" name="spmc"
 													placeholder="请输入商品名称" />
 											</div>
@@ -78,7 +78,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_fpdm" name="fpdm"
 													placeholder="请输入发票代码" />
 											</div>
@@ -87,7 +87,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票号码</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_fphm" name="fphm"
 													placeholder="请输入发票号码" />
 											</div>
@@ -176,7 +176,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_kprqq" name="kprqq"
 													placeholder="点击选择开票起始日" readonly
 													data-am-datepicker="{format: 'yyyy-mm-dd'}" />
@@ -186,7 +186,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<!-- 											<label for="s_kprqz" class="am-u-sm-4 am-form-label">开票日期止</label> -->
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_kprqz" name="kprqz"
 													placeholder="点击选择开票终止日" readonly
 													data-am-datepicker="{format: 'yyyy-mm-dd'}" />

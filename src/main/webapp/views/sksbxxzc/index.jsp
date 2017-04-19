@@ -57,7 +57,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点代码</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_kpddm" name="s_kpddm"
 													placeholder="开票点代码" />
 											</div>
@@ -66,7 +66,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点名称</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="s_kpdmc" name="s_kpdmc"
 													placeholder="开票点名称" />
 											</div>
@@ -75,7 +75,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票人</label>
-											<div class="am-u-sm-7">
+											<div class="am-u-sm-8">
 												<input type="text" id="kpr1" name="kpr1" placeholder="开票人" />
 											</div>
 										</div>

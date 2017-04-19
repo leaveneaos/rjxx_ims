@@ -69,7 +69,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="s_gfmc" class="am-u-sm-4  am-form-label">购方名称</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_gfmc" name="s_gfmc"
 														placeholder="请输入购方名称" />
 												</div>
@@ -78,7 +78,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="xfmc" class="am-u-sm-4 am-form-label">订单号</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_ddh" name="s_ddh"
 														placeholder="请输入订单号" />
 												</div>
@@ -87,7 +87,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="s_gfmc" class="am-u-sm-4  am-form-label">发票代码</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_fpdm" name="s_fpdm"
 														placeholder="请输入发票代码" />
 												</div>
@@ -96,7 +96,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="s_gfmc" class="am-u-sm-4  am-form-label">发票号码</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_fphm" name="s_fphm"
 														placeholder="请输入发票号码" />
 												</div>
@@ -105,7 +105,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="xfmc" class="am-u-sm-4 am-form-label">交易日期始</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_jyrqq" name="s_jyrqq"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}"
 														placeholder="点击选择时间" readonly />
@@ -115,7 +115,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="kpr1" class="am-u-sm-4 am-form-label">交易日期止</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_jyrqz" name="s_jyrqz"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}"
 														placeholder="点击选择时间" readonly />
@@ -125,7 +125,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="xfmc" class="am-u-sm-4 am-form-label">开票日期始</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_kprqq" name="s_kprqq"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}"
 														placeholder="点击选择时间" readonly />
@@ -135,7 +135,7 @@
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
 												<label for="kpr1" class="am-u-sm-4 am-form-label">开票日期止</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-8">
 													<input type="text" id="s_kprqz" name="s_kprqz"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}"
 														placeholder="点击选择时间" readonly />
