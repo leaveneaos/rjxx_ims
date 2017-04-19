@@ -66,7 +66,8 @@ public class DinglrspxxController extends BaseController{
 		String jyxxsq="&xfmc="+xfmc+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz+"&ddh="+
 		ddh+"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+
 		"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh+"&lxdz="+lxdz+"&yjdz="+yjdz+"&tqm="+tqm;
-		request.setAttribute("Jyxxsq", jyxxsq);
+		request.setAttribute("jyxxsq", jyxxsq);
+		System.out.println(jyxxsq);
 		request.setAttribute("spList", list2);
         request.setAttribute("corpid", corpid);
         return "dingding/lrspxx";

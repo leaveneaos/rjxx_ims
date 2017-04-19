@@ -14,7 +14,7 @@
   </head>  
   <body>  
   	   <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
-  	   <input type="hidden" id="Jyxxsq" value="<c:out value="${Jyxxsq}" />"/>    
+  	   <input type="hidden" id="jyxxsq" value="<c:out value="${jyxxsq}" />"/>    
 		<div class="mui-content">
 			<div class="mui-content-padded">
 			<h5 class="mui-content-padded">*商品名称</h5>
@@ -96,6 +96,7 @@
           var ggxh =$("#ggxh");
           var spdw =$("#spdw");
           var lrselect_sp =$("#lrselect_sp");
+          var jyspxx=$("#jyspxx").val();
           if(lrselect_sp.val()==''||lrselect_sp.val()==null){
         	  alert('请选择商品!');
 					return;
@@ -113,10 +114,10 @@
 		  if(str==''){
 			  i=i+1;
 	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+"&Jyxxsq="+Jyxxsq+"&totaljshj="+jshj2+s; 
+			  href="dinglrkpd2?corpid="+corpid+"&jyspxx="+jyspxx+"&totaljshj="+jshj2+s; 
 		  }else{
 	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+"&Jyxxsq="+Jyxxsq+"&totaljshj="+totaljshj+str+s; 
+			  href="dinglrkpd2?corpid="+corpid+"&jyspxx="+jyspxx+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
 		  }
 		  alert(href);
 		  $("#submit").attr("href",href);		  
