@@ -52,8 +52,7 @@ public class DingLrKpdController extends BaseController{
     	IsvCorpSuiteJsapiTicket isvCorpSuiteJsapiTicket=isvcorpsuitejsapiticketservice.findOneByParams(params);
     	IsvCorpApp isvCorpApp=isvcorpappservice.findOneByParams(params);
    	    url = check(url,corpid,isvCorpSuiteJsapiTicket.getSuiteKey(),isvCorpApp.getAppId());
-     
-    	 String nonce = Utils.getRandomStr(8);
+     	 String nonce = Utils.getRandomStr(8);
          Long timeStamp = System.currentTimeMillis();
          String sign = DingTalkJsApiSingnature.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
          System.out.println(sign);

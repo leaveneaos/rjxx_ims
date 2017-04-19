@@ -51,7 +51,7 @@
 													<div class="am-form-group">
 														<div class="am-form-group">
 															<label for="s_splb" class="am-u-sm-4 am-form-label">商品代码</label>
-															<div class="am-u-sm-6">
+															<div class="am-u-sm-8">
 																<input type="text" id="s_spdm" name="s_spdm"
 																	placeholder="请输入商品代码" />
 															</div>
@@ -62,7 +62,7 @@
 													<div class="am-form-group">
 														<div class="am-form-group">
 															<label for="s_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
-															<div class="am-u-sm-6">
+															<div class="am-u-sm-8">
 																<input type="text" id="s_spmc" name="s_spmc"
 																	placeholder="请输入商品名称" />
 															</div>

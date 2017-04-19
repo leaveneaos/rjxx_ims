@@ -109,13 +109,73 @@
   <script>
   
   $(function(){
-	  var url= window.location.href;
+	    var url= window.location.href;
 		var corpId =$("#corpid").val();
 		var signature = "";
 		var nonce = "";
 		var timeStamp = "";
 		var agentId = "";
-	 $.ajax({
+		document.getElementById("lrgfxx").addEventListener('tap', function() {
+    		var xfmc=$("#xfmc").val();   
+          	var kprq=$("#kprq").val();
+          	var ddh=$("#ddh").val();
+          	var fpzldm=$("#fpzldm").val();
+          	var bz=$("#bz").val();
+          	var gfmc=$("#gfmc").val();
+          	var nsrsbh=$("#nsrsbh").val();
+          	var zcdz=$("#zcdz").val();
+          	var zcdh=$("#zcdh").val();
+          	var khyh=$("#khyh").val();
+          	var yhzh=$("#yhzh").val();
+          	var lxr=$("#lxr").val();
+          	var lxdh=$("#lxdh").val();
+          	var lxdz=$("#lxdz").val();
+          	var yjdz=$("#yjdz").val();
+          	var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
+          	if(isActive){
+          	  var tqm=ddh;
+          	}else{
+          	  var tqm=$("#tqm").val();
+          	}
+            if(fpzldm=="01"){
+            	if(gfmc==null||gfmc==""){
+            		mui.alert('请输入购方名称！', function() {
+						return ;
+					});
+            	}
+            	if(nsrsbh==null||nsrsbh==""){
+            		mui.alert('请输入购方纳税人识别号！', function() {
+						return ;
+					});
+            	}
+            	if(khyh==null||khyh==""){
+            		mui.alert('请输入购方开户行名称！', function() {
+						return ;
+					});
+            	}
+            	if(yhzh==null||yhzh==""){
+            		mui.alert('请输入购方银行账号！', function() {
+						return ;
+					});
+            	}
+            	
+            }else if(fpzldm=="02"){
+            	if(gfmc==null||gfmc==""){
+            		mui.alert('请输入购方名称！', function() {
+						return ;
+					});
+            	}
+            }else if(fpzldm=="12"){
+            	
+            }
+          	href="dinglrspxx?corpid="+corpId+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+(bz)
+          	+"&gfmc="+(gfmc)+"&nsrsbh="+nsrsbh+"&zcdz="+(zcdz)+"&zcdh="+zcdh+"&khyh="+(khyh)+"&yhzh="+yhzh+"&lxr="+(lxr)+"&lxdh="+lxdh
+          	+"&lxdz="+(lxdz)+"&yjdz="+(yjdz)+"&tqm="+tqm; 
+          	$("#lrgfxx").attr("href",encodeURI(encodeURI(href)));
+  	   });
+		
+		
+	 /* $.ajax({
 		 url:"dinglrkpd/jssqm",
        data: {"url":url,"corpId":corpId},
        method: 'POST',
@@ -254,7 +314,7 @@
 	              alert('dd error: ' + JSON.stringify(err));
 	          });
        }
-	 });
+	 }); */
   });
   </script>
 </html>  

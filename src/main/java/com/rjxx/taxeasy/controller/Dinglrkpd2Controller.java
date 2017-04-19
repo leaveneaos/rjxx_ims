@@ -1,20 +1,203 @@
 package com.rjxx.taxeasy.controller;
 
+import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyxxsq;
+import com.rjxx.taxeasy.service.JymxsqService;
+import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.Tools;
 
 @Controller
 @RequestMapping("/dinglrkpd2")
 public class Dinglrkpd2Controller extends BaseController{
 
-
+	@Autowired
+	private JyxxsqService jyxxsqservice;
+	@Autowired
+	private JymxsqService jymxsqservice;
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
-		//Jyxxsq Jyxxsq=(Jyxxsq)request.getParameter("Jyxxsq");//销方名称
+		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
+		String kprq=request.getParameter("kprq");//开票日期
+		String fpzldm=request.getParameter("fpzldm");//发票种类
+		String bz=URLDecoder.decode(request.getParameter("bz"),"utf8");//备注
+		String ddh=request.getParameter("ddh");//订单号
+		
+		String gfmc=URLDecoder.decode(request.getParameter("gfmc"),"utf8");//购方名称
+		String nsrsbh=request.getParameter("nsrsbh");//纳税人识别号
+		String zcdz=URLDecoder.decode(request.getParameter("zcdz"),"utf8");//注册地址
+		String zcdh=request.getParameter("zcdh");//注册电话
+		String khyh=URLDecoder.decode(request.getParameter("khyh"),"utf8");//开户银行
+		String yhzh=request.getParameter("yhzh");//银行账号
+		
+		String lxr=URLDecoder.decode(request.getParameter("lxr"),"utf8");//联系人
+		String lxdh=request.getParameter("lxdh");//联系电话
+		String lxdz=URLDecoder.decode(request.getParameter("lxdz"),"utf8");//联系地址
+		String yjdz=URLDecoder.decode(request.getParameter("yjdz"),"utf8");//邮寄地址
+		String tqm=request.getParameter("tqm");//提取码
+		
+		
+		Jyxxsq jyxxsq=new Jyxxsq();
+		jyxxsq.setBz(bz);
+		jyxxsq.setDdh(ddh);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		jyxxsq.setDdrq(sdf.parse(kprq));
+		jyxxsq.setFpzldm(fpzldm);
+		jyxxsq.setGfdh(zcdh);
+		jyxxsq.setGfdz(zcdz);
+		jyxxsq.setGflxr(lxr);
+		jyxxsq.setGfmc(gfmc);
+		jyxxsq.setGfsh(nsrsbh);
+		jyxxsq.setGfyh(khyh);
+		jyxxsq.setGfyhzh(yhzh);
+		jyxxsq.setTqm(tqm);
+		jyxxsq.setSjly("3");
+		jyxxsq.setClztdm("00");
+		jyxxsq.setZtbz("6");//0未提交，1已提交
+		jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+		jyxxsq.setJshj(0.00);
+		jyxxsq.setYkpjshj(0.00);
+		jyxxsq.setHsbz("0");
+		/*jyxxsq.setXfid(xf.getId());
+		jyxxsq.setXfsh(xf.getXfsh());*/
+		jyxxsq.setXfmc(xfmc);
+		jyxxsq.setXfsh("1234567");
+		jyxxsq.setLrsj(TimeUtil.getNowDate());
+		jyxxsq.setXgsj(TimeUtil.getNowDate());
+		jyxxsq.setDdrq(TimeUtil.getNowDate());
+		jyxxsq.setFpczlxdm("11");
+		jyxxsq.setYxbz("1");
+		jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
+
+		/*jyxxsq.setXfyh(xf.getXfyh());
+		jyxxsq.setXfyhzh(xf.getXfyhzh());
+		jyxxsq.setXfdz(xf.getXfdz());
+		jyxxsq.setXfdh(xf.getXfdh());*/
+		
+		if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
+			jyxxsq.setSffsyj("1");
+		}
+		
+		/*jyxxsq.setKpr(xf.getKpr());
+		jyxxsq.setFhr(xf.getFhr());
+		jyxxsq.setSkr(xf.getSkr());
+		jyxxsq.setLrry(yhid);
+		jyxxsq.setXgry(yhid);
+		jyxxsq.setGsdm(gsdm);*/
+		
+		
+		Map params = Tools.getParameterMap(request);
+		int mxcount = Integer.valueOf(request.getParameter("mxcount"));
+		String[] spdms = ((String) params.get("spdm")).split(",");
+		String[] spmcs = ((String) params.get("spmc")).split(",");
+		String[] spjes = ((String) params.get("je")).split(",");
+		String[] spsls = ((String) params.get("sl")).split(",");//商品税率
+		String[] jshjs = ((String) params.get("hsje")).split(",");
+		String[] spges = ((String) params.get("ggxh")).split(",");
+		String[] spss = ((String) params.get("spsl")).split(",");//商品数量
+		String[] spdws = ((String) params.get("spdw")).split(",");
+		String[] spdjs = ((String) params.get("spdj")).split(",");
+		String[] spses = ((String) params.get("se")).split(",");
+		
+		double jshj = 0.00;
+		List<Jymxsq> jymxsqList = new ArrayList<>();
+		for (int c = 0; c < mxcount; c++) {
+			Jymxsq jymxsq = new Jymxsq();
+			int xxh = c + 1;
+			jymxsq.setSpmxxh(xxh);
+			jymxsq.setFphxz("0");
+			jymxsq.setSpdm(spdms[c]);
+			jymxsq.setSpmc(URLDecoder.decode(spmcs[c],"utf8"));
+			jymxsq.setSpje(Double.valueOf(spjes[c]));
+			if (spsls.length != 0) {
+				jymxsq.setSpsl(Double.valueOf(spsls[c]));
+			}
+			jymxsq.setJshj(Double.valueOf(jshjs[c]));
+			jymxsq.setKkjje(Double.valueOf(jshjs[c]));
+			jymxsq.setYkjje(0d);
+			if (spges.length != 0) {
+				try {
+					jymxsq.setSpggxh(spges[c]);
+				} catch (Exception e) {
+					jymxsq.setSpggxh(null);
+
+				}
+			}
+			try {
+				jymxsq.setSps(Double.valueOf(spss[c]));
+			} catch (Exception e) {
+				jymxsq.setSps(null);
+			}
+			if (spdws.length != 0) {
+				try {
+					jymxsq.setSpdw(URLDecoder.decode(spdws[c],"utf8"));
+				} catch (Exception e) {
+					jymxsq.setSpdw(null);
+
+				}
+			}
+			if (spdjs.length != 0) {
+				try {
+					jymxsq.setSpdj(Double.valueOf(spdjs[c]));
+				} catch (Exception e) {
+					jymxsq.setSpdj(null);
+
+				}
+			}
+			if (spses.length != 0) {
+				jymxsq.setSpse(Double.valueOf(spses[c]));
+			}
+			//jymxsq.setYkphj(0.00);
+			//jymxsq.setLrry(yhid);
+			jymxsq.setYxbz("1");
+			jymxsq.setLrsj(TimeUtil.getNowDate());
+			jymxsq.setXgsj(TimeUtil.getNowDate());
+			//jymxsq.setXgry(yhid);
+			//jymxsq.setGsdm(gsdm);
+			
+			jshj += jymxsq.getJshj();
+			jymxsqList.add(jymxsq);
+		}
+		jyxxsq.setJshj(Double.parseDouble(request.getParameter("totaljshj")));
+		jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+		System.out.println(JSON.toJSON(jyxxsq));
+		System.out.println(JSON.toJSON(jymxsqList));
+		request.setAttribute("jylsh", jyxxsq.getJylsh());
+		Map map=new HashMap();
+		map.put("jylsh", jyxxsq.getJylsh());
+		Jyxxsq jyxxsq1=jyxxsqservice.findOneByParams(map);
+		request.setAttribute("sqlsh", jyxxsq1.getSqlsh());
+		
         return "dingding/lrkpd2";
     }
+	@RequestMapping("/getjyxxsq")
+    @ResponseBody
+    public Map<String, Object> getItems() throws Exception {
+		String sqlsh=request.getParameter("sqlsh");
+		Map map=new HashMap();
+		map.put("sqlsh", sqlsh);
+		Jyxxsq jyxxsq=jyxxsqservice.findOneByParams(map);
+		List<Jymxsq> jymxsqlist=jymxsqservice.findAllByParams(map);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("jyxxsq", jyxxsq);
+		result.put("jymxsqlist", jymxsqlist);
+		return result;
+	}
 }

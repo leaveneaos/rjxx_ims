@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -23,23 +24,23 @@ public class DinglrspxxController extends BaseController{
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
-		String xfmc=request.getParameter("xfmc");//销方名称
+		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
-		String bz=request.getParameter("bz");//备注
+		String bz=URLDecoder.decode(request.getParameter("bz"),"utf8");//备注
 		String ddh=request.getParameter("ddh");//订单号
 		
-		String gfmc=request.getParameter("gfmc");//购方名称
+		String gfmc=URLDecoder.decode(request.getParameter("gfmc"),"utf8");//购方名称
 		String nsrsbh=request.getParameter("nsrsbh");//纳税人识别号
-		String zcdz=request.getParameter("zcdz");//注册地址
+		String zcdz=URLDecoder.decode(request.getParameter("zcdz"),"utf8");//注册地址
 		String zcdh=request.getParameter("zcdh");//注册电话
-		String khyh=request.getParameter("khyh");//开户银行
+		String khyh=URLDecoder.decode(request.getParameter("khyh"),"utf8");//开户银行
 		String yhzh=request.getParameter("yhzh");//银行账号
 		
-		String lxr=request.getParameter("lxr");//联系人
+		String lxr=URLDecoder.decode(request.getParameter("lxr"),"utf8");//联系人
 		String lxdh=request.getParameter("lxdh");//联系电话
-		String lxdz=request.getParameter("lxdz");//联系地址
-		String yjdz=request.getParameter("yjdz");//邮寄地址
+		String lxdz=URLDecoder.decode(request.getParameter("lxdz"),"utf8");//联系地址
+		String yjdz=URLDecoder.decode(request.getParameter("yjdz"),"utf8");//邮寄地址
 		String tqm=request.getParameter("tqm");//提取码
 		Jyxxsq Jyxxsq=new Jyxxsq();
 		Jyxxsq.setBz(bz);

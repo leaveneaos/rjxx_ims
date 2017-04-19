@@ -183,6 +183,7 @@ $(function() {
                 });
             });
             var frmData = $("#main_form2").serialize() + "&" + ps.join("&");
+            alert(frmData);
             $.ajax({
                 url: "lrkpd/save1", "type": "POST", context: document.body, data: frmData, success: function (data) {
                     if (data.success) {

@@ -66,13 +66,13 @@
 
     
     <nav class="mui-bar mui-bar-tab">
-			<a class="lrkpd" >
+			<a class="lrkpd" style="width:50%" >
 				<span class="mui-tab-label" id="jshj" >价税合计：0</span>
 			</a>
-			<a class="lrkpd" id="add" >
+			<a class="lrkpd" id="add" style="width:25%" >
 				<span class="mui-tab-label">继续添加</span>
 			</a>
-			<a class="lrkpd" id="submit" >
+			<a class="lrkpd" id="submit" style="width:25%" >
 				<span class="mui-tab-label" id="wc">完成</span>
 			</a>
 		</nav>
@@ -110,17 +110,22 @@
 					return;
 				
           }
+          var spdm = lrselect_sp.val();
+          var spmc = $("#lrselect_sp option:checked").text();
+          var pos = spmc.indexOf("(");
+          spmc = spmc.substring(0, pos);
 		  var href='';
 		  if(str==''){
+			  
 			  i=i+1;
-	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+jyxxsq+"&totaljshj="+jshj2+s; 
+	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
+			  href="dinglrkpd2?corpid="+corpid+jyxxsq+"&mxcount=" + i+"&totaljshj="+jshj2+s; 
 		  }else{
-	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+jyxxsq+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
+	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
+			  href="dinglrkpd2?corpid="+corpid+"&mxcount=" + (i+1)+jyxxsq+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
 		  }
 		  alert(href);
-		  $("#submit").attr("href",href);		  
+		  $("#submit").attr("href",encodeURI(encodeURI(href)));		  
 	  });
 	  $("#add").bind('click', function()  {
 		  var jshj = $('#jshj');
@@ -134,6 +139,10 @@
           var ggxh =$("#ggxh");
           var spdw =$("#spdw");
           var lrselect_sp =$("#lrselect_sp");
+          var spdm = lrselect_sp.val();
+          var spmc = $("#lrselect_sp option:checked").text();
+          var pos = spmc.indexOf("(");
+          spmc = spmc.substring(0, pos);
           if(lrselect_sp.val()==''||lrselect_sp.val()==null){
         	  alert('请选择商品!');
 					return;
@@ -152,7 +161,7 @@
 			i=i+1;
 			$("#wc").html("完成："+i);
 			 
-	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
+	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
 	          str=str+s;
 			  $('#je').val("");
 	          $('#splv').val("");

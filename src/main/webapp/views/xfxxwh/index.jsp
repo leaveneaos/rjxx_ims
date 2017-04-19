@@ -70,7 +70,7 @@
 										    <div class="am-offcanvas-content">
 											    <div class="am-form-group">
 													<label for="xfmc" class="am-u-sm-4 am-form-label">销方税号</label>
-													<div class="am-u-sm-6">
+													<div class="am-u-sm-8">
 														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号"
 															required="required" />
 													</div>
@@ -79,7 +79,7 @@
 										    <div class="am-offcanvas-content">		      
 											    <div class="am-form-group">
 													<label for="xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
-													<div class="am-u-sm-6">
+													<div class="am-u-sm-8">
 														<input type="text" id="s_xfmc" name="xfmc" placeholder="请输入销方名称"
 															required="required" />
 													</div>
@@ -88,7 +88,7 @@
 										    <div class="am-offcanvas-content">		      
 											    <div class="am-form-group">
 													<label for="kpr1" class="am-u-sm-4 am-form-label">开票人</label>
-													<div class="am-u-sm-6">
+													<div class="am-u-sm-8">
 														<input type="text" id="kpr1" name="kpr1" placeholder="请输入销方名称"
 															required="required" />
 													</div>
