@@ -37,12 +37,95 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			document.getElementById("alertBtn").addEventListener('tap', function() {
-				mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
-					
-				});
-			});
 			
+			 $.ajax({
+	    		 url:"dinglrkpd/jssqm",
+	             data: {"url":url,"corpId":corpId},
+	             method: 'POST',
+	             success: function (data) {
+	            	  signature = data.signature;
+	    			  nonce = data.nonce;
+	    			  timeStamp = data.timeStamp;
+	    			  agentId = data.agentId;
+	    			  corpId = data.corpId;
+	    			  dd.config({
+	    					"agentId": agentId,
+	    					"corpId": corpId,
+	    					"timeStamp": timeStamp,
+	    					"nonceStr": nonce,
+	    					"signature": signature,
+	    					jsApiList: ['runtime.info',
+	    		                        'runtime.permission.requestAuthCode',
+	    		                        'runtime.permission.requestOperateAuthCode', //反馈式操作临时授权码
+
+	    		                        'biz.alipay.pay',
+	    		                        'biz.contact.choose',
+	    		                        'biz.contact.complexChoose',
+	    		                        'biz.contact.complexPicker',
+	    		                        'biz.contact.createGroup',
+	    		                        'biz.customContact.choose',
+	    		                        'biz.customContact.multipleChoose',
+	    		                        'biz.ding.post',
+	    		                        'biz.map.locate',
+	    		                        'biz.map.view',
+	    		                        'biz.util.openLink',
+	    		                        'biz.util.open',
+	    		                        'biz.util.share',
+	    		                        'biz.util.ut',
+	    		                        'biz.util.uploadImage',
+	    		                        'biz.util.previewImage',
+	    		                        'biz.util.datepicker',
+	    		                        'biz.util.timepicker',
+	    		                        'biz.util.datetimepicker',
+	    		                        'biz.util.chosen',
+	    		                        'biz.util.encrypt',
+	    		                        'biz.util.decrypt',
+	    		                        'biz.chat.pickConversation',
+	    		                        'biz.telephone.call',
+	    		                        'biz.navigation.setLeft',
+	    		                        'biz.navigation.setTitle',
+	    		                        'biz.navigation.setIcon',
+	    		                        'biz.navigation.close',
+	    		                        'biz.navigation.setRight',
+	    		                        'biz.navigation.setMenu',
+	    		                        'biz.user.get',
+
+	    		                        'ui.progressBar.setColors',
+
+	    		                        'device.base.getInterface',
+	    		                        'device.connection.getNetworkType',
+	    		                        'device.launcher.checkInstalledApps',
+	    		                        'device.launcher.launchApp',
+	    		                        'device.notification.confirm',
+	    		                        'device.notification.alert',
+	    		                        'device.notification.prompt',
+	    		                        'device.notification.showPreloader',
+	    		                        'device.notification.hidePreloader',
+	    		                        'device.notification.toast',
+	    		                        'device.notification.actionSheet',
+	    		                        'device.notification.modal',
+	    		                        'device.geolocation.get',]
+	    				});
+	    	    	  dd.ready(function() {
+	    	              document.addEventListener('pause', function() {
+	    	                 
+	    	              });
+	    	              document.addEventListener('resume', function() {
+	    	                  
+	    	              });
+	    	              document.getElementById("alertBtn").addEventListener('tap', function() {
+	    	  				mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
+	    	  					
+	    	  				});
+	    	  			});
+	    	             
+	    	          });
+
+	    	          dd.error(function(err) {
+	    	              alert('dd error: ' + JSON.stringify(err));
+	    	          });
+	             }
+	    	 });
 		</script>
 </body>
 </html>

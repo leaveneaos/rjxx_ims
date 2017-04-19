@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>  
@@ -212,8 +212,9 @@
     		                     }
     		          	    	 
     		          	     }); */
-    		          	href="dinglrgfxx?corpid="+corpId+"&xfmc="+encodeURIComponent(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+encodeURIComponent(bz); 
-    		          	$("#baocun").attr("href",href);
+    		          	href="dinglrgfxx?corpid="+corpId+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+(bz); 
+    		          	
+    		          	$("#baocun").attr("href",encodeURI(encodeURI(href)));
     		          	 });
     	          });
 
