@@ -514,8 +514,10 @@ $(function() {
 						var fpxes = "";
 						var hsbzs = "";
 						var qdbzs = "";
-						
+						var fpzldm="";
+						var clfs = $("#clfs").val();
 						$('input[name="dxk"]:checked').each(function(cell,i){
+						fpzldm = t.row($(this).parents('tr')).data().fpzldm;
 						chk_value+=$(this).val()+",";
 						var row = $(this).parents('tr').find('input[name="fpje"]');
 						var row2 = $(this).parents('tr').find('select[name="hsbz"]');
@@ -537,7 +539,7 @@ $(function() {
 						var ddhs = chk_value.substring(0, chk_value.length-1);
 						fpxes = fpxes.substring(0, fpxes.length-1);
 						d.sqlshs= ddhs;
-						d.fpxes=fpxes;
+						/*d.fpxes=fpxes;*/
 						var bckpje = [];
 						if($("input[name='dxk']:checked").length==1){
 						
@@ -548,6 +550,13 @@ $(function() {
 							}
 						}
 						d.bckpje=bckpje.join(",");
+						d.sfhbkp = clfs;
+						if(clfs=="1"){
+							d.fpxes=$("#hbfpje").val();
+						}else{
+							d.fpxes=fpxes;
+						}
+						d.fpzldm = fpzldm;
 		            }
 		        },
 		        "columns": [
@@ -778,6 +787,8 @@ $(function() {
         		}
             });
             
+     
+            
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
             		t.column(0).nodes().each(function (cell, i) {
@@ -790,6 +801,71 @@ $(function() {
                 }
             	  kpspmx_table.ajax.reload();	
             });
+            //合并处理
+            $("#kpd_hbkp").click(function () {
+            	//判断是否同一类型,同一销方
+            	var fpzldm="";
+            	var xfid="";
+            	var fpxe;
+            	var hsfp;
+            	var dybz;
+            	var zdje;
+            	var flag=true;
+            	$('input[name="dxk"]:checked').each(function(){
+            		var row = t.row($(this).parents('tr')).data();
+    				fpxe = row.fpje;
+    				hsfp = row.fpjshsbz;
+    				dybz = row.qdbz;
+    				zdje = row.zdje;
+    				if(fpzldm==""){
+    					fpzldm = row.fpzldm;
+    				}else{
+    					if(fpzldm!=row.fpzldm){
+    						$("#alertt").html("请选择同一种类发票进行处理");
+    	                	$("#my-alert").modal('open');
+    	                	flag=false;
+    	                	return;
+    					}
+    				}
+    				if(xfid==""){
+    					xfid = row.xfid;
+    				}else{
+    					if(xfid!=row.xfid){
+    						$("#alertt").html("请选择同一销方进行处理");
+    	                	$("#my-alert").modal('open');
+    	                	flag=false;
+    	                	return;
+    					}
+    				}
+    				});
+        		if(flag){
+    				$("#hbfpje").val(fpxe);
+    				$("#hbfpje").attr("max",zdje);
+    				if(hsfp=="1"){
+    					$("#hbsfhsfp").attr("checked", true);
+    				}else{
+    					$("#hbsfhsfp").attr("checked", false);
+    				}
+    				if(dybz=="1"){
+    					$("#hbsfdyqd").attr("checked", true);
+    				}else{
+    					$("#hbsfdyqd").attr("checked", false);;
+    				}
+                	$("#hbdia").modal('open');
+				}
+            });
+            $("#hbkp").click(function () {
+            	$("#clfs").val("1");
+            	$("#hbkp").attr({"disabled":"disabled"});
+            	$("#hbdia").modal('close');
+            	$("#hbkp").removeAttr("disabled");
+            	$("#cljg").show();
+            	$("#cljgbt").show();
+            	  $tab.tabs('refresh');
+				kpspmx_table3.ajax.reload();
+				 kpspmx_table.ajax.reload();
+				$('#doc-tab-demo-1').tabs('open', 1)
+            })
 			return t;
 		},
 
@@ -909,6 +985,7 @@ $(function() {
 		     if (!confirm("您确认处理该记录？")) {
 				return;
 			}
+		     $("#clfs").val("0");
 				/*	$.ajax({
 					type : "POST",
 					url : "kpdsh/kpdshkp",
@@ -1163,6 +1240,9 @@ $(function() {
 		modalAction : function() {
 			$("#close").on('click', function() {
 				$('#my-alert-edit').modal('close');
+			});
+			$("#hbclose").on('click', function() {
+				$('#hbdia').modal('close');
 			});
 			$("#mxclose").on('click', function() {
 				$('#my-alert-edit1').modal('close');

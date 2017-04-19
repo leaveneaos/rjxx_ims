@@ -36,6 +36,7 @@ table thead th {
 </style>
 </head>
 <body>
+	<input type="hidden" id="clfs" value="0">
 	<input type="hidden" id="kplsh" value="0">
 	<input type="hidden" id="kplsh1" value="0">
 	<div class="row-content am-cf">
@@ -170,6 +171,10 @@ table thead th {
 															<button type="button" id="kpd_kp"
 																class="am-btn am-btn-default am-btn-secondary">
 																<span></span> 处理
+															</button>
+															<button type="button" id="kpd_hbkp"
+																class="am-btn am-btn-default am-btn-secondary">
+																<span></span> 合并处理
 															</button>
 															<!-- 	<button type="button" id="kpd_th"
 																class="am-btn am-btn-default am-btn-warning">
@@ -484,14 +489,14 @@ table thead th {
 			</div>
 		</div>
 	</div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+<!-- 	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
 		<div class="am-modal-dialog">
 			<div id="alertt" class="am-modal-bd">Hello world！</div>
 			<div class="am-modal-footer">
 				<span class="am-modal-btn">确定</span>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit">
 		<div class="am-modal-dialog" style="overflow: auto; height: 450px;">
 			<div class="am-modal-hd am-modal-footer-hd">
@@ -1146,6 +1151,26 @@ table thead th {
 			</div>
 		</div>
 	</div>
+
+	<div class="am-modal am-modal-no-btn" tabindex="-1"  id="hbdia">
+  <div class="am-modal-dialog" >
+    <div class="am-modal-hd">合并处理
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div style="margin-left: 20px;">
+   		
+		分票金额:<input type="text" onkeyup="yzje(this)" id = "hbfpje"><br>
+		打印清单<input style="margin-left: 0px;margin-right: 110px;" type="checkbox" value="1" id = "hbsfdyqd">
+		含税分票<input type="checkbox" value="1" id = "hbsfhsfp"><br>
+		</div>
+				<div class="am-margin">
+					<button type="button" id="hbkp"
+						class="am-btn am-btn-xs am-btn-secondary">保存</button>
+					<button type="button" id="hbclose"
+						class="am-btn am-btn-danger am-btn-xs">关闭</button>
+		</div>
+  </div>
+</div>
 		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
 		<div class="am-modal-dialog">
 			<div id="alertt" class="am-modal-bd">Hello world！</div>
