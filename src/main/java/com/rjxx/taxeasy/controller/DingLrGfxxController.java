@@ -1,5 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,6 +19,8 @@ public class DingLrGfxxController extends BaseController{
 		String fpzldm=request.getParameter("fpzldm");//发票种类
 		String bz=request.getParameter("bz");//备注
 		String ddh=request.getParameter("ddh");//订单号
+		System.out.println(xfmc);
+		request.setCharacterEncoding("utf-8");
         request.setAttribute("corpid", corpid);
         request.setAttribute("xfmc", xfmc);
         request.setAttribute("kprq", kprq);

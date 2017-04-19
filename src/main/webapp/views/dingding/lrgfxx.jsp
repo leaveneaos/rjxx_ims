@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>  
@@ -243,9 +243,9 @@
     		            }else if(fpzldm=="12"){
     		            	
     		            }
-    		          	href="dinglrspxx?corpid="+corpId+"&xfmc="+xfmc+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz
-    		          	+"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh
-    		          	+"&lxdz="+lxdz+"&yjdz="+yjdz+"&tqm="+tqm; 
+    		          	href="dinglrspxx?corpid="+corpId+"&xfmc="+encodeURIComponent(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+encodeURIComponent(bz)
+    		          	+"&gfmc="+encodeURIComponent(gfmc)+"&nsrsbh="+nsrsbh+"&zcdz="+encodeURIComponent(zcdz)+"&zcdh="+zcdh+"&khyh="+encodeURIComponent(khyh)+"&yhzh="+yhzh+"&lxr="+encodeURIComponent(lxr)+"&lxdh="+lxdh
+    		          	+"&lxdz="+encodeURIComponent(lxdz)+"&yjdz="+encodeURIComponent(yjdz)+"&tqm="+tqm; 
     		          	$("#lrgfxx").attr("href",href);
 	          	   }); 
 	          });

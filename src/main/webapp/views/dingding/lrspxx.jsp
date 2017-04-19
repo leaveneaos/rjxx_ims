@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>  
@@ -96,7 +96,7 @@
           var ggxh =$("#ggxh");
           var spdw =$("#spdw");
           var lrselect_sp =$("#lrselect_sp");
-          var jyspxx=$("#jyspxx").val();
+          var jyxxsq=$("#jyxxsq").val();
           if(lrselect_sp.val()==''||lrselect_sp.val()==null){
         	  alert('请选择商品!');
 					return;
@@ -114,10 +114,10 @@
 		  if(str==''){
 			  i=i+1;
 	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+"&jyspxx="+jyspxx+"&totaljshj="+jshj2+s; 
+			  href="dinglrkpd2?corpid="+corpid+jyxxsq+"&totaljshj="+jshj2+s; 
 		  }else{
 	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+"&jyspxx="+jyspxx+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
+			  href="dinglrkpd2?corpid="+corpid+jyxxsq+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
 		  }
 		  alert(href);
 		  $("#submit").attr("href",href);		  

@@ -66,6 +66,9 @@ public class DinglrspxxController extends BaseController{
 		String jyxxsq="&xfmc="+xfmc+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz+"&ddh="+
 		ddh+"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+
 		"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh+"&lxdz="+lxdz+"&yjdz="+yjdz+"&tqm="+tqm;
+		
+		System.out.println(gfmc);
+		request.setCharacterEncoding("utf-8");
 		request.setAttribute("jyxxsq", jyxxsq);
 		System.out.println(jyxxsq);
 		request.setAttribute("spList", list2);
