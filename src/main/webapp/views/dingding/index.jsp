@@ -6,10 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>首页</title>
+    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.css" rel="stylesheet"/>
     <link href="css/index.css" rel="stylesheet"/>
-
+        <script src="js/jquery.1.7.2.min.js"></script>
+    
 </head>
 <body>
 	
@@ -26,18 +28,18 @@
     	<div class="t1">企业还未完成初始化信息登记，不能开具发票哦！</div>
     	<div class="t2"><a href="">不会操作？请点这里</a></div>
     	<div class="mui-button-row">
+    		    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
+    	
         <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
 			<button type="button" class="mui-btn mui-btn-success" ><a href="dinglrkpd?corpid=<c:out value="${corpid}"/>">录入开票单</a></button>
     </div>
     	
     </div>
    
-		<script type="text/javascript" charset="utf-8">
-			//mui初始化
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
-			});
-			
+		<script type="text/javascript" >
+			$(function(){
+			var url= window.location.href;
+			var corpId =$("#corpid").val();	
 			 $.ajax({
 	    		 url:"dinglrkpd/jssqm",
 	             data: {"url":url,"corpId":corpId},
@@ -113,11 +115,31 @@
 	    	              document.addEventListener('resume', function() {
 	    	                  
 	    	              });
-	    	              document.getElementById("alertBtn").addEventListener('tap', function() {
+	    	            /*   document.getElementById("alertBtn").addEventListener('tap', function() {
 	    	  				mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
 	    	  					
 	    	  				});
-	    	  			});
+	    	  			}); */
+	    	  			dd.runtime.permission.requestAuthCode({
+	    	  				corpId : _config.corpId,
+	    	  				onSuccess : function(info) {
+	    	  					$.ajax({
+	    	  						url : 'userinfo',
+	    	  						data: {"code":info.code,"corpid":corpId},
+	    	  				        method: 'POST',
+	    	  						success : function(data) {
+	    	  							
+                                        alert(data.name);
+                                        alert(data.userid);
+	    	  							/* document.getElementById("userName").innerHTML = data.name;
+	    	  							document.getElementById("userId").innerHTML = data.userid; */
+	    	  						    }
+	    	  					    });
+	    	  				     },
+	    	  				onFail : function(err) {
+	    	  						alert('fail: ' + JSON.stringify(err));
+	    	  					}     
+	    	  				});
 	    	             
 	    	          });
 
@@ -125,7 +147,8 @@
 	    	              alert('dd error: ' + JSON.stringify(err));
 	    	          });
 	             }
-	    	 });
+	    	   });
+			});
 		</script>
 </body>
 </html>
