@@ -79,12 +79,16 @@ public class QuartzController extends BaseController{
 	 * @return
 	 */
 
-	@RequestMapping(value="resume/{jobName}/{jobGroup}", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value="/resume", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public Map resume(@PathVariable String jobName, @PathVariable String jobGroup){
+	public Map resume(){
 		  Map map =new HashMap();
 		try {
-			taskService.resume(jobName, jobGroup);
+			String jobName="com.rjxx.taxeasy.job.JsapiticketJob";
+			String jobName1="com.rjxx.taxeasy.job.SuiteTokenGenerateJob";
+			taskService.resume(jobName, "dingding");
+			taskService.resume(jobName1, "dingding");
+
 			map.put("code","0");
 		} catch (ServiceException e) {
 			map.put("code","1");
