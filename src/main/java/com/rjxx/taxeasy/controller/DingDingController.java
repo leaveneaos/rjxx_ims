@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
@@ -92,12 +93,13 @@ public class DingDingController extends BaseController {
 			Message message=new Message();
 			message.setAgentid(agentId);
 			message.setCode(code);
-			message.setMsgType("text");
+			message.setMsgtype("text");
 			message.setTouser(userid);
 			message.setToparty("");
-			message.getText().setContent("张三的请假申请");
-			message.setText(message.getText());
-			
+			Message.text text=new Message.text();
+			text.setContent("张三的请假申请");
+			message.setText(text);
+			System.out.println(JSON.toJSONString(message));
 			JSONObject ss=HttpHelper.httpPost("https://oapi.dingtalk.com/message/sendByCode?access_token="+accessToken, message);
 			
 			
