@@ -24,6 +24,7 @@ public class DinglrspxxController extends BaseController{
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
+    	String userid=request.getParameter("userid");//钉钉用户id
 		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
@@ -74,6 +75,7 @@ public class DinglrspxxController extends BaseController{
 		System.out.println(jyxxsq);
 		request.setAttribute("spList", list2);
         request.setAttribute("corpid", corpid);
+        request.setAttribute("userid", userid);
         return "dingding/lrspxx";
     }
 	/**

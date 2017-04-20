@@ -80,7 +80,7 @@ public class DingDingController extends BaseController {
 		 */
 		@RequestMapping(value = "/sendmessage")
 		@ResponseBody
-		public JSONObject sendmessage() throws Exception {
+		public String  sendmessage() throws Exception {
 			String code = request.getParameter("code");
 			String corpId = request.getParameter("corpid");
 			String agentId = request.getParameter("agentId");
@@ -111,6 +111,6 @@ public class DingDingController extends BaseController {
 			/*IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
 			String accessToken=isvcorptoken.getCorpaccesstoken();
 			CorpUserDetail user = (CorpUserDetail)UserHelper.getUser(accessToken, UserHelper.getUserInfo(accessToken, code).getUserid());*/
-			return ss;
+			return "success";
 		}
 }

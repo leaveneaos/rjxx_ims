@@ -24,7 +24,8 @@
   	
 		<div class="mui-content">
 	    <div class="mui-content-padded" style="margin: 5px;">
-	    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
+	    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/> 
+	    <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>    
 	      <form class="mui-input-group">
 			    <div class="mui-input-row">
 			        <label>*销方名称</label>
@@ -177,9 +178,7 @@
     		          	var xfmc=$("#xfmc").val();   
     		          	var kprq=$("#kprq").val();
     		          	var ddh=$("#ddh").val();
-    		          /* 	var dzfp=$("#dzfp").val();
-    		          	var zzpp=$("#zzpp").val();
-    		          	var zzzp=$("#zzzp").val(); */
+    		          	var userid=$("#userid").val();
     		          	var fpzl=$("input[type='radio']:checked").val();
     		          	var bz=$("#bz").val();
     		          	if(xfmc==null||xfmc==""){
@@ -192,27 +191,17 @@
     							return;
     						});
     		          	 }
-    		          	if(kprq==null||kprq==""){
+    		          	/* if(kprq==null||kprq==""){
     		          		mui.alert('请输入开票日期！', function() {
     							return;
     						});
-    		          	 }
+    		          	 } */
     		          	if(fpzl==null||fpzl==""){
     		          		mui.alert('请选择发票种类！', function() {
     							return;
     						});
     		          	 }
-    	            	 /*  $.ajax({
-    		          	    	 url:"dinglrkpd/save",
-    		                     data: {"xfmc":xfmc,"kprq":kprq,"fpzldm":fpzl,"bz":bz},
-    		                     method: 'POST',
-    		                     success: function (data) {
-    		                    	 
-    		                    	 
-    		                     }
-    		          	    	 
-    		          	     }); */
-    		          	href="dinglrgfxx?corpid="+corpId+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+(bz); 
+    		          	href="dinglrgfxx?corpid="+corpId+"&userid="+userid+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+(bz); 
     		          	
     		          	$("#baocun").attr("href",encodeURI(encodeURI(href)));
     		          	 });
