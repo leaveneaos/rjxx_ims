@@ -48,7 +48,8 @@
     <logger name="com.rjxx.filter.ProcessExceptionFilter" level="ERROR" additivity="false">
         <appender-ref ref="ERROR_FILE"/>
     </logger>
-
+    <logger name="DING_OPEN_CLIENT_SDK_LOGGER" level="OFF">
+    </logger>
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG_FILE"/>
