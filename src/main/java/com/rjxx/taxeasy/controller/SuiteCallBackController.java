@@ -136,9 +136,14 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
          if(SuitePushType.SUITE_TICKET.getKey().equals(eventType)){
         	 String receiveSuiteTicket = callbackMsgJson.getString("SuiteTicket");
              String receiveSuiteKey = callbackMsgJson.getString("SuiteKey");
+             Map params=new HashMap();
+             params.put("SuiteKey", suiteKey);
+             IsvSuiteTicket isvsuiteticket1=isvsuiteticketservice.findOneByParams(params);
         	 IsvSuiteTicket isvsuiteticket=new IsvSuiteTicket();
         	 isvsuiteticket.setTicket(receiveSuiteTicket);
         	 isvsuiteticket.setSuiteKey(suiteKey);
+        	 isvsuiteticket.setId(isvsuiteticket1.getId());
+        	 
         	 //保存或者更新套件的SuiteTicket，有过期时间
         	 boolean sr=isvsuiteticketservice.saveOrUpdateSuiteTicket(isvsuiteticket);
         	 if(!sr){

@@ -14,8 +14,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.rjxx.taxeasy.bizcomm.utils.SuiteManageService;
 import com.rjxx.taxeasy.dingding.Helper.CorpOapiRequestHelper;
+import com.rjxx.taxeasy.domains.IsvCorpSuiteAuth;
 import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
 import com.rjxx.taxeasy.domains.IsvCorpToken;
+import com.rjxx.taxeasy.service.IsvCorpSuiteAuthService;
 import com.rjxx.taxeasy.service.IsvCorpTokenService;
 
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class JsapiticketJob implements Job {
     
     @Autowired
     private IsvCorpTokenService isvcorptokenservice;
-    
+    @Autowired
+    private IsvCorpSuiteAuthService isvcorpsuiteauthservice;
     @Autowired
     private SuiteManageService suitemanageservice;
     @Override
@@ -44,16 +47,17 @@ public class JsapiticketJob implements Job {
 //            XmlWebApplicationContext xmlWebApplicationContext = (XmlWebApplicationContext) jobExecutionContext.getScheduler().getContext().get("applicationContextKey");
 //            CorpManageService corpManageService=(CorpManageService)xmlWebApplicationContext.getBean("corpManageService");
             Map params=new HashMap<>();
-        	List<IsvCorpToken> IsvCorpTokenlist = isvcorptokenservice.findAllByParams(params);
+            List<IsvCorpSuiteAuth> IsvCorpSuiteAuth  =isvcorpsuiteauthservice.findAllByParams(params);
+        	/*List<IsvCorpToken> IsvCorpTokenlist = isvcorptokenservice.findAllByParams(params);
             if(CollectionUtils.isEmpty(IsvCorpTokenlist)){
             	logger.info("CorpToken查询失败");
                 return;
-            }
+            }*/
             //更换corp token
-            for(IsvCorpToken corpTokenVO:IsvCorpTokenlist){
-                boolean f=  suitemanageservice.getCorpJSAPITicket(corpTokenVO.getSuiteKey(),corpTokenVO.getCorpId());
+            for(IsvCorpSuiteAuth isvcorpsuiteauth:IsvCorpSuiteAuth){
+                boolean f=  suitemanageservice.getCorpJSAPITicket(isvcorpsuiteauth.getSuiteKey(),isvcorpsuiteauth.getCorpId(),isvcorpsuiteauth.getPermanentCode());
                 if(!f){
-                	logger.info("jsapiticket生成任务失败,suiteKey:{},Corpid:{}"+corpTokenVO.getSuiteKey(),corpTokenVO.getCorpId());
+                	logger.info("jsapiticket生成任务失败,suiteKey:{},Corpid:{}"+isvcorpsuiteauth.getSuiteKey(),isvcorpsuiteauth.getCorpId());
                 }
             }
         } catch (Exception e) {
