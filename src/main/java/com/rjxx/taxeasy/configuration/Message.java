@@ -5,7 +5,7 @@ public class Message {
      private String toparty;
      private String agentid;
      private String code;
-     private String msgType;
+     private String msgtype;
      private text text;
      
      public String getTouser() {
@@ -40,12 +40,12 @@ public class Message {
 		this.code = code;
 	}
 
-	public String getMsgType() {
-		return msgType;
+	public String getMsgtype() {
+		return msgtype;
 	}
 
-	public void setMsgType(String msgType) {
-		this.msgType = msgType;
+	public void setMsgtype(String msgtype) {
+		this.msgtype = msgtype;
 	}
 
 

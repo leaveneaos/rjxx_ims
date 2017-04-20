@@ -40,7 +40,7 @@
 			$(function(){
 			var url= window.location.href;
 			var corpId =$("#corpid").val();	
-			var jobnumber ;var userid;
+			var jobnumber ="";var userid="";
 			var signature = "";
 			var nonce = "";
 			var timeStamp = "";
