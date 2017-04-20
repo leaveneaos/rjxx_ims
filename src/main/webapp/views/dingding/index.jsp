@@ -124,7 +124,7 @@
 	    	  				corpId : _config.corpId,
 	    	  				onSuccess : function(info) {
 	    	  					$.ajax({
-	    	  						url : 'userinfo',
+	    	  						url : '/ding/userinfo',
 	    	  						data: {"code":info.code,"corpid":corpId},
 	    	  				        method: 'POST',
 	    	  						success : function(data) {
