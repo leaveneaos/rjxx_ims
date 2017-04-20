@@ -1,7 +1,14 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
+import com.dingtalk.open.client.api.service.corp.JsapiService;
+import com.dingtalk.open.client.api.service.corp.MessageService;
+import com.rjxx.taxeasy.configuration.Message;
+import com.rjxx.taxeasy.dingding.Helper.HttpHelper;
 import com.rjxx.taxeasy.dingding.Helper.UserHelper;
+import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
 import com.rjxx.taxeasy.domains.IsvCorpToken;
 import com.rjxx.taxeasy.domains.IsvSuiteToken;
 import com.rjxx.taxeasy.service.IsvCorpAppService;
@@ -58,9 +65,50 @@ public class DingDingController extends BaseController {
 		System.out.println("code:"+code+" corpid:"+corpId);
 		Map params=new HashMap();
 		params.put("corpId", corpId);
-		IsvCorpToken isvcorptoken=isvcorptokenservice.findOneByParams(params);
-		String accessToken=isvcorptoken.getCorpToken();
+		IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
+		String accessToken=isvcorptoken.getCorpaccesstoken();
 		CorpUserDetail user = (CorpUserDetail)UserHelper.getUser(accessToken, UserHelper.getUserInfo(accessToken, code).getUserid());
 		return user;
 	}
+	    /**
+		 * 发送会话消息
+		 *
+		 * @param 
+		 * @return
+		 * @throws Exception
+		 */
+		@RequestMapping(value = "/sendmessage")
+		@ResponseBody
+		public JSONObject sendmessage() throws Exception {
+			String code = request.getParameter("code");
+			String corpId = request.getParameter("corpid");
+			String agentId = request.getParameter("agentId");
+			String userid = request.getParameter("userid");
+			System.out.println("code:"+code+" corpid:"+corpId);
+			Map params=new HashMap();
+			params.put("corpId", corpId);
+			IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
+			String accessToken=isvcorptoken.getCorpaccesstoken();
+			Message message=new Message();
+			message.setAgentid(agentId);
+			message.setCode(code);
+			message.setMsgType("text");
+			message.setTouser(userid);
+			message.setToparty("");
+			message.getText().setContent("张三的请假申请");
+			message.setText(message.getText());
+			
+			JSONObject ss=HttpHelper.httpPost("https://oapi.dingtalk.com/message/sendByCode?access_token="+accessToken, message);
+			
+			
+			/*ServiceFactory serviceFactory = ServiceFactory.getInstance();
+
+			MessageService messageservice = serviceFactory.getOpenService(MessageService.class);
+			messageservice.sendToCorpConversation(paramString1, paramString2, paramString3, paramString4, paramString5, paramMessageBody)*/
+			
+			/*IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
+			String accessToken=isvcorptoken.getCorpaccesstoken();
+			CorpUserDetail user = (CorpUserDetail)UserHelper.getUser(accessToken, UserHelper.getUserInfo(accessToken, code).getUserid());*/
+			return ss;
+		}
 }

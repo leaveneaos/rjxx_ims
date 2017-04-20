@@ -40,6 +40,11 @@
 			$(function(){
 			var url= window.location.href;
 			var corpId =$("#corpid").val();	
+			var jobnumber ;var userid;
+			var signature = "";
+			var nonce = "";
+			var timeStamp = "";
+			var agentId = "";
 			 $.ajax({
 	    		 url:"dinglrkpd/jssqm",
 	             data: {"url":url,"corpId":corpId},
@@ -115,24 +120,23 @@
 	    	              document.addEventListener('resume', function() {
 	    	                  
 	    	              });
-	    	            /*   document.getElementById("alertBtn").addEventListener('tap', function() {
+	    	              document.getElementById("alertBtn").addEventListener('tap', function() {
 	    	  				mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
 	    	  					
 	    	  				});
-	    	  			}); */
+	    	  			}); 
 	    	  			dd.runtime.permission.requestAuthCode({
-	    	  				corpId : _config.corpId,
+	    	  				corpId : corpId,
 	    	  				onSuccess : function(info) {
 	    	  					$.ajax({
-	    	  						url : '/ding/userinfo',
+	    	  						url : 'ding/userinfo',
 	    	  						data: {"code":info.code,"corpid":corpId},
 	    	  				        method: 'POST',
 	    	  						success : function(data) {
+	    	  							userid=data.userid;
+	    	  							jobnumber=data.jobnumber;
+                                       
 	    	  							
-                                        alert(data.name);
-                                        alert(data.userid);
-	    	  							/* document.getElementById("userName").innerHTML = data.name;
-	    	  							document.getElementById("userId").innerHTML = data.userid; */
 	    	  						    }
 	    	  					    });
 	    	  				     },
@@ -140,6 +144,43 @@
 	    	  						alert('fail: ' + JSON.stringify(err));
 	    	  					}     
 	    	  				});
+	    	  			/* dd.biz.ding.post({
+	    	  			    users : [userid],//用户列表，工号
+	    	  			    corpId: corpId, //企业id
+	    	  			    type: 2, //附件类型 1：image  2：link
+	    	  			    alertType: 2,
+	    	  			    alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2017-04-20 15:12"},
+	    	  			    attachment: {
+	    	  			        images: [''],
+	    	  			    }, //附件信息
+	    	  			    text: '你好我是钉钉', //消息
+	    	  			    onSuccess : function() {
+	    	  			    //onSuccess将在点击发送之后调用
+	    	  			    },
+	    	  			    onFail : function() {}
+	    	  			}); */
+	    	  			dd.runtime.permission.requestOperateAuthCode({
+	    	  			        corpId: corpId,
+	    	  			        agentId:agentId,
+	    	  			    onSuccess: function(result) {
+	    	  			    //alert(result.code);
+	    	  			    	$.ajax({
+	    	  						url : 'ding/sendmessage',
+	    	  						data: {"code":result.code,"corpid":corpId,"agentId":agentId,"userid":userid},
+	    	  				        method: 'POST',
+	    	  						success : function(data) {
+	    	  							/* userid=data.userid;
+	    	  							jobnumber=data.jobnumber; */
+                                       
+	    	  							
+	    	  						    }
+	    	  					    });
+	    	  			    },
+	    	  			    onFail : function(err) {
+	    	  			    	
+	    	  			    },
+	    	  			 
+	    	  			});
 	    	             
 	    	          });
 
