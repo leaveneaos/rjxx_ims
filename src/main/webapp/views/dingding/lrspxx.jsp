@@ -141,7 +141,7 @@
 			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+jyxxsq+"&mxcount=" + i+"&totaljshj="+jshj2+s; 
 		  }else{
 	          var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
-			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+"&mxcount=" + (i+1)+jyxxsq+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
+			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+"&mxcount=" + (i)+"&mxcount=" + (i+1)+jyxxsq+"&totaljshj="+(parseFloat(totaljshj)+parseFloat(jshj2))+str+s; 
 		  }*/
 		  var href='';
           if(str==''){
@@ -149,8 +149,9 @@
 			  var s="&mxxh="+i+"&spmc="+spmc+"&hsje="+hsje+"&spbz="+spbz;
 			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+jyxxsq+"&mxcount=" + i+"&totaljshj="+jshj2+s; 
 		  }else{
-			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+jyxxsq+"&totaljshj="+totaljshj+str;
+			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+jyxxsq+"&mxcount=" + i+"&totaljshj="+totaljshj+str;
 		  }
+          alert(href);
 		  $("#submit").attr("href",encodeURI(encodeURI(href)));		  
 	  });
 	  $("#add").bind('click', function()  {
@@ -181,7 +182,7 @@
         	  alert('请填写金额（不含税）！');
 					return;
 				
-          }else */ if(hsje.val()==""||hsje.val()==null){
+          }else */ if(hsje==""||hsje==null){
         	  alert('请填写金额（含税）！');
 					return;
 				
@@ -331,6 +332,7 @@
 			se.val(FormatFloat(hsje.val() - je.val(),
 					"#####0.00"));
 			//jshj.val(FormatFloat(hsje.val(), "#####0.00")); */
+			var jshj = $('#jshj');
 			var hsje = $('#hsje');
 			jshj.html("价税合计："+FormatFloat(hsje.val(), "#####0.00"));
 			$("#jshj2").val(FormatFloat(hsje.val(), "#####0.00"));
