@@ -34,7 +34,9 @@ public class DingLrKpdController extends BaseController{
     @RequestMapping
     public String index() throws Exception {
     	String corpid=request.getParameter("corpid");//企业id
+    	String userid=request.getParameter("userid");//钉钉用户id
         request.setAttribute("corpid", corpid);
+        request.setAttribute("userid", userid);
         return "dingding/lrkpd";
     }
     /**

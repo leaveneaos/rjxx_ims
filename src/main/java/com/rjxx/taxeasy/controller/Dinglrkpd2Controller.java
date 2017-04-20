@@ -34,6 +34,7 @@ public class Dinglrkpd2Controller extends BaseController{
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
+    	String userid=request.getParameter("userid");//钉钉用户id
 		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
@@ -55,6 +56,9 @@ public class Dinglrkpd2Controller extends BaseController{
 		
 		
 		Jyxxsq jyxxsq=new Jyxxsq();
+		
+		jyxxsq.setDingcorpid(corpid);
+		jyxxsq.setDinguserid(userid);
 		jyxxsq.setBz(bz);
 		jyxxsq.setDdh(ddh);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -75,8 +79,13 @@ public class Dinglrkpd2Controller extends BaseController{
 		jyxxsq.setJshj(0.00);
 		jyxxsq.setYkpjshj(0.00);
 		jyxxsq.setHsbz("0");
+		
 		/*jyxxsq.setXfid(xf.getId());
 		jyxxsq.setXfsh(xf.getXfsh());*/
+		
+		jyxxsq.setXfid(344);
+		jyxxsq.setXfsh("500102010003698");
+		
 		jyxxsq.setXfmc(xfmc);
 		jyxxsq.setXfsh("1234567");
 		jyxxsq.setLrsj(TimeUtil.getNowDate());
@@ -85,7 +94,13 @@ public class Dinglrkpd2Controller extends BaseController{
 		jyxxsq.setFpczlxdm("11");
 		jyxxsq.setYxbz("1");
 		jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
-
+        
+		jyxxsq.setXfyh("中国建设银行打浦桥支行");
+		jyxxsq.setXfyhzh("123456789-0");
+		jyxxsq.setXfdz("某某路10号1203室");
+		jyxxsq.setXfdh("021-55555555");
+		jyxxsq.setSkpid(36);
+		jyxxsq.setGsdm("zydc");
 		/*jyxxsq.setXfyh(xf.getXfyh());
 		jyxxsq.setXfyhzh(xf.getXfyhzh());
 		jyxxsq.setXfdz(xf.getXfdz());
@@ -105,16 +120,16 @@ public class Dinglrkpd2Controller extends BaseController{
 		
 		Map params = Tools.getParameterMap(request);
 		int mxcount = Integer.valueOf(request.getParameter("mxcount"));
-		String[] spdms = ((String) params.get("spdm")).split(",");
+		//String[] spdms = ((String) params.get("spdm")).split(",");
 		String[] spmcs = ((String) params.get("spmc")).split(",");
-		String[] spjes = ((String) params.get("je")).split(",");
-		String[] spsls = ((String) params.get("sl")).split(",");//商品税率
+		//String[] spjes = ((String) params.get("je")).split(",");
+		//String[] spsls = ((String) params.get("sl")).split(",");//商品税率
 		String[] jshjs = ((String) params.get("hsje")).split(",");
-		String[] spges = ((String) params.get("ggxh")).split(",");
-		String[] spss = ((String) params.get("spsl")).split(",");//商品数量
-		String[] spdws = ((String) params.get("spdw")).split(",");
-		String[] spdjs = ((String) params.get("spdj")).split(",");
-		String[] spses = ((String) params.get("se")).split(",");
+		//String[] spges = ((String) params.get("ggxh")).split(",");
+		//String[] spss = ((String) params.get("spsl")).split(",");//商品数量
+		//String[] spdws = ((String) params.get("spdw")).split(",");
+		//String[] spdjs = ((String) params.get("spdj")).split(",");
+		String[] spbzs = ((String) params.get("spbz")).split(",");
 		
 		double jshj = 0.00;
 		List<Jymxsq> jymxsqList = new ArrayList<>();
@@ -123,47 +138,49 @@ public class Dinglrkpd2Controller extends BaseController{
 			int xxh = c + 1;
 			jymxsq.setSpmxxh(xxh);
 			jymxsq.setFphxz("0");
-			jymxsq.setSpdm(spdms[c]);
+			//jymxsq.setSpdm(spdms[c]);
 			jymxsq.setSpmc(URLDecoder.decode(spmcs[c],"utf8"));
-			jymxsq.setSpje(Double.valueOf(spjes[c]));
-			if (spsls.length != 0) {
+			//jymxsq.setSpje(Double.valueOf(spjes[c]));
+			/*if (spsls.length != 0) {
 				jymxsq.setSpsl(Double.valueOf(spsls[c]));
-			}
+			}*/
 			jymxsq.setJshj(Double.valueOf(jshjs[c]));
 			jymxsq.setKkjje(Double.valueOf(jshjs[c]));
 			jymxsq.setYkjje(0d);
-			if (spges.length != 0) {
+			jymxsq.setSpbz(spbzs[c]);
+			/*if (spges.length != 0) {
 				try {
 					jymxsq.setSpggxh(spges[c]);
 				} catch (Exception e) {
 					jymxsq.setSpggxh(null);
 
 				}
-			}
-			try {
+			}*/
+			/*try {
 				jymxsq.setSps(Double.valueOf(spss[c]));
 			} catch (Exception e) {
 				jymxsq.setSps(null);
-			}
-			if (spdws.length != 0) {
+			}*/
+			/*if (spdws.length != 0) {
 				try {
 					jymxsq.setSpdw(URLDecoder.decode(spdws[c],"utf8"));
 				} catch (Exception e) {
 					jymxsq.setSpdw(null);
 
 				}
-			}
-			if (spdjs.length != 0) {
+			}*/
+			/*if (spdjs.length != 0) {
 				try {
 					jymxsq.setSpdj(Double.valueOf(spdjs[c]));
 				} catch (Exception e) {
 					jymxsq.setSpdj(null);
 
 				}
-			}
-			if (spses.length != 0) {
+			}*/
+			/*if (spses.length != 0) {
 				jymxsq.setSpse(Double.valueOf(spses[c]));
-			}
+			}*/
+			
 			//jymxsq.setYkphj(0.00);
 			//jymxsq.setLrry(yhid);
 			jymxsq.setYxbz("1");

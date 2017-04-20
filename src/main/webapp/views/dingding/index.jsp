@@ -31,7 +31,7 @@
     		    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
     	
         <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
-			<button type="button" class="mui-btn mui-btn-success" ><a href="dinglrkpd?corpid=<c:out value="${corpid}"/>">录入开票单</a></button>
+			<button type="button" class="mui-btn mui-btn-success" ><a id="index" >录入开票单</a></button>
     </div>
     	
     </div>
@@ -40,7 +40,7 @@
 			$(function(){
 			var url= window.location.href;
 			var corpId =$("#corpid").val();	
-			var jobnumber ="";var userid="";
+			
 			var signature = "";
 			var nonce = "";
 			var timeStamp = "";
@@ -114,6 +114,7 @@
 	    		                        'device.geolocation.get',]
 	    				});
 	    	    	  dd.ready(function() {
+	    	    		  var userid="";
 	    	              document.addEventListener('pause', function() {
 	    	                 
 	    	              });
@@ -134,9 +135,10 @@
 	    	  				        method: 'POST',
 	    	  						success : function(data) {
 	    	  							userid=data.userid;
-	    	  							jobnumber=data.jobnumber;
-                                       
-	    	  							
+	    	  							/* jobnumber=data.jobnumber;
+                                        alert(userid); */
+	    	  							$("#index").attr("href","dinglrkpd?corpid="+corpId+"&userid="+userid);
+
 	    	  						    }
 	    	  					    });
 	    	  				     },
@@ -144,12 +146,14 @@
 	    	  						alert('fail: ' + JSON.stringify(err));
 	    	  					}     
 	    	  				});
-	    	  			/* dd.biz.ding.post({
+	    	  			
+	    	  			
+	    	  			/*  dd.biz.ding.post({
 	    	  			    users : [userid],//用户列表，工号
 	    	  			    corpId: corpId, //企业id
 	    	  			    type: 2, //附件类型 1：image  2：link
 	    	  			    alertType: 2,
-	    	  			    alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2017-04-20 15:12"},
+	    	  			    alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2017-04-20 18:35"},
 	    	  			    attachment: {
 	    	  			        images: [''],
 	    	  			    }, //附件信息
@@ -158,8 +162,9 @@
 	    	  			    //onSuccess将在点击发送之后调用
 	    	  			    },
 	    	  			    onFail : function() {}
-	    	  			}); */
-	    	  			dd.runtime.permission.requestOperateAuthCode({
+	    	  			}); */ 
+	    	  			
+	    	  			/* dd.runtime.permission.requestOperateAuthCode({
 	    	  			        corpId: corpId,
 	    	  			        agentId:agentId,
 	    	  			    onSuccess: function(result) {
@@ -169,10 +174,9 @@
 	    	  						data: {"code":result.code,"corpid":corpId,"agentId":agentId,"userid":userid},
 	    	  				        method: 'POST',
 	    	  						success : function(data) {
-	    	  							/* userid=data.userid;
-	    	  							jobnumber=data.jobnumber; */
-                                       
-	    	  							
+	    	  						    if(data=="success"){
+	    	  						    	alert("sssss");
+	    	  						       }
 	    	  						    }
 	    	  					    });
 	    	  			    },
@@ -180,7 +184,7 @@
 	    	  			    	
 	    	  			    },
 	    	  			 
-	    	  			});
+	    	  			}); */
 	    	             
 	    	          });
 

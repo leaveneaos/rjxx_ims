@@ -16,6 +16,7 @@
   
 		<div class="mui-content">
 		<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
+		<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>    
 		<input type="hidden" id="xfmc" value="<c:out value="${xfmc}" />"/> 
 		<input type="hidden" id="kprq" value="<c:out value="${kprq}" />"/> 
 		<input type="hidden" id="fpzldm" value="<c:out value="${fpzldm}" />"/> 
@@ -74,11 +75,11 @@
 									<label>邮件地址</label>
 									<input type="text" id="yjdz" class="mui-input-clear" placeholder="收件人邮箱地址，提示用户发票已开具">
 								</div>
-								<div class="mui-input-row">
+								<div class="mui-input-row" style="display:none" >
 									<label>提取码</label>
 									<input type="text" id="tqm" class="mui-input-clear" placeholder="用户提取电子发票时使用">
 								</div>
-										<li class="mui-table-view-cell">
+										<li class="mui-table-view-cell" style="display:none">
 											<span>订单/合同号作为提取码</span>
 											<div id="mySwitch" class="mui-switch mui-switch-blue mui-switch-mini">
 												<div  class="mui-switch-handle"></div>
@@ -131,6 +132,7 @@
           	var lxdh=$("#lxdh").val();
           	var lxdz=$("#lxdz").val();
           	var yjdz=$("#yjdz").val();
+          	var userid=$("#userid").val();
           	var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
           	if(isActive){
           	  var tqm=ddh;
@@ -166,9 +168,13 @@
 					});
             	}
             }else if(fpzldm=="12"){
-            	
+            	if(gfmc==null||gfmc==""){
+            		mui.alert('请输入购方名称！', function() {
+						return ;
+					});
+            	}
             }
-          	href="dinglrspxx?corpid="+corpId+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+(bz)
+          	href="dinglrspxx?corpid="+corpId+"&userid="+userid+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+(bz)
           	+"&gfmc="+(gfmc)+"&nsrsbh="+nsrsbh+"&zcdz="+(zcdz)+"&zcdh="+zcdh+"&khyh="+(khyh)+"&yhzh="+yhzh+"&lxr="+(lxr)+"&lxdh="+lxdh
           	+"&lxdz="+(lxdz)+"&yjdz="+(yjdz)+"&tqm="+tqm; 
           	$("#lrgfxx").attr("href",encodeURI(encodeURI(href)));

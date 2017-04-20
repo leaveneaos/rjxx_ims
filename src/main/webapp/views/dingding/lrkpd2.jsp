@@ -93,10 +93,10 @@
                 		 var s='<div class="mui-card-header"><div class="zuo" >'+
  						'<div class="z1">'+list[i].spmc+'</div>'+
  						'<div class="z2">'+
- 							'<div class="z2z">'+list[i].sps+'</div>'+
- 							'<div class="z2z">'+list[i].spse+'</div>'+
- 							'<div class="z2z">'+list[i].spje+'</div>'+
- 							'<div class="z2z">'+list[i].spsl+'</div>'+
+ 							'<div class="z2z">'+list[i].jshj+'</div>'+
+ 							'<div class="z2z">'+list[i].spbz+'</div>'+
+ 							/* '<div class="z2z">'+list[i].spje+'</div>'+
+ 							'<div class="z2z">'+list[i].spsl+'</div>'+ */
  						'</div>'+
  					'</div>'+
  					'<a href="" class="you">修改</a>'+
