@@ -184,8 +184,8 @@
     	              });
     	              
     	              document.getElementById("baocun").addEventListener('tap', function() {
-    		          	var xfmc=$("#xfmc").text(); 
-    		          	var xfid=$("#xfmc").val(); 
+    		          	var xfmc=$('#xfmc option:selected').text(); 
+    		          	var xfid=$('#xfmc option:selected' ).val(); 
     		          	var kprq=$("#kprq").val();
     		          	var ddh=$("#ddh").val();
     		          	var userid=$("#userid").val();
