@@ -47,7 +47,7 @@ public class DingLrKpdController extends BaseController{
     	String userid=request.getParameter("userid");//钉钉用户id
         request.setAttribute("corpid", corpid);
         request.setAttribute("userid", userid);
-    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "zydc");
+    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "aff");
 		token.setDetails(new WebAuthenticationDetails(request));
 		Authentication authenticatedUser = authenticationManager.authenticate(token);
 		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
