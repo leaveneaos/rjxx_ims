@@ -16,7 +16,9 @@
   
 		<div class="mui-content">
 		<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
-		<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>    
+		<input type="hidden" id="userid" value="<c:out value="${userid}" />"/> 
+		<input type="hidden" id="xfid" value="<c:out value="${xfid}" />"/>    
+		   
 		<input type="hidden" id="xfmc" value="<c:out value="${xfmc}" />"/> 
 		<input type="hidden" id="kprq" value="<c:out value="${kprq}" />"/> 
 		<input type="hidden" id="fpzldm" value="<c:out value="${fpzldm}" />"/> 
@@ -133,6 +135,7 @@
           	var lxdz=$("#lxdz").val();
           	var yjdz=$("#yjdz").val();
           	var userid=$("#userid").val();
+          	var xfid=$("#xfid").val();
           	var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
           	if(isActive){
           	  var tqm=ddh;

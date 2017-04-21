@@ -192,7 +192,7 @@
     		          	var fpzl=$("input[type='radio']:checked").val();
     		          	var bz=$("#bz").val();
     		          	if(xfmc==null||xfmc==""){
-    		          		mui.alert('请输入销方名称！', function() {
+    		          		mui.alert('请选择销方名称！', function() {
     							return;
     						});
     		          	 }
