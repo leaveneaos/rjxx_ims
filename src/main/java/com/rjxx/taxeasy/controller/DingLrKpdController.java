@@ -3,17 +3,26 @@ package com.rjxx.taxeasy.controller;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.dingtalk.oapi.lib.aes.DingTalkJsApiSingnature;
 import com.dingtalk.oapi.lib.aes.Utils;
 import com.rjxx.taxeasy.domains.IsvCorpApp;
 import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
+import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.IsvCorpAppService;
 import com.rjxx.taxeasy.service.IsvCorpSuiteJsapiTicketService;
 import com.rjxx.taxeasy.web.BaseController;
@@ -30,13 +39,23 @@ public class DingLrKpdController extends BaseController{
 	private IsvCorpSuiteJsapiTicketService isvcorpsuitejsapiticketservice;
 	@Autowired
 	private IsvCorpAppService isvcorpappservice;
-	
+	@Autowired
+	protected AuthenticationManager authenticationManager;
     @RequestMapping
     public String index() throws Exception {
     	String corpid=request.getParameter("corpid");//企业id
     	String userid=request.getParameter("userid");//钉钉用户id
         request.setAttribute("corpid", corpid);
         request.setAttribute("userid", userid);
+    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "zydc");
+		token.setDetails(new WebAuthenticationDetails(request));
+		Authentication authenticatedUser = authenticationManager.authenticate(token);
+		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+				SecurityContextHolder.getContext());
+		List<Xf> xflist=getXfList();
+		System.out.println(JSON.toJSON(xflist));
+		 request.setAttribute("xflist", xflist);
         return "dingding/lrkpd";
     }
     /**

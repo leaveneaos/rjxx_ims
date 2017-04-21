@@ -26,6 +26,7 @@ public class DinglrspxxController extends BaseController{
 		String corpid=request.getParameter("corpid");//企业id
     	String userid=request.getParameter("userid");//钉钉用户id
 		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
+		String xfid=request.getParameter("xfid");//销方id
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
 		String bz=URLDecoder.decode(request.getParameter("bz"),"utf8");//备注
@@ -43,33 +44,12 @@ public class DinglrspxxController extends BaseController{
 		String lxdz=URLDecoder.decode(request.getParameter("lxdz"),"utf8");//联系地址
 		String yjdz=URLDecoder.decode(request.getParameter("yjdz"),"utf8");//邮寄地址
 		String tqm=request.getParameter("tqm");//提取码
-		Jyxxsq Jyxxsq=new Jyxxsq();
-		Jyxxsq.setBz(bz);
-		Jyxxsq.setDdh(ddh);
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		Jyxxsq.setDdrq(sdf.parse(kprq));
-		Jyxxsq.setFpzldm(fpzldm);
-		Jyxxsq.setGfdh(zcdh);
-		Jyxxsq.setGfdz(zcdz);
-		Jyxxsq.setGflxr(lxr);
-		Jyxxsq.setGfmc(gfmc);
-		Jyxxsq.setGfsh(nsrsbh);
-		Jyxxsq.setGfyh(khyh);
-		Jyxxsq.setGfyhzh(yhzh);
-		Jyxxsq.setTqm(tqm);
-		Jyxxsq.setSjly("3");
-		/*Jyxxsq.setXfmc(xfmc);
-		Jyxxsq.setXfdh(zcdh);
-		Jyxxsq.setXfdz(zcdz);
-		Jyxxsq.setXfyh(khyh);
-		Jyxxsq.setXfyhzh(yhzh);
-		Jyxxsq.setXfsh(nsrsbh);*/
+		
 		List<Spvo>list2 = spvoService.findAllByGsdm("zydc");
-		String jyxxsq="&xfmc="+xfmc+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz+"&ddh="+
+		String jyxxsq="&xfmc="+xfmc+"&xfid="+(xfid)+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz+"&ddh="+
 		ddh+"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+
 		"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh+"&lxdz="+lxdz+"&yjdz="+yjdz+"&tqm="+tqm;
 		
-		System.out.println(gfmc);
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("jyxxsq", jyxxsq);
 		System.out.println(jyxxsq);
