@@ -29,7 +29,16 @@
 	      <form class="mui-input-group">
 			    <div class="mui-input-row">
 			        <label>*销方名称</label>
-			        <input type="text" id="xfmc" class="mui-input-clear" placeholder="上海容津信息技术有限公司">
+<!-- 			        <input type="text" id="xfmc" class="mui-input-clear" placeholder="上海容津信息技术有限公司">
+ -->			    
+			        <select id="xfmc" name="xfmc"
+											 required>
+											<option value="">选择销方</option>
+											<c:forEach items="${xflist}" var="item">
+												<option value="${item.id}">${item.xfmc}</option>
+											</c:forEach>
+					</select>
+			    
 			    </div>
 			    <div class="mui-input-row">
 			        <label>*合同/订单号</label>
@@ -175,7 +184,8 @@
     	              });
     	              
     	              document.getElementById("baocun").addEventListener('tap', function() {
-    		          	var xfmc=$("#xfmc").val();   
+    		          	var xfmc=$("#xfmc").text(); 
+    		          	var xfid=$("#xfmc").val(); 
     		          	var kprq=$("#kprq").val();
     		          	var ddh=$("#ddh").val();
     		          	var userid=$("#userid").val();
@@ -201,7 +211,7 @@
     							return;
     						});
     		          	 }
-    		          	href="dinglrgfxx?corpid="+corpId+"&userid="+userid+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+(bz); 
+    		          	href="dinglrgfxx?corpid="+corpId+"&userid="+userid+"&xfid="+(xfid)+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzl+"&bz="+(bz); 
     		          	
     		          	$("#baocun").attr("href",encodeURI(encodeURI(href)));
     		          	 });

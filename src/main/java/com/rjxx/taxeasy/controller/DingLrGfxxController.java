@@ -19,6 +19,7 @@ public class DingLrGfxxController extends BaseController{
 		String corpid=request.getParameter("corpid");//企业id
     	String userid=request.getParameter("userid");//钉钉用户id
 		String xfmc=request.getParameter("xfmc");//销方名称
+		String xfid=request.getParameter("xfid");//销方id
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
 		String bz=request.getParameter("bz");//备注
@@ -30,6 +31,7 @@ public class DingLrGfxxController extends BaseController{
         request.setAttribute("bz", URLDecoder.decode(bz,"utf8"));
         request.setAttribute("ddh", ddh);
         request.setAttribute("userid", userid);
+        request.setAttribute("xfid", xfid);
         return "dingding/lrgfxx";
     }
 }

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyxxsq;
+import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.service.JymxsqService;
 import com.rjxx.taxeasy.service.JyxxsqService;
+import com.rjxx.taxeasy.service.SkpService;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.Tools;
@@ -31,11 +34,17 @@ public class Dinglrkpd2Controller extends BaseController{
 	private JyxxsqService jyxxsqservice;
 	@Autowired
 	private JymxsqService jymxsqservice;
+	@Autowired
+	private XfService xfService;
+	@Autowired
+	private SkpService skpservice;
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
     	String userid=request.getParameter("userid");//钉钉用户id
 		String xfmc=URLDecoder.decode(request.getParameter("xfmc"),"utf8");//销方名称
+		String xfid=request.getParameter("xfid");//销方id
+
 		String kprq=request.getParameter("kprq");//开票日期
 		String fpzldm=request.getParameter("fpzldm");//发票种类
 		String bz=URLDecoder.decode(request.getParameter("bz"),"utf8");//备注
@@ -54,9 +63,9 @@ public class Dinglrkpd2Controller extends BaseController{
 		String yjdz=URLDecoder.decode(request.getParameter("yjdz"),"utf8");//邮寄地址
 		String tqm=request.getParameter("tqm");//提取码
 		
-		
+		com.rjxx.taxeasy.domains.Xf xf = xfService.findOne(Integer.parseInt(xfid));
 		Jyxxsq jyxxsq=new Jyxxsq();
-		
+		int yhid = getYhid();
 		jyxxsq.setDingcorpid(corpid);
 		jyxxsq.setDinguserid(userid);
 		jyxxsq.setBz(bz);
@@ -80,42 +89,38 @@ public class Dinglrkpd2Controller extends BaseController{
 		jyxxsq.setYkpjshj(0.00);
 		jyxxsq.setHsbz("0");
 		
-		/*jyxxsq.setXfid(xf.getId());
-		jyxxsq.setXfsh(xf.getXfsh());*/
+
 		
-		jyxxsq.setXfid(344);
-		jyxxsq.setXfsh("500102010003698");
-		
-		jyxxsq.setXfmc(xfmc);
-		jyxxsq.setXfsh("1234567");
+		jyxxsq.setXfid(xf.getId());
+		jyxxsq.setXfsh(xf.getXfsh());
+		jyxxsq.setXfmc(xf.getXfmc());
 		jyxxsq.setLrsj(TimeUtil.getNowDate());
 		jyxxsq.setXgsj(TimeUtil.getNowDate());
 		jyxxsq.setDdrq(TimeUtil.getNowDate());
 		jyxxsq.setFpczlxdm("11");
 		jyxxsq.setYxbz("1");
 		jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
-        
-		jyxxsq.setXfyh("中国建设银行打浦桥支行");
-		jyxxsq.setXfyhzh("123456789-0");
-		jyxxsq.setXfdz("某某路10号1203室");
-		jyxxsq.setXfdh("021-55555555");
-		jyxxsq.setSkpid(36);
-		jyxxsq.setGsdm("zydc");
-		/*jyxxsq.setXfyh(xf.getXfyh());
+		jyxxsq.setXfyh(xf.getXfyh());
 		jyxxsq.setXfyhzh(xf.getXfyhzh());
 		jyxxsq.setXfdz(xf.getXfdz());
-		jyxxsq.setXfdh(xf.getXfdh());*/
+		jyxxsq.setXfdh(xf.getXfdh());
+		jyxxsq.setKpr(xf.getKpr());
+		jyxxsq.setFhr(xf.getFhr());
+		jyxxsq.setSkr(xf.getSkr());
+		List<Skp> skpList = getSkpList();
+		jyxxsq.setSkpid(skpList.get(0).getId());
+		jyxxsq.setGsdm("zydc");
+		Skp skp = skpservice.findOne(skpList.get(0).getId());
+		jyxxsq.setKpddm(skp.getKpddm());
 		
 		if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
 			jyxxsq.setSffsyj("1");
 		}
 		
-		/*jyxxsq.setKpr(xf.getKpr());
-		jyxxsq.setFhr(xf.getFhr());
-		jyxxsq.setSkr(xf.getSkr());
+		
 		jyxxsq.setLrry(yhid);
 		jyxxsq.setXgry(yhid);
-		jyxxsq.setGsdm(gsdm);*/
+		jyxxsq.setGsdm(getGsdm());
 		
 		
 		Map params = Tools.getParameterMap(request);
@@ -147,7 +152,7 @@ public class Dinglrkpd2Controller extends BaseController{
 			jymxsq.setJshj(Double.valueOf(jshjs[c]));
 			jymxsq.setKkjje(Double.valueOf(jshjs[c]));
 			jymxsq.setYkjje(0d);
-			jymxsq.setSpbz(spbzs[c]);
+			jymxsq.setSpbz(URLDecoder.decode(spbzs[c],"utf8"));
 			/*if (spges.length != 0) {
 				try {
 					jymxsq.setSpggxh(spges[c]);
@@ -182,14 +187,14 @@ public class Dinglrkpd2Controller extends BaseController{
 			}*/
 			
 			//jymxsq.setYkphj(0.00);
-			//jymxsq.setLrry(yhid);
+			jymxsq.setLrry(yhid);
 			jymxsq.setSpsl(0.00);
 			jymxsq.setSpje(0.00);
 			jymxsq.setYxbz("1");
 			jymxsq.setLrsj(TimeUtil.getNowDate());
 			jymxsq.setXgsj(TimeUtil.getNowDate());
-			//jymxsq.setXgry(yhid);
-			//jymxsq.setGsdm(gsdm);
+			jymxsq.setXgry(yhid);
+			jymxsq.setGsdm(getGsdm());
 			
 			jshj += jymxsq.getJshj();
 			jymxsqList.add(jymxsq);

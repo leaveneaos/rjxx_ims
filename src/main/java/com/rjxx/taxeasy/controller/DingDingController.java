@@ -12,19 +12,29 @@ import com.rjxx.taxeasy.dingding.Helper.UserHelper;
 import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
 import com.rjxx.taxeasy.domains.IsvCorpToken;
 import com.rjxx.taxeasy.domains.IsvSuiteToken;
+import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.domains.Yh;
 import com.rjxx.taxeasy.service.IsvCorpAppService;
 import com.rjxx.taxeasy.service.IsvCorpSuiteJsapiTicketService;
 import com.rjxx.taxeasy.service.IsvCorpTokenService;
 import com.rjxx.taxeasy.service.IsvSuiteService;
 import com.rjxx.taxeasy.service.IsvSuiteTokenService;
+import com.rjxx.taxeasy.service.YhService;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.utils.PasswordUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +54,11 @@ public class DingDingController extends BaseController {
 	private IsvSuiteTokenService isvsuitetokenservice;
 	@Autowired
 	private IsvCorpTokenService isvcorptokenservice;
+	@Autowired
+	private YhService yhService;
+	@Autowired
+	protected AuthenticationManager authenticationManager;
+	
     @RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
@@ -101,16 +116,6 @@ public class DingDingController extends BaseController {
 			message.setText(text);
 			System.out.println(JSON.toJSONString(message));
 			JSONObject ss=HttpHelper.httpPost("https://oapi.dingtalk.com/message/sendByCode?access_token="+accessToken, message);
-			
-			
-			/*ServiceFactory serviceFactory = ServiceFactory.getInstance();
-
-			MessageService messageservice = serviceFactory.getOpenService(MessageService.class);
-			messageservice.sendToCorpConversation(paramString1, paramString2, paramString3, paramString4, paramString5, paramMessageBody)*/
-			
-			/*IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
-			String accessToken=isvcorptoken.getCorpaccesstoken();
-			CorpUserDetail user = (CorpUserDetail)UserHelper.getUser(accessToken, UserHelper.getUserInfo(accessToken, code).getUserid());*/
 			return "success";
 		}
 }

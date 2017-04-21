@@ -174,7 +174,7 @@
 					});
             	}
             }
-          	href="dinglrspxx?corpid="+corpId+"&userid="+userid+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+(bz)
+          	href="dinglrspxx?corpid="+corpId+"&userid="+userid+"&xfid="+(xfid)+"&xfmc="+(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+(bz)
           	+"&gfmc="+(gfmc)+"&nsrsbh="+nsrsbh+"&zcdz="+(zcdz)+"&zcdh="+zcdh+"&khyh="+(khyh)+"&yhzh="+yhzh+"&lxr="+(lxr)+"&lxdh="+lxdh
           	+"&lxdz="+(lxdz)+"&yjdz="+(yjdz)+"&tqm="+tqm; 
           	$("#lrgfxx").attr("href",encodeURI(encodeURI(href)));
