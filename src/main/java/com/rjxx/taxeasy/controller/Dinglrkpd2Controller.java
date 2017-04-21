@@ -151,6 +151,7 @@ public class Dinglrkpd2Controller extends BaseController{
 			}*/
 			jymxsq.setJshj(Double.valueOf(jshjs[c]));
 			jymxsq.setKkjje(Double.valueOf(jshjs[c]));
+			jymxsq.setSpje(Double.valueOf(jshjs[c]));
 			jymxsq.setYkjje(0d);
 			jymxsq.setSpbz(URLDecoder.decode(spbzs[c],"utf8"));
 			/*if (spges.length != 0) {
@@ -189,7 +190,7 @@ public class Dinglrkpd2Controller extends BaseController{
 			//jymxsq.setYkphj(0.00);
 			jymxsq.setLrry(yhid);
 			jymxsq.setSpsl(0.00);
-			jymxsq.setSpje(0.00);
+			//jymxsq.setSpje(0.00);
 			jymxsq.setYxbz("1");
 			jymxsq.setLrsj(TimeUtil.getNowDate());
 			jymxsq.setXgsj(TimeUtil.getNowDate());
