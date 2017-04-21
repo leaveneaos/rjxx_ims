@@ -183,6 +183,8 @@ public class Dinglrkpd2Controller extends BaseController{
 			
 			//jymxsq.setYkphj(0.00);
 			//jymxsq.setLrry(yhid);
+			jymxsq.setSpsl(0.00);
+			jymxsq.setSpje(0.00);
 			jymxsq.setYxbz("1");
 			jymxsq.setLrsj(TimeUtil.getNowDate());
 			jymxsq.setXgsj(TimeUtil.getNowDate());
