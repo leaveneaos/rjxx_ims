@@ -17,6 +17,9 @@
 		<div class="mui-content">
 			<div class="mui-card">
 			   <input type="hidden"  id="sqlsh" value="<c:out value="${sqlsh}"/>"/>
+			   <input type="hidden"  id="corpid" value="<c:out value="${corpid}"/>"/>
+			   <input type="hidden"  id="userid" value="<c:out value="${userid}"/>"/>
+			   
 				<div class="mui-card-header" id="before">
 					<div class="zuo">
 						<div class="z1" id="xfmc"  >上海容津信息技术有限公司（普票）</div>
@@ -71,7 +74,7 @@
 			<a class="lrkpd" style="width:25%">
 				<span class="mui-tab-label">返回</span>
 			</a>
-			<a class="lrkpd" href="dingqkp" style="width:25%">
+			<a class="lrkpd" id="qkp" style="width:25%">
 				<span class="mui-tab-label">去开票</span>
 			</a>
 		</nav>
@@ -79,7 +82,6 @@
   <script>
      $(function(){
     	var sqlsh=$("#sqlsh").val();
-    	alert(sqlsh);
     	 $.ajax({
         		 url:"dinglrkpd2/getjyxxsq",
                  data: {"sqlsh":sqlsh},
@@ -107,6 +109,136 @@
                 	 $("#before").after(str); 
                  }
     	 });
+    	 var url= window.location.href;
+			var corpId =$("#corpid").val();	
+			
+			var signature = "";
+			var nonce = "";
+			var timeStamp = "";
+			var agentId = "";
+			 $.ajax({
+	    		 url:"dinglrkpd/jssqm",
+	             data: {"url":url,"corpId":corpId},
+	             method: 'POST',
+	             success: function (data) {
+	            	  signature = data.signature;
+	    			  nonce = data.nonce;
+	    			  timeStamp = data.timeStamp;
+	    			  agentId = data.agentId;
+	    			  corpId = data.corpId;
+	    			  dd.config({
+	    					"agentId": agentId,
+	    					"corpId": corpId,
+	    					"timeStamp": timeStamp,
+	    					"nonceStr": nonce,
+	    					"signature": signature,
+	    					jsApiList: ['runtime.info',
+	    		                        'runtime.permission.requestAuthCode',
+	    		                        'runtime.permission.requestOperateAuthCode', //反馈式操作临时授权码
+
+	    		                        'biz.alipay.pay',
+	    		                        'biz.contact.choose',
+	    		                        'biz.contact.complexChoose',
+	    		                        'biz.contact.complexPicker',
+	    		                        'biz.contact.createGroup',
+	    		                        'biz.customContact.choose',
+	    		                        'biz.customContact.multipleChoose',
+	    		                        'biz.ding.post',
+	    		                        'biz.map.locate',
+	    		                        'biz.map.view',
+	    		                        'biz.util.openLink',
+	    		                        'biz.util.open',
+	    		                        'biz.util.share',
+	    		                        'biz.util.ut',
+	    		                        'biz.util.uploadImage',
+	    		                        'biz.util.previewImage',
+	    		                        'biz.util.datepicker',
+	    		                        'biz.util.timepicker',
+	    		                        'biz.util.datetimepicker',
+	    		                        'biz.util.chosen',
+	    		                        'biz.util.encrypt',
+	    		                        'biz.util.decrypt',
+	    		                        'biz.chat.pickConversation',
+	    		                        'biz.telephone.call',
+	    		                        'biz.navigation.setLeft',
+	    		                        'biz.navigation.setTitle',
+	    		                        'biz.navigation.setIcon',
+	    		                        'biz.navigation.close',
+	    		                        'biz.navigation.setRight',
+	    		                        'biz.navigation.setMenu',
+	    		                        'biz.user.get',
+
+	    		                        'ui.progressBar.setColors',
+
+	    		                        'device.base.getInterface',
+	    		                        'device.connection.getNetworkType',
+	    		                        'device.launcher.checkInstalledApps',
+	    		                        'device.launcher.launchApp',
+	    		                        'device.notification.confirm',
+	    		                        'device.notification.alert',
+	    		                        'device.notification.prompt',
+	    		                        'device.notification.showPreloader',
+	    		                        'device.notification.hidePreloader',
+	    		                        'device.notification.toast',
+	    		                        'device.notification.actionSheet',
+	    		                        'device.notification.modal',
+	    		                        'device.geolocation.get',]
+	    				});
+	    	    	  dd.ready(function() {
+	    	    		  var userid="";
+	    	              document.addEventListener('pause', function() {
+	    	                 
+	    	              });
+	    	              document.addEventListener('resume', function() {
+	    	                  
+	    	              });
+	    	          
+	    	  			dd.runtime.permission.requestAuthCode({
+	    	  				corpId : corpId,
+	    	  				onSuccess : function(info) {
+	    	  					$.ajax({
+	    	  						url : 'ding/userinfo',
+	    	  						data: {"code":info.code,"corpid":corpId},
+	    	  				        method: 'POST',
+	    	  						success : function(data) {
+	    	  							userid=data.userid;
+
+	    	  						    }
+	    	  					    });
+	    	  				     },
+	    	  				onFail : function(err) {
+	    	  						alert('fail: ' + JSON.stringify(err));
+	    	  					}     
+	    	  				});
+	    	  			 dd.runtime.permission.requestOperateAuthCode({
+	    	  			        corpId: corpId,
+	    	  			        agentId:agentId,
+	    	  			    onSuccess: function(result) {
+	  							$("#qkp").attr("href","dingqkp?corpid="+corpId+"&sqlsh="+sqlsh+"&code="+result.code+"&userid="+userid+"&agentId="+agentId);
+	    	  			    	/* $.ajax({
+	    	  						url : 'ding/sendmessage',
+	    	  						data: {"code":result.code,"corpid":corpId,"agentId":agentId,"userid":userid},
+	    	  				        method: 'POST',
+	    	  						success : function(data) {
+	    	  						    if(data=="success"){
+	    	  						    	alert("sssss");
+	    	  						       }
+	    	  						    }
+	    	  					    }); */
+	    	  			    },
+	    	  			    onFail : function(err) {
+	    	  			    	
+	    	  			    },
+	    	  			 
+	    	  			}); 
+	    	             
+	    	          });
+
+	    	          dd.error(function(err) {
+	    	              alert('dd error: ' + JSON.stringify(err));
+	    	          });
+	             }
+	    	   });
      });
   </script>
 </html>  
