@@ -15,9 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.rjxx.taxeasy.configuration.Message;
+import com.rjxx.taxeasy.dingding.Helper.HttpHelper;
+import com.rjxx.taxeasy.domains.IsvCorpApp;
+import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
 import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyxxsq;
 import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.service.IsvCorpAppService;
+import com.rjxx.taxeasy.service.IsvCorpSuiteJsapiTicketService;
 import com.rjxx.taxeasy.service.JymxsqService;
 import com.rjxx.taxeasy.service.JyxxsqService;
 import com.rjxx.taxeasy.service.SkpService;
@@ -38,6 +45,10 @@ public class Dinglrkpd2Controller extends BaseController{
 	private XfService xfService;
 	@Autowired
 	private SkpService skpservice;
+	@Autowired
+	private IsvCorpSuiteJsapiTicketService isvcorpsuitejsapiticketservice;
+	@Autowired
+	private IsvCorpAppService isvcorpappservice;
 	@RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
@@ -202,6 +213,10 @@ public class Dinglrkpd2Controller extends BaseController{
 		}
 		jyxxsq.setJshj(Double.parseDouble(request.getParameter("totaljshj")));
 		jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+		
+		
+		
+		
 		System.out.println(JSON.toJSON(jyxxsq));
 		System.out.println(JSON.toJSON(jymxsqList));
 		request.setAttribute("jylsh", jyxxsq.getJylsh());
@@ -209,7 +224,8 @@ public class Dinglrkpd2Controller extends BaseController{
 		map.put("jylsh", jyxxsq.getJylsh());
 		Jyxxsq jyxxsq1=jyxxsqservice.findOneByParams(map);
 		request.setAttribute("sqlsh", jyxxsq1.getSqlsh());
-		
+		request.setAttribute("corpid", corpid);
+		request.setAttribute("userid", userid);
         return "dingding/lrkpd2";
     }
 	@RequestMapping("/getjyxxsq")

@@ -151,7 +151,6 @@
 		  }else{
 			  href="dinglrkpd2?corpid="+corpid+"&userid="+userid+jyxxsq+"&mxcount=" + i+"&totaljshj="+totaljshj+str;
 		  }
-          alert(href);
 		  $("#submit").attr("href",encodeURI(encodeURI(href)));		  
 	  });
 	  $("#add").bind('click', function()  {
@@ -193,7 +192,6 @@
 			$("#wc").html("完成："+i);
 			var s="&mxxh="+i+"&spmc="+spmc+"&hsje="+hsje+"&spbz="+spbz;
 	          str=str+s;
-	          alert(str);
 	        /*   var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
 	          str=str+s;
 			  $('#je').val("");
