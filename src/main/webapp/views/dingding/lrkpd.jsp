@@ -22,7 +22,6 @@
   </head>  
   <body>  
 		<div class="mui-content">
-		  <div id="lrkpdpage">
 		    <div class="mui-content-padded" style="margin: 5px;">
 		    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/> 
 		    <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
@@ -33,7 +32,6 @@
 				    
 				        <select id="xfmc" name="xfmc"
 												 required>
-												<option value="">选择销方</option>
 												<c:forEach items="${xflist}" var="item">
 													<option value="${item.id}">${item.xfmc}</option>
 												</c:forEach>
@@ -80,7 +78,7 @@
 					<span class="mui-tab-label">下一步</span>
 				</a>
 		    </nav>
-	    </div>
+
 
     </div>
   </body>
