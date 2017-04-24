@@ -6,12 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>首页</title>
-    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.css" rel="stylesheet"/>
     <link href="css/index.css" rel="stylesheet"/>
-        <script src="js/jquery.1.7.2.min.js"></script>
-    
+    <script src="js/jquery.1.7.2.min.js"></script>
 </head>
 <body>
      <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
