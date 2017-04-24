@@ -1,199 +1,259 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>首页</title>
-    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
-    <script src="js/mui.min.js"></script>
-    <link href="css/mui.css" rel="stylesheet"/>
-    <link href="css/index.css" rel="stylesheet"/>
-        <script src="js/jquery.1.7.2.min.js"></script>
-    
-</head>
-<body>
-	
-	<div class="mui-content">
-		<ul class="mui-table-view mui-grid-view"">
-		    <li class="mui-table-view-cell mui-media mui-col-xs-12">
-		        <a href="#">
-		        	<img class="mui-media-object" src="img/aa.png">
-		        	<div class="mui-media-body">泰易开票通云服务平台</div>
-		        </a>
-		    </li>
-		</ul>   
-		<div class="jieshao">国内领先的 “销项发票管理”SaaS云服务平台；为企业用户提供“纸质发票+电子发票”全票种服务；支持航信、百望金赋两家厂商的税控服务器、税控盘接入方式；企业与税务局之间销项发票数据传输。</div>
-    	<div class="t1">企业还未完成初始化信息登记，不能开具发票哦！</div>
-    	<div class="t2"><a href="">不会操作？请点这里</a></div>
-    	<div class="mui-button-row">
-    		    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>    
-    	
-        <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
-			<button type="button" class="mui-btn mui-btn-success" ><a id="index" >录入开票单</a></button>
+  <head>  
+    <meta charset="utf-8">  
+    <title>录入开票单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
+    <meta name="apple-mobile-web-app-capable" content="yes">    
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">    
+  
+    <link rel="stylesheet" href="css/mui.min.css">   
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/mui.min.js"></script>    
+  </head>
+  <body>
+  <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
+  <div class="mui-content">
+			<h5 class="mui-content-padded">待开票清单</h5>
+			<div class="mui-card">
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z2">
+							<div class="z2z">序号</div>
+							<div class="z2z">发起日期</div>
+							<div class="z2z">发票类型</div>
+							<div class="z2z">金额</div>
+							<div class="z2z">状态</div>
+						</div>	
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z2">
+							<div class="z2z">1</div>
+							<div class="z2z">2017-4-22</div>
+							<div class="z2z">普通发票</div>
+							<div class="z2z">200.00</div>
+							<div class="z2z">已处理</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z2">
+							<div class="z2z">2</div>
+							<div class="z2z">2017-4-23</div>
+							<div class="z2z">专用发票</div>
+							<div class="z2z">100.00</div>
+							<div class="z2z">待处理</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z2">
+							<div class="z2z">3</div>
+							<div class="z2z">2017-4-24</div>
+							<div class="z2z">电子发票</div>
+							<div class="z2z">300.00</div>
+							<div class="z2z">已开具</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
     </div>
-    	
+
+    <div class="mui-content">
+			<h5 class="mui-content-padded">本月汇总</h5>
+			<div class="mui-card">
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z3">
+							<div class="z2z">发票类型</div>
+							<div class="z2z">数量</div>
+							<div class="z2z">税额</div>
+							<div class="z2z">金额</div>
+						</div>	
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z3">
+							<div class="z2z">普通发票</div>
+							<div class="z2z">200</div>
+							<div class="z2z">0.5</div>
+							<div class="z2z">200.00</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z3">
+							<div class="z2z">专用发票</div>
+							<div class="z2z">200</div>
+							<div class="z2z">0.5</div>
+							<div class="z2z">200.00</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card-header">
+					<div class="zuo1">
+						<div class="z3">
+							<div class="z2z">电子发票</div>
+							<div class="z2z">200</div>
+							<div class="z2z">0.5</div>
+							<div class="z2z">200.00</div>
+						</div>
+					</div>
+				</div>
+			</div>
     </div>
-   
-		<script type="text/javascript" >
-			$(function(){
-			var url= window.location.href;
-			var corpId =$("#corpid").val();	
-			
-			var signature = "";
-			var nonce = "";
-			var timeStamp = "";
-			var agentId = "";
-			 $.ajax({
-	    		 url:"dinglrkpd/jssqm",
-	             data: {"url":url,"corpId":corpId},
-	             method: 'POST',
-	             success: function (data) {
-	            	  signature = data.signature;
-	    			  nonce = data.nonce;
-	    			  timeStamp = data.timeStamp;
-	    			  agentId = data.agentId;
-	    			  corpId = data.corpId;
-	    			  dd.config({
-	    					"agentId": agentId,
-	    					"corpId": corpId,
-	    					"timeStamp": timeStamp,
-	    					"nonceStr": nonce,
-	    					"signature": signature,
-	    					jsApiList: ['runtime.info',
-	    		                        'runtime.permission.requestAuthCode',
-	    		                        'runtime.permission.requestOperateAuthCode', //反馈式操作临时授权码
+    <br /><br />
+    <div class="mui-button-row">
+		<button id='alertBtn' type="button" class="mui-btn mui-btn-primary" ><a id="index">新建开票单</a></button>
+    </div>
+  </body>
+  <script>
+      $(function(){
+          var url= window.location.href;
+          var corpid =$("#corpid").val();
 
-	    		                        'biz.alipay.pay',
-	    		                        'biz.contact.choose',
-	    		                        'biz.contact.complexChoose',
-	    		                        'biz.contact.complexPicker',
-	    		                        'biz.contact.createGroup',
-	    		                        'biz.customContact.choose',
-	    		                        'biz.customContact.multipleChoose',
-	    		                        'biz.ding.post',
-	    		                        'biz.map.locate',
-	    		                        'biz.map.view',
-	    		                        'biz.util.openLink',
-	    		                        'biz.util.open',
-	    		                        'biz.util.share',
-	    		                        'biz.util.ut',
-	    		                        'biz.util.uploadImage',
-	    		                        'biz.util.previewImage',
-	    		                        'biz.util.datepicker',
-	    		                        'biz.util.timepicker',
-	    		                        'biz.util.datetimepicker',
-	    		                        'biz.util.chosen',
-	    		                        'biz.util.encrypt',
-	    		                        'biz.util.decrypt',
-	    		                        'biz.chat.pickConversation',
-	    		                        'biz.telephone.call',
-	    		                        'biz.navigation.setLeft',
-	    		                        'biz.navigation.setTitle',
-	    		                        'biz.navigation.setIcon',
-	    		                        'biz.navigation.close',
-	    		                        'biz.navigation.setRight',
-	    		                        'biz.navigation.setMenu',
-	    		                        'biz.user.get',
+          var signature = "";
+          var nonce = "";
+          var timestamp = "";
+          var agentid = "";
+          $.ajax({
+              url:"dinglrkpd/jssqm",
+              data: {"url":url,"corpid":corpid},
+              method: 'post',
+              success: function (data) {
+                  signature = data.signature;
+                  nonce = data.nonce;
+                  timestamp = data.timestamp;
+                  agentid = data.agentid;
+                  corpid = data.corpid;
+                  dd.config({
+                      "agentid": agentid,
+                      "corpid": corpid,
+                      "timestamp": timestamp,
+                      "noncestr": nonce,
+                      "signature": signature,
+                      jsapilist: ['runtime.info',
+                          'runtime.permission.requestauthcode',
+                          'runtime.permission.requestoperateauthcode', //反馈式操作临时授权码
 
-	    		                        'ui.progressBar.setColors',
+                          'biz.alipay.pay',
+                          'biz.contact.choose',
+                          'biz.contact.complexchoose',
+                          'biz.contact.complexpicker',
+                          'biz.contact.creategroup',
+                          'biz.customcontact.choose',
+                          'biz.customcontact.multiplechoose',
+                          'biz.ding.post',
+                          'biz.map.locate',
+                          'biz.map.view',
+                          'biz.util.openlink',
+                          'biz.util.open',
+                          'biz.util.share',
+                          'biz.util.ut',
+                          'biz.util.uploadimage',
+                          'biz.util.previewimage',
+                          'biz.util.datepicker',
+                          'biz.util.timepicker',
+                          'biz.util.datetimepicker',
+                          'biz.util.chosen',
+                          'biz.util.encrypt',
+                          'biz.util.decrypt',
+                          'biz.chat.pickconversation',
+                          'biz.telephone.call',
+                          'biz.navigation.setleft',
+                          'biz.navigation.settitle',
+                          'biz.navigation.seticon',
+                          'biz.navigation.close',
+                          'biz.navigation.setright',
+                          'biz.navigation.setmenu',
+                          'biz.user.get',
 
-	    		                        'device.base.getInterface',
-	    		                        'device.connection.getNetworkType',
-	    		                        'device.launcher.checkInstalledApps',
-	    		                        'device.launcher.launchApp',
-	    		                        'device.notification.confirm',
-	    		                        'device.notification.alert',
-	    		                        'device.notification.prompt',
-	    		                        'device.notification.showPreloader',
-	    		                        'device.notification.hidePreloader',
-	    		                        'device.notification.toast',
-	    		                        'device.notification.actionSheet',
-	    		                        'device.notification.modal',
-	    		                        'device.geolocation.get',]
-	    				});
-	    	    	  dd.ready(function() {
-	    	    		  var userid="";
-	    	              document.addEventListener('pause', function() {
-	    	                 
-	    	              });
-	    	              document.addEventListener('resume', function() {
-	    	                  
-	    	              });
-	    	              document.getElementById("alertBtn").addEventListener('tap', function() {
-	    	  				mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
-	    	  					
-	    	  				});
-	    	  			}); 
-	    	  			dd.runtime.permission.requestAuthCode({
-	    	  				corpId : corpId,
-	    	  				onSuccess : function(info) {
-	    	  					$.ajax({
-	    	  						url : 'ding/userinfo',
-	    	  						data: {"code":info.code,"corpid":corpId},
-	    	  				        method: 'POST',
-	    	  						success : function(data) {
-	    	  							userid=data.userid;
-	    	  							/* jobnumber=data.jobnumber;
-                                        alert(userid); */
-	    	  							$("#index").attr("href","dinglrkpd?corpid="+corpId+"&userid="+userid);
+                          'ui.progressbar.setcolors',
 
-	    	  						    }
-	    	  					    });
-	    	  				     },
-	    	  				onFail : function(err) {
-	    	  						alert('fail: ' + JSON.stringify(err));
-	    	  					}     
-	    	  				});
-	    	  			
-	    	  			
-	    	  			/*  dd.biz.ding.post({
-	    	  			    users : [userid],//用户列表，工号
-	    	  			    corpId: corpId, //企业id
-	    	  			    type: 2, //附件类型 1：image  2：link
-	    	  			    alertType: 2,
-	    	  			    alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2017-04-20 18:35"},
-	    	  			    attachment: {
-	    	  			        images: [''],
-	    	  			    }, //附件信息
-	    	  			    text: '你好我是钉钉', //消息
-	    	  			    onSuccess : function() {
-	    	  			    //onSuccess将在点击发送之后调用
-	    	  			    },
-	    	  			    onFail : function() {}
-	    	  			}); */ 
-	    	  			
-	    	  			/* dd.runtime.permission.requestOperateAuthCode({
-	    	  			        corpId: corpId,
-	    	  			        agentId:agentId,
-	    	  			    onSuccess: function(result) {
-	    	  			    //alert(result.code);
-	    	  			    	$.ajax({
-	    	  						url : 'ding/sendmessage',
-	    	  						data: {"code":result.code,"corpid":corpId,"agentId":agentId,"userid":userid},
-	    	  				        method: 'POST',
-	    	  						success : function(data) {
-	    	  						    if(data=="success"){
-	    	  						    	alert("sssss");
-	    	  						       }
-	    	  						    }
-	    	  					    });
-	    	  			    },
-	    	  			    onFail : function(err) {
-	    	  			    	
-	    	  			    },
-	    	  			 
-	    	  			}); */
-	    	             
-	    	          });
+                          'device.base.getinterface',
+                          'device.connection.getnetworktype',
+                          'device.launcher.checkinstalledapps',
+                          'device.launcher.launchapp',
+                          'device.notification.confirm',
+                          'device.notification.alert',
+                          'device.notification.prompt',
+                          'device.notification.showpreloader',
+                          'device.notification.hidepreloader',
+                          'device.notification.toast',
+                          'device.notification.actionsheet',
+                          'device.notification.modal',
+                          'device.geolocation.get',]
+                  });
+                  dd.ready(function() {
+                      var userid="";
+                      document.addeventlistener('pause', function() {
 
-	    	          dd.error(function(err) {
-	    	              alert('dd error: ' + JSON.stringify(err));
-	    	          });
-	             }
-	    	   });
-			});
-		</script>
-</body>
-</html>
+                      });
+                      document.addeventlistener('resume', function() {
+
+                      });
+                      /*document.getelementbyid("alertbtn").addeventlistener('tap', function() {
+                          mui.alert('您还不是[开票通]系统管理员，不能【进入系统】哦！', function() {
+
+                          });
+                      });*/
+                      dd.runtime.permission.requestauthcode({
+                          corpid : corpid,
+                          onsuccess : function(info) {
+                              $.ajax({
+                                  url : 'ding/userinfo',
+                                  data: {"code":info.code,"corpid":corpid},
+                                  method: 'post',
+                                  success : function(data) {
+                                      userid=data.userid;
+                                      $("#index").attr("href","dinglrkpd?corpid="+corpid+"&userid="+userid);
+
+                                  }
+                              });
+                          },
+                          onfail : function(err) {
+                              alert('fail: ' + json.stringify(err));
+                          }
+                      });
+					  /* dd.runtime.permission.requestoperateauthcode({
+					   corpid: corpid,
+					   agentid:agentid,
+					   onsuccess: function(result) {
+					   //alert(result.code);
+					   $.ajax({
+					   url : 'ding/sendmessage',
+					   data: {"code":result.code,"corpid":corpid,"agentid":agentid,"userid":userid},
+					   method: 'post',
+					   success : function(data) {
+					   if(data=="success"){
+					   alert("sssss");
+					   }
+					   }
+					   });
+					   },
+					   onfail : function(err) {
+
+					   },
+
+					   }); */
+
+                  });
+
+                  dd.error(function(err) {
+                      alert('dd error: ' + json.stringify(err));
+                  });
+              }
+          });
+      });
+  </script>
+</html>  

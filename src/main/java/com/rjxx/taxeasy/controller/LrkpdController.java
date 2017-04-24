@@ -1318,15 +1318,24 @@ public class LrkpdController extends BaseController {
 				msg += msgg;
 			}
 			String gfsh = jyxxsq.getGfsh();// 购方税号校验
+			String gfyh1 = jyxxsq.getGfyh();// 购方税号校验
+			String gfyhzh1 = jyxxsq.getGfyhzh();// 购方税号校验
 			if (fpzldm.equals("01")) {
 				if (gfsh==null||gfsh.equals("")) {
 					msgg = "第" + (i+2) + "行专票购方税号为空，请重新填写！";
 					msg += msgg;
-				}else{
-					if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
+				}
+				if (gfyh1==null||gfyh1.equals("")) {
+					msgg = "第" + (i+2) + "行专票购方银行为空，请重新填写！";
+					msg += msgg;
+				}
+				if (gfyhzh1==null||gfyhzh1.equals("")) {
+					msgg = "第" + (i+2) + "行专票购方银行账号为空，请重新填写！";
+					msg += msgg;
+				}
+				if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
 						msgg = "第" + (i+2) + "行购方税号不是15位到20位，请重新填写！";
 						msg += msgg;
-					}
 				}
 			}else{
 				if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
@@ -1401,12 +1410,12 @@ public class LrkpdController extends BaseController {
 				msg += msgg;
 			}
 			Double sps = mxsq.getSps();
-			if (sps != null && !String.valueOf(sps).matches("^[0-9]{0,16}+(.[0-9]{0,6})?$")) {
+			if (sps != null && !String.valueOf(sps).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
 				msgg = "第" + (i+2) + "行商品数格式不正确，请重新填写！";
 				msg += msgg;
 			}
 			Double spdj = mxsq.getSpdj();
-			if (spdj != null && !String.valueOf(spdj).matches("^[0-9]{0,16}+(.[0-9]{0,6})?$")) {
+			if (spdj != null && !String.valueOf(spdj).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
 				msgg = "第" + (i+2) + "行商品单价格式不正确，请重新填写！";
 				msg += msgg;
 			}
@@ -1588,7 +1597,7 @@ public class LrkpdController extends BaseController {
 		String gsdm = getGsdm();
 		String xfid = request.getParameter("lrxfid_edit");
 		int yhid = getYhid();
-		com.rjxx.taxeasy.domains.Xf xf = xfService.findOne(Integer.parseInt(xfid));
+		Xf xf = xfService.findOne(Integer.parseInt(xfid));
 		Jyxxsq jyxxsq = new Jyxxsq();
 		jyxxsq.setClztdm("00");
 		jyxxsq.setDdh(request.getParameter("lrddh_edit"));
