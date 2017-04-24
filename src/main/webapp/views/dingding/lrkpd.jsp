@@ -21,67 +21,68 @@
 	<link href="css/mobiscroll_003.css" rel="stylesheet" type="text/css">
   </head>  
   <body>  
-  	
 		<div class="mui-content">
-	    <div class="mui-content-padded" style="margin: 5px;">
-	    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/> 
-	    <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>    
-	      <form class="mui-input-group">
-			    <div class="mui-input-row">
-			        <label>*销方名称</label>
-<!-- 			        <input type="text" id="xfmc" class="mui-input-clear" placeholder="上海容津信息技术有限公司">
- -->			    
-			        <select id="xfmc" name="xfmc"
-											 required>
-											<option value="">选择销方</option>
-											<c:forEach items="${xflist}" var="item">
-												<option value="${item.id}">${item.xfmc}</option>
-											</c:forEach>
-					</select>
-			    
-			    </div>
-			    <div class="mui-input-row">
-			        <label>*合同/订单号</label>
-			        <input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
-			    </div>
-			    <div class="mui-input-row">
-			        <label>*开票日期</label>
-			        <input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
-			    </div>
-			</form>
-			<h5 class="mui-content-padded">*发票种类</h5>
-			<div class="mui-card">
-				<form class="mui-input-group">
-					<div class="mui-input-row mui-radio">
-						<label>电子发票</label>
-						<input name="radio1" id="dzfp" value="12" type="radio" checked>
-					</div>
-					<div class="mui-input-row mui-radio">
-						<label>纸质普票</label>
-						<input name="radio1" id="zzpp" value="02"  type="radio">
-					</div>
-					<div class="mui-input-row mui-radio">
-						<label>纸质专票</label>
-						<input name="radio1" id="zzzp" value="01" type="radio">
-					</div>
+		  <div id="lrkpdpage">
+		    <div class="mui-content-padded" style="margin: 5px;">
+		    <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/> 
+		    <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
+	   
+		      <form class="mui-input-group">
+				    <div class="mui-input-row">
+				        <label>*销方名称</label>
+				    
+				        <select id="xfmc" name="xfmc"
+												 required>
+												<option value="">选择销方</option>
+												<c:forEach items="${xflist}" var="item">
+													<option value="${item.id}">${item.xfmc}</option>
+												</c:forEach>
+						</select>
+				    
+				    </div>
+				    <div class="mui-input-row">
+				        <label>*合同/订单号</label>
+				        <input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
+				    </div>
+				    <div class="mui-input-row">
+				        <label>*开票日期</label>
+				        <input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
+				    </div>
 				</form>
+				<h5 class="mui-content-padded">*发票种类</h5>
+				<div class="mui-card">
+					<form class="mui-input-group">
+						<div class="mui-input-row mui-radio">
+							<label>电子发票</label>
+							<input name="radio1" id="dzfp" value="12" type="radio" checked>
+						</div>
+						<div class="mui-input-row mui-radio">
+							<label>纸质普票</label>
+							<input name="radio1" id="zzpp" value="02"  type="radio">
+						</div>
+						<div class="mui-input-row mui-radio">
+							<label>纸质专票</label>
+							<input name="radio1" id="zzzp" value="01" type="radio">
+						</div>
+					</form>
+				</div>
+		    </div> 
+		    <h5 class="mui-content-padded">开票要求：</h5>
+		    <div class="mui-input-row" style="margin: 10px 15px;">
+					<textarea id="bz" rows="3" placeholder=""></textarea>
 			</div>
-	    </div> 
-	    <h5 class="mui-content-padded">备注：</h5>
-	    <div class="mui-input-row" style="margin: 10px 15px;">
-				<textarea id="bz" rows="5" placeholder=""></textarea>
-			</div>
+			
+			<nav class="mui-bar mui-bar-tab">
+				<a class="lrkpd" >
+					<span class="mui-tab-label">返回</span>
+				</a>
+				<a class="lrkpd" id="baocun">
+					<span class="mui-tab-label">下一步</span>
+				</a>
+		    </nav>
+	    </div>
+
     </div>
-    
-    
-        <nav class="mui-bar mui-bar-tab">
-			<a class="lrkpd" >
-				<span class="mui-tab-label">返回</span>
-			</a>
-			<a class="lrkpd" id="baocun">
-				<span class="mui-tab-label">下一步</span>
-			</a>
-		</nav>
   </body>
    
   <script>
