@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.service.XfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,19 +42,23 @@ public class DingLrKpdController extends BaseController{
 	private IsvCorpAppService isvcorpappservice;
 	@Autowired
 	protected AuthenticationManager authenticationManager;
+	@Autowired
+	private XfService xfService;
     @RequestMapping
     public String index() throws Exception {
     	String corpid=request.getParameter("corpid");//企业id
     	String userid=request.getParameter("userid");//钉钉用户id
         request.setAttribute("corpid", corpid);
         request.setAttribute("userid", userid);
-    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "aff");
+    	/*UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "aff");
 		token.setDetails(new WebAuthenticationDetails(request));
 		Authentication authenticatedUser = authenticationManager.authenticate(token);
 		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
-		List<Xf> xflist=getXfList();
+				SecurityContextHolder.getContext());*/
+        Xf xf=new Xf();
+        xf.setId(413);
+		List<Xf> xflist=xfService.findAllByParams(xf);
 		System.out.println(JSON.toJSON(xflist));
 		 request.setAttribute("xflist", xflist);
         return "dingding/lrkpd";
