@@ -193,6 +193,14 @@
 			</div>
 		</div>
 	</div>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div id="msg" class="am-modal-bd">Hello world！</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
@@ -224,10 +232,9 @@
 				var data = $("#frm").serialize();
 				$('#save').attr("disabled", true);
 // 				alert($("#xfdh").val());
-				$("#frm").validator({
-					submit : function() {
-						var formValidity = this.isFormValid();
-						if (formValidity) {
+				var r = $("#frm").validator("isFormValid");
+						if (r) {
+
 							$.ajax({
 								url : "<%=request.getContextPath()%>/xfxxwh/save",
 								data : {
@@ -270,8 +277,7 @@
 		                	$('#my-alert').modal('open'); 
 							return false;
 						}
-					}
-				});
+				
 			});
 			$('#export').click(function(){
 				$("#bulk-import-div").modal({"width": 500, "height": 250});
