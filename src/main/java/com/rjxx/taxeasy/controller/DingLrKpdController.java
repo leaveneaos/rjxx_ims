@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.service.SpvoService;
 import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.vo.Spvo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,7 +37,8 @@ import com.rjxx.taxeasy.web.BaseController;
 @Controller
 @RequestMapping("/dinglrkpd")
 public class DingLrKpdController extends BaseController{
-    
+    @Autowired
+    private SpvoService spvoService;
 	@Autowired
 	private IsvCorpSuiteJsapiTicketService isvcorpsuitejsapiticketservice;
 	@Autowired
@@ -59,7 +62,9 @@ public class DingLrKpdController extends BaseController{
         Xf xf=new Xf();
         xf.setId(413);
 		List<Xf> xflist=xfService.findAllByParams(xf);
-		System.out.println(JSON.toJSON(xflist));
+        List<Spvo>list2 = spvoService.findAllByGsdm("zydc");
+        request.setAttribute("spList", list2);
+        System.out.println(JSON.toJSON(xflist));
 		 request.setAttribute("xflist", xflist);
         return "dingding/lrkpd";
     }
@@ -113,5 +118,26 @@ public class DingLrKpdController extends BaseController{
             throw new IllegalArgumentException("url非法");
         }
         return url;
+    }
+    /**
+     * 获取商品详情
+     *
+     * @param spdm
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/getSpxq")
+    @ResponseBody
+    public Spvo getSpxq(String spdm, String spmc) throws Exception {
+        Spvo params = new Spvo();
+        params.setGsdm("zydc");
+        //使用商品编码查询
+        params.setSpbm(spdm);
+        params.setSpmc(spmc);
+        List<Spvo> list = spvoService.findAllByParams(params);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
     }
 }
