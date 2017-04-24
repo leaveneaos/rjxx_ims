@@ -84,7 +84,7 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red"></font>设备号</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="skph" name="skph" style="float: left;width: 90%;" value=""
+										<input type="text" id="skph" name="skph" style="float: left;width: 90%;" value=" "
 											placeholder="税控盘号"
 											class="am-form-field" />
 											<span onclick="xssbh()" class="am-icon-question" style="color: blue;"></span>
@@ -230,6 +230,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		<div class="am-modal-dialog">
+			<div id="msg" class="am-modal-bd">Hello world！</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn">确定</span>
+			</div>
+		</div>
+	</div>
 	<a href="#"
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
@@ -260,10 +268,9 @@
 			$('#save').click(function(){
 				var kpddm = $('#kpddm').val();
 				$('#save').attr("disabled", true);
-				$("#frm").validator({
-					submit : function() {
-						var formValidity = this.isFormValid();
-						if (formValidity) {
+				var r = $("#frm").validator("isFormValid");
+				if (r) {
+
 							$('#save').attr("disabled", false);
 							var data = $("#frm").serialize();
 							$.ajax({
@@ -296,8 +303,7 @@
 							$('#save').attr("disabled", false);
 							return false;
 						}
-					}
-				});
+			
 			});
 			$('#lastStep').click(function(){
 				location.href='qymp';
