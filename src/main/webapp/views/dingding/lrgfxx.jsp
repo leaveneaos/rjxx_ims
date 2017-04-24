@@ -58,7 +58,7 @@
 			<div class="mui-card">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#">表单</a>
+						<a class="mui-navigate-right" href="#">收件人信息</a>
 						<div class="mui-collapse-content">
 							<form class="mui-input-group">
 								<div class="mui-input-row">
@@ -92,7 +92,7 @@
 									
 								</div>
 							</form>
-						</div>
+
 					</li>
 					
 
@@ -182,148 +182,6 @@
           	+"&lxdz="+(lxdz)+"&yjdz="+(yjdz)+"&tqm="+tqm; 
           	$("#lrgfxx").attr("href",encodeURI(encodeURI(href)));
   	   });
-		
-		
-	 /* $.ajax({
-		 url:"dinglrkpd/jssqm",
-       data: {"url":url,"corpId":corpId},
-       method: 'POST',
-       success: function (data) {
-      	  signature = data.signature;
-			  nonce = data.nonce;
-			  timeStamp = data.timeStamp;
-			  agentId = data.agentId;
-			  corpId = data.corpId;
-			  dd.config({
-					"agentId": agentId,
-					"corpId": corpId,
-					"timeStamp": timeStamp,
-					"nonceStr": nonce,
-					"signature": signature,
-					jsApiList: ['runtime.info',
-		                        'runtime.permission.requestAuthCode',
-		                        'runtime.permission.requestOperateAuthCode', //反馈式操作临时授权码
-
-		                        'biz.alipay.pay',
-		                        'biz.contact.choose',
-		                        'biz.contact.complexChoose',
-		                        'biz.contact.complexPicker',
-		                        'biz.contact.createGroup',
-		                        'biz.customContact.choose',
-		                        'biz.customContact.multipleChoose',
-		                        'biz.ding.post',
-		                        'biz.map.locate',
-		                        'biz.map.view',
-		                        'biz.util.openLink',
-		                        'biz.util.open',
-		                        'biz.util.share',
-		                        'biz.util.ut',
-		                        'biz.util.uploadImage',
-		                        'biz.util.previewImage',
-		                        'biz.util.datepicker',
-		                        'biz.util.timepicker',
-		                        'biz.util.datetimepicker',
-		                        'biz.util.chosen',
-		                        'biz.util.encrypt',
-		                        'biz.util.decrypt',
-		                        'biz.chat.pickConversation',
-		                        'biz.telephone.call',
-		                        'biz.navigation.setLeft',
-		                        'biz.navigation.setTitle',
-		                        'biz.navigation.setIcon',
-		                        'biz.navigation.close',
-		                        'biz.navigation.setRight',
-		                        'biz.navigation.setMenu',
-		                        'biz.user.get',
-
-		                        'ui.progressBar.setColors',
-
-		                        'device.base.getInterface',
-		                        'device.connection.getNetworkType',
-		                        'device.launcher.checkInstalledApps',
-		                        'device.launcher.launchApp',
-		                        'device.notification.confirm',
-		                        'device.notification.alert',
-		                        'device.notification.prompt',
-		                        'device.notification.showPreloader',
-		                        'device.notification.hidePreloader',
-		                        'device.notification.toast',
-		                        'device.notification.actionSheet',
-		                        'device.notification.modal',
-		                        'device.geolocation.get',]
-				});
-	    	  dd.ready(function() {
-	              document.addEventListener('pause', function() {
-	                 
-	              });
-	              document.addEventListener('resume', function() {
-	                  
-	              });
-	               document.getElementById("lrgfxx").addEventListener('tap', function() {
-	            		var xfmc=$("#xfmc").val();   
-    		          	var kprq=$("#kprq").val();
-    		          	var ddh=$("#ddh").val();
-    		          	var fpzldm=$("#fpzldm").val();
-    		          	var bz=$("#bz").val();
-    		          	var gfmc=$("#gfmc").val();
-    		          	var nsrsbh=$("#nsrsbh").val();
-    		          	var zcdz=$("#zcdz").val();
-    		          	var zcdh=$("#zcdh").val();
-    		          	var khyh=$("#khyh").val();
-    		          	var yhzh=$("#yhzh").val();
-    		          	var lxr=$("#lxr").val();
-    		          	var lxdh=$("#lxdh").val();
-    		          	var lxdz=$("#lxdz").val();
-    		          	var yjdz=$("#yjdz").val();
-    		          	var isActive = document.getElementById("mySwitch").classList.contains("mui-active");
-    		          	if(isActive){
-    		          	  var tqm=ddh;
-    		          	}else{
-    		          	  var tqm=$("#tqm").val();
-    		          	}
-    		            if(fpzldm=="01"){
-    		            	if(gfmc==null||gfmc==""){
-    		            		mui.alert('请输入购方名称！', function() {
-        							return ;
-        						});
-    		            	}
-    		            	if(nsrsbh==null||nsrsbh==""){
-    		            		mui.alert('请输入购方纳税人识别号！', function() {
-        							return ;
-        						});
-    		            	}
-    		            	if(khyh==null||khyh==""){
-    		            		mui.alert('请输入购方开户行名称！', function() {
-        							return ;
-        						});
-    		            	}
-    		            	if(yhzh==null||yhzh==""){
-    		            		mui.alert('请输入购方银行账号！', function() {
-        							return ;
-        						});
-    		            	}
-    		            	
-    		            }else if(fpzldm=="02"){
-    		            	if(gfmc==null||gfmc==""){
-    		            		mui.alert('请输入购方名称！', function() {
-        							return ;
-        						});
-    		            	}
-    		            }else if(fpzldm=="12"){
-    		            	
-    		            }
-    		          	href="dinglrspxx?corpid="+corpId+"&xfmc="+encodeURIComponent(xfmc)+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+encodeURIComponent(bz)
-    		          	+"&gfmc="+encodeURIComponent(gfmc)+"&nsrsbh="+nsrsbh+"&zcdz="+encodeURIComponent(zcdz)+"&zcdh="+zcdh+"&khyh="+encodeURIComponent(khyh)+"&yhzh="+yhzh+"&lxr="+encodeURIComponent(lxr)+"&lxdh="+lxdh
-    		          	+"&lxdz="+encodeURIComponent(lxdz)+"&yjdz="+encodeURIComponent(yjdz)+"&tqm="+tqm; 
-    		          	$("#lrgfxx").attr("href",href);
-	          	   }); 
-	          });
-
-	          dd.error(function(err) {
-	              alert('dd error: ' + JSON.stringify(err));
-	          });
-       }
-	 }); */
   });
   </script>
 </html>  
