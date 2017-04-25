@@ -66,10 +66,10 @@ public class DingQkpController extends BaseController{
 		jyxxsq.setDinguserid(userid);
 		jyxxsq.setBz(bz);
 		jyxxsq.setDdh(ddh);
-		if(kprq.equals("")&&kprq.equals(null)){
-			jyxxsq.setDdrq(new Date());
-		}else{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		if(kprq.equals("")&&kprq.equals(null)){
+			jyxxsq.setDdrq(sdf.parse(""));
+		}else{
 		jyxxsq.setDdrq(sdf.parse(kprq));
 		}
 		jyxxsq.setFpzldm(fpzldm);
