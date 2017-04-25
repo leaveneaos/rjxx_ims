@@ -67,7 +67,7 @@ public class DingQkpController extends BaseController{
 		jyxxsq.setBz(bz);
 		jyxxsq.setDdh(ddh);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		if(kprq.equals("")&&kprq.equals(null)){
+		if(("").equals(kprq)&&null==kprq){
 			jyxxsq.setDdrq(sdf.parse(""));
 		}else{
 		jyxxsq.setDdrq(sdf.parse(kprq));
