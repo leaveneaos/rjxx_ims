@@ -40,16 +40,8 @@ public class JsapiticketJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
         	logger.info("jsapiticket生成任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-            //获取所有corptoken
-//            XmlWebApplicationContext xmlWebApplicationContext = (XmlWebApplicationContext) jobExecutionContext.getScheduler().getContext().get("applicationContextKey");
-//            CorpManageService corpManageService=(CorpManageService)xmlWebApplicationContext.getBean("corpManageService");
             Map params=new HashMap<>();
             List<IsvCorpSuiteAuth> IsvCorpSuiteAuth  =isvcorpsuiteauthservice.findAllByParams(params);
-        	/*List<IsvCorpToken> IsvCorpTokenlist = isvcorptokenservice.findAllByParams(params);
-            if(CollectionUtils.isEmpty(IsvCorpTokenlist)){
-            	logger.info("CorpToken查询失败");
-                return;
-            }*/
             //更换corp token
             for(IsvCorpSuiteAuth isvcorpsuiteauth:IsvCorpSuiteAuth){
                 boolean f=  suitemanageservice.getCorpJSAPITicket(isvcorpsuiteauth.getSuiteKey(),isvcorpsuiteauth.getCorpId(),isvcorpsuiteauth.getPermanentCode());
