@@ -591,13 +591,7 @@
                         var sss="?corpid="+corpId+"&userid="+userid+"&xfid="+xfid+"&xfmc="+xfmc+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz
                             +"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh
                             +"&lxdz="+lxdz+"&yjdz="+yjdz+str+"&mxcount="+i;
-                        dd.biz.util.openLink({
-                            url: "dingqkp"+sss,//要打开链接的地址
-                            onSuccess : function() {
-
-                            },
-                            onFail : function(err) {}
-                        });
+                        window.location.href="dingqkp"+sss;
 					});
                 });
                 dd.error(function(err) {
