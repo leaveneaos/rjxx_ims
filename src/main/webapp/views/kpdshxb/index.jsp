@@ -215,6 +215,7 @@ table thead th {
 															<!-- 	<th hidden="true">id</th> -->
 															<th>订单号</th>
 															<th>订单日期</th>
+															<th>数据来源</th>
 															<th>分票金额</th>
 															<th>是否含税分票</th>
 															<th>是否打印清单</th>

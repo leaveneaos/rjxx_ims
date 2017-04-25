@@ -78,9 +78,9 @@
 						<button id="button2" type="button"
 							class="js-search  am-btn am-btn-secondary">新增</button>
 					</div>
-
-					<div class="am-u-sm-12">
-						<div class="am-scrollable-horizontal">
+	             </form>
+					<div class="am-u-sm-12  am-padding-top">
+						<div>
 
 							<table id="tbl"
 								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
@@ -106,7 +106,7 @@
 							</table>
 						</div>
 					</div>
-				</form>
+			
 			</div>
 		</div>
 		<!-- content end -->

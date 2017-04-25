@@ -435,6 +435,24 @@ $(function() {
 	                      /*  {"data": "sqlsh"},*/
 	                        {"data": "ddh"},
 	                        {"data": "ddrq"},
+							{"data":function(data){
+								var sjly = data.sjly;
+								switch (sjly) {
+									case '0':
+										sjly = '平台录入';
+										break;
+									case '1':
+										sjly = '接口接入';
+										break;
+									case '2':
+										sjly = '平台导入';
+										break;
+									case '3':
+										sjly = '钉钉录入';
+										break;
+								}
+								return sjly;
+							}},
 	                        {"data": null,
 	                           "render": function (data) {
 	                        	   var zdjeh = FormatFloat(data.zdje, "###,###.00");

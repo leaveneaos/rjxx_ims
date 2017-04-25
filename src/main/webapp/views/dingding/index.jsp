@@ -115,8 +115,8 @@
   </div>
     <br /><br />
     <div class="mui-button-row">
-		<button id='alertBtn' type="button" class="mui-btn mui-btn-success" style="width: 80%;" ><a id="index">新建开票单</a></button>
-    </div>
+		<button id='alertBtn' type="button" class="mui-btn mui-btn-success"  style="width: 80%;" >新建开票单</button>
+	</div>
   </body>
   <script>
       $(function(){
@@ -211,7 +211,9 @@
                                   method: 'post',
                                   success : function(data) {
                                       userid=data.userid;
-                                      $("#index").attr("href","dinglrkpd?corpid="+corpId+"&userid="+userid);
+                                      $("#alertBtn").bind("click",function(){
+                                          window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
+									  });
                                   }
                               });
                           },
@@ -219,7 +221,6 @@
                               alert('fail: ' + json.stringify(err));
                           }
                       });
-
                   });
 
                   dd.error(function(err) {

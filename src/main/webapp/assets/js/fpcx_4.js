@@ -91,7 +91,10 @@ $(function () {
                         case '2':
                         	sjly = '平台导入';
                             break;
-                    	}
+                        case '3':
+                        sjly = '钉钉录入';
+                        break;
+                        }
                     	return sjly;
                     }},
                     {
