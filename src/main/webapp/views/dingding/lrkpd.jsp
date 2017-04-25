@@ -553,109 +553,110 @@
                     });
 
                     document.getElementById("finish").addEventListener('tap', function() {
-                        var xfmc=$('#xfmc option:selected').text();
-                        var xfid=$('#xfmc option:selected' ).val();
-                        var kprq=$("#kprq").val();
-                        var ddh=$("#ddh").val();
-                        var userid=$("#userid").val();
-                        var fpzldm=$("input[type='radio']:checked").val();
-                        var bz=$("#bz").val();
-						var kpyq=$("#kpyq").val();
+                        var xfmc = $('#xfmc option:selected').text();
+                        var xfid = $('#xfmc option:selected').val();
+                        var kprq = $("#kprq").val();
+                        var ddh = $("#ddh").val();
+                        var userid = $("#userid").val();
+                        var fpzldm = $("input[type='radio']:checked").val();
+                        var bz = $("#bz").val();
+                        var kpyq = $("#kpyq").val();
 
-                        var gfmc=$("#gfmc").val();
-                        var nsrsbh=$("#nsrsbh").val();
-                        var zcdz=$("#zcdz").val();
-                        var zcdh=$("#zcdh").val();
-                        var khyh=$("#khyh").val();
-                        var yhzh=$("#yhzh").val();
-                        var lxr=$("#lxr").val();
-                        var lxdh=$("#lxdh").val();
-                        var lxdz=$("#lxdz").val();
-                        var yjdz=$("#yjdz").val();
+                        var gfmc = $("#gfmc").val();
+                        var nsrsbh = $("#nsrsbh").val();
+                        var zcdz = $("#zcdz").val();
+                        var zcdh = $("#zcdh").val();
+                        var khyh = $("#khyh").val();
+                        var yhzh = $("#yhzh").val();
+                        var lxr = $("#lxr").val();
+                        var lxdh = $("#lxdh").val();
+                        var lxdz = $("#lxdz").val();
+                        var yjdz = $("#yjdz").val();
 
-                        if(xfmc==null||xfmc==""){
-                            mui.alert('请选择销方名称！', function() {
+                        if (xfmc == null || xfmc == "") {
+                            mui.alert('请选择销方名称！', function () {
                                 return;
                             });
                             return;
                         }
-                        if(ddh==null||ddh==""){
-                            mui.alert('请输入订单号！', function() {
+                        if (ddh == null || ddh == "") {
+                            mui.alert('请输入订单号！', function () {
                                 return;
                             });
                             return;
                         }
-                        if(fpzldm=="01"){
-                            if(gfmc==null||gfmc==""){
-                                mui.alert('请输入购方名称！', function() {
-                                    return ;
+                        if (fpzldm == "01") {
+                            if (gfmc == null || gfmc == "") {
+                                mui.alert('请输入购方名称！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                            if(nsrsbh==null||nsrsbh==""){
-                                mui.alert('请输入购方纳税人识别号！', function() {
-                                    return ;
+                            if (nsrsbh == null || nsrsbh == "") {
+                                mui.alert('请输入购方纳税人识别号！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                            if(zcdz==null||zcdz==""){
-                                mui.alert('请输入购方注册地址！', function() {
-                                    return ;
+                            if (zcdz == null || zcdz == "") {
+                                mui.alert('请输入购方注册地址！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                            if(zcdh==null||zcdh==""){
-                                mui.alert('请输入购方注册电话！', function() {
-                                    return ;
+                            if (zcdh == null || zcdh == "") {
+                                mui.alert('请输入购方注册电话！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                            if(khyh==null||khyh==""){
-                                mui.alert('请输入购方开户行名称！', function() {
-                                    return ;
+                            if (khyh == null || khyh == "") {
+                                mui.alert('请输入购方开户行名称！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                            if(yhzh==null||yhzh==""){
-                                mui.alert('请输入购方银行账号！', function() {
-                                    return ;
+                            if (yhzh == null || yhzh == "") {
+                                mui.alert('请输入购方银行账号！', function () {
+                                    return;
                                 });
                                 return;
                             }
 
-                        }else if(fpzldm=="02"){
-                            if(gfmc==null||gfmc==""){
-                                mui.alert('请输入购方名称！', function() {
-                                    return ;
+                        } else if (fpzldm == "02") {
+                            if (gfmc == null || gfmc == "") {
+                                mui.alert('请输入购方名称！', function () {
+                                    return;
                                 });
                                 return;
                             }
-                        }else if(fpzldm=="12"){
-                            if(gfmc==null||gfmc==""){
-                                mui.alert('请输入购方名称！', function() {
-                                    return ;
+                        } else if (fpzldm == "12") {
+                            if (gfmc == null || gfmc == "") {
+                                mui.alert('请输入购方名称！', function () {
+                                    return;
                                 });
                                 return;
                             }
                         }
-                        if(str==""){
-                            mui.alert('请填写商品信息！', function() {
-                                return ;
+                        if (str == "") {
+                            mui.alert('请填写商品信息！', function () {
+                                return;
                             });
                             return;
-						}
-                        var sss="?corpid="+corpId+"&userid="+userid+"&xfid="+xfid+"&xfmc="+xfmc+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz
-                            +"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh
-                            +"&lxdz="+lxdz+"&yjdz="+yjdz+str+"&mxcount="+i;
+                        }
+                        var sss = "?corpid=" + corpId + "&userid=" + userid + "&xfid=" + xfid + "&xfmc=" + xfmc + "&ddh=" + ddh + "&kprq=" + kprq + "&fpzldm=" + fpzldm + "&bz=" + bz
+                            + "&gfmc=" + gfmc + "&nsrsbh=" + nsrsbh + "&zcdz=" + zcdz + "&zcdh=" + zcdh + "&khyh=" + khyh + "&yhzh=" + yhzh + "&lxr=" + lxr + "&lxdh=" + lxdh
+                            + "&lxdz=" + lxdz + "&yjdz=" + yjdz + str + "&mxcount=" + i;
 
 
                         var btnArray = ['否', '是'];
-                        mui.confirm('您确认提交开票申请？', '提交开票申请', btnArray, function(e) {
+                        mui.confirm('您确认提交开票申请？', '提交开票申请', btnArray, function (e) {
                             if (e.index == 1) {
-                                window.location.href=encodeURI(encodeURI("dingqkp"+sss));
-                            }
-                            return;
-					     });
+                                window.location.href = encodeURI(encodeURI("dingqkp" + sss));
+                               }
+                               return;
+                           });
+                    });
                 });
                 dd.error(function(err) {
                     alert('dd error: ' + JSON.stringify(err));
