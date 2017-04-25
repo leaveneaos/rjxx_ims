@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">    
 
     <link rel="stylesheet" href="css/mui.min.css">
+	<link rel="stylesheet" href="css/mui.css">
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
 	<script src="js/jquery.1.7.2.min.js"></script>
@@ -111,14 +112,14 @@
 										</div>
 										<div class="mui-input-row">
 											<label>*纳税人识别号</label>
-											<input type="text"  id="nsrsbh" class="mui-input-clear" placeholder="本单位纳税人识别号，15位至20位">
+											<input type="text"  id="nsrsbh" class="mui-input-clear" placeholder="购房税号，15位至20位">
 										</div>
 										<div class="mui-input-row">
-											<label>*注册地址</label>
+											<label>*购方地址</label>
 											<input type="text" id="zcdz" class="mui-input-clear" placeholder="购方注册地址（发票票面左下角显示）">
 										</div>
 										<div class="mui-input-row">
-											<label>*注册电话</label>
+											<label>*购方电话</label>
 											<input type="text" id="zcdh"  class="mui-input-clear" placeholder="购方注册电话，如021-55571833">
 										</div>
 										<div class="mui-input-row">
@@ -230,11 +231,8 @@
 								<a class="lrkpd" style="width:50%" >
 									<span class="mui-tab-label" id="jshj" >价税合计：0</span>
 								</a>
-								<a class="lrkpd" id="add" style="width:25%" >
-									<span class="mui-tab-label">继续添加</span>
-								</a>
-								<a class="lrkpd" id="submit" style="width:25%" >
-									<span class="mui-tab-label" id="wc">完成</span>
+								<a class="lrkpd" id="add" style="width:50%" >
+									<span class="mui-tab-label" id="show">添加(已完成:0)</span>
 								</a>
 							</nav>
 						</div>
@@ -245,30 +243,15 @@
 
 
 		</div>
-		<!-- <ul class="mui-pager">
-			<li class="mui-previous">
-				<a href="#">
-					上一页
-				</a>
-			</li>
-			<li class="mui-next">
-				<a href="#">
-					下一页
-				</a>
-			</li>
-		</ul> -->	
+		<footer>
+			<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish" >完 成</button>
+		</footer>
     </div>
-	<button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="lrkpd2();">完 成</button>
+
 </body>
-   
+<script src="assets/js/format.js"></script>
 <script>
-
-	function lrkpd2(){
-		window.location.href="dinglrkpd2";
-  	}
-
     $(function () {
-
         var currYear = (new Date()).getFullYear();
         var opt={};
         opt.date = {preset : 'date'};
@@ -284,7 +267,6 @@
             endYear: currYear + 10 //结束年份
         };
         $("#kprq").mobiscroll($.extend(opt['date'], opt['appdate']));
-
         var url= window.location.href;
         var corpId =$("#corpid").val();
         var signature = "";
@@ -363,6 +345,260 @@
                     document.addEventListener('resume', function() {
 
                     });
+                    var totaljshj=0.00;
+                    var str='';
+                    var i=0;
+                    $("#add").bind('click', function()  {
+                        var jshj = $('#jshj');
+                        var jshj2=$("#jshj2").val();
+                        var je = $('#je');
+                        var sl = $('#splv');//商品税率
+                        var se = $('#se');
+                        var hsje = $('#hsje');
+                        var dj = $('#spdj');
+                        var sps = $('#spsl');//商品数量
+                        var ggxh =$("#ggxh");
+                        var spdw =$("#spdw");
+                        var lrselect_sp =$("#lrselect_sp");
+                        var spdm = lrselect_sp.val();
+                        var spmc = $("#lrselect_sp option:checked").text();
+                        var pos = spmc.indexOf("(");
+                        spmc = spmc.substring(0, pos);
+                        if(lrselect_sp.val()==''||lrselect_sp.val()==null){
+                            mui.alert('请选择商品！', function() {
+                                return;
+                            });
+                        }else if(je.val()==""||je.val()==null){
+                            mui.alert('请填写金额（不含税）！', function() {
+                                return;
+                            });
+                        }else if(hsje==""||hsje==null){
+                            mui.alert('请填写金额（含税）！', function() {
+                                return;
+                            });
+                        }
+                        totaljshj=parseFloat(totaljshj)+parseFloat(jshj2);
+                        jshj.html("价税合计："+FormatFloat(totaljshj, "#####0.00"));
+                        i=i+1;
+                        $("#show").html("添加（已完成："+i+")");
+
+                        var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
+                        str=str+s;
+
+                        $('#je').val("");
+                        $('#splv').val("");
+                        $('#se').val("");
+                        $('#hsje').val("");
+                        $('#spdj').val("");
+                        $('#spsl').val("");
+                        $("#lrselect_sp").val("");
+                        $("#ggxh").val("");
+                        $("#spdw").val("");
+
+                    });
+                    $("#lrselect_sp").bind('input', function()  {
+                        var je = $('#je');
+                        var sl = $('#splv');//商品税率
+                        var se = $('#se');
+                        var hsje = $('#hsje');
+                        var jshj = $('#jshj');
+                        var dj = $('#spdj');
+                        var sps = $('#spsl');//商品数量
+                        var spsl;
+                        var spdm = $(this).val();
+                        var spmc = $("#lrselect_sp option:checked").text();
+                        var pos = spmc.indexOf("(");
+                        spmc = spmc.substring(0, pos);
+                        if (!spdm) {
+                            $("#lrmx_form input").val("");
+                            return;
+                        }
+                        var ur = "dinglrkpd/getSpxq";
+                        $.ajax({
+                            url: ur,
+                            type: "post",
+                            async:false,
+                            data: {
+                                spdm: spdm,
+                                spmc:spmc,
+                            },
+                            success: function (res) {
+                                if (res) {
+                                    $("#ggxh").val(res["spggxh"] == null ? "" : res["spggxh"]);
+                                    $("#spdw").val(res["spdw"] == null ? "" : res["spdw"]);
+                                    $("#spdj").val(res["spdj"] == null ? "" : res["spdj"]);
+                                    $("#splv").val(res["sl"]);
+                                    spsl = res["sl"];
+                                }
+                            }
+                        });
+                        if(null!=je && je.val() !=""){
+                            var temp = (100+sl.val()*100)/100;
+                            se.val(FormatFloat(je.val() * spsl, "#####0.00"));
+                            var je1 = parseFloat(je.val());
+                            var se1 = parseFloat(se.val());
+                            hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+                            jshj.html("价税合计："+FormatFloat(je1 + se1, "#####0.00"));
+                            $("#jshj2").val(FormatFloat(je1 + se1, "#####0.00"));
+                            if (dj != null && dj.val() != "") {
+                                sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
+                            }else if(sps != null && sps.val() != ""){
+                                dj.val(FormatFloat(je.val() / spl.val(), "#####0.00"));
+                            }
+                        }
+
+                    });
+
+                    $("#je").bind('input', function() {
+                        var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                        var je = $('#je');
+                        if (!num.test(je.val())) {
+                            if (je.val().length > 1) {
+                                $('#je').val(
+                                    je.val().substring(0,
+                                        je.val().length - 1));
+
+                            } else {
+                                $('#je').val("");
+                            }
+                            return;
+                        }
+                        var sl = $('#splv');
+                        var se = $('#se');
+                        var hsje = $('#hsje');
+                        var jshj = $('#jshj');
+                        var dj = $('#spdj');
+                        var sps = $('#spsl');
+                        var spsl;
+                        var temp = (100 + sl.val() * 100) / 100;
+                        se.val(FormatFloat(je.val() * sl.val(),
+                            "#####0.00"));
+                        var je1 = parseFloat(je.val());
+                        var se1 = parseFloat(se.val());
+                        hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+                        jshj.html("价税合计："+FormatFloat(je1 + se1, "#####0.00"));
+                        $("#jshj2").val(FormatFloat(je1 + se1, "#####0.00"));
+                        if (dj != null && dj.val() != "") {
+                            sps.val(FormatFloat(je.val() / dj.val(),
+                                "#####0.00"));
+                        } else if (sps != null && sps.val() != "") {
+                            dj.val(FormatFloat(je.val() / sps.val(),
+                                "#####0.00"));
+                        }
+
+                    });
+                    $("#hsje").bind('input', function() {
+
+                        var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+                        var hsje = $('#hsje');
+                        if (!num.test(hsje.val())) {
+                            if (hsje.val().length > 1) {
+                                $('#hsje').val(
+                                    hsje.val().substring(0,
+                                        hsje.val().length - 1))
+                            } else {
+                                $('#hsje').val("")
+                            }
+                            return;
+                        }
+                        var je = $('#je');
+                        var sl = $('#splv');
+                        var se = $('#se');
+
+                        var jshj = $('#jshj');
+                        var dj = $('#spdj');
+                        var sps = $('#spsl');
+                        var spsl;
+                        var temp = (100 + sl.val() * 100) / 100;
+                        je.val(FormatFloat(hsje.val() / (temp),
+                            "#####0.00"));
+                        se.val(FormatFloat(hsje.val() - je.val(),
+                            "#####0.00"));
+
+                        jshj.html("价税合计："+FormatFloat(hsje.val(), "#####0.00"));
+                        $("#jshj2").val(FormatFloat(hsje.val(), "#####0.00"));
+                    });
+                    document.getElementById("finish").addEventListener('tap', function() {
+                        var xfmc=$('#xfmc option:selected').text();
+                        var xfid=$('#xfmc option:selected' ).val();
+                        var kprq=$("#kprq").val();
+                        var ddh=$("#ddh").val();
+                        var userid=$("#userid").val();
+                        var fpzldm=$("input[type='radio']:checked").val();
+                        var bz=$("#bz").val();
+						var kpyq=$("#kpyq").val();
+
+                        var gfmc=$("#gfmc").val();
+                        var nsrsbh=$("#nsrsbh").val();
+                        var zcdz=$("#zcdz").val();
+                        var zcdh=$("#zcdh").val();
+                        var khyh=$("#khyh").val();
+                        var yhzh=$("#yhzh").val();
+                        var lxr=$("#lxr").val();
+                        var lxdh=$("#lxdh").val();
+                        var lxdz=$("#lxdz").val();
+                        var yjdz=$("#yjdz").val();
+
+                        if(xfmc==null||xfmc==""){
+                            mui.alert('请选择销方名称！', function() {
+                                return;
+                            });
+                        }else if(ddh==null||ddh==""){
+                            mui.alert('请输入订单号！', function() {
+                                return;
+                            });
+                        }
+                        if(fpzldm=="01"){
+                            if(gfmc==null||gfmc==""){
+                                mui.alert('请输入购方名称！', function() {
+                                    return ;
+                                });
+                            }else  if(nsrsbh==null||nsrsbh==""){
+                                mui.alert('请输入购方纳税人识别号！', function() {
+                                    return ;
+                                });
+                            }else if(zcdz==null||zcdz==""){
+                                mui.alert('请输入购方注册地址！', function() {
+                                    return ;
+                                });
+                            }else if(zcdh==null||zcdh==""){
+                                mui.alert('请输入购方注册电话！', function() {
+                                    return ;
+                                });
+                            }else if(khyh==null||khyh==""){
+                                mui.alert('请输入购方开户行名称！', function() {
+                                    return ;
+                                });
+                            }else if(yhzh==null||yhzh==""){
+                                mui.alert('请输入购方银行账号！', function() {
+                                    return ;
+                                });
+                            }
+
+                        }else if(fpzldm=="02"){
+                            if(gfmc==null||gfmc==""){
+                                mui.alert('请输入购方名称！', function() {
+                                    return ;
+                                });
+                            }
+                        }else if(fpzldm=="12"){
+                            if(gfmc==null||gfmc==""){
+                                mui.alert('请输入购方名称！', function() {
+                                    return ;
+                                });
+                            }
+                        }
+                        var sss="?corpid="+corpId+"&userid="+userid+"&xfid="+xfid+"&xfmc="+xfmc+"&ddh="+ddh+"&kprq="+kprq+"&fpzldm="+fpzldm+"&bz="+bz
+                            +"&gfmc="+gfmc+"&nsrsbh="+nsrsbh+"&zcdz="+zcdz+"&zcdh="+zcdh+"&khyh="+khyh+"&yhzh="+yhzh+"&lxr="+lxr+"&lxdh="+lxdh
+                            +"&lxdz="+lxdz+"&yjdz="+yjdz+str+"&mxcount="+i;
+                        dd.biz.util.openLink({
+                            url: "dingqkp"+sss,//要打开链接的地址
+                            onSuccess : function() {
+
+                            },
+                            onFail : function(err) {}
+                        });
+					});
                 });
                 dd.error(function(err) {
                     alert('dd error: ' + JSON.stringify(err));
