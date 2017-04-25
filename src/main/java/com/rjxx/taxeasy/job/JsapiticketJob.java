@@ -4,23 +4,20 @@ package com.rjxx.taxeasy.job;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.SchedulerException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.context.support.XmlWebApplicationContext;
+
 
 import com.rjxx.taxeasy.bizcomm.utils.SuiteManageService;
-import com.rjxx.taxeasy.dingding.Helper.CorpOapiRequestHelper;
+
 import com.rjxx.taxeasy.domains.IsvCorpSuiteAuth;
-import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
-import com.rjxx.taxeasy.domains.IsvCorpToken;
+
 import com.rjxx.taxeasy.service.IsvCorpSuiteAuthService;
 import com.rjxx.taxeasy.service.IsvCorpTokenService;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
