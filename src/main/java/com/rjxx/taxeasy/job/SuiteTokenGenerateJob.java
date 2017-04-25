@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import com.rjxx.taxeasy.bizcomm.utils.SuiteManageService;
-import com.rjxx.taxeasy.dingding.Helper.CorpOapiRequestHelper;
+
 import com.rjxx.taxeasy.domains.IsvSuite;
 import com.rjxx.taxeasy.service.IsvSuiteService;
 
@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by lifeng.zlf on 2016/1/19.
  */
 public class SuiteTokenGenerateJob implements Job {
-    private static Logger logger = LoggerFactory.getLogger(CorpOapiRequestHelper.class);
+    private static Logger logger = LoggerFactory.getLogger(SuiteTokenGenerateJob.class);
     @Autowired
     private IsvSuiteService IsvSuiteService;
     @Autowired
