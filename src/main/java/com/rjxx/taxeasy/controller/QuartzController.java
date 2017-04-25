@@ -74,8 +74,8 @@ public class QuartzController extends BaseController{
 
 	/**
 	 * 开始任务
-	 * @param jobName
-	 * @param jobGroup
+	 * @param
+	 * @param
 	 * @return
 	 */
 
@@ -121,7 +121,37 @@ public class QuartzController extends BaseController{
 		}
 		return map;
 	}
+	/**
+	 * 更新任务
+	 * @param
+	 * @return
+	 */
 
+	@RequestMapping(value="edit",produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Map edit(){
+		Map map =new HashMap();
+		TaskInfo info=new TaskInfo();
+		info.setJobName("com.rjxx.taxeasy.job.JsapiticketJob");
+		info.setJobGroup("dingding");
+		info.setJobDescription("生成或者更新JSapiticket");
+		info.setCronExpression("0 0 0/1 * * ? ");
+		TaskInfo info1=new TaskInfo();
+		info1.setJobName("com.rjxx.taxeasy.job.SuiteTokenGenerateJob");
+		info1.setJobGroup("dingding");
+		info1.setJobDescription("生成或者更新套件token");
+		info1.setCronExpression("0 */30 * * * ?");
+		try {
+
+			taskService.edit(info);
+			taskService.edit(info1);
+			map.put("code","0");
+		} catch (ServiceException e) {
+			map.put("code","1");
+			map.put("errortext",e.getMessage());
+		}
+		return map;
+	}
 	/**
 	 * 保存任务
 	 * @param
@@ -136,16 +166,15 @@ public class QuartzController extends BaseController{
 		info.setJobName("com.rjxx.taxeasy.job.JsapiticketJob");
 		info.setJobGroup("dingding");
 		info.setJobDescription("生成或者更新JSapiticket");
-		info.setCronExpression("0 0 0/1 * * ?");
+		info.setCronExpression("0 0 0/1 * * ? ");
 		TaskInfo info1=new TaskInfo();
 		info1.setJobName("com.rjxx.taxeasy.job.SuiteTokenGenerateJob");
 		info1.setJobGroup("dingding");
 		info1.setJobDescription("生成或者更新套件token");
 		info1.setCronExpression("0 */30 * * * ?");
 		try {
-
-				taskService.edit(info);
-			    taskService.edit(info1);
+				taskService.addJob(info);
+			    taskService.addJob(info1);
 			map.put("code","0");
 		} catch (ServiceException e) {
 			map.put("code","1");
