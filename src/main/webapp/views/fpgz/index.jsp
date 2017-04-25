@@ -96,7 +96,7 @@
 						<!-- model -->
 						<div class="am-modal am-modal-no-btn" tabindex="-1"
 							id="doc-modal-4">
-							<div class="am-modal-dialog">
+							<div class="am-modal-dialog" style="height: 600px;overflow: auto;">
 								<form id="fpform" class="js-form-0 am-form am-form-horizontal">
 									<div class="am-tabs" data-am-tabs>
 										<ul class="am-tabs-nav am-nav am-nav-tabs">
