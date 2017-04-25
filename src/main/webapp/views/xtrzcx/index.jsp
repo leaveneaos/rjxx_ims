@@ -46,13 +46,8 @@
 						</div>
 						<hr />
 
-						<div class="am-g  am-padding-top">
-							<form action="#"
-								class="js-search-form  am-form am-form-horizontal">
-
-								<div class="am-u-sm-12">
-									<div class="am-scrollable-horizontal">
-
+								<div class="am-u-sm-12 am-padding-top">
+									<div>
 										<table
 											class="js-table  am-table am-table-bordered  am-text-nowrap">
 											<thead>
@@ -70,10 +65,7 @@
 
 											</tbody>
 										</table>
-									</div>
-								</div>
-							</form>
-
+							</div>
 						</div>
 					</div>
 					<!-- content end -->
