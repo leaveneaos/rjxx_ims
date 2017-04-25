@@ -459,6 +459,7 @@
                                     $("#ggxh").val(res["spggxh"] == null ? "" : res["spggxh"]);
                                     $("#spdw").val(res["spdw"] == null ? "" : res["spdw"]);
                                     $("#spdj").val(res["spdj"] == null ? "" : res["spdj"]);
+                                    $("#spsl").val("");
                                     $("#splv").val(res["sl"]);
                                     spsl = res["sl"];
                                 }
@@ -475,7 +476,7 @@
                             if (dj != null && dj.val() != "") {
                                 sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
                             }else if(sps != null && sps.val() != ""){
-                                dj.val(FormatFloat(je.val() / spl.val(), "#####0.00"));
+                                dj.val(FormatFloat(je.val() / sps.val(), "#####0.00"));
                             }
                         }
 
@@ -513,8 +514,7 @@
                         if (dj != null && dj.val() != "") {
                             sps.val(FormatFloat(je.val() / dj.val(),
                                 "#####0.00"));
-                        }
-                        if (sps != null && sps.val() != "") {
+                        }else  if (sps != null && sps.val() != "") {
                             dj.val(FormatFloat(je.val() / sps.val(),
                                 "#####0.00"));
                         }
