@@ -37,62 +37,70 @@
 				</a>
 			</div>
 
-
 			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 
-
 			<div class="mui-slider-group" id="i">
+
 				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 					<div id="scroll1" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-content-padded" style="margin: 5px;">
-								<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
-								<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<label><span style="color: blue">销方名称</span></label>
-										<select id="xfmc" name="xfmc">
-											<c:forEach items="${xflist}" var="item">
-												<option value="${item.id}">${item.xfmc}</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="mui-input-row">
-										<label><span style="color: blue">合同/订单号</span></label>
-										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
-									</div>
-									<div class="mui-input-row">
-										<label>开票日期</label>
-										<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
-									</div>
-								</form>
-								<h5 class="mui-content-padded"><span style="color: blue">发票种类</span></h5>
-								<div class="mui-card">
-									<form class="mui-input-group">
-										<div class="mui-input-row mui-radio">
-											<label>电子发票</label>
-											<input name="radio1" id="dzfp" value="12" type="radio" onclick="inputbt(this.value);" checked>
+							<div class="mui-card">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-collapse mui-active">
+										<a class="mui-navigate-right" href="#">开票要求：</a>
+										<div class="mui-collapse-content">
+											<div class="mui-content-padded" style="margin: 5px;">
+												<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
+												<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
+												<form class="mui-input-group">
+													<div class="mui-input-row">
+														<label><span style="color: blue">销方名称</span></label>
+														<select id="xfmc" name="xfmc">
+															<c:forEach items="${xflist}" var="item">
+																<option value="${item.id}">${item.xfmc}</option>
+															</c:forEach>
+														</select>
+													</div>
+													<div class="mui-input-row">
+														<label><span style="color: blue">订单号</span></label>
+														<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
+													</div>
+													<div class="mui-input-row">
+														<label>申请日期</label>
+														<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
+													</div>
+												</form>
+												<h5 class="mui-content-padded" style="margin-left: 1px;"><span style="color: blue">发票种类</span></h5>
+												<div class="mui-card">
+													<form class="mui-input-group">
+														<div class="mui-input-row mui-radio">
+															<label>电子发票</label>
+															<input name="radio1" id="dzfp" value="12" type="radio" onclick="inputbt(this.value);" checked>
+														</div>
+														<div class="mui-input-row mui-radio">
+															<label>纸质普票</label>
+															<input name="radio1" id="zzpp" value="02" onclick="inputbt(this.value);" type="radio">
+														</div>
+														<div class="mui-input-row mui-radio">
+															<label>纸质专票</label>
+															<input name="radio1" id="zzzp" value="01" onclick="inputbt(this.value);" type="radio">
+														</div>
+													</form>
+												</div>
+											</div>
+											<h5 class="mui-content-padded" style="margin-left: 4px;" >发票备注：</h5>
+											<div class="mui-input-row" style="margin: 10px 5px;">
+												<textarea id="bz" rows="2" placeholder=""></textarea>
+											</div>
 										</div>
-										<div class="mui-input-row mui-radio">
-											<label>纸质普票</label>
-											<input name="radio1" id="zzpp" value="02" onclick="inputbt(this.value);" type="radio">
-										</div>
-										<div class="mui-input-row mui-radio">
-											<label>纸质专票</label>
-											<input name="radio1" id="zzzp" value="01" onclick="inputbt(this.value);" type="radio">
-										</div>
-									</form>
-								</div>
+									</li>
+								</ul>
 							</div>
-							<h5 class="mui-content-padded">发票备注：</h5>
-							<div class="mui-input-row" style="margin: 10px 15px;">
-								<textarea id="bz" rows="2" placeholder=""></textarea>
-							</div>
-							<h5 class="mui-content-padded">开票要求：</h5>
-							<div class="mui-input-row" style="margin: 10px 15px;">
+							<h5 class="mui-content-padded" >其他要求：</h5>
+							<div class="mui-input-row" style="margin: 10px 5px;">
 								<textarea id="kpyq" rows="2" placeholder=""></textarea>
 							</div>
-								<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish"  >完 成</button>
+							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish"  >完 成</button>
 						</div>
 					</div>
 				</div>
@@ -100,8 +108,12 @@
 				<div id="item2mobile" class="mui-slider-item mui-control-content">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-content-padded" style="margin: 5px;">
-									<form class="mui-input-group">
+							<div class="mui-card">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-collapse mui-active">
+										<a class="mui-navigate-right" href="#">购方抬头</a>
+										<div class="mui-collapse-content">
+									      <form class="mui-input-group">
 										<div class="mui-input-row">
 											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
 											<input type="text" id="gfmc" class="mui-input-clear" placeholder="发票抬头">
@@ -127,7 +139,10 @@
 											<input type="text" id="yhzh" class="mui-input-clear" placeholder="购方银行账户">
 										</div>
 									</form>
-								</div>
+							            </div>
+							         </li>
+							    </ul>
+						    </div>
 							<div class="mui-card">
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell mui-collapse">
@@ -175,9 +190,9 @@
 					<div id="scroll3" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-content">
-								<div class="mui-content-padded">
+								<div class="mui-content-padded" style="margin: 5px;">
 									<h5 class="mui-content-padded"><span style="color: blue">*</span>商品名称</h5>
-									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" >
+									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" style="padding-left: 4px;">
 										<option value="">选择商品</option>
 										<c:forEach items="${spList}" var="item">
 											<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.spbm})</option>
@@ -235,11 +250,10 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
-			
-
-
 		</div>
+
     </div>
 
 </body>

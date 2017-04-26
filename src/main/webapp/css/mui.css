@@ -1593,7 +1593,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
 .mui-bar-tab
 {
-    bottom: 0;
+    bottom: 60px;
 
     display: table;
 

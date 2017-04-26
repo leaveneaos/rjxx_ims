@@ -32,7 +32,7 @@
         var corpId =$("#corpid").val();
         window.location.href="ding?corpid="+corpId;
     }
-    $(function(){
+    /*$(function(){
        // var url= window.location.href;
         var  url="http://test.datarj.com/ims/dingqkp";
         var corpId =$("#corpid").val();
@@ -142,6 +142,6 @@
                 });
             }
         });
-    });
+    });*/
 </script>
 </html>
