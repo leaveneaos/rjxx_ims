@@ -50,7 +50,7 @@
 								<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
 								<form class="mui-input-group">
 									<div class="mui-input-row">
-										<label><span style="color: red">销方名称</span></label>
+										<label><span style="color: blue">销方名称</span></label>
 										<select id="xfmc" name="xfmc">
 											<c:forEach items="${xflist}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
@@ -58,7 +58,7 @@
 										</select>
 									</div>
 									<div class="mui-input-row">
-										<label><span style="color: red">合同/订单号</span></label>
+										<label><span style="color: blue">合同/订单号</span></label>
 										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 									</div>
 									<div class="mui-input-row">
@@ -66,7 +66,7 @@
 										<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 									</div>
 								</form>
-								<h5 class="mui-content-padded"><span style="color: red">发票种类</span></h5>
+								<h5 class="mui-content-padded"><span style="color: blue">发票种类</span></h5>
 								<div class="mui-card">
 									<form class="mui-input-group">
 										<div class="mui-input-row mui-radio">
@@ -103,7 +103,7 @@
 							<div class="mui-content-padded" style="margin: 5px;">
 									<form class="mui-input-group">
 										<div class="mui-input-row">
-											<label><span id="gfmc_span" style="color: red">购方名称</span></label>
+											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
 											<input type="text" id="gfmc" class="mui-input-clear" placeholder="发票抬头">
 										</div>
 										<div class="mui-input-row">
@@ -176,7 +176,7 @@
 						<div class="mui-scroll">
 							<div class="mui-content">
 								<div class="mui-content-padded">
-									<h5 class="mui-content-padded"><span style="color: red">*</span>商品名称</h5>
+									<h5 class="mui-content-padded"><span style="color: blue">*</span>商品名称</h5>
 									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" >
 										<option value="">选择商品</option>
 										<c:forEach items="${spList}" var="item">
@@ -204,11 +204,11 @@
 											<input type="text" id="spdj"  class="mui-input-clear" placeholder="">
 										</div>
 										<div class="mui-input-row" >
-											<label><span style="color: red">金额(不含税)</span></label>
+											<label><span style="color: blue">金额(不含税)</span></label>
 											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 										</div>
 										<div class="mui-input-row">
-											<label><span style="color: red">金额(含税)</span></label>
+											<label><span style="color: blue">金额(含税)</span></label>
 											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
 										</div>
@@ -263,20 +263,20 @@
         var yhzh=$("#yhzh_span");
         if(fpzldm=="01"){
             //gfmc.html("*");
-            gfmc.css("color","red");
+            gfmc.css("color","blue");
            // nsrsbh.html("*");
-            nsrsbh.css("color","red");
+            nsrsbh.css("color","blue");
            // zcdz.html("*");
-            zcdz.css("color","red");
+            zcdz.css("color","blue");
             //zcdh.html("*");
-            zcdh.css("color","red");
+            zcdh.css("color","blue");
            // khyh.html("*");
-            khyh.css("color","red");
+            khyh.css("color","blue");
           //  yhzh.html("*");
-            yhzh.css("color","red");
+            yhzh.css("color","blue");
         }else{
             //gfmc.html("*");
-            gfmc.css("color","red");
+            gfmc.css("color","blue");
             //nsrsbh.html("");
             nsrsbh.css("color","");
           //  zcdz.html("");
