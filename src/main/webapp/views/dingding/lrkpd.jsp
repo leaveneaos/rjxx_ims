@@ -661,9 +661,9 @@
 
 
                         var btnArray = ['否', '是'];
-                        var div='<div style="margin:0 auto;">发票抬头：'+gfmc+'</div><br/>' +
-                            '<div style="margin:0 auto;">发票明细：'+i+'</div><br/>' +
-                            '<div style="margin:0 auto;">发票金额：'+totaljshj+'</div>'
+                        var div='<div style="padding-left: 10px;">发票抬头：'+gfmc+'</div><br/>' +
+                            '<div style="padding-left: 10px;">发票明细：'+i+'</div><br/>' +
+                            '<div style="padding-left: 10px;">发票金额：'+totaljshj+'</div>'
                         mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
                                 window.location.href = encodeURI(encodeURI("dingqkp" + sss));
