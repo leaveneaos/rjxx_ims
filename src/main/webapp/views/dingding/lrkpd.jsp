@@ -71,7 +71,7 @@
 													</div>
 												</form>
 												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类：</span></h5>
-												<div class="mui-card">
+												<div class="mui-card" style="margin: 10px 0;">
 													<form class="mui-input-group">
 														<div class="mui-input-row mui-radio">
 															<label>电子发票</label>

@@ -724,7 +724,7 @@ public class KpdshController extends BaseController {
 	/**
 	 * 保存交易流水
 	 *
-	 * @param jyls
+	 * @param
 	 * @return
 	 */
 	public Jyls saveJyls(Jyxxsq jyxxsq, List<JyspmxDecimal2> jyspmxList) throws Exception {
@@ -762,6 +762,7 @@ public class KpdshController extends BaseController {
 		jyls1.setSsyf(jyxxsq.getSsyf());
 		jyls1.setYfpdm(null);
 		jyls1.setYfphm(null);
+		jyls1.setSffsyj(jyxxsq.getSffsyj());
 		jyls1.setHsbz(jyxxsq.getHsbz());
 		double hjje = 0;
 		double hjse = 0;
