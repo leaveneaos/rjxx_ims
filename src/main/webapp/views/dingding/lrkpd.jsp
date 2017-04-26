@@ -66,8 +66,8 @@
 														<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 													</div>
 													<div class="mui-input-row">
-														<label><span>期望日期</span></label>
-														<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
+														<label><span class="addhr">期望日期</span></label>
+														<input class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 													</div>
 												</form>
 												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类：</span></h5>
