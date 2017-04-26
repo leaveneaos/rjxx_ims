@@ -365,3 +365,15 @@
     background: -moz-linear-gradient(#94c840,#3c7500);
     background: -o-linear-gradient(#94c840,#3c7500);
 }
+/*新增*/
+.addhr:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}

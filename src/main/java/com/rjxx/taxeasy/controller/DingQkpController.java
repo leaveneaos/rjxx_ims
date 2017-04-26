@@ -156,7 +156,6 @@ public class DingQkpController extends BaseController{
 			}
 			jymxsq.setJshj(Double.valueOf(jshjs[c]));
 			jymxsq.setKkjje(Double.valueOf(jshjs[c]));
-			jymxsq.setSpje(Double.valueOf(jshjs[c]));
 			jymxsq.setYkjje(0d);
 			if (spges.length != 0) {
 				try {
