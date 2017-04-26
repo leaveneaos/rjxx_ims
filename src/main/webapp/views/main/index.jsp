@@ -53,7 +53,7 @@
                 <div class="am-fr tpl-header-navbar">
                 
                     <ul>
-                    <li><a class="am-text-sm" href="qympk"  target="_blank" ><span class=""></span> 企业名片库</a></li>
+                    <li><a class="am-text-sm" href="qympk"  target="_blank" style="color:#03A9F4;" ><span class="am-icon-newspaper-o"></span> 企业名片库</a></li>
                     <li><a class="am-text-sm" href="khdxz" target="_blank"><span class="am-icon-download"></span> 客户端下载</a></li>
                         <!-- 欢迎语 -->
                        <%--  <li class="am-text-sm tpl-header-navbar-welcome">
@@ -65,9 +65,9 @@
 					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
-					<li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
+					<!-- <li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
 						data-am-modal="{target: '#doc-modal-3', closeViaDimmer: 0, width: 550}"><span
-							class="am-icon-user"></span> 账号信息</a></li>
+							class="am-icon-user"></span> 账户信息</a></li> -->
 					<li class="am-u-sm-12"><a href="#"
 						data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
 							class="am-icon-user"></span> 修改用户资料</a></li>
@@ -80,17 +80,17 @@
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
 				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
 					class="admin-fullText">开启全屏</span></a></li>
-
+			<li><a class="am-text-sm" href="javascript:jumpJsp();"  target="_blank"><span class=" am-icon-envelope"></span> 信息</a></li>
                         <!-- 新邮件 -->
-                       <li class="am-dropdown tpl-dropdown" data-am-dropdown>
+                      <%--  <li class="am-dropdown tpl-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
                                 <i style="padding-top: 20px;" class="am-icon-envelope"></i>
                                 <c:if test="${xxsl !=null }">
 								<span class="am-badge am-badge-success am-round item-feed-badge">${xxsl}</span>
 							</c:if>
                             </a>
-                            弹出列表
-                            <ul class="am-dropdown-content tpl-dropdown-content" id="xxul">
+                            弹出列表 --%>
+                            <%-- <ul class="am-dropdown-content tpl-dropdown-content" id="xxul">
                             <c:forEach items="${xxList}" var="var">
                                 <li class="tpl-dropdown-menu-messages" id="${var.id}" onclick="look(this)">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
@@ -116,8 +116,8 @@
                                         <i class="am-icon-circle-o"></i> 进入列表…
                                     </a>
                                 </li>
-                            </ul>
-                        </li> 
+                            </ul> --%>
+                      <!--   </li>  -->
 
                         <!-- 新提示 -->
                         <!-- <li class="am-dropdown" data-am-dropdown>
