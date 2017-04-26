@@ -3041,7 +3041,7 @@ select:focus
     float: left;
 
     width: 35%;
-    padding: 11px 15px;
+    padding: 8px 15px;
 }
 
 .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea

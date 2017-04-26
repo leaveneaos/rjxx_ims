@@ -50,7 +50,7 @@
 								<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
 								<form class="mui-input-group">
 									<div class="mui-input-row">
-										<label><span style="color: red">*</span>销方名称</label>
+										<label><span style="color: blue">销方名称</span></label>
 										<select id="xfmc" name="xfmc">
 											<c:forEach items="${xflist}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
@@ -58,7 +58,7 @@
 										</select>
 									</div>
 									<div class="mui-input-row">
-										<label><span style="color: red">*</span>合同/订单号</label>
+										<label><span style="color: blue">合同/订单号</span></label>
 										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 									</div>
 									<div class="mui-input-row">
@@ -66,7 +66,7 @@
 										<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 									</div>
 								</form>
-								<h5 class="mui-content-padded"><span style="color: red">*</span>发票种类</h5>
+								<h5 class="mui-content-padded"><span style="color: blue">发票种类</span></h5>
 								<div class="mui-card">
 									<form class="mui-input-group">
 										<div class="mui-input-row mui-radio">
@@ -84,14 +84,15 @@
 									</form>
 								</div>
 							</div>
-							<h5 class="mui-content-padded">开票要求：</h5>
-							<div class="mui-input-row" style="margin: 10px 15px;">
-								<textarea id="kpyq" rows="2" placeholder=""></textarea>
-							</div>
 							<h5 class="mui-content-padded">发票备注：</h5>
 							<div class="mui-input-row" style="margin: 10px 15px;">
 								<textarea id="bz" rows="2" placeholder=""></textarea>
 							</div>
+							<h5 class="mui-content-padded">开票要求：</h5>
+							<div class="mui-input-row" style="margin: 10px 15px;">
+								<textarea id="kpyq" rows="2" placeholder=""></textarea>
+							</div>
+								<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish"  >完 成</button>
 						</div>
 					</div>
 				</div>
@@ -99,35 +100,34 @@
 				<div id="item2mobile" class="mui-slider-item mui-control-content">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-								<div class="mui-content-padded" style="margin: 5px;">
+							<div class="mui-content-padded" style="margin: 5px;">
 									<form class="mui-input-group">
 										<div class="mui-input-row">
-											<label><span id="gfmc_span" style="color: red">*</span>购方名称</label>
+											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
 											<input type="text" id="gfmc" class="mui-input-clear" placeholder="发票抬头">
 										</div>
 										<div class="mui-input-row">
-											<label><span id="nsrsbh_span"></span>纳税人识别号</label>
+											<label><span id="nsrsbh_span">纳税人识别号</span></label>
 											<input type="text"  id="nsrsbh" class="mui-input-clear" placeholder="购方税号，15位至20位">
 										</div>
 										<div class="mui-input-row">
-											<label><span id="zcdz_span"></span>购方地址</label>
+											<label><span id="zcdz_span">购方地址</span></label>
 											<input type="text" id="zcdz" class="mui-input-clear" placeholder="购方注册地址（发票票面左下角显示）">
 										</div>
 										<div class="mui-input-row">
-											<label><span id="zcdh_span"></span>购方电话</label>
+											<label><span id="zcdh_span">购方电话</span></label>
 											<input type="text" id="zcdh"  class="mui-input-clear" placeholder="购方注册电话，如021-55571833">
 										</div>
 										<div class="mui-input-row">
-											<label><span id="khyh_span"></span>开户银行</label>
+											<label><span id="khyh_span">开户银行</span></label>
 											<input type="text" id="khyh" class="mui-input-clear" placeholder="购方开户银行">
 										</div>
 										<div class="mui-input-row">
-											<label><span id="yhzh_span"></span>银行账户</label>
+											<label><span id="yhzh_span">银行账户</span></label>
 											<input type="text" id="yhzh" class="mui-input-clear" placeholder="购方银行账户">
 										</div>
 									</form>
 								</div>
-
 							<div class="mui-card">
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell mui-collapse">
@@ -166,8 +166,9 @@
 								</li>
 							 </ul>
 						   </div>
-						  </div>
+							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish1" >完 成</button>
 						</div>
+					</div>
 				</div>
 
 				<div id="item3mobile" class="mui-slider-item mui-control-content">
@@ -220,17 +221,17 @@
 											<input type="text"  id="se"  class="mui-input-clear" placeholder="">
 										</div>
 									</form>
-									<div class="mui-bar mui-bar-tab">
-										<a class="lrkpd" style="width:50%" >
-											<span class="mui-tab-label" id="jshj" >价税合计：0</span>
-										</a>
-										<a class="lrkpd" id="add" style="width:50%" >
-											<span class="mui-tab-label" id="show" >添加(已完成:0)</span>
-										</a>
-									</div>
 								</div>
 							</div>
-
+							<div class="mui-bar mui-bar-tab">
+								<a class="lrkpd" style="width:50%" >
+									<span class="mui-tab-label" id="jshj" >价税合计：0</span>
+								</a>
+								<a class="lrkpd" id="add" style="width:50%" >
+									<span class="mui-tab-label" id="show" >添加(已完成:0)</span>
+								</a>
+							</div>
+							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish2" >完 成</button>
 						</div>
 					</div>
 				</div>
@@ -239,15 +240,16 @@
 
 
 		</div>
-		<footer>
-			<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish" >完 成</button>
-		</footer>
     </div>
 
 </body>
 <script src="assets/js/format.js"></script>
 <script>
-   function inputbt(fpzldm){
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+
+    function inputbt(fpzldm){
         var gfmc=$("#gfmc_span");
         var nsrsbh=$("#nsrsbh_span");
         var zcdz=$("#zcdz_span");
@@ -255,30 +257,30 @@
         var khyh=$("#khyh_span");
         var yhzh=$("#yhzh_span");
         if(fpzldm=="01"){
-            gfmc.html("*");
-            gfmc.css("color","red");
-            nsrsbh.html("*");
-            nsrsbh.css("color","red");
-            zcdz.html("*");
-            zcdz.css("color","red");
-            zcdh.html("*");
-            zcdh.css("color","red");
-            khyh.html("*");
-            khyh.css("color","red");
-            yhzh.html("*");
-            yhzh.css("color","red");
+            //gfmc.html("*");
+            gfmc.css("color","blue");
+           // nsrsbh.html("*");
+            nsrsbh.css("color","blue");
+           // zcdz.html("*");
+            zcdz.css("color","blue");
+            //zcdh.html("*");
+            zcdh.css("color","blue");
+           // khyh.html("*");
+            khyh.css("color","blue");
+          //  yhzh.html("*");
+            yhzh.css("color","blue");
         }else{
-            gfmc.html("*");
-            gfmc.css("color","red");
-            nsrsbh.html("");
+            //gfmc.html("*");
+            gfmc.css("color","blue");
+            //nsrsbh.html("");
             nsrsbh.css("color","");
-            zcdz.html("");
+          //  zcdz.html("");
             zcdz.css("color","");
-            zcdh.html("");
+         //   zcdh.html("");
             zcdh.css("color","");
-            khyh.html("");
+         //   khyh.html("");
             khyh.css("color","");
-            yhzh.html("");
+           // yhzh.html("");
             yhzh.css("color","");
         }
     }
@@ -417,7 +419,6 @@
                         $("#show").html("添加（已完成："+i+")");
                         var s="&mxxh="+i+"&ggxh="+ggxh.val()+"&spdm="+spdm+"&spmc="+spmc+"&spdw="+spdw.val()+"&spsl="+sps.val()+"&spdj="+dj.val()+"&hsje="+hsje.val()+"&se="+se.val()+"&sl="+sl.val()+"&je="+je.val();
                         str=str+s;
-                        alert(str);
                         $('#je').val("");
                         $('#splv').val("");
                         $('#se').val("");
@@ -513,7 +514,7 @@
                         $("#jshj2").val(FormatFloat(je1 + se1, "#####0.00"));
                         if (dj != null && dj.val() != "") {
                             sps.val(FormatFloat(je.val() / dj.val(),
-                                "#####0.00"));
+                                "#0.00"));
                         }else  if (sps != null && sps.val() != "") {
                             dj.val(FormatFloat(je.val() / sps.val(),
                                 "#####0.00"));
@@ -547,12 +548,17 @@
                             "#####0.00"));
                         se.val(FormatFloat(hsje.val() - je.val(),
                             "#####0.00"));
-
+                        if (dj != null && dj.val() != "") {
+                            sps.val(FormatFloat(je.val() / dj.val(),
+                                "#0.00"));
+                        }else  if (sps != null && sps.val() != "") {
+                            dj.val(FormatFloat(je.val() / sps.val(),
+                                "#####0.00"));
+                        }
                         jshj.html("价税合计："+FormatFloat(hsje.val(), "#####0.00"));
                         $("#jshj2").val(FormatFloat(hsje.val(), "#####0.00"));
                     });
-
-                    document.getElementById("finish").addEventListener('tap', function() {
+                    function  tijiao() {
                         var xfmc = $('#xfmc option:selected').text();
                         var xfid = $('#xfmc option:selected').val();
                         var kprq = $("#kprq").val();
@@ -650,13 +656,19 @@
 
 
                         var btnArray = ['否', '是'];
-                        mui.confirm('您确认提交开票申请？', '提交开票申请', btnArray, function (e) {
+                        var div='<div style="margin:0 auto;">发票抬头：'+gfmc+'</div><br/>' +
+                            '<div style="margin:0 auto;">发票明细：'+i+'</div><br/>' +
+                            '<div style="margin:0 auto;">发票金额：'+totaljshj+'</div>'
+                        mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
                                 window.location.href = encodeURI(encodeURI("dingqkp" + sss));
-                               }
-                               return;
-                           });
-                    });
+                            }
+                            return;
+                        });
+                    }
+                    document.getElementById("finish").addEventListener('tap', tijiao);
+                    document.getElementById("finish1").addEventListener('tap', tijiao);
+                    document.getElementById("finish2").addEventListener('tap', tijiao);
                 });
                 dd.error(function(err) {
                     alert('dd error: ' + JSON.stringify(err));
