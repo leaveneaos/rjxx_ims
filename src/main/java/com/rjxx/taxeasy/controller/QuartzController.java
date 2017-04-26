@@ -135,7 +135,7 @@ public class QuartzController extends BaseController{
 		info.setJobName("com.rjxx.taxeasy.job.JsapiticketJob");
 		info.setJobGroup("dingding");
 		info.setJobDescription("生成或者更新JSapiticket");
-		info.setCronExpression("0 0 0/1 * * ? ");
+		info.setCronExpression("0 0/1 * * * ? ");
 		TaskInfo info1=new TaskInfo();
 		info1.setJobName("com.rjxx.taxeasy.job.SuiteTokenGenerateJob");
 		info1.setJobGroup("dingding");
