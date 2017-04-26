@@ -70,7 +70,7 @@
 														<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 													</div>
 												</form>
-												<h5 class="mui-content-padded" style="margin-left: 1px;"><span style="color: blue">发票种类</span></h5>
+												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类</span></h5>
 												<div class="mui-card">
 													<form class="mui-input-group">
 														<div class="mui-input-row mui-radio">
@@ -191,7 +191,7 @@
 						<div class="mui-scroll">
 							<div class="mui-content">
 								<div class="mui-content-padded" style="margin: 5px;">
-									<h5 class="mui-content-padded"><span style="color: blue">*</span>商品名称</h5>
+									<h5 class="mui-content-padded"><span style="color: blue">商品名称</span></h5>
 									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" style="padding-left: 4px;">
 										<option value="">选择商品</option>
 										<c:forEach items="${spList}" var="item">
@@ -202,6 +202,15 @@
 								</div>
 								<div class="mui-content-padded" style="margin: 5px; padding-bottom : 40px;">
 									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<label><span style="color: blue">金额(含税)</span></label>
+											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
+											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
+										</div>
+										<div class="mui-input-row" >
+											<label><span style="color: blue">金额(不含税)</span></label>
+											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
+										</div>
 										<div class="mui-input-row" >
 											<label>规格型号</label>
 											<input type="text" id="ggxh" class="mui-input-clear" placeholder="">
@@ -217,15 +226,6 @@
 										<div class="mui-input-row" >
 											<label>单价</label>
 											<input type="text" id="spdj"  class="mui-input-clear" placeholder="">
-										</div>
-										<div class="mui-input-row" >
-											<label><span style="color: blue">金额(不含税)</span></label>
-											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
-										</div>
-										<div class="mui-input-row">
-											<label><span style="color: blue">金额(含税)</span></label>
-											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
-											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
 										</div>
 										<div class="mui-input-row" >
 											<label>税率</label>

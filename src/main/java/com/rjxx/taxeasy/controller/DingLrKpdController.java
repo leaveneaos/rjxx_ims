@@ -62,7 +62,7 @@ public class DingLrKpdController extends BaseController{
         Xf xf=new Xf();
         xf.setId(417);
 		List<Xf> xflist=xfService.findAllByParams(xf);
-        List<Spvo>list2 = spvoService.findAllByGsdm("rjxx2_sunrong");
+        List<Spvo>list2 = spvoService.findAllByGsdm("rjxx2");
         request.setAttribute("spList", list2);
         System.out.println(JSON.toJSON(xflist));
 		 request.setAttribute("xflist", xflist);
