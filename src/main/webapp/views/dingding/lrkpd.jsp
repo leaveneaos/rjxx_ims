@@ -20,8 +20,8 @@
 	<script src="js/mobiscroll_003.js" type="text/javascript"></script>
 	<script src="js/mobiscroll_005.js" type="text/javascript"></script>
 	<link href="css/mobiscroll_003.css" rel="stylesheet" type="text/css">
-  </head>  
-<body>  
+  </head>
+<body onresize="document.activeElement.scrollIntoView(true);">
 	<div class="mui-content">
 
 		<div id="slider" class="mui-slider">
@@ -47,7 +47,7 @@
 							<div class="mui-card">
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell mui-collapse mui-active">
-										<a class="mui-navigate-right" href="#">开票要求：</a>
+										<a class="mui-navigate-right" href="#">开票要求</a>
 										<div class="mui-collapse-content">
 											<div class="mui-content-padded" style="margin: 5px;">
 												<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
@@ -66,11 +66,11 @@
 														<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 													</div>
 													<div class="mui-input-row">
-														<label>申请日期</label>
+														<label><span>期望日期</span></label>
 														<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 													</div>
 												</form>
-												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类</span></h5>
+												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类：</span></h5>
 												<div class="mui-card">
 													<form class="mui-input-group">
 														<div class="mui-input-row mui-radio">
@@ -92,14 +92,15 @@
 											<div class="mui-input-row" style="margin: 10px 5px;">
 												<textarea id="bz" rows="2" placeholder=""></textarea>
 											</div>
+											<h5 class="mui-content-padded" >其他要求：</h5>
+											<div class="mui-input-row" style="margin: 10px 5px;">
+												<textarea id="kpyq" rows="2" placeholder=""></textarea>
+											</div>
 										</div>
 									</li>
 								</ul>
 							</div>
-							<h5 class="mui-content-padded" >其他要求：</h5>
-							<div class="mui-input-row" style="margin: 10px 5px;">
-								<textarea id="kpyq" rows="2" placeholder=""></textarea>
-							</div>
+
 							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish"  >完 成</button>
 						</div>
 					</div>
@@ -192,13 +193,14 @@
 							<div class="mui-content">
 								<div class="mui-content-padded" style="margin: 5px;">
 									<h5 class="mui-content-padded"><span style="color: blue">商品名称</span></h5>
-									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" style="padding-left: 4px;" >
+									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block"
+											style="padding-left: 4px;" >
 										<option value="">选择商品</option>
 										<c:forEach items="${spList}" var="item">
-											<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.sl})</option>
+											<option value="${item.sl}" class="${item.id}" >${item.spmc}(${item.sl})</option>
 										</c:forEach>
 									</select>
-
+									<input type="hidden"  id="spbm"  class="mui-input-clear"  placeholder="">
 								</div>
 								<div class="mui-content-padded" style="margin: 5px; padding-bottom : 40px;">
 									<form class="mui-input-group">
@@ -412,7 +414,7 @@
                         var ggxh =$("#ggxh");
                         var spdw =$("#spdw");
                         var lrselect_sp =$("#lrselect_sp");
-                        var spdm = lrselect_sp.val();
+                        var spdm = $("#spbm").val();
                         var spmc = $("#lrselect_sp option:checked").text();
                         var pos = spmc.indexOf("(");
                         spmc = spmc.substring(0, pos);
@@ -442,6 +444,7 @@
                         $('#splv').val("");
                         $('#se').val("");
                         $('#hsje').val("");
+                        $('#spbm').val("");
                         $('#spdj').val("");
                         $('#spsl').val("");
                         $("#lrselect_sp").val("");
@@ -449,7 +452,6 @@
                         $("#spdw").val("");
                     });
                     $("#lrselect_sp").bind('input', function()  {
-                        alert(sss);
                         var je = $('#je');
                         var sl = $('#splv');//商品税率
                         var se = $('#se');
@@ -458,29 +460,25 @@
                         var dj = $('#spdj');
                         var sps = $('#spsl');//商品数量
                         var spsl;
-                        var spdm = $(this).val();
                         var spmc = $("#lrselect_sp option:checked").text();
                         var pos = spmc.indexOf("(");
                         spmc = spmc.substring(0, pos);
-                        if (!spdm) {
-                            $("#lrmx_form input").val("");
-                            return;
-                        }
+                        var  sl2=$(this).val();
                         var ur = "dinglrkpd/getSpxq";
                         $.ajax({
                             url: ur,
                             type: "post",
                             async:false,
                             data: {
-                                spdm: spdm,
+                                sl: sl2,
                                 spmc:spmc,
                             },
                             success: function (res) {
                                 if (res) {
-                                    alert(res["sl"]);
                                     $("#ggxh").val(res["spggxh"] == null ? "" : res["spggxh"]);
                                     $("#spdw").val(res["spdw"] == null ? "" : res["spdw"]);
                                     $("#spdj").val(res["spdj"] == null ? "" : res["spdj"]);
+                                    $("#spbm").val(res["spbm"] == null ? "" : res["spbm"]);
                                     $("#spsl").val("");
                                     $("#splv").val(res["sl"]);
                                     spsl = res["sl"];

@@ -75,7 +75,9 @@ public class DingQkpController extends BaseController{
 		}catch (Exception e){
 
 		}
-		jyxxsq.setGfyb(yjdz);
+
+		jyxxsq.setGflxr(lxr);
+		jyxxsq.setGfemail(yjdz);
 		jyxxsq.setFpzldm(fpzldm);
 		jyxxsq.setGfdh(zcdh);
 		jyxxsq.setGfdz(zcdz);
