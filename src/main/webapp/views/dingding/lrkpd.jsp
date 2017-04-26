@@ -50,7 +50,7 @@
 								<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
 								<form class="mui-input-group">
 									<div class="mui-input-row">
-										<label><span style="color: blue">销方名称</span></label>
+										<label><span style="color: red">销方名称</span></label>
 										<select id="xfmc" name="xfmc">
 											<c:forEach items="${xflist}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
@@ -58,7 +58,7 @@
 										</select>
 									</div>
 									<div class="mui-input-row">
-										<label><span style="color: blue">合同/订单号</span></label>
+										<label><span style="color: red">合同/订单号</span></label>
 										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 									</div>
 									<div class="mui-input-row">
@@ -66,7 +66,7 @@
 										<input    class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
 									</div>
 								</form>
-								<h5 class="mui-content-padded"><span style="color: blue">发票种类</span></h5>
+								<h5 class="mui-content-padded"><span style="color: red">发票种类</span></h5>
 								<div class="mui-card">
 									<form class="mui-input-group">
 										<div class="mui-input-row mui-radio">
@@ -103,7 +103,7 @@
 							<div class="mui-content-padded" style="margin: 5px;">
 									<form class="mui-input-group">
 										<div class="mui-input-row">
-											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
+											<label><span id="gfmc_span" style="color: red">购方名称</span></label>
 											<input type="text" id="gfmc" class="mui-input-clear" placeholder="发票抬头">
 										</div>
 										<div class="mui-input-row">
@@ -204,13 +204,13 @@
 											<input type="text" id="spdj"  class="mui-input-clear" placeholder="">
 										</div>
 										<div class="mui-input-row" >
-											<label><span style="color: red">*</span>金额(不含税)</label>
-											<input type="text" id="je" class="mui-input-clear" placeholder="">
+											<label><span style="color: red">金额(不含税)</span></label>
+											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 										</div>
 										<div class="mui-input-row">
-											<label><span style="color: red">*</span>金额(含税)</label>
-											<input type="text"  id="hsje" class="mui-input-clear" placeholder="">
-											<input type="hidden"  id="jshj2"  class="mui-input-clear" placeholder="">
+											<label><span style="color: red">金额(含税)</span></label>
+											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
+											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
 										</div>
 										<div class="mui-input-row" >
 											<label>税率</label>
@@ -245,10 +245,15 @@
 </body>
 <script src="assets/js/format.js"></script>
 <script>
-    mui('.mui-scroll-wrapper').scroll({
-        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-    });
-
+	function jyspxx(){
+       var spdm=$("#lrselect_sp") .val();
+       if(spdm==""){
+           mui.alert('请先选择商品！', function() {
+               return ;
+           });
+           return;
+	   }
+	}
     function inputbt(fpzldm){
         var gfmc=$("#gfmc_span");
         var nsrsbh=$("#nsrsbh_span");
@@ -258,20 +263,20 @@
         var yhzh=$("#yhzh_span");
         if(fpzldm=="01"){
             //gfmc.html("*");
-            gfmc.css("color","blue");
+            gfmc.css("color","red");
            // nsrsbh.html("*");
-            nsrsbh.css("color","blue");
+            nsrsbh.css("color","red");
            // zcdz.html("*");
-            zcdz.css("color","blue");
+            zcdz.css("color","red");
             //zcdh.html("*");
-            zcdh.css("color","blue");
+            zcdh.css("color","red");
            // khyh.html("*");
-            khyh.css("color","blue");
+            khyh.css("color","red");
           //  yhzh.html("*");
-            yhzh.css("color","blue");
+            yhzh.css("color","red");
         }else{
             //gfmc.html("*");
-            gfmc.css("color","blue");
+            gfmc.css("color","red");
             //nsrsbh.html("");
             nsrsbh.css("color","");
           //  zcdz.html("");
@@ -581,50 +586,50 @@
 
                         if (xfmc == null || xfmc == "") {
                             mui.alert('请选择销方名称！', function () {
-                                return;
+                                $("#gfmc").focus();
                             });
                             return;
                         }
                         if (ddh == null || ddh == "") {
                             mui.alert('请输入订单号！', function () {
-                                return;
+                                $("#ddh").focus();
                             });
                             return;
                         }
                         if (fpzldm == "01") {
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
-                                    return;
+                                    $("#gfmc").focus();
                                 });
                                 return;
                             }
                             if (nsrsbh == null || nsrsbh == "") {
                                 mui.alert('请输入购方纳税人识别号！', function () {
-                                    return;
+                                    $("#nsrsbh").focus();
                                 });
                                 return;
                             }
                             if (zcdz == null || zcdz == "") {
                                 mui.alert('请输入购方注册地址！', function () {
-                                    return;
+                                    $("#zcdz").focus();
                                 });
                                 return;
                             }
                             if (zcdh == null || zcdh == "") {
                                 mui.alert('请输入购方注册电话！', function () {
-                                    return;
+                                    $("#zcdh").focus();
                                 });
                                 return;
                             }
                             if (khyh == null || khyh == "") {
                                 mui.alert('请输入购方开户行名称！', function () {
-                                    return;
+                                    $("#khyh").focus();
                                 });
                                 return;
                             }
                             if (yhzh == null || yhzh == "") {
                                 mui.alert('请输入购方银行账号！', function () {
-                                    return;
+                                    $("#yhzh").focus();
                                 });
                                 return;
                             }
@@ -632,21 +637,21 @@
                         } else if (fpzldm == "02") {
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
-                                    return;
+                                    $("#gfmc").focus();
                                 });
                                 return;
                             }
                         } else if (fpzldm == "12") {
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
-                                    return;
+                                    $("#gfmc").focus();
                                 });
                                 return;
                             }
                         }
                         if (str == "") {
                             mui.alert('请填写商品信息！', function () {
-                                return;
+                                $("#lrselect_sp").focus();
                             });
                             return;
                         }
@@ -656,9 +661,9 @@
 
 
                         var btnArray = ['否', '是'];
-                        var div='<div style="margin:0 auto;">发票抬头：'+gfmc+'</div><br/>' +
-                            '<div style="margin:0 auto;">发票明细：'+i+'</div><br/>' +
-                            '<div style="margin:0 auto;">发票金额：'+totaljshj+'</div>'
+                        var div='<div style="padding-left: 10px;">发票抬头：'+gfmc+'</div><br/>' +
+                            '<div style="padding-left: 10px;">发票明细：'+i+'</div><br/>' +
+                            '<div style="padding-left: 10px;">发票金额：'+totaljshj+'</div>'
                         mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
                                 window.location.href = encodeURI(encodeURI("dingqkp" + sss));

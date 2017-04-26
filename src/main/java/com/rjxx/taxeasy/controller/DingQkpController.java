@@ -4,6 +4,8 @@ import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.dingtalk.oapi.lib.aes.DingTalkJsApiSingnature;
+import com.dingtalk.oapi.lib.aes.Utils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.time.TimeUtil;
@@ -18,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.rjxx.taxeasy.configuration.Message;
 import com.rjxx.taxeasy.dingding.Helper.HttpHelper;
 import com.rjxx.taxeasy.web.BaseController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/dingqkp")
@@ -68,7 +71,6 @@ public class DingQkpController extends BaseController{
 		jyxxsq.setDdh(ddh);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		if(("").equals(kprq)&&null==kprq){
-			jyxxsq.setDdrq(sdf.parse(""));
 		}else{
 		jyxxsq.setDdrq(sdf.parse(kprq));
 		}
@@ -208,4 +210,31 @@ public class DingQkpController extends BaseController{
 		request.setAttribute("userid", userid);
         return "dingding/qkp";
     }
+	/**
+	 * 获取jsAPI签名
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/jssqm")
+	@ResponseBody
+	public Map<String, Object> getItems() throws Exception {
+		String corpid=request.getParameter("corpId");//企业id
+		String url=request.getParameter("url");//当前网页url
+		Map params=new HashMap();
+		params.put("corpId", corpid);
+		IsvCorpSuiteJsapiTicket isvCorpSuiteJsapiTicket=isvcorpsuitejsapiticketservice.findOneByParams(params);
+		IsvCorpApp isvCorpApp=isvcorpappservice.findOneByParams(params);
+		url = URLDecoder.decode(url,"utf8");
+		String nonce = Utils.getRandomStr(8);
+		Long timeStamp = System.currentTimeMillis();
+		String sign = DingTalkJsApiSingnature.getJsApiSingnature(url, nonce, timeStamp, isvCorpSuiteJsapiTicket.getCorpJsapiTicket());
+		System.out.println(sign);
+		Map<String,Object> jsapiConfig = new HashMap<String, Object>();
+		jsapiConfig.put("signature",sign);
+		jsapiConfig.put("nonce",nonce);
+		jsapiConfig.put("timeStamp",timeStamp);
+		jsapiConfig.put("agentId",isvCorpApp.getAgentId());
+		jsapiConfig.put("corpId",corpid);
+		return jsapiConfig;
+	}
 }

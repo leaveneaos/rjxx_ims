@@ -22,14 +22,19 @@
         <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
     	<div class="t1" style="font-size: 17px;">开票请求提交成功</div>
     	<div class="mui-button-row">
-        <button type="button" class="mui-btn mui-btn-success" >完成</button>
+        <button type="button" class="mui-btn mui-btn-success" onclick="qkp();" >完成</button>
     </div>
     	
     </div>
 </body>
 <script>
+    function qkp(){
+        var corpId =$("#corpid").val();
+        window.location.href="ding?corpid="+corpId;
+    }
     $(function(){
-        var url= window.location.href;
+       // var url= window.location.href;
+        var  url="http://test.datarj.com/ims/dingqkp";
         var corpId =$("#corpid").val();
         var signature = "";
         var nonce = "";
