@@ -94,9 +94,6 @@ public class DingQkpController extends BaseController{
 		jyxxsq.setJshj(0.00);
 		jyxxsq.setYkpjshj(0.00);
 		jyxxsq.setHsbz("0");
-
-
-
 		jyxxsq.setXfid(xf.getId());
 		jyxxsq.setXfsh(xf.getXfsh());
 		jyxxsq.setXfmc(xf.getXfmc());
