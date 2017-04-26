@@ -192,10 +192,10 @@
 							<div class="mui-content">
 								<div class="mui-content-padded" style="margin: 5px;">
 									<h5 class="mui-content-padded"><span style="color: blue">商品名称</span></h5>
-									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" style="padding-left: 4px;">
+									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block" style="padding-left: 4px;" >
 										<option value="">选择商品</option>
 										<c:forEach items="${spList}" var="item">
-											<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.spbm})</option>
+											<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.sl})</option>
 										</c:forEach>
 									</select>
 
@@ -203,12 +203,12 @@
 								<div class="mui-content-padded" style="margin: 5px; padding-bottom : 40px;">
 									<form class="mui-input-group">
 										<div class="mui-input-row">
-											<label><span style="color: blue">金额(含税)</span></label>
+											<label><span style="color: blue">含税金额</span></label>
 											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
 										</div>
 										<div class="mui-input-row" >
-											<label><span style="color: blue">金额(不含税)</span></label>
+											<label><span style="color: blue">不含税金额</span></label>
 											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 										</div>
 										<div class="mui-input-row" >
@@ -449,6 +449,7 @@
                         $("#spdw").val("");
                     });
                     $("#lrselect_sp").bind('input', function()  {
+                        alert(sss);
                         var je = $('#je');
                         var sl = $('#splv');//商品税率
                         var se = $('#se');
@@ -476,6 +477,7 @@
                             },
                             success: function (res) {
                                 if (res) {
+                                    alert(res["sl"]);
                                     $("#ggxh").val(res["spggxh"] == null ? "" : res["spggxh"]);
                                     $("#spdw").val(res["spdw"] == null ? "" : res["spdw"]);
                                     $("#spdj").val(res["spdj"] == null ? "" : res["spdj"]);

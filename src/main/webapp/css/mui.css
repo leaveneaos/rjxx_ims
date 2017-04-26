@@ -2915,6 +2915,8 @@ textarea
     height: auto;
 
     resize: none;
+
+    margin-bottom: 0;
 }
 
 select
@@ -3041,7 +3043,7 @@ select:focus
     float: left;
 
     width: 35%;
-    padding: 8px 15px;
+    padding: 15px 15px;
 }
 
 .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea

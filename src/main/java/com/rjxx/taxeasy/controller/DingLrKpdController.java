@@ -122,17 +122,17 @@ public class DingLrKpdController extends BaseController{
     /**
      * 获取商品详情
      *
-     * @param spdm
+     * @param
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/getSpxq")
     @ResponseBody
-    public Spvo getSpxq(String spdm, String spmc) throws Exception {
+    public Spvo getSpxq(String sl, String spmc) throws Exception {
         Spvo params = new Spvo();
-        params.setGsdm("zydc");
+        params.setGsdm("rjxx2");
         //使用商品编码查询
-        params.setSpbm(spdm);
+        params.setSl(Double.valueOf(sl));
         params.setSpmc(spmc);
         List<Spvo> list = spvoService.findAllByParams(params);
         if (!list.isEmpty()) {
