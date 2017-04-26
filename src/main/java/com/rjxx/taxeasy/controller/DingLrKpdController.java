@@ -53,16 +53,16 @@ public class DingLrKpdController extends BaseController{
     	String userid=request.getParameter("userid");//钉钉用户id
         request.setAttribute("corpid", corpid);
         request.setAttribute("userid", userid);
-    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("zydc", "aff");
+    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("rjxx2_sunrong", "Rjxx1234");
 		token.setDetails(new WebAuthenticationDetails(request));
 		Authentication authenticatedUser = authenticationManager.authenticate(token);
 		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
         Xf xf=new Xf();
-        xf.setId(413);
+        xf.setId(417);
 		List<Xf> xflist=xfService.findAllByParams(xf);
-        List<Spvo>list2 = spvoService.findAllByGsdm("zydc");
+        List<Spvo>list2 = spvoService.findAllByGsdm("rjxx2_sunrong");
         request.setAttribute("spList", list2);
         System.out.println(JSON.toJSON(xflist));
 		 request.setAttribute("xflist", xflist);
