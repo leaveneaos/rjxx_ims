@@ -24,7 +24,7 @@ public class QuartzConfig {
 	@Autowired
 	private DataSource dataSource;
 	
-    @Bean
+    @Bean(name = "dingdingScheduler")
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException, SchedulerException {
         SchedulerFactoryBean schedulerFactory = new SchedulerFactoryBean();
         
@@ -50,42 +50,25 @@ public class QuartzConfig {
     public Scheduler scheduler() throws IOException, SchedulerException {
     	
     	Scheduler scheduler=schedulerFactoryBean().getScheduler();
-    	
+
     	
     	scheduler.start();
         return scheduler;
     }
-    
-    /*@Value("${spring.datasource.url}")
-    private String url;
-    @Value("${spring.datasource.username}")
-    private String username;
-    @Value("${spring.datasource.password}")
-    private String passwd;
-    @Value("${spring.datasource.driver-class-name}")
-    private String driver;
-    @Value("${spring.datasource.maxActive}")
-    private String maxconnect;*/
     public Properties quartzProperties() throws IOException {
         Properties prop = new Properties();
-        prop.put("quartz.scheduler.instanceName", "ServerScheduler");
+        prop.put("quartz.scheduler.instanceName", "dingdingScheduler");
         prop.put("org.quartz.scheduler.instanceId", "AUTO");
         prop.put("org.quartz.scheduler.skipUpdateCheck", "true");
         prop.put("org.quartz.scheduler.instanceId", "NON_CLUSTERED");
         prop.put("org.quartz.scheduler.jobFactory.class", "org.quartz.simpl.SimpleJobFactory");
         prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
         prop.put("org.quartz.jobStore.driverDelegateClass", "org.quartz.impl.jdbcjobstore.StdJDBCDelegate");
-       // prop.put("org.quartz.jobStore.dataSource", "quartzDataSource");
         prop.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         prop.put("org.quartz.jobStore.isClustered", "true");
         prop.put("org.quartz.jobStore.clusterCheckinInterval", "20000");
         prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
         prop.put("org.quartz.threadPool.threadCount", "5");
-       // prop.put("org.quartz.dataSource.quartzDataSource.driver", driver);
-       // prop.put("org.quartz.dataSource.quartzDataSource.URL", url);
-       // prop.put("org.quartz.dataSource.quartzDataSource.user", username);
-       // prop.put("org.quartz.dataSource.quartzDataSource.password", passwd);
-       // prop.put("org.quartz.dataSource.quartzDataSource.maxConnections", maxconnect);
         return prop;
     }
 }
