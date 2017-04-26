@@ -62,7 +62,7 @@
                         <li class="am-dropdown" data-am-dropdown><a
 				class="am-text-sm am-dropdown-toggle" data-am-dropdown-toggle
 				href="javascript:;"> <span class="am-icon-users"></span>
-					${login_session_key.yhmc} ,你好! <span class="am-icon-caret-down"></span>
+					${login_session_key.yhmc} ,您好! <span class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
 					<!-- <li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
@@ -80,7 +80,7 @@
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
 				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
 					class="admin-fullText">开启全屏</span></a></li>
-			<li><a class="am-text-sm" href="javascript:jumpJsp();"  target="_blank"><span class=" am-icon-envelope"></span> 信息</a></li>
+			<li><a class="am-text-sm" href="javascript:jumpJsp();"  target="_blank"><span class=" am-icon-envelope"></span> 系统信息</a></li>
                         <!-- 新邮件 -->
                       <%--  <li class="am-dropdown tpl-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>

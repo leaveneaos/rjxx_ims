@@ -227,9 +227,9 @@ $(function() {
             		kkjje=data.kkjje;
             	}  
           	  if (data.kkjje) {
-          		     return '<input type="text" Style="text-align:right"  class="bckpje" name="bckpje" value="'+kkjje+'">';
+          		     return '<input type="text" Style="text-align:right;width:100px;"  class="bckpje" name="bckpje" value="'+kkjje+'">';
                 } else {
-                	  return '<input readonly="readonly" Style="text-align:right"  type="text"  class="js-pattern-Money bckpje" name="bckpje" value="'+kkjje+'">';
+                	  return '<input readonly="readonly" Style="text-align:right;width:100px;"  type="text"  class="js-pattern-Money bckpje" name="bckpje" value="'+kkjje+'">';
                 }
          
           }, 'sClass': 'right'},
@@ -457,7 +457,7 @@ $(function() {
 	                           "render": function (data) {
 	                        	   var zdjeh = FormatFloat(data.zdje, "###,###.00");
 	                        	   var fpjeh = FormatFloat(data.fpje, "###,###.00")
-	                                return '<input type="text" Style="text-align:right" onkeyup="yzje(this)" class="js-pattern-Money" max="'+zdjeh+'" name="fpje" value="'+fpjeh +'">';
+	                                return '<input type="text" Style="text-align:right;width:100px;" onkeyup="yzje(this)" class="js-pattern-Money" max="'+zdjeh+'" name="fpje" value="'+fpjeh +'">';
 	                                }, 'sClass': 'right'
 	                        },
 	                        {"data": null,
