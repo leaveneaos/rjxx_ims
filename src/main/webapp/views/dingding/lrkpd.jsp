@@ -611,7 +611,7 @@
 
                         if (xfmc == null || xfmc == "") {
                             mui.alert('请选择销方名称！', function () {
-                                $("#gfmc").focus();
+                                $("#xfmc").focus();
                                 var slider = mui('#slider').slider();
                                 slider.gotoItem(0); //切换至第二个轮播
                             });
@@ -675,16 +675,7 @@
                                 return;
                             }
 
-                        } else if (fpzldm == "02") {
-                            if (gfmc == null || gfmc == "") {
-                                mui.alert('请输入购方名称！', function () {
-                                    $("#gfmc").focus();
-                                    var slider = mui('#slider').slider();
-                                    slider.gotoItem(1); //切换至第二个轮播
-                                });
-                                return;
-                            }
-                        } else if (fpzldm == "12") {
+                        } else {
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
                                     $("#gfmc").focus();
@@ -696,7 +687,7 @@
                         }
                         if (str == "") {
                             mui.alert('请填写商品信息！', function () {
-                                $("#lrselect_sp").focus();
+                                //$("#lrselect_sp").focus();
                                 var slider = mui('#slider').slider();
                                 slider.gotoItem(2); //切换至第二个轮播
                             });
@@ -706,14 +697,21 @@
                             + "&gfmc=" + gfmc + "&nsrsbh=" + nsrsbh + "&zcdz=" + zcdz + "&zcdh=" + zcdh + "&khyh=" + khyh + "&yhzh=" + yhzh + "&lxr=" + lxr + "&lxdh=" + lxdh
                             + "&lxdz=" + lxdz + "&yjdz=" + yjdz + str + "&mxcount=" + i;
 
-						alert(sss);
+
                         var btnArray = ['否', '是'];
                         var div='<div style="padding-left: 10px;">发票抬头：'+gfmc+'</div><br/>' +
                             '<div style="padding-left: 10px;">发票明细：'+i+'</div><br/>' +
                             '<div style="padding-left: 10px;">发票金额：'+totaljshj+'</div>'
                         mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
-                                window.location.href = encodeURI(encodeURI("dingqkp" + sss));
+                                $.ajax({
+                                    url:"dinglrkpd/save"+sss,
+                                    data: {"url":url,"corpId":corpId},
+                                    method: 'POST',
+                                    success: function (data) {
+                                        window.location.href = "dingqkp" +"?corpid=" + data.corpid + "&userid=" + data.userid+"&sqlsh="+data.sqlsh+"&jylsh="+data.jylsh ;
+									}
+                                });
                             }
                             return;
                         });
