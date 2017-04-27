@@ -30,6 +30,7 @@
     </div>
 </body>
 <script>
+    mui.toast('提交成功',{ duration:'long', type:'div' });
     function qkp(){
         var corpId =$("#corpid").val();
         window.location.href="ding?corpid="+corpId;
@@ -126,9 +127,6 @@
                                 method: 'post',
                                 success : function(data) {
                                     userid=data.userid;
-                                    $("#alertBtn").bind("click",function(){
-                                        window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
-                                    });
                                 }
                             });
                         },
@@ -136,6 +134,25 @@
                             alert('fail: ' + json.stringify(err));
                         }
                     });
+                    dd.runtime.permission.requestOperateAuthCode({
+                        corpId: corpId,
+                        agentId:agentId,
+                        onSuccess: function(result) {
+
+                            $.ajax({
+                                url :"dingqkp/sendmessage",
+                                data:{"code":result.code,"corpid":corpId,"userid":$("#userid").val(),"agentId":agentId,"sqlsh":$("#sqlsh").val(),"jylsh":$("#jylsh").val()},
+                                method:'post',
+                                success:function(data){
+
+                                }
+                            });
+                        },
+                        onFail : function(err) {
+
+                        }
+
+                    })
                 });
 
                 dd.error(function(err) {
