@@ -1387,7 +1387,6 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
     width: 100%;
     margin-bottom: 10px;
-    padding: -5px 0 10px 0;
 }
 
 .mui-btn .mui-badge
