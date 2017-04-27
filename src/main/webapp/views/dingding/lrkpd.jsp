@@ -39,9 +39,9 @@
 
 			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 
-			<div class="mui-slider-group" id="i">
+			<div class="mui-slider-group">
 
-				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+				<div id="item1mobile" class="mui-slider-item  mui-active">
 					<div id="scroll1" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-card">
@@ -106,7 +106,7 @@
 					</div>
 				</div>
 
-				<div id="item2mobile" class="mui-slider-item mui-control-content">
+				<div id="item2mobile" class="mui-slider-item ">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-card">
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 
-				<div id="item3mobile" class="mui-slider-item mui-control-content">
+				<div id="item3mobile" class="mui-slider-item ">
 					<div id="scroll3" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-content">
