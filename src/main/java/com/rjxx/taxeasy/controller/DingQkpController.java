@@ -78,12 +78,8 @@ public class DingQkpController extends BaseController{
 		lightAppMessageDelivery.setToparty("");
 		lightAppMessageDelivery.setTouser(userid);
 		lightAppMessageDelivery.setMsgType("oa");
-
 		MessageBody.OABody oaBody=new MessageBody.OABody();
-
-
 		MessageBody.OABody.Body body=new MessageBody.OABody.Body();
-
 		body.setTitle("开票申请信息");
 		MessageBody.OABody.Body.Form form=new MessageBody.OABody.Body.Form();
 		form.setKey("订单号：");
@@ -115,18 +111,12 @@ public class DingQkpController extends BaseController{
 		forms.add(form2);
 		forms.add(form3);
 		body.setContent("您已提交开票申请，内容如下：");
-		body.setImage("");
-		body.setAuthor("");
-		body.setFile_count("");
-
 		body.setForm(forms);
 		oaBody.setBody(body);
 		MessageBody.OABody.Head head=new MessageBody.OABody.Head();
 		head.setBgcolor("FFBBBBBB");
 		head.setText("开票通");
 		oaBody.setHead(head);
-		oaBody.setMessage_url("");
-
 		lightAppMessageDelivery.setMessage(oaBody);
 		System.out.println(JSON.toJSON(oaBody));
 		MessageHelper.Receipt receipt=MessageHelper.send(accessToken,lightAppMessageDelivery);
