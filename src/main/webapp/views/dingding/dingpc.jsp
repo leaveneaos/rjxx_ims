@@ -5,9 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>首页</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>首页</title>
     <script src="js/mui.min.js"></script>
-    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/index.css" rel="stylesheet"/>
     <script src="js/jquery.1.7.2.min.js"></script>
 </head>
@@ -26,7 +28,7 @@
 			 <hr />
 			 <br /><br /><br />
 			 <div class="mui-button-row">
-				 <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" ><a href="http://test.datarj.com/ims/login/login">进入系统</a></button>
+				 <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
 			 </div>
 			 <div class="t1">或复制以下网址到浏览器登录</div>
 			 <div class="t2">http://test.datarj.com/ims/login/login</div>
@@ -36,4 +38,13 @@
 	 </div>
 
 </body>
+<script>
+	$(function(){
+	    $("#alertBtn").click(function(){
+            mui.openWindow({
+                url: 'http://test.datarj.com/ims/login/login'
+            });
+		});
+	});
+</script>
 </html>
