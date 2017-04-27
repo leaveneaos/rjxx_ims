@@ -268,7 +268,7 @@ public class DingLrKpdController extends BaseController{
             jymxsq.setYkjje(0d);
             if (spges.length != 0) {
                 try {
-                    jymxsq.setSpggxh(spges[c]);
+                    jymxsq.setSpggxh(URLDecoder.decode(spges[c],"utf8"));
                 } catch (Exception e) {
                     jymxsq.setSpggxh(null);
 
