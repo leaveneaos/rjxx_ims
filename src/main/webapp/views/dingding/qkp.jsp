@@ -20,6 +20,8 @@
 	<div class="mui-content">
         <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
         <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
+        <input type="hidden" id="sqlsh" value="<c:out value="${sqlsh}" />"/>
+        <input type="hidden" id="jylsh" value="<c:out value="${jylsh}" />"/>
     	<div class="t1" style="font-size: 17px;">开票请求提交成功</div>
     	<div class="mui-button-row">
         <button type="button" class="mui-btn mui-btn-success" onclick="qkp();" >完成</button>
@@ -33,8 +35,7 @@
         window.location.href="ding?corpid="+corpId;
     }
     $(function(){
-       // var url= window.location.href;
-        var  url="http://test.datarj.com/ims/dingqkp";
+       var url= window.location.href;
         var corpId =$("#corpid").val();
         var signature = "";
         var nonce = "";

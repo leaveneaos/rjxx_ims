@@ -705,8 +705,8 @@
                         mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
                                 $.ajax({
-                                    url:"dinglrkpd/save"+sss,
-                                    data: {"url":url,"corpId":corpId},
+                                    url:encodeURI(encodeURI("dinglrkpd/save" + sss)),
+                                    data: null,
                                     method: 'POST',
                                     success: function (data) {
                                         window.location.href = "dingqkp" +"?corpid=" + data.corpid + "&userid=" + data.userid+"&sqlsh="+data.sqlsh+"&jylsh="+data.jylsh ;
