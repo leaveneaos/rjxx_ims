@@ -68,36 +68,5 @@ public class DingDingController extends BaseController {
 		CorpUserDetail user = (CorpUserDetail)UserHelper.getUser(accessToken, UserHelper.getUserInfo(accessToken, code).getUserid());
 		return user;
 	}
-	    /**
-		 * 发送会话消息
-		 *
-		 * @param 
-		 * @return
-		 * @throws Exception
-		 */
-		@RequestMapping(value = "/sendmessage")
-		@ResponseBody
-		public String  sendmessage() throws Exception {
-			String code = request.getParameter("code");
-			String corpId = request.getParameter("corpid");
-			String agentId = request.getParameter("agentId");
-			String userid = request.getParameter("userid");
-			System.out.println("code:"+code+" corpid:"+corpId);
-			Map params=new HashMap();
-			params.put("corpId", corpId);
-			IsvCorpSuiteJsapiTicket  isvcorptoken=isvcorpsuitejsapiticketservice.findOneByParams(params);
-			String accessToken=isvcorptoken.getCorpaccesstoken();
-			Message message=new Message();
-			message.setAgentid(agentId);
-			message.setCode(code);
-			message.setMsgtype("text");
-			message.setTouser(userid);
-			message.setToparty("");
-			Message.text text=new Message.text();
-			text.setContent("张三的请假申请");
-			message.setText(text);
-			System.out.println(JSON.toJSONString(message));
-			JSONObject ss=HttpHelper.httpPost("https://oapi.dingtalk.com/message/sendByCode?access_token="+accessToken, message);
-			return "success";
-		}
+
 }
