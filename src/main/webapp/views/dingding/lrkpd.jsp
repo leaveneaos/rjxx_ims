@@ -39,9 +39,9 @@
 
 			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 
-			<div class="mui-slider-group">
+			<div class="mui-slider-group" id="i">
 
-				<div id="item1mobile" class="mui-slider-item  mui-active">
+				<div id="item1mobile"  class="mui-slider-item mui-control-content mui-active">
 					<div id="scroll1" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-card">
@@ -106,7 +106,7 @@
 					</div>
 				</div>
 
-				<div id="item2mobile" class="mui-slider-item ">
+				<div id="item2mobile"  class="mui-slider-item mui-control-content">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-card">
@@ -117,27 +117,27 @@
 									      <form class="mui-input-group">
 										<div class="mui-input-row">
 											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
-											<input type="text" id="gfmc" class="mui-input-clear" placeholder="发票抬头">
+											<input type="text" id="gfmc" class="mui-input-clear" oninput="kongge(this.value)" placeholder="发票抬头">
 										</div>
 										<div class="mui-input-row">
 											<label><span id="nsrsbh_span">纳税人识别号</span></label>
-											<input type="text"  id="nsrsbh" class="mui-input-clear" placeholder="购方税号，15位至20位">
+											<input type="text"  id="nsrsbh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方税号，15位至20位">
 										</div>
 										<div class="mui-input-row">
 											<label><span id="zcdz_span">购方地址</span></label>
-											<input type="text" id="zcdz" class="mui-input-clear" placeholder="购方注册地址（发票票面左下角显示）">
+											<input type="text" id="zcdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册地址（发票票面左下角显示）">
 										</div>
 										<div class="mui-input-row">
 											<label><span id="zcdh_span">购方电话</span></label>
-											<input type="text" id="zcdh"  class="mui-input-clear" placeholder="购方注册电话，如021-55571833">
+											<input type="text" id="zcdh"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册电话，如021-55571833">
 										</div>
 										<div class="mui-input-row">
 											<label><span id="khyh_span">开户银行</span></label>
-											<input type="text" id="khyh" class="mui-input-clear" placeholder="购方开户银行">
+											<input type="text" id="khyh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方开户银行">
 										</div>
 										<div class="mui-input-row">
 											<label><span id="yhzh_span">银行账户</span></label>
-											<input type="text" id="yhzh" class="mui-input-clear" placeholder="购方银行账户">
+											<input type="text" id="yhzh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方银行账户">
 										</div>
 									</form>
 							            </div>
@@ -152,19 +152,19 @@
 											<form class="mui-input-group">
 												<div class="mui-input-row">
 													<label>联系人</label>
-													<input type="text" id="lxr"  class="mui-input-clear" placeholder="收件人姓名">
+													<input type="text" id="lxr"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人姓名">
 												</div>
 												<div class="mui-input-row">
 													<label>联系电话</label>
-													<input type="text" id="lxdh" class="mui-input-clear" placeholder="收件人联系电话">
+													<input type="text" id="lxdh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话">
 												</div>
 												<div class="mui-input-row">
 													<label>联系地址</label>
-													<input type="text" id="lxdz" class="mui-input-clear" placeholder="收件人详细地址">
+													<input type="text" id="lxdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人详细地址">
 												</div>
 												<div class="mui-input-row">
 													<label>邮件地址</label>
-													<input type="text" id="yjdz" class="mui-input-clear" placeholder="收件人邮箱地址，提示用户发票已开具">
+													<input type="text" id="yjdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人邮箱地址，提示用户发票已开具">
 												</div>
 												<div class="mui-input-row" style="display:none" >
 													<label>提取码</label>
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 
-				<div id="item3mobile" class="mui-slider-item ">
+				<div id="item3mobile"  class="mui-slider-item mui-control-content">
 					<div id="scroll3" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-content">
@@ -261,6 +261,17 @@
 </body>
 <script src="assets/js/format.js"></script>
 <script>
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+    function kongge(value){
+        if (value.indexOf(" ") != -1) {
+            mui.alert('内容有空格请重新输入！', function() {
+                return ;
+            });
+            return;
+        }
+	}
 	function jyspxx(){
        var spdm=$("#lrselect_sp") .val();
        if(spdm==""){
@@ -601,12 +612,16 @@
                         if (xfmc == null || xfmc == "") {
                             mui.alert('请选择销方名称！', function () {
                                 $("#gfmc").focus();
+                                var slider = mui('#slider').slider();
+                                slider.gotoItem(0); //切换至第二个轮播
                             });
                             return;
                         }
                         if (ddh == null || ddh == "") {
                             mui.alert('请输入订单号！', function () {
                                 $("#ddh").focus();
+                                var slider = mui('#slider').slider();
+                                slider.gotoItem(0); //切换至第二个轮播
                             });
                             return;
                         }
@@ -614,36 +629,48 @@
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
                                     $("#gfmc").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
                             if (nsrsbh == null || nsrsbh == "") {
                                 mui.alert('请输入购方纳税人识别号！', function () {
                                     $("#nsrsbh").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
                             if (zcdz == null || zcdz == "") {
                                 mui.alert('请输入购方注册地址！', function () {
                                     $("#zcdz").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
                             if (zcdh == null || zcdh == "") {
                                 mui.alert('请输入购方注册电话！', function () {
                                     $("#zcdh").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
                             if (khyh == null || khyh == "") {
                                 mui.alert('请输入购方开户行名称！', function () {
                                     $("#khyh").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
                             if (yhzh == null || yhzh == "") {
                                 mui.alert('请输入购方银行账号！', function () {
                                     $("#yhzh").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
@@ -652,6 +679,8 @@
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
                                     $("#gfmc").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
@@ -659,6 +688,8 @@
                             if (gfmc == null || gfmc == "") {
                                 mui.alert('请输入购方名称！', function () {
                                     $("#gfmc").focus();
+                                    var slider = mui('#slider').slider();
+                                    slider.gotoItem(1); //切换至第二个轮播
                                 });
                                 return;
                             }
@@ -666,6 +697,8 @@
                         if (str == "") {
                             mui.alert('请填写商品信息！', function () {
                                 $("#lrselect_sp").focus();
+                                var slider = mui('#slider').slider();
+                                slider.gotoItem(2); //切换至第二个轮播
                             });
                             return;
                         }
@@ -673,7 +706,7 @@
                             + "&gfmc=" + gfmc + "&nsrsbh=" + nsrsbh + "&zcdz=" + zcdz + "&zcdh=" + zcdh + "&khyh=" + khyh + "&yhzh=" + yhzh + "&lxr=" + lxr + "&lxdh=" + lxdh
                             + "&lxdz=" + lxdz + "&yjdz=" + yjdz + str + "&mxcount=" + i;
 
-
+						alert(sss);
                         var btnArray = ['否', '是'];
                         var div='<div style="padding-left: 10px;">发票抬头：'+gfmc+'</div><br/>' +
                             '<div style="padding-left: 10px;">发票明细：'+i+'</div><br/>' +
@@ -695,5 +728,6 @@
             }
         });
     });
+
 </script>
 </html>  
