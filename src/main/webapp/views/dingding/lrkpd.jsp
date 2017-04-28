@@ -699,9 +699,9 @@
 
 
                         var btnArray = ['否', '是'];
-                        var div='<div style="padding-left: 10px;">发票抬头：'+gfmc+'</div><br/>' +
-                            '<div style="padding-left: 10px;">发票明细：'+i+'</div><br/>' +
-                            '<div style="padding-left: 10px;">发票金额：'+totaljshj+'</div>'
+                        var div='<div style="float: left;padding-left:55px;font-size: 15px;">发票抬头：'+gfmc+'</div><br/>' +
+                            '<div style="float: left;padding-left: 55px;font-size: 15px;">发票明细：'+i+'</div><br/>' +
+                            '<div style="float: left;padding-left: 55px;font-size: 15px;">发票金额：'+totaljshj+'</div>'+'<br/>'
                         mui.confirm('您确认提交开票申请？', div, btnArray, function (e) {
                             if (e.index == 1) {
                                 $.ajax({
