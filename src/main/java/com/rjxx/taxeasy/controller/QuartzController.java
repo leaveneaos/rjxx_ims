@@ -157,7 +157,6 @@ public class QuartzController extends BaseController{
 	 * @param
 	 * @return
 	 */
-
 	@RequestMapping(value="save",produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public Map save(){
@@ -172,9 +171,15 @@ public class QuartzController extends BaseController{
 		info1.setJobGroup("dingding");
 		info1.setJobDescription("生成或者更新套件token");
 		info1.setCronExpression("0 */30 * * * ?");
+		TaskInfo info2=new TaskInfo();
+		info2.setJobName("com.rjxx.taxeasy.job.DingTskpInfoJob");
+		info2.setJobGroup("dingding");
+		info2.setJobDescription("推送开票信息任务");
+		info2.setCronExpression("0 0/5 * * * ? ");
 		try {
-				taskService.addJob(info);
-			    taskService.addJob(info1);
+				//taskService.addJob(info);
+			    //taskService.addJob(info1);
+			    taskService.addJob(info2);
 			map.put("code","0");
 		} catch (ServiceException e) {
 			map.put("code","1");
