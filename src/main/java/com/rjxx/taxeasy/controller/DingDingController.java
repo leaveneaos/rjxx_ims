@@ -44,10 +44,11 @@ public class DingDingController extends BaseController {
     @RequestMapping
     public String index() throws Exception {
 		String corpid=request.getParameter("corpid");//企业id
-        request.setAttribute("corpid", corpid);
+		System.out.println(corpid);
+		request.setAttribute("corpid", corpid);
         return "dingding/index";
     }
-    
+
     /**
 	 * 获取用户信息
 	 *
