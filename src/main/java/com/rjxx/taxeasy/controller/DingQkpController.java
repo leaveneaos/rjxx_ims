@@ -81,6 +81,9 @@ public class DingQkpController extends BaseController{
 		MessageBody.OABody oaBody=new MessageBody.OABody();
 		MessageBody.OABody.Body body=new MessageBody.OABody.Body();
 		body.setTitle("开票申请信息");
+		MessageBody.OABody.Body.Form form4=new MessageBody.OABody.Body.Form();
+		form4.setKey("发票抬头：");
+		form4.setValue(jyxxsq.getGfmc());
 		MessageBody.OABody.Body.Form form=new MessageBody.OABody.Body.Form();
 		form.setKey("订单号：");
 		form.setValue(jyxxsq.getDdh());
@@ -106,6 +109,7 @@ public class DingQkpController extends BaseController{
 		rich.setUnit("");
 
         List<MessageBody.OABody.Body.Form> forms=new ArrayList<>();
+		forms.add(form4);
 		forms.add(form);
 		forms.add(form1);
 		forms.add(form2);
