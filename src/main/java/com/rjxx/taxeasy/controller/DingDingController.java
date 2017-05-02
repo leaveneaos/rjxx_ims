@@ -86,7 +86,7 @@ public class DingDingController extends BaseController {
 		params.put("corpId", corpId);
 		params.put("userid", userid);
 		Yh yh=yhService.findOneByParams(params);
-		Gsxx gsxx=gsxxService.findOneByParams(params);
+		Gsxx gsxx=gsxxService.findOneByDingCorpid(params);
 		Map map=new HashMap();
 		if(yh==null|gsxx==null){
           map.put("code","0");//该公司信息及账户未在平台中存在
