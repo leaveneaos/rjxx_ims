@@ -84,7 +84,7 @@
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
 										color="red"></font>设备号</label>
 									<div class="am-u-sm-3">
-										<input type="text" id="skph" name="skph" style="float: left;width: 90%;" value=" "
+										<input type="text" id="skph" name="skph" style="float: left;width: 90%;" value=""
 											placeholder="税控盘号"
 											class="am-form-field" />
 											<span onclick="xssbh()" class="am-icon-question" style="color: blue;"></span>

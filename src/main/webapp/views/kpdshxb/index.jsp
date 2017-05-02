@@ -954,7 +954,7 @@ table thead th {
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="dj_edit" class="am-u-sm-2 am-form-label">单价</label>
+									<label for="dj_edit" class="am-u-sm-2 am-form-label">单价(含税)</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrdj_edit" placeholder="输入单价...">
