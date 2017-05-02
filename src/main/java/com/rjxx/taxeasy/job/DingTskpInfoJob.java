@@ -5,10 +5,7 @@ import com.dingtalk.open.client.api.model.corp.MessageBody;
 import com.rjxx.taxeasy.bizcomm.utils.SuiteManageService;
 import com.rjxx.taxeasy.configuration.LightAppMessageDelivery;
 import com.rjxx.taxeasy.configuration.MessageHelper;
-import com.rjxx.taxeasy.domains.IsvCorpApp;
-import com.rjxx.taxeasy.domains.IsvCorpSuiteJsapiTicket;
-import com.rjxx.taxeasy.domains.Kpls;
-import com.rjxx.taxeasy.domains.Kpspmx;
+import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -51,6 +48,8 @@ public class DingTskpInfoJob implements Job {
     private XfService xfService;
     @Autowired
     private JymxsqService jymxsqservice;
+    @Autowired
+    private JylsService jylsService;
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
@@ -77,13 +76,16 @@ public class DingTskpInfoJob implements Job {
                 lightAppMessageDelivery.setMsgType("oa");
                 MessageBody.OABody oaBody=new MessageBody.OABody();
                 MessageBody.OABody.Body body=new MessageBody.OABody.Body();
-                body.setTitle("开票申请信息");
+                body.setTitle("发票开具通知");
                 MessageBody.OABody.Body.Form form0=new MessageBody.OABody.Body.Form();
                 form0.setKey("发票抬头：");
                 form0.setValue(kpls.getGfmc());
                 MessageBody.OABody.Body.Form form=new MessageBody.OABody.Body.Form();
-                form.setKey("单据号：");
-                form.setValue(kpls.getDjh().toString());
+                form.setKey("订单号：");
+                Jyls jyls1=new Jyls();
+                jyls1.setDjh(kpls.getDjh());
+                Jyls jyls=jylsService.findOneByParams(jyls1);
+                form.setValue(jyls.getDdh());
                 MessageBody.OABody.Body.Form form4=new MessageBody.OABody.Body.Form();
                 form4.setKey("发票代码：");
                 form4.setValue(kpls.getFpdm());
@@ -117,7 +119,7 @@ public class DingTskpInfoJob implements Job {
                 forms.add(form1);
                 forms.add(form2);
                 forms.add(form3);
-                body.setContent("您已提交开票申请，内容如下：");
+                body.setContent("您提交的开票申请已开具成功，内容如下：");
                 body.setForm(forms);
                 oaBody.setBody(body);
                 MessageBody.OABody.Head head=new MessageBody.OABody.Head();
@@ -131,7 +133,7 @@ public class DingTskpInfoJob implements Job {
             }
         }catch (Exception e){
             e.printStackTrace();
-            logger.info("钉钉开票信息推送任务执行失败,nextFireTime:{},");
+            logger.info("钉钉开票信息推送任务执行失败{},");
         }
     }
 }
