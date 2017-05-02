@@ -211,9 +211,7 @@
                                   method: 'post',
                                   success : function(data) {
                                       userid=data.userid;
-                                      $("#alertBtn").bind("click",function(){
-                                          window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
-									  });
+
                                   }
                               });
                           },
@@ -221,6 +219,23 @@
                               alert('fail: ' + json.stringify(err));
                           }
                       });
+                      $("#alertBtn").bind("click",function(){
+                          $.ajax({
+                              url : 'ding/getsqzhinfo',
+                              data: {"userid":userid,"corpid":corpId},
+                              method: 'post',
+                              success : function(data) {
+                                  if(data.code=="0"){
+                                      mui.alert('您还不是开票通用户！请注册后使用', function () {
+                                         return;
+                                      });
+								  }else{
+                                      window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
+                                  }
+                              }
+                          });
+                      });
+
                   });
 
                   dd.error(function(err) {
