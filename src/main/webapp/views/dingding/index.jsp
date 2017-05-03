@@ -225,13 +225,14 @@
                               data: {"userid":userid,"corpid":corpId},
                               method: 'post',
                               success : function(data) {
-                                  if(data.code=="0"){
+                                  /*if(data.code=="0"){
                                       mui.alert('您还不是开票通用户！请注册后使用', function () {
                                          return;
                                       });
 								  }else{
-                                      window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
-                                  }
+                                  }*/
+                                  window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
+
                               }
                           });
                       });

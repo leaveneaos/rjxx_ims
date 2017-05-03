@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.headers().frameOptions().sameOrigin();
+    	http.headers().frameOptions().sameOrigin().disable();
         http.authorizeRequests()
                 .antMatchers("/extractInvoice/**","/tqm/**", "/login", "/login/**", "/assets/**",
                         "/css/**", "/img/**", "/js/**","/fonts/**", "/image.jsp", "/zc/**","/*.jsp","/wxdy/wxCallBack","/ding/**","/dinglrkpd/**","/dingqkp/**","/lrkpd/getSpxq","/suiteCallBackController/**","/dingpc/**").permitAll()

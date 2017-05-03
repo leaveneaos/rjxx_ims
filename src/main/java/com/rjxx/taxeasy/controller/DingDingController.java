@@ -88,8 +88,12 @@ public class DingDingController extends BaseController {
 		Yh yh=yhService.findOneByParams(params);
 		Gsxx gsxx=gsxxService.findOneByDingCorpid(params);
 		Map map=new HashMap();
-		if(yh==null|gsxx==null){
-          map.put("code","0");//该公司信息及账户未在平台中存在
+		if(gsxx==null){
+			if(yh==null){
+				map.put("code","0");//该公司信息及账户未在平台中存在
+			}else if(yh.getSup()!="1"){
+				map.put("code","1 ");//该公司信息及账户未在平台中存在
+			}
 		}
 		return map;
 	}
