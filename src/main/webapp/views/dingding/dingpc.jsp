@@ -41,9 +41,7 @@
 <script>
 	$(function(){
 	    $("#alertBtn").click(function(){
-            mui.openWindow({
-                url: 'http://test.datarj.com/ims/login/login'
-            });
+             window.location.href= 'http://test.datarj.com/ims/login/login';
 		});
 	});
 </script>
