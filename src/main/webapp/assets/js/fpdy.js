@@ -368,15 +368,16 @@ $(function () {
            	$("#my-alert").modal('open');
                return;
            }
-		    	if(kplsh.length>1){
+		    	if(kplsh.length>=1){
+    	             if(kplsh.length>1){
 		    		 if(fplx==""){
 		     			$("#alertt").html("请选择发票类型查询后再批量重打！");
 		               	$("#my-alert").modal('open');
 		               	fphm=[];
 		 	          	fpdm=[];
 		                 return;
-		     	 }
-		    		
+		     	        }
+                     }
 		    		if(confirm("确定要重新打印该条数据吗？")){
 		    			//alert(fphm);alert(fpdm);alert(kplsh);
 		        		$.ajax({
