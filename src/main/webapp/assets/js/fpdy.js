@@ -350,6 +350,11 @@ $(function () {
        	   kplsh.push($(this).val()); 
           });
     	 var fplx=$("#s_fplx").val();
+    	 if(fplx==""){
+             $("#alertt").html("请选择发票类型！");
+             $("#my-alert").modal('open');
+             return;
+         }
     	 if(fplx=="12"){
     		 if (kplsh.length == 0) {
     	           	$("#alertt").html("请勾选需要重打的开票流水");
