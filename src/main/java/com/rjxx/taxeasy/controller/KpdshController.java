@@ -779,8 +779,6 @@ public class KpdshController extends BaseController {
 		jyls1.setXgry(getYhid());
 		jyls1.setXgsj(TimeUtil.getNowDate());
 		jyls1.setSkpid(jyxxsq.getSkpid());
-		jyls1.setDingcorpid(jyxxsq.getDingcorpid());
-		jyls1.setDinguserid(jyxxsq.getDinguserid());
 		jylsService.save(jyls1);
 		return jyls1;
 	}
