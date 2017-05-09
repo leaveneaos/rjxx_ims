@@ -579,7 +579,7 @@ $(function() {
 		            {"data": function (data) {
 		                    if (data.sps) {
 		                        return FormatFloat(data.sps,
-		                            "###,###.00");
+		                            "###,###.000000");
 		                    }else{
 		                        return null;
 		                    }
@@ -590,7 +590,7 @@ $(function() {
 		            {"data": function (data) {
 		                    if (data.spdj) {
 		                        return FormatFloat(data.spdj,
-		                            "###,###.00");
+		                            "###,###.000000");
 		                    }else{
 		                        return null;
 		                    }

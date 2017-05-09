@@ -88,6 +88,7 @@
 										<th>是否含税</th>
 										<th>是否打印清单</th>
 										<th>是否强制分票</th>
+										<th>是否按商品整数分票</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -198,16 +199,24 @@
 															</div>
 														</div>
 															<div class="am-u-sm-12">
-															<div class="am-form-group">
-																	<label for="qdbz" class="am-u-lg-4 am-form-label">清单标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-2">
-																	<input id="qdbz" value="1" type="checkbox" name="qdbz">
-																</div>
-																<label for="qzfp" class="am-u-lg-4 am-form-label">强制分票</label>
-																<div style="margin-top: 10px;" class="am-u-lg-2">
-																	<input id="qzfp" value="1" type="checkbox" name="sfqzfp">
-																</div>
+																	<div class="am-form-group">
+																			<label for="qdbz" class="am-u-lg-4 am-form-label">清单标志</label>
+																		<div style="margin-top: 10px;" class="am-u-lg-2">
+																			<input id="qdbz" value="1" type="checkbox" name="qdbz">
+																		</div>
+																		<label for="qzfp" class="am-u-lg-4 am-form-label">强制分票</label>
+																		<div style="margin-top: 10px;" class="am-u-lg-2">
+																			<input id="qzfp" value="1" type="checkbox" name="sfqzfp">
+																		</div>
+																	</div>
 															</div>
+															<div class="am-u-sm-12">
+																<div class="am-form-group">
+																	<label for="sfspzsfp" class="am-u-lg-4 am-form-label">商品整数分票</label>
+																	<div style="margin-top: 10px;" class="am-u-lg-2">
+																		<input id="sfspzsfp" value="1" type="checkbox" name="sfspzsfp">
+																	</div>
+																</div>
 															</div>
 														<div class="am-u-sm-12">
 															<div class="am-form-group">
