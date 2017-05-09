@@ -515,7 +515,9 @@ public class KpdshController extends BaseController {
 			int fphs2 = 100;
 			double zdje = 0d;
 			boolean flag = false;
-			boolean qzfp = true;
+			boolean qzfp = true;//是否强制分票
+			boolean spzsfp = true;//是否按商品整数分票
+
 			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 			Xf x = new Xf();
 			x.setGsdm(getGsdm());
@@ -538,6 +540,9 @@ public class KpdshController extends BaseController {
 						if (fpgz.getSfqzfp().equals("0")) {
 							qzfp = false;
 						}
+						if (fpgz.getSfspzsfp().equals("0")) {
+							spzsfp = false;
+						}
 						flag = true;
 						break;
 					}
@@ -558,6 +563,9 @@ public class KpdshController extends BaseController {
 						if (fpgz2.getSfqzfp().equals("0")) {
 							qzfp = false;
 						}
+						if (fpgz2.getSfspzsfp().equals("0")) {
+							spzsfp = false;
+						}
 					}
 				}
 			}
@@ -573,18 +581,18 @@ public class KpdshController extends BaseController {
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);
 				} else {
 					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);
 				}
 			} else {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);
 				} else {
 					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp);
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);
 				}
 			}
 			// 保存进交易流水
@@ -779,8 +787,7 @@ public class KpdshController extends BaseController {
 		jyls1.setXgry(getYhid());
 		jyls1.setXgsj(TimeUtil.getNowDate());
 		jyls1.setSkpid(jyxxsq.getSkpid());
-		jyls1.setDingcorpid(jyxxsq.getDingcorpid());
-		jyls1.setDinguserid(jyxxsq.getDinguserid());
+
 		jylsService.save(jyls1);
 		return jyls1;
 	}

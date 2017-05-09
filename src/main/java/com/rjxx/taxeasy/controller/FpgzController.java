@@ -75,6 +75,9 @@ public class FpgzController extends BaseController{
 		if (null==fpgz.getSfqzfp()) {
 			fpgz.setSfqzfp("0");
 		}
+		if (null==fpgz.getSfspzsfp()) {//是否按商品整数分票
+			fpgz.setSfspzsfp("0");
+		}
 		String xfs="";
 		if (null==xfid||xfid.length==0) {
 			
@@ -149,6 +152,9 @@ public class FpgzController extends BaseController{
 		}
 		if (null==fpgz.getSfqzfp()) {
 			fpgz.setSfqzfp("0");
+		}
+		if (null==fpgz.getSfspzsfp()) {//是否按商品整数分票
+			fpgz.setSfspzsfp("0");
 		}
 		fpgz.setYxbz("1");
 		fpgz.setLrry(fpgz2.getLrry());

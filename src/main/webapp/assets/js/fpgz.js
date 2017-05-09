@@ -159,12 +159,19 @@ $("#qdbz").change(function () {
                                        return "否";
                                    }
                                }},
-                        {
-                            "data": null,
-                            "render": function (data) {
-                            		return '<a class="xiugai">修改</a>  '/*+'<a class="shanchu">删除</a>'*/;                
-                            }
-                        }]
+								{"data":function (data) {
+									if (data.sfspzsfp==1) {
+										return "是";
+									}else{
+										return "否";
+									}
+								}},
+								{
+									"data": null,
+									"render": function (data) {
+											return '<a class="xiugai">修改</a>  '/*+'<a class="shanchu">删除</a>'*/;
+									}
+								}]
                 });
 			// 新增
 			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
@@ -173,12 +180,15 @@ $("#qdbz").change(function () {
 				$("#hsbz").attr("checked",false);
 				$("#qdbz").attr("checked",false);
 				$("#qzfp").attr("checked",false);
-				$(".chk").show();
+                $("#sfspzsfp").attr("checked",false);
+
+                $(".chk").show();
 				 var t01 = $("#jyls_table tbody tr").length;
 				 for(var i = 0;i<t01;i++){
 					 var row =  t.row(i).data();
 					 if(typeof(row)!="undefined"){
 						 var xfds = row.xfids.split(',');
+
 							for(var j in xfds){
 								var bz = "#type-"+xfds[j];
 								$(bz).hide();
@@ -192,7 +202,7 @@ $("#qdbz").change(function () {
 			});
 			//删除
 			$("#gz_scgz").on('click', $("#gz_scgz"), function() {
-			      var djhArr = [];
+                var djhArr = [];
 		         $('input[name="gzdxk"]:checked').each(function(){    
 		                djhArr.push($(this).val()); 
 		        });
@@ -264,6 +274,11 @@ $("#qdbz").change(function () {
 				}else{
 					$("#qzfp").attr("checked",false);
 				}
+                if(row.sfspzsfp=="1"){
+                    $("#sfspzsfp").attr("checked","checked");
+                }else{
+                    $("#sfspzsfp").attr("checked",false);
+                }
 				if(row.qdbz=="1"){
 					$("#qdbz").attr("checked","checked");
 					$("#zphs").attr("required",false);
@@ -281,7 +296,7 @@ $("#qdbz").change(function () {
 			    	$("#dzphs").attr("readonly",false);
 			      	$("#zphs").attr("required",true);
 			    	$("#pphs").attr("required",true);
-			       $("#dzphs").attr("required",true);
+			        $("#dzphs").attr("required",true);
 					$("#qdbz").attr("checked",false);
 				}
 				$("#idd").val(row.id);
