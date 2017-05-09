@@ -177,8 +177,7 @@ public class DingLrKpdController extends BaseController{
         com.rjxx.taxeasy.domains.Xf xf = xfService.findOne(Integer.parseInt(xfid));
         Jyxxsq jyxxsq=new Jyxxsq();
         int yhid = getYhid();
-        jyxxsq.setDingcorpid(corpid);
-        jyxxsq.setDinguserid(userid);
+
         jyxxsq.setBz(bz);
         jyxxsq.setDdh(ddh);
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
