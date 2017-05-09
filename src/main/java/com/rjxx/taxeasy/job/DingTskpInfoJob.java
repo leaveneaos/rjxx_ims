@@ -55,7 +55,7 @@ public class DingTskpInfoJob implements Job {
 
         logger.info("钉钉开票信息推送任务执行开始,nextFireTime:{},"+context.getNextFireTime());
         try{
-            Map map =new HashMap<>();
+            /*Map map =new HashMap<>();
             List<Kpls> kplslist=kplsService.findDingdingTsInfo(map);
             for(Kpls kpls:kplslist){
                 Map map2=new HashMap();
@@ -130,7 +130,7 @@ public class DingTskpInfoJob implements Job {
                 System.out.println(JSON.toJSON(oaBody));
                 MessageHelper.Receipt receipt=MessageHelper.send(accessToken,lightAppMessageDelivery);
                 System.out.println(JSON.toJSON(receipt));
-            }
+            }*/
         }catch (Exception e){
             e.printStackTrace();
             logger.info("钉钉开票信息推送任务执行失败{},");
