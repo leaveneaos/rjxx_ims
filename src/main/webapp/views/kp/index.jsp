@@ -485,6 +485,7 @@
 															<th>购方名称</th>
 															<th>开票日期</th>
 															<th>发票状态</th>
+															<th>发送打印状态</th>
 														</tr>
 													</thead>
 												</table>

@@ -85,7 +85,9 @@ $(function() {
 						"data" : "kprq"
 					}, {
 						"data" : "fpzt"
-					} ]
+					},{
+                    "data" : "sfdy"
+                    } ]
 			$.ajax({
 				url : 'zdyl/query',
 				type : 'POST', //GET
@@ -616,8 +618,29 @@ $(function() {
 									$('#kp_kpdy').removeAttr("disabled");
 									$('#kp_del').removeAttr("disabled");
 								} else {
-									$("#alertt").html(data.msg);
-									$("#my-alert").modal('open');
+									/*$("#alertt").html(data.msg+",您是否离线开票！");
+									$("#my-alert").modal('open');*/
+                                    if (confirm(data.msg+"，您是否离线开票！")) {
+                                        $.ajax({
+                                            url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
+                                                if (data.success) {
+                                                    $('#kp_kp').removeAttr("disabled");
+                                                    $('#kp_kpdy').removeAttr("disabled");
+                                                    $('#kp_del').removeAttr("disabled");
+                                                    $("#alertt").html("申请开票成功");
+                                                    $("#my-alert").modal('open');
+                                                    jyls_table.ajax.reload();
+                                                } else {
+                                                    $('#kp_kp').removeAttr("disabled");
+                                                    $('#kp_kpdy').removeAttr("disabled");
+                                                    $('#kp_del').removeAttr("disabled");
+                                                    jyls_table.ajax.reload();
+                                                    $("#alertt").html(data.msg);
+                                                    $("#my-alert").modal('open');
+                                                }
+                                            }
+                                        });
+                                    }
 									$('#kp_kp').removeAttr("disabled");
 									$('#kp_kpdy').removeAttr("disabled");
 									$('#kp_del').removeAttr("disabled");

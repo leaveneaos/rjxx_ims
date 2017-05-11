@@ -84,9 +84,7 @@ public class ZdylController extends BaseController {
 				da.add(yhCxzdyl.getZddm());
 			}
 			bt += "<th>" + yhCxzdyl.getZdzwm() + "</th>";
-
 		}
-	/*	bt += "<th>操作</th>";*/
 		result.put("bt", bt);
 		result.put("da", da);
 		result.put("list", list);
@@ -114,7 +112,6 @@ public class ZdylController extends BaseController {
 			y.setXgry(getYhid());
 			yhdczdylService.save(y);
 		}
-	
 		if (null != columns) {
 			for (String string : columns) {
 				YhDczdyl yhDczdyl = new YhDczdyl();
@@ -129,7 +126,6 @@ public class ZdylController extends BaseController {
 				yhdczdylService.save(yhDczdyl);
 			}
 		}
-
 		result.put("msg", "保存成功!");
 		return result;
 	}
@@ -141,7 +137,6 @@ public class ZdylController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("yhid", getYhid());
 		List<DczydlVo> list = yhdczdylService.findAllByParams(params);
-
 		result.put("list", list);
 		return result;
 	}
