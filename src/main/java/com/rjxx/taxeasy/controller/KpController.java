@@ -14,6 +14,8 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -31,31 +33,7 @@ import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
-import com.rjxx.taxeasy.domains.Cszb;
-import com.rjxx.taxeasy.domains.DrPz;
-import com.rjxx.taxeasy.domains.Drmb;
-import com.rjxx.taxeasy.domains.Fpzt;
-import com.rjxx.taxeasy.domains.Gsxx;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Jyspmx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Sm;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.domains.XfMb;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.CsbService;
-import com.rjxx.taxeasy.service.CszbService;
-import com.rjxx.taxeasy.service.DrPzService;
-import com.rjxx.taxeasy.service.DrmbService;
-import com.rjxx.taxeasy.service.FpztService;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.JyspmxService;
-import com.rjxx.taxeasy.service.SmService;
-import com.rjxx.taxeasy.service.SpvoService;
-import com.rjxx.taxeasy.service.XfMbService;
-import com.rjxx.taxeasy.service.XfService;
-import com.rjxx.taxeasy.service.YhcljlService;
 import com.rjxx.taxeasy.vo.JyspmxVo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -113,6 +91,8 @@ public class KpController extends BaseController {
 
 	@Autowired
 	GsxxService gsxxService;
+	@Autowired
+	KplsService kplsService;
 
 	/**
 	 * 页面初始化
@@ -1313,7 +1293,7 @@ public class KpController extends BaseController {
 	/**
 	 * 开票
 	 *
-	 * @param djhArr
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value = "/doAllKp")
@@ -1672,7 +1652,40 @@ public class KpController extends BaseController {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * 发票重新开具功能
+	 * @param kplshs
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/fpck")
+	@ResponseBody
+	public Map fpck(String kplshs) throws Exception {
+		Map<String, Object> result = new HashMap<>();
+		String []kpsqh= kplshs.split(",");
+        for(int i=0;i<kpsqh.length;i++){
+            Kpls kpls=kplsService.findOne(Integer.parseInt(kpsqh[i]));
+            if(!kpls.getFpztdm().equals("05")){
+				result.put("success", false);
+				result.put("msg", "第"+(i+1)+"条流水不是开具失败的发票流水，请重新选择！");
+				return result;
+			}else{
+				kpls.setFpztdm("04");
+				try{
+					kplsService.save(kpls);
+					result.put("success", true);
+					result.put("msg", "重新开具成功！");
+					return result;
+				}catch (Exception e){
+					result.put("success", false);
+					result.put("msg", "第"+(i+1)+"条流水重新开具失败！");
+					return result;
+				}
+            }
+		}
+		return result;
+	}
 	@RequestMapping(value = "/kpyl")
 	public String kpyl(String kpsqhs) throws Exception {
 		Map<String, Object> result = new HashMap<>();

@@ -5,9 +5,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>税控设备信息注册</title>
-<meta name="description" content="用户管理">
-<meta name="keywords" content="用户管理">
+<title>开票点管理</title>
+<meta name="description" content="开票点管理">
+<meta name="keywords" content="开票点管理">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">

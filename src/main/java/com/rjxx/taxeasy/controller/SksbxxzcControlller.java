@@ -280,7 +280,7 @@ public class SksbxxzcControlller extends BaseController {
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	@SystemControllerLog(description = "修改开票点",key = "id")  
-	public Map update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
+	public Map  update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
 			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
