@@ -958,15 +958,20 @@
       <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
     </div>
     <div class="am-modal-bd">
-    <div style="margin-top: 10px;">
-     	发票代码: <input id="fpdm2" type="text" disabled="disabled"></div>
-       <div style="margin-top: 10px;">	发票号码: <input id="fphm2" type="text" disabled="disabled"></div>
-     	  <div style="margin-top: 20px;"><button id="kp_kp"
-  type="button"
-  class="am-btn am-btn-primary"
-  data-am-modal="{target: '#doc-modal-fphm', closeViaDimmer: 0, width: 400, height: 225}">
-   确认开票
-</button></div>
+		<div style="margin-top: 10px;">
+			发票类型: <input id="fplxmc" type="text" disabled="disabled">
+		</div>
+		<div style="margin-top: 10px;">
+			发票代码: <input id="fpdm2" type="text" disabled="disabled">
+		</div>
+		<div style="margin-top: 10px;">
+			发票号码: <input id="fphm2" type="text" disabled="disabled">
+		</div>
+		<div style="margin-top: 20px;">
+			<button id="kp_kp" type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#doc-modal-fphm', closeViaDimmer: 0, width: 400, height: 225}">
+			   确认开票
+			</button>
+		</div>
     </div>
   </div>
 </div>
@@ -978,14 +983,20 @@
 			</div>
 			<div class="am-modal-bd">
 				<div style="margin-top: 10px;">
-					发票代码: <input id="fpdm3" type="text" disabled="disabled"></div>
-				<div style="margin-top: 10px;">	发票号码: <input id="fphm3" type="text" disabled="disabled"></div>
-				<div style="margin-top: 20px;"><button id="fpckqr"
-													   type="button"
-													   class="am-btn am-btn-primary"
-													   data-am-modal="{target: '#doc-modal-fpck', closeViaDimmer: 0, width: 400, height: 225}">
+					发票类型: <input id="fplxmc1" type="text" disabled="disabled">
+				</div>
+				<div style="margin-top: 10px;">
+					发票代码: <input id="fpdm3" type="text" disabled="disabled">
+				</div>
+				<div style="margin-top: 10px;">
+					发票号码: <input id="fphm3" type="text" disabled="disabled">
+				</div>
+				<div style="margin-top: 20px;">
+					<button id="fpckqr" type="button" class="am-btn am-btn-primary"
+					data-am-modal="{target: '#doc-modal-fpck', closeViaDimmer: 0, width: 400, height: 225}">
 					确认重新开具
-				</button></div>
+				    </button>
+				</div>
 			</div>
 		</div>
 	</div>

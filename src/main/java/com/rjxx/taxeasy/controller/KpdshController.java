@@ -290,11 +290,24 @@ public class KpdshController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/getMx")
-	public Map<String, Object> getMx(String sqlsh) throws Exception {
+	public Map<String, Object> getMx(int length, int start, int draw,String sqlsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<>();
-		params.put("sqlsh", sqlsh);
-		List<Jymxsq> ykfpList = jymxsqService.findAllByParams(params);
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		String []sqlshs=sqlsh.split(",");
+		List sqlshlist=new ArrayList();
+		for(int i=0;i<sqlshs.length;i++){
+			//if(!"0".equals(sqlshs[i])){
+				sqlshlist.add(sqlshs[i]);
+			//}
+		}
+		pagination.addParam("sqlshlist",sqlshlist);
+		List<Jymxsq> ykfpList = jymxsqService.findByPage(pagination);
+		int total = pagination.getTotalRecord();
+		result.put("recordsTotal", total);
+		result.put("recordsFiltered", total);
+		result.put("draw", draw);
 		result.put("data", ykfpList);
 		return result;
 	}

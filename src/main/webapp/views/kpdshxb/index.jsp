@@ -5,8 +5,8 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>发票开具</title>
-<meta name="description" content="发票开具">
+<title>开票流水处理</title>
+<meta name="description" content="开票流水处理">
 <meta name="keywords" content="user">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -212,7 +212,6 @@ table thead th {
 														<tr>
 															<th><input type="checkbox" id="check_all" /></th>
 															<th>序号</th>
-															<!-- 	<th hidden="true">id</th> -->
 															<th>订单号</th>
 															<th>订单日期</th>
 															<th>数据来源</th>
@@ -261,11 +260,6 @@ table thead th {
 											</table>
 										</div>
 									</div>
-
-									<!-- content end -->
-
-
-
 								</div>
 							</div>
 							<div id="cljg" class="am-tab-panel">
@@ -274,11 +268,6 @@ table thead th {
 									class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 									id="mxTable3">
 									<thead>
-										<!-- 		 	<div style="width:100%;height:30px;background-color:#4B677D">
-															<div style="width:33%;float:left;line-height:30px;font-size:15px;color:#ffffff;font-weight:900" >&nbsp;商品金额：<input id="xsje" type="text" border="0" disabled="disabled"></div>
-															<div style="width:33%;float:left;line-height:30px;font-size:15px;color:#ffffff;font-weight:900" >商品税额：<input id="xsse" type="text" border="0" disabled="disabled"></div>
-															<div style="width:33%;float:left;line-height:30px;font-size:15px;color:#ffffff;font-weight:900" >价税合计：<input id="xsjshj" type="text" border="0" disabled="disabled"></div>
-														</div>  -->
 										<tr>
 											<th>数据条数</th>
 											<th>发票序号</th>
@@ -509,7 +498,7 @@ table thead th {
 					<fieldset>
 						<input type="hidden" name="sqlsh" id="formid">
 						<div class="am-form-group">
-							<label for="xfid_edit" class="am-u-sm-2 am-form-label"><span
+							<label for="select_xfid" class="am-u-sm-2 am-form-label"><span
 								style="color: red;">*</span>销方名称</label>
 							<div class="am-u-sm-4">
 								<select id="select_xfid" name="xfsh" required>
@@ -519,7 +508,7 @@ table thead th {
 									</c:forEach>
 								</select>
 							</div>
-							<label for="skpid_edit" class="am-u-sm-2 am-form-label"><span
+							<label for="select_skpid" class="am-u-sm-2 am-form-label"><span
 								style="color: red;">*</span>开票点名称</label>
 							<div class="am-u-sm-4">
 								<select id="select_skpid" name="skpid" required>
@@ -537,7 +526,7 @@ table thead th {
 									<option value="02">增值税普通发票</option>
 								</select>
 							</div>
-							<label for="skpid_gfdh" class="am-u-sm-2 am-form-label">购方电话</label>
+							<label for="gfdh_edit" class="am-u-sm-2 am-form-label">购方电话</label>
 							<div class="am-u-sm-4">
 								<input type="text" id="gfdh_edit" maxlength="50" name="gfdh"
 									placeholder="输入电话号码...">
@@ -612,7 +601,7 @@ table thead th {
 						</div>
 						<div class="am-form-group">
 
-							<label for="gfbz_edit" class="am-u-sm-2 am-form-label">备注</label>
+							<label for="bz" class="am-u-sm-2 am-form-label">备注</label>
 
 							<div class="am-u-sm-10">
 								<input type="text" id="bz" name="bz" placeholder="输入备注信息..."
@@ -665,7 +654,7 @@ table thead th {
 					</div>
 					<div class="am-u-lg-12">
 						<div class="am-form-group">
-							<label for="mx_dw" class="am-u-sm-4 am-form-label">商品单位</label>
+							<label for="mx_spdw" class="am-u-sm-4 am-form-label">商品单位</label>
 							<div class="am-u-sm-8">
 								<input id="mx_spdw" type="text" name="spdw"
 									class="am-form-field" placeholder="商品单位">
@@ -774,7 +763,7 @@ table thead th {
 							<fieldset>
 								<input type="hidden" id="formid">
 								<div class="am-form-group">
-									<label for="xfid_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrselect_xfid" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>销方名称</label>
 									<div class="am-u-sm-4">
 										<select id="lrselect_xfid" name="lrxfid_edit"
@@ -785,7 +774,7 @@ table thead th {
 											</c:forEach>
 										</select>
 									</div>
-									<label for="skpid_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrselect_skpid" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>开票点名称</label>
 									<div class="am-u-sm-4">
 										<select id="lrselect_skpid" name="lrskpid_edit" required>
@@ -794,7 +783,7 @@ table thead th {
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="fpzl_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrfpzl_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>发票种类</label>
 
 									<div class="am-u-sm-4 am-u-end">
@@ -832,7 +821,7 @@ table thead th {
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="gfzh_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrgfzh_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red; display: none" id="lrspan_gfyhzh">*</span>银行账号</label>
 
 									<div class="am-u-sm-4">
@@ -866,7 +855,7 @@ table thead th {
 										<input type="text" id="lrgfdz_edit" name="lrgfdz_edit"
 											placeholder="输入购方地址...">
 									</div>
-									<label for="tqm_edit" class="am-u-sm-2 am-form-label">提取码</label>
+									<label for="lrtqm_edit" class="am-u-sm-2 am-form-label">提取码</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrtqm_edit" name="lrtqm_edit"
@@ -890,7 +879,7 @@ table thead th {
 								</div>
 								<div class="am-form-group">
 
-									<label for="gfbz_edit" class="am-u-sm-2 am-form-label">备注</label>
+									<label for="lrgfbz_edit" class="am-u-sm-2 am-form-label">备注</label>
 
 									<div class="am-u-sm-10">
 										<input type="text" id="lrgfbz_edit" name="lrgfbz_edit"
@@ -909,7 +898,7 @@ table thead th {
 						<form class="am-form am-form-horizontal" id="lrmx_form">
 							<fieldset>
 								<div class="am-form-group">
-									<label for="select_sp" class="am-u-sm-2 am-form-label">选择商品</label>
+									<label for="lrselect_sp" class="am-u-sm-2 am-form-label">选择商品</label>
 
 									<div class="am-u-sm-4">
 										<select id="lrselect_sp" name="lrselect_sp">
@@ -920,7 +909,7 @@ table thead th {
 										</select>
 									</div>
 
-									<label for="spdm_edit" class="am-u-sm-2 am-form-label">商品代码</label>
+									<label for="lrspdm_edit" class="am-u-sm-2 am-form-label">商品代码</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrspdm_edit" placeholder="输入商品代码..."
@@ -928,38 +917,38 @@ table thead th {
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="mc_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrmc_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>名称</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrmc_edit" placeholder="输入名称..."
 											required>
 									</div>
-									<label for="ggxh_edit" class="am-u-sm-2 am-form-label">规格型号</label>
+									<label for="lrggxh_edit" class="am-u-sm-2 am-form-label">规格型号</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrggxh_edit" placeholder="输入规格型号...">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="dw_edit" class="am-u-sm-2 am-form-label">单位</label>
+									<label for="lrdw_edit" class="am-u-sm-2 am-form-label">单位</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrdw_edit" placeholder="输入单位...">
 									</div>
-									<label for="sl_edit" class="am-u-sm-2 am-form-label">数量</label>
+									<label for="lrsl_edit" class="am-u-sm-2 am-form-label">数量</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrsl_edit" placeholder="输入数量...">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="dj_edit" class="am-u-sm-2 am-form-label">单价(含税)</label>
+									<label for="lrdj_edit" class="am-u-sm-2 am-form-label">单价(含税)</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrdj_edit" placeholder="输入单价...">
 									</div>
-									<label for="je_edit" class="am-u-sm-2 am-form-label"
+									<label for="lrje_edit" class="am-u-sm-2 am-form-label"
 										style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
 
 									<div class="am-u-sm-4">
@@ -967,7 +956,7 @@ table thead th {
 											required>
 									</div>
 								</div>
-								<label for="hsje_edit" class="am-u-sm-2 am-form-label"><span
+								<label for="lrhsje_edit" class="am-u-sm-2 am-form-label"><span
 									style="color: red;">*</span>金额(含税)</label>
 
 								<div class="am-u-sm-4">
@@ -975,7 +964,7 @@ table thead th {
 										required>
 								</div>
 								<div class="am-form-group">
-									<label for="jshj_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrjshj_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>价税合计</label>
 
 									<div class="am-u-sm-4">
@@ -984,14 +973,14 @@ table thead th {
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="sltaxrate_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrsltaxrate_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>税率</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrsltaxrate_edit" value="0.17"
 											placeholder="" required readonly>
 									</div>
-									<label for="se_edit" class="am-u-sm-2 am-form-label"><span
+									<label for="lrse_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>税额</label>
 
 									<div class="am-u-sm-4">
@@ -1147,14 +1136,6 @@ table thead th {
 			</div>
 		</div>
 	</div>
-		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-		<div class="am-modal-dialog">
-			<div id="alertt" class="am-modal-bd">Hello world！</div>
-			<div class="am-modal-footer">
-				<span class="am-modal-btn">确定</span>
-			</div>
-		</div>
-	</div>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.form.js"></script>
 	<!--<![endif]-->
@@ -1177,20 +1158,6 @@ table thead th {
 			var $tab = $('#doc-tab-demo-1');
 			tabCounter++;
 			$tab.tabs('refresh');
-			/* 	    function addTab() {
-			 var nav = '<li><a href="javascript: void(0)">标签 ' + tabCounter + '</a></li>';
-			 var content = '<div class="am-tab-panel">动态插入的标签内容' + tabCounter + '</div>';
-
-			 $("#btbq li").eq(0).after(nav);
-			 $("#test").before(content);
-			
-			 $tab.tabs('refresh');
-			 }
-
-			 // 动态添加标签页
-			 $('.js-append-tab').on('click', function() {
-			 addTab();
-			 }); */
 		});
 	</script>
 	<script>
