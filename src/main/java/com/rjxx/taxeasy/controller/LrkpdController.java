@@ -1414,6 +1414,17 @@ public class LrkpdController extends BaseController {
                     msg += msgg;
                 }
             }
+            if (mxsq.getSpdj() != null && mxsq.getSps() != null && mxsq.getSpje() != null) {
+                double res = mxsq.getSpdj() * mxsq.getSps();
+                BigDecimal big1 = new BigDecimal(res);
+                big1 = big1.setScale(2, BigDecimal.ROUND_HALF_UP);
+                BigDecimal big2 = new BigDecimal(mxsq.getSpje());
+                big2 = big2.setScale(2, BigDecimal.ROUND_HALF_UP);
+                if (big1.compareTo(big2) != 0) {
+                    msgg = "第" + (i + 2) + "行商品单价，商品数量，商品金额之间的计算校验不通过，请检查！";
+                    msg += msgg;
+                }
+            }
         }
         List<String> jylshList = new ArrayList<>();
         // 判断1条交易流水号不能对应对个购方名称
