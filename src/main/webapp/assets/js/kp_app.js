@@ -537,12 +537,10 @@ $(function() {
 	            $("#kp_kpdy").attr('disabled',"true"); 
 	            $("#kp_del").attr('disabled',"true"); 
 	            $("#conft").html("确认开票吗")
-	        if (!confirm("确认开票吗")) {
+
 	        	$('#kp_kp').removeAttr("disabled"); 
 	        	$('#kp_kpdy').removeAttr("disabled"); 
 	        	$('#kp_del').removeAttr("disabled"); 
-							return;
-						} 
 	            $.ajax({
 	                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
 	                    if (data.success) {
@@ -607,19 +605,27 @@ $(function() {
 	            if(flag){
 	                $("#kp_kp").attr('disabled',"true"); 
 	                $("#kp_kpdy").attr('disabled',"true"); 
-	                $("#kp_del").attr('disabled',"true"); 
+	                $("#kp_del").attr('disabled',"true");
+	                if(fpzldm!="12"){
 						$.ajax({
 							url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
 								if (data.success) {
 									$("#doc-modal-fphm").modal("open");
+                                    if(fpzldm=="12"){
+                                        $("#fplxmc").val("电子发票(增普)");
+									}
+                                    if(fpzldm=="02"){
+                                        $("#fplxmc").val("增值税普通发票");
+                                    }
+                                    if(fpzldm=="01"){
+                                        $("#fplxmc").val("增值税专用发票");
+                                    }
 									$("#fpdm2").val(data.fpdm);
 									$("#fphm2").val(data.fphm);
 									$('#kp_kp').removeAttr("disabled");
 									$('#kp_kpdy').removeAttr("disabled");
 									$('#kp_del').removeAttr("disabled");
 								} else {
-									/*$("#alertt").html(data.msg+",您是否离线开票！");
-									$("#my-alert").modal('open');*/
                                     if (confirm(data.msg+"，您是否离线开票！")) {
                                         $.ajax({
                                             url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
@@ -647,9 +653,30 @@ $(function() {
 								}
 							}
 						});
-	        	   
+                    }else{
+                        if (confirm("您确认开票吗?")) {
+                            $.ajax({
+                                url: "kp/doKp", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, success: function (data) {
+                                    if (data.success) {
+                                        $('#kp_kp').removeAttr("disabled");
+                                        $('#kp_kpdy').removeAttr("disabled");
+                                        $('#kp_del').removeAttr("disabled");
+                                        $("#alertt").html("申请开票成功");
+                                        $("#my-alert").modal('open');
+                                        jyls_table.ajax.reload();
+                                    } else {
+                                        $('#kp_kp').removeAttr("disabled");
+                                        $('#kp_kpdy').removeAttr("disabled");
+                                        $('#kp_del').removeAttr("disabled");
+                                        jyls_table.ajax.reload();
+                                        $("#alertt").html(data.msg);
+                                        $("#my-alert").modal('open');
+                                    }
+                                }
+                            });
+                        }
+					}
 	            }
-	            
 	        });
 	        
 	        /*$('#kp_kpdyqr').click(function () {
@@ -742,7 +769,15 @@ $(function() {
                                 $("#doc-modal-fpck").modal("open");
                                 $("#fpdm3").val(data.fpdm);
                                 $("#fphm3").val(data.fphm);
-
+                                if(fpzldm=="12"){
+                                    $("#fplxmc1").val("电子发票(增普)");
+                                }
+                                if(fpzldm=="02"){
+                                    $("#fplxmc1").val("增值税普通发票");
+                                }
+                                if(fpzldm=="01"){
+                                    $("#fplxmc1").val("增值税专用发票");
+                                }
                             } else {
                                 $("#alertt").html(data.msg);
                                 $("#my-alert").modal('open');

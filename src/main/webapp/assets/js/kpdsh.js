@@ -60,7 +60,6 @@ $(function() {
 				$('#yhqrbc').removeAttr("disabled");
 				$("#alertt").html("保存成功");
             	$("#my-alert").modal('open');
-            /*	$("#cljg").hide();*/
             	$("#cljgbt").hide();
             	$tab.tabs('refresh');
             	$tab.tabs('open', 0);
@@ -68,20 +67,13 @@ $(function() {
 				kpspmx_table.ajax.reload();
 			}
 		});
-		
     	});
     $("#yhqx").click(function(){
-     	/*$("#cljg").hide();*/
     	$("#cljgbt").hide();
     	$tab.tabs('refresh');
     	$tab.tabs('open', 0);
     	kpspmx_table.ajax.reload();
     	});
-/*    $("#my-alert-edit2").on("open.modal.amui", function () {
-        $("#mx_form").validator("destroy");
-        $("#main_form").validator("destroy");
-       
-    });*/
     $('#kp_add').click(function () {
         mxarr = [];
         $('#lrmx_form').resetForm();
@@ -93,28 +85,6 @@ $(function() {
     $("#lrclose").click(function () {
         $modal.modal("close");
     });
-/*    $("#kpdmx_xgbc").click(function () {
-        var r = $("#main_form1").validator("isFormValid");
-        if (r) {
-        	$('#mx_spse1').val($('#mx_spse').val());
-            var frmData = $("#main_form1").serialize();
-            $.ajax({
-                url: "kpdsh/xgbcmx", "type": "POST", context: document.body, data: frmData, success: function (data) {
-                    if (data.msg) {
-                        alert("保存成功!");
-						$('#my-alert-edit1').modal('close');
-                        jyls_table.ajax.reload();
-                        jyspmx_table.ajax.reload();
-                    } else {
-                        alert(data.msg);
-                    }
-                }
-            });
-        } else {
-            ///如果校验不通过
-            $("#lrmain_tab").tabs('open', 0);
-        }
-    });*/
     var index = 1;
     $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
         jyspmx_edit_table.draw();
@@ -201,19 +171,16 @@ $(function() {
     });
 	  //开票商品明细table
     var kpspmx_table = $('#mxTable1').DataTable({
-        "searching": false,
-        "serverSide": true,
-        "sServerMethod": "POST",
-        "processing": true,
-        "bPaginate":false,
-        "bLengthChange":false,
-        "bSort":false,
-        "bInfo": false,
-        "scrollX": true,
+        "processing" : true,
+        "serverSide" : true,
+        ordering : false,
+        searching : false,
+        "scrollX" : true,
         ajax: {
             "url": "kpdsh/getMx",
             data: function (d) {
                 d.sqlsh = $("#kplsh").val();
+
             }
         },
         "columns": [
@@ -319,8 +286,7 @@ $(function() {
             },{
                 "data": null,
                 "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>     '/*+
-                        '<a class="kpdmx" href="#">删除</a>'*/
+                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
                 }
             }
         ]
@@ -332,10 +298,9 @@ $(function() {
         			$(ycl).attr("readonly","readonly");
     	          } 
     	   }
-    } );
+    });
     kpspmx_table.on('click', 'a.kpdmx', function () {
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
-
     	     if (!confirm("您确认删除？")) {
 				return;
 			}
@@ -357,23 +322,7 @@ $(function() {
         	$("#my-alert").modal('open');
         	return;
     	}
-/*		$.ajax({
-			type : "POST",
-			url : "kpdsh/cxsp",
-			 async: false,
-			data : {},
-			success : function(data) {
-				var option;
-				$('#mx_spmc').html("");
-				for (var i = 0; i < data.sps.length; i++) {
-					option+= "<option value='"+data.sps[i].id+"'>"+data.sps[i].spmc+"("+data.sps[i].spbm+")</option>";
-				}
-				$('#mx_spmc').append(option);
-				
-			}
-		});*/
     	$('#my-alert-edit1').modal({"width": 480, "height": 550});
-    	/*$('#mx_spmc').val(row.spid);*/
     	$('#mx_spmx').val(row.spmc);
     	$('#mx_ggxh').val(row.spggxh);
     	$('#mx_spdw').val(row.spdw);
@@ -432,7 +381,6 @@ $(function() {
 	    	                    "data": null,
 	    	                    "defaultContent": ""
 	                        },
-	                      /*  {"data": "sqlsh"},*/
 	                        {"data": "ddh"},
 	                        {"data": "ddrq"},
 							{"data":function(data){
@@ -494,7 +442,6 @@ $(function() {
 	                        {"data": "gfmc"},
 	                        {"data": "gfsh"},
 	                        {"data": "gfdz"},
-	                     /*   {"data": "gflxr"},*/
 	                        {"data": "gfdh"},
 	                        {"data": "gfyh"},
 	                        {"data": "gfyhzh"},
@@ -508,8 +455,7 @@ $(function() {
 	                        }, 'sClass': 'right'},    {
 	                            "data": null,
 	                            "render": function (data) {
-	                                return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>     '/*+
-	                                    '<a class="kpdth" href="#">退回</a>'*/
+	                                return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>'
 	                            }
 	                        }
 	                    ]
@@ -532,7 +478,6 @@ $(function() {
 						var fpxes = "";
 						var hsbzs = "";
 						var qdbzs = "";
-						
 						$('input[name="dxk"]:checked').each(function(cell,i){
 						chk_value+=$(this).val()+",";
 						var row = $(this).parents('tr').find('input[name="fpje"]');
@@ -542,14 +487,6 @@ $(function() {
 						hsbzs+=row2.val()+","
 						qdbzs+=row3.val()+","
 						});
-					/*	t.column(0).nodes().each(function(cell, i) {
-							var $checkbox = $(cell).find('input[type="checkbox"]');
-							if ($checkbox.is(':checked')) {
-								var hsbz =t.row(i).data().fpjshsbz;
-								hsbzs+=hsbz+","
-							}
-
-						});*/
 						d.fpjshsbz= hsbzs;
 						d.qdbzs= qdbzs;
 						var ddhs = chk_value.substring(0, chk_value.length-1);
@@ -644,61 +581,10 @@ $(function() {
 				t.column(1).nodes().each(function(cell, i) {
 					cell.innerHTML = page + i + 1;
 				});
-				 //$('#jyls_table tr').find('td:eq(2)').hide();
 			});
-/*			t.on('click','a.yulan',function() {
-				var da = t.row($(this).parents('tr')).data();
-				window.open('fpcx/printSingle?kplsh='+ da.kplsh, '',
-				'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-				$('#kplshStr').val(da.kplsh);
-							});*/
-/*			t.on('click', 'a.fpck', function(e) {
-				var _this = this;
-				var da = t.row($(this).parents('tr')).data();
-				var kplsh = da.kplsh;
-				var djh = da.djh;
-				$.ajax({
-					url : 'fpcx/ck',
-					data : {
-						"kplsh" : kplsh,
-						"djh" : djh,
-						"yfpdm" : "",
-						"yfphm" : "",
-						"jylsh" : ""
-					},
-					success : function(data) {
-						if (data.success) {
-							alert(data.msg);
-							e.preventDefault();
-							t.ajax.reload();
-						} else {
-							alert(data.msg);
-						}
-					},
-					error : function() {
-						alert("出现错误，请稍后重试！");
-					}
-				})
-			});*/
-            //选中列查询明细
-            $('#jyls_table tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                    $(this).find('td:eq(0) input').prop('checked',false) 
-                } else {
-                /*	t.$('tr.selected').removeClass('selected');*/
-                    $(this).find('td:eq(0) input').prop('checked',true)  
-                    $(this).addClass('selected'); 
-                }
-               /* $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "red");  */
-             
-                var data = t.row($(this)).data();
-                $("#kplsh").val(data.sqlsh);
-                kpspmx_table.ajax.reload();
-            });
+
             t.on('click', 'a.modify', function () {
             	var row = t.row($(this).parents('tr')).data();
-
 				$.ajax({
 					url : 'kpdsh/xgkpd',
 					data : {
@@ -715,8 +601,6 @@ $(function() {
 								"xfsh" : jy.xfsh
 							}, success:function(data) {
 								if (data) {
-									/*var option = $("<option>").text('请选择').val(-1);
-									$('#select_skpid').append(option);*/
 									var option;
 									$('#select_skpid').html("");
 									for (var i = 0; i < data.skps.length; i++) {
@@ -795,18 +679,47 @@ $(function() {
         		});
         		}
             });
-            
+            var splsh=[];
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
+                    splsh.splice(0,splsh.length);
             		t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', true);
+                        var row =t.row(i).data();
+                        splsh.push(row.sqlsh);
                     });
                 } else {
+                    splsh.splice(0,splsh.length);
                 	t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
+
                     });
                 }
+                  $("#kplsh").val(splsh.join(","));
             	  kpspmx_table.ajax.reload();	
+            });
+
+            //选中列查询明细
+            $('#jyls_table tbody').on('click', 'tr', function () {
+                var data = t.row($(this)).data();
+                if ($('#check_all').prop('checked')){
+                    splsh.splice(0,splsh.length);
+                    t.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+				}
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                    splsh.splice($.inArray(data.sqlsh, splsh), 1);
+                } else {
+                    $(this).find('td:eq(0) input').prop('checked',true)
+                    $(this).addClass('selected');
+                    splsh.push(data.sqlsh);
+                }
+                $('#check_all').prop('checked',false);
+                $("#kplsh").val(splsh.join(","));
+                kpspmx_table.ajax.reload();
             });
 			return t;
 		},
@@ -927,19 +840,12 @@ $(function() {
 		     if (!confirm("您确认处理该记录？")) {
 				return;
 			}
-				/*	$.ajax({
-					type : "POST",
-					url : "kpdsh/kpdshkp",
-					data : {"sqlshs":ddhsthan,"fpxes":fpxes},
-					success : function(data) {*/
 		            	$("#cljg").show();
 		            	$("#cljgbt").show();
 		            	  $tab.tabs('refresh');
 						kpspmx_table3.ajax.reload();
 						 kpspmx_table.ajax.reload();
 						$('#doc-tab-demo-1').tabs('open', 1)
-			/*		}
-				});*/
 				}
 			});
 		},
@@ -966,8 +872,6 @@ $(function() {
 					}
 				});
 		          }else{
-		        /*	  $("#alertt").html("验证不成功");
-                  	$("#my-alert").modal('open');*/
 		          }
 			});
 	         
@@ -996,188 +900,11 @@ $(function() {
 					}
 				});
 		            }else{
-		            /*	$("#alertt").html("验证不通过");
-                    	$("#my-alert").modal('open');*/
+
 			          }
 			});
 	           
 		},
-		/**
-		 * 导出按钮
-		 */
-/*		exportAc : function() {
-			el.$jsExport.on('click', function(e) {
-				var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
-				var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
-				if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
-					if (dt1.getYear() == dt2.getYear()) {
-						if (dt1.getMonth() == dt2.getMonth()) {
-							if (dt1 - dt2 > 0) {
-								alert('开始日期大于结束日期,Error!');
-								return false;
-							}
-						} else {
-							// alert('月份不同,Error!');
-							alert('Error,请选择同一个年月内的时间!');
-							return false;
-						}
-					} else {
-						// alert('年份不同,Error!');
-						alert('Error,请选择同一个年月内的时间!');
-						return false;
-					}
-				}
-				$("#ff").submit();
-			});
-		},*/
-		/**
-		 * 自定义列
-		 */
-/*		autoColumn : function() {
-			el.$jsAuto.on('click', function(e) {
-				$.ajax({
-					url : 'zdyl/query',
-					type : 'POST', //GET
-					async: false,
-					data : {},
-					dataType : 'json', //返回的数据格式：json/xml/html/script/jsonp/text
-					success : function(data) {
-						$.each(data.list, function(n, value) {
-							var j ="#"+value.zddm;
-							$(j).attr("checked",'true');
-						});
-					}
-				})
-				$('#biaoti').modal('open');
-			});
-		},*/
-		/**
-		 * 保存自定义列
-		 */
-/*		saveColumn : function() {
-			el.$jsSubmit.on('click', function(e) {
-				el.$jsSubmit.attr({"disabled":"disabled"});
-				$.ajax({
-					type : "POST",
-					url : "zdyl/save",
-					data : {},// 你的formid
-					success : function(data) {
-						el.$jsSubmit.removeAttr("disabled");
-						$('#biaoti').modal('close');
-						alert(data.msg)
-						 refresh();
-					}
-				});
-			});
-		},*/
-		/**
-		 * 自定义导出列
-		 */
-/*		autoColumn1 : function() {
-			el.$jsOut.on('click', function(e) {
-				$.ajax({
-					url : 'zdyl/queryOut',
-					type : 'POST', //GET
-					async: false,
-					data : {},
-					dataType : 'json', //返回的数据格式：json/xml/html/script/jsonp/text
-					success : function(data) {
-						$.each(data.list, function(n, value) {
-							var j ="#"+value.zddm+"1";
-							$(j).attr("checked",'true');
-						});
-					}
-				})
-				$('#biaoti1').modal('open');
-			});
-		},*/
-		/**
-		 * 保存自定义导出列
-		 */
-/*		saveColumn1 : function() {
-			el.$jsSubmit1.on('click', function(e) {
-				el.$jsSubmit1.attr({"disabled":"disabled"});
-				$.ajax({
-					type : "POST",
-					url : "zdyl/saveOut",
-					data : $('#biao1').serialize(),// 你的formid
-					success : function(data) {
-						el.$jsSubmit1.removeAttr("disabled");
-						$('#biaoti1').modal('close');
-						alert(data.msg)
-					}
-				});
-			});
-		},*/
-		//批量打印
-/*		printAc : function() {
-			var _this = this;
-			var ids = '';
-			var flag = true;
-			el.$jsPrint
-					.on(
-							'click',
-							function(e) {
-								_this.tableEx
-										.column(0)
-										.nodes()
-										.each(
-												function(cell, i) {
-													if (flag) {
-														var $checkbox = $(cell)
-																.find(
-																		'input[type="checkbox"]');
-														if ($checkbox
-																.is(':checked')) {
-															var rows = $(
-																	'.js-table')
-																	.find('tr');
-															var fphm = rows[Number(i) + 2].cells[6].innerHTML;
-															if (fphm == null
-																	|| fphm == '') {
-																alert("存在正在开具或者开具失败的发票，不能批量打印！");
-																flag = false;
-															}
-															ids += $checkbox
-																	.val()
-																	+ ',';
-														}
-													}
-												});
-								if (flag) {
-									if (ids != '') {
-										window
-												.open('fpcx/printmany?ids='
-														+ ids, '',
-														'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-										$('#kplshStr').val(ids);
-										ids = '';
-									} else {
-										alert("请先选中至少一条记录！");
-									}
-								}
-							});
-		},*/
-		//全选按钮
-/*		checkAllAc : function() {
-			var _this = this;
-			el.$checkAll.on('change', function(e) {
-				var $this = $(this), check = null;
-				if ($(this).is(':checked')) {
-					_this.tableEx.column(0).nodes().each(
-							function(cell, i) {
-								$(cell).find('input[type="checkbox"]').prop(
-										'checked', true);
-							});
-				} else {
-					_this.tableEx.column(0).nodes().each(
-							function(cell, i) {
-								$(cell).find('input[type="checkbox"]').prop(
-										'checked', false);
-							});
-				}
-			});
-		},*/
 		modalAction : function() {
 			$("#close").on('click', function() {
 				$('#my-alert-edit').modal('close');

@@ -4,14 +4,6 @@
 (function ($) {
     'use strict';
     $(function () {
-      /*  $.ajax({
-            url: "lrkpd/getXfxx", context: null, success: function (data) {
-                $("#qymc").val(data.xfmc);
-                $("#nsrsbh").val(data.xfsh);
-            }
-        });*/
-             
-
         var jyls_table2 = $('#jyls_table2').DataTable({
             "searching": false,
             "serverSide": true,
@@ -73,29 +65,16 @@
                // {"data": "lrry"},
                
             ],
-            // "columnDefs": [
-            //     {
-            //         "bVisible": false, "aTargets": [0]
-            //     }],
             "createdRow": function (row, data, index) {
                 $('td', row).eq(0).html('<input type="checkbox" data="' + data.sqlsh + '" name="chk"/>');
             }
         });
-        
-        jyls_table2.on('click', 'tr', function () {
-              $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");
-        });
-
         var jyspmx_table2 = $('#jyspmx_table2').DataTable({
-            "searching": false,
-            "serverSide": true,
-            "sServerMethod": "POST",
-            "processing": true,
-            "bPaginate":false,
-            "bLengthChange":false,
-            "bSort":false,
-            "bInfo": false,
-            "scrollX": true,
+            "processing" : true,
+            "serverSide" : true,
+            ordering : false,
+            searching : false,
+            "scrollX" : true,
             ajax: {
                 "url": "kpdsh/getMx",
                 data: function (d) {
@@ -152,7 +131,9 @@
                 
             ]
         });
+        jyspmx_table2.on( 'draw.dt', function () {
 
+        });
         $('#kp_search3').click(function () {
         	var dt1 = new Date($('#kssj2').val().replace(/-/g, "/"));
             var dt2 = new Date($('#jssj2').val().replace(/-/g, "/"));
@@ -176,41 +157,51 @@
          	$('#jssj2').attr("selected","selected");
         	jyls_table2.ajax.reload();
         });
-        
-        $('#jyls_table2 tbody').on('click', 'tr', function () {
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            } else {
-                jyls_table2.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-            var data = jyls_table2.row($(this)).data();
-            $("#kplsh1").val(data.sqlsh);
-            //alert(data.sqlsh);
-            //$("#formid").val(data.djh);
-            jyspmx_table2.ajax.reload();
-        });
+
         var mxarr = [];
         var $modal = $("#my-alert-edit");
- 
+        var splsh1=[];
         $('#check_all2').change(function () {
-        	if ($('#check_all2').prop('checked')) {
-        		jyls_table2.column(0).nodes().each(function (cell, i) {
+            if ($('#check_all2').prop('checked')) {
+                splsh1.splice(0,splsh1.length);
+                jyls_table2.column(0).nodes().each(function (cell, i) {
                     $(cell).find('input[type="checkbox"]').prop('checked', true);
+                    var row =jyls_table2.row(i).data();
+                    splsh1.push(row.sqlsh);
                 });
             } else {
-            	jyls_table2.column(0).nodes().each(function (cell, i) {
+                splsh1.splice(0,splsh1.length);
+                jyls_table2.column(0).nodes().each(function (cell, i) {
                     $(cell).find('input[type="checkbox"]').prop('checked', false);
                 });
             }
+            $("#kplsh1").val(splsh1.join(","));
+            jyspmx_table2.ajax.reload();
         });
-
-
-  
+        //选中列查询明细
+        $('#jyls_table2 tbody').on('click', 'tr', function () {
+            var data = jyls_table2.row($(this)).data();
+            if ($('#check_all2').prop('checked')){
+                splsh1.splice(0,splsh1.length);
+                jyls_table2.column(0).nodes().each(function (cell, i) {
+                    $(cell).find('input[type="checkbox"]').prop('checked', false);
+                });
+            }
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $(this).find('td:eq(0) input').prop('checked',false);
+                splsh1.splice($.inArray(data.sqlsh, splsh1), 1);
+            } else {
+                $(this).find('td:eq(0) input').prop('checked',true)
+                $(this).addClass('selected');
+                splsh1.push(data.sqlsh);
+            }
+            $('#check_all2').prop('checked',false);
+            $("#kplsh1").val(splsh1.join(","));
+            jyspmx_table2.ajax.reload();
+        });
         var index = 1;
-
         $('#my-alert-edit').on('open.modal.amui', function () {
-//            $("#main_tab").tabs('open', 0);
         });
   
         $("#addRow").click(function () {
