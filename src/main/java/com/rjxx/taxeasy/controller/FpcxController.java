@@ -132,7 +132,6 @@ public class FpcxController extends BaseController {
 			Skp skp = skpService.findOne(fpcxvo.getSkpid());
 			fpcxvo.setKpdmc(skp.getKpdmc());
 			fpcxvo.setKpddm(skp.getKpddm());
-
 		}
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);

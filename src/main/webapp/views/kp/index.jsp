@@ -150,7 +150,7 @@
 											<div class="am-form-group">
 												<div class="am-btn-toolbar">
 													<div class="am-btn-group am-btn-group-xs">
-														<button type="button" id="kp_kp"
+														<button type="button" id="kp_kpdy"
 															class="am-btn am-btn-default am-btn-success">
 															<span></span> 开票
 														</button>
@@ -368,7 +368,6 @@
 																data-am-selected="{btnSize: 'sm'}">
 																<option value="-1">请选择</option>
 																<c:forEach items="${xfList}" var="item">
-
 																	<option value="${item.xfsh}">${item.xfmc}</option>
 																</c:forEach>
 															</select>
@@ -436,6 +435,8 @@
 																class="js-auto  am-btn am-btn-success">自定义显示列</button>
 															<button id="autoColumn1" type="button"
 																class="js-out  am-btn am-btn-primary">自定义导出列</button>
+															<button id="fpck" type="button"
+																	class="js-fpck  am-btn am-btn-success">重新开具</button>
 														</div>
 													</div>
 												</div>
@@ -469,7 +470,7 @@
 										</form>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
-												<table
+												<table id="kpls_table"
 													class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 													<thead>
 														<tr id="bt">
@@ -959,15 +960,35 @@
     <div style="margin-top: 10px;">
      	发票代码: <input id="fpdm2" type="text" disabled="disabled"></div>
        <div style="margin-top: 10px;">	发票号码: <input id="fphm2" type="text" disabled="disabled"></div>
-     	  <div style="margin-top: 20px;"><button id="kp_kpdyqr"
+     	  <div style="margin-top: 20px;"><button id="kp_kp"
   type="button"
   class="am-btn am-btn-primary"
-  data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 400, height: 225}">
+  data-am-modal="{target: '#doc-modal-fphm', closeViaDimmer: 0, width: 400, height: 225}">
    确认开票
 </button></div>
     </div>
   </div>
 </div>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpck">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">核对发票号码代码,打印机是否放好发票
+				<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-modal-bd">
+				<div style="margin-top: 10px;">
+					发票代码: <input id="fpdm3" type="text" disabled="disabled"></div>
+				<div style="margin-top: 10px;">	发票号码: <input id="fphm3" type="text" disabled="disabled"></div>
+				<div style="margin-top: 20px;"><button id="fpckqr"
+													   type="button"
+													   class="am-btn am-btn-primary"
+													   data-am-modal="{target: '#doc-modal-fpck', closeViaDimmer: 0, width: 400, height: 225}">
+					确认重新开具
+				</button></div>
+			</div>
+		</div>
+	</div>
+
 <div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
      <div class="am-modal-hd">
       <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
