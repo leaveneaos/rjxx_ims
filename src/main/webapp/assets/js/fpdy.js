@@ -6,13 +6,8 @@ $(function () {
     "use strict";
     var el = {
     		 $jsTable: $('#fpTable'),
-    	        //$modalHongchong: $('#hongchong'),
-    	        //$jsSubmit: $('.js-submit'),
-    	        //$jsClose: $('.js-close'),
-    	        $jsForm0: $('#ycform'), // 查询form 
+    	        $jsForm0: $('#ycform'), // 查询form
     	        $jsForm1: $('#ycform1'), // 查询form 
-
-    	        
     	        $s_kprqq: $('#s_rqq'), // search 开票日期起
     	        $s_kprqz: $('#s_rqz'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
     	        $s_gfmc: $('#s_gfmc'), // search 购方名称
@@ -21,7 +16,6 @@ $(function () {
     	        $s_ddh: $('#s_ddh'), // search   订单号
     	        $s_xfsh: $('#s_xfsh'), // search   销方税号
     	        $s_fplx: $('#s_fplx'), // search   发票类型
-    	        
     	        $s_kprqq1: $('#s_rqq1'), // search 开票日期起
     	        $s_kprqz1: $('#s_rqz1'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
     	        $s_gfmc1: $('#s_gfmc1'), // search 购方名称
@@ -100,11 +94,7 @@ $(function () {
         kpspmx_table.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
-        //$('#fpTable tr').find('td:eq(0)').hide();
     });
- 
-    var fphm=[];
-    var fpdm=[];
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -175,7 +165,6 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"hjje",
                             'sClass': 'right'
                         },
                         {
@@ -187,7 +176,6 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"hjse",
                             'sClass': 'right'
                         },
                         {
@@ -199,65 +187,46 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"jshj",
                             'sClass': 'right'
-                        },
+                        }/*,
                         {
                             "data": null,
                             "render": function (data) {
-                                return '<a class="view" href="'
-                                    + data.pdfurl
-                                    + '" target="_blank">查看</a>'
+                                if(data.fpzldm=="12"){
+                                    return '<a class="view" href="'
+                                        + data.pdfurl
+                                        + '" target="_blank">查看</a>'
+                                }else{
+                                   $("#zubz").css("display","none");
+                                }
                             }
-                        }]
+                        }*/]
                 });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#fpTable tr').find('td:eq(0)').hide();
             });
        
             t.on('click', 'input#chk', function () {
                 var data = t.row($(this).parents('tr')).data();
-                if ($('input[name="chk'+data.kplsh+'"]').prop('checked')){
-                	fphm.push(data.fphm);
-                    fpdm.push(data.fpdm);
-                }else{
-                	var index = $.inArray(data.fphm,fphm);
-                    fphm.splice(index,1);
-                    var index2 = $.inArray(data.fpdm,fpdm);
-                    fpdm.splice(index2,1);
-                }
-               
             });
             
             //选中列查询明细
             $('.js-table2 tbody').on('click', 'tr', function () {
             	var data = t.row($(this)).data();
                 if ($(this).hasClass('selected')) {
-	                $(this).find('td:eq(0) input').prop('checked',false); 
                     $(this).removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',false)
                 } else {
-	                $(this).find('td:eq(0) input').prop('checked',true); 
-                	t.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected'); 
+                    $(this).find('td:eq(0) input').prop('checked',true)
+                    $(this).addClass('selected');
                 }
-                if ($('input[name="chk'+data.kplsh+'"]').prop('checked')){
-                	fphm.push(data.fphm);
-                    fpdm.push(data.fpdm);
-                }else{
-                	var index = $.inArray(data.fphm,fphm);
-                    fphm.splice(index,1);
-                    var index2 = $.inArray(data.fpdm,fpdm);
-                    fpdm.splice(index2,1);
-                }
-                $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
+                $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");
                 $("#kplsh").val(data.kplsh);
                 kpspmx_table.ajax.reload();
             });
-        
           $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
             		t.column(0).nodes().each(function (cell, i) {
@@ -275,13 +244,98 @@ $(function () {
 	         	$('#xzlxq').attr("selected","selected");
 	        	t.ajax.reload();
 	        });
-            
 	        $('#cd_search1').click(function () {
 	        	$("#bj").val("1");
 	        	$("#dxcsz").val("");
 	        	t.ajax.reload();
 	        });
-            
+            //重打操作
+            $('#cd_cd').click(function () {
+                var kplsh = [];
+                t.column(0).nodes().each(function(cell, i) {
+                    var $checkbox = $(cell).find('input[type="checkbox"]');
+                    if ($checkbox.is(':checked')) {
+                        var data =t.row(i).data();
+                        kplsh.push(data.kplsh);
+                    }
+                });
+                if (kplsh.length == 0) {
+                    $("#alertt").html("请勾选需要重打的开票流水");
+                    $("#my-alert").modal('open');
+                    return;
+                }
+                var skpid="";
+                var fpzldm="";
+                var flag = true;
+                var fpzlbz="";
+                var fphm=[];
+                var fpdm=[];
+                $(":checkbox:checked","#fpTable").each(function(){
+                    var tr = $(this).parents("tr");
+                    var data = t.row(tr).data();
+                    if(skpid==""){
+                        skpid =  data.skpid;
+                    }else{
+                        if(skpid!=data.skpid){
+                            $("#alertt").html("批量勾选的开票点不一致,请重新勾选");
+                            $("#my-alert").modal('open');
+                            flag = false;
+                            return false;
+                        }
+                    }
+                    if(fpzldm==""){
+                        fpzldm =  data.fpzldm;
+                    }else{
+                        if(fpzldm!=data.fpzldm){
+                            fpzlbz="0";
+                            flag = false;
+                            return false;
+                        }
+                    }
+                    fphm.push(data.fphm);
+                    fpdm.push(data.fpdm);
+                });
+                if(fpzlbz=="0"){
+                    $("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
+                    $("#my-alert").modal('open');
+                    return;
+                }
+                if(fpzldm=="12"){
+                        window.open('fpdy/printmany?ids='
+                            + kplsh, '',
+                            'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
+                }else{
+                        if(confirm("确定要重新打印该条数据吗？")){
+                            //alert(fphm);alert(fpdm);alert(kplsh);
+                            $.ajax({
+                                url:"fpdy/cd",
+                                data:{"kplsh":kplsh.join(","),"fphm":fphm.join(","),"fpdm":fpdm.join(",")},
+                                success:function(data){
+                                    if(data.success){
+                                        //alert(data.msg);
+                                        $("#alertt").html(data.msg);
+                                        $("#my-alert").modal('open');
+                                        fphm=[];
+                                        fpdm=[];
+                                        $('input[type="checkbox"]').prop('checked', false);
+                                    }else{
+                                        $("#alertt").html(data.msg);
+                                        $("#my-alert").modal('open');
+                                        fphm=[];
+                                        fpdm=[];
+                                        $('input[type="checkbox"]').prop('checked', false);
+                                    }
+                                },
+                                error:function(){
+                                    //alert("程序出错，请联系开发人员！");
+                                    $("#alertt").html("程序出错，请联系开发人员！");
+                                    $("#my-alert").modal('open');
+                                    $('input[type="checkbox"]').prop('checked', false);
+                                }
+                            });
+                        }
+                }
+            });
          
             return t;
         },
@@ -343,80 +397,4 @@ $(function () {
     	   num=num.replace(/,/gi,'');
     	   return num;
     	}
-    //重打操作
-    $('#cd_cd').click(function () {
-    	  var kplsh = [];
-          $('#chk:checked').each(function(){    
-       	   kplsh.push($(this).val()); 
-          });
-    	 var fplx=$("#s_fplx").val();
-    	 if(fplx==""){
-             $("#alertt").html("请选择发票类型！");
-             $("#my-alert").modal('open');
-             return;
-         }
-    	 if(fplx=="12"){
-    		 if (kplsh.length == 0) {
-    	           	$("#alertt").html("请勾选需要重打的开票流水");
-    	           	$("#my-alert").modal('open');
-    	               return;
-    	           }else if(kplsh.length>0){
-    		 
-    		 window.open('fpdy/printmany?ids='
-						+ kplsh, '',
-						'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-    	           }
-    	 }else{
-    	
-    	 if (kplsh.length == 0) {
-           	$("#alertt").html("请勾选需要重打的开票流水");
-           	$("#my-alert").modal('open');
-               return;
-           }
-		    	if(kplsh.length>=1){
-    	             if(kplsh.length>1){
-		    		 if(fplx==""){
-		     			$("#alertt").html("请选择发票类型查询后再批量重打！");
-		               	$("#my-alert").modal('open');
-		               	fphm=[];
-		 	          	fpdm=[];
-		                 return;
-		     	        }
-                     }
-		    		if(confirm("确定要重新打印该条数据吗？")){
-		    			//alert(fphm);alert(fpdm);alert(kplsh);
-		        		$.ajax({
-		        			url:"fpdy/cd",
-		        			data:{"kplsh":kplsh.join(","),"fphm":fphm.join(","),"fpdm":fpdm.join(",")},
-		        		    success:function(data){
-		        		    	if(data.success){
-		        		    		//alert(data.msg);
-		        		    		$("#alertt").html(data.msg);
-		        		          	$("#my-alert").modal('open');
-		        		          	fphm=[];
-		        		          	fpdm=[];
-		        		          	$('input[type="checkbox"]').prop('checked', false);  
-		        		    	}else{
-		        		    		$("#alertt").html(data.msg);
-		        		          	$("#my-alert").modal('open');
-		        		          	fphm=[];
-		        		          	fpdm=[];
-		        		          	$('input[type="checkbox"]').prop('checked', false);     
-		        		          	}   		    	    		    	
-		        		    },
-		        		    error:function(){
-		        		    	//alert("程序出错，请联系开发人员！");
-		        		    	$("#alertt").html("程序出错，请联系开发人员！");
-		    		          	$("#my-alert").modal('open');
-		    		          	$('input[type="checkbox"]').prop('checked', false);    
-		    		          	}
-		        		});
-		        	}
-		    	}else{
-		    		$("#alertt").html("请选择一条记录！");
-		          	$("#my-alert").modal('open');
-		    	}    
-    	   }
-      });
-    
 });
