@@ -515,6 +515,7 @@ $(function() {
 
 
 	        $('#kp_kp').click(function () {
+                $("#doc-modal-fphm").modal("close");
 	            var djhArr = [];
 	            var djhArr1 = [];
 	            var bckpje = [];
@@ -715,9 +716,9 @@ $(function() {
                     $.ajax({
                         url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
                             if (data.success) {
-                                $("#doc-modal-fphm").modal("open");
-                                $("#fpdm2").val(data.fpdm);
-                                $("#fphm2").val(data.fphm);
+                                $("#doc-modal-fpck").modal("open");
+                                $("#fpdm3").val(data.fpdm);
+                                $("#fphm3").val(data.fphm);
 
                             } else {
                                 $("#alertt").html(data.msg);
@@ -731,6 +732,7 @@ $(function() {
 
 			});
 	        $("#fpckqr").click(function(){
+                $("#doc-modal-fpck").modal("close");
                 if (confirm("请确认发票是否已经开具成功以避免重复开具发票！")) {
                     $.ajax({
                         url:"kp/fpck",
