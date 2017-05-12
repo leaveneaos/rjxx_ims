@@ -25,10 +25,6 @@
 .am-table {
 	margin-bottom: 0rem;
 }
-
-.right {
-	text-align: right;
-}
 table thead th { text-align: center; }
 
 
