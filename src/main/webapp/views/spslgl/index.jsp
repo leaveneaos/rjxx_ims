@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 </head>
 <body>
@@ -556,6 +557,7 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/spslgl.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<!-- 	<script type="text/javascript" src="assets/js/jquery.easyui.min.js"></script> -->
 	<!-- <script type="text/javascript" src="assets/js/easyui-lang-zh_CN.js"></script> -->
 	<script>

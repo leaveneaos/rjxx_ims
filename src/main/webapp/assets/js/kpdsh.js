@@ -335,6 +335,7 @@ $(function() {
     	$('#formid1').val(row.id);
     });
     var t;
+    var splsh=[];
     var kpspmx_table3
 	var action = {
 		tableEx : null, // cache dataTable
@@ -364,7 +365,8 @@ $(function() {
 		                    d.gfmc = $('#dxcsz').val()
 		                 }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
 		                    d.ddh = $('#dxcsz').val()
-		                  }
+						 }
+                        splsh.splice(0,splsh.length);
 					}
 				},
 	            "columns": [
@@ -679,7 +681,7 @@ $(function() {
         		});
         		}
             });
-            var splsh=[];
+
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
                     splsh.splice(0,splsh.length);
