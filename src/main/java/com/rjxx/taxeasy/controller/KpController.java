@@ -1367,7 +1367,12 @@ public class KpController extends BaseController {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("djh", djh);
+        String []djhs=djh.split(",");
+        List djhlist=new ArrayList();
+        for(int i=0;i<djhs.length;i++){
+			djhlist.add(djhs[i]);
+		}
+		pagination.addParam("djhlist", djhlist);
 		pagination.addParam("gsdm", gsdm);
 		List<Jyspmx> jyspmxList = jyspmxService.findByPage(pagination);
 

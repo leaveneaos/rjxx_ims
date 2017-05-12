@@ -272,7 +272,7 @@ $(function() {
 	                $("#nsrsbh").val(data.xfsh);
 	            }
 	        });
-	            
+            var djh=[];
 	        var jyls_table = $('#jyls_table').DataTable({
 	            "searching": false,
 	            "serverSide": true,
@@ -284,6 +284,7 @@ $(function() {
 	                "url": "kp/getjylslist?clztdm=00",
 	                type: 'post',
 	                data: function (d) {
+                        djh.splice(0,djh.length);
 	                	var bz = $('#bz123').val();
 	                	var dxcsm = $('#dxcsm').val();
 	                	var dxcsz = $('#dxcsz').val();
@@ -474,18 +475,48 @@ $(function() {
 								}
 					});
 	        });
-	        
+
+            $('#check_all1').change(function () {
+                if ($('#check_all1').prop('checked')) {
+                    djh.splice(0,djh.length);
+                    jyls_table.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+                        var row =jyls_table.row(i).data();
+                        djh.push(row.djh);
+                    });
+                } else {
+                    djh.splice(0,djh.length);
+                    jyls_table.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+                }
+                $("#djh").val(djh.join(","));
+                jyspmx_table.ajax.reload();
+            });
+
 	        $('#jyls_table tbody').on('click', 'tr', function () {
-	            if ($(this).hasClass('selected')) {
+                var data = jyls_table.row($(this)).data();
+                if ($('#check_all1').prop('checked')){
+                    djh.splice(0,djh.length);
+                    t.column(0).nodes().each(function (cell, i) {
+                        $(cell).find('input[type="checkbox"]').prop('checked', false);
+                    });
+                }
+
+
+                if ($(this).hasClass('selected')) {
 	                $(this).removeClass('selected');
-	                $(this).find('td:eq(0) input').prop('checked',false) 
-	            } else {
-	               // jyls_table.$('tr.selected').removeClass('selected');
-	                $(this).find('td:eq(0) input').prop('checked',true)  
+	                $(this).find('td:eq(0) input').prop('checked',false);
+                    djh.splice($.inArray(data.djh, djh), 1);
+
+                } else {
+	                $(this).find('td:eq(0) input').prop('checked',true)
 	                $(this).addClass('selected');
-	            }
-	            var data = jyls_table.row($(this)).data();
-	            $("#djh").val(data.djh);
+                    djh.push(data.djh);
+
+                }
+                $('#check_all1').prop('checked',false);
+                $("#djh").val(djh.join(","));
 	            jyspmx_table.ajax.reload();
 	        });
 	        var mxarr = [];
@@ -502,18 +533,7 @@ $(function() {
 	            $('#main_form').resetForm();
 	            $modal.modal({"width": 800, "height": 600});
 	        });
-	        $('#check_all1').change(function () {
-	        	if ($('#check_all1').prop('checked')) {
-	        		jyls_table.column(0).nodes().each(function (cell, i) {
-	                    $(cell).find('input[type="checkbox"]').prop('checked', true);
-	                });
-	            } else {
-	            	jyls_table.column(0).nodes().each(function (cell, i) {
-	                    $(cell).find('input[type="checkbox"]').prop('checked', false);
-	                });
-	            }
-	        	  jyspmx_table.ajax.reload();
-	        });
+
 
 
 	        $('#kp_kp').click(function () {
@@ -674,7 +694,11 @@ $(function() {
                                     }
                                 }
                             });
-                        }
+                        }else{
+                            $('#kp_kp').removeAttr("disabled");
+                            $('#kp_kpdy').removeAttr("disabled");
+                            $('#kp_del').removeAttr("disabled");
+						}
 					}
 	            }
 	        });
