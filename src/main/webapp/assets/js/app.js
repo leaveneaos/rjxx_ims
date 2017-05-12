@@ -167,3 +167,9 @@ $.extend({
         })
     }
 })
+// 查询按钮退出
+var $amOffcanvas = $('.am-offcanvas');
+
+$(".data-back").click(function() {
+    $amOffcanvas.removeClass('am-active')
+});

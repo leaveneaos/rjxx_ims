@@ -145,7 +145,7 @@ table thead th { text-align: center; }
 										</div>
 										<div style="padding: 32px;">
 											<button type="button" id="kp_search1"
-												class="am-btn am-btn-default am-btn-success">
+												class="am-btn am-btn-default am-btn-success data-back">
 												<span class="am-icon-search-plus"></span> 查询
 											</button>
 										</div>
@@ -347,7 +347,7 @@ table thead th { text-align: center; }
 										</div>
 										<div style="padding: 32px;">
 											<button type="button" id="kp_search3"
-												class="am-btn am-btn-default am-btn-success">
+												class="am-btn am-btn-default am-btn-success data-back">
 												<span class="am-icon-search-plus"></span> 查询
 											</button>
 										</div>

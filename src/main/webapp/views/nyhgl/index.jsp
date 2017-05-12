@@ -72,7 +72,7 @@
 										</div>
 										<div style="padding: 32px;">
 											<button id="button1" type="button"
-												class="js-search am-btn am-btn-default am-btn-success">
+												class="js-search am-btn am-btn-default am-btn-success data-back">
 												查询</button>
 										</div>
 									</div>
