@@ -336,19 +336,20 @@ $(function() {
 
                 });
                 if (!data) {
-                	$('#msg').html("请选择要删除的销方");
-                	$('#my-alert').modal('open'); 
+                	// $('#msg').html("请选择要删除的销方");
+                	// $('#my-alert').modal('open'); 
+                	swal("请选择要删除的销方");
                     return;
                 }
                 data = data.substring(0, data.length - 1);
                 var url = _this.config.scUrl;
-                if (!confirm('是否删除')) {
+                /* if (!confirm('是否删除')) {
 					return;
 				}
-//                $('#my-confirm').modal({
-//          	        relatedTarget: this,
-//          	        onConfirm: function(options) {
-          	        	 el.$jsLoading.modal('open');
+               $('#my-confirm').modal({
+         	        relatedTarget: this,
+         	        onConfirm: function(options) {
+          	        	el.$jsLoading.modal('open');
           	            $.ajax({
           	                url: url,
           	                data: {ids : data},
@@ -371,7 +372,32 @@ $(function() {
           	                	$('#my-alert').modal('open'); 
           	                    el.$jsLoading.modal('close');
           	                }
-          	            });
+          	            });*/
+          	            swal({
+	                        title: "您确定要删除吗？",
+	                        text: "您确定要删除这条数据？",
+	                        type: "warning",
+	                        showCancelButton: true,
+	                        closeOnConfirm: false,
+	                        confirmButtonText: "确 定",
+	                        confirmButtonColor: "#ec6c62"
+	                    }, function() {
+	                        $.ajax({
+	                            url: url,
+	          	                data: {ids : data},
+	          	                type: 'POST',
+	                        }).done(function(data) {
+	                        	if (data.success) {
+      		                	 	swal("操作成功!", "已成功删除数据！", "success");
+          	                        _this.tableEx.ajax.reload(); // reload table data
+          	                    } else {
+          		                	swal('删除失败,服务器错误' + data.msg);
+          	                    }
+	                            
+	                        }).error(function(data) {
+	                            swal('请求失败,请刷新后稍后重试!', "error");
+	                        });
+	                    });
 //          	        },
 //          	        // closeOnConfirm: false,
 //          	        onCancel: function() {

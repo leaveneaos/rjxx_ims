@@ -386,7 +386,8 @@ $(function() {
 		 */
 		del : function(data) {
 			var _this = this;
-			if (!confirm("是否删除？")) {
+
+			/*if (!confirm("是否删除？")) {
 				return;
 			}
 			el.$jsLoading.modal('open');
@@ -414,7 +415,35 @@ $(function() {
 					$('#my-alert').modal('open');
 					el.$jsLoading.modal('close');
 				}
-			});
+			});*/
+			swal({
+                title: "您确定要删除吗？",
+                text: "您确定要删除这条数据？",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "是的，我要删除",
+                confirmButtonColor: "#ec6c62"
+            }, function() {
+                $.ajax({
+                    url : url,
+					data : {
+						ids : data.ids
+					},
+					type : 'POST',
+                }).done(function(data) {
+                	if (data.success) {
+	                        _this.tableEx.ajax.reload(); // reload table data
+	                        swal("操作成功!", "已成功删除数据！", "success");
+	                    } else {
+		                	swal('删除失败,服务器错误' + data.msg);
+	                    }
+                    
+                }).error(function(data) {
+                    swal('请求失败,请刷新后稍后重试!', "error");
+                });
+            });
+
 		},
 		/**
 		 * check all action
@@ -455,8 +484,9 @@ $(function() {
 
 				});
 				if (!data) {
-					$('#msg').html("请选择要删除的税控盘");
-					$('#my-alert').modal('open');
+					// $('#msg').html("请选择要删除的税控盘");
+					// $('#my-alert').modal('open');
+					swal("请选择要删除的税控盘");
 					return;
 				}
 				data = data.substring(0, data.length - 1);
