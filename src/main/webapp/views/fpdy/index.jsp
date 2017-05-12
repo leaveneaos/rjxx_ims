@@ -48,7 +48,7 @@
 										<button class="am-btn am-btn-success am-fr"
 											data-am-offcanvas="{target: '#doc-oc-demo1'}">更多查询</button>
 									</div>
-									<div id="doc-oc-demo1" class="am-offcanvas">
+									<div id="doc-oc-demo1" class="am-offcanvas"> 
 										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 											 <form  id ="ycform">
 											    <div class="am-offcanvas-content">
