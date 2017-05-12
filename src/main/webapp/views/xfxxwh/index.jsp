@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style>
 .am-u-left {
@@ -440,6 +441,7 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/xfxxwh_app.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
 			//批量导入
