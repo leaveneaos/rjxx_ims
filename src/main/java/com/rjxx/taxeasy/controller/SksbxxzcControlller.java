@@ -163,14 +163,14 @@ public class SksbxxzcControlller extends BaseController {
 	 * @param xfid
 	 * @param skpmm
 	 * @param zsmm
-	 * @param dpmax
-	 * @param fpfz
-	 * @param ppmax
-	 * @param ppfz
-	 * @param zcm
-	 * @param bz
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
 	 * @return
-	 * @throws ActiveRecordException
+	 * @throws
 	 */
 	@RequestMapping(value = "/save")
 	@ResponseBody
@@ -178,7 +178,7 @@ public class SksbxxzcControlller extends BaseController {
 	@SystemControllerLog(description = "新增开票点",key = "kpddm")  
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
+			Integer bmbb, String fplx, String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> prms = new HashMap<>();
@@ -239,6 +239,11 @@ public class SksbxxzcControlller extends BaseController {
 			old.setXgsj(new Date());
 			old.setYxbz("1");
 			old.setKplx(fplx);
+			if(!"".equals(wrzs)&&wrzs.equals("1")){
+				old.setWrzs(wrzs);
+			}else{
+				old.setWrzs("0");
+			}
 			skpService.save(old);
 			Group group = new Group();
 			group.setYhid(getYhid());
@@ -268,21 +273,21 @@ public class SksbxxzcControlller extends BaseController {
 	 * @param xfid
 	 * @param skpmm
 	 * @param zsmm
-	 * @param dpmax
-	 * @param fpfz
-	 * @param ppmax
-	 * @param ppfz
-	 * @param zcm
-	 * @param bz
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
 	 * @return
-	 * @throws ActiveRecordException
+	 * @throws
 	 */
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	@SystemControllerLog(description = "修改开票点",key = "id")  
 	public Map  update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
+			Integer bmbb, String fplx,String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
@@ -312,7 +317,11 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setSbcs(sbcs);
 			skp.setSkpmm(skpmm);
 			skp.setZsmm(zsmm);
-			;
+			if(!"".equals(wrzs)&&wrzs.equals("1")){
+				skp.setWrzs(wrzs);
+			}else{
+				skp.setWrzs("0");
+			}
 			skp.setLxdz(lxdz);
 			skp.setLxdh(lxdh);
 			skp.setKhyh(khyh);

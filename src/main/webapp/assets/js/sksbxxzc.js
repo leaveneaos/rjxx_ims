@@ -142,6 +142,14 @@ $(function() {
 						}, {
 							"data" : "fpzl"
 						}, {
+                            "data" : function(data){
+                            	if(data.wrzs=='1'){
+                            		return "是";
+								}else{
+                            		return "否";
+								}
+							}
+                        }, {
 							"data" : "ppdm"
 						}, {
 							"data" : "ppmc"
@@ -195,7 +203,9 @@ $(function() {
 						$(id).show();
 					}
 				}
-				
+				if(data.wrzs=="1"){
+                    $("#wrzs").prop('checked', true);
+                }
 				el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
 				el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
 				el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
