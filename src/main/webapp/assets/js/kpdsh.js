@@ -638,7 +638,7 @@ $(function() {
 				});
             	$('#my-alert-edit').modal({"width": 800, "height": 450});
             });
-            t.on('click', 'a.kpdth', function () {
+            /*t.on('click', 'a.kpdth', function () {
             	var ddhstha=t.row($(this).parents('tr')).data().sqlsh;
                 if (!confirm("您确认退回么？")) {
     				return;
@@ -654,7 +654,7 @@ $(function() {
 					}
 				});
 
-            });
+            });*/
             //删除
             $("#kpd_sc").click(function () {
         		var chk_value="" ;
@@ -742,37 +742,7 @@ $(function() {
 				_this.tableEx.ajax.reload();
 			})
 			},
-		/**
-		 * 退回
-		 */
-		th : function() {
-			var _this = this;
-			$("#kpd_th").on('click', function(e) {
-				var chk_value="" ;
-				$('input[name="dxk"]:checked').each(function(){
-				chk_value+=$(this).val()+",";
-				});
-				var ddhs = chk_value.substring(0, chk_value.length-1);
-				if(chk_value.length==0){
-					$("#alertt").html("请至少选择一条数据");
-                	$("#my-alert").modal('open');
-				}else{
-		     if (!confirm("您确认退回么？")) {
-				return;
-			}
-					$.ajax({
-					type : "POST",
-					url : "kpdsh/th",
-					data : {"ddhs":ddhs},
-					success : function(data) {
-						$("#alertt").html(data.msg);
-                    	$("#my-alert").modal('open');
-						_this.tableEx.ajax.reload();	
-					}
-				});
-				}
-			});
-		},
+
 		/**
 		 * kp
 		 */
@@ -931,7 +901,6 @@ $(function() {
 			var _this = this;
 			_this.tableEx = _this.dataTable(); // cache variable
 			_this.search_ac();
-			_this.th();
 			_this.kp();
 			_this.xgbc();
 			_this.xgbcmx();
