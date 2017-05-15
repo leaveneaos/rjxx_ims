@@ -239,8 +239,9 @@
 				$('#save').attr("disabled", true);
 				var spzmc = $("#spzmc").val();
 				if (spzmc == null || spzmc == '' || spzmc == "") {
-					$('#msg').html('请输入商品组名称');
-					$('#my-alert').modal('open');
+					// $('#msg').html('请输入商品组名称');
+					// $('#my-alert').modal('open');
+					swal('请输入商品组名称');
 					$('#save').attr("disabled", false);
 					return;
 				}
@@ -251,18 +252,25 @@
 					success : function(data) {
 						$('#save').attr("disabled", false);
 						if (data.success) {
-							$('#msg').html("保存成功");
-							$('#my-alert').modal('open');
+							// $('#msg').html("保存成功");
+							// $('#my-alert').modal('open');
+							swal({ 
+								  title: "保存成功", 
+								  timer: 2000, 
+								  showConfirmButton: false 
+								});
 							$('#hongchong').modal('close');
 							spz_table.ajax.reload();
 						} else {
-							$('#msg').html(data.msg);
-							$('#my-alert').modal('open');
+							// $('#msg').html(data.msg);
+							// $('#my-alert').modal('open');
+							swal(data.msg);
 						}
 					},
 					error : function() {
-						$('#msg').html('保存失败, 请重新登陆再试...!');
-						$('#my-alert').modal('open');
+						// $('#msg').html('保存失败, 请重新登陆再试...!');
+						// $('#my-alert').modal('open');
+						swal('保存失败, 请重新登陆再试...!');
 						$('#save').attr("disabled", false);
 					}
 				});
@@ -271,20 +279,23 @@
 			$("#btnImport").click(function() {
 				var filename = $("#importFile").val();
 				if (filename == null || filename == "") {
-					$('#msg').html("请选择要导入的文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("请选择要导入的文件");
+					// $('#my-alert').modal('open');
+					swal("请选择要导入的文件");
 					return;
 				}
 				var pos = filename.lastIndexOf(".");
 				if (pos == -1) {
-					$('#msg').html("导入的文件必须是excel文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("导入的文件必须是excel文件");
+					// $('#my-alert').modal('open');
+					swal("导入的文件必须是excel文件");
 					return;
 				}
 				var extName = filename.substring(pos + 1);
 				if ("xls" != extName && "xlsx" != extName) {
-					$('#msg').html("导入的文件必须是excel文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("导入的文件必须是excel文件");
+					// $('#my-alert').modal('open');
+					swal("导入的文件必须是excel文件");
 					return;
 				}
 				$("#btnImport").attr("disabled", true);
@@ -296,14 +307,16 @@
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
 							var count = res.count;
-							$('#msg').html("导入成功，共导入" + count + "条数据");
-							$('#my-alert').modal('open');
+							// $('#msg').html("导入成功，共导入" + count + "条数据");
+							// $('#my-alert').modal('open');
+							swal("导入成功，共导入" + count + "条数据");
 							window.location.reload();
 						} else {
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
-							$('#msg').html(res.message);
-							$('#my-alert').modal('open');
+							// $('#msg').html(res.message);
+							// $('#my-alert').modal('open');
+							swal(res.message);
 						}
 					}
 				};
@@ -463,7 +476,11 @@
 	                }).done(function(data) {
 	                	if (data.success) {
 		                        spz_table.ajax.reload(); // reload table data
-		                        swal("删除成功", "已成功删除数据！", "success");
+		                        swal({ 
+									  title: "已成功删除", 
+									  timer: 2000, 
+									  showConfirmButton: false 
+									});
 		                    } else {
 			                	swal('删除失败,服务器错误' + data.msg);
 		                    }
@@ -518,18 +535,25 @@
 				// context: null,
 				success : function(data) {
 					if (data.failure) {
-						$('#msg').html(data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html(data.msg);
+						// $('#my-alert').modal('open');
+						swal(data.msg);
 					} else if (data.success) {
-						$('#msg').html('删除成功');
-						$('#my-alert').modal('open');
+						// $('#msg').html('删除成功');
+						// $('#my-alert').modal('open');
+						swal({ 
+							  title: "已成功删除", 
+							  timer: 2000, 
+							  showConfirmButton: false 
+							});
 						_this.tableEx.ajax.reload(); // 重新加载数据
 					}
 					el.$jsLoading.modal('close'); // close loading
 				},
 				error : function() {
-					$('#msg').html('删除数据失败,请稍后重试');
-					$('#my-alert').modal('open');
+					// $('#msg').html('删除数据失败,请稍后重试');
+					// $('#my-alert').modal('open');
+					swal('删除数据失败,请稍后重试');
 				}
 			});
 		},
@@ -597,7 +621,11 @@
 	                }).done(function(data) {
 	                	if (data.success) {
 		                        _this.tableEx.ajax.reload();// reload table data
-		                        swal("删除成功", "已成功删除数据！", "success");
+		                        swal({ 
+									 	title: "已成功删除", 
+									  	timer: 2000, 
+									 	 showConfirmButton: false 
+									});
 		                    } else {
 			                	swal('删除失败,服务器错误' + data.msg);
 		                    }
@@ -665,8 +693,9 @@
 								if ($('#tip').val() == '3') {
 									var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
 									if (!$('#searchtxt').val().match(reg)) {
-										$('#msg').html('税率格式有误');
-										$('#my-alert').modal('open');
+										// $('#msg').html('税率格式有误');
+										// $('#my-alert').modal('open');
+										swal('税率格式有误');
 										return;
 									}
 								}
@@ -720,26 +749,30 @@
 							success : function(data) {
 								if (data.success) {
 									el.$modal2.modal('close'); // close modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else {
-									$('#msg').html('后台错误: 导入数据失败' + data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html('后台错误: 导入数据失败' + data.msg);
+									// $('#my-alert').modal('open');
+									swal('后台错误: 导入数据失败' + data.msg);
 								}
 								_this.tableEx.ajax.reload(); // 重新加载数据
 								el.$jsLoading.modal('close'); // close loading
 
 							},
 							error : function() {
-								$('#msg').html('导入数据失败, 请重新登陆再试...!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('导入数据失败, 请重新登陆再试...!');
+								// $('#my-alert').modal('open');
+								swal('导入数据失败, 请重新登陆再试...!');
 							}
 
 						});
 						return false;
 					} else {
-						$('#msg').html('验证失败,请选择文件！');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败,请选择文件！');
+						// $('#my-alert').modal('open');
+						swal('验证失败,请选择文件！');
 						return false;
 					}
 				}
@@ -749,7 +782,7 @@
 			el.$jsExport.on('click', function(e) {
 				e.preventDefault();
 				// TODO you code here
-				alert('导出'); // del this line
+				swal('导出'); // del this line
 			});
 		},
 		/**
@@ -774,29 +807,34 @@
 							success : function(data) {
 								if (data.success) {
 									el.$modal.modal('close'); // close modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 									_this.tableEx.ajax.reload(); // 重新加载数据
 								} else if (data.failure) {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								}
 								el.$jsLoading.modal('close'); // close loading
 							},
 							error : function() {
-								$('#msg').html('添加数据失败，商品编码已经存在');
-								$('#my-alert').modal('open');
+								// $('#msg').html('添加数据失败，商品编码已经存在');
+								// $('#my-alert').modal('open');
+								swal('添加数据失败，商品编码已经存在');
 								el.$jsLoading.modal('close'); // close loading
 							}
 
 						});
 						return false;
 					} else {
-						$('#msg').html('验证失败，请注意格式！');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败，请注意格式！');
+						// $('#my-alert').modal('open');
+						swal('验证失败，请注意格式！');
 						return false;
 					}
 				}
@@ -824,31 +862,40 @@
 							success : function(data) {
 								if (data.success) {
 									el.$modal.modal('close'); // close modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal({ 
+									  title: "保存成功", 
+									  timer: 2000, 
+									  showConfirmButton: false 
+									});
 									_this.tableEx.ajax.reload(); // reload
 									// table
 									// data
 								} else if (data.failure) {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else {
-									$('#msg').html('后台错误: 修改数据失败' + data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html('后台错误: 修改数据失败' + data.msg);
+									// $('#my-alert').modal('open');
+									swal('后台错误: 修改数据失败' + data.msg);
 								}
 								el.$jsLoading.modal('close'); // close loading
 
 							},
 							error : function() {
-								$('#msg').html('修改数据失败!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('修改数据失败!');
+								// $('#my-alert').modal('open');
+								swal('修改数据失败!');
 							}
 						});
 
 						return false;
 					} else {
-						$('#msg').html('验证失败，请注意格式！');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败，请注意格式！');
+						// $('#my-alert').modal('open');
+						swal('验证失败，请注意格式！');
 						return false;
 					}
 				}
