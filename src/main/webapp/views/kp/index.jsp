@@ -134,7 +134,7 @@
 												</div>
 												<div style="padding: 32px;">
 													<button type="button" id="kp_search1"
-														class="am-btn am-btn-default am-btn-success">
+														class="am-btn am-btn-default am-btn-success data-back">
 														<span></span> 查询
 													</button>
 												</div>
@@ -408,7 +408,7 @@
 												</div>
 												<div class="am-offcanvas-content" style="padding: 32px;">
 													<button id="button3" type="button"
-														class="am-btn am-btn-default am-btn-success">查询</button>
+														class="am-btn am-btn-default am-btn-success data-back">查询</button>
 												</div>
 
 											</div>

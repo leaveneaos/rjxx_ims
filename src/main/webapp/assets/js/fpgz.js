@@ -206,7 +206,36 @@ $("#qdbz").change(function () {
 		         $('input[name="gzdxk"]:checked').each(function(){    
 		                djhArr.push($(this).val()); 
 		        });
-		            if (djhArr.length == 0) {
+	         	if (djhArr.length == 0) {
+	            	// $("#alertt").html("请选择需要删除的数据");
+	            	// $("#my-alert").modal('open');
+	            	swal("请选择需要删除的数据");
+	                return;
+	            }
+	            
+	            ur = _this.config.scUrl;
+				swal({
+				    title: "您确定要删除吗？",
+				    text: "您确定要删除这条数据？",
+				    type: "warning",
+				    showCancelButton: true,
+				    closeOnConfirm: false,
+				    confirmButtonText: "确 定",
+				    confirmButtonColor: "#ec6c62"
+				}, function() {
+				    $.ajax({
+				        url : ur,
+						data : {"id":djhArr.join(",")},
+						method : 'POST',
+				    }).done(function(data) {
+				    	swal("操作成功!", data.msg, "success");
+				            t.ajax.reload(); // reload table data
+				    }).error(function(data) {
+				        swal("操作失败", "error");
+				        t.ajax.reload();
+				    });
+				});
+		            /*if (djhArr.length == 0) {
 		            	$("#alertt").html("请选择需要删除的数据");
 		            	$("#my-alert").modal('open');
 		                return;
@@ -231,7 +260,7 @@ $("#qdbz").change(function () {
 			                    	$("#my-alert").modal('open');
 									t.ajax.reload(); // reload table
 								}
-							});
+							});*/
 				
 			});
 			
@@ -370,8 +399,9 @@ $("#qdbz").change(function () {
 					chk_value.push($(this).val());
 					}); 
 					if(chk_value.length<1){
-						$("#alertt").html("请选择销方");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("请选择销方");
+      					// $("#my-alert").modal('open');
+      					swal("请选择销方");
 						return false;
 					}
 					if (formValidity) {

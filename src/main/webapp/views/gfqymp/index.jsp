@@ -67,7 +67,7 @@
 									</div>
 									<div style="padding: 32px;">
 										<button type="button" id="search1"
-											class="am-btn am-btn-default am-btn-success">
+											class="am-btn am-btn-default am-btn-success data-back">
 											<span></span> 查询
 										</button>
 									</div>
