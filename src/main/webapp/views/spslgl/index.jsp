@@ -29,6 +29,10 @@
 	.am-dropdown-flip .am-dropdown-content {
 		left: 0;
 	}
+	.am-selected-list .am-selected-text {
+		text-overflow: clip;
+		overflow: visible;
+	}
 </style>
 <script src="assets/js/loading.js"></script>
 </head>

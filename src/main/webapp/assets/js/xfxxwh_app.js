@@ -239,20 +239,23 @@ $(function() {
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
 	            if (filename == null || filename == "") {
-	                $('#msg').html('请选择要导入的文件');
-		            $('#my-alert').modal('open'); 
+	             //    $('#msg').html('请选择要导入的文件');
+		            // $('#my-alert').modal('open'); 
+		            swal('请选择要导入的文件');
 	                return;
 	            }
 	            var pos = filename.lastIndexOf(".");
 	            if (pos == -1) {
-	                $('#msg').html('导入的文件必须是excel文件');
-		            $('#my-alert').modal('open'); 
+	             //    $('#msg').html('导入的文件必须是excel文件');
+		            // $('#my-alert').modal('open'); 
+		            swal('导入的文件必须是excel文件');
 	                return;
 	            }
 	            var extName = filename.substring(pos + 1);
 	            if ("xls" != extName && "xlsx" != extName) {
-	                $('#msg').html("导入的文件必须是excel文件");
-		            $('#my-alert').modal('open'); 
+	             //    $('#msg').html("导入的文件必须是excel文件");
+		            // $('#my-alert').modal('open'); 
+		            swal("导入的文件必须是excel文件");
 	                return;
 	            }
 	            $("#btnImport").attr("disabled", true);
@@ -264,14 +267,16 @@ $(function() {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
 		                        var count = res.count;
-		    	                $('#msg').html("导入成功，共导入" + count + "条数据");
-		    		            $('#my-alert').modal('open'); 
+		    	             //    $('#msg').html("导入成功，共导入" + count + "条数据");
+		    		            // $('#my-alert').modal('open'); 
+		    		            swal("导入成功，共导入" + count + "条数据");
 		                        window.location.reload();
 		                    } else {
 		                        $("#btnImport").attr("disabled", false);
 		                        $('.js-modal-loading').modal('close');
-		    	                $('#msg').html(res.message);
-		    		            $('#my-alert').modal('open'); 
+		    	             //    $('#msg').html(res.message);
+		    		            // $('#my-alert').modal('open'); 
+		    		            swal(res.message);
 		                    }
 		                }
 		            };
@@ -388,7 +393,11 @@ $(function() {
 	          	                type: 'POST',
 	                        }).done(function(data) {
 	                        	if (data.success) {
-      		                	 	swal("操作成功!", "已成功删除数据！", "success");
+      		                	 	swal({ 
+										  title: "已成功删除", 
+										  timer: 2000, 
+										  showConfirmButton: false 
+										});
           	                        _this.tableEx.ajax.reload(); // reload table data
           	                    } else {
           		                	swal('删除失败,服务器错误' + data.msg);
@@ -427,28 +436,32 @@ $(function() {
 						var ppmax = $('#ppzdje').val();
 						var ppfz = $('#ppfpje').val();
 						if (parseFloat(dpmax) < parseFloat(fpfz)) {
-        	                $('#msg').html('电子发票分票金额大于开票限额');
-        		            $('#my-alert').modal('open'); 
+        	             //    $('#msg').html('电子发票分票金额大于开票限额');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('电子发票分票金额大于开票限额');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         if (parseFloat(zpmax) < parseFloat(zpfz)) {
-        	                $('#msg').html('普通发票分票金额大于开票限额！');
-        		            $('#my-alert').modal('open'); 
+        	             //    $('#msg').html('普通发票分票金额大于开票限额！');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('普通发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         if (parseFloat(ppmax) < parseFloat(ppfz)) {
-        	                $('#msg').html('专用发票分票金额大于开票限额！');
-        		            $('#my-alert').modal('open'); 
+        	             //    $('#msg').html('专用发票分票金额大于开票限额！');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('专用发票分票金额大于开票限额！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
                         var sjxf = $('#sjxf').val();
         				var xfid = $('#xfid').val();
         				if (sjxf == xfid) {
-        	                $('#msg').html("不能选择该销方本身做上级");
-        		            $('#my-alert').modal('open'); 
+        	             //    $('#msg').html("不能选择该销方本身做上级");
+        		            // $('#my-alert').modal('open'); 
+        		            swal("不能选择该销方本身做上级");
                             el.$jsLoading.modal('close'); 
         					return;
         				}
@@ -461,29 +474,39 @@ $(function() {
 								if (data.success) {
 									// loading
 									el.$modalHongchong.modal('close'); // close
-									$('#msg').html(data.msg);
-						            $('#my-alert').modal('open'); 
+									// $('#msg').html(data.msg);
+						   			//$('#my-alert').modal('open'); 
+						  			swal({ 
+									  title: "保存成功", 
+									  text: "已成功保存",
+									  timer: 2000, 
+									  showConfirmButton: false 
+									});
 									_this.tableEx.ajax.reload(); // reload table
 								} else if (data.repeat) {
-									$('#msg').html(data.msg);
-						            $('#my-alert').modal('open'); 
+									// $('#msg').html(data.msg);
+						   			//$('#my-alert').modal('open'); 
+						   			swal(data.msg);
 								}else{
-									$('#msg').html(data.msg);
-						            $('#my-alert').modal('open'); 
+									// $('#msg').html(data.msg);
+					   				//$('#my-alert').modal('open'); 
+						  			 swal(data.msg);
 								}
 								el.$jsLoading.modal('close'); // close
 
 							},
 							error : function() {
 								el.$jsLoading.modal('close'); // close loading
-				                $('#msg').html('保存失败, 请重新登陆再试...!');
-					            $('#my-alert').modal('open'); 
+				             //    $('#msg').html('保存失败, 请重新登陆再试...!');
+					            // $('#my-alert').modal('open'); 
+					            swal('保存失败, 请重新登陆再试...!');
 							}
 						});
 						return false;
 					} else {
-		                $('#msg').html('验证失败');
-			            $('#my-alert').modal('open'); 
+		             //    $('#msg').html('验证失败');
+			            // $('#my-alert').modal('open'); 
+			            swal('验证失败');
 						return false;
 					}
 				}
@@ -504,12 +527,14 @@ $(function() {
 					if (data.success) {
 
 						// modal
-		                $('#msg').html(data.msg);
-			            $('#my-alert').modal('open'); 
+		             //    $('#msg').html(data.msg);
+			            // $('#my-alert').modal('open'); 
+			            swal(data.msg);
 					} else {
 
-		                $('#msg').html('删除失败: ' + data.msg);
-			            $('#my-alert').modal('open'); 
+		             //    $('#msg').html('删除失败: ' + data.msg);
+			            // $('#my-alert').modal('open'); 
+			            swal('删除失败: ' + data.msg);
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -517,8 +542,9 @@ $(function() {
 
 				},
 				error : function() {
-	                $('#msg').html('删除失败, 请重新登陆再试...!');
-		            $('#my-alert').modal('open'); 
+	             //    $('#msg').html('删除失败, 请重新登陆再试...!');
+		            // $('#my-alert').modal('open'); 
+		            swal('删除失败, 请重新登陆再试...!');
 				}
 			});
 

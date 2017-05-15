@@ -389,7 +389,18 @@ table thead th {
 								<div class="am-g am-padding-top">
 									<form class=" am-form am-form-horizontal">
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-											<p>
+											<div class="am-form-group">
+												<div class="am-btn-toolbar">
+													<div class="am-btn-group am-btn-group-xs">
+
+														<button type="button" id="kpd_th"
+                                                            class="am-btn am-btn-default am-btn-warning">
+                                                            <span></span> 退回
+                                                        </button>
+
+													</div>
+												</div>
+											</div>
 										</div>
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 											<div class="am-form-group tpl-table-list-select">
@@ -1393,6 +1404,40 @@ table thead th {
                         "#####0.00"));
                 }
             });
+            $("#lrdj_edit").keyup(function(){
+                var dj = $('#lrdj_edit');//单价
+                var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                if (!num.test(dj.val())) {
+                    if (dj.val().length > 1) {
+                        $('#dj_edit').val(
+                            dj.val().substring(0,
+                                dj.val().length - 1))
+                    } else {
+                        $('#dj_edit').val("")
+                    }
+                    return;
+                }
+
+
+
+                var sl = $('#lrsltaxrate_edit');
+                var se = $('#lrse_edit');
+                var hsje = $('#lrhsje_edit');
+                var jshj = $('#lrjshj_edit');
+                var spsl = $('#lrsl_edit');
+                var je = $('#lrje_edit');
+                var temp = (100 + sl.val() * 100) / 100;
+                if(spsl!=""){
+                    jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
+                    hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
+
+                    var jj=spsl.val() * dj.val();
+                    je.val(FormatFloat(jj/temp, "#####0.00"));
+                    se.val(FormatFloat(je.val() * sl.val(),
+                        "#####0.00"));
+                }
+            });
+
 			$("#lrje_edit").keyup(
 							function() {
 								var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;

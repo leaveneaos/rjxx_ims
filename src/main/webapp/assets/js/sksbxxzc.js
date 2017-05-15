@@ -240,22 +240,28 @@ $(function() {
 									success : function(data) {
 										// todo 处理返回结果
 										if (data.success) {
-											$('#msg').html('删除成功');
-											$('#my-alert').modal('open');
+											// $('#msg').html('删除成功');
+											// $('#my-alert').modal('open');
+											swal({ 
+												  title: "已成功删除", 
+												  timer: 2000, 
+												  showConfirmButton: false 
+												});
 											_this.tableEx.ajax.reload(); // reload
 											// table
 											// data
 										} else {
-											$('#msg').html(
-													'删除失败,服务器错误' + data.msg);
-											$('#my-alert').modal('open');
+											// $('#msg').html('删除失败,服务器错误' + data.msg);
+											// $('#my-alert').modal('open');
+											swal('删除失败,服务器错误' + data.msg);
 										}
 										el.$jsLoading.modal('close');
 
 									},
 									error : function() {
-										$('#msg').html('请求失败,请刷新后稍后重试!');
-										$('#my-alert').modal('open');
+										// $('#msg').html('请求失败,请刷新后稍后重试!');
+										// $('#my-alert').modal('open');
+										swal('请求失败,请刷新后稍后重试!');
 										el.$jsLoading.modal('close');
 									}
 								});
@@ -325,20 +331,23 @@ $(function() {
 			$("#btnImport").click(function() {
 				var filename = $("#importFile").val();
 				if (filename == null || filename == "") {
-					$('#msg').html("请选择要导入的文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("请选择要导入的文件");
+					// $('#my-alert').modal('open');
+					swal("请选择要导入的文件");
 					return;
 				}
 				var pos = filename.lastIndexOf(".");
 				if (pos == -1) {
-					$('#msg').html("导入的文件必须是excel文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("导入的文件必须是excel文件");
+					// $('#my-alert').modal('open');
+					swal("导入的文件必须是excel文件");
 					return;
 				}
 				var extName = filename.substring(pos + 1);
 				if ("xls" != extName && "xlsx" != extName) {
-					$('#msg').html("导入的文件必须是excel文件");
-					$('#my-alert').modal('open');
+					// $('#msg').html("导入的文件必须是excel文件");
+					// $('#my-alert').modal('open');
+					swal("导入的文件必须是excel文件");
 					return;
 				}
 				$("#btnImport").attr("disabled", true);
@@ -350,14 +359,16 @@ $(function() {
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
 							var count = res.count;
-							$('#msg').html("导入成功，共导入" + count + "条数据");
-							$('#my-alert').modal('open');
+							// $('#msg').html("导入成功，共导入" + count + "条数据");
+							// $('#my-alert').modal('open');
+							swal("导入成功，共导入" + count + "条数据");
 							window.location.reload();
 						} else {
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
-							$('#msg').html(res.message);
-							$('#my-alert').modal('open');
+							// $('#msg').html(res.message);
+							// $('#my-alert').modal('open');
+							swal(res.message);
 						}
 					}
 				};
@@ -422,7 +433,7 @@ $(function() {
                 type: "warning",
                 showCancelButton: true,
                 closeOnConfirm: false,
-                confirmButtonText: "是的，我要删除",
+                confirmButtonText: "确 定",
                 confirmButtonColor: "#ec6c62"
             }, function() {
                 $.ajax({
@@ -434,7 +445,11 @@ $(function() {
                 }).done(function(data) {
                 	if (data.success) {
 	                        _this.tableEx.ajax.reload(); // reload table data
-	                        swal("操作成功!", "已成功删除数据！", "success");
+	                        swal({ 
+								  title: "已成功删除", 
+								  timer: 2000, 
+								  showConfirmButton: false 
+								});
 	                    } else {
 		                	swal('删除失败,服务器错误' + data.msg);
 	                    }
@@ -510,13 +525,15 @@ $(function() {
 						el.$jsLoading.modal('toggle'); // show loading
 						// alert('验证成功');
 						if ($('#xfid').val() == 0) {
-							$('#msg').html('请选择销方');
-							$('#my-alert').modal('open');
+							// $('#msg').html('请选择销方');
+							// $('#my-alert').modal('open');
+							swal('请选择销方');
 							return;
 						}
 						if ($('#sbcs').val() == 0) {
-							$('#msg').html('请选择设备厂商');
-							$('#my-alert').modal('open');
+							// $('#msg').html('请选择设备厂商');
+							// $('#my-alert').modal('open');
+							swal('请选择设备厂商');
 							return;
 						}
 						var data = el.$jsForm.serialize(); // get form data
@@ -528,32 +545,37 @@ $(function() {
 							success : function(data) {
 								if (data.success) {
 									el.$modal.modal('close'); // close modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 									_this.tableEx.ajax.reload(); // reload
 									// table
 									// data
 								} else if (data.failure) {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else {
-									$('#msg').html('后台错误: 数据操作失败' + data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html('后台错误: 数据操作失败' + data.msg);
+									// $('#my-alert').modal('open');
+									swal('后台错误: 数据操作失败' + data.msg);
 								}// close loading
 
 								el.$jsLoading.modal('close');
 							},
 							error : function() {
-								$('#msg').html('数据操作失败, 请重新登陆再试...!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('数据操作失败, 请重新登陆再试...!');
+								// $('#my-alert').modal('open');
+								swal('数据操作失败, 请重新登陆再试...!');
 								el.$jsLoading.modal('close');
 							}
 						});
 
 						return false;
 					} else {
-						$('#msg').html('验证失败');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败');
+						// $('#my-alert').modal('open');
+						swal('验证失败');
 						return false;
 					}
 				}
@@ -578,11 +600,13 @@ $(function() {
 							success : function(data) {
 								if (data.success) {
 									el.$modal1.modal('close'); // close modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else {
-									$('#msg').html('后台错误: 数据操作失败' + data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html('后台错误: 数据操作失败' + data.msg);
+									// $('#my-alert').modal('open');
+									swal('后台错误: 数据操作失败' + data.msg);
 
 								}
 								_this.tableEx.ajax.reload(); // reload table
@@ -591,16 +615,18 @@ $(function() {
 
 							},
 							error : function() {
-								$('#msg').html('数据操作失败, 请重新登陆再试...!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('数据操作失败, 请重新登陆再试...!');
+								// $('#my-alert').modal('open');
+								swal('数据操作失败, 请重新登陆再试...!');
 								el.$jsLoading.modal('close');
 							}
 						});
 
 						return false;
 					} else {
-						$('#msg').html('验证失败,请注意格式！');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败,请注意格式！');
+						// $('#my-alert').modal('open');
+						swal('验证失败,请注意格式！');
 						return false;
 					}
 				}

@@ -336,7 +336,7 @@
 												</div>
 											</div>
 
-											<div class="am-form-group">
+											<div class="am-form-group" style="text-align: left;">
 												<label  class="am-u-sm-2 am-form-label"><font
 													color="red">*</font>开票类型</label>
 												<c:forEach items="${fpzls }" var="f">
@@ -344,7 +344,7 @@
 														type="checkbox" onclick="xzfp(this)" id="fplx-${f.fpzldm }" name="fplx"
 														value="${f.fpzldm }">${f.fpzlmc }</label>
 												</c:forEach>
-												<label for="wrzs" class="am-u-sm-4">
+												<label for="wrzs" class="am-u-sm-5">
 													<input type="checkbox"  id="wrzs" name="wrzs" value="1"/>
 													无人值守
 												</label>

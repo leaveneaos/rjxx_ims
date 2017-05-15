@@ -319,11 +319,25 @@ public class KpdshController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sqlshs = ddhs.split(",");
 		for (String sqlsh : sqlshs) {
-			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
-			jyxxsq.setZtbz("2");
-			jyxxsqService.save(jyxxsq);
+			Map map=new HashMap();
+			map.put("sqlsh",sqlsh);
+			List<Jymxsq> jymxsqlist=jymxsqService.findykjjyxxsq(map);
+            if(jymxsqlist.size()>0){
+				result.put("msg", "退回失败，该申请已提交开具申请！");
+			}else{
+				Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
+				jyxxsq.setZtbz("2");
+				jyxxsqService.save(jyxxsq);
+
+				Jyls jylsparams=new Jyls();
+				jylsparams.setSqlsh(Integer.valueOf(sqlsh));
+
+				Jyls jyls=jylsService.findOneByParams(jylsparams);
+				jyls.setYxbz("0");
+				jylsService.save(jyls);
+				result.put("msg", "退回成功");
+			}
 		}
-		result.put("msg", "退回成功");
 		return result;
 	}
 
@@ -751,6 +765,7 @@ public class KpdshController extends BaseController {
 	public Jyls saveJyls(Jyxxsq jyxxsq, List<JyspmxDecimal2> jyspmxList) throws Exception {
 		Jyls jyls1 = new Jyls();
 		jyls1.setDdh(jyxxsq.getDdh());
+		jyls1.setSqlsh(jyxxsq.getSqlsh());
 		jyls1.setJylsh(jyxxsq.getJylsh());
 		jyls1.setJylssj(TimeUtil.getNowDate());
 		jyls1.setFpzldm(jyxxsq.getFpzldm());

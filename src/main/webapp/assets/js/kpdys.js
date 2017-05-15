@@ -66,7 +66,32 @@
                
             ],
             "createdRow": function (row, data, index) {
-                $('td', row).eq(0).html('<input type="checkbox" data="' + data.sqlsh + '" name="chk"/>');
+                $('td', row).eq(0).html('<input type="checkbox" value="' + data.sqlsh + '"  id="ycl"  name="ycl"/>');
+            }
+        });
+        $("#kpd_th").on('click', function() {
+            var chk_value="" ;
+            $('input[name="ycl"]:checked').each(function(){
+                chk_value+=$(this).val()+",";
+            });
+            var ddhs = chk_value.substring(0, chk_value.length-1);
+            if(chk_value.length==0){
+                $("#alertt").html("请至少选择一条数据");
+                $("#my-alert").modal('open');
+            }else{
+                if (!confirm("您确认退回么？")) {
+                    return;
+                }
+                $.ajax({
+                    type : "POST",
+                    url : "kpdsh/th",
+                    data : {"ddhs":ddhs},
+                    success : function(data) {
+                        $("#alertt").html(data.msg);
+                        $("#my-alert").modal('open');
+                        jyls_table2.ajax.reload();
+                    }
+                });
             }
         });
         var jyspmx_table2 = $('#jyspmx_table2').DataTable({

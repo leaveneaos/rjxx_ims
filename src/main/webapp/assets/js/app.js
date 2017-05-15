@@ -173,3 +173,12 @@ var $amOffcanvas = $('.am-offcanvas');
 $(".data-back").click(function() {
     $amOffcanvas.removeClass('am-active')
 });
+//按Esc弹出框退出功能
+$(document).keyup(function(e){
+    var key =  e.which;
+    if(key == 27){
+        $('body').removeClass('am-dimmer-active')
+        $('.am-dimmer').removeClass('am-active')
+        $('.am-modal').removeClass('am-modal-active').addClass('am-modal-out')
+    }
+});
