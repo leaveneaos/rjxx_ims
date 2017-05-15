@@ -223,8 +223,9 @@ $(function() {
 		    //预览
 		    $("#kp_yl").click(function () {
 		 	   if($("input[name='chk']:checked").length!=1){
-		 		  $("#alertt").html("请选择一条数据预览");
-		      	$("#my-alert").modal('open');
+	 		  	// $("#alertt").html("请选择一条数据预览");
+		     //  	$("#my-alert").modal('open');
+		     	swal("请选择一条数据预览");
 		      	return;
 		  	   }
 		 	  var djhArr = [];
@@ -453,8 +454,9 @@ $(function() {
 
 				});
 	            if (djhArr.length == 0) {
-	            	$("#alertt").html("请选择需要删除的交易流水...");
-	            	$("#my-alert").modal('open');
+	            	// $("#alertt").html("请选择需要删除的交易流水...");
+	            	// $("#my-alert").modal('open');
+	            	swal("请选择需要删除的交易流水...");
 	                return;
 	            }
 	      if (!confirm("确认删除么?")) {
@@ -591,8 +593,9 @@ $(function() {
 					}
 				});
 	            if (djhArr.length == 0) {
-	            	$("#alertt").html("请勾选需要开票的交易流水");
-	            	$("#my-alert").modal('open');
+	            	// $("#alertt").html("请勾选需要开票的交易流水");
+	            	// $("#my-alert").modal('open');
+	            	swal("请勾选需要开票的交易流水");
 	                return;
 	            }
 	            var skpid="";

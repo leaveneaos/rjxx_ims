@@ -25,6 +25,11 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+<style type="text/css">
+	.am-dropdown-flip .am-dropdown-content {
+		left: 0;
+	}
+</style>
 <script src="assets/js/loading.js"></script>
 </head>
 <body>

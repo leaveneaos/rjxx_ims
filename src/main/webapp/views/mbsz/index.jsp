@@ -24,6 +24,9 @@
  .am-u-left{
     padding-left:0em;
  }
+ thead tr th {
+ 	text-align: center;
+ }
 </style>
 </head>
 <body>
