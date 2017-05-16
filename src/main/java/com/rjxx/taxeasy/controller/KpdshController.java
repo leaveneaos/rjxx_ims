@@ -319,23 +319,27 @@ public class KpdshController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sqlshs = ddhs.split(",");
 		for (String sqlsh : sqlshs) {
-			Map map=new HashMap();
-			map.put("sqlsh",sqlsh);
-			List<Jymxsq> jymxsqlist=jymxsqService.findykjjyxxsq(map);
-            if(jymxsqlist.size()>0){
-				result.put("msg", "退回失败，该申请已提交开具申请！");
-			}else{
+			Jyls jylsparams=new Jyls();
+			jylsparams.setSqlsh(Integer.valueOf(sqlsh));
+            boolean f =true;
+			List<Jyls> jylslist=jylsService.findAllByParams(jylsparams);
+            for(Jyls jyls:jylslist){
+				if(jyls.getClztdm().equals("40")){
+					f=false;
+					break;
+				}
+			}
+            if(f){
+				for(Jyls jyls:jylslist){
+					jyls.setYxbz("0");
+					jylsService.save(jyls);
+				}
 				Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
 				jyxxsq.setZtbz("2");
 				jyxxsqService.save(jyxxsq);
-
-				Jyls jylsparams=new Jyls();
-				jylsparams.setSqlsh(Integer.valueOf(sqlsh));
-
-				Jyls jyls=jylsService.findOneByParams(jylsparams);
-				jyls.setYxbz("0");
-				jylsService.save(jyls);
 				result.put("msg", "退回成功");
+			}else{
+				result.put("msg", "退回失败，该笔数据已部分开具！");
 			}
 		}
 		return result;
@@ -956,6 +960,20 @@ public class KpdshController extends BaseController {
 		pagination.addParam("orderBy", "lrsj desc");
 
 		List<JyxxsqVO> jyxxsqList = jyxxsqService.findByPage(pagination);
+        for(JyxxsqVO jyxxsqVO:jyxxsqList){
+			Jyls jylsparams=new Jyls();
+			jylsparams.setSqlsh(Integer.valueOf(jyxxsqVO.getSqlsh()));
+			Double f =0.0;
+			List<Jyls> jylslist=jylsService.findAllByParams(jylsparams);
+			for(Jyls Jyls:jylslist){
+				if(Jyls.getClztdm().equals("40")){
+					f+=Jyls.getJshj();
+				}
+			}
+			jyxxsqVO.setYkjje(f);
+		}
+
+
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
