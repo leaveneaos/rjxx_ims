@@ -46,7 +46,7 @@ $(function() {
          "bPaginate": false,
          "bAutoWidth": false,
          "bSort": false,
-         "scrollY": "70",
+         "scrollY": "100",
          "scrollCollapse": "true"
      });
     
@@ -96,11 +96,11 @@ $(function() {
             var mc = $("#lrmc_edit").val();
             var ggxh = $("#lrggxh_edit").val();
             var dw = $("#lrdw_edit").val();
-            var sl = $("#lrsl_edit").val();
+            var sl = $("#lrsl_edit").val();//数量
 
             var dj = $("#lrdj_edit").val();
             var je = $("#lrje_edit").val();
-            var sltaxrate = $("#lrsltaxrate_edit").val();
+            var sltaxrate = $("#lrsltaxrate_edit").val();//税率
             var se = $("#lrse_edit").val();
             var jshj = $("#lrjshj_edit").val();
             index = mxarr.length + 1;
