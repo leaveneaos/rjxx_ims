@@ -1050,14 +1050,7 @@ public class LrkpdController extends BaseController {
         x1.setGsdm(gsdm);
         x1.setXfsh(drmb.getXfsh());
         xf1 = xfService.findOneByParams(x1);
-//		List row1 = dataList.get(0);
-//		String xfsh2 = getValue("xfsh", pzMap, columnIndexMap, dataList.get(1));
-//		for (Xf x : xfList) {
-//			if (x.getXfsh().equals(xfsh2)) {
-//				xf1 = x;
-//				break;
-//			}
-//		}
+
         boolean flag = false;
         if (xf1 != null && xfsh1.equals(xf1.getXfsh())) {
             flag = true;

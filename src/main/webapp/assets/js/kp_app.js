@@ -500,7 +500,7 @@ $(function() {
                 var data = jyls_table.row($(this)).data();
                 if ($('#check_all1').prop('checked')){
                     djh.splice(0,djh.length);
-                    t.column(0).nodes().each(function (cell, i) {
+                    jyls_table.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }

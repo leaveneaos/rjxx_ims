@@ -1375,7 +1375,7 @@ table thead th {
 										$('#mrmb').append(option);
 									}
 								});
-							});
+			});
 		    $("#lrsl_edit").keyup(function(){
                 var spsl = $('#lrsl_edit');//商品数量
                 var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
@@ -1654,31 +1654,31 @@ table thead th {
 		};
 		function hidespan(){
 			var fpzldm = $("#lrfpzl_edit").val();
-			if(fpzldm=='01'){
-				//$("#span_gfsh").style.display="";
-				document.getElementById("lrspan_gfsh").style.display=""; 
-				//document.getElementById("span_gfdz").style.display=""; 
-				//document.getElementById("span_gfdh").style.display=""; 
-				document.getElementById("lrspan_gfyh").style.display=""; 
-				document.getElementById("lrspan_gfyhzh").style.display=""; 
-				//document.getElementById("gfmc_edit").setAttribute("required",true);
-				$("#lrgfsh_edit").attr("required",true);
-				//$("#gfdz_edit").attr("required",true);
-				//$("#gfdh_edit").attr("required",true);
-				$("#lrgfyh_edit").attr("required",true);
-				$("#lrgfzh_edit").attr("required",true);
-			 }else{
-				document.getElementById("lrspan_gfsh").style.display="none"; 
-				//document.getElementById("span_gfdz").style.display="none"; 
-				//document.getElementById("span_gfdh").style.display="none"; 
-		        document.getElementById("lrspan_gfyh").style.display="none"; 
-				document.getElementById("lrspan_gfyhzh").style.display="none"; 
-				$("#lrgfsh_edit").attr("required",false);
-				//$("#gfdz_edit").attr("required",false);
-				//$("#gfdh_edit").attr("required",false);
-				$("#lrgfyh_edit").attr("required",false);
-				$("#lrgfzh_edit").attr("required",false);
-			 }
+				if(fpzldm=='01'){
+					//$("#span_gfsh").style.display="";
+					document.getElementById("lrspan_gfsh").style.display="";
+					//document.getElementById("span_gfdz").style.display="";
+					//document.getElementById("span_gfdh").style.display="";
+					document.getElementById("lrspan_gfyh").style.display="";
+					document.getElementById("lrspan_gfyhzh").style.display="";
+					//document.getElementById("gfmc_edit").setAttribute("required",true);
+					$("#lrgfsh_edit").attr("required",true);
+					//$("#gfdz_edit").attr("required",true);
+					//$("#gfdh_edit").attr("required",true);
+					$("#lrgfyh_edit").attr("required",true);
+					$("#lrgfzh_edit").attr("required",true);
+				 }else{
+					document.getElementById("lrspan_gfsh").style.display="none";
+					//document.getElementById("span_gfdz").style.display="none";
+					//document.getElementById("span_gfdh").style.display="none";
+					document.getElementById("lrspan_gfyh").style.display="none";
+					document.getElementById("lrspan_gfyhzh").style.display="none";
+					$("#lrgfsh_edit").attr("required",false);
+					//$("#gfdz_edit").attr("required",false);
+					//$("#gfdh_edit").attr("required",false);
+					$("#lrgfyh_edit").attr("required",false);
+					$("#lrgfzh_edit").attr("required",false);
+				 }
 			}
 	</script>
 
