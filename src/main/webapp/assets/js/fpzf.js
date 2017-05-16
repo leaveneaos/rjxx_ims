@@ -4,32 +4,32 @@
 $(function () {
     "use strict";
     var el = {
-    		 $jsTable: $('#fpTable'),
-    	        //$modalHongchong: $('#hongchong'),
-    	        //$jsSubmit: $('.js-submit'),
-    	        //$jsClose: $('.js-close'),
-    	        $jsForm0: $('#ycform'), // 查询form 
-    	        $jsForm1: $('#ycform1'), // 查询form 
+             $jsTable: $('#fpTable'),
+                //$modalHongchong: $('#hongchong'),
+                //$jsSubmit: $('.js-submit'),
+                //$jsClose: $('.js-close'),
+                $jsForm0: $('#ycform'), // 查询form 
+                $jsForm1: $('#ycform1'), // 查询form 
 
-    	        
-    	        $s_kprqq: $('#s_rqq'), // search 开票日期起
-    	        $s_kprqz: $('#s_rqz'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
-    	        $s_gfmc: $('#s_gfmc'), // search 购方名称
-    	        $s_fpdm: $('#s_fpdm'), // search 发票代码
-    	        $s_fphm: $('#s_fphm'), // search 发票号码
-    	        $s_ddh: $('#s_ddh'), // search   订单号
-    	        $s_xfsh: $('#s_xfsh'), // search   销方税号
-    	        $s_fplx: $('#s_fplx'), // search   发票类型
-    	        
-    	        $s_kprqq1: $('#s_rqq1'), // search 开票日期起
-    	        $s_kprqz1: $('#s_rqz1'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
-    	        $s_gfmc1: $('#s_gfmc1'), // search 购方名称
-    	        $s_fpdm1: $('#s_fpdm1'), // search 发票代码
-    	        $s_fphm1: $('#s_fphm1'), // search 发票号码
-    	        $s_ddh1: $('#s_ddh1'), // search   订单号
-    	        $s_xfsh1: $('#s_xfsh1'), // search   销方税号
-    	        $s_fplx1: $('#s_fplx1'), // search   发票类型
-    	        $jsLoading: $('.js-modal-loading'),
+                
+                $s_kprqq: $('#s_rqq'), // search 开票日期起
+                $s_kprqz: $('#s_rqz'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
+                $s_gfmc: $('#s_gfmc'), // search 购方名称
+                $s_fpdm: $('#s_fpdm'), // search 发票代码
+                $s_fphm: $('#s_fphm'), // search 发票号码
+                $s_ddh: $('#s_ddh'), // search   订单号
+                $s_xfsh: $('#s_xfsh'), // search   销方税号
+                $s_fplx: $('#s_fplx'), // search   发票类型
+                
+                $s_kprqq1: $('#s_rqq1'), // search 开票日期起
+                $s_kprqz1: $('#s_rqz1'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
+                $s_gfmc1: $('#s_gfmc1'), // search 购方名称
+                $s_fpdm1: $('#s_fpdm1'), // search 发票代码
+                $s_fphm1: $('#s_fphm1'), // search 发票号码
+                $s_ddh1: $('#s_ddh1'), // search   订单号
+                $s_xfsh1: $('#s_xfsh1'), // search   销方税号
+                $s_fplx1: $('#s_fplx1'), // search   发票类型
+                $jsLoading: $('.js-modal-loading'),
     };
 
   //开票商品明细table
@@ -54,10 +54,10 @@ $(function () {
             {"data": "spmc"},
             {"data": "spggxh"},
             {
-            	"data": null,
+                "data": null,
                 "render": function (data) {
                  //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
-                	   if (data.spje) {
+                       if (data.spje) {
                            return FormatFloat(data.spje,
                                "###,###.00");
                        }else{
@@ -66,11 +66,11 @@ $(function () {
                 }
             },
             {
-            	"data": "spsl",
+                "data": "spsl",
                 'sClass': 'right'
-            		},
+                    },
             {
-            	"data": function (data) {
+                "data": function (data) {
                     if (data.spse) {
                         return FormatFloat(data.spse,
                             "###,###.00");
@@ -79,7 +79,7 @@ $(function () {
                     }
                 },
                 'sClass': 'right'
-            		},
+                    },
             {
               "data": function (data) {
                      if (data.jshj) {
@@ -116,10 +116,10 @@ $(function () {
             {"data": "spmc"},
             {"data": "spggxh"},
             {
-            	"data": null,
+                "data": null,
                 "render": function (data) {
                  //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
-                	   if (data.spje) {
+                       if (data.spje) {
                            return FormatFloat(data.spje,
                                "###,###.00");
                        }else{
@@ -128,11 +128,11 @@ $(function () {
                 }
             },
             {
-            	"data": "spsl",
+                "data": "spsl",
                 'sClass': 'right'
-            		},
+                    },
             {
-            	"data": function (data) {
+                "data": function (data) {
                     if (data.spse) {
                         return FormatFloat(data.spse,
                             "###,###.00");
@@ -141,7 +141,7 @@ $(function () {
                     }
                 },
                 'sClass': 'right'
-            		},
+                    },
             {
               "data": function (data) {
                      if (data.jshj) {
@@ -180,7 +180,7 @@ $(function () {
             var _this = this;
             var t = el.$jsTable
                 .DataTable({
-                	"searching": false,
+                    "searching": false,
                     "serverSide": true,
                     "sServerMethod": "POST",
                     "processing": true,
@@ -192,8 +192,8 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
                             var bj=$("#bj").val();
-                        	
-                        	if(bj=="1"){
+                            
+                            if(bj=="1"){
                             d.xfi = $('#s_xfsh').val();//销方税号
                             d.kprqq = el.$s_kprqq.val(); // search 开票日期起
                             d.kprqz = el.$s_kprqz.val(); // search 开票日期止
@@ -202,26 +202,26 @@ $(function () {
                             d.gfmc = el.$s_gfmc.val();   //购方名称
                             d.ddh = el.$s_ddh.val();     //订单号
                             d.fplx = el.$s_fplx.val();     //发票类型
-                        	}if(bj=="2"){
-                        		   var csm =  $('#dxcsm').val();
+                            }if(bj=="2"){
+                                   var csm =  $('#dxcsm').val();
                                    if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
-                                 	  d.gfmc = $('#dxcsz').val();
+                                      d.gfmc = $('#dxcsz').val();
                                  }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
-                                 	  d.ddh = $('#dxcsz').val();
+                                      d.ddh = $('#dxcsz').val();
                                  }
-                        	}
+                            }
                         }
                     },
                     "columns": [
                        {
-							"orderable" : true,
-							"data" : null,
-							render : function(data, type, full, meta) {
-								return '<input type="checkbox" value="'
-									+ data.kplsh + '" name="chk"  id="chk"/>';
-							}
-						},
-						{
+                            "orderable" : true,
+                            "data" : null,
+                            render : function(data, type, full, meta) {
+                                return '<input type="checkbox" value="'
+                                    + data.kplsh + '" name="chk"  id="chk"/>';
+                            }
+                        },
+                        {
                             "orderable": false,
                             "data": null,
                             "defaultContent": ""
@@ -241,7 +241,7 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"hjje",
+                                //"hjje",
                             'sClass': 'right'
                         },
                         {
@@ -253,7 +253,7 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"hjse",
+                                //"hjse",
                             'sClass': 'right'
                         },
                         {
@@ -265,28 +265,28 @@ $(function () {
                                     return null;
                                 }
                             },
-                            	//"jshj",
+                                //"jshj",
                             'sClass': 'right'
                         },
                         {
                             "data": null,
                             "render": function (data) {
-                            	if(data.fpzldm=='12'){
-                            		return '<a class="view" href="'
+                                if(data.fpzldm=='12'){
+                                    return '<a class="view" href="'
                                     + data.pdfurl
                                     + '" target="_blank">查看</a>'
-                            	}else{
-                            		return '<a class="view" target="_blank">查看</a>'
-                            		
-                            	}
-                            	
+                                }else{
+                                    return '<a class="view" target="_blank">查看</a>'
+                                    
+                                }
+                                
                                 
                             }
                         }]
                 });
              t1 = $("#ysTable")
             .DataTable({
-            	"searching": false,
+                "searching": false,
                 "serverSide": true,
                 "sServerMethod": "POST",
                 "processing": true,
@@ -297,23 +297,23 @@ $(function () {
                     url: "fpzf/getKplsList1",
                     type: 'POST',
                     data: function (d) {
-                    	if(bz=="1"){
-	                    	d.xfi = $('#s_xfsh').val();//销方税号
-	                        d.kprqq = el.$s_kprqq1.val(); // search 开票日期起
-	                        d.kprqz = el.$s_kprqz1.val(); // search 开票日期止
-	                        d.fphm = el.$s_fphm1.val();   // search 发票号码
-	                        d.fpdm = el.$s_fpdm1.val();   // 发票代码
-	                        d.gfmc = el.$s_gfmc1.val();   //购方名称
-	                        d.ddh = el.$s_ddh1.val();     //订单号
-	                        d.fplx = el.$s_fplx1.val();     //发票类型
-                    	}if(bz=="2"){
-                    		 var csm =  $('#dxcsm1').val();
+                        if(bz=="1"){
+                            d.xfi = $('#s_xfsh').val();//销方税号
+                            d.kprqq = el.$s_kprqq1.val(); // search 开票日期起
+                            d.kprqz = el.$s_kprqz1.val(); // search 开票日期止
+                            d.fphm = el.$s_fphm1.val();   // search 发票号码
+                            d.fpdm = el.$s_fpdm1.val();   // 发票代码
+                            d.gfmc = el.$s_gfmc1.val();   //购方名称
+                            d.ddh = el.$s_ddh1.val();     //订单号
+                            d.fplx = el.$s_fplx1.val();     //发票类型
+                        }if(bz=="2"){
+                             var csm =  $('#dxcsm1').val();
                              if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
-                           	  d.gfmc = $('#dxcsz1').val();
+                              d.gfmc = $('#dxcsz1').val();
                              }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
-                           	  d.ddh = $('#dxcsz1').val();
+                              d.ddh = $('#dxcsz1').val();
                              }
-                    	}
+                        }
                     }
                 },
                 "columns": [
@@ -333,7 +333,7 @@ $(function () {
                                 return null;
                             }
                         },
-                        	//"hjje",
+                            //"hjje",
                         'sClass': 'right'
                     },
                     {
@@ -345,7 +345,7 @@ $(function () {
                                 return null;
                             }
                         },
-                        	//"hjse",
+                            //"hjse",
                         'sClass': 'right'
                     },
                     {
@@ -357,20 +357,20 @@ $(function () {
                                 return null;
                             }
                         },
-                        	//"jshj",
+                            //"jshj",
                         'sClass': 'right'
                     },
                     {
                         "data": null,
                         "render": function (data) {
-                        	if(data.fpzldm=='12'){
-                        		return '<a class="view" href="'
+                            if(data.fpzldm=='12'){
+                                return '<a class="view" href="'
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
-                        	}else{
-                        		return '<a class="view"  target="_blank">查看</a>'
-                        		
-                        	}
+                            }else{
+                                return '<a class="view"  target="_blank">查看</a>'
+                                
+                            }
                         }
                     }]
             });
@@ -390,23 +390,23 @@ $(function () {
             });
      
              t.on('click', 'a.view', function () {
-            	 var data = t.row($(this).parents('tr')).data();
-            	 $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
-             	 $("#doc-modal-fpyl").modal("open");
+                 var data = t.row($(this).parents('tr')).data();
+                 $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
+                 $("#doc-modal-fpyl").modal("open");
             });
              t1.on('click', 'a.view', function () {
-            	 var data = t.row($(this).parents('tr')).data();
-            	 $("#doc-modal-fpyll").load('fpzf/kpyl?kpsqhs='+data.djh);
-             	 $("#doc-modal-fpyl").modal("open");
+                 var data = t.row($(this).parents('tr')).data();
+                 $("#doc-modal-fpyll").load('fpzf/kpyl?kpsqhs='+data.djh);
+                 $("#doc-modal-fpyl").modal("open");
             });
             //选中列查询明细
             $('.js-table2 tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
-	                $(this).find('td:eq(0) input').prop('checked',false);
+                    $(this).find('td:eq(0) input').prop('checked',false);
                 } else {
-	                $(this).find('td:eq(0) input').prop('checked',true); 
-                	t.$('tr.selected').removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',true); 
+                    t.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected'); 
                 }
                 $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
@@ -414,23 +414,24 @@ $(function () {
                 $("#kplsh").val(data.kplsh);
                 var kplshStr = [];
                 $('#chk:checked').each(function(){    
-               	 kplshStr.push($(this).val()); 
+                 kplshStr.push($(this).val()); 
                 });
-             	if(kplshStr.length>1){
-           		$("#alertt").html("不能批量作废！");
-                  	$("#my-alert").modal('open');
-                 	$('input[type="checkbox"]').prop('checked', false);     
+                if(kplshStr.length>1){
+                    // $("#alertt").html("不能批量作废！");
+                 //     $("#my-alert").modal('open');
+                    swal("不能批量作废！");
+                    $('input[type="checkbox"]').prop('checked', false);     
 
                       return;
-           		
-           	    }
+                
+                }
                 kpspmx_table.ajax.reload();
             });
             $('#ysTable').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
-                	t1.$('tr.selected').removeClass('selected');
+                    t1.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected'); 
                 }
                 $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
@@ -439,98 +440,132 @@ $(function () {
                 kpspmx_table1.ajax.reload();
             });
           $('#check_all').change(function () {
-            	if ($('#check_all').prop('checked')) {
-            		t.column(0).nodes().each(function (cell, i) {
+                if ($('#check_all').prop('checked')) {
+                    t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', true);
                     });
                 } else {
-                	t.column(0).nodes().each(function (cell, i) {
+                    t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
             });
             $('#zf_search').click(function () {
-	        	$("#bj").val("2");
-	        	$('#xzxfq').attr("selected","selected");
-	         	$('#xzlxq').attr("selected","selected");
-	        	t.ajax.reload();
-	        });
+                $("#bj").val("2");
+                $('#xzxfq').attr("selected","selected");
+                $('#xzlxq').attr("selected","selected");
+                t.ajax.reload();
+            });
             
-	        $('#zf_search1').click(function () {
-	        	$("#bj").val("1");
-	        	$("#dxcsz").val("");
-	        	t.ajax.reload();
-	        });
+            $('#zf_search1').click(function () {
+                $("#bj").val("1");
+                $("#dxcsz").val("");
+                t.ajax.reload();
+            });
             
             
             $('#zf_search2').click(function () {
-	        	$("#bz").val("2");
-            	$('#xzxfq1').attr("selected","selected");
-	         	$('#xzlxq1').attr("selected","selected");
-              	t1.ajax.reload();
+                $("#bz").val("2");
+                $('#xzxfq1').attr("selected","selected");
+                $('#xzlxq1').attr("selected","selected");
+                t1.ajax.reload();
              });
             $('#zf_search3').click(function () {
-	        	$("#bz").val("1");
-             	$("#dxcsz1").val("");
-             	t1.ajax.reload();
+                $("#bz").val("1");
+                $("#dxcsz1").val("");
+                t1.ajax.reload();
 
             });
             
           //作废操作
             $('#kp_zf').click(function () {
-            	
-            	 var kplshStr = [];
+                
+                 var kplshStr = [];
                  $('#chk:checked').each(function(){    
-                	 kplshStr.push($(this).val()); 
+                     kplshStr.push($(this).val()); 
                  });
-            	if(kplshStr.length>1){
-            		$("#alertt").html("不能批量作废！");
-                   	$("#my-alert").modal('open');
-                  	$('input[type="checkbox"]').prop('checked', false);     
+                if(kplshStr.length>1){
+                    // $("#alertt").html("不能批量作废！");
+              //        $("#my-alert").modal('open');
+                    swal("不能批量作废！");
+                    $('input[type="checkbox"]').prop('checked', false);     
 
                        return;
-            		
-            	}else if(kplshStr.length==0){
-            		$("#alertt").html("请选择一条记录！");
-                   	$("#my-alert").modal('open');
-                  	$('input[type="checkbox"]').prop('checked', false);     
+                    
+                }else if(kplshStr.length==0){
+                    // $("#alertt").html("请选择一条记录！");
+              //        $("#my-alert").modal('open');
+                        swal("请选择一条记录！");
+                    $('input[type="checkbox"]').prop('checked', false);     
 
                        return;
-            	}
-            	
-            	
-            	var kplsh = $('#kplsh').val();
-            	if(kplsh!=0){
-            		if(confirm("确定要作废该条数据吗？")){
-                		var xhStr = "";
-                    	var hcjeStr="";
-                    	var zhcje = 0;
-                		var rows = $("#mxTable").find('tr');		
-                		$.ajax({
-                			url:"fpzf/zf",
-                			data:{"kplsh":kplsh},
-                		    success:function(data){
-                		    	if(data.success){
-                		    		$("#alertt").html(data.msg);
-                    	           	$("#my-alert").modal('open');
-                		    		$("#kplsh").val("");
-                		    		t.ajax.reload();
-                		    	}else{
-                		    		$("#alertt").html(data.msg);
-                    	           	$("#my-alert").modal('open');
-                		    	}   		    	    		    	
-                		    },
-                		    error:function(){
-                		    	$("#alertt").html("程序出错，请联系开发人员！");
-                	           	$("#my-alert").modal('open');
-                		    	
-                		    }
-                		});
-                	}
-            	}else{
-            		$("#alertt").html("请选择一条记录！");
-                   	$("#my-alert").modal('open');
-            	}    	  
+                }
+                
+                
+                var kplsh = $('#kplsh').val();
+                if(kplsh!=0){
+
+                    // if(confirm("确定要作废该条数据吗？")){
+              //        var xhStr = "";
+              //        var hcjeStr="";
+              //        var zhcje = 0;
+              //        var rows = $("#mxTable").find('tr');        
+              //        $.ajax({
+              //            url:"fpzf/zf",
+              //            data:{"kplsh":kplsh},
+              //            success:function(data){
+              //                if(data.success){
+              //                    $("#alertt").html(data.msg);
+              //                    $("#my-alert").modal('open');
+              //                    $("#kplsh").val("");
+              //                    t.ajax.reload();
+              //                }else{
+              //                    $("#alertt").html(data.msg);
+              //                    $("#my-alert").modal('open');
+              //                }                                       
+              //            },
+              //            error:function(){
+              //                $("#alertt").html("程序出错，请联系开发人员！");
+              //                $("#my-alert").modal('open');
+                                
+              //            }
+              //        });
+              //    }
+                    swal({
+                        title: "确定要作废该条数据吗？",
+                        text: "确定要作废该条数据吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确 定",
+                        confirmButtonColor: "#ec6c62"
+                    }, function() {
+                        var xhStr = "";
+                        var hcjeStr="";
+                        var zhcje = 0;
+                        var rows = $("#mxTable").find('tr');
+                        $.ajax({
+                            url:"fpzf/zf",
+                            data:{"kplsh":kplsh},
+                        }).done(function(data) {
+                            if(data.success){
+                                swal(data.msg);
+                                $("#kplsh").val("");
+                                t.ajax.reload();
+                            }else{
+                                swal(data.msg);
+                            }
+                            
+                        }).error(function(data) {
+                            swal("程序出错，请联系开发人员！");
+                        });
+                    });
+
+                }else{
+                    // $("#alertt").html("请选择一条记录！");
+              //        $("#my-alert").modal('open');
+                        swal("请选择一条记录！");
+                }         
             });
             return t;
         },
@@ -540,7 +575,7 @@ $(function () {
         search_ac: function () {
             var _this = this;
          /*   el.$jsSearch.on('click', function (e) {
-            	  if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
+                  if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
                           || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
                           alert('Error,请选择开始和结束时间!');
                           return false;
@@ -590,11 +625,11 @@ $(function () {
     //定义鼠标样式
     $("#fpTable").css("cursor","pointer");
     function delcommafy(num){
-    	   if((num+"").trim()==""){
-    	      return "";
-    	   }
-    	   num=num.replace(/,/gi,'');
-    	   return num;
-    	}
+           if((num+"").trim()==""){
+              return "";
+           }
+           num=num.replace(/,/gi,'');
+           return num;
+        }
     
 });
