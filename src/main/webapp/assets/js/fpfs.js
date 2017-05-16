@@ -49,7 +49,7 @@ $(function () {
                 "serverSide": true,
                 ordering: false,
                 searching: false,
-				scrollX : true,
+                scrollX : true,
 
                 "ajax": {
                     url: _this.config.getUrl,
@@ -58,19 +58,19 @@ $(function () {
                        var tip = $('#tip').val();
                        var txt = $('#searchtxt').val();
                        if ($('#bj').val() == 1) {
-                    	   if (tip == "1") {
-                    		   d.gfmc = txt;
-                    	   }else if (tip == "2") {
-                    		   d.ddh = txt;
-                    	   }else if (tip == "3") {
-                    		   d.fphm = txt;
-                    	   }else if (tip == "4") {
-                    		   d.fpdm = txt;
-                    	   }else if (tip == "5") {
-                    		   d.xfmc = txt;
-                    	   }
+                           if (tip == "1") {
+                               d.gfmc = txt;
+                           }else if (tip == "2") {
+                               d.ddh = txt;
+                           }else if (tip == "3") {
+                               d.fphm = txt;
+                           }else if (tip == "4") {
+                               d.fpdm = txt;
+                           }else if (tip == "5") {
+                               d.xfmc = txt;
+                           }
                        }else{
-                    	   d.jyrqq = el.$s_jyrqq.val(); // search 交易日期起
+                           d.jyrqq = el.$s_jyrqq.val(); // search 交易日期起
                            d.jyrqz = el.$s_jyrqz.val(); // search 交易日期止
                            d.kprqq = el.$s_kprqq.val(); // search 开票日期起
                            d.kprqz = el.$s_kprqz.val(); // search 开票日期止
@@ -166,10 +166,11 @@ $(function () {
                     $sentType = null,
                     row = '';
                 if (data.gfemail == null || data.gfemail == "") {
-    				$('#msg').html('没有邮箱，请增加邮箱后在发送');
-    				$('#my-alert').modal('open');
-                	return;    
-				}
+                    // $('#msg').html('没有邮箱，请增加邮箱后在发送');
+                    // $('#my-alert').modal('open');
+                    swal('没有邮箱，请增加邮箱后在发送');
+                    return;    
+                }
                 $(this).parents('tr').find('.sentType').each(function (i, el) {
                     $sentType = $(el);
                     if ($sentType.is(':checked')) {
@@ -195,10 +196,11 @@ $(function () {
             var _this = this;
             el.$jsLoading.modal('open');
             if(data.ids==''){
-				$('#msg').html('请先选择至少一条数据');
-				$('#my-alert').modal('open');
-            	el.$jsLoading.modal('close');
-            	return;            	
+                // $('#msg').html('请先选择至少一条数据');
+                // $('#my-alert').modal('open');
+                swal('请先选择至少一条数据');
+                el.$jsLoading.modal('close');
+                return;             
             }
             $.ajax({
                 url: _this.config.sentUrl,
@@ -208,17 +210,20 @@ $(function () {
                 success: function (data) {
                     // todo 处理返回结果
                     if (data.statu === '0') {
-    					$('#msg').html(data.msg);
-    					$('#my-alert').modal('open');
+                        // $('#msg').html(data.msg);
+                        // $('#my-alert').modal('open');
+                        swal(data.msg);
                     } else {
-    					$('#msg').html('发送失败,服务器错误' + data.message);
-    					$('#my-alert').modal('open');
+                        // $('#msg').html('发送失败,服务器错误' + data.message);
+                        // $('#my-alert').modal('open');
+                        swal('发送失败,服务器错误' + data.message);
                     }
                     el.$jsLoading.modal('close');
                 },
                 error: function () {
-					$('#msg').html('请求失败,请刷新后稍后重试!');
-					$('#my-alert').modal('open');
+                    // $('#msg').html('请求失败,请刷新后稍后重试!');
+                    // $('#my-alert').modal('open');
+                    swal('请求失败,请刷新后稍后重试!');
                 }
             });
 
@@ -333,8 +338,9 @@ $(function () {
                                     _this.tableEx.ajax.reload(); // reload table data
 
                                 } else {
-                					$('#msg').html('后台错误: 保存数据失败' + data.message);
-                					$('#my-alert').modal('open');
+                                    // $('#msg').html('后台错误: 保存数据失败' + data.message);
+                                    // $('#my-alert').modal('open');
+                                    swal('后台错误: 保存数据失败' + data.message);
                                 }
 
 
@@ -342,15 +348,17 @@ $(function () {
 
                             },
                             error: function () {
-            					$('#msg').html('保存数据失败, 请刷新后再试...!');
-            					$('#my-alert').modal('open');
+                                // $('#msg').html('保存数据失败, 请刷新后再试...!');
+                                // $('#my-alert').modal('open');
+                                swal('保存数据失败, 请刷新后再试...!');
                             }
                         });
 
                         return false;
                     } else {
-    					$('#msg').html('验证失败');
-    					$('#my-alert').modal('open');
+                        // $('#msg').html('验证失败');
+                        // $('#my-alert').modal('open');
+                        swal('验证失败');
                         return false;
                     }
                 }
