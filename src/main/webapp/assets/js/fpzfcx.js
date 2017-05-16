@@ -33,24 +33,24 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'GET',
                     data: function (d) {
-                    	var bz = $('#searchbz').val();
-                    	if(bz=='1'){
-                    		d.xfid = el.$s_xfid.val();
-                        	d.skpid = el.$s_skpid.val();
+                        var bz = $('#searchbz').val();
+                        if(bz=='1'){
+                            d.xfid = el.$s_xfid.val();
+                            d.skpid = el.$s_skpid.val();
                             d.ddh = el.$s_ddh.val();   // search 订单号
                             d.gfmc = el.$s_gfmc.val();   // search 发票号码
                             d.kprqq = el.$s_kprqq.val(); // search 开票日期
                             d.kprqz = el.$s_kprqz.val(); // search 开票日期
                             d.fpzl = el.$s_fpzl.val();
-                    	}else{
-                    		var item = $('#s_mainkey').val();
-                    		if(item=='ddh'){
-                    			d.ddh = $('#searchValue').val();
-                    		}
-                    		if(item=='gfmc'){
-                    			d.gfmc = $('#searchValue').val();
-                    		}
-                    	}
+                        }else{
+                            var item = $('#s_mainkey').val();
+                            if(item=='ddh'){
+                                d.ddh = $('#searchValue').val();
+                            }
+                            if(item=='gfmc'){
+                                d.gfmc = $('#searchValue').val();
+                            }
+                        }
                     }
                 },
                 "columns": [
@@ -112,7 +112,7 @@ $(function () {
             // 
             t.on('click', 'a.generates', function () {
                 var data = t.row($(this).parents('tr')).data();
-                alert('生成成功');
+                swal('生成成功');
 
             });
 
@@ -127,7 +127,7 @@ $(function () {
             // 
             t.on('click', 'a.sent', function () {
                 var data = t.row($(this).parents('tr')).data();
-                alert('发送成功');
+                swal('发送成功');
             });
 
             return t;
@@ -139,7 +139,7 @@ $(function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
                 if ((!el.$s_kprqq.val() && el.$s_kprqz.val()) || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
+                    swal('Error,请选择开始和结束时间!');
                     return false;
                 }
                 var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
@@ -148,17 +148,17 @@ $(function () {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
+                                swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
-                            // alert('月份不同,Error!');
-                            alert('Error,请选择同一个年月内的时间!');
+                            // swal('月份不同,Error!');
+                            swal('Error,请选择同一个年月内的时间!');
                             return false;
                         }
                     } else {
-                        // alert('年份不同,Error!');
-                        alert('Error,请选择同一个年月内的时间!');
+                        // swal('年份不同,Error!');
+                        swal('Error,请选择同一个年月内的时间!');
                         return false;
                     }
                 }
@@ -169,12 +169,12 @@ $(function () {
         },
         
         find_mv:function(){
-        	var _this = this;
-        	$('#jssearch').on('click',function(e){
-        		$('#searchbz').val("0");
-        		e.preventDefault();
+            var _this = this;
+            $('#jssearch').on('click',function(e){
+                $('#searchbz').val("0");
+                e.preventDefault();
                 _this.tableEx.ajax.reload();
-        	})
+            })
         },
         /**
          * 导出按钮
@@ -182,7 +182,7 @@ $(function () {
         exportAc: function () {
             el.$jsExport.on('click', function (e) {
                 // todo
-                alert('导出成功');
+                swal('导出成功');
             });
         },
         setForm0: function (data) {
