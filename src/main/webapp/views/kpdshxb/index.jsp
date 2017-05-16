@@ -906,7 +906,7 @@ table thead th {
 										<select id="lrselect_sp" name="lrselect_sp">
 											<option value="">选择商品</option>
 											<c:forEach items="${spList}" var="item">
-												<option value="${item.spbm}" class="${item.id}">${item.spmc}(${item.sl})</option>
+												<option value="${item.id}" class="${item.id}">${item.spmc}(${item.sl})</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -1214,11 +1214,11 @@ table thead th {
             var dj = $('#lrdj_edit');
             var sps = $('#lrsl_edit');
             var spsl;
-            var spdm = $(this).val();
+            var spid = $(this).val();
             var spmc = $("#lrselect_sp option:checked").text();
             var pos = spmc.indexOf("(");
             spmc = spmc.substring(0, pos);
-            if (!spdm) {
+            if (!spid) {
                 $("#lrmx_form input").val("");
                 return;
             }
@@ -1228,8 +1228,8 @@ table thead th {
                 type: "post",
                 async:false,
                 data: {
-                	spdm: spdm,   
-                	spmc:spmc,	
+                    spid: spid
+
                 }, 
                 success: function (res) {
                 	 if (res) {

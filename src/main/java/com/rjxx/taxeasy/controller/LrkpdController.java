@@ -140,13 +140,10 @@ public class LrkpdController extends BaseController {
      */
     @RequestMapping(value = "/getSpxq")
     @ResponseBody
-    public Spvo getSpxq(String spdm, String spmc) throws Exception {
+    public Spvo getSpxq(String spid) throws Exception {
         Spvo params = new Spvo();
         params.setGsdm(this.getGsdm());
-        //params.setSpdm(spdm);
-        //使用商品编码查询
-        params.setSpbm(spdm);
-        params.setSpmc(spmc);
+        params.setId(Integer.parseInt(spid));
         List<Spvo> list = spvoService.findAllByParams(params);
         if (!list.isEmpty()) {
             return list.get(0);
