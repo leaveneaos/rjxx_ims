@@ -440,6 +440,7 @@ table thead th {
 													<th>开户行</th>
 													<th>开户账号</th>
 													<th>价税合计</th>
+													<th>已开票价税合计</th>
 												</tr>
 											</thead>
 										</table>
