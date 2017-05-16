@@ -166,7 +166,7 @@ $(function () {
             el.$jsAgree.on('click', function (e) {
             	var djh = $('#djh').val();
             	if(djh==''){
-            		alert("请先选中一条记录！");
+            		swal("请先选中一条记录！");
             	}else{
             		$.ajax({
                         url: _this.config.ckUrl,
@@ -174,18 +174,18 @@ $(function () {
                         method: 'POST',
                         success: function (data) {
                             if (data.success) {
-                                alert(data.msg);
+                                swal(data.msg);
                                 $('#djh').val("");
                                 kpls_table.ajax.reload();                               
                             } else {
-                                alert('后台错误: 操作失败' + data.msg);
+                                swal('后台错误: 操作失败' + data.msg);
                             }
                             _this.tableEx.ajax.reload(); // reload table
                             el.$jsLoading.modal('close'); // close loading
 
                         },
                         error: function () {
-                            alert('操作失败, 请重新登陆再试...!');
+                            swal('操作失败, 请重新登陆再试...!');
                         }
                     });
             	}                
@@ -203,7 +203,7 @@ $(function () {
            el.$jsDisAgree.on('click',function(){
         	   var sqid=$('#sqid').val();
         	   if(sqid==''){
-        		   alert("请选选择一条记录！");
+        		   swal("请选选择一条记录！");
         	   }else{
         		   el.$jsModal.modal({"width": 500, "height": 240});
         	   }      	   
@@ -222,7 +222,7 @@ $(function () {
                     		data:{"id":id,"reason":yy},
                     		success:function(data){
                     			if(data.success){
-                    				alert(data.msg);
+                    				swal(data.msg);
                     				el.$jsModal.modal('close');
                     				e.preventDefault();
                     				_this.tableEx.ajax.reload();
@@ -230,12 +230,12 @@ $(function () {
                     				$("#sqid").val("");
                     				kpls_table.ajax.reload();
                     			}else{
-                    				alert(data.msg);
+                    				swal(data.msg);
                     			}
                     		}
                     	});
             		}else{
-            			alert("请填写撤销原因！");
+            			swal("请填写撤销原因！");
             		}                	           	
             })
         },

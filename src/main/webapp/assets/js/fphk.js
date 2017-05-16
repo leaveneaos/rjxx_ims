@@ -44,7 +44,7 @@ $(function () {
 
             var t = el.$jsTable
                 .DataTable({
-                	"searching": false,
+                  "searching": false,
                     "serverSide": true,
                     "sServerMethod": "POST",
                     "processing": true,
@@ -65,21 +65,21 @@ $(function () {
 
                             var csm =  $('#dxcsm').val()
                             if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
-                          	  d.gfmc = $('#dxcsz').val()
+                              d.gfmc = $('#dxcsz').val()
                           }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
-                          	  d.ddh = $('#dxcsz').val()
+                              d.ddh = $('#dxcsz').val()
                           }
                         }
                     },
                     "columns": [
-						{
-							"orderable" : true,
-							"data" : null,
-							render : function(data, type, full, meta) {
-								return '<input type="checkbox" value="'
-									+ data.kplsh + '" name="chk"  id="chk"/>';
-							}
-						},
+            {
+              "orderable" : true,
+              "data" : null,
+              render : function(data, type, full, meta) {
+                return '<input type="checkbox" value="'
+                  + data.kplsh + '" name="chk"  id="chk"/>';
+              }
+            },
                         {
                             "orderable": false,
                             "data": null,
@@ -127,7 +127,7 @@ $(function () {
                         {
                             "data": null,
                             "render": function (data) {
-                            		return '<a href="'+ data.pdfurl+'" target="_blank">查看</a> ';                
+                                return '<a href="'+ data.pdfurl+'" target="_blank">查看</a> ';                
                             }
                         }]
                 });
@@ -154,11 +154,12 @@ $(function () {
                 _this.setForm0(data);
                 var kplsh = [];
                 $('input[name="chk"]:checked').each(function(){    
-             	   kplsh.push($(this).val()); 
+                 kplsh.push($(this).val()); 
                 });
                 if(kplsh.length >1){
-                	$("#alertt").html("不能批量换开！");
-                	$("#my-alert").modal('open');
+                  // $("#alertt").html("不能批量换开！");
+                  // $("#my-alert").modal('open');
+                  swal("不能批量换开！");
                     $('input[type="checkbox"]').prop('checked', false);
 
                 }
@@ -166,13 +167,13 @@ $(function () {
             });
                       
             $('#check_all').change(function () {
-            	
-            	if ($('#check_all').prop('checked')) {
-            		t.column(0).nodes().each(function (cell, i) {
+              
+              if ($('#check_all').prop('checked')) {
+                t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', true);
                     });
                 } else {
-                	t.column(0).nodes().each(function (cell, i) {
+                  t.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
@@ -203,13 +204,13 @@ $(function () {
         hksearch: function(){
             var _this = this;
 
-        	 $('#hk_search').click(function () {
-             	$("#ycform").resetForm();
-              	_this.tableEx.ajax.reload();
+           $('#hk_search').click(function () {
+              $("#ycform").resetForm();
+                _this.tableEx.ajax.reload();
              });
              $('#hk_search1').click(function () {
-             	$("#dxcsz").val("");
-             	/* if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
+              $("#dxcsz").val("");
+              /* if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
                           || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
                           alert('Error,请选择开始和结束时间!');
                           return false;
@@ -234,7 +235,7 @@ $(function () {
                               return false;
                           }
                       }*/
-             	_this.tableEx.ajax.reload();
+              _this.tableEx.ajax.reload();
              });
         },
         /**
@@ -244,21 +245,22 @@ $(function () {
             var _this = this;
             
             $("#huankai").click(function(){
-         	   var kplsh = [];
+             var kplsh = [];
                 $('input[name="chk"]:checked').each(function(){    
-             	   kplsh.push($(this).val()); 
+                 kplsh.push($(this).val()); 
                 });
                 if (kplsh.length == 0) {
-                	$("#alertt").html("请勾选需要换开的开票流水");
-                	$("#my-alert").modal('open');
+                  // $("#alertt").html("请勾选需要换开的开票流水");
+                  // $("#my-alert").modal('open');
+                  swal("请勾选需要换开的开票流水");
                     return;
                 }else if(kplsh.length == 1){
-                	 $("#dybz").val("0");
+                   $("#dybz").val("0");
                     el.$modalhuankai.modal({"width": 820, "height": 500});
 
                     el.$jsForm0.validator({
                         submit: function () {
-                        	//hidespan();
+                          //hidespan();
                             var formValidity = $("#main_form").validator("isFormValid");
                             if (formValidity) {
                                 el.$jsLoading.modal('toggle'); // show loading
@@ -270,20 +272,23 @@ $(function () {
                                     success: function (data) {
                                         if (data.success) {
                                             el.$modalhuankai.modal('close'); // close
-                                            $("#alertt").html(data.msg);
-                                        	$("#my-alert").modal('open');
+                                           //  $("#alertt").html(data.msg);
+                                            // $("#my-alert").modal('open');
+                                            swal(data.msg);
                                             _this.tableEx.ajax.reload(); // reload table
                                         } else {
-                                        	$("#alertt").html(data.msg);
-                                        	$("#my-alert").modal('open');
+                                          // $("#alertt").html(data.msg);
+                                          // $("#my-alert").modal('open');
+                                          swal(data.msg);
                                         }
                                         _this.tableEx.ajax.reload(); // reload table
                                         el.$jsLoading.modal('close'); // close loading
 
                                     },
                                     error: function () {
-                                        $("#alertt").html('换开操作失败, 请重新登陆再试...!');
-                                    	$("#my-alert").modal('open');
+                                     //  $("#alertt").html('换开操作失败, 请重新登陆再试...!');
+                                      // $("#my-alert").modal('open');
+                                      swal('换开操作失败, 请重新登陆再试...!');
                                     }
                                 });
                                 return false;
@@ -295,9 +300,10 @@ $(function () {
                 
 
                 }else if(kplsh.length >1){
-                	$("#alertt").html("不能批量换开！");
-                	$("#my-alert").modal('open');
-                    $('input[type="checkbox"]').prop('checked', false);
+                  // $("#alertt").html("不能批量换开！");
+                  // $("#my-alert").modal('open');
+                  swal("不能批量换开！");
+                  $('input[type="checkbox"]').prop('checked', false);
 
                 }
               
@@ -305,20 +311,20 @@ $(function () {
          });
             
           /*  $("#huankaidy").click(function(){
-          	   var kplsh = [];
+               var kplsh = [];
                  $('input[name="chk"]:checked').each(function(){    
-              	   kplsh.push($(this).val()); 
+                   kplsh.push($(this).val()); 
                  });
                  if (kplsh.length == 0) {
-                 	$("#alertt").html("请勾选需要换开的开票流水");
-                 	$("#my-alert").modal('open');
+                  $("#alertt").html("请勾选需要换开的开票流水");
+                  $("#my-alert").modal('open');
                      return;
                  }else if(kplsh.length == 1){
-                	 $("#dybz").val("2");
+                   $("#dybz").val("2");
                      el.$modalhuankai.modal({"width": 820, "height": 500});
                      el.$jsForm0.validator({
                          submit: function () {
-                         	//hidespan();
+                          //hidespan();
                              var formValidity = $("#main_form").validator("isFormValid");
                              if (formValidity) {
                                  el.$jsLoading.modal('toggle'); // show loading
@@ -352,8 +358,8 @@ $(function () {
                  
 
                  }else if(kplsh.length >1){
-                 	$("#alertt").html("不能批量换开！");
-                 	$("#my-alert").modal('open');
+                  $("#alertt").html("不能批量换开！");
+                  $("#my-alert").modal('open');
                     $('input[type="checkbox"]').prop('checked', false);
 
                  }

@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style>
  .am-u-left{
@@ -1128,6 +1129,7 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/mbsz.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
 			 $("#btnImportConfigSave").click(function () {
@@ -1139,34 +1141,34 @@
 		            var spje = $('#config_spje').val();
 		            var fpzldm = $('#config_fpzldm').val();
 		            if (mbmc == null || mbmc == '') {
-		            	alert("请输入模板名称");
+		            	swal("请输入模板名称");
 		            	return;
 					}
 		            if (xfsh == null || xfsh == '') {
-		            	alert("销方税号不能为空，请重新选择");
+		            	swal("销方税号不能为空，请重新选择");
 		            	return;
 					}
 		            if (gfmc == null || gfmc == '') {
-		            	alert("购方名称不能为空");
+		            	swal("购方名称不能为空");
 		            	return;
 					}
 		            if (spje == null || spje == '') {
-		            	alert("商品金额不能为空");
+		            	swal("商品金额不能为空");
 		            	return;
 					}
 		            if (fpzldm == null || fpzldm == '') {
-		            	alert("发票种类不能为空");
+		            	swal("发票种类不能为空");
 		            	return;
 					}
 		            $.post(url, data, function (res) {
 		                var success = res["success"];
 		                if (success) {
-		                    alert("保存成功");
+		                    swal("保存成功");
 		                    $("#hongchong").modal("close");
 	                        window.location.reload();
 		                } else {
 		                    var message = res["message"];
-		                    alert(message);
+		                    swal(message);
 		                }
 		            });
 		        });
@@ -1179,34 +1181,34 @@
 		            var spje = $('#config_spje1').val();
 		            var fpzldm = $('#config_fpzldm1').val();
 		            if (mbmc == null || mbmc == '') {
-		            	alert("请输入模板名称");
+		            	swal("请输入模板名称");
 		            	return;
 					}
 		            if (xfsh == null || xfsh == '') {
-		            	alert("销方税号不能为空，请重新选择");
+		            	swal("销方税号不能为空，请重新选择");
 		            	return;
 					}
 		            if (gfmc == null || gfmc == '') {
-		            	alert("购方名称不能为空");
+		            	swal("购方名称不能为空");
 		            	return;
 					}
 		            if (spje == null || spje == '') {
-		            	alert("商品金额不能为空");
+		            	swal("商品金额不能为空");
 		            	return;
 					}
 		            if (fpzldm == null || fpzldm == '') {
-		            	alert("发票种类不能为空");
+		            	swal("发票种类不能为空");
 		            	return;
 					}
 		            $.post(url, data, function (res) {
 		                var success = res["success"];
 		                if (success) {
-		                    alert("保存成功");
+		                    swal("保存成功");
 		                    $("#bulk-import-div").modal("close");
 	                        window.location.reload();
 		                } else {
 		                    var message = res["message"];
-		                    alert(message);
+		                    swal(message);
 		                }
 		            });
 		        });

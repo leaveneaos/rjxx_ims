@@ -51,7 +51,7 @@ $(function () {
                  'sClass': 'right'
             },
             { 
-            	"data": function (data) {
+                "data": function (data) {
                 if (data.hjse) {
                     return FormatFloat(data.hjse,
                         "###,###.00");
@@ -62,7 +62,7 @@ $(function () {
             'sClass': 'right'
             },
             { 
-            	"data": function (data) {
+                "data": function (data) {
                 if (data.jshj) {
                     return FormatFloat(data.jshj,
                         "###,###.00");
@@ -74,9 +74,9 @@ $(function () {
             },
             {"data":"fpzt"},
             {
-            	"data": null,
+                "data": null,
                 "render": function (data) {
-                	return '<a href="'+ data.pdfurl+'" target="_blank">查看</a>';               		               		                
+                    return '<a href="'+ data.pdfurl+'" target="_blank">查看</a>';                                                         
                 }
             }
         ]
@@ -140,7 +140,7 @@ $(function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
-                	t.$('tr.selected').removeClass('selected');
+                    t.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                 }
                 $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF");  
@@ -158,29 +158,29 @@ $(function () {
         saveRow: function () {
             var _this = this;
             el.$jsAgree.on('click',function(){
-            	var djh = $('#djh').val();
-            	var sqid = $('#sqid').val();
-            	if(djh==''){
-            		alert("请先选择一条记录！");
-            	}else{
-            		$.ajax({
-            			url:_this.config.hkUrl,
-            			data:{"djh":djh,"sqid":sqid},
-            			success:function(data){
-            				if(data.success){
-            					alert(data.msg);
-            					$("#djh").val("");
-               	                $("#sqid").val("");
-               				    e.preventDefault();
-                			    _this.tableEx.ajax.reload();
-                			    kpls_table.ajax.reload();
-            				}else{
-            					alert(data.msg);
-            				}
-            				el.$jsLoading.modal('close'); // close loading
-            			}
-            		});
-            	}
+                var djh = $('#djh').val();
+                var sqid = $('#sqid').val();
+                if(djh==''){
+                    swal("请先选择一条记录！");
+                }else{
+                    $.ajax({
+                        url:_this.config.hkUrl,
+                        data:{"djh":djh,"sqid":sqid},
+                        success:function(data){
+                            if(data.success){
+                                swal(data.msg);
+                                $("#djh").val("");
+                                $("#sqid").val("");
+                                e.preventDefault();
+                                _this.tableEx.ajax.reload();
+                                kpls_table.ajax.reload();
+                            }else{
+                                swal(data.msg);
+                            }
+                            el.$jsLoading.modal('close'); // close loading
+                        }
+                    });
+                }
             })
         },
         
@@ -190,7 +190,7 @@ $(function () {
         modalAction: function () {
             var _this = this;
             el.$jsModal.on('closed.modal.amui', function () {
-            	$("#ckbtgyy").val("");
+                $("#ckbtgyy").val("");
             });
             // close modal
             el.$jsClose.on('click', function () {
@@ -198,45 +198,45 @@ $(function () {
             });
             //撤销弹出页面
             el.$jsDisAgree.on('click',function(){
-         	   var sqid=$('#sqid').val();
-         	   if(sqid==''){
-         		   alert("请选选择一条记录！");
-         	   }else{
-         		   el.$jsModal.modal({"width": 500, "height": 240});
-         	   }      	   
+               var sqid=$('#sqid').val();
+               if(sqid==''){
+                   swal("请选选择一条记录！");
+               }else{
+                   el.$jsModal.modal({"width": 500, "height": 240});
+               }           
             });
             //撤销操作
             el.$jsSubmit.on('click',function(e){
-            		var sqid = $("#sqid").val();
-            		var yy = $('#ckbtgyy').val();
-            		if(yy!=''){
-            			$.ajax({
-                    		url:'fphksh/update',
-                    		data:{"id":sqid,"reason":yy},
-                    		success:function(data){
-                    			if(data.success){
-                    				 alert(data.msg);                   				 
-                    				 $("#djh").val("");
-                    	             $("#sqid").val("");
-                    	             el.$jsModal.modal('close');
-                    				 e.preventDefault();
-                     				_this.tableEx.ajax.reload();
-                     				kpls_table.ajax.reload();
-                    			}else{
-                    				alert(data.msg);
-                    			}
-                    		}
-                    	});  
-            		}else{
-            			alert("撤销请填写原因！");
-            		}          	           
+                    var sqid = $("#sqid").val();
+                    var yy = $('#ckbtgyy').val();
+                    if(yy!=''){
+                        $.ajax({
+                            url:'fphksh/update',
+                            data:{"id":sqid,"reason":yy},
+                            success:function(data){
+                                if(data.success){
+                                        swal(data.msg);                                  
+                                     $("#djh").val("");
+                                     $("#sqid").val("");
+                                     el.$jsModal.modal('close');
+                                     e.preventDefault();
+                                    _this.tableEx.ajax.reload();
+                                    kpls_table.ajax.reload();
+                                }else{
+                                 swal(data.msg);
+                                }
+                            }
+                        });  
+                    }else{
+                        swal("撤销请填写原因！");
+                    }                      
             });
         },
         searchAc: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
-            	$("#djh").val("");
-            	$("#sqid").val("");
+                $("#djh").val("");
+                $("#sqid").val("");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
                 kpls_table.ajax.reload();
