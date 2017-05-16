@@ -911,10 +911,10 @@ table thead th {
 										</select>
 									</div>
 
-									<label for="lrspdm_edit" class="am-u-sm-2 am-form-label">商品代码</label>
+									<label for="lrspdm_edit" class="am-u-sm-2 am-form-label">商品分类编码</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrspdm_edit" placeholder="输入商品代码..."
+										<input type="text" id="lrspdm_edit" placeholder="输入商品分类编码..."
 											readonly="readonly">
 									</div>
 								</div>
