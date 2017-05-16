@@ -60,13 +60,13 @@ public class DingLrKpdController extends BaseController{
 		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
-        Xf xf=new Xf();
+        /*Xf xf=new Xf();
         xf.setId(417);
-		List<Xf> xflist=xfService.findAllByParams(xf);
+		List<Xf> xflist=xfService.findAllByParams(xf);*/
         List<Spvo>list2 = spvoService.findAllByGsdm("rjxx2");
         request.setAttribute("spList", list2);
-        System.out.println(JSON.toJSON(xflist));
-		 request.setAttribute("xflist", xflist);
+        System.out.println(JSON.toJSON(getXfList()));
+		 request.setAttribute("xflist", getXfList());
         return "dingding/lrkpd";
     }
     /**
@@ -131,7 +131,7 @@ public class DingLrKpdController extends BaseController{
     @ResponseBody
     public Spvo getSpxq(String sl, String spmc) throws Exception {
         Spvo params = new Spvo();
-        params.setGsdm("rjxx2");
+        params.setGsdm(getGsdm());
         //使用商品编码查询
         params.setSl(Double.valueOf(sl));
         params.setSpmc(spmc);
@@ -223,7 +223,7 @@ public class DingLrKpdController extends BaseController{
         jyxxsq.setSkr(xf.getSkr());
         List<Skp> skpList = getSkpList();
         jyxxsq.setSkpid(skpList.get(0).getId());
-        jyxxsq.setGsdm("zydc");
+        jyxxsq.setGsdm(getGsdm());
         Skp skp = skpservice.findOne(skpList.get(0).getId());
         jyxxsq.setKpddm(skp.getKpddm());
 
