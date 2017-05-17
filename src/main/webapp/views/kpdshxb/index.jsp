@@ -954,7 +954,7 @@ table thead th {
 										style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrje_edit" placeholder="输入金额(不含税)..."
+										<input type="text" id="lrje_edit" readonly="readonly" placeholder="输入金额(不含税)..."
 											required>
 									</div>
 								</div>
@@ -1439,71 +1439,78 @@ table thead th {
                 }
             });
 
-			$("#lrje_edit").keyup(
-							function() {
-								var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-								var je = $('#lrje_edit');
-								if (!num.test(je.val())) {
-									if (je.val().length > 1) {
-										$('#lrje_edit').val(
-												je.val().substring(0,
-														je.val().length - 1))
-									} else {
-										$('#lrje_edit').val("")
-									}
-									return;
-								}
-								var sl = $('#lrsltaxrate_edit');
-								var se = $('#lrse_edit');
-								var hsje = $('#lrhsje_edit');
-								var jshj = $('#lrjshj_edit');
-								var dj = $('#lrdj_edit');
-								var sps = $('#lrsl_edit');
-								var spsl;
-								var temp = (100 + sl.val() * 100) / 100;
-								se.val(FormatFloat(je.val() * sl.val(),
-										"#####0.00"));
-								var je1 = parseFloat(je.val());
-								var se1 = parseFloat(se.val());
-								hsje.val(FormatFloat(je1 + se1, "#####0.00"));
-								jshj.val(FormatFloat(je1 + se1, "#####0.00"));
-								if (dj != null && dj.val() != "") {
-									sps.val(FormatFloat(je.val() / dj.val(),
-											"#####0.00"));
-								} else if (sps != null && sps.val() != "") {
-									dj.val(FormatFloat(je.val() / sps.val(),
-											"#####0.00"));
-								}
-							});
-			$("#lrhsje_edit").keyup(
-							function() {
-								var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
-								var hsje = $('#lrhsje_edit');
-								if (!num.test(hsje.val())) {
-									if (hsje.val().length > 1) {
-										$('#lrhsje_edit').val(
-												hsje.val().substring(0,
-														hsje.val().length - 1))
-									} else {
-										$('#lrhsje_edit').val("")
-									}
-									return;
-								}
-								var je = $('#lrje_edit');
-								var sl = $('#lrsltaxrate_edit');
-								var se = $('#lrse_edit');
+			// $("#lrje_edit").keyup(
+			// 	function() {
+			// 		var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+			// 		var je = $('#lrje_edit');
+			// 		if (!num.test(je.val())) {
+			// 			if (je.val().length > 1) {
+			// 				$('#lrje_edit').val(
+			// 						je.val().substring(0,
+			// 								je.val().length - 1))
+			// 			} else {
+			// 				$('#lrje_edit').val("")
+			// 			}
+			// 			return;
+			// 		}
+			// 		var sl = $('#lrsltaxrate_edit');
+			// 		var se = $('#lrse_edit');
+			// 		var hsje = $('#lrhsje_edit');
+			// 		var jshj = $('#lrjshj_edit');
+			// 		var dj = $('#lrdj_edit');
+			// 		var sps = $('#lrsl_edit');
+			// 		var spsl;
+			// 		var temp = (100 + sl.val() * 100) / 100;
+			// 		se.val(FormatFloat(je.val() * sl.val(),
+			// 				"#####0.00"));
+			// 		var je1 = parseFloat(je.val());
+			// 		var se1 = parseFloat(se.val());
+			// 		hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+			// 		jshj.val(FormatFloat(je1 + se1, "#####0.00"));
+			// 		if (dj != null && dj.val() != "") {
+			// 			sps.val(FormatFloat(je.val() / dj.val(),
+			// 					"#####0.00"));
+			// 		} else if (sps != null && sps.val() != "") {
+			// 			dj.val(FormatFloat(je.val() / sps.val(),
+			// 					"#####0.00"));
+			// 		}
+			// 	}
+			// );
 
-								var jshj = $('#lrjshj_edit');
-								var dj = $('#lrdj_edit');
-								var sps = $('#lrsl_edit');
-								var spsl;
-								var temp = (100 + sl.val() * 100) / 100;
-								je.val(FormatFloat(hsje.val() / (temp),
-										"#####0.00"));
-								se.val(FormatFloat(hsje.val() - je.val(),
-										"#####0.00"));
-								jshj.val(FormatFloat(hsje.val(), "#####0.00"));
-							});
+
+
+			$("#lrhsje_edit").keyup(
+				function() {
+					var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+					var hsje = $('#lrhsje_edit');
+					if (!num.test(hsje.val())) {
+						if (hsje.val().length > 1) {
+							$('#lrhsje_edit').val(
+									hsje.val().substring(0,
+											hsje.val().length - 1))
+						} else {
+							$('#lrhsje_edit').val("")
+						}
+						return;
+					}
+					var je = $('#lrje_edit');
+					var sl = $('#lrsltaxrate_edit');
+					var se = $('#lrse_edit');
+
+					var jshj = $('#lrjshj_edit');
+					var dj = $('#lrdj_edit');
+					var sps = $('#lrsl_edit');
+					var spsl = $('#lrsl_edit');
+					var temp = (100 + sl.val() * 100) / 100;
+					je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+
+					se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+
+					jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+
+					spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
+				}
+			);
 
 		});
 
