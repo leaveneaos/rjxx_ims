@@ -239,7 +239,7 @@ public class SksbxxzcControlller extends BaseController {
 			old.setXgsj(new Date());
 			old.setYxbz("1");
 			old.setKplx(fplx);
-			if(!"".equals(wrzs)&&wrzs.equals("1")){
+			if(wrzs!=null&&!"".equals(wrzs)&&wrzs.equals("1")){
 				old.setWrzs(wrzs);
 			}else{
 				old.setWrzs("0");
@@ -317,7 +317,7 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setSbcs(sbcs);
 			skp.setSkpmm(skpmm);
 			skp.setZsmm(zsmm);
-			if(!"".equals(wrzs)&&wrzs.equals("1")){
+			if(wrzs!=null&&!"".equals(wrzs)&&wrzs.equals("1")){
 				skp.setWrzs(wrzs);
 			}else{
 				skp.setWrzs("0");
