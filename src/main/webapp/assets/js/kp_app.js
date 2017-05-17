@@ -483,7 +483,8 @@ $(function() {
                                 if (res) {
                                     swal({ 
                                           title: "已成功删除", 
-                                          timer: 2000, 
+                                          timer: 1500, 
+                                          type: "success", 
                                           showConfirmButton: false 
                                         });
                                     jyls_table.ajax.reload();
@@ -731,7 +732,8 @@ $(function() {
                                                     // $("#my-alert").modal('open');
                                                     swal({ 
                                                           title: "申请开票成功", 
-                                                          timer: 2000, 
+                                                          timer: 1500, 
+                                                            type: "success",
                                                           showConfirmButton: false 
                                                         });
                                                     jyls_table.ajax.reload();
@@ -774,7 +776,8 @@ $(function() {
                                     // $("#my-alert").modal('open');
                                     swal({ 
                                           title: "申请开票成功", 
-                                          timer: 2000, 
+                                          timer: 1500, 
+                                          type: "success", 
                                           showConfirmButton: false 
                                         });
                                     jyls_table.ajax.reload();
@@ -1123,7 +1126,8 @@ $(function() {
                  //             $("#my-alert").modal('open');
                                 swal({ 
                                   title: "保存成功", 
-                                  timer: 2000, 
+                                  timer: 1500, 
+                                  type: "success", 
                                   showConfirmButton: false 
                                 });
                                 jyls_table.ajax.reload();

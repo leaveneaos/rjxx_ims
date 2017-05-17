@@ -256,7 +256,8 @@
 							// $('#my-alert').modal('open');
 							swal({ 
 								  title: "保存成功", 
-								  timer: 2000, 
+								  timer: 1500, 
+								  type: "success", 
 								  showConfirmButton: false 
 								});
 							$('#hongchong').modal('close');
@@ -478,7 +479,8 @@
 		                        spz_table.ajax.reload(); // reload table data
 		                        swal({ 
 									  title: "已成功删除", 
-									  timer: 2000, 
+									  timer: 1500, 
+									  type: "success", 
 									  showConfirmButton: false 
 									});
 		                    } else {
@@ -543,7 +545,8 @@
 						// $('#my-alert').modal('open');
 						swal({ 
 							  title: "已成功删除", 
-							  timer: 2000, 
+							  timer: 1500, 
+							  type: "success", 
 							  showConfirmButton: false 
 							});
 						_this.tableEx.ajax.reload(); // 重新加载数据
@@ -623,8 +626,9 @@
 		                        _this.tableEx.ajax.reload();// reload table data
 		                        swal({ 
 									 	title: "已成功删除", 
-									  	timer: 2000, 
-									 	 showConfirmButton: false 
+									  	timer: 1500, 
+									  	type: "success", 
+								 	 	showConfirmButton: false 
 									});
 		                    } else {
 			                	swal('删除失败,服务器错误' + data.msg);
@@ -866,7 +870,8 @@
 									// $('#my-alert').modal('open');
 									swal({ 
 									  title: "保存成功", 
-									  timer: 2000, 
+									  timer: 1500, 
+									  type: "success", 
 									  showConfirmButton: false 
 									});
 									_this.tableEx.ajax.reload(); // reload
