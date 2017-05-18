@@ -103,22 +103,22 @@ $(function () {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
+                                swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
-                            alert('Error,请选择同一个年月内的时间!');
+                            swal('Error,请选择同一个年月内的时间!');
                             return false;
                         }
                     } else {
-                        alert('Error,请选择同一个年月内的时间!');
+                        swal('Error,请选择同一个年月内的时间!');
                         return false;
                     }
                 }else{
-                	alert('Error,请录入开票日期起始终止时间');
+                	swal('Error,请录入开票日期起始终止时间');
                 	return false;
                 }
-                alert("归档请求已发送，请稍后查询！");
+                swal("归档请求已发送，请稍后查询！");
                 var xfid = el.$s_xfid.val();
                 var kprqq = el.$s_kprqq.val();
                 var kprqz = el.$s_kprqz.val();
@@ -127,11 +127,11 @@ $(function () {
                 	data:{"xfid":xfid,"kprqq":kprqq,"kprqz":kprqz},
                 	success:function(data){
                 		if(!data.success){
-                			alert(data.msg);
+                			swal(data.msg);
                 		}
                 	},
                 	error:function(){
-                		alert("程序出错");
+                		swal("程序出错");
                 	}
                 });
             });

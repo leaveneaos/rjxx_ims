@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-form-horizontal .am-form-label {
@@ -742,6 +743,7 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpcx_1.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 </body>
 <script>
 	function refresh() {

@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 .top-position {
@@ -241,6 +242,6 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/fytjbb.js"></script>
-
+	<script src="assets/js/sweetalert.min.js"></script>
 </body>
 </html>

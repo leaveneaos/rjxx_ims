@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 .top-position {
@@ -194,6 +195,7 @@
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/yhdy.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 	    function scEwm(){
 	    	$('#div-scewm').hide();

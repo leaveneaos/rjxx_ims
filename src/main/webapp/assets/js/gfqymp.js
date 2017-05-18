@@ -114,7 +114,7 @@ $(function () {
 					}
 	            });
 	            if (djhArr.length == 0) {
-	                alert("请选择需要删除的购方信息...");
+	                swal("请选择需要删除的购方信息...");
 	                return;
 	            }
 	            //alert(djhArr);
@@ -140,10 +140,10 @@ $(function () {
 					}
 	            });
 	            if (djhArr.length == 0) {
-	                alert("请选择需要修改的购方信息...");
+	                swal("请选择需要修改的购方信息...");
 	                return;
 	            }else if(djhArr.length >=2){
-	            	alert("每次只能修改一条数据...");
+	            	swal("每次只能修改一条数据...");
 	                return;
 	            }
 	            //alert(djhArr);
@@ -196,7 +196,7 @@ $(function () {
 		update : function() {
 			var _this = this;
 			if (null ==$('#xg_gfmc').val()|| $('#xg_gfmc').val()=='') {
-            	alert('企业名称不能为空！');
+            	swal('企业名称不能为空！');
                 //el.$jsLoading.modal('close'); 
                 return false;
 			}
@@ -220,11 +220,11 @@ $(function () {
 					if (data.success) {
 
 						// modal
-						 alert(data.msg);
+						 swal(data.msg);
 						 el.$xiugai.modal('close');
 					} else {
 
-						alert('更新购方信息失败: ' + data.msg);
+						swal('更新购方信息失败: ' + data.msg);
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -232,7 +232,7 @@ $(function () {
 
 				},
 				error : function() {
-					alert('更新购方信息失败, 请重新登陆再试...!');
+					swal('更新购方信息失败, 请重新登陆再试...!');
 				}
 			});
            return true;
@@ -256,7 +256,7 @@ $(function () {
 						alert(data.msg);
 					} else {
 
-						alert('删除购方信息失败: ' + data.msg);
+						swal('删除购方信息失败: ' + data.msg);
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -264,7 +264,7 @@ $(function () {
 
 				},
 				error : function() {
-					alert('删除购方信息失败, 请重新登陆再试...!');
+					swal('删除购方信息失败, 请重新登陆再试...!');
 				}
 			});
 
@@ -282,7 +282,7 @@ $(function () {
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
 						if (null ==$('#xz_gfmc').val()|| $('#xz_gfmc').val()=='') {
-                        	alert('企业名称不能为空！');
+                        	swal('企业名称不能为空！');
                             el.$jsLoading.modal('close'); 
                             return false;
 						}
@@ -307,24 +307,24 @@ $(function () {
 								if (data.success) {
 									// loading
 									el.$modalHongchong.modal('close'); // close
-									alert(data.msg);
+									swal(data.msg);
 									_this.tableEx.ajax.reload(); // reload table
 								} else if (data.repeat) {
-									alert(data.msg);
+									swal(data.msg);
 								}else{
-									alert(data.msg);
+									swal(data.msg);
 								}
 								el.$jsLoading.modal('close'); // close
 
 							},
 							error : function() {
 								el.$jsLoading.modal('close'); // close loading
-								alert('保存失败, 请重新登陆再试...!');
+								swal('保存失败, 请重新登陆再试...!');
 							}
 						});
 						return false;
 					} else {
-						alert('验证失败');
+						swal('验证失败');
 						return false;
 					}
 				}

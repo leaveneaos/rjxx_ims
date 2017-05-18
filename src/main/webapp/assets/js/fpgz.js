@@ -364,13 +364,15 @@ $("#qdbz").change(function () {
 						data : {"id":row.id},
 						method : 'POST',
 						success : function(data) {
-							$("#alertt").html(data.msg);
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html(data.msg);
+	      //               	$("#my-alert").modal('open');
+	      					swal(data.msg);
 							t.ajax.reload(); // reload table
 						},
 						error : function() {
-							$("#alertt").html("操作失败");
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html("操作失败");
+	      //               	$("#my-alert").modal('open');
+	      					swal("操作失败");
 							t.ajax.reload(); // reload table
 						}
 					});
@@ -413,12 +415,14 @@ $("#qdbz").change(function () {
 							success : function(data) {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
+									// $("#alertt").html(data.msg);
+			      //               	$("#my-alert").modal('open');
+			      					swal(data.msg);
 								} else {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
+									// $("#alertt").html(data.msg);
+			      //               	$("#my-alert").modal('open');
+			      					swal(data.msg);
 								}
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
@@ -426,14 +430,16 @@ $("#qdbz").change(function () {
 							},
 							error : function() {
 								el.$jsLoading.modal('close'); // close loading
-								$("#alertt").html("操作失败");
-		                    	$("#my-alert").modal('open');
+								// $("#alertt").html("操作失败");
+		      //               	$("#my-alert").modal('open');
+		      					swal("操作失败");
 							}
 						});
 						return false;
 					} else {
-						$("#alertt").html("验证失败");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("验证失败");
+      //               	$("#my-alert").modal('open');
+      					swal("验证失败");
 						return false;
 					}
 				}
@@ -454,8 +460,9 @@ $("#qdbz").change(function () {
 					chk_value.push($(this).val());
 					}); 
 					if(chk_value.length<1){
-						$("#alertt").html("请选择销方");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("请选择销方");
+      //               	$("#my-alert").modal('open');
+      					swal("请选择销方");
 						return false;
 					}
 					if (formValidity) {
@@ -467,12 +474,14 @@ $("#qdbz").change(function () {
 							success : function(data) {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
+									// $("#alertt").html(data.msg);
+			      //               	$("#my-alert").modal('open');
+			      					swal(data.msg);
 								} else {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-			                    	$("#my-alert").modal('open');
+									// $("#alertt").html(data.msg);
+			      //               	$("#my-alert").modal('open');
+			      					swal(data.msg);
 								}
 							     $("#doc-modal-4").modal('close');
 								_this.tableEx.ajax.reload(); // reload table
@@ -482,14 +491,16 @@ $("#qdbz").change(function () {
 							error : function() {
 								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								$("#alertt").html("操作失败");
-		                    	$("#my-alert").modal('open');
+								// $("#alertt").html("操作失败");
+		      //               	$("#my-alert").modal('open');
+		      					swal("操作失败");
 							}
 						});
 						return false;
 					} else {
-						$("#alertt").html("验证失败");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("验证失败");
+      //               	$("#my-alert").modal('open');
+      					swal("验证失败");
 						return false;
 					}
 				}
