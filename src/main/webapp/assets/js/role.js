@@ -134,8 +134,9 @@ $(function() {
 								"height" : 450
 							});
 						} else {
-							$('#msg').html('查询角色权限异常');
-							$('#my-alert').modal('open');
+							// $('#msg').html('查询角色权限异常');
+							// $('#my-alert').modal('open');
+							swal('查询角色权限异常');
 						}
 					}
 				});
@@ -209,13 +210,16 @@ $(function() {
 
 				});
 				if (!data) {
-					$('#msg').html("请选择要删除的用户");
-					$('#my-alert').modal('open');
+					// $('#msg').html("请选择要删除的用户");
+					// $('#my-alert').modal('open');
+					swal("请选择要删除的用户");
 					return;
 				}
 				data = data.substring(0, data.length - 1);
 				var url = _this.config.scUrl;
-				if (!confirm('是否删除')) {
+
+
+				/*if (!confirm('是否删除')) {
 					return;
 				}
 				// $('#my-confirm').modal({
@@ -246,7 +250,44 @@ $(function() {
 						$('#my-alert').modal('open');
 						el.$jsLoading.modal('close');
 					}
-				});
+				});*/
+
+				swal({
+	                title: "您确定要删除吗？",
+	                text: "您确定要删除这条数据？",
+	                type: "warning",
+	                showCancelButton: true,
+	                closeOnConfirm: false,
+	                confirmButtonText: "确 定",
+	                confirmButtonColor: "#ec6c62"
+	            }, function() {
+	            	el.$jsLoading.modal('open');
+	                $.ajax({
+	                    url : url,
+						data : {
+							ids : data
+						},
+						type : 'POST',
+	                }).done(function(data) {
+	                	if (data.success) {
+		                        swal({ 
+									  title: "已成功删除", 
+									  timer: 1500, 
+									  type: "success", 
+									  showConfirmButton: false 
+									});
+		                        _this.tableEx.ajax.reload();
+		                    } else {
+			                	swal('删除失败,服务器错误' + data.msg);
+		                    }
+	                    
+	                }).error(function(data) {
+	                    swal('请求失败,请刷新后稍后重试!', "error");
+	                    el.$jsLoading.modal('close');
+	                });
+	            });
+
+
 				el.$checkAll.prop('checked', false);
 			});
 
@@ -269,8 +310,9 @@ $(function() {
 						}
 					}
 					if (fl == false) {
-						$('#msg').html("请选择用户权限!");
-						$('#my-alert').modal('open');
+						// $('#msg').html("请选择用户权限!");
+						// $('#my-alert').modal('open');
+						swal("请选择用户权限!");
 						return false;
 					}
 					if (formValidity) {
@@ -288,14 +330,17 @@ $(function() {
 								el.$modalHongchong.modal('close'); // close
 								if (data.success) {
 									// modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else if (!data.success) {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								} else if (data.nopeat) {
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 								}
 								_this.tableEx.ajax.reload(); // reload table
 								// data
@@ -303,14 +348,16 @@ $(function() {
 							},
 							error : function() {
 								el.$jsLoading.modal('close'); // close loading
-								$('#msg').html('保存角色失败, 请重新登陆再试...!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('保存角色失败, 请重新登陆再试...!');
+								// $('#my-alert').modal('open');
+								swal('保存角色失败, 请重新登陆再试...!');
 							}
 						});
 						return false;
 					} else {
-						$('#msg').html('验证失败');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败');
+						// $('#my-alert').modal('open');
+						swal('验证失败');
 						return false;
 					}
 				}
@@ -329,13 +376,15 @@ $(function() {
 				method : 'POST',
 				success : function(data) {
 					if (data.success) {
-						$('#msg').html('删除成功');
-						$('#my-alert').modal('open');
+						// $('#msg').html('删除成功');
+						// $('#my-alert').modal('open');
+						swal('删除成功');
 
 					} else {
 
-						$('#msg').html('删除角色失败: ' + data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html('删除角色失败: ' + data.msg);
+						// $('#my-alert').modal('open');
+						swal('删除角色失败: ' + data.msg);
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -343,8 +392,9 @@ $(function() {
 
 				},
 				error : function() {
-					$('#msg').html('删除角色失败, 请重新登陆再试...!');
-					$('#my-alert').modal('open');
+					// $('#msg').html('删除角色失败, 请重新登陆再试...!');
+					// $('#my-alert').modal('open');
+					swal('删除角色失败, 请重新登陆再试...!');
 				}
 			});
 

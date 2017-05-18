@@ -167,18 +167,21 @@ $(function() {
 				var pass1 = $('#yhmm2').val();
 				var pass2 = $('#qrmm1').val();
 				if (pass1 == "") {
-					$('#msg').html('请重新输入密码');
-					$('#my-alert').modal('open');
+					// $('#msg').html('请重新输入密码');
+					// $('#my-alert').modal('open');
+					swal('请重新输入密码');
 					return;
 				}
 				if (pass2 == "") {
-					$('#msg').html('请重新输入确认密码');
-					$('#my-alert').modal('open');
+					// $('#msg').html('请重新输入确认密码');
+					// $('#my-alert').modal('open');
+					swal('请重新输入确认密码');
 					return;
 				}
 				if (pass1 != pass2) {
-					$('#msg').html('两次密码输入不一致，请重新输入');
-					$('#my-alert').modal('open');
+					// $('#msg').html('两次密码输入不一致，请重新输入');
+					// $('#my-alert').modal('open');
+					swal('两次密码输入不一致，请重新输入');
 					return;
 				}
 				_this.cz(da1);
@@ -231,8 +234,9 @@ $(function() {
 								"height" : 500
 							});
 						} else {
-							$('#msg').html('修改用户失败');
-							$('#my-alert').modal('open');
+							// $('#msg').html('修改用户失败');
+							// $('#my-alert').modal('open');
+							swal('修改用户失败');
 						}
 					}
 				});
@@ -324,13 +328,16 @@ $(function() {
 
 				});
 				if (!data) {
-					$('#msg').html("请选择要删除的用户");
-					$('#my-alert').modal('open');
+					// $('#msg').html("请选择要删除的用户");
+					// $('#my-alert').modal('open');
+					swal("请选择要删除的用户");
 					return;
 				}
 				data = data.substring(0, data.length - 1);
 				var url = _this.config.scUrl;
-				if (!confirm('是否删除')) {
+
+
+				/*if (!confirm('是否删除')) {
 					return;
 				}
 				// $('#my-confirm').modal({
@@ -361,7 +368,43 @@ $(function() {
 						$('#my-alert').modal('open');
 						el.$jsLoading.modal('close');
 					}
-				});
+				});*/
+
+				 swal({
+                    title: "您确定要删除吗？",
+                    text: "您确定要删除这条数据？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "确 定",
+                    confirmButtonColor: "#ec6c62"
+                }, function() {
+                	el.$jsLoading.modal('open');
+                    $.ajax({
+                        url : url,
+						data : {ids : data},
+						type : 'POST',
+                    }).done(function(data) {
+                    	if (data.success) {
+		                	 	swal({ 
+								  title: "已成功删除", 
+								  timer: 1500, 
+								  type: "success", 
+								  showConfirmButton: false 
+								});
+  	                        _this.tableEx.ajax.reload(); // reload table data
+  	                    } else {
+  		                	swal('删除失败,服务器错误' + data.msg);
+  	                    }
+  	                    el.$jsLoading.modal('close');
+                        
+                    }).error(function(data) {
+                        swal('请求失败,请刷新后稍后重试!', "error");
+                        el.$jsLoading.modal('close');
+                    });
+                });
+
+
 				el.$checkAll.prop('checked', false);
 			});
 
@@ -388,18 +431,21 @@ $(function() {
 						}
 					}
 					if (fl == false) {
-						$('#msg').html("请选择可操作的销方企业!");
-						$('#my-alert').modal('open');
+						// $('#msg').html("请选择可操作的销方企业!");
+						// $('#my-alert').modal('open');
+						swal("请选择可操作的销方企业!");
 						return false;
 					}
 					if (jsids == null || jsids == "" || jsids == '') {
-						$('#msg').html("请选择角色!");
-						$('#my-alert').modal('open');
+						// $('#msg').html("请选择角色!");
+						// $('#my-alert').modal('open');
+						swal("请选择角色!");
 						return false;
 					}
 					if (pass1 != pass2) {
-						$('#msg').html("两次密码输入不一致，请重新输入!");
-						$('#my-alert').modal('open');
+						// $('#msg').html("两次密码输入不一致，请重新输入!");
+						// $('#my-alert').modal('open');
+						swal("两次密码输入不一致，请重新输入!");
 						return false;
 					}
 					if (formValidity) {
@@ -419,14 +465,16 @@ $(function() {
 									// loading
 									el.$modalHongchong.modal('close'); // close
 									// modal
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 									_this.tableEx.ajax.reload(); // reload
 									// table
 								} else {
 									el.$jsLoading.modal('close');
-									$('#msg').html(data.msg);
-									$('#my-alert').modal('open');
+									// $('#msg').html(data.msg);
+									// $('#my-alert').modal('open');
+									swal(data.msg);
 
 								}
 								// data
@@ -435,14 +483,16 @@ $(function() {
 							error : function() {
 								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								$('#msg').html('操作失败!');
-								$('#my-alert').modal('open');
+								// $('#msg').html('操作失败!');
+								// $('#my-alert').modal('open');
+								swal('操作失败!');
 							}
 						});
 						return false;
 					} else {
-						$('#msg').html('验证失败,请注意红色输入框内格式!');
-						$('#my-alert').modal('open');
+						// $('#msg').html('验证失败,请注意红色输入框内格式!');
+						// $('#my-alert').modal('open');
+						swal('验证失败,请注意红色输入框内格式!');
 						return false;
 					}
 				}
@@ -461,11 +511,13 @@ $(function() {
 				method : 'POST',
 				success : function(data) {
 					if (data.success) {
-						$('#msg').html(data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html(data.msg);
+						// $('#my-alert').modal('open');
+						swal(data.msg);
 					} else {
-						$('#msg').html('删除用户失败: ' + data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html('删除用户失败: ' + data.msg);
+						// $('#my-alert').modal('open');
+						swal('删除用户失败: ' + data.msg);
 
 					}
 					_this.tableEx.ajax.reload(); // reload table
@@ -473,8 +525,9 @@ $(function() {
 
 				},
 				error : function() {
-					$('#msg').html('删除用户失败, 请重新登陆再试...!');
-					$('#my-alert').modal('open');
+					// $('#msg').html('删除用户失败, 请重新登陆再试...!');
+					// $('#my-alert').modal('open');
+					swal('删除用户失败, 请重新登陆再试...!');
 				}
 			});
 
@@ -494,11 +547,13 @@ $(function() {
 				method : 'POST',
 				success : function(data) {
 					if (data.success) {
-						$('#msg').html(data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html(data.msg);
+						// $('#my-alert').modal('open');
+						swal(data.msg);
 					} else {
-						$('#msg').html('重置用户密码失败: ' + data.msg);
-						$('#my-alert').modal('open');
+						// $('#msg').html('重置用户密码失败: ' + data.msg);
+						// $('#my-alert').modal('open');
+						swal('重置用户密码失败: ' + data.msg);
 
 					}
 					el.$chongzhi.modal('close');
@@ -507,8 +562,9 @@ $(function() {
 
 				},
 				error : function() {
-					$('#msg').html('操作失败, 请重新登陆再试...!');
-					$('#my-alert').modal('open');
+					// $('#msg').html('操作失败, 请重新登陆再试...!');
+					// $('#my-alert').modal('open');
+					swal('操作失败, 请重新登陆再试...!');
 				}
 			});
 

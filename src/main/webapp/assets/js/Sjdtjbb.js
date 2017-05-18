@@ -260,14 +260,16 @@ $(function () {
                 var kprqq = $('#s_kprqq').val();
                 var kprqz = $('#s_kprqz').val();
                 if(kprqq==''||kprqz==''){
-                	$('#alert-msg').html("请先选择起始月份，终止月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+    				// $('#my-alert').modal('open');
+                    swal("请先选择起始月份，终止月份！");
                 	//el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
                 if(kprqq>kprqz){
-                	$('#alert-msg').html("起始月份不能大于终止月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+    				// $('#my-alert').modal('open');
+                    swal("起始月份不能大于终止月份！");
                 	//el.$jsLoading.modal('toggle');
                 	return false;               
                 }
@@ -286,14 +288,16 @@ $(function () {
                 var kprqq = el.$jsDate.val();
                 var kprqz = el.$jsDate1.val();
                 if(kprqq==''||kprqz==''){
-                	$('#alert-msg').html("请先选择起始月份，终止月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+    				// $('#my-alert').modal('open');
+                    swal("请先选择起始月份，终止月份！");
                 	//el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
                 if(kprqq>kprqz){
-                	$('#alert-msg').html("起始月份不能大于终止月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+    				// $('#my-alert').modal('open');
+                    swal("起始月份不能大于终止月份！");
                 	//el.$jsLoading.modal('toggle');
                 	return false;               
                 }

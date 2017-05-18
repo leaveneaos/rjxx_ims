@@ -38,8 +38,9 @@ $(function () {
     					$("#s_email").val(data.email);
     					$("#s_openid").val(data.openid);
     				}else{
-    					$('#alert-msg').html(data.msg);
-        				$('#my-alert').modal('open');
+    					// $('#alert-msg').html(data.msg);
+        	// 			$('#my-alert').modal('open');
+                        swal(data.msg);
     				}
     			}
     			
@@ -52,8 +53,9 @@ $(function () {
         	el.$jsAdd.on('click', el.$jsAdd, function () {
         		var dyfss = $('input[name="checkbox"]:checked');
         		if(dyfss==null ||dyfss.length==0){
-        			$('#alert-msg').html("请至少选中一种订阅方式！");
-    				$('#my-alert').modal('open');
+        // 			$('#alert-msg').html("请至少选中一种订阅方式！");
+    				// $('#my-alert').modal('open');
+                    swal("请至少选中一种订阅方式！");
     				return false;
         		}
         		var dys = '';
@@ -133,13 +135,15 @@ $(function () {
         			var openid = $('#s_openid').val();
         			var yhmc = $('#s_yhmc').val();
         			if(dxflag==true&&sjhm==''){
-        				$('#alert-msg').html("已勾选短信订阅，手机号码不能为空！");
-        				$('#my-alert').modal('open');
+        				// $('#alert-msg').html("已勾选短信订阅，手机号码不能为空！");
+        				// $('#my-alert').modal('open');
+                        swal("已勾选短信订阅，手机号码不能为空！");
         				return false;
         			}
         			if(yxflag==true&&email==''){
-        				$('#alert-msg').html("已勾选邮箱订阅，邮箱不能为空！");
-        				$('#my-alert').modal('open');
+        				// $('#alert-msg').html("已勾选邮箱订阅，邮箱不能为空！");
+        				// $('#my-alert').modal('open');
+                        swal("已勾选邮箱订阅，邮箱不能为空！");
         				return false;
         			}
                     var formValidity = this.isFormValid();
@@ -151,25 +155,29 @@ $(function () {
                             success: function (data) {                             	
                                 if (data.success) {
                                 	el.$jsModal.modal('close');
-                                	$('#alert-msg').html(data.msg);
-                    				$('#my-alert').modal('open');
+                        //         	$('#alert-msg').html(data.msg);
+                    				// $('#my-alert').modal('open');
+                                    swal(data.msg);
                     				$('#my-alert').on('closed.modal.amui', function(){
                     					window.location.reload();
                     				});                				
                                 }else{
-                                	$('#alert-msg').html(data.msg);
-                    				$('#my-alert').modal('open');                                 
+                        //         	$('#alert-msg').html(data.msg);
+                    				// $('#my-alert').modal('open'); 
+                                    swal(data.msg);                                
                                 }                             
                             },
                             error: function () {
-                            	$('#alert-msg').html("保存失败，请检查！");
-                				$('#my-alert').modal('open');
+                    //         	$('#alert-msg').html("保存失败，请检查！");
+                				// $('#my-alert').modal('open');
+                                swal("保存失败，请检查！");
                             }
                         });
                         return false;
                     } else {
-                    	$('#alert-msg').html("数据验证失败，请检查！");
-        				$('#my-alert').modal('open');
+            //         	$('#alert-msg').html("数据验证失败，请检查！");
+        				// $('#my-alert').modal('open');
+                        swal("数据验证失败，请检查！");
                         return false;
                     }
                 }
