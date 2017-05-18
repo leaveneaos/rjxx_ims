@@ -58,8 +58,9 @@ $(function() {
 			data : {},
 			success : function(data) {
 				$('#yhqrbc').removeAttr("disabled");
-				$("#alertt").html("保存成功");
-            	$("#my-alert").modal('open');
+				// $("#alertt").html("保存成功");
+    //         	$("#my-alert").modal('open');
+                swal("保存成功");
             	$("#cljgbt").hide();
             	$tab.tabs('refresh');
             	$tab.tabs('open', 0);
@@ -318,8 +319,9 @@ $(function() {
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
     	if(row.ykjje!=null&&row.ykjje>0){
-    		$("#alertt").html("明细已经部分开具");
-        	$("#my-alert").modal('open');
+    		// $("#alertt").html("明细已经部分开具");
+      //   	$("#my-alert").modal('open');
+            swal("明细已经部分开具");
         	return;
     	}
     	$('#my-alert-edit1').modal({"width": 480, "height": 550});
@@ -627,13 +629,15 @@ $(function() {
 							$('#bz').val(jy.bz);
 							$('#formid').val(jy.sqlsh);
 						} else {
-							$("#alertt").html(data.msg);
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html(data.msg);
+	      //               	$("#my-alert").modal('open');
+                            swal(data.msg);
 						}
 					},
 					error : function() {
-						$("#alertt").html("出现错误,请稍后再试");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("出现错误,请稍后再试");
+      //               	$("#my-alert").modal('open');
+                        swal("出现错误,请稍后再试");
 					}
 				});
             	$('#my-alert-edit').modal({"width": 800, "height": 450});
@@ -789,8 +793,9 @@ $(function() {
 		    			}
 					}
 					if(je==0){
-						$("#alertt").html("本次开具金额为0,请重新填写");
-	                	$("#my-alert").modal('open');
+						// $("#alertt").html("本次开具金额为0,请重新填写");
+	     //            	$("#my-alert").modal('open');
+                        swal("本次开具金额为0,请重新填写");
 	                	return false;
 					}
 				}
@@ -836,8 +841,9 @@ $(function() {
 					data : $('#main_form').serialize(),
 					success : function(data) {
 						if(data.msg){
-							$("#alertt").html("修改成功");
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html("修改成功");
+	      //               	$("#my-alert").modal('open');
+                            swal("修改成功");
 							$('#my-alert-edit').modal('close')
 							_this.tableEx.ajax.reload();	
 						}
@@ -863,8 +869,9 @@ $(function() {
 					data : $('#main_form1').serialize(),
 					success : function(data) {
 						if(data.msg){
-							$("#alertt").html("修改成功");
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html("修改成功");
+	      //               	$("#my-alert").modal('open');
+                            swal("修改成功");
 							$('#my-alert-edit1').modal('close');
 							_this.tableEx.ajax.reload();	
 							 kpspmx_table.ajax.reload();
@@ -922,14 +929,16 @@ function yzje(je){
 	var zdje = $(je).attr("max");
 	var zhi= $(je).val();
 	if(zdje==0){
-		$("#alertt").html("最大金额为0 ,请维护开票限额");
-    	$("#my-alert").modal('open');
+		// $("#alertt").html("最大金额为0 ,请维护开票限额");
+  //   	$("#my-alert").modal('open');
+        swal("最大金额为0 ,请维护开票限额");
     	return;
 	}
 	if(zhi*1>zdje*1){
 		var msg = "不能超过分票金额"+zdje*1;
-		$("#alertt").html(msg);
-    	$("#my-alert").modal('open');
+		// $("#alertt").html(msg);
+  //   	$("#my-alert").modal('open');
+        swal(msg);
 		$(je).val(zdje);
 	}
 }

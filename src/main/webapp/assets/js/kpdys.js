@@ -85,10 +85,11 @@
             });
             var ddhs = chk_value.substring(0, chk_value.length-1);
             if(chk_value.length==0){
-                $("#alertt").html("请至少选择一条数据");
-                $("#my-alert").modal('open');
+                // $("#alertt").html("请至少选择一条数据");
+                // $("#my-alert").modal('open');
+                swal("请至少选择一条数据");
             }else{
-                if (!confirm("您确认退回么？")) {
+                /*if (!confirm("您确认退回么？")) {
                     return;
                 }
                 $.ajax({
@@ -101,6 +102,26 @@
                         jyls_table2.ajax.reload();
                         jyspmx_table2.ajax.reload();
                     }
+                });*/
+
+
+                swal({
+                    title: "您确认退回么？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "确 定",
+                    confirmButtonColor: "#ec6c62"
+                }, function() {
+                    $.ajax({
+                        type : "POST",
+                        url : "kpdsh/th",
+                        data : {"ddhs":ddhs},
+                    }).done(function(data) {
+                        swal(data.msg);
+                        jyls_table2.ajax.reload();
+                        jyspmx_table2.ajax.reload();
+                    })
                 });
             }
         });
@@ -176,7 +197,7 @@
                 if (dt1.getYear() == dt2.getYear()) {
                     if (dt1.getMonth() == dt2.getMonth()) {
                         if (dt1 - dt2 > 0) {
-                            alert('开始日期大于结束日期!');
+                            swal('开始日期大于结束日期!');
                             return false;
                         }
                     } 

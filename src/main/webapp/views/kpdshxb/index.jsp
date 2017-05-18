@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/autocomplete.css" />
 <link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-table {
@@ -1152,6 +1153,7 @@ table thead th {
 	<script src="assets/js/kpdys.js"></script>
 	<script src="assets/js/autocomplete.js"></script>
 	<script src="assets/js/getGfxxInput.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#cljg").hide();
@@ -1260,7 +1262,7 @@ table thead th {
         $("#btnDownloadDefaultTemplate").click(function () {
         	var mbid = $('#mb').val();
         	if(null==mbid||""==mbid){
-            	alert("请选择模板后下载");
+            	swal("请选择模板后下载");
         	}else{
     			$.ajax({
     				type : "POST",
@@ -1283,29 +1285,29 @@ table thead th {
             var mb = $("#mb").val();
             var skpid = $("#mb_skp").val();
             if (!xfsh) {
-                alert("请选择要导入的销方");
+                swal("请选择要导入的销方");
                 return;
             }
             if (skpid==-1) {
-                alert("请选择要导入的开票点");
+                swal("请选择要导入的开票点");
                 return;
             }
             if (mb==-1) {
-                alert("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
+                swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
                 return;
             }
             if (!filename) {
-                alert("请选择要导入的文件");
+                swal("请选择要导入的文件");
                 return;
             }
             var pos = filename.lastIndexOf(".");
             if (pos == -1) {
-                alert("导入的文件必须是excel文件");
+                swal("导入的文件必须是excel文件");
                 return;
             }
             var extName = filename.substring(pos + 1);
             if ("xls" != extName && "xlsx" != extName) {
-                alert("导入的文件必须是excel文件");
+                swal("导入的文件必须是excel文件");
                 return;
             }
             $("#btnImport").attr("disabled", true);
@@ -1316,7 +1318,7 @@ table thead th {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
                         var count = res["count"];
-                        alert("导入成功，共导入" + count + "条数据");
+                        swal("导入成功，共导入" + count + "条数据");
                         window.location.reload();
                         if (res["yes"]) {
                 			$('#mrmb').empty();
