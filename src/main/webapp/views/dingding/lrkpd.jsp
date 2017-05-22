@@ -9,9 +9,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">    
 
     <link rel="stylesheet" href="css/mui.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="js/mui.min.js"></script>
+
+
     <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
 	<script src="js/jquery.1.7.2.min.js"></script>
+	
 	<script src="js/mobiscroll_002.js" type="text/javascript"></script>
 	<script src="js/mobiscroll_004.js" type="text/javascript"></script>
 	<link href="css/mobiscroll_002.css" rel="stylesheet" type="text/css">
@@ -25,192 +29,151 @@
 	<div class="mui-content">
 
 		<div id="slider" class="mui-slider">
-			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<a class="mui-control-item" href="#item1mobile" id="lrkpd">
-					录入开票单
-				</a>
-				<a class="mui-control-item" href="#item2mobile" id="lrgfxx">
-					录入购方信息
-				</a>
-				<a class="mui-control-item" href="#item3mobile" id="lrspxx">
-					录入商品信息
-				</a>
-			</div>
-
-			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
-
-			<div class="mui-slider-group" id="i">
-
-				<div id="item1mobile"  class="mui-slider-item mui-control-content mui-active">
-					<div id="scroll1" class="mui-scroll-wrapper">
+			<div class="mui-slider-group">
+				<div  class="mui-slider-item">
+					<div id="scroll1">
 						<div class="mui-scroll">
-							<div class="mui-card">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell mui-collapse mui-active">
-										<a class="mui-navigate-right" href="#">开票要求</a>
-										<div class="mui-collapse-content">
-											<div class="mui-content-padded" style="margin: 5px;">
-												<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
-												<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
-												<form class="mui-input-group">
-													<div class="mui-input-row">
-														<label><span style="color: blue">销方名称</span></label>
-														<select id="xfmc" name="xfmc">
-															<c:forEach items="${xflist}" var="item">
-																<option value="${item.id}">${item.xfmc}</option>
-															</c:forEach>
-														</select>
-													</div>
-													<div class="mui-input-row">
-														<label><span style="color: blue">订单号</span></label>
-														<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
-													</div>
-													<div class="mui-input-row">
-														<label><span class="addhr">期望日期</span></label>
-														<input class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
-													</div>
-												</form>
-												<h5 class="mui-content-padded" style="margin-left: 3px;"><span style="color: blue">发票种类：</span></h5>
-												<div class="mui-card" style="margin: 10px 0;">
-													<form class="mui-input-group">
-														<div class="mui-input-row mui-radio">
-															<label>电子发票</label>
-															<input name="radio1" id="dzfp" value="12" type="radio" onclick="inputbt(this.value);" checked>
-														</div>
-														<div class="mui-input-row mui-radio">
-															<label>纸质普票</label>
-															<input name="radio1" id="zzpp" value="02" onclick="inputbt(this.value);" type="radio">
-														</div>
-														<div class="mui-input-row mui-radio">
-															<label>纸质专票</label>
-															<input name="radio1" id="zzzp" value="01" onclick="inputbt(this.value);" type="radio">
-														</div>
-													</form>
-												</div>
-											</div>
-											<h5 class="mui-content-padded" style="margin-left: 4px;" >发票备注：</h5>
-											<div class="mui-input-row" style="margin: 10px 5px;">
-												<textarea id="bz" rows="2" placeholder=""></textarea>
-											</div>
-											<h5 class="mui-content-padded" >其他要求：</h5>
-											<div class="mui-input-row" style="margin: 10px 5px;">
-												<textarea id="kpyq" rows="2" placeholder=""></textarea>
-											</div>
-										</div>
-									</li>
-								</ul>
+							<div class="mui-collapse-content">
+								<input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
+								<input type="hidden" id="userid" value="<c:out value="${userid}" />"/>
+								<h4 class="mui-content-padded"><span>销方信息：</span></h4>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<label><span style="color: blue">销方名称</span></label>
+										<select id="xfmc" name="xfmc">
+											<c:forEach items="${xflist}" var="item">
+												<option value="${item.id}">${item.xfmc}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="mui-input-row">
+										<label><span style="color: blue">订单号</span></label>
+										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
+									</div>
+									<div class="mui-input-row">
+										<label><span class="addhr">期望日期</span></label>
+										<input class="mui-input-clear" readonly="readonly" name="kprq" id="kprq" type="text">
+									</div>
+								</form>
+								<h4 class="mui-content-padded"><span>发票种类：</span></h4>
+								<form class="mui-input-group">
+									<div class="mui-input-row mui-radio">
+										<label>电子发票</label>
+										<input name="radio1" id="dzfp" value="12" type="radio" onclick="inputbt(this.value);" checked>
+									</div>
+									<div class="mui-input-row mui-radio">
+										<label>纸质普票</label>
+										<input name="radio1" id="zzpp" value="02" onclick="inputbt(this.value);" type="radio">
+									</div>
+									<div class="mui-input-row mui-radio">
+										<label>纸质专票</label>
+										<input name="radio1" id="zzzp" value="01" onclick="inputbt(this.value);" type="radio">
+									</div>
+								</form>
+								<h4 class="mui-content-padded">发票备注：</h4>
+								<div class="mui-input-row">
+									<textarea id="bz" rows="2" placeholder=""></textarea>
+								</div>
+								<h4 class="mui-content-padded" >其他要求：</h4>
+								<div class="mui-input-row">
+									<textarea id="kpyq" rows="2" placeholder=""></textarea>
+								</div>
 							</div>
-
-							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish"  >完 成</button>
+							<button type="button" class="mui-btn mui-btn-primary mui-btn-block next1">下一步</button>
 						</div>
 					</div>
 				</div>
 
-				<div id="item2mobile"  class="mui-slider-item mui-control-content">
+				<div  class="mui-slider-item mui-control-content">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-card">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell mui-collapse mui-active">
-										<a class="mui-navigate-right" href="#">购方抬头</a>
-										<div class="mui-collapse-content">
-									      <form class="mui-input-group">
-										<div class="mui-input-row">
-											<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
-											<input type="text" id="gfmc" class="mui-input-clear" oninput="kongge(this.value)" placeholder="发票抬头">
+							<h4 class="mui-content-padded"><span>购方抬头：</span></h4>
+							<div class="mui-collapse-content">
+						        <form class="mui-input-group">
+									<div class="mui-input-row">
+										<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
+										<input type="text" id="gfmc" class="mui-input-clear" oninput="kongge(this.value)" placeholder="发票抬头">
+									</div>
+									<div class="mui-input-row">
+										<label><span id="nsrsbh_span">纳税人识别号</span></label>
+										<input type="text"  id="nsrsbh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方税号，15位至20位">
+									</div>
+									<div class="mui-input-row">
+										<label><span id="zcdz_span">购方地址</span></label>
+										<input type="text" id="zcdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="发票票面左下角显示">
+									</div>
+									<div class="mui-input-row">
+										<label><span id="zcdh_span">购方电话</span></label>
+										<input type="text" id="zcdh"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册电话">
+									</div>
+									<div class="mui-input-row">
+										<label><span id="khyh_span">开户银行</span></label>
+										<input type="text" id="khyh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方开户银行">
+									</div>
+									<div class="mui-input-row">
+										<label><span id="yhzh_span">银行账户</span></label>
+										<input type="text" id="yhzh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方银行账户">
+									</div>
+								</form>
+				            </div>
+							<h4 class="mui-content-padded"><span>收件人信息：</span></h4>
+							<div class="mui-collapse-content">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<label>联系人</label>
+										<input type="text" id="lxr"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人姓名">
+									</div>
+									<div class="mui-input-row">
+										<label>联系电话</label>
+										<input type="text" id="lxdh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话">
+									</div>
+									<div class="mui-input-row">
+										<label>联系地址</label>
+										<input type="text" id="lxdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人详细地址">
+									</div>
+									<div class="mui-input-row">
+										<label>邮件地址</label>
+										<input type="text" id="yjdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人邮箱地址">
+									</div>
+									<div class="mui-input-row" style="display:none" >
+										<label>提取码</label>
+										<input type="text" id="tqm" class="mui-input-clear" placeholder="用户提取电子发票时使用">
+									</div>
+									<li class="mui-table-view-cell" style="display:none">
+										<span>订单/合同号作为提取码</span>
+										<div id="mySwitch" class="mui-switch mui-switch-blue mui-switch-mini">
+											<div  class="mui-switch-handle"></div>
 										</div>
-										<div class="mui-input-row">
-											<label><span id="nsrsbh_span">纳税人识别号</span></label>
-											<input type="text"  id="nsrsbh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方税号，15位至20位">
-										</div>
-										<div class="mui-input-row">
-											<label><span id="zcdz_span">购方地址</span></label>
-											<input type="text" id="zcdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册地址（发票票面左下角显示）">
-										</div>
-										<div class="mui-input-row">
-											<label><span id="zcdh_span">购方电话</span></label>
-											<input type="text" id="zcdh"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册电话，如021-55571833">
-										</div>
-										<div class="mui-input-row">
-											<label><span id="khyh_span">开户银行</span></label>
-											<input type="text" id="khyh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方开户银行">
-										</div>
-										<div class="mui-input-row">
-											<label><span id="yhzh_span">银行账户</span></label>
-											<input type="text" id="yhzh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方银行账户">
-										</div>
-									</form>
-							            </div>
-							         </li>
-							    </ul>
-						    </div>
-							<div class="mui-card">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell mui-collapse">
-										<a class="mui-navigate-right" href="#">收件人信息</a>
-										<div class="mui-collapse-content">
-											<form class="mui-input-group">
-												<div class="mui-input-row">
-													<label>联系人</label>
-													<input type="text" id="lxr"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人姓名">
-												</div>
-												<div class="mui-input-row">
-													<label>联系电话</label>
-													<input type="text" id="lxdh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话">
-												</div>
-												<div class="mui-input-row">
-													<label>联系地址</label>
-													<input type="text" id="lxdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人详细地址">
-												</div>
-												<div class="mui-input-row">
-													<label>邮件地址</label>
-													<input type="text" id="yjdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人邮箱地址，提示用户发票已开具">
-												</div>
-												<div class="mui-input-row" style="display:none" >
-													<label>提取码</label>
-													<input type="text" id="tqm" class="mui-input-clear" placeholder="用户提取电子发票时使用">
-												</div>
-												<li class="mui-table-view-cell" style="display:none">
-													<span>订单/合同号作为提取码</span>
-													<div id="mySwitch" class="mui-switch mui-switch-blue mui-switch-mini">
-														<div  class="mui-switch-handle"></div>
-													</div>
-												</li>
-											   <div class="mui-input-row">
-											   </div>
-								    </form>
-								</li>
-							 </ul>
-						   </div>
-							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish1" >完 成</button>
+									</li>
+					    		</form>
+				    		</div>
+							<button type="button" class="mui-btn mui-btn-primary mui-btn-block next2">下一步</button>
 						</div>
 					</div>
 				</div>
 
-				<div id="item3mobile"  class="mui-slider-item mui-control-content">
+				<div class="mui-slider-item mui-control-content">
 					<div id="scroll3" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-content">
-								<div class="mui-content-padded" style="margin: 5px;">
-									<h5 class="mui-content-padded"><span style="color: blue">商品名称</span></h5>
+								<div class="mui-collapse-content">
 									<select id="lrselect_sp" name="lrselect_sp" class="mui-btn mui-btn-block"
-											style="padding-left: 4px;" >
-										<option value="">选择商品</option>
+											style="text-indent: 4px;" >
+										<option value="">点击此处选择商品</option>
 										<c:forEach items="${spList}" var="item">
 											<option value="${item.sl}" class="${item.id}" >${item.spmc}(${item.sl})</option>
 										</c:forEach>
 									</select>
 									<input type="hidden"  id="spbm"  class="mui-input-clear"  placeholder="">
 								</div>
-								<div class="mui-content-padded" style="margin: 5px; padding-bottom : 40px;">
+								<div class="mui-collapse-content" style="margin: 5px 5px 15px 5px;">
 									<form class="mui-input-group">
 										<div class="mui-input-row">
-											<label><span style="color: blue">含税金额</span></label>
+											<label><span style="color: #007AFF">含税金额</span></label>
 											<input type="text"  id="hsje" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 											<input type="hidden"  id="jshj2"  class="mui-input-clear"  placeholder="">
 										</div>
 										<div class="mui-input-row" >
-											<label><span style="color: blue">不含税金额</span></label>
+											<label><span style="color: #007AFF">不含税金额</span></label>
 											<input type="text" id="je" class="mui-input-clear" onclick="jyspxx();" placeholder="">
 										</div>
 										<div class="mui-input-row" >
@@ -239,16 +202,15 @@
 										</div>
 									</form>
 								</div>
-							</div>
-							<div class="mui-bar mui-bar-tab">
-								<a class="lrkpd" style="width:50%" >
-									<span class="mui-tab-label" id="jshj" >价税合计：0</span>
-								</a>
-								<a class="lrkpd" id="add" style="width:50%" >
-									<span class="mui-tab-label" id="show" >添加(已完成:0)</span>
-								</a>
-							</div>
-							<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="finish2" >完 成</button>
+								<div class="data-type mui-bar-tab">
+									<a class="lrkpd" style="border-right: 1px solid #ccc; float: left;" >
+										<span class="mui-tab-label" id="jshj" >价税合计：0</span>
+									</a>
+									<a class="lrkpd" id="add" style="float: right;" >
+										<span class="mui-tab-label" id="show" >添加(已完成:0)</span>
+									</a>
+								</div>
+								<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id='finish'>提 交</button>
 						</div>
 					</div>
 				</div>
@@ -404,15 +366,10 @@
                         'device.geolocation.get',]
                 });
                 dd.ready(function() {
-                    document.addEventListener('pause', function() {
-
-                    });
-                    document.addEventListener('resume', function() {
-
-                    });
                     var totaljshj=0.00;
                     var str='';
                     var i=0;
+                    var slider = mui('#slider').slider();
                     $("#add").bind('click', function()  {
                         var jshj = $('#jshj');
                         var jshj2=$("#jshj2").val();
@@ -430,19 +387,15 @@
                         var pos = spmc.indexOf("(");
                         spmc = spmc.substring(0, pos);
                         if(lrselect_sp.val()==''||lrselect_sp.val()==null){
-                            mui.alert('请选择商品！', function() {
-                                return ;
-                            });
+                            mui.alert('请选择商品！');
                             return;
-                        } if(je.val()==""||je.val()==null){
-                            mui.alert('请填写金额（不含税）！', function() {
-                                return;
-                            });
+                        } 
+                        if(je.val()==""||je.val()==null){
+                            mui.alert('请填写金额（不含税）！');
                             return;
-                        } if(hsje.val()==""||hsje.val()==null){
-                            mui.alert('请填写金额（含税）！', function() {
-                                return;
-                            });
+                        } 
+                        if(hsje.val()==""||hsje.val()==null){
+                            mui.alert('请填写金额（含税）！');
                             return;
                         }
                         totaljshj=parseFloat(totaljshj)+parseFloat(jshj2);
@@ -497,25 +450,31 @@
                             }
                         });
                         if(null!=je && je.val() !=""){
+
                             var temp = (100+sl.val()*100)/100;
-                            se.val(FormatFloat(je.val() * spsl, "#####0.00"));
                             var je1 = parseFloat(je.val());
                             var se1 = parseFloat(se.val());
+
+                            se.val(FormatFloat(je.val() * spsl, "#####0.00"));
+
                             hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+
                             jshj.html("价税合计："+FormatFloat(je1 + se1, "#####0.00"));
+
                             $("#jshj2").val(FormatFloat(je1 + se1, "#####0.00"));
+
                             if (dj != null && dj.val() != "") {
                                 sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
                             }else if(sps != null && sps.val() != ""){
                                 dj.val(FormatFloat(je.val() / sps.val(), "#####0.00"));
                             }
+
                         }
-
                     });
-
                     $("#je").bind('input', function() {
                         var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
                         var je = $('#je');
+
                         if (!num.test(je.val())) {
                             if (je.val().length > 1) {
                                 $('#je').val(
@@ -573,21 +532,38 @@
                         var dj = $('#spdj');
                         var sps = $('#spsl');
                         var spsl;
+
                         var temp = (100 + sl.val() * 100) / 100;
-                        je.val(FormatFloat(hsje.val() / (temp),
-                            "#####0.00"));
-                        se.val(FormatFloat(hsje.val() - je.val(),
-                            "#####0.00"));
+
+                        je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+
+                        se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+
                         if (dj != null && dj.val() != "") {
-                            sps.val(FormatFloat(je.val() / dj.val(),
-                                "#0.00"));
-                        }else  if (sps != null && sps.val() != "") {
-                            dj.val(FormatFloat(je.val() / sps.val(),
-                                "#####0.00"));
+
+                            sps.val(FormatFloat(je.val() / dj.val(),"#0.00"));
+
+                        }else if (sps != null && sps.val() != "") {
+
+                            dj.val(FormatFloat(je.val() / sps.val(),"#####0.00"));
                         }
+
                         jshj.html("价税合计："+FormatFloat(hsje.val(), "#####0.00"));
+
                         $("#jshj2").val(FormatFloat(hsje.val(), "#####0.00"));
                     });
+                    $('.next1').on('click',function() {
+                            slider.gotoItem(1);
+                            dd.biz.navigation.setTitle({
+							    title : '录入购方信息',//控制标题文本，空字符串表示显示默认文本
+							});
+                    })
+                    $('.next2').on('click',function() {
+                            slider.gotoItem(2);
+                            dd.biz.navigation.setTitle({
+							    title : '录入商品信息',//控制标题文本，空字符串表示显示默认文本
+							});
+                    })
                     function  tijiao() {
                         var xfmc = $('#xfmc option:selected').text();
                         var xfid = $('#xfmc option:selected').val();
@@ -686,7 +662,7 @@
                             }
                         }
                         if (str == "") {
-                            mui.alert('请填写商品信息！', function () {
+                            mui.alert('完成请添加！', function () {
                                 //$("#lrselect_sp").focus();
                                 var slider = mui('#slider').slider();
                                 slider.gotoItem(2); //切换至第二个轮播
@@ -717,8 +693,6 @@
                         });
                     }
                     document.getElementById("finish").addEventListener('tap', tijiao);
-                    document.getElementById("finish1").addEventListener('tap', tijiao);
-                    document.getElementById("finish2").addEventListener('tap', tijiao);
                 });
                 dd.error(function(err) {
                     alert('dd error: ' + JSON.stringify(err));

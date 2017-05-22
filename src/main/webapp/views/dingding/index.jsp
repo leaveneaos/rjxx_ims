@@ -3,7 +3,7 @@
 <html>
   <head>  
     <meta charset="utf-8">  
-    <title>录入开票单</title>
+    <title>开票通</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">    
     <meta name="apple-mobile-web-app-capable" content="yes">    
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -11,11 +11,27 @@
 	  <script src="js/jquery.1.7.2.min.js"></script>
 	  <link rel="stylesheet" href="css/mui.min.css">
       <link rel="stylesheet" href="css/index.css">
+      <link rel="stylesheet" type="text/css" href="css/iconfont.css">
       <script src="js/mui.min.js"></script>
   </head>
   <body>
   <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
   <div class="mui-content">
+    <ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #5C96F7;">
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+          <a id='newInvoice'>
+            <span class="mui-icon iconfont icon-kaipiao"></span>
+            <div class="mui-media-body">新建开票单</div>
+          </a>
+        </li>
+
+        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+          <a id="house" href="<%=request.getContextPath()%>/dinggfgl">
+            <span class="mui-icon iconfont icon-xinxi"></span>
+            <div class="mui-media-body">购方管理</div>
+          </a>
+        </li>
+    </ul>
 	  <h5 class="mui-content-padded">待开票清单</h5>
 	  <div class="mui-card">
 		  <div class="mui-card-header">
@@ -66,9 +82,9 @@
 			  </div>
 		  </div>
 	  </div>
-  </div>
+  <!-- </div> -->
 
-  <div class="mui-content">
+  <!-- <div class="mui-content"> -->
 	  <h5 class="mui-content-padded">本月汇总</h5>
 	  <div class="mui-card">
 		  <div class="mui-card-header">
@@ -115,10 +131,14 @@
   </div>
     <br /><br />
     <div class="mui-button-row">
-		<button id='alertBtn' type="button" class="mui-btn mui-btn-success"  style="width: 80%;" >新建开票单</button>
 	</div>
   </body>
   <script>
+      mui.plusReady(function () {
+        plus.webview.currentWebview().setStyle({
+          scrollIndicator: 'none'
+        });
+      });
       $(function(){
           var url= window.location.href;
           var corpId =$("#corpid").val();
@@ -196,12 +216,6 @@
                   });
                   dd.ready(function() {
                       var userid="";
-                      document.addEventListener('pause', function() {
-
-                      });
-                      document.addEventListener('resume', function() {
-
-                      });
                       dd.runtime.permission.requestAuthCode({
                           corpId : corpId,
                           onSuccess : function(info) {
@@ -219,23 +233,26 @@
                               alert('fail: ' + json.stringify(err));
                           }
                       });
-                      $("#alertBtn").bind("click",function(){
+                      $("#newInvoice").bind("click",function(){
                           $.ajax({
                               url : 'ding/getsqzhinfo',
                               data: {"userid":userid,"corpid":corpId},
                               method: 'post',
                               success : function(data) {
-                                  /*if(data.code=="0"){
-                                      mui.alert('您还不是开票通用户！请注册后使用', function () {
-                                         return;
-                                      });
-								  }else{
-                                  }*/
                                   window.location.href="dinglrkpd?corpid="+corpId+"&userid="+userid;
-
                               }
                           });
                       });
+                     /* $("#house").bind("click",function(){
+                          $.ajax({
+                              url : 'ding/getsqzhinfo',
+                              data: {"userid":userid,"corpid":corpId},
+                              method: 'post',
+                              success : function(data) {
+                                  window.location.href = 'gfgl.html';
+                          //     }
+                          // });
+                      });*/
 
                   });
 

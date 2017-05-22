@@ -112,12 +112,6 @@
                 });
                 dd.ready(function() {
                     var userid="";
-                    document.addEventListener('pause', function() {
-
-                    });
-                    document.addEventListener('resume', function() {
-
-                    });
                     dd.runtime.permission.requestAuthCode({
                         corpId : corpId,
                         onSuccess : function(info) {
