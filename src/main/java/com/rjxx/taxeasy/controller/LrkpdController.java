@@ -760,8 +760,8 @@ public class LrkpdController extends BaseController {
     public Map getTemplate(String xfsh) {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> map = new HashMap<>();
-        map.put("xfsh", xfsh);
-        map.put("xfs", getXfList());
+        //map.put("xfsh", xfsh);
+        //map.put("xfs", new ArrayList<>());
         map.put("gsdm", getGsdm());
         List<Drmb> mbList = drmbService.findAllByParams(map);
         result.put("mbs", mbList);
