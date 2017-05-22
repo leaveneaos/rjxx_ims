@@ -6,23 +6,25 @@ $(function() {
 	var ur;
 	var el = {
 		$jsTable : $('.js-table'),
+
 		$modalHongchong : $('#hongchong'),
+
 		$jsSubmit : $('.js-submit'),
+
 		$jsClose : $('.js-close'),
+
 		$jsForm0 : $('#importConfigForm'), // 红冲 form
-		$s_xfsh : $('#xfsh'), // search
+
 		$c_mbmc : $('#c_mbmc'), // search
-		$dpmax:$('#dzpzdje'),
-		$fpfz:$('#dzpfpje'),
-		$zpmax:$('#zpzdje'),
-		$zpfz:$('#zpfpje'),
-		$ppmax:$('#ppzdje'),
-		$ppfz:$('#ppzdje'),
-		$jsSearch :$("#kp_search"),
-		$jsSearch1 : $('#kp_search1'),
-		$importExcelForm : $('#importExcelForm'),
-		$jsTable1 : $('#button2'),
+
+		$jsSearch :$("#mb_search"),
+
+		$jsSearch1 : $('#mb_search1'),
+
+		$jsAdd : $('#button2'),
+
 		$jsLoading : $('.js-modal-loading')
+
 	};
 	var action = {
 		tableEx : null, // cache dataTable
@@ -45,11 +47,10 @@ $(function() {
 							url : _this.config.getUrl,
 							type : 'POST',
 							data : function(d) {
-								d.xfsh = el.$s_xfsh.val(); // search 用户账号
+								//d.xfsh = el.$s_xfsh.val(); // search 用户账号
 								d.mbmc = el.$c_mbmc.val(); // search 用户名称
 								d.gxbz =  $('#sfgx').val();
 								var csm =  $('#dxcsm').val();
-								//swal($('#sfgx').val());
 					                if("s_mbmc"==csm&&(d.mbmc==null||d.mbmc=="")){
 					                    d.mbmc = $('#dxcsz').val()
 					                 }
@@ -64,11 +65,6 @@ $(function() {
 	                        				+ data.id + '" />';
 	                        		}
 	                        	},
-	                        	/*{
-								"orderable" : false,
-								"data" : null,
-								"defaultContent" : ""
-							    },*/
 								{
 									"data" : "id"
 								},
@@ -103,7 +99,6 @@ $(function() {
 									}						
 								} ]
 					});
-			//<a href='#' class='del'>删除</a>
 			 $('#check_all').change(function () {
 	            	if ($('#check_all').prop('checked')) {
 	            		t.column(0).nodes().each(function (cell, i) {
@@ -117,92 +112,62 @@ $(function() {
 	            });
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
-				/*t.column(0).nodes().each(function(cell, i) {
-					cell.innerHTML = page + i + 1;
-				});*/
 				$('#tbl tr').find('td:eq(1)').hide();
 				$('#tbl tr').find('td:eq(5)').hide();
 			});
 
 			// 新增
-			el.$jsTable1.on('click', el.$jsTable1, function() {
+			el.$jsAdd.on('click', el.$jsAdd, function() {
 				_this.resetForm();
 				ur = _this.config.addUrl;
-				el.$modalHongchong.modal({"width": 700, "height": 600});
+				el.$modalHongchong.modal({"width": 700, "height": 650});
 				$("#btnImportConfigSave").attr("disabled",false);
 			});
-			// 查看
-//			t.on('click', 'a.detail', function() {
-//				_this.resetForm();
-//				var row = t.row($(this).parents('tr')).data();
-//	        	var mbid = row.id;
-//				var url = "mbsz/initImport";
-//				$.post(url, {mbid:mbid}, function (res) {
-//
-//					if (row.gxbz=="1") {
-//						$("#yes").prop("checked", true);
-//					}else{
-//						$("#no").prop("checked", true);
-//					}
-//					
-//                    $('#mbmc').val(row.mbmc);
-//                    $('#mbid').val(mbid);
-//	                if (res && res.length > 0) {
-//	                    for (var i = 0; i < res.length; i++) {
-//	                        var obj = res[i];
-//	                        var zdm = obj["zdm"];
-//	                        var pzlx = obj["pzlx"];
-//	                        var pzz = obj["pzz"];
-//	                        if (zdm != "gs") {
-//	                        	$("input[name=config_" + zdm + "_radio][value=" + pzlx + "]").prop("checked", true);
-//		                        if ("hsbz" == zdm) {
-//		                            $("input[name=config_" + zdm + "][value=" + pzz + "]").prop("checked", true);
-//		                        } else {
-//		                            $("input[name=config_" + zdm + "]").val(pzz);
-//		                        }
-//							}
-//	                    }
-//	                }
-//	            });	
-//				$("#btnImportConfigSave").attr("disabled",true);
-//				el.$modalHongchong.modal({"width": 700, "height": 600});
-//			});
+
+
 			// 修改
 			t.on('click', 'a.modify', function() {
-				var row = t.row($(this).parents('tr')).data();
+                _this.resetForm();
+                var row = t.row($(this).parents('tr')).data();
 	        	var mbid = row.id;
 				var url = "mbsz/initImport";
 				$.post(url, {mbid:mbid}, function (res) {
-
 					if (row.gxbz=="1") {
-						$("#yes1").prop("checked", true);
+                        $("#config_gs_radio").find("option[value='1']").prop("selected",true);
 					}else{
-						$("#no1").prop("checked", true);
-					}
-					
-                    $('#mbmc1').val(row.mbmc);
-                    $('#mbid1').val(mbid);
+                        $("#config_gs_radio").find("option[value='0']").prop("selected",true);
+                    }
+                    $('#mbmc').val(row.mbmc);
+                    $('#mbid').val(mbid);
 	                if (res && res.length > 0) {
 	                    for (var i = 0; i < res.length; i++) {
 	                        var obj = res[i];
 	                        var zdm = obj["zdm"];
 	                        var pzlx = obj["pzlx"];
 	                        var pzz = obj["pzz"];
-	                        if (zdm != "gs") {
-	                        	$("input[name=config_" + zdm + "_radio][value=" + pzlx + "]").prop("checked", true);
-		                        if ("hsbz" == zdm) {
-		                            $("input[name=config_" + zdm + "][value=" + pzz + "]").prop("checked", true);
-		                        } else {
-		                            $("input[name=config_" + zdm + "]").val(pzz);
-		                        }
-							}
+
+	                        if(zdm.indexOf('xf')!=0&&zdm!="skr"&&zdm!="kpr"&&zdm!="fhr"){
+								if (zdm != "gs") {
+                                    $("#config_" + zdm + "_radio").find("option[value="+pzlx+"]").prop("selected",true);
+                                    if ("hsbz" == zdm||"fpzldm" == zdm) {
+										if(pzlx=="auto"){
+                                            $("#config_" + zdm).find("option[value="+pzz+"]").prop("selected",true);
+                                        }else if(pzlx=="config"){
+                                            $("#config_" + zdm).css("display","none");
+                                            $("#config_" + zdm +"_input").css("display","");
+                                            $("#config_" + zdm +"_input").val(pzz);
+										}
+									}else{
+                                        $("#config_" + zdm).val(pzz);
+									}
+								}
+                            }
 	                    }
 	                }
-	            });	
-				$("#btnImportConfigSave").attr("disabled",false);
-				$('#bulk-import-div').modal({"width": 700, "height": 600});
+	            });
 				ur = _this.config.editUrl + "?mbid="+mbid;
-			});
+                el.$modalHongchong.modal({"width": 700, "height": 650});
+            });
 			
 			// 下载
 			t.on('click', 'a.xiazai', function() {
@@ -214,16 +179,8 @@ $(function() {
 					}else{
 						window.location.href='kpdsh/xzmb?mbid='+mbid;
 					}
-	        	})
-			// 删除
-			t.on('click', 'a.del', function() {
-				var da = t.row($(this).parents('tr')).data();
-				if (confirm("确定要删除该模板吗")) {
-					_this.sc(da);
-				}
-				var data = t.row($(this).parents('tr')).data();
-				_this.resetForm();
-			});
+	        	});
+
 
 		     //删除
 			$("#del").on('click', function() {
@@ -237,19 +194,6 @@ $(function() {
 	                swal("请选择需要删除的模板记录...");
 	                return;
 	            }
-	            /*if (confirm("您确认删除？")) {
-	                $.post("mbsz/doDel",
-							"mbidArr="+ mbidArr.join(","),
-							function(res) {
-								if (res.success) {
-									swal("删除成功");
-									_this.tableEx.ajax.reload();
-								}else{
-									swal(res.msg);
-								}
-					});
-				}*/
-
 				swal({
 				    title: "您确定要删除吗？",
 				    text: "您确定要删除这条数据？",
@@ -282,52 +226,64 @@ $(function() {
 
 			});
 			
-	        var $importModal = $("#bulk-import-div");
+
 	        $("#close2").click(function () {
 	        	$("#hongchong").modal("close");
 	        });
-	        $("#close1").click(function () {
-	        	$importModal.modal("close");
-	        });
-	       
-	      //导入excel
-	        $("#btnImport").click(function () {
-	            var filename = $("#importFile").val();
-	            if (filename == null || filename == "") {
-	                swal("请选择要导入的文件");
-	                return;
-	            }
-	            var pos = filename.lastIndexOf(".");
-	            if (pos == -1) {
-	                swal("导入的文件必须是excel文件");
-	                return;
-	            }
-	            var extName = filename.substring(pos + 1);
-	            if ("xls" != extName && "xlsx" != extName) {
-	                swal("导入的文件必须是excel文件");
-	                return;
-	            }
-	            $("#btnImport").attr("disabled", true);
-				$('.js-modal-loading').modal('toggle'); // show loading
-				// swal('验证成功');
-				var options = {
-		                success: function (res) {
-		                    if (res.success) {
-		                        $("#btnImport").attr("disabled", false);
-		                        $('.js-modal-loading').modal('close');
-		                        var count = res.count;
-		                        swal("导入成功，共导入" + count + "条数据");
-		                        window.location.reload();
-		                    } else {
-		                        $("#btnImport").attr("disabled", false);
-		                        $('.js-modal-loading').modal('close');
-		                        swal(res.message);
-		                    }
-		                }
-		            };
-		            $("#importExcelForm").ajaxSubmit(options);
-							
-	        });
+            $("#btnImportConfigSave").click(function () {
+                var data = $("#importConfigForm").serialize();
+                var mbmc = $('#mbmc').val();
+                var gfmc = $('#config_gfmc').val();
+                var spje = $('#config_spje').val();
+                var fpzldm = $('#config_fpzldm').val();
+                if (mbmc == null || mbmc == '') {
+                    swal("请输入模板名称");
+                    return;
+                }
+                if (gfmc == null || gfmc == '') {
+                    swal("购方名称不能为空");
+                    return;
+                }
+                if (spje == null || spje == '') {
+                    swal("商品金额不能为空");
+                    return;
+                }
+                if (fpzldm == null || fpzldm == '') {
+                    swal("发票种类不能为空");
+                    return;
+                }
+                $.ajax({
+                    url : ur,
+                    data : data,
+                    method : 'POST',
+                    success : function(data) {
+                        if (data.success) {
+                            // loading
+                            el.$modalHongchong.modal('close'); // close
+                            swal({
+                                title: data.message,
+                                showCancelButton: false,
+                                closeOnConfirm: false,
+                                confirmButtonText: "确 定",
+                                confirmButtonColor: "#ec6c62"
+                            }, function() {
+                                //_this.tableEx.ajax.reload(); // reload table
+                                window.location.reload();
+                            });
+                        }else if(data.error){
+                            swal(data.message);
+                        }else{
+                            swal(data.message);
+						}
+                        el.$jsLoading.modal('close'); // close
+
+                    },
+                    error : function() {
+                        el.$jsLoading.modal('close'); // close loading
+                        swal('保存失败, 请重新登陆再试...!');
+                    }
+                });
+            });
 			return t;
 		},
 		/**
@@ -346,108 +302,7 @@ $(function() {
 				_this.tableEx.ajax.reload();
 			});
 		},
-		/**
-		 * 新增保存
-		 */
 
-		xz : function() {
-			var _this = this;
-			el.$jsForm0.validator({
-				submit : function() {
-					var formValidity = this.isFormValid();
-					if (formValidity) {
-						el.$jsLoading.modal('toggle'); // show loading
-						var data = el.$jsForm0.serialize(); // get form data
-						$.ajax({
-							url : ur,
-							data : data,
-							method : 'POST',
-							success : function(data) {
-								if (data.success) {
-									// loading
-									el.$modalHongchong.modal('close'); // close
-									swal(data.msg);
-									_this.tableEx.ajax.reload(); // reload table
-								} else if (data.repeat) {
-									swal(data.msg);
-								}else{
-									swal(data.msg);
-								}
-								el.$jsLoading.modal('close'); // close
-
-							},
-							error : function() {
-								el.$jsLoading.modal('close'); // close loading
-								swal('保存失败, 请重新登陆再试...!');
-							}
-						});
-						return false;
-					} else {
-						swal('验证失败');
-						return false;
-					}
-				}
-			});
-		},
-		/**
-		 * 删除
-		 */
-		sc : function(da) {
-			var _this = this;
-			$.ajax({
-				url : _this.config.scUrl,
-				data : {
-					"mbid" : da.id
-				},
-				method : 'POST',
-				success : function(data) {
-					if (data.success) {
-						swal("删除成功");
-					} else {
-
-						swal('删除失败: ' + data.msg);
-
-					}
-					_this.tableEx.ajax.reload(); // reload table
-					// data
-
-				},
-				error : function() {
-					swal('删除失败, 请重新登陆再试...!');
-				}
-			});
-
-		},
-		setForm0 : function(data) {
-			var _this = this, i;
-			// todo set data
-			// debugger
-			el.$jsForm0.find('input[name="xfmc"]').val(data.xfmc);
-			el.$jsForm0.find('input[name="xfsh"]').val(data.xfsh);
-			el.$jsForm0.find('input[name="xfyh"]').val(data.xfsh);
-			el.$jsForm0.find('input[name="khyh"]').val(data.xfyh);
-			el.$jsForm0.find('input[name="dz"]').val(data.xfdz);
-			el.$jsForm0.find('input[name="xflxr"]').val(data.xflxr);
-			el.$jsForm0.find('input[name="kpr"]').val(data.kpr);
-			el.$jsForm0.find('input[name="skr"]').val(data.skr);
-			el.$jsForm0.find('input[name="yhzh"]').val(data.xfyhzh);
-			el.$jsForm0.find('input[name="xfdh"]').val(data.xfdh);
-			el.$jsForm0.find('input[name="fhr"]').val(data.fhr);
-			el.$jsForm0.find('input[name="zfr"]').val(data.zfr);
-			el.$jsForm0.find('input[name="dzpzdje"]').val(data.dzpzdje);
-			el.$jsForm0.find('input[name="dzpfpje"]').val(data.dzpfpje);
-			el.$jsForm0.find('input[name="zpzdje"]').val(data.zpzdje);
-			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
-			el.$jsForm0.find('input[name="ppzdje"]').val(data.ppzdje);
-			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
-		},
-		setForm1 : function() {
-			var _this = this, i;
-			// todo set data
-			// debugger
-			el.$jsForm0.find('input[name="hc_yhmc"]').val(data.yhmc);
-			el.$jsForm0.find('input[name="hc_yzh"]').val(data.dlyhid);
-		},
 		resetForm : function() {
 			el.$jsForm0[0].reset();
 		},
@@ -465,7 +320,6 @@ $(function() {
 			var _this = this;
 			_this.tableEx = _this.dataTable();
 			_this.search_ac();
-			_this.xz();
 			_this.modalAction(); // hidden action
 			
 		}

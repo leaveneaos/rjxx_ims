@@ -1261,7 +1261,7 @@ table thead th {
         });
         $("#btnDownloadDefaultTemplate").click(function () {
         	var mbid = $('#mb').val();
-        	if(null==mbid||""==mbid){
+        	if(null==mbid||""==mbid||"-1"==mbid){
             	swal("请选择模板后下载");
         	}else{
     			$.ajax({
@@ -1318,8 +1318,15 @@ table thead th {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
                         var count = res["count"];
-                        swal("导入成功，共导入" + count + "条数据");
-                        window.location.reload();
+                        swal({
+                            title: "导入成功，共导入" + count + "条数据",
+                            showCancelButton: false,
+                            closeOnConfirm: false,
+                            confirmButtonText: "确 定",
+                            confirmButtonColor: "#ec6c62"
+                        }, function() {
+                            window.location.reload();
+                        });
                         if (res["yes"]) {
                 			$('#mrmb').empty();
                 			var txt = $('#mb').find("option:selected").text();
@@ -1329,7 +1336,7 @@ table thead th {
                     } else {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
-                        alert(res["message"]);
+                        swal(res["message"]);
                     }
                 }
             };
@@ -1340,7 +1347,7 @@ table thead th {
             var xfsh = $(this).val();
             $('#mb').empty();
             $('#mb_skp').empty();
-            $('#mrmb').empty();
+            //$('#mrmb').empty();
             if (xfsh == null || xfsh == '' || xfsh == "") {
 				return;
 			}
@@ -1366,7 +1373,7 @@ table thead th {
 					}
                 }
             });
-            url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
+            /*url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
 								$.post(url, {
 									xfsh : xfsh
 								}, function(data) {
@@ -1376,7 +1383,7 @@ table thead th {
 												data.mrmb.id);
 										$('#mrmb').append(option);
 									}
-								});
+								});*/
 			});
 		    $("#lrsl_edit").keyup(function(){
                 var spsl = $('#lrsl_edit');//商品数量

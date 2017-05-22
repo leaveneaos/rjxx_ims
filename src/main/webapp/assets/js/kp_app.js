@@ -840,10 +840,10 @@ $(function() {
                     var $checkbox = $(cell).find('input[type="checkbox"]');
                     if ($checkbox.is(':checked')) {
                         var data =t.row(i).data();
-                        if(data.fpztdm=='05'){
+                        if(data.fpztdm=='05'||data.fpztdm=='14'){
                             kplsh.push(data.kplsh);
                         }else{
-                           ckbz="1"
+                           ckbz="1";
                         }
                     }
                 });
