@@ -148,14 +148,6 @@ $(function() {
 	                        if(zdm.indexOf('xf')!=0&&zdm!="skr"&&zdm!="kpr"&&zdm!="fhr"){
 								if (zdm != "gs") {
                                     $("#config_" + zdm + "_radio").find("option[value="+pzlx+"]").prop("selected",true);
-
-                                    /* if(pzlx=="auto"){
-                                         $("#config_" + zdm + "_radio").find("option[value='config']").attr("selected",false);
-                                         $("#config_" + zdm + "_radio").find("option[value="+pzlx+"]").attr("selected",true);
-                                     }else if(pzlx=="config"){
-                                         $("#config_" + zdm + "_radio").find("option[value='auto']").attr("selected",false);
-                                         $("#config_" + zdm + "_radio").find("option[value="+pzlx+"]").attr("selected",true);
-                                     }*/
                                     if ("hsbz" == zdm||"fpzldm" == zdm) {
 										if(pzlx=="auto"){
                                             $("#config_" + zdm).find("option[value="+pzz+"]").prop("selected",true);

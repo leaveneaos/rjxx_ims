@@ -45,62 +45,63 @@
 		<!-- sidebar end -->
 		<!-- content start -->
 		<div class="admin-content">
-			<div class="am-cf am-padding">
-				<div class="widget-title am-cf">
-					<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>导入模板设置</strong>
-					<button class="am-btn am-btn-success am-fr"
-									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
-				</div>
-				   <!-- 侧边栏内容 begin-->
-							<div id="doc-oc-demo3" class="am-offcanvas">
-								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
-									<form id="ycform">
-										<%--<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
-												<div class="am-u-sm-8">
-													<select  id="xfsh"  data-am-selected="{ btnSize: 'sm'}"
-														name="xfsh">
-														<option id="xzxfq" value="">选择销方</option>
-														<c:forEach items="${xfList}" var="item">
-															<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-														</c:forEach>
-													</select>
+				<div class="am-cf am-padding">
+					<div class="widget-title am-cf">
+						<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>导入模板设置</strong>
+						<button class="am-btn am-btn-success am-fr"
+										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+					</div>
+					   <!-- 侧边栏内容 begin-->
+								<div id="doc-oc-demo3" class="am-offcanvas">
+									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
+										<form id="ycform">
+											<%--<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
+													<div class="am-u-sm-8">
+														<select  id="xfsh"  data-am-selected="{ btnSize: 'sm'}"
+															name="xfsh">
+															<option id="xzxfq" value="">选择销方</option>
+															<c:forEach items="${xfList}" var="item">
+																<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+											</div>--%>
+											<div class="am-offcanvas-content" style="margin-top: 8px;">
+												<div class="am-form-group">
+													<label for="sfgx" class="am-u-sm-4 am-form-label">是否共享</label>
+													<div class="am-u-sm-8">
+														<select  id="sfgx"  data-am-selected="{ btnSize: 'sm'}"
+															name="sfgx">
+															<option id="xzlxq" value="">选择类型</option>
+															<option value="0">不共享</option>
+															<option value="1">共享</option>
+														</select>
+													</div>
 												</div>
 											</div>
-										</div>--%>
-										<div class="am-offcanvas-content" style="margin-top: 8px;">
-											<div class="am-form-group">
-												<label for="sfgx" class="am-u-sm-4 am-form-label">是否共享</label>
-												<div class="am-u-sm-8">
-													<select  id="sfgx"  data-am-selected="{ btnSize: 'sm'}"
-														name="sfgx">
-														<option id="xzlxq" value="">选择类型</option>
-														<option value="0">不共享</option>
-														<option value="1">共享</option>
-													</select>
+											<div class="am-offcanvas-content" style="margin-top: 5px;">
+												<div class="am-form-group">
+													<label for="c_mbmc" class="am-u-sm-4 am-form-label">模板名称</label>
+													<div class="am-u-sm-8">
+														<input id="c_mbmc" type="text" placeholder="模板名称">
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="am-offcanvas-content" style="margin-top: 5px;">
-											<div class="am-form-group">
-												<label for="c_mbmc" class="am-u-sm-4 am-form-label">模板名称</label>
-												<div class="am-u-sm-8">
-													<input id="c_mbmc" type="text" placeholder="模板名称">
-												</div>
+											<div style="padding: 32px;">
+												<button type="button" id="mb_search1"
+													class="am-btn am-btn-default am-btn-success data-back">
+													<span class="am-icon-search-plus"></span> 查询
+												</button>
 											</div>
-										</div>
-										<div style="padding: 32px;">
-											<button type="button" id="mb_search1"
-												class="am-btn am-btn-default am-btn-success data-back">
-												<span class="am-icon-search-plus"></span> 查询
-											</button>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
-							</div>
-							<!-- 侧边内容end -->
-			</div>
+								<!-- 侧边内容end -->
+				</div>
+		</div>
 			<hr />
 
 			<div class="am-g  am-padding-top">
@@ -577,7 +578,7 @@
 						</div>
 					</div>
 				</form>
-			</div>
+			  </div>
 			</div>
 		</div>
 		</div>
