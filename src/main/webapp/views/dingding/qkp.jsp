@@ -30,6 +30,7 @@
     </div>
 </body>
 <script>
+
     mui.toast('提交成功',{ duration:'long', type:'div' });
     function qkp(){
         var corpId =$("#corpid").val();
