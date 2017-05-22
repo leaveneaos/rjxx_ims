@@ -1358,8 +1358,8 @@ public class LrkpdController extends BaseController {
                 msg += msgg;
             }
             String spggxh = mxsq.getSpggxh();
-            if (spggxh != null && spggxh.length() > 18) {
-                msgg = "第" + (i + 2) + "行商品规格型号超过18个字符，请重新填写！";
+            if (spggxh != null && spggxh.length() > 36) {
+                msgg = "第" + (i + 2) + "行商品规格型号超过36个字符，请重新填写！";
                 msg += msgg;
             }
             String spdw = mxsq.getSpdw();
