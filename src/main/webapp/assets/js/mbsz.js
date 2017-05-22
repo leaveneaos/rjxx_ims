@@ -163,10 +163,10 @@ $(function() {
                             }
 	                    }
 	                }
-	            });	
-				$('#hongchong').modal({"width": 700, "height": 650});
+	            });
 				ur = _this.config.editUrl + "?mbid="+mbid;
-			});
+                el.$modalHongchong.modal({"width": 700, "height": 650});
+            });
 			
 			// 下载
 			t.on('click', 'a.xiazai', function() {
