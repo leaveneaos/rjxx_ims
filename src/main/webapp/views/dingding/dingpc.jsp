@@ -27,6 +27,7 @@
 			 <div class="jieshao">开票通2.0，发票管理专家，从此开票再无忧</div>
 			 <hr />
 			 <br /><br /><br />
+
 			 <div class="mui-button-row">
 				 <button id='alertBtn' type="button" class="mui-btn mui-btn-primary" >进入系统</button>
 			 </div>
