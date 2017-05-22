@@ -39,7 +39,7 @@
 								<h4 class="mui-content-padded"><span>销方信息：</span></h4>
 								<form class="mui-input-group">
 									<div class="mui-input-row">
-										<label><span style="color: blue">销方名称</span></label>
+										<label><span style="color: #007AFF">销方名称</span></label>
 										<select id="xfmc" name="xfmc">
 											<c:forEach items="${xflist}" var="item">
 												<option value="${item.id}">${item.xfmc}</option>
@@ -47,7 +47,7 @@
 										</select>
 									</div>
 									<div class="mui-input-row">
-										<label><span style="color: blue">订单号</span></label>
+										<label><span style="color: #007AFF">订单号</span></label>
 										<input type="text"  id="ddh" class="mui-input-clear" placeholder="请输入合同或订单号">
 									</div>
 									<div class="mui-input-row">
@@ -91,7 +91,7 @@
 							<div class="mui-collapse-content">
 						        <form class="mui-input-group">
 									<div class="mui-input-row">
-										<label><span id="gfmc_span" style="color: blue">购方名称</span></label>
+										<label><span id="gfmc_span" style="color: #007AFF">购方名称</span></label>
 										<input type="text" id="gfmc" class="mui-input-clear" oninput="kongge(this.value)" placeholder="发票抬头">
 									</div>
 									<div class="mui-input-row">
@@ -252,20 +252,20 @@
         var yhzh=$("#yhzh_span");
         if(fpzldm=="01"){
             //gfmc.html("*");
-            gfmc.css("color","blue");
+            gfmc.css("color","#007AFF");
            // nsrsbh.html("*");
-            nsrsbh.css("color","blue");
+            nsrsbh.css("color","#007AFF");
            // zcdz.html("*");
-            zcdz.css("color","blue");
+            zcdz.css("color","#007AFF");
             //zcdh.html("*");
-            zcdh.css("color","blue");
+            zcdh.css("color","#007AFF");
            // khyh.html("*");
-            khyh.css("color","blue");
+            khyh.css("color","#007AFF");
           //  yhzh.html("*");
-            yhzh.css("color","blue");
+            yhzh.css("color","#007AFF");
         }else{
             //gfmc.html("*");
-            gfmc.css("color","blue");
+            gfmc.css("color","#007AFF");
             //nsrsbh.html("");
             nsrsbh.css("color","");
           //  zcdz.html("");
