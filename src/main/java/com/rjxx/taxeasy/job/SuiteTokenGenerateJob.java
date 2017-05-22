@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * 生成或更新suite访问开放平台接口token任务
- * Created by lifeng.zlf on 2016/1/19.
+ * Created by xlm on 2017/04/14.
  */
 public class SuiteTokenGenerateJob implements Job {
     private static Logger logger = LoggerFactory.getLogger(SuiteTokenGenerateJob.class);
@@ -34,16 +34,10 @@ public class SuiteTokenGenerateJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try{
         	logger.info("套件TOKEN生成任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-
-            //获取所有套件信息
-           // XmlWebApplicationContext xmlWebApplicationContext = (XmlWebApplicationContext) jobExecutionContext.getScheduler().getContext().get("applicationContextKey");
-            //SuiteManageService suiteManageService = (SuiteManageService)xmlWebApplicationContext.getBean("suiteManageService");
             Map map=new HashMap<>();
         	List<IsvSuite> suiteList = IsvSuiteService.findAllByParams(map);
             if(CollectionUtils.isEmpty(suiteList)){
-              
             	logger.info("查询套件信息失败,nextFireTime:{},");
-
                 return;
             }
             //分别更换套件token

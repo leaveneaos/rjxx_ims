@@ -19,6 +19,7 @@
 			 <ul class="mui-table-view mui-grid-view">
 			 <li class="mui-table-view-cell mui-media mui-col-xs-12">
 				 <a href="#">
+
 					 <img src="img/64.png">
 					 <div class="mui-media-body">泰易开票通云服务平台</div>
 				 </a>
