@@ -267,11 +267,21 @@ $(function() {
                         if (data.success) {
                             // loading
                             el.$modalHongchong.modal('close'); // close
+                            swal({
+                                title: data.message,
+                                showCancelButton: false,
+                                closeOnConfirm: false,
+                                confirmButtonText: "确 定",
+                                confirmButtonColor: "#ec6c62"
+                            }, function() {
+                                //_this.tableEx.ajax.reload(); // reload table
+                                window.location.reload();
+                            });
+                        }else if(data.error){
                             swal(data.message);
-                            _this.tableEx.ajax.reload(); // reload table
                         }else{
-                            swal(data.msg);
-                        }
+                            swal(data.message);
+						}
                         el.$jsLoading.modal('close'); // close
 
                     },
