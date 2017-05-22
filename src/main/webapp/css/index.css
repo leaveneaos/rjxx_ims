@@ -16,3 +16,32 @@
 .zuo1 .z2 .z2z3{width: 20%;height: 25px;float: left;line-height: 25px;text-align: center;}
 .zuo1 .z3 .z2z{width: 25%;height: 25px;float: left;line-height: 25px;text-align: center;}
 .you{width: 10%;height: 50px;float: right;line-height: 50px;color: #007AFF;}
+.mui-grid-view.mui-grid-9 {
+  border: 0;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+  border: 0;
+}
+.mui-content>.mui-table-view:first-child {
+  margin-top: 0px;
+}
+.mui-grid-view.mui-grid-9 .mui-media .mui-icon {
+  font-size: 35px;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+  color: #fff;
+}
+.data-type {
+	text-align: center;
+    line-height: 50px;
+    border: 1px solid #ccc;
+}
+.data-type .lrkpd {
+	width: 50%;
+	color: #007aff;
+}
+#lrselect_sp {
+  width: 97%;
+  border-radius: 0;
+}
+
