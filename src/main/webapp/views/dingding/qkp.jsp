@@ -16,7 +16,6 @@
     </script>
 </head>
 <body>
-
 	<div class="mui-content">
         <input type="hidden" id="corpid" value="<c:out value="${corpid}" />"/>
         <input type="hidden" id="userid" value="<c:out value="${userid}" />"/>

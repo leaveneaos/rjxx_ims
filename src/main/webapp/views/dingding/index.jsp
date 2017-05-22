@@ -24,8 +24,6 @@
             <div class="mui-media-body">新建开票单</div>
           </a>
         </li>
-
-
         <li class="mui-table-view-cell mui-media mui-col-xs-6">
           <a id="house" href="<%=request.getContextPath()%>/dinggfgl">
             <span class="mui-icon iconfont icon-xinxi"></span>
