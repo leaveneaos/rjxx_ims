@@ -27,6 +27,7 @@
 	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
 <link rel="stylesheet"
 	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <style type="text/css">
 .top-position {
 	margin-top: 8px
@@ -257,6 +258,7 @@
 		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.barRenderer.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/Sjdtjbb.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		function getKpd() {
 			var xfid = $('#s_xfid').val();

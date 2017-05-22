@@ -51,13 +51,13 @@ $(function () {
                         $("#jshj3").val(data.jshj3);
                         $("#fpsl3").val(data.fpsl3); 
                 	}else{
-                		 alert('数据读取失败,服务器错误:'+data.msg);     
+                		 swal('数据读取失败,服务器错误:'+data.msg);     
                 	}
                 	el.$jsLoading.modal('close'); // close loading
                 	el.$jsTable.ajax.reload(); // reload table data
                 },
                 error: function() {
-                    alert('后台错误,请重新登录！');
+                    swal('后台错误,请重新登录！');
                 }
         	
            });
@@ -82,7 +82,7 @@ $(function () {
                     el.$jsForm.ajax.reload(); 
                 },
                 error: function () {
-                    alert('后台错误,请重新登录！');
+                    swal('后台错误,请重新登录！');
                 }
            }); 
         },
@@ -91,7 +91,7 @@ $(function () {
             el.$jsPre.on('click', function (e) { 
             	var kprq=el.$jsDate.val();       
             	if(!kprq){
-            		alert('Error,请选择开票日期!');
+            		swal('Error,请选择开票日期!');
                     return false;
             	}
             	_this.qyt({kprq:kprq});      
@@ -122,7 +122,7 @@ $(function () {
                     el.$jsForm.ajax.reload(); 
                 },
                 error: function () {
-                    alert('后台错误,请重新登录！');
+                    swal('后台错误,请重新登录！');
                 }
            }); 
         },
@@ -131,7 +131,7 @@ $(function () {
             el.$jsLater.on('click', function (e) {
             	var kprq=el.$jsDate.val();
             	if(!kprq){
-            		alert('Error,请选择开票日期!');
+            		swal('Error,请选择开票日期!');
                     return false;
             	}  
             	 _this.hyt({kprq:kprq});             	      	
@@ -159,7 +159,7 @@ $(function () {
             el.$jsSave.on('click', function (e) {
                 e.preventDefault();
                 if (!el.$jsForm.find('input[name="dy"]:checked').length) {
-                    alert('请选择订阅方式');
+                    swal('请选择订阅方式');
                     return false;
                 }
                 var data = el.$jsForm.serialize();
@@ -172,14 +172,14 @@ $(function () {
                     dataType: 'json',
                     success: function (data) {
                         if (data.success) {
-                            alert('保存成功');
+                            swal('保存成功');
                         } else {
-                            alert('服务器异常' + data.msg);
+                            swal('服务器异常' + data.msg);
                         }
                         el.$jsLoading.modal('close');
                     },
                     error: function () {
-                        alert('服务器错误,请稍后重试');
+                        swal('服务器错误,请稍后重试');
                     }
                 });
             });
@@ -204,7 +204,7 @@ $(function () {
                 e.preventDefault();
             	var kprq=el.$jsDate.val();
             	if(""==kprq||null==kprq){
-            		alert("请选择日期");
+            		swal("请选择日期");
             		return;
             	}
             	window.location.href = _this.config.exportURL+"?kprq=" +kprq;

@@ -227,8 +227,9 @@ $(function () {
         	$('.autowrite').on('click',$('.autowrite'),function(e){
         		var skpid = $('#kpddm').val();
         		if(skpid==''||skpid==null){
-        			$('#alert-msg').html("请先选择销方及开票点！");
-       				$('#my-alert').modal('open');
+        			// $('#alert-msg').html("请先选择销方及开票点！");
+       				// $('#my-alert').modal('open');
+                    swal("请先选择销方及开票点！");
         		}else{
         			e.preventDefault();  
         			tb.ajax.reload();
@@ -254,8 +255,9 @@ $(function () {
         			var len = $("#jsNewTable").children("tr").length;
         			alert(len)
         			if(len<1){
-        				$('#alert-msg').html("没有取到数据不能保存,请先检查开票通是否启动！");
-           				$('#my-alert').modal('open');
+        				// $('#alert-msg').html("没有取到数据不能保存,请先检查开票通是否启动！");
+           	// 			$('#my-alert').modal('open');
+                        swal("没有取到数据不能保存,请先检查开票通是否启动！");
                        	return false;
         			}else{
         				var data = $('#autoKc').serialize();
@@ -287,8 +289,9 @@ $(function () {
                    var formValidity = this.isFormValid();
                    if (formValidity) {
                    	if(parseInt(fphms)>parseInt(fphmz)){
-                   		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
-           				$('#my-alert').modal('open');
+               //     		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
+           				// $('#my-alert').modal('open');
+                        swal("起始号码大于终止号码，请重新输入！");
                        	return false;
                        }
                        var data = el.$jsForm.serialize(); // get form data
@@ -299,23 +302,27 @@ $(function () {
                            success: function (data) {                            	
                                if (data.success) {
                                    el.$modalHongchong.modal('close'); // close
-                                   $('#alert-msg').html(data.msg);
-                   				   $('#my-alert').modal('open');
+                          //          $('#alert-msg').html(data.msg);
+                   				   // $('#my-alert').modal('open');
+                                   swal(data.msg);
                                    _this.tableEx.ajax.reload();
                                }else{
-                               	$('#alert-msg').html(data.msg);
-                   				$('#my-alert').modal('open');                                  
+                           //         	$('#alert-msg').html(data.msg);
+                       				// $('#my-alert').modal('open');  
+                                    swal(data.msg);                                
                                }                             
                            },
                            error: function () {
-                           	$('#alert-msg').html("保存失败，请检查！");
-               				$('#my-alert').modal('open');
+                       //         	$('#alert-msg').html("保存失败，请检查！");
+                   				// $('#my-alert').modal('open');
+                                swal("保存失败，请检查！");
                            }
                        });
                        return false;
                    } else {
-                   	$('#alert-msg').html("数据验证失败，请检查！");
-       				$('#my-alert').modal('open');
+               //         	$('#alert-msg').html("数据验证失败，请检查！");
+           				// $('#my-alert').modal('open');
+                        swal("数据验证失败，请检查！");
                    }
                }
            });
@@ -331,17 +338,20 @@ $(function () {
                 data: {"id":da.id},
                 success: function (data) {
                     if (data.success) {
-                    	$('#alert-msg').html(data.msg);
-        				$('#my-alert').modal('open');
+            //         	$('#alert-msg').html(data.msg);
+        				// $('#my-alert').modal('open');
+                        swal(data.msg);
         				 _this.tableEx.ajax.reload(); // reload table 
                     } else {    
-                    	$('#alert-msg').html(data.msg);
-        				$('#my-alert').modal('open');                     
+            //         	$('#alert-msg').html(data.msg);
+        				// $('#my-alert').modal('open'); 
+                        swal(data.msg);                    
                     }                                   
                 },
                 error: function () {
-                	$('#alert-msg').html("删除失败，请检查！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("删除失败，请检查！");
+    				// $('#my-alert').modal('open');
+                    swal("删除失败，请检查！");
                 }
             });
             	

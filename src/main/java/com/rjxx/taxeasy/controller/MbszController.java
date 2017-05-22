@@ -109,15 +109,15 @@ public class MbszController extends BaseController {
 		pagination.addParam("gxbz", gxbz);
 		pagination.addParam("gsdm", getGsdm());
 		List<DrmbVo> list = drmbService.findByPage(pagination);
-		if (!list.isEmpty()) {
-			for (DrmbVo drmbVo : list) { 
+		/*if (!list.isEmpty()) {
+			for (DrmbVo drmbVo : list) {
 				for (Xf xf : xfs) {
 					if (drmbVo.getXfsh().equals(xf.getXfsh())) {
 						drmbVo.setXfmc(xf.getXfmc());
 					}
 				}
 			}
-		}
+		}*/
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
 		result.put("recordsFiltered", total);
@@ -243,7 +243,7 @@ public class MbszController extends BaseController {
 	@RequestMapping(value = "/saveImportConfig", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
-	public Map saveImportConfig(Integer mbid, String mbmc, String config_xfsh, String config_gs_radio)
+	public Map saveImportConfig(Integer mbid, String mbmc, String config_gs_radio)
 			throws Exception {
 		Map<String, Object> data = new HashMap<>();
 		int yhid = this.getYhid();
@@ -253,7 +253,7 @@ public class MbszController extends BaseController {
 		Drmb mb = null;
 		Drmb drmb = new Drmb();
 		drmb.setMbmc(mbmc);
-		drmb.setXfsh(config_xfsh);
+		//drmb.setXfsh(config_xfsh);
 		if (mbid != null) {
 			mb = drmbService.findOne(mbid);
 			if (mb != null && !mb.getYhid().equals(yhid)) {
@@ -270,13 +270,13 @@ public class MbszController extends BaseController {
 				List<XfMb> list = xfmbService.findAllByParams(map);
 				List<XfMb> delList = new ArrayList<>();
 				for (XfMb xfMb : list) {
-					if (xfMb.getXfsh().equals(config_xfsh)) {
+					/*if (xfMb.getXfsh().equals(config_xfsh)) {
 						delList.add(xfMb);
-					} else {
+					} else {*/
 						xfMb.setYxbz("0");
 						xfMb.setXgry(getYhid());
 						xfMb.setXgsj(new Date());
-					}
+					//}
 				}
 				list.removeAll(delList);
 				xfmbService.save(list);
@@ -294,7 +294,7 @@ public class MbszController extends BaseController {
 			return data;
 		}
 
-		drmb.setXfsh(config_xfsh);
+		//drmb.setXfsh(config_xfsh);
 		drmb.setYhid(yhid);
 		drmb.setGsdm(getGsdm());
 		drmb.setGxbz(config_gs_radio);
@@ -307,7 +307,15 @@ public class MbszController extends BaseController {
 				DrPz drPz = new DrPz();
 				drPz.setZdm(zdm);
 				drPz.setPzlx(request.getParameter(key));
-				drPz.setPzz(request.getParameter("config_" + zdm));
+				if(zdm.equals("fpzldm")||zdm.equals("hsbz")){ //发票种类代码另外处理
+                      if(request.getParameter(key).equals("auto")){
+						  drPz.setPzz(request.getParameter("config_" + zdm));
+					  }else{  //当配置类型为config时，取input框的值
+						  drPz.setPzz(request.getParameter("config_" + zdm+"_input"));
+					  }
+				}else{
+					drPz.setPzz(request.getParameter("config_" + zdm));
+				}
 				drPz.setYhid(yhid);
 				drPz.setMbid(drmb.getId());
 				drPzList.add(drPz);
@@ -316,6 +324,7 @@ public class MbszController extends BaseController {
 		drPzService.deleteAndSave(drmb.getId(), drPzList);
 		data.put("success", true);
 		data.put("drmb", drmb);
+		data.put("message","保存成功！");
 		return data;
 	}
 
@@ -445,6 +454,7 @@ public class MbszController extends BaseController {
 			list1.removeAll(delList);
 			xfmbService.save(list1);
 			result.put("success", true);
+			result.put("msg","删除成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", false);
@@ -467,18 +477,12 @@ public class MbszController extends BaseController {
 		List mbidList = convertToList(mbidArr);
 		Map result = new HashMap();
 		String tmp ="";
-		
 		for(int i=0;i<mbidList.size();i++){
 			Integer mbid =(Integer) mbidList.get(i);
 			Drmb drmb = drmbService.findOne(mbid);
 			if (!drmb.getYhid().equals(getYhid())) {
-				/*result.put("success", false);
-				result.put("msg", "你没有权限删除模板！");*/
 				tmp =tmp +" "+drmb.getMbmc();
-				//return result;
 			}
-			
-			
 		}
 		if(tmp.equals("")){
 			for(int i=0;i<mbidList.size();i++){
@@ -519,16 +523,16 @@ public class MbszController extends BaseController {
 	/**
 	 * 获取商品详情
 	 *
-	 * @param spdm
+	 * @param  spid  spmc
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getSpxq")
 	@ResponseBody
-	public Spvo getSpxq(String spdm, String spmc) throws Exception {
+	public Spvo getSpxq(String spid, String spmc) throws Exception {
 		Spvo params = new Spvo();
 		params.setGsdm(this.getGsdm());
-		params.setSpdm(spdm);
+		params.setId(Integer.parseInt(spid));
 		params.setSpmc(spmc);
 		List<Spvo> list = spvoService.findAllByParams(params);
 		if (!list.isEmpty()) {

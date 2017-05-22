@@ -260,8 +260,9 @@ $(function () {
                     }
                 });
                 if (kplsh.length == 0) {
-                    $("#alertt").html("请勾选需要重打的开票流水");
-                    $("#my-alert").modal('open');
+                    // $("#alertt").html("请勾选需要重打的开票流水");
+                    // $("#my-alert").modal('open');
+                    swal("请勾选需要重打的开票流水");
                     return;
                 }
                 var skpid="";
@@ -277,8 +278,9 @@ $(function () {
                         skpid =  data.skpid;
                     }else{
                         if(skpid!=data.skpid){
-                            $("#alertt").html("批量勾选的开票点不一致,请重新勾选");
-                            $("#my-alert").modal('open');
+                            // $("#alertt").html("批量勾选的开票点不一致,请重新勾选");
+                            // $("#my-alert").modal('open');
+                            swal("批量勾选的开票点不一致,请重新勾选");
                             flag = false;
                             return false;
                         }
@@ -296,8 +298,9 @@ $(function () {
                     fpdm.push(data.fpdm);
                 });
                 if(fpzlbz=="0"){
-                    $("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
-                    $("#my-alert").modal('open');
+                    // $("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
+                    // $("#my-alert").modal('open');
+                    swal("批量勾选的发票种类不一致,请重新勾选");
                     return;
                 }
                 if(fpzldm=="12"){
@@ -328,8 +331,9 @@ $(function () {
                                 },
                                 error:function(){
                                     //alert("程序出错，请联系开发人员！");
-                                    $("#alertt").html("程序出错，请联系开发人员！");
-                                    $("#my-alert").modal('open');
+                                    // $("#alertt").html("程序出错，请联系开发人员！");
+                                    // $("#my-alert").modal('open');
+                                    swal("程序出错，请联系开发人员！");
                                     $('input[type="checkbox"]').prop('checked', false);
                                 }
                             });

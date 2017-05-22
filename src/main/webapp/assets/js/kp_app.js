@@ -483,7 +483,8 @@ $(function() {
                                 if (res) {
                                     swal({ 
                                           title: "已成功删除", 
-                                          timer: 2000, 
+                                          timer: 1500, 
+                                          type: "success", 
                                           showConfirmButton: false 
                                         });
                                     jyls_table.ajax.reload();
@@ -731,7 +732,8 @@ $(function() {
                                                     // $("#my-alert").modal('open');
                                                     swal({ 
                                                           title: "申请开票成功", 
-                                                          timer: 2000, 
+                                                          timer: 1500, 
+                                                            type: "success",
                                                           showConfirmButton: false 
                                                         });
                                                     jyls_table.ajax.reload();
@@ -774,7 +776,8 @@ $(function() {
                                     // $("#my-alert").modal('open');
                                     swal({ 
                                           title: "申请开票成功", 
-                                          timer: 2000, 
+                                          timer: 1500, 
+                                          type: "success", 
                                           showConfirmButton: false 
                                         });
                                     jyls_table.ajax.reload();
@@ -837,10 +840,10 @@ $(function() {
                     var $checkbox = $(cell).find('input[type="checkbox"]');
                     if ($checkbox.is(':checked')) {
                         var data =t.row(i).data();
-                        if(data.fpztdm=='05'){
+                        if(data.fpztdm=='05'||data.fpztdm=='14'){
                             kplsh.push(data.kplsh);
                         }else{
-                           ckbz="1"
+                           ckbz="1";
                         }
                     }
                 });
@@ -1123,7 +1126,8 @@ $(function() {
                  //             $("#my-alert").modal('open');
                                 swal({ 
                                   title: "保存成功", 
-                                  timer: 2000, 
+                                  timer: 1500, 
+                                  type: "success", 
                                   showConfirmButton: false 
                                 });
                                 jyls_table.ajax.reload();

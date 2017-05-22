@@ -58,8 +58,9 @@ $(function() {
 			data : {},
 			success : function(data) {
 				$('#yhqrbc').removeAttr("disabled");
-				$("#alertt").html("保存成功");
-            	$("#my-alert").modal('open');
+				// $("#alertt").html("保存成功");
+    //         	$("#my-alert").modal('open');
+                swal("保存成功");
             	$("#cljgbt").hide();
             	$tab.tabs('refresh');
             	$tab.tabs('open', 0);
@@ -156,11 +157,11 @@ $(function() {
             $.ajax({
                 url: "lrkpd/save1", "type": "POST", context: document.body, data: frmData, success: function (data) {
                     if (data.success) {
-                        alert("保存成功!");
+                        swal("保存成功!");
                         $modal.modal("close");
                         t.ajax.reload();
                     } else {
-                        alert(data.msg);
+                        swal(data.msg);
                     }
                 }
             });
@@ -301,25 +302,50 @@ $(function() {
     });
     kpspmx_table.on('click', 'a.kpdmx', function () {
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
-    	     if (!confirm("您确认删除？")) {
+	        /*if (!confirm("您确认删除？")) {
 				return;
 			}
 			$.ajax({
-			type : "POST",
-			url : "kpdsh/mxsc",
-			data : {"id":id},
-			success : function(data) {
-				$("#alertt").html("删除成功");
-            	$("#my-alert").modal('open');
-				  kpspmx_table.ajax.reload();
-			}
-		});
+    			type : "POST",
+    			url : "kpdsh/mxsc",
+    			data : {"id":id},
+    			success : function(data) {
+    				$("#alertt").html("删除成功");
+                	$("#my-alert").modal('open');
+    				  kpspmx_table.ajax.reload();
+    			}
+    		});*/
+
+            swal({
+                title: "您确认删除？",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "确 定",
+                confirmButtonColor: "#ec6c62"
+            }, function() {
+                $.ajax({
+                    type : "POST",
+                    url : "kpdsh/mxsc",
+                    data : {"id":id},
+                }).done(function(data) {
+                    swal({ 
+                          title: "已成功删除", 
+                          timer: 1500, 
+                          type: "success", 
+                          showConfirmButton: false 
+                        });
+                    kpspmx_table.ajax.reload();
+                })
+            });
+
    });
     kpspmx_table.on('click', 'a.modify1', function () {
     	var row = kpspmx_table.row($(this).parents('tr')).data();
     	if(row.ykjje!=null&&row.ykjje>0){
-    		$("#alertt").html("明细已经部分开具");
-        	$("#my-alert").modal('open');
+    		// $("#alertt").html("明细已经部分开具");
+      //   	$("#my-alert").modal('open');
+            swal("明细已经部分开具");
         	return;
     	}
     	$('#my-alert-edit1').modal({"width": 480, "height": 550});
@@ -627,13 +653,15 @@ $(function() {
 							$('#bz').val(jy.bz);
 							$('#formid').val(jy.sqlsh);
 						} else {
-							$("#alertt").html(data.msg);
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html(data.msg);
+	      //               	$("#my-alert").modal('open');
+                            swal(data.msg);
 						}
 					},
 					error : function() {
-						$("#alertt").html("出现错误,请稍后再试");
-                    	$("#my-alert").modal('open');
+						// $("#alertt").html("出现错误,请稍后再试");
+      //               	$("#my-alert").modal('open');
+                        swal("出现错误,请稍后再试");
 					}
 				});
             	$('#my-alert-edit').modal({"width": 800, "height": 450});
@@ -663,22 +691,42 @@ $(function() {
         		});
         		var ddhs = chk_value.substring(0, chk_value.length-1);
         		if(chk_value.length==0){
-        			$("#alertt").html("请至少选择一条数据");
-                	$("#my-alert").modal('open');
+        			// $("#alertt").html("请至少选择一条数据");
+           //      	$("#my-alert").modal('open');
+                    swal("请至少选择一条数据");
         		}else{
-             if (!confirm("您确认删除么？")) {
-        		return;
-        	}
+                    /*if (!confirm("您确认删除么？")) {
+                		return;
+                	}
         			$.ajax({
-        			type : "POST",
-        			url : "kpdsh/sc",
-        			data : {"ddhs":ddhs},
-        			success : function(data) {
-        				$("#alertt").html(data.msg);
-                    	$("#my-alert").modal('open');
-        				_this.tableEx.ajax.reload();	
-        			}
-        		});
+            			type : "POST",
+            			url : "kpdsh/sc",
+            			data : {"ddhs":ddhs},
+            			success : function(data) {
+            				$("#alertt").html(data.msg);
+                        	$("#my-alert").modal('open');
+            				_this.tableEx.ajax.reload();	
+            			}
+            		});*/
+
+                    swal({
+                        title: "您确认删除？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确 定",
+                        confirmButtonColor: "#ec6c62"
+                    }, function() {
+                        $.ajax({
+                            type : "POST",
+                            url : "kpdsh/sc",
+                            data : {"ddhs":ddhs},
+                        }).done(function(data) {
+                            swal(data.msg);
+                            _this.tableEx.ajax.reload();
+                        })
+                    });
+                    
         		}
             });
 
@@ -756,14 +804,16 @@ $(function() {
 				for(var i=0;i<els.length;i++){
 					var fpje = els[i].value.replace(/,/g,'');
 					if(fpje==0){
-						$("#alertt").html("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
-	                	$("#my-alert").modal('open');
+						// $("#alertt").html("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
+	     //            	$("#my-alert").modal('open');
+                        swal("第 "+(i+1)+"行分票金额为0,请重新填写或维护开票限额");
 	                	fla=false;
 	    				return false;
 					}
 					if(!fpje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-        				$("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
-	                	$("#my-alert").modal('open');
+        				// $("#alertt").html("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
+	           //      	$("#my-alert").modal('open');
+                        swal("第 "+(i+1)+"行分票金额格式有误，请重新填写！");
 	                	fla=false;
 	    				return false;
         			}
@@ -779,18 +829,21 @@ $(function() {
 						bckpje.push(fpp); 
 						if(fpp==0){
 						}else if(!fpp.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-		    				$("#alertt").html("第 "+(i+1)+"行明细金额格式有误，请重新填写！");
-		                	$("#my-alert").modal('open');
+		    				// $("#alertt").html("第 "+(i+1)+"行明细金额格式有误，请重新填写！");
+		        //         	$("#my-alert").modal('open');
+                            swal("第 "+(i+1)+"行明细金额格式有误，请重新填写！");
 		    				return false;
 		    			}else if(Number(fpp)>Number(delcommafy(rows1[i+1].cells[3].innerHTML))){
-		    				$("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
-		                	$("#my-alert").modal('open');
+		    				// $("#alertt").html("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
+		        //         	$("#my-alert").modal('open');
+                            swal("第"+(i+1)+"条明细的本次开票金额不能大于可开票金额！");
 		                	return false;
 		    			}
 					}
 					if(je==0){
-						$("#alertt").html("本次开具金额为0,请重新填写");
-	                	$("#my-alert").modal('open');
+						// $("#alertt").html("本次开具金额为0,请重新填写");
+	     //            	$("#my-alert").modal('open');
+                        swal("本次开具金额为0,请重新填写");
 	                	return false;
 					}
 				}
@@ -803,21 +856,22 @@ $(function() {
 				var ddhsthan = chk_value.substring(0, chk_value.length-1);
 				fpxes = fpxes.substring(0, fpxes.length-1);
 				if(chk_value.length==0){
-					$("#alertt").html("请至少选择一条数据");
-                	$("#my-alert").modal('open');
+					// $("#alertt").html("请至少选择一条数据");
+     //            	$("#my-alert").modal('open');
+                    swal("请至少选择一条数据");
 				}else{
 					if(!fla){
 						return;
 					}
-		     if (!confirm("您确认处理该记录？")) {
-				return;
-			}
-		            	$("#cljg").show();
-		            	$("#cljgbt").show();
-		            	  $tab.tabs('refresh');
-						kpspmx_table3.ajax.reload();
-						 kpspmx_table.ajax.reload();
-						$('#doc-tab-demo-1').tabs('open', 1)
+        		     if (!confirm("您确认处理该记录？")) {
+        				return;
+        			}
+	            	$("#cljg").show();
+	            	$("#cljgbt").show();
+	            	  $tab.tabs('refresh');
+					kpspmx_table3.ajax.reload();
+					 kpspmx_table.ajax.reload();
+					$('#doc-tab-demo-1').tabs('open', 1)
 				}
 			});
 		},
@@ -836,8 +890,9 @@ $(function() {
 					data : $('#main_form').serialize(),
 					success : function(data) {
 						if(data.msg){
-							$("#alertt").html("修改成功");
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html("修改成功");
+	      //               	$("#my-alert").modal('open');
+                            swal("修改成功");
 							$('#my-alert-edit').modal('close')
 							_this.tableEx.ajax.reload();	
 						}
@@ -863,8 +918,9 @@ $(function() {
 					data : $('#main_form1').serialize(),
 					success : function(data) {
 						if(data.msg){
-							$("#alertt").html("修改成功");
-	                    	$("#my-alert").modal('open');
+							// $("#alertt").html("修改成功");
+	      //               	$("#my-alert").modal('open');
+                            swal("修改成功");
 							$('#my-alert-edit1').modal('close');
 							_this.tableEx.ajax.reload();	
 							 kpspmx_table.ajax.reload();
@@ -891,7 +947,7 @@ $(function() {
 				});
 				var ddhs = chk_value.substring(0, chk_value.length-1);
 				if(chk_value.length<2){
-					alert("请至少选择2条数据!")
+					swal("请至少选择2条数据!")
 				}else{
 					
 				}
@@ -922,14 +978,16 @@ function yzje(je){
 	var zdje = $(je).attr("max");
 	var zhi= $(je).val();
 	if(zdje==0){
-		$("#alertt").html("最大金额为0 ,请维护开票限额");
-    	$("#my-alert").modal('open');
+		// $("#alertt").html("最大金额为0 ,请维护开票限额");
+  //   	$("#my-alert").modal('open');
+        swal("最大金额为0 ,请维护开票限额");
     	return;
 	}
 	if(zhi*1>zdje*1){
 		var msg = "不能超过分票金额"+zdje*1;
-		$("#alertt").html(msg);
-    	$("#my-alert").modal('open');
+		// $("#alertt").html(msg);
+  //   	$("#my-alert").modal('open');
+        swal(msg);
 		$(je).val(zdje);
 	}
 }

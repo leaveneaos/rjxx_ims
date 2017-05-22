@@ -395,7 +395,8 @@ $(function() {
 	                        	if (data.success) {
       		                	 	swal({ 
 										  title: "已成功删除", 
-										  timer: 2000, 
+										  timer: 1500, 
+										  type: "success", 
 										  showConfirmButton: false 
 										});
           	                        _this.tableEx.ajax.reload(); // reload table data
@@ -478,8 +479,8 @@ $(function() {
 						   			//$('#my-alert').modal('open'); 
 						  			swal({ 
 									  title: "保存成功", 
-									  text: "已成功保存",
-									  timer: 2000, 
+									  timer: 1500, 
+									  type: "success", 
 									  showConfirmButton: false 
 									});
 									_this.tableEx.ajax.reload(); // reload table

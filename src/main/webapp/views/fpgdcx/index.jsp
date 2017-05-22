@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 </head>
 <body>
@@ -158,5 +159,6 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpgdcx.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 </body>
 </html>

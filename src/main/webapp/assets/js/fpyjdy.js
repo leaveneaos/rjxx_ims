@@ -98,7 +98,7 @@ $(function () {
              		}           		
         		 });
             	if(skpids==''){
-            		alert("请至少选择一条记录！");
+            		swal("请至少选择一条记录！");
             	}else{
             		ur = _this.config.plszUrl+'?skpids='+skpids;
                     el.$jsdiv.modal('open');
@@ -153,21 +153,21 @@ $(function () {
                             success: function (data) {
                              	el.$jsLoading.modal('close'); // close loading                              	
                                 if (data.success) {
-                                    alert(data.msg);
+                                    swal(data.msg);
                                     el.$jsdiv.modal('close'); // close
                                     _this.tableEx.ajax.reload();
                                 }else{
-                                    alert(data.msg);                                  
+                                    swal(data.msg);                                  
                                 }                             
                             },
                             error: function () {
                             	el.$jsLoading.modal('close'); // close loading
-                                alert('保存失败，请检查!');
+                                swal('保存失败，请检查!');
                             }
                         });
                         return false;
                     } else {
-                        alert('数据验证失败，请检查！');
+                        swal('数据验证失败，请检查！');
                         return false;
                     }
                 }

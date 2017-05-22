@@ -83,14 +83,16 @@ $(function () {
                         $("#ckpfs").val(data.ckpfs);
                 		$("#cdpfs").val(data.cdpfs); 
                 	}else{
-                		$('#alert-msg').html(data.msg);
-                		$('#my-alert').modal('open');    
+                		// $('#alert-msg').html(data.msg);
+                		// $('#my-alert').modal('open'); 
+                        swal(data.msg);   
                 	}
                 	el.$jsLoading.modal('close'); // close loading
                 },
                 error: function() {
-                	$('#alert-msg').html("出错，请检查！");
-                	$('#my-alert').modal('open');
+                	// $('#alert-msg').html("出错，请检查！");
+                	// $('#my-alert').modal('open');
+                    swal("出错，请检查！");
                 }        	
            });
         },
@@ -114,7 +116,7 @@ $(function () {
                     el.$jsLoading.modal('close'); // close loading
                 },
                 error: function () {
-                    alert('后台错误,请重新登录！');
+                    swal('后台错误,请重新登录！');
                 }
            }); 
         },
@@ -123,7 +125,7 @@ $(function () {
             el.$jsPre.on('click', function (e) { 
             	var kprq=el.$jsDate.val();       
             	if(!kprq){
-            		alert('Error,请选择开票日期!');
+            		swal('Error,请选择开票日期!');
                     return false;
             	}
             	_this.qyt({kprq:kprq});      
@@ -139,8 +141,9 @@ $(function () {
         		el.$jsLoading.modal('toggle');  // show loading
                 var kprq = $('#s_kprq').val();
                 if(kprq==''){
-                	$('#alert-msg').html("请先选择月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("请先选择月份！");
+    				// $('#my-alert').modal('open');
+                    swal("请先选择月份！");
                 	el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
@@ -156,8 +159,9 @@ $(function () {
         		el.$jsLoading.modal('toggle');  // show loading
                 var kprq = el.$jsDate.val();
                 if(kprq==''){
-                	$('#alert-msg').html("请先选择月份！");
-    				$('#my-alert').modal('open');
+        //         	$('#alert-msg').html("请先选择月份！");
+    				// $('#my-alert').modal('open');
+                    swal("请先选择月份！");
                 	el.$jsLoading.modal('toggle');
                 	return false;               	
                 }
@@ -176,8 +180,9 @@ $(function () {
                 e.preventDefault();
             	var kprq=el.$jsDate.val();
             	if(""==kprq||null==kprq){
-            		$('#alert-msg').html("请选择年月！");
-            		$('#my-alert').modal('open');
+            		// $('#alert-msg').html("请选择年月！");
+            		// $('#my-alert').modal('open');
+                    swal("请选择年月！");
             		return;
             	}
             	window.location.href = _this.config.exportURL+"?kprq=" +kprq;

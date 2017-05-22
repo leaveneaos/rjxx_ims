@@ -243,8 +243,9 @@ $(function() {
 											// $('#msg').html('删除成功');
 											// $('#my-alert').modal('open');
 											swal({ 
-												  title: "已成功删除", 
-												  timer: 2000, 
+												    title: "已成功删除", 
+												    timer: 1500, 
+								  					type: "success", 
 												  showConfirmButton: false 
 												});
 											_this.tableEx.ajax.reload(); // reload
@@ -446,9 +447,10 @@ $(function() {
                 	if (data.success) {
 	                        _this.tableEx.ajax.reload(); // reload table data
 	                        swal({ 
-								  title: "已成功删除", 
-								  timer: 2000, 
-								  showConfirmButton: false 
+								    title: "已成功删除", 
+								    timer: 1500, 
+								  	type: "success", 
+								    showConfirmButton: false 
 								});
 	                    } else {
 		                	swal('删除失败,服务器错误' + data.msg);

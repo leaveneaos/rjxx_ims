@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/autocomplete.css" />
 <link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 .am-table {
@@ -954,7 +955,7 @@ table thead th {
 										style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrje_edit" placeholder="输入金额(不含税)..."
+										<input type="text" id="lrje_edit" readonly="readonly" placeholder="输入金额(不含税)..."
 											required>
 									</div>
 								</div>
@@ -1152,6 +1153,7 @@ table thead th {
 	<script src="assets/js/kpdys.js"></script>
 	<script src="assets/js/autocomplete.js"></script>
 	<script src="assets/js/getGfxxInput.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#cljg").hide();
@@ -1259,8 +1261,8 @@ table thead th {
         });
         $("#btnDownloadDefaultTemplate").click(function () {
         	var mbid = $('#mb').val();
-        	if(null==mbid||""==mbid){
-            	alert("请选择模板后下载");
+        	if(null==mbid||""==mbid||"-1"==mbid){
+            	swal("请选择模板后下载");
         	}else{
     			$.ajax({
     				type : "POST",
@@ -1283,29 +1285,29 @@ table thead th {
             var mb = $("#mb").val();
             var skpid = $("#mb_skp").val();
             if (!xfsh) {
-                alert("请选择要导入的销方");
+                swal("请选择要导入的销方");
                 return;
             }
             if (skpid==-1) {
-                alert("请选择要导入的开票点");
+                swal("请选择要导入的开票点");
                 return;
             }
             if (mb==-1) {
-                alert("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
+                swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
                 return;
             }
             if (!filename) {
-                alert("请选择要导入的文件");
+                swal("请选择要导入的文件");
                 return;
             }
             var pos = filename.lastIndexOf(".");
             if (pos == -1) {
-                alert("导入的文件必须是excel文件");
+                swal("导入的文件必须是excel文件");
                 return;
             }
             var extName = filename.substring(pos + 1);
             if ("xls" != extName && "xlsx" != extName) {
-                alert("导入的文件必须是excel文件");
+                swal("导入的文件必须是excel文件");
                 return;
             }
             $("#btnImport").attr("disabled", true);
@@ -1316,8 +1318,15 @@ table thead th {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
                         var count = res["count"];
-                        alert("导入成功，共导入" + count + "条数据");
-                        window.location.reload();
+                        swal({
+                            title: "导入成功，共导入" + count + "条数据",
+                            showCancelButton: false,
+                            closeOnConfirm: false,
+                            confirmButtonText: "确 定",
+                            confirmButtonColor: "#ec6c62"
+                        }, function() {
+                            window.location.reload();
+                        });
                         if (res["yes"]) {
                 			$('#mrmb').empty();
                 			var txt = $('#mb').find("option:selected").text();
@@ -1327,7 +1336,7 @@ table thead th {
                     } else {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
-                        alert(res["message"]);
+                        swal(res["message"]);
                     }
                 }
             };
@@ -1338,7 +1347,7 @@ table thead th {
             var xfsh = $(this).val();
             $('#mb').empty();
             $('#mb_skp').empty();
-            $('#mrmb').empty();
+            //$('#mrmb').empty();
             if (xfsh == null || xfsh == '' || xfsh == "") {
 				return;
 			}
@@ -1364,7 +1373,7 @@ table thead th {
 					}
                 }
             });
-            url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
+            /*url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
 								$.post(url, {
 									xfsh : xfsh
 								}, function(data) {
@@ -1374,7 +1383,7 @@ table thead th {
 												data.mrmb.id);
 										$('#mrmb').append(option);
 									}
-								});
+								});*/
 			});
 		    $("#lrsl_edit").keyup(function(){
                 var spsl = $('#lrsl_edit');//商品数量
@@ -1439,71 +1448,78 @@ table thead th {
                 }
             });
 
-			$("#lrje_edit").keyup(
-							function() {
-								var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-								var je = $('#lrje_edit');
-								if (!num.test(je.val())) {
-									if (je.val().length > 1) {
-										$('#lrje_edit').val(
-												je.val().substring(0,
-														je.val().length - 1))
-									} else {
-										$('#lrje_edit').val("")
-									}
-									return;
-								}
-								var sl = $('#lrsltaxrate_edit');
-								var se = $('#lrse_edit');
-								var hsje = $('#lrhsje_edit');
-								var jshj = $('#lrjshj_edit');
-								var dj = $('#lrdj_edit');
-								var sps = $('#lrsl_edit');
-								var spsl;
-								var temp = (100 + sl.val() * 100) / 100;
-								se.val(FormatFloat(je.val() * sl.val(),
-										"#####0.00"));
-								var je1 = parseFloat(je.val());
-								var se1 = parseFloat(se.val());
-								hsje.val(FormatFloat(je1 + se1, "#####0.00"));
-								jshj.val(FormatFloat(je1 + se1, "#####0.00"));
-								if (dj != null && dj.val() != "") {
-									sps.val(FormatFloat(je.val() / dj.val(),
-											"#####0.00"));
-								} else if (sps != null && sps.val() != "") {
-									dj.val(FormatFloat(je.val() / sps.val(),
-											"#####0.00"));
-								}
-							});
-			$("#lrhsje_edit").keyup(
-							function() {
-								var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
-								var hsje = $('#lrhsje_edit');
-								if (!num.test(hsje.val())) {
-									if (hsje.val().length > 1) {
-										$('#lrhsje_edit').val(
-												hsje.val().substring(0,
-														hsje.val().length - 1))
-									} else {
-										$('#lrhsje_edit').val("")
-									}
-									return;
-								}
-								var je = $('#lrje_edit');
-								var sl = $('#lrsltaxrate_edit');
-								var se = $('#lrse_edit');
+			// $("#lrje_edit").keyup(
+			// 	function() {
+			// 		var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+			// 		var je = $('#lrje_edit');
+			// 		if (!num.test(je.val())) {
+			// 			if (je.val().length > 1) {
+			// 				$('#lrje_edit').val(
+			// 						je.val().substring(0,
+			// 								je.val().length - 1))
+			// 			} else {
+			// 				$('#lrje_edit').val("")
+			// 			}
+			// 			return;
+			// 		}
+			// 		var sl = $('#lrsltaxrate_edit');
+			// 		var se = $('#lrse_edit');
+			// 		var hsje = $('#lrhsje_edit');
+			// 		var jshj = $('#lrjshj_edit');
+			// 		var dj = $('#lrdj_edit');
+			// 		var sps = $('#lrsl_edit');
+			// 		var spsl;
+			// 		var temp = (100 + sl.val() * 100) / 100;
+			// 		se.val(FormatFloat(je.val() * sl.val(),
+			// 				"#####0.00"));
+			// 		var je1 = parseFloat(je.val());
+			// 		var se1 = parseFloat(se.val());
+			// 		hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+			// 		jshj.val(FormatFloat(je1 + se1, "#####0.00"));
+			// 		if (dj != null && dj.val() != "") {
+			// 			sps.val(FormatFloat(je.val() / dj.val(),
+			// 					"#####0.00"));
+			// 		} else if (sps != null && sps.val() != "") {
+			// 			dj.val(FormatFloat(je.val() / sps.val(),
+			// 					"#####0.00"));
+			// 		}
+			// 	}
+			// );
 
-								var jshj = $('#lrjshj_edit');
-								var dj = $('#lrdj_edit');
-								var sps = $('#lrsl_edit');
-								var spsl;
-								var temp = (100 + sl.val() * 100) / 100;
-								je.val(FormatFloat(hsje.val() / (temp),
-										"#####0.00"));
-								se.val(FormatFloat(hsje.val() - je.val(),
-										"#####0.00"));
-								jshj.val(FormatFloat(hsje.val(), "#####0.00"));
-							});
+
+
+			$("#lrhsje_edit").keyup(
+				function() {
+					var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+					var hsje = $('#lrhsje_edit');
+					if (!num.test(hsje.val())) {
+						if (hsje.val().length > 1) {
+							$('#lrhsje_edit').val(
+									hsje.val().substring(0,
+											hsje.val().length - 1))
+						} else {
+							$('#lrhsje_edit').val("")
+						}
+						return;
+					}
+					var je = $('#lrje_edit');
+					var sl = $('#lrsltaxrate_edit');
+					var se = $('#lrse_edit');
+
+					var jshj = $('#lrjshj_edit');
+					var dj = $('#lrdj_edit');
+					var sps = $('#lrsl_edit');
+					var spsl = $('#lrsl_edit');
+					var temp = (100 + sl.val() * 100) / 100;
+					je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+
+					se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+
+					jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+
+					spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
+				}
+			);
 
 		});
 
