@@ -158,7 +158,7 @@
 		    var showimg = '<div class="mui-collapse-content"><form class="mui-input-group"><div class="mui-input-row"><label>联系人</label><input type="text" id="lxr"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人姓名"></div><div class="mui-input-row"><label>联系电话</label><input type="text" id="lxdh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话"></div><div class="mui-input-row"><label>联系地址</label><input type="text" id="lxdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人详细地址"></div><div class="mui-input-row"><label>邮件地址</label><input type="text" id="yjdz" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人邮箱地址"></div><div class="delBtn"><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">删除<span class="mui-icon mui-icon-trash"></span></button></div></form></div>';
 		    $(".add-div").before($(showimg));
 	  	});
-	  	 $(".mui-btn-danger").live("click",function(){ //通过 live() 方法附加的事件处理程序适用于匹配选择器的当前及未来的元素（比如由脚本创建的新元素） 
+	  	 $(document).on('click','.mui-btn-danger',function(){  
             $(this).parent().parent().remove();  
         }); 
 
