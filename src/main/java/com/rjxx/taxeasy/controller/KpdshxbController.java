@@ -65,8 +65,8 @@ public class KpdshxbController extends BaseController{
 		}
 		if (xfList.size() == 1) {
 			Map<String, Object> map = new HashMap<>();
-			map.put("xfsh", xfList.get(0).getXfsh());
-			map.put("xfs", getXfList());
+			/*map.put("xfsh", xfList.get(0).getXfsh());
+			map.put("xfs", getXfList());*/
 			map.put("gsdm", gsdm);
 			List<Drmb> mbList = drmbService.findAllByParams(map);
 			Drmb mb = new Drmb();
