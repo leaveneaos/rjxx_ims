@@ -1262,7 +1262,6 @@ table thead th {
         $("#btnImport").click(function () {
             var filename = $("#importFile").val();
             var xfsh = $("#mb_xfsh").val();
-            alert(xfsh);
             var mb = $("#mb").val();
             var skpid = $("#mb_skp").val();
             if (!xfsh) {
