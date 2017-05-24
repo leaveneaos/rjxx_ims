@@ -46,4 +46,7 @@
   width: 97%;
   border-radius: 0;
 }
+.mui-input-group:before {
+  z-index: 1;
+}
 
