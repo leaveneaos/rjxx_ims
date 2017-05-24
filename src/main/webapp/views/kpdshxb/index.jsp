@@ -1104,35 +1104,15 @@ table thead th {
 								</select>
 							</div>
 						</div>
-						<%-- <div class="am-u-sm-12">
-										<label class="am-u-sm-4 am-form-label">默认模板</label>
-										<div class="am-u-sm-8">
-											<select id="mrmb" name="mrmb" class="am-u-sm-12">
-												<option value="${mrmb.id}">${mrmb.mbmc}</option>
-											</select>
-										</div>
-									</div> --%>
 						<div class="am-u-sm-12" style="margin-top: 30px;">
 							<button type="button" id="btnImport"
 								class="am-btn am-btn-xs am-btn-primary">导入</button>
-							<!-- <button type="button" id="btnMrConfig"
-											class="am-btn am-btn-success am-btn-xs">设置默认模板</button> -->
 							<button type="button" id="close1"
 								class="am-btn am-btn-danger am-btn-xs">关闭</button>
-							<!-- 							<button type="button" id="btnImportConfig" -->
-							<!-- 								class="am-btn am-btn-secondary am-btn-xs">新增模板</button> -->
-							<!-- <button type="button" id="update1"
-											class="am-btn am-btn-secondary am-btn-xs">查看模板</button> -->
-							<!-- 							<button type="button" id="delete1" -->
-							<!-- 								class="am-btn am-btn-danger am-btn-xs">删除模板</button> -->
-
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 10px;">
 							<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
 								style="text-decoration: underline;">下载模板</a>
-							<!-- 								<a -->
-							<!-- 								href="javascript:void(0)" id="btnImportConfig" -->
-							<!-- 								style="text-decoration: underline; margin-left: 10px;">配置导入文件对照关系</a> -->
 						</div>
 					</div>
 				</form>
@@ -1282,6 +1262,7 @@ table thead th {
         $("#btnImport").click(function () {
             var filename = $("#importFile").val();
             var xfsh = $("#mb_xfsh").val();
+            alert(xfsh);
             var mb = $("#mb").val();
             var skpid = $("#mb_skp").val();
             if (!xfsh) {

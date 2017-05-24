@@ -1041,7 +1041,7 @@ public class LrkpdController extends BaseController {
                 break;
             }
         }
-        Xf xf1 = null;
+       /* Xf xf1 = null;
         Drmb drmb = drmbService.findOne(mb);
         Xf x1 = new Xf();
         x1.setGsdm(gsdm);
@@ -1051,7 +1051,7 @@ public class LrkpdController extends BaseController {
         boolean flag = false;
         if (xf1 != null && xfsh1.equals(xf1.getXfsh())) {
             flag = true;
-        }
+        }*/
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
         List<JymxsqVo> mxList = new ArrayList<>();
         Integer num = 1;
@@ -1071,7 +1071,7 @@ public class LrkpdController extends BaseController {
             jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
             jyxxsq.setDdh(getValue("ddh", pzMap, columnIndexMap, row));
             jyxxsq.setDdrq(TimeUtil.getNowDate());
-            if (!flag) {
+           /* if (!flag) {*/
                 jyxxsq.setXfid(xf.getId());
                 jyxxsq.setXfsh(xf.getXfsh());
                 jyxxsq.setXfmc(xf.getXfmc());
@@ -1082,7 +1082,7 @@ public class LrkpdController extends BaseController {
                 jyxxsq.setSkr(xf.getSkr());
                 jyxxsq.setKpr(xf.getKpr());
                 jyxxsq.setFhr(xf.getFhr());
-            } else {
+           /* } else {
                 jyxxsq.setXfid(xf1.getId());
                 jyxxsq.setXfsh(xf1.getXfsh());
                 jyxxsq.setXfmc(xf1.getXfmc());
@@ -1093,7 +1093,7 @@ public class LrkpdController extends BaseController {
                 jyxxsq.setSkr(getValue("skr", pzMap, columnIndexMap, row));
                 jyxxsq.setKpr(getValue("kpr", pzMap, columnIndexMap, row));
                 jyxxsq.setFhr(getValue("fhr", pzMap, columnIndexMap, row));
-            }
+            }*/
             jyxxsq.setSkpid(skpid);
             jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
             jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));
