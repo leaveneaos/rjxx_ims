@@ -1,9 +1,13 @@
 package com.rjxx.taxeasy.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.GetYjnr;
 import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Kpls;
-import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.KplsService;
-import com.rjxx.taxeasy.service.KplsvoService;
 import com.rjxx.taxeasy.vo.KplsVO;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -44,6 +41,20 @@ public class YjfsController extends BaseController {
 	@Autowired
 	private SendalEmail se;
 
+	@Autowired
+	private JylsService jylsService;
+
+	@Autowired
+	private KplsService kplsService;
+
+	@Autowired
+	private GsxxService gsxxService;
+
+	@Autowired
+	private YjmbService yjmbService;
+	@Autowired
+	private JyxxsqService jyxxsqService;
+
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfs", getXfList());
@@ -68,19 +79,35 @@ public class YjfsController extends BaseController {
 					params.put("kplsh", id);
 					final Kpls kpls = ks.findOneByParams(params);
 					if (kpls.getGfemail() == null || "".equals(kpls.getGfemail())) {
-//						if ("".equals(msg)) {
-//							msg += "发送失败，";
-//						}
 						msg += "发票代码：" + kpls.getFpdm() + "|发票号码：" + kpls.getFphm() + "无邮箱,发送失败;";
 						continue;
 					}
 					Jyls jyls = js.findOne(kpls.getDjh());
+					Map jyxxsqMap=new HashMap();
+					jyxxsqMap.put("gsdm",kpls.getGsdm());
+					jyxxsqMap.put("jylsh",jyls.getJylsh());
+					Jyxxsq jyxxsq=jyxxsqService.findOneByJylsh(jyxxsqMap);
+					Kpls ls = new Kpls();
+					ls.setDjh(jyls.getDjh());
+					List<Kpls> lslist = kplsService.findAllByKpls(ls);
+					List<String> pdfUrlList = new ArrayList<>();
+					for (Kpls kpls1 : lslist) {
+						pdfUrlList.add(kpls1.getPdfurl());
+					}
 					GetYjnr getYjnr = new GetYjnr();
-					String content = getYjnr.getFpkjYj(jyls.getDdh(), new ArrayList<String>() {
-						{
-							add(kpls.getPdfurl());
-						}
-					}, kpls.getXfmc());
+					Map gsxxmap=new HashMap();
+					gsxxmap.put("gsdm",kpls.getGsdm());
+					Gsxx gsxx=gsxxService.findOneByGsdm(gsxxmap);
+					Integer yjmbDm=gsxx.getYjmbDm();
+					Yjmb yjmb=yjmbService.findOne(yjmbDm);
+					String yjmbcontent=yjmb.getYjmbNr();
+					Map csmap=new HashMap();
+					csmap.put("ddh",jyls.getDdh());
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+					csmap.put("ddrq",sdf.format(jyxxsq.getDdrq()));
+					csmap.put("pdfurls",pdfUrlList);
+					csmap.put("xfmc",jyls.getXfmc());
+					String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
 					se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
 							String.valueOf(kpls.getDjh()), content, "电子发票");
 					/*
