@@ -245,7 +245,7 @@ public class FphcController extends BaseController {
 		InvoiceResponse flag = FphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh);
 		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
-			result.put("msg", "红冲成功!");
+			result.put("msg", "红冲请求已接受!");
 		}else{
 			result.put("success", false);
 			result.put("msg", "红冲请求失败!"+flag.getReturnMessage());
