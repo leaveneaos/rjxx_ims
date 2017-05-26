@@ -13,7 +13,7 @@ $(function () {
 
         
         $s_kprqq: $('#s_rqq'), // search 开票日期起
-        $s_kprqz: $('#s_rqz'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
+        $s_kprqz: $('#s_rqz'), // search 开票日期止
         $s_gfmc: $('#s_gfmc'), // search 购方名称
         $s_fpdm: $('#s_fpdm'), // search 发票代码
         $s_fphm: $('#s_fphm'), // search 发票号码
@@ -22,7 +22,7 @@ $(function () {
         $s_fplx: $('#s_fplx'), // search   发票类型
         
         $s_kprqq1: $('#s_rqq1'), // search 开票日期起
-        $s_kprqz1: $('#s_rqz1'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
+        $s_kprqz1: $('#s_rqz1'), // search 开票日期止
         $s_gfmc1: $('#s_gfmc1'), // search 购方名称
         $s_fpdm1: $('#s_fpdm1'), // search 发票代码
         $s_fphm1: $('#s_fphm1'), // search 发票号码
@@ -315,7 +315,7 @@ $(function () {
                             "data": null,
                             "render": function (data) {
                                 if(data.fpzldm=='12'){
-                                    return '<a class="view" href="'
+                                    return '<a class="dzfpview" href="'
                                     + data.pdfurl
                                     + '" target="_blank">查看</a>'
                                 }else{
@@ -405,12 +405,11 @@ $(function () {
                         "data": null,
                         "render": function (data) {
                             if(data.fpzldm=='12'){
-                                return '<a class="view" href="'
+                                return '<a class="dzfpview" href="'
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
                             }else{
                                 return '<a class="view"  target="_blank">查看</a>'
-                                
                             }
                         }
                     }],
@@ -421,15 +420,14 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#fpTable tr').find('td:eq(0)').hide();
             });
             t1.on('draw.dt', function (e, settings, json) {
                 var x = t1, page = x.page.info().start; // 设置第几页
                 t1.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#fpTable tr').find('td:eq(0)').hide();
             });
+            /*
              //选中列查询明细
             $('.js-table2 tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
@@ -449,16 +447,13 @@ $(function () {
                  kplshStr.push($(this).val()); 
                 });
                 if(kplshStr.length>1){
-                    // $("#alertt").html("不能批量红冲！");
-                 //     $("#my-alert").modal('open');
                     swal("不能批量红冲！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                       return;
-                
                 }
                 kpspmx_table.ajax.reload();
             });
+            */
             $('#ysTable').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -492,7 +487,6 @@ $(function () {
              $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
            });
-            
             t.on('click', 'input#chk', function () {
                 var data = t.row($(this).parents('tr')).data();
                 var kplshStr = [];
@@ -500,14 +494,12 @@ $(function () {
                  kplshStr.push($(this).val()); 
                 });
                 if(kplshStr.length>1){
-                    // $("#alertt").html("不能批量红冲！");
-                 //     $("#my-alert").modal('open');
                     swal("不能批量红冲！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                       return;
-                
                 }
+                $("#kplsh").val(data.kplsh);
+                $("#fpzldm").val(data.fpzldm);
             });
             
             $('#hc_search').click(function () {
@@ -538,89 +530,25 @@ $(function () {
             });
             //红冲操作
             $("#hc_hc").click(function () {
-                
                  var kplshStr = [];
                  $('#chk:checked').each(function(){    
                      kplshStr.push($(this).val()); 
                  });
                 if(kplshStr.length>1){
-                    // $("#alertt").html("不能批量红冲！");
-              //        $("#my-alert").modal('open');
                     swal("不能批量红冲！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                        return;
-                    
                 }else if(kplshStr.length==0){
-                    // $("#alertt").html("请选择一条记录！");
-              //        $("#my-alert").modal('open');
                     swal("请选择一条记录！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                        return;
                 }
-                
                 var kplsh = $('#kplsh').val();
                 var fpzldm = $('#fpzldm').val();
                 if(fpzldm=="01"){
                     $("#hztzdh").modal({"width": 520, "height": 300});
                     $("#js-submit").click(function(){
                         var hztzdh=$("#hztzdh_edit").val();
-                        if(kplsh!=0){
-
-                            /*if(confirm("确定要红冲该条数据吗？")){
-                                var xhStr = "";
-                                var hcjeStr="";
-                                var zhcje = 0;
-                                var rows = $("#mxTable").find('tr');        
-                                for(var j=1;j<rows.length;j++){
-                                    xhStr +=rows[j].cells[0].innerHTML+",";
-                                }
-                                var els =document.getElementsByName("hcje");
-                                for(var i=0;i<els.length;i++){
-                                    var hcje = els[i].value;
-                                    if(hcje==''){
-                                        hcje = 0;
-                                    }
-                                    if(!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-                                        $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
-                                        $("#my-alert").modal('open');
-                                        return;
-                                    }
-                                    if(Number(hcje)>Number(delcommafy(rows[i+1].cells[4].innerHTML))){
-                                        $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
-                                        $("#my-alert").modal('open');
-                                        return;
-                                    }
-                                    zhcje+=hcje;
-                                    hcjeStr += hcje+",";
-                                }
-                                if(zhcje==0){
-                                    $("#alertt").html("红冲金额不能为0或空！");
-                                    $("#my-alert").modal('open');
-                                    return;
-                                }           
-                                $.ajax({
-                                    url:"fphc/hc",
-                                    data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh,"hztzdh":hztzdh},
-                                    success:function(data){
-                                        if(data.success){
-                                            $("#alertt").html(data.msg);
-                                            $("#my-alert").modal('open');
-                                            $("#kplsh").val("");
-                                            t.ajax.reload();
-                                        }else{
-                                            $("#alertt").html(data.msg);
-                                            $("#my-alert").modal('open');
-                                        }                                       
-                                    },
-                                    error:function(){
-                                        $("#alertt").html("程序出错，请联系开发人员！");
-                                        $("#my-alert").modal('open');
-                                    }
-                                });
-                            }*/
-
                             swal({
                                 title: "确定要红冲该条数据吗？",
                                 showCancelButton: true,
@@ -642,14 +570,10 @@ $(function () {
                                         hcje = 0;
                                     }
                                     if(!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-                                        // $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
-                                        // $("#my-alert").modal('open');
                                         swal("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
                                         return;
                                     }
                                     if(Number(hcje)>Number(delcommafy(rows[i+1].cells[4].innerHTML))){
-                                        // $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
-                                        // $("#my-alert").modal('open');
                                         swal("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
                                         return;
                                     }
@@ -657,8 +581,6 @@ $(function () {
                                     hcjeStr += hcje+",";
                                 }
                                 if(zhcje==0){
-                                    // $("#alertt").html("红冲金额不能为0或空！");
-                                    // $("#my-alert").modal('open');
                                     swal("红冲金额不能为0或空！");
                                     return;
                                 } 
@@ -677,73 +599,8 @@ $(function () {
                                     swal("程序出错，请联系开发人员！");
                                 });
                             });
-
-                        }else{
-                            // $("#alertt").html("请选择一条记录！");
-                   //           $("#my-alert").modal('open');
-                            swal("请选择一条记录！");
-                            
-                        }  
-                        
-                        
                     });
                 }else{
-                        var hztzdh=$("#hztzdh_edit").val();
-                        if(kplsh!=0){
-
-                            /*if(confirm("确定要红冲该条数据吗？")){
-                                var xhStr = "";
-                                var hcjeStr="";
-                                var zhcje = 0;
-                                var rows = $("#mxTable").find('tr');        
-                                for(var j=1;j<rows.length;j++){
-                                    xhStr +=rows[j].cells[0].innerHTML+",";
-                                }
-                                var els =document.getElementsByName("hcje");
-                                for(var i=0;i<els.length;i++){
-                                    var hcje = els[i].value;
-                                    if(hcje==''){
-                                        hcje = 0;
-                                    }
-                                    if(!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-                                        $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
-                                        $("#my-alert").modal('open');
-                                        return;
-                                    }
-                                    if(Number(hcje)>Number(delcommafy(rows[i+1].cells[4].innerHTML))){
-                                        $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
-                                        $("#my-alert").modal('open');
-                                        return;
-                                    }
-                                    zhcje+=hcje;
-                                    hcjeStr += hcje+",";
-                                }
-                                if(zhcje==0){
-                                    $("#alertt").html("红冲金额不能为0或空！");
-                                    $("#my-alert").modal('open');
-                                    return;
-                                }           
-                                $.ajax({
-                                    url:"fphc/hc",
-                                    data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh,"hztzdh":hztzdh},
-                                    success:function(data){
-                                        if(data.success){
-                                            $("#alertt").html(data.msg);
-                                            $("#my-alert").modal('open');
-                                            $("#kplsh").val("");
-                                            t.ajax.reload();
-                                        }else{
-                                            $("#alertt").html(data.msg);
-                                            $("#my-alert").modal('open');
-                                        }                                       
-                                    },
-                                    error:function(){
-                                        $("#alertt").html("程序出错，请联系开发人员！");
-                                        $("#my-alert").modal('open');
-                                    }
-                                });
-                            }*/
-
                             swal({
                                 title: "确定要红冲该条数据吗？",
                                 showCancelButton: true,
@@ -765,14 +622,10 @@ $(function () {
                                             hcje = 0;
                                         }
                                         if(!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
-                                            // $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
-                                            // $("#my-alert").modal('open');
                                             swal("第"+(i+1)+"条明细的本次红冲金额格式错误，请重新填写！");
                                             return;
                                         }
                                         if(Number(hcje)>Number(delcommafy(rows[i+1].cells[4].innerHTML))){
-                                            // $("#alertt").html("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
-                                            // $("#my-alert").modal('open');
                                             swal("第"+(i+1)+"条明细的本次红冲金额不能大于可红冲金额！");
                                             return;
                                         }
@@ -780,14 +633,12 @@ $(function () {
                                         hcjeStr += hcje+",";
                                     }
                                     if(zhcje==0){
-                                        // $("#alertt").html("红冲金额不能为0或空！");
-                                        // $("#my-alert").modal('open');
                                         swal("红冲金额不能为0或空！");
                                         return;
                                     }  
                                 $.ajax({
                                     url:"fphc/hc",
-                                    data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh,"hztzdh":hztzdh},
+                                    data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh,"hztzdh":""},
                                 }).done(function(data) {
                                     if(data.success){
                                         swal(data.msg);
@@ -800,73 +651,24 @@ $(function () {
                                     swal("程序出错，请联系开发人员！");
                                 });
                             });
-
-                        }else{
-                            // $("#alertt").html("请选择一条记录！");
-                   //           $("#my-alert").modal('open');
-                                swal("请选择一条记录！");
-                        }    
                 }
             });
             return t;
         },
-        /**
-         * search action
-         */
-        search_ac: function () {
-            var _this = this;
-          /*  $("#hc_search").on('click', function (e) {
-                if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                    || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
-                    return false;
-                }
-                e.preventDefault();
-                _this.tableEx.ajax.reload();
-                $("#kplsh").val("");
-            });*/
-            
-           
-        },
-       
-        /**
-         * search action1
-         */
-        search_ac1: function () {
-            var _this = this;
-           /* $('#kp_cx1').on('click', function (e) {
-                if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                    || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
-                    return false;
-                }
-                e.preventDefault();
-                t1.ajax.reload();
-            });*/
-            
-          
-        },
-       
         modalAction: function () {
             var _this = this;
             $("#hztzdh").on('closed.modal.amui', function () {
-                //el.$jsForm0[0].reset();
             });
             el.$jsClose.on('click', function () {
                 $("#hztzdh").modal('close');
             });
         },
-       
-        
-        
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
             _this.search_ac1();
             _this.modalAction(); // hidden action
-            
-           // _this.bfhc();
         }
     };
     action.init();
@@ -879,5 +681,4 @@ $(function () {
            num=num.replace(/,/gi,'');
            return num;
         }
-   
 });
