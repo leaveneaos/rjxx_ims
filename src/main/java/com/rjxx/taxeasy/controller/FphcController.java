@@ -54,7 +54,6 @@ public class FphcController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> getItems(int length, int start, int draw) throws Exception {
 		
-		
 		String kprqq=request.getParameter("kprqq");//开票日期起
 		String kprqz=request.getParameter("kprqz");//开票日期止
 
@@ -70,13 +69,6 @@ public class FphcController extends BaseController {
 		
 		String fphm=request.getParameter("fphm");//发票号码
 
-
-		
-		
-		
-		
-		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -238,7 +230,6 @@ public class FphcController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh,String hztzdh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-
 		result.put("success", true);
 		result.put("msg", "红冲成功！");
 		Map map = new HashMap<>();
@@ -252,11 +243,9 @@ public class FphcController extends BaseController {
 			}
 		}
 		InvoiceResponse flag = FphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh);
-	
 		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
 			result.put("msg", "红冲成功!");
-			
 		}else{
 			result.put("success", false);
 			result.put("msg", "红冲请求失败!"+flag.getReturnMessage());
