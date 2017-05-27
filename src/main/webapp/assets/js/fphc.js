@@ -500,6 +500,7 @@ $(function () {
                 }
                 $("#kplsh").val(data.kplsh);
                 $("#fpzldm").val(data.fpzldm);
+                kpspmx_table.ajax.reload();
             });
             
             $('#hc_search').click(function () {
