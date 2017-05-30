@@ -96,7 +96,7 @@
 									</div>
 									<div class="mui-input-row">
 										<label><span id="nsrsbh_span">纳税人识别号</span></label>
-										<input type="text"  id="nsrsbh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方税号，15位至20位">
+										<input type="text"  id="nsrsbh" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,'')"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方税号，15位至20位">
 									</div>
 									<div class="mui-input-row">
 										<label><span id="zcdz_span">购方地址</span></label>
@@ -104,7 +104,7 @@
 									</div>
 									<div class="mui-input-row">
 										<label><span id="zcdh_span">购方电话</span></label>
-										<input type="text" id="zcdh"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册电话">
+										<input type="text" id="zcdh" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,'')"  class="mui-input-clear" oninput="kongge(this.value)" placeholder="购方注册电话">
 									</div>
 									<div class="mui-input-row">
 										<label><span id="khyh_span">开户银行</span></label>
@@ -125,7 +125,7 @@
 									</div>
 									<div class="mui-input-row">
 										<label>联系电话</label>
-										<input type="text" id="lxdh" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话">
+										<input type="text" id="lxdh" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,'')" class="mui-input-clear" oninput="kongge(this.value)" placeholder="收件人联系电话">
 									</div>
 									<div class="mui-input-row">
 										<label>联系地址</label>
