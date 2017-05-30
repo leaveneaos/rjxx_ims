@@ -149,10 +149,12 @@
 										class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
+
 												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
 <!-- 												<th style="display: none;">销方id</th> -->
 <!-- 												<th style="display: none;">上级销方id</th> -->
+												<th>操作</th>
 												<th>销方名称</th>
 												<th>销方税号</th>
 												<th>上级销方</th>
@@ -170,7 +172,7 @@
 												<th>专票分票金额</th>
 												<th>普票开票限额</th>
 												<th>普票分票金额</th> -->
-												<th>操作</th>
+												
 											</tr>
 										</thead>
 										<tbody>

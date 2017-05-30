@@ -69,6 +69,15 @@ $(function() {
 									"data" : "id"
 								},
 								{
+									"data": function(data) {
+										if (data.tybz == "1") {
+											return "<a class='xiazai' href='#'>下载</a>";
+										} else {
+											return "<a class='modify' href='#'>修改</a>  <a class='xiazai' href='#'>下载</a> "	;	
+										}
+									}						
+								},
+								{
 									"data" : "mbmc"
 								},
 								{
@@ -89,15 +98,7 @@ $(function() {
 						                }
 									}
 								},
-								{
-									"data": function(data) {
-										if (data.tybz == "1") {
-											return "<a class='xiazai' href='#'>下载</a>";
-										} else {
-											return "<a class='modify' href='#'>修改</a>  <a class='xiazai' href='#'>下载</a> "	;	
-										}
-									}						
-								} ]
+								]
 					});
 			 $('#check_all').change(function () {
 	            	if ($('#check_all').prop('checked')) {

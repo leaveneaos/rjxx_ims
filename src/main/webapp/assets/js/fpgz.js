@@ -92,6 +92,12 @@ $("#qdbz").change(function () {
                             "data": null,
                             "defaultContent": ""
                         },
+                        {
+							"data": null,
+							"render": function (data) {
+									return '<a class="xiugai">修改</a>  '/*+'<a class="shanchu">删除</a>'*/;
+							}
+						},
                         {"data": "ggmc"},
                         {
                             "data": function (data) {
@@ -166,12 +172,7 @@ $("#qdbz").change(function () {
 										return "否";
 									}
 								}},
-								{
-									"data": null,
-									"render": function (data) {
-											return '<a class="xiugai">修改</a>  '/*+'<a class="shanchu">删除</a>'*/;
-									}
-								}]
+								]
                 });
 			// 新增
 			$("#gz_xzgz").on('click', $("#gz_xzgz"), function() {
