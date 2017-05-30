@@ -92,6 +92,10 @@
 								},
 								// { "data": "id" },
 								{
+									"data" : null,
+									"defaultContent" : '<a class="modify">修改</a>'
+								},
+								{
 									"data" : "spdm"
 								},
 								{
@@ -121,10 +125,7 @@
 								{
 									"data" : "spbm1"
 								},
-								{
-									"data" : null,
-									"defaultContent" : '<a class="modify">修改</a>'
-								} ]
+								 ]
 					});
 
 			var spz_table = $('#tbl1')

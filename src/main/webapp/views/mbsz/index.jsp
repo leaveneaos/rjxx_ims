@@ -154,12 +154,13 @@
 								    <th><input type="checkbox" id="check_all" /></th>
 								<!-- 	<th>序号</th -->
 									<th style="display: none;">销方id</th>
+									<th>操作</th>
 									<th>模板名称</th>
 									<th>销方名称</th>
 									<th>销方税号</th>
 									<th style="display: none;">是否共享</th>
 									<th>是否共享</th>
-									<th>操作</th>
+									
 								</tr>
 							</thead>
 						</table>

@@ -84,13 +84,19 @@ $(function() {
 								return '<input type="checkbox" value="'
 										+ data.id + '" />';
 							}
-						}, {
+						},
+						
+						{
 							"orderable" : false,
 							"data" : null,
 							"defaultContent" : ""
 
 						},
 
+						{
+							"data": null,
+	                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
+						},
 						{
 							"data" : "xfmc"
 						}, {
@@ -153,10 +159,7 @@ $(function() {
 							"data" : "ppdm"
 						}, {
 							"data" : "ppmc"
-						}, {
-							"data" : null,
-							"defaultContent" : "<a class='modify'>修改</a>"
-						} ]
+						},]
 			});
 
 			t.on('draw.dt', function(e, settings, json) {

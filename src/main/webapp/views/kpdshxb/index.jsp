@@ -209,6 +209,7 @@ table thead th {
 														<tr>
 															<th><input type="checkbox" id="check_all" /></th>
 															<th>序号</th>
+															<th>操作</th>
 															<th>订单号</th>
 															<th>订单日期</th>
 															<th>数据来源</th>
@@ -224,7 +225,6 @@ table thead th {
 															<th>购方银行账号</th>
 															<th>备注</th>
 															<th>价税合计</th>
-															<th>操作</th>
 														</tr>
 													</thead>
 												</table>
