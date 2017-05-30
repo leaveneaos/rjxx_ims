@@ -240,7 +240,7 @@ public class FpzfController extends BaseController{
 			InvoiceResponse flag = FpzfService.zfcl(kplsh, getYhid(), getGsdm());
 			if (flag.getReturnCode().equals("0000")) {
 				result.put("success", true);
-				result.put("msg", "作废成功");
+				result.put("msg", "作废申请成功！");
 			}else{
 				result.put("success", true);
 				result.put("msg", "作废请求失败!"+flag.getReturnMessage());
