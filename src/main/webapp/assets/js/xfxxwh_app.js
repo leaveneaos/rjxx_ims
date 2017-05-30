@@ -90,10 +90,6 @@ $(function() {
 //									"data" : "sjjgbm"
 //								},
 								{
-									"data": null,
-			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
-								},
-								{
 									"data" : "xfmc"
 								},
 								{
@@ -180,7 +176,10 @@ $(function() {
 			                            }
 			                        }, 'sClass': 'right'
 			                    },*/
-								 
+								{
+									"data": null,
+			                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
+								} 
 			                    ]
 					});
 			t.on('draw.dt', function(e, settings, json) {

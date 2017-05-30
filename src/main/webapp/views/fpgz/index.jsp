@@ -78,7 +78,6 @@
 									<tr>
 										<th><input type="checkbox" id="check_all" /></th>
 										<th>序号</th>
-										<th>操作</th>
 										<th>规则名称</th>
 										<th>专票分票金额</th>
 										<th>专票分票行数</th>
@@ -91,6 +90,7 @@
 										<th>是否打印清单</th>
 										<th>是否强制分票</th>
 										<th>是否按商品整数分票</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 							</table>

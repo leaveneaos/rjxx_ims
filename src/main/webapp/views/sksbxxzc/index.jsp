@@ -182,7 +182,6 @@
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
-												<th>操作</th>
 												<th>销方名称</th>
 												<th>开票点代码</th>
 												<th>开票点名称</th>
@@ -199,6 +198,7 @@
 												<th>是否无人值守</th>
 												<th>品牌代码</th>
 												<th>品牌名称</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
