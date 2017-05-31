@@ -1671,7 +1671,7 @@ public class KpController extends BaseController {
 		String []kpsqh= kplshs.split(",");
         for(int i=0;i<kpsqh.length;i++){
             Kpls kpls=kplsService.findOne(Integer.parseInt(kpsqh[i]));
-            if(!kpls.getFpztdm().equals("05")){
+            if(!kpls.getFpztdm().equals("05")&&!kpls.getFpztdm().equals("14")){
 				result.put("success", false);
 				result.put("msg", "第"+(i+1)+"条流水不是开具失败的发票流水，请重新选择！");
 				return result;
