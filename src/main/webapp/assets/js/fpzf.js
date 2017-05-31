@@ -5,13 +5,8 @@ $(function () {
     "use strict";
     var el = {
              $jsTable: $('#fpTable'),
-                //$modalHongchong: $('#hongchong'),
-                //$jsSubmit: $('.js-submit'),
-                //$jsClose: $('.js-close'),
-                $jsForm0: $('#ycform'), // 查询form 
+                $jsForm0: $('#ycform'), // 查询form
                 $jsForm1: $('#ycform1'), // 查询form 
-
-                
                 $s_kprqq: $('#s_rqq'), // search 开票日期起
                 $s_kprqz: $('#s_rqz'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
                 $s_gfmc: $('#s_gfmc'), // search 购方名称
@@ -20,7 +15,6 @@ $(function () {
                 $s_ddh: $('#s_ddh'), // search   订单号
                 $s_xfsh: $('#s_xfsh'), // search   销方税号
                 $s_fplx: $('#s_fplx'), // search   发票类型
-                
                 $s_kprqq1: $('#s_rqq1'), // search 开票日期起
                 $s_kprqz1: $('#s_rqz1'), // search 开票日期止   s_gfmc  s_ddh s_fplx  s_rqq  s_rqz
                 $s_gfmc1: $('#s_gfmc1'), // search 购方名称
@@ -56,7 +50,6 @@ $(function () {
             {
                 "data": null,
                 "render": function (data) {
-                 //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
                        if (data.spje) {
                            return FormatFloat(data.spje,
                                "###,###.00");
@@ -118,7 +111,6 @@ $(function () {
             {
                 "data": null,
                 "render": function (data) {
-                 //   return '<input type="text" name="hcje" value="'+data.khcje+'">';
                        if (data.spje) {
                            return FormatFloat(data.spje,
                                "###,###.00");
@@ -161,14 +153,12 @@ $(function () {
         kpspmx_table.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
-        //$('#fpTable tr').find('td:eq(0)').hide();
     });
     kpspmx_table1.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table1, page = x.page.info().start; // 设置第几页
         kpspmx_table1.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
-        //$('#fpTable tr').find('td:eq(0)').hide();
     });
     
     var action = {
@@ -241,7 +231,6 @@ $(function () {
                                     return null;
                                 }
                             },
-                                //"hjje",
                             'sClass': 'right'
                         },
                         {
@@ -253,7 +242,6 @@ $(function () {
                                     return null;
                                 }
                             },
-                                //"hjse",
                             'sClass': 'right'
                         },
                         {
@@ -265,7 +253,6 @@ $(function () {
                                     return null;
                                 }
                             },
-                                //"jshj",
                             'sClass': 'right'
                         },
                         {
@@ -277,10 +264,7 @@ $(function () {
                                     + '" target="_blank">查看</a>'
                                 }else{
                                     return '<a class="view" target="_blank">查看</a>'
-                                    
                                 }
-                                
-                                
                             }
                         }]
                 });
@@ -333,7 +317,6 @@ $(function () {
                                 return null;
                             }
                         },
-                            //"hjje",
                         'sClass': 'right'
                     },
                     {
@@ -345,7 +328,6 @@ $(function () {
                                 return null;
                             }
                         },
-                            //"hjse",
                         'sClass': 'right'
                     },
                     {
@@ -357,7 +339,6 @@ $(function () {
                                 return null;
                             }
                         },
-                            //"jshj",
                         'sClass': 'right'
                     },
                     {
@@ -368,7 +349,7 @@ $(function () {
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
                             }else{
-                                return '<a class="view"  target="_blank">查看</a>'
+                                return '<a class="view1"  target="_blank">查看</a>'
                                 
                             }
                         }
@@ -379,14 +360,12 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#fpTable tr').find('td:eq(0)').hide();
             });
             t1.on('draw.dt', function (e, settings, json) {
                 var x = t1, page = x.page.info().start; // 设置第几页
                 t1.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                //$('#fpTable tr').find('td:eq(0)').hide();
             });
      
              t.on('click', 'a.view', function () {
@@ -394,7 +373,7 @@ $(function () {
                  $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
             });
-             t1.on('click', 'a.view', function () {
+             t1.on('click', 'a.view1', function () {
                  var data = t.row($(this).parents('tr')).data();
                  $("#doc-modal-fpyll").load('fpzf/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
@@ -417,13 +396,9 @@ $(function () {
                  kplshStr.push($(this).val()); 
                 });
                 if(kplshStr.length>1){
-                    // $("#alertt").html("不能批量作废！");
-                 //     $("#my-alert").modal('open');
                     swal("不能批量作废！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                       return;
-                
                 }
                 kpspmx_table.ajax.reload();
             });
@@ -462,8 +437,6 @@ $(function () {
                 $("#dxcsz").val("");
                 t.ajax.reload();
             });
-            
-            
             $('#zf_search2').click(function () {
                 $("#bz").val("2");
                 $('#xzxfq1').attr("selected","selected");
@@ -474,63 +447,24 @@ $(function () {
                 $("#bz").val("1");
                 $("#dxcsz1").val("");
                 t1.ajax.reload();
-
             });
-            
           //作废操作
             $('#kp_zf').click(function () {
-                
                  var kplshStr = [];
                  $('#chk:checked').each(function(){    
                      kplshStr.push($(this).val()); 
                  });
                 if(kplshStr.length>1){
-                    // $("#alertt").html("不能批量作废！");
-              //        $("#my-alert").modal('open');
                     swal("不能批量作废！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                        return;
-                    
                 }else if(kplshStr.length==0){
-                    // $("#alertt").html("请选择一条记录！");
-              //        $("#my-alert").modal('open');
                         swal("请选择一条记录！");
                     $('input[type="checkbox"]').prop('checked', false);     
-
                        return;
                 }
-                
-                
                 var kplsh = $('#kplsh').val();
                 if(kplsh!=0){
-
-                    // if(confirm("确定要作废该条数据吗？")){
-              //        var xhStr = "";
-              //        var hcjeStr="";
-              //        var zhcje = 0;
-              //        var rows = $("#mxTable").find('tr');        
-              //        $.ajax({
-              //            url:"fpzf/zf",
-              //            data:{"kplsh":kplsh},
-              //            success:function(data){
-              //                if(data.success){
-              //                    $("#alertt").html(data.msg);
-              //                    $("#my-alert").modal('open');
-              //                    $("#kplsh").val("");
-              //                    t.ajax.reload();
-              //                }else{
-              //                    $("#alertt").html(data.msg);
-              //                    $("#my-alert").modal('open');
-              //                }                                       
-              //            },
-              //            error:function(){
-              //                $("#alertt").html("程序出错，请联系开发人员！");
-              //                $("#my-alert").modal('open');
-                                
-              //            }
-              //        });
-              //    }
                     swal({
                         title: "确定要作废该条数据吗？",
                         text: "确定要作废该条数据吗？",
@@ -562,8 +496,6 @@ $(function () {
                     });
 
                 }else{
-                    // $("#alertt").html("请选择一条记录！");
-              //        $("#my-alert").modal('open');
                         swal("请选择一条记录！");
                 }         
             });
@@ -574,52 +506,17 @@ $(function () {
          */
         search_ac: function () {
             var _this = this;
-         /*   el.$jsSearch.on('click', function (e) {
-                  if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                          || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                          alert('Error,请选择开始和结束时间!');
-                          return false;
-                      }
-                      e.preventDefault();
-                      _this.tableEx.ajax.reload();
-                      $("#kplsh").val("");
-            });*/
         },
         /**
          * search action1
          */
         search_ac1: function () {
             var _this = this;
-          /*  $('#kp_cx1').on('click', function (e) {
-                if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
-                    || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
-                    return false;
-                }
-                e.preventDefault();
-                t1.ajax.reload();
-            });*/
         },
-      
-     /*
-        modalAction: function () {
-            var _this = this;
-            el.$modalHongchong.on('closed.modal.amui', function () {
-                el.$jsForm0[0].reset();
-            });
-            // close modal
-            el.$jsClose.on('click', function () {
-                el.$modalHongchong.modal('close');
-            });
-        },*/
-       
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
-            
         }
-        
-       
     };
     action.init();
     //定义鼠标样式
