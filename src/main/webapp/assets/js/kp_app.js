@@ -455,8 +455,6 @@ $(function() {
 
                 });
                 if (djhArr.length == 0) {
-                    // $("#alertt").html("请选择需要删除的交易流水...");
-                    // $("#my-alert").modal('open');
                     swal("请选择需要删除的交易流水...");
                     return;
                 }
@@ -567,14 +565,9 @@ $(function() {
                     }
                 });
                 if (djhArr.length == 0) {
-                    // $("#alertt").html("请勾选需要开票的交易流水");
-                    // $("#my-alert").modal('open');
                     swal("请勾选需要开票的交易流水");
                     return;
                 }
-
-
-
                 $("#kp_kp").attr('disabled',"true");
                 $("#kp_kpdy").attr('disabled',"true"); 
                 $("#kp_del").attr('disabled',"true"); 
@@ -592,8 +585,6 @@ $(function() {
                             $('#kp_kp').removeAttr("disabled"); 
                             $('#kp_kpdy').removeAttr("disabled"); 
                             $('#kp_del').removeAttr("disabled");  
-                            // $("#alertt").html("申请开票成功");
-                            // $("#my-alert").modal('open');
                             swal("申请开票成功");
                             jyls_table.ajax.reload();
                         } else {
@@ -601,16 +592,10 @@ $(function() {
                             $('#kp_kpdy').removeAttr("disabled"); 
                             $('#kp_del').removeAttr("disabled"); 
                             jyls_table.ajax.reload();
-                            // $("#alertt").html(data.msg);
-                            // $("#my-alert").modal('open');
                             swal(data.msg);
                         }
                     }
                 }); 
-
-
-
-
             });
             $('#kp_kpdy').click(function () {
                 var djhArr = [];
@@ -622,8 +607,6 @@ $(function() {
                     }
                 });
                 if (djhArr.length == 0) {
-                    // $("#alertt").html("请勾选需要开票的交易流水");
-                    // $("#my-alert").modal('open');
                     swal("请勾选需要开票的交易流水");
                     return;
                 }
@@ -637,8 +620,6 @@ $(function() {
                         skpid =  data.skpid;
                     }else{
                         if(skpid!=data.skpid){
-                            // $("#alertt").html("批量勾选的开票点不一致,请重新勾选");
-                //          $("#my-alert").modal('open');
                             swal("批量勾选的开票点不一致,请重新勾选");
                             flag = false;
                             return false;
@@ -648,17 +629,12 @@ $(function() {
                         fpzldm =  data.fpzldm;
                     }else{
                         if(fpzldm!=data.fpzldm){
-                            // $("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
-                //          $("#my-alert").modal('open');
                             swal("批量勾选的发票种类不一致,请重新勾选");
                             flag = false;
                             return false;
                         }
                     }
                 })
-
-
-
                 if(flag){
                     $("#kp_kp").attr('disabled',"true"); 
                     $("#kp_kpdy").attr('disabled',"true"); 
@@ -685,33 +661,6 @@ $(function() {
                                     $('#kp_kpdy').removeAttr("disabled");
                                     $('#kp_del').removeAttr("disabled");
                                 } else {
-
-                                    /*if (confirm(data.msg+"，您是否离线开票！")) {
-                                        $.ajax({
-                                            url: "kp/doKp", 
-                                            context: document.body,
-                                            data:{ "djhArr" : djhArr.join(","),"dybz":"0"}, 
-                                            success: function (data) {
-                                                if (data.success) {
-                                                    $('#kp_kp').removeAttr("disabled");
-                                                    $('#kp_kpdy').removeAttr("disabled");
-                                                    $('#kp_del').removeAttr("disabled");
-                                                    // $("#alertt").html("申请开票成功");
-                                                    // $("#my-alert").modal('open');
-                                                    swal("申请开票成功");
-                                                    jyls_table.ajax.reload();
-                                                } else {
-                                                    $('#kp_kp').removeAttr("disabled");
-                                                    $('#kp_kpdy').removeAttr("disabled");
-                                                    $('#kp_del').removeAttr("disabled");
-                                                    jyls_table.ajax.reload();
-                                                    // $("#alertt").html(data.msg);
-                                                    // $("#my-alert").modal('open');
-                                                    swal(data.msg);
-                                                }
-                                            }
-                                        });
-                                    }*/
                                     swal({
                                         title: data.msg+"您是否离线开票！",
                                         showCancelButton: true,
@@ -728,9 +677,7 @@ $(function() {
                                                     $('#kp_kp').removeAttr("disabled");
                                                     $('#kp_kpdy').removeAttr("disabled");
                                                     $('#kp_del').removeAttr("disabled");
-                                                    // $("#alertt").html("申请开票成功");
-                                                    // $("#my-alert").modal('open');
-                                                    swal({ 
+                                                    swal({
                                                           title: "申请开票成功", 
                                                           timer: 1500, 
                                                             type: "success",
@@ -742,13 +689,10 @@ $(function() {
                                                     $('#kp_kpdy').removeAttr("disabled");
                                                     $('#kp_del').removeAttr("disabled");
                                                     jyls_table.ajax.reload();
-                                                    // $("#alertt").html(data.msg);
-                                                    // $("#my-alert").modal('open');
                                                     swal(data.msg);
                                                 }
                                             })
                                         });
-
                                         $('#kp_kp').removeAttr("disabled");
                                         $('#kp_kpdy').removeAttr("disabled");
                                         $('#kp_del').removeAttr("disabled");
@@ -772,9 +716,7 @@ $(function() {
                                     $('#kp_kp').removeAttr("disabled");
                                     $('#kp_kpdy').removeAttr("disabled");
                                     $('#kp_del').removeAttr("disabled");
-                                    // $("#alertt").html("申请开票成功");
-                                    // $("#my-alert").modal('open');
-                                    swal({ 
+                                    swal({
                                           title: "申请开票成功", 
                                           timer: 1500, 
                                           type: "success", 
@@ -786,8 +728,6 @@ $(function() {
                                     $('#kp_kpdy').removeAttr("disabled");
                                     $('#kp_del').removeAttr("disabled");
                                     jyls_table.ajax.reload();
-                                    // $("#alertt").html(data.msg);
-                                    // $("#my-alert").modal('open');
                                     swal(data.msg);
                                 }
                             })
@@ -797,44 +737,9 @@ $(function() {
                         $('#kp_del').removeAttr("disabled");
                     }
                 }
-
-
-
             });
-            
-            /*$('#kp_kpdyqr').click(function () {
-                   var djhArr = [];
-                   jyls_table.column(0).nodes().each(function(cell, i) {
-                        var $checkbox = $(cell).find('input[type="checkbox"]');
-                        if ($checkbox.is(':checked')) {
-                            var row =jyls_table.row(i).data().djh;
-                            djhArr.push(row);
-                        }
-
-                    });
-                 $("#kp_kpdyqr").attr('disabled',"true"); 
-
-                $.ajax({
-                    url: "kp/doKp1", context: document.body, data:{ "djhArr" : djhArr.join(","),"dybz":"1"}, success: function (data) {
-                        if (data.success) {
-                              $("#doc-modal-fphm").modal("close");
-                            $("#alertt").html("开票成功");
-                            $('#kp_kpdyqr').removeAttr("disabled");  
-                            $("#my-alert").modal('open');
-                            jyls_table.ajax.reload();
-                        } else {
-                              $("#doc-modal-fphm").modal("close");
-                                $('#kp_kpdyqr').removeAttr("disabled");  
-                            $("#alertt").html(data.msg);
-                            
-                            $("#my-alert").modal('open');
-                        }
-                    }
-              });
-          
-            });*/
+            var kplsh = [];
             $("#fpck").click(function(){
-                var kplsh = [];
                 var ckbz="";
                 t.column(0).nodes().each(function(cell, i) {
                     var $checkbox = $(cell).find('input[type="checkbox"]');
@@ -848,14 +753,10 @@ $(function() {
                     }
                 });
                 if(ckbz=="1"){
-                    // $("#alertt").html("不能重开发票状态为正常发票的发票流水，请重新选择！");
-                    // $("#my-alert").modal('open');
                     swal("不能重开发票状态为正常发票的发票流水，请重新选择！");
                     return ;
                 }
                 if(kplsh.length==0){
-                    // $("#alertt").html("请选择一条记录！");
-                    // $("#my-alert").modal('open');
                     swal("请选择一条记录！");
                     return ;
                 }
@@ -869,8 +770,6 @@ $(function() {
                         skpid =  data.skpid;
                     }else{
                         if(skpid!=data.skpid){
-                            // $("#alertt").html("批量勾选的开票点不一致,请重新勾选");
-                            // $("#my-alert").modal('open');
                             swal("批量勾选的开票点不一致,请重新勾选");
                             flag = false;
                             return false;
@@ -880,8 +779,6 @@ $(function() {
                         fpzldm =  data.fpzldm;
                     }else{
                         if(fpzldm!=data.fpzldm){
-                            // $("#alertt").html("批量勾选的发票种类不一致,请重新勾选");
-                            // $("#my-alert").modal('open');
                             swal("批量勾选的发票种类不一致,请重新勾选");
                             flag = false;
                             return false;
@@ -889,7 +786,6 @@ $(function() {
                     }
                 })
                 if(flag){
-
                     $.ajax({
                         url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
                             if (data.success) {
@@ -906,36 +802,14 @@ $(function() {
                                     $("#fplxmc1").val("增值税专用发票");
                                 }
                             } else {
-                                // $("#alertt").html(data.msg);
-                                // $("#my-alert").modal('open');
                                 swal(data.msg);
-
                             }
                         }
                     });
-
                 }
-
             });
             $("#fpckqr").click(function(){
                 $("#doc-modal-fpck").modal("close");
-
-                /*if (confirm("请确认发票是否已经开具成功以避免重复开具发票！")) {
-                    $.ajax({
-                        url:"kp/fpck",
-                        data:{"kplshs" : kplsh.join(",")},
-                        success:function(data){
-                            if(data.success){
-                                $("#alertt").html(data.msg);
-                                $("#my-alert").modal('open');
-                                t.ajax.reload();
-                            }else{
-                                $("#alertt").html(data.msg);
-                                $("#my-alert").modal('open');
-                            }
-                        }
-                    });
-                }*/
                 swal({
                     title:"请确认发票是否已经开具成功以避免重复开具发票！",
                     showCancelButton: true,
@@ -955,9 +829,6 @@ $(function() {
                         }
                     })
                 });
-
-
-
             });
             $('#savet').click(function () {
                  $("#savet").attr('disabled',"true"); 
@@ -970,48 +841,17 @@ $(function() {
                     }
                 });
                 if (djhArr.length == 0) {
-                    // $("#alertt").html("请勾选需要开票的交易流水...");
-     //             $("#my-alert").modal('open');
                     swal("请勾选需要开票的交易流水...");
                     return;
                 }
                 if($("#s_xfsh").val()==""||$("#s_fplx").val()==""){
-                        // $("#alertt").html("请选择销方和开票类型...");
-      //                $("#my-alert").modal('open');
                     swal("请选择销方和开票类型...");
                     return;
                 }
                 var kpxe = $("#fpjesrk").val()
-
             })
 
             $('#kp_all').click(function () {
-
-                /*if (!confirm("您确认开票？")) {
-                    return;
-                }
-                $.ajax({
-                    url: "kp/doAllKp?clztdm=00",
-                    type: "post",
-                    data: {
-                        xfsh : $('#xfsh1').val(),   // search 销方
-                        gfmc : $('#gfmc1').val(),   // search 购方名称
-                        ddh : $('#s_ddh1').val(),  // search 订单号
-                        jylsh : $('#s_lsh1').val(),   // search 发票号码
-                        rqq : $('#s_rqq1').val(), // search 开票日期
-                        rqz : $('#s_rqz1').val() // search 开票日期
-                    },
-                    success: function (data) {
-                        if (data.success) {
-                            $("#alertt").html("发送到开票队列成功!");
-                            $("#my-alert").modal('open');
-                            jyls_table.ajax.reload();
-                        } else {
-                            alert(data.msg);
-                        }
-                    }
-                });*/
-
                 swal({
                     title: "您确认开票？",
                     showCancelButton: true,
@@ -1122,9 +962,7 @@ $(function() {
                     $.ajax({
                         url: "kp/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
                             if (data.success) {
-                                // $("#alertt").html("保存成功!");
-                 //             $("#my-alert").modal('open');
-                                swal({ 
+                                swal({
                                   title: "保存成功", 
                                   timer: 1500, 
                                   type: "success", 
@@ -1132,8 +970,6 @@ $(function() {
                                 });
                                 jyls_table.ajax.reload();
                             } else {
-                                // $("#alertt").html(data.msg);
-                 //             $("#my-alert").modal('open');
                                 swal(data.msg);
                             }
                         }
@@ -1163,7 +999,6 @@ $(function() {
             });
             $("#close2").click(function () {
                 $importConfigModal.modal("close");
-//              $importConfigModal.modal({"width": 600, "height": 480});
             });
             //导入配置
             var $importConfigModal = $("#import_config_div");
@@ -1195,8 +1030,6 @@ $(function() {
                 $('#bj').val('2');
                 if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
                         || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
-                    // $("#alertt").html('Error,请选择开始和结束时间!');
-     //             $("#my-alert").modal('open');
                     swal('Error,请选择开始和结束时间!');
                     return false;
                 }
@@ -1206,22 +1039,14 @@ $(function() {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                // $("#alertt").html('开始日期大于结束日期,Error!');
-              //                $("#my-alert").modal('open');
                                 swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
-                            // alert('月份不同,Error!');
-                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
-          //                $("#my-alert").modal('open');
                             swal('Error,请选择同一个年月内的时间!');
                             return false;
                         }
                     } else {
-                        // alert('年份不同,Error!');
-                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
-      //                $("#my-alert").modal('open');
                         swal('Error,请选择同一个年月内的时间!');
                         return false;
                     }
@@ -1246,22 +1071,14 @@ $(function() {
                         if (dt1.getYear() == dt2.getYear()) {
                             if (dt1.getMonth() == dt2.getMonth()) {
                                 if (dt1 - dt2 > 0) {
-                                    // $("#alertt").html('开始日期大于结束日期,Error!');
-                  //                $("#my-alert").modal('open');
                                     swal('开始日期大于结束日期,Error!');
                                     return false;
                                 }
                             } else {
-                                // alert('月份不同,Error!');
-                                // $("#alertt").html('Error,请选择同一个年月内的时间!');
-              //                $("#my-alert").modal('open');
                                 swal('Error,请选择同一个年月内的时间!');
                                 return false;
                             }
                         } else {
-                            // alert('年份不同,Error!');
-                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
-          //                $("#my-alert").modal('open');
                             swal('Error,请选择同一个年月内的时间!');
                             return false;
                         }
@@ -1305,8 +1122,6 @@ $(function() {
                     success : function(data) {
                         el.$jsSubmit.removeAttr("disabled");
                         $('#biaoti').modal('close');
-                        // $("#alertt").html(data.msg);
-      //                $("#my-alert").modal('open');
                         swal(data.msg);
                         refresh();
                     }
@@ -1378,8 +1193,6 @@ $(function() {
                                                             var fphm = rows[Number(i) + 2].cells[6].innerHTML;
                                                             if (fphm == null
                                                                     || fphm == '') {
-                                                                // $("#alertt").html("存在正在开具或者开具失败的发票，不能批量打印！");
-                                              //                $("#my-alert").modal('open');
                                                                 swal("存在正在开具或者开具失败的发票，不能批量打印！");
                                                                 flag = false;
                                                             }
@@ -1398,8 +1211,6 @@ $(function() {
                                         $('#kplshStr').val(ids);
                                         ids = '';
                                     } else {
-                                        // $("#alertt").html("请先选中至少一条记录！");
-                      //                $("#my-alert").modal('open');
                                         swal("请先选中至少一条记录！");
                                     }
                                 }
