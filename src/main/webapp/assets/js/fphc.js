@@ -203,14 +203,12 @@ $(function () {
         kpspmx_table.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
-        //$('#fpTable tr').find('td:eq(0)').hide();
     });
     kpspmx_table1.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table1, page = x.page.info().start; // 设置第几页
         kpspmx_table1.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
         });
-        //$('#fpTable tr').find('td:eq(0)').hide();
     });
     var t1;
     var action = {
@@ -409,7 +407,7 @@ $(function () {
                                 + data.pdfurl
                                 + '" target="_blank">查看</a>'
                             }else{
-                                return '<a class="view"  target="_blank">查看</a>'
+                                return '<a class="view1"  target="_blank">查看</a>'
                             }
                         }
                     }],
@@ -427,33 +425,6 @@ $(function () {
                     cell.innerHTML = page + i + 1;
                 });
             });
-            /*
-             //选中列查询明细
-            $('.js-table2 tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                    $(this).find('td:eq(0) input').prop('checked',false);
-                } else {
-                    $(this).find('td:eq(0) input').prop('checked',true); 
-                    t.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected'); 
-                }
-                $(this).css("background-color", "#B0E0E6").siblings().css("background-color", "#FFFFFF"); 
-                var data = t.row($(this)).data();
-                $("#kplsh").val(data.kplsh);
-                $("#fpzldm").val(data.fpzldm);
-                var kplshStr = [];
-                $('#chk:checked').each(function(){    
-                 kplshStr.push($(this).val()); 
-                });
-                if(kplshStr.length>1){
-                    swal("不能批量红冲！");
-                    $('input[type="checkbox"]').prop('checked', false);     
-                      return;
-                }
-                kpspmx_table.ajax.reload();
-            });
-            */
             $('#ysTable').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -482,7 +453,7 @@ $(function () {
                  $("#doc-modal-fpyll").load('fphc/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
             });
-            t1.on('click', 'a.view', function () {
+            t1.on('click', 'a.view1', function () {
              var data = t.row($(this).parents('tr')).data();
              $("#doc-modal-fpyll").load('kp/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
