@@ -115,6 +115,38 @@ public class SksbxxzcControlller extends BaseController {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
+		String xfStr = "";
+		List<Xf> xfs = getXfList();
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid + "";
+				} else {
+					xfStr += xfid + ",";
+				}
+			}
+		}
+		String[] xfi = xfStr.split(",");
+		if (xfi.length == 0) {
+			xfi = null;
+		}
+		String skpStr = "";
+		List<Skp> skpList = getSkpList();
+		if (skpList != null) {
+			for (int j = 0; j < skpList.size(); j++) {
+				int skpid = skpList.get(j).getId();
+				if (j == skpList.size() - 1) {
+					skpStr += skpid + "";
+				} else {
+					skpStr += skpid + ",";
+				}
+			}
+		}
+		String[] skpid = skpStr.split(",");
+		if (skpid.length == 0) {
+			skpid = null;
+		}
 		pagination.addParam("xfid", xfid1);
 		pagination.addParam("kpdmc", kpdmc);
 		pagination.addParam("kpddm", kpddm);
@@ -122,17 +154,12 @@ public class SksbxxzcControlller extends BaseController {
 		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("sbcs", sbcs);
 		pagination.addParam("kplx", kplx);
+		pagination.addParam("xfi", xfi);
+		pagination.addParam("skpid", skpid);
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
 		pagination.addParam("xfs", getXfList());
 		List<SkpVo> list = skpService.findByPage(pagination);
-		// for (SkpVo skp : list) {
-		// for (Xf xf : getXfList()) {
-		// if (skp.getXfid().equals(xf.getId())) {
-		// skp.setXfmc(xf.getXfmc());
-		// }
-		// }
-		// }
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("recordsTotal", total);
