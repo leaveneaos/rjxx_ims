@@ -85,11 +85,8 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping
 	public String index() {
-		Xf xf = new Xf();
-		xf.setGsdm(getGsdm());
-		List<Xf> list = xfService.findAllByParams(xf);
-		request.setAttribute("xfs", list);
-		request.setAttribute("xf", list.get(0));
+		request.setAttribute("xfs", getXfList());
+		request.setAttribute("xf", getXfList().get(0));
 		Map<String, Object> prms = new HashMap<>();
 		prms.put("gsdm", getGsdm());
 		List<Pp> ppList = ps.findAllByParams(prms);
