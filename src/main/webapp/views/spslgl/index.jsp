@@ -60,7 +60,7 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<div class="am-form-group">
-															<label for="s_splb" class="am-u-sm-4 am-form-label">商品代码</label>
+															<label for="s_spdm" class="am-u-sm-4 am-form-label">商品代码</label>
 															<div class="am-u-sm-8">
 																<input type="text" id="s_spdm" name="s_spdm"
 																	placeholder="请输入商品代码" />
@@ -306,7 +306,7 @@
 											</div>
 
 											<div class="am-form-group">
-												<label for="smmc" class="am-u-sm-4 am-form-label"><font
+												<label for="smid" class="am-u-sm-4 am-form-label"><font
 													color="red">*</font>税率</label>
 												<div class="am-u-sm-8">
 													<select id="smid" name="smid">
@@ -339,7 +339,7 @@
 												</div>
 											</div>
 											<div class="am-form-group">
-												<label for="spdj1" class="am-u-sm-4 am-form-label"><font
+												<label for="spbm" class="am-u-sm-4 am-form-label"><font
 													color="red">*</font>商品和服务税收分类编码</label>
 												<div class="am-u-sm-8" style="height: 35px;">
 													<select id="spbm" name="spbm"
@@ -425,7 +425,7 @@
 												<hr />
 												<div class="am-g">
 													<div class="am-form-group">
-														<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
+														<label for="spzmc" class="am-u-sm-4 am-form-label"><font
 															color="red">*</font>商品组名称</label>
 														<div class="am-u-sm-8">
 															<input type="text" id="spzmc" name="spzmc"
@@ -434,7 +434,7 @@
 														</div>
 													</div>
 													<div class="am-form-group">
-														<label for="hc_yfphm" class="am-u-sm-4 am-form-label"><font
+														<label for="zbz" class="am-u-sm-4 am-form-label"><font
 															color="red">*</font>商品组类别</label>
 														<div class="am-u-sm-8">
 															<select name="zbz" id="zbz" required>

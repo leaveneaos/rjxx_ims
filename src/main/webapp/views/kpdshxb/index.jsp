@@ -239,6 +239,7 @@ table thead th {
 												<thead>
 													<tr>
 														<th>序号</th>
+														<th>操作</th>
 														<th>名称</th>
 														<th>本次开具金额</th>
 														<th>可开具金额</th>
@@ -251,7 +252,7 @@ table thead th {
 														<th>税率</th>
 														<th>税额</th>
 														<th>价税合计</th>
-														<th>操作</th>
+														
 													</tr>
 												</thead>
 											</table>

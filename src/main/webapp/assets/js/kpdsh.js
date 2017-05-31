@@ -186,6 +186,12 @@ $(function() {
         },
         "columns": [
             {"data": "spmxxh"},
+            {
+                "data": null,
+                "render": function (data) {
+                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
+                }
+            },
             {"data": "spmc"},
             {"data": function (data) {
             	var kkjje
@@ -284,12 +290,7 @@ $(function() {
                 }
             },
             'sClass': 'right'
-            },{
-                "data": null,
-                "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
-                }
-            }
+            },
         ]
     });
     $('#mxTable1').on( 'draw.dt', function () {
@@ -409,6 +410,12 @@ $(function() {
 	    	                    "data": null,
 	    	                    "defaultContent": ""
 	                        },
+                            {
+                                "data": null,
+                                "render": function (data) {
+                                    return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>'
+                                }
+                            },
 	                        {"data": "ddh"},
 	                        {"data": "ddrq"},
 							{"data":function(data){
@@ -480,12 +487,7 @@ $(function() {
 	                            } else {
 	                                return null;
 	                            }
-	                        }, 'sClass': 'right'},    {
-	                            "data": null,
-	                            "render": function (data) {
-	                                return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>'
-	                            }
-	                        }
+	                        }, 'sClass': 'right'},
 	                    ]
 			});
 		    kpspmx_table3 = $('#mxTable3').DataTable({
