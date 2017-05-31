@@ -182,50 +182,9 @@ $(function() {
                 });
 
             });
-            /*t.on('click','a.yulan',function() {
-                                var da = t.row($(this).parents('tr')).data();
-                                window
-                                        .open('fpcx/printSingle?kplsh='
-                                                + da.kplsh, '',
-                                                'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-                                $('#kplshStr').val(da.kplsh);
-                            });*/
-            /*t.on('click', 'a.fpck', function(e) {
-                var _this = this;
-                var da = t.row($(this).parents('tr')).data();
-                var kplsh = da.kplsh;
-                var djh = da.djh;
-                $.ajax({
-                    url : 'fpcx/ck',
-                    data : {
-                        "kplsh" : kplsh,
-                        "djh" : djh,
-                        "yfpdm" : "",
-                        "yfphm" : "",
-                        "jylsh" : ""
-                    },
-                    success : function(data) {
-                        if (data.success) {
-                            $("#alertt").html(data.msg);
-                            $("#my-alert").modal('open');
-                            e.preventDefault();
-                            t.ajax.reload();
-                        } else {
-                            $("#alertt").html(data.msg);
-                            $("#my-alert").modal('open');
-                        }
-                    },
-                    error : function() {
-                        $("#alertt").html("出现错误，请稍后重试！");
-                        $("#my-alert").modal('open');
-                    }
-                })
-            });*/
             //预览
             $("#kp_yl").click(function () {
                if($("input[name='chk']:checked").length!=1){
-                // $("#alertt").html("请选择一条数据预览");
-             //     $("#my-alert").modal('open');
                 swal("请选择一条数据预览");
                 return;
                }
@@ -368,10 +327,6 @@ $(function() {
                     "url": "kp/getjyspmxlist",
                     data: function (d) {
                          var djhArr = [];
-                      /*   $('input[name="chk"]:checked').each(function(){    
-                                 djhArr.push($(this).val()); 
-                         });
-                        d.djh = djhArr.join(",");*/
                          d.djh = $("#djh").val();
                     }
                 },
