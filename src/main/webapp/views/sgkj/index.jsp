@@ -38,11 +38,15 @@
 					<div class="am-cf admin-main">
 						<!-- content start -->
 						<div class="admin-content">
-							
+							<div class="am-cf widget-head">
+								<div class="widget-title am-cf">
+									<strong id="sgkj" class="am-text-primary am-text-lg"></strong> / <strong id="sgkj"></strong>
+								</div>
+							</div>
 							<div class="am-g  am-padding-top">
 								<div class="am-u-sm-12" style="border:1px solid #ccc;border-bottom: 0;padding: 10px 0;">
 									<form action="#" id="待定" class="js-search-form  am-form am-form-horizontal" style="margin-top: 3px;">
-		                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+		                                <div class="am-u-sm-4">
 		                                	<span class="data-tz"><span class="data-must">*</span>合同 / 订单号</span>
 		                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 		                                        <input type="text" id="searchtxt" class="am-form-field ">
@@ -52,7 +56,7 @@
 		                                    </div>
 		                                </div>
 		                                
-		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+		                                <div class="am-u-sm-3">
 		                                	<span class="data-tz"><span class="data-must">*</span>发票类型</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
@@ -61,8 +65,8 @@
 									            </select>
 		                                    </div>
 		                                </div>
-		                                
-		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+		                                <br/><br/>
+		                                <div class="am-u-sm-3">
 		                                	<span class="data-tz"><span class="data-must">*</span>销方名称</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
@@ -72,8 +76,8 @@
 		                                    </div>
 		                                </div>
 		                               
-		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-		                                 	<span class="data-tz"><span class="data-must">*</span>开票点名称</span>
+		                                <div class="am-u-sm-4">
+		                                 	<span class="data-tz" style="margin-left: 90px;"><span class="data-must">*</span>开票点名称</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
 									              <option value="1" selected="selected">选择开票点</option>
