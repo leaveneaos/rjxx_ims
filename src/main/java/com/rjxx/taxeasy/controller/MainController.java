@@ -42,41 +42,7 @@ public class MainController extends BaseController{
 	
 	@RequestMapping
 	public String index() throws Exception{
-		/*boolean flag1 = false;
-		boolean flag2 = false;
-		boolean flag3 = false;
-		Pagination pagination = new Pagination();
-        String gsdm = this.getGsdm();
-        pagination.addParam("gsdm", gsdm);
-		List<Xf> xfs = getXfList();
-		if(xfs !=null && xfs.size()>0){
-			pagination.addParam("xfs", xfs);
-		}
-		List<Skp> skps = getSkpList();
-		if(skps !=null && skps.size()>0){
-			pagination.addParam("skps", skps);
-		}
-		pagination.addParam("ztbz", "2");
-		List<JyxxsqVO> list1 = jyxxService.findByPage(pagination);//录入开票单的代办
-		pagination.addParam("ztbz", "0");
-		List<JyxxsqVO> list2 = jyxxService.findByPage(pagination);//开票单审核的代办
-		pagination.addParam("clztdm", "00");
-		pagination.addParam("fpczlxdm", "11");
-		List<Jyls> list3 = jylsService.findByPage(pagination);
-		if(list1 != null && list1.size()>0){
-			flag1 = true;
-		}
-		if(list2 != null && list2.size()>0){
-			flag2 = true;
-		}
-		if(list3 != null&& list3.size()>0){
-			flag3 = true;
-		}
-		if(flag1||flag2||flag3){
-			request.setAttribute("dbsl", 1);
-		}else{
-			request.setAttribute("dbsl", 0);
-		}*/
+
 		Map params = new HashMap<>();
 		Integer yhid = this.getYhid();
 		params.put("yhid", yhid);
