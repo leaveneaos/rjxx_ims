@@ -142,7 +142,7 @@
 											</div>
 
 											<div class="am-form-group">
-												<label for="smmc" class="am-u-sm-4 am-form-label"><font
+												<label for="smid" class="am-u-sm-4 am-form-label"><font
 													color="red">*</font>税率</label>
 												<div class="am-u-sm-8">
 													<select id="smid" name="smid">
@@ -175,7 +175,7 @@
 												</div>
 											</div>
 											<div class="am-form-group">
-												<label for="spdj1" class="am-u-sm-4 am-form-label"><font
+												<label for="spbm" class="am-u-sm-4 am-form-label"><font
 													color="red">*</font>商品和服务税收分类编码</label>
 												<div class="am-u-sm-8" style="height: 35px;">
 													<select id="spbm" name="spbm"
