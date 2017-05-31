@@ -436,12 +436,22 @@ $(function() {
 						swal("请选择可操作的销方企业!");
 						return false;
 					}
-					if (jsids == null || jsids == "" || jsids == '') {
-						// $('#msg').html("请选择角色!");
-						// $('#my-alert').modal('open');
-						swal("请选择角色!");
-						return false;
+					for(var i = 0; i < jsids.length; i++) {
+						// if (jsids[i] == null || jsids[i] == "" || jsids[i] == '') {
+						// 	// $('#msg').html("请选择角色!");
+						// 	// $('#my-alert').modal('open');
+						// 	swal("请选择角色!");
+						// 	return false;
+						// }
+						if (jsids[i].checked == true) {
+							fl = true;
+							break;
+						}else{
+							swal("请选择角色!");
+							return false;
+						}
 					}
+					
 					if (pass1 != pass2) {
 						// $('#msg').html("两次密码输入不一致，请重新输入!");
 						// $('#my-alert').modal('open');

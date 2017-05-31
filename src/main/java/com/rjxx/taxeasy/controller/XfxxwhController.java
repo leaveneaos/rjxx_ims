@@ -105,6 +105,40 @@ public class XfxxwhController extends BaseController {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
+		String xfStr = "";
+		List<Xf> xfs = getXfList();
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid + "";
+				} else {
+					xfStr += xfid + ",";
+				}
+			}
+		}
+		String[] xfid = xfStr.split(",");
+		if (xfid.length == 0) {
+			xfid = null;
+		}
+		String skpStr = "";
+		List<Skp> skpList = getSkpList();
+		if (skpList != null) {
+			for (int j = 0; j < skpList.size(); j++) {
+				int skpid = skpList.get(j).getId();
+				if (j == skpList.size() - 1) {
+					skpStr += skpid + "";
+				} else {
+					skpStr += skpid + ",";
+				}
+			}
+		}
+		String[] skpid = skpStr.split(",");
+		if (skpid.length == 0) {
+			skpid = null;
+		}
+		pagination.addParam("xfid", xfid);
+		pagination.addParam("skpid", skpid);
 		pagination.addParam("xfmc", xfmc);
 		pagination.addParam("xfsh", xfsh);
 		pagination.addParam("sjgj", sjgj);

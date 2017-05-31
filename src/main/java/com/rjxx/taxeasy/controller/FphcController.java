@@ -117,8 +117,6 @@ public class FphcController extends BaseController {
 		pagination.addParam("ddh", ddh);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fphm", fphm);
-		
-		
 		List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
