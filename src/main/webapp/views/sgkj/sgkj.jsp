@@ -13,14 +13,14 @@
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 
-<link rel="icon" type="image/png" href="../../assets/i/favicon.png">
-<link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
-<link rel="stylesheet" href="../../assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="../../assets/css/admin.css">
-<link rel="stylesheet" href="../../assets/css/app.css">
-<link rel="stylesheet" href="../../css/main.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/css/sweetalert.css">
-<script src="../../assets/js/loading.js"></script>
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<link rel="stylesheet" href="assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+<script src="assets/js/loading.js"></script>
 <style type="text/css">
 	.admin-content {
 	  min-height: 0px;
@@ -285,17 +285,17 @@
 	<![endif]-->
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
-	<script src="../../assets/js/jquery.min.js"></script>
-	<script src="../../assets/js/jquery.form.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.form.js"></script>
 	<!--<![endif]-->
-	<script src="../../assets/js/amazeui.min.js"></script>
-	<script src="../../plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
-	<script src="../../assets/js/amazeui.datatables.js"></script>
-	<script src="../../assets/js/amazeui.tree.min.js"></script>
-	<script src="../../assets/js/app.js"></script>
-	<script src="../../assets/js/format.js"></script>
-	<script src="../../assets/js/xfxxwh_app.js"></script>
-	<script src="../../assets/js/sweetalert.min.js"></script>
+	<script src="assets/js/amazeui.min.js"></script>
+	<script src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/amazeui.datatables.js"></script>
+	<script src="assets/js/amazeui.tree.min.js"></script>
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/format.js"></script>
+	<script src="assets/js/xfxxwh_app.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 
 	<script>
 		

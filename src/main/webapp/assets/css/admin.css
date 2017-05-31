@@ -356,3 +356,43 @@ gallery.html css
 .fixed-layout .admin-sidebar.am-active {
   z-index: 1600;
 }
+/*sgkp.jsp css*/
+.am-u-left {
+  padding-left: 0em;
+}
+.right{
+  text-align: right;
+}
+.tpl-table-list-select {
+  text-align: left;
+}
+.data-center {
+  text-align: center;
+  margin: 0 50px;
+}
+.data-center-dtc {
+  display: inline;
+}
+.data-center .dtc {
+  margin: 5px 50px; 
+}
+.data-center-dtc .am-btn-primary {
+  width: 170px;
+}
+.am-u-sm-1 {
+  border-right:1px solid #ccc;
+  line-height: 237px;
+  text-align: center;
+}
+.am-offcanvas-content {
+  margin: 5px auto;
+}
+.data-tz {
+  float: left;
+  padding-right: 9px;
+  line-height: 32px;
+}
+.data-must {
+  color: red;
+  
+}
