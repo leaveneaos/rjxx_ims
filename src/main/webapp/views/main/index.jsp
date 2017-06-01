@@ -79,7 +79,7 @@
 				</ul></li>
 			<li class="am-hide-sm-only am-text-sm"><a href="javascript:;"
 				id="admin-fullscreen"><span class=" am-icon-arrows-alt"></span> <span
-					class="admin-fullText">开启全屏</span></a></li>
+					class="admin-fullText" id="data-fullscreen" onclick='toggleFullScreen()'>开启全屏</span></a></li>
 			<li><a class="am-text-sm" href="javascript:jumpJsp();"  target="_blank"><span class=" am-icon-envelope"></span> 系统信息</a></li>
                         <!-- 新邮件 -->
                       <%--  <li class="am-dropdown tpl-dropdown" data-am-dropdown>
