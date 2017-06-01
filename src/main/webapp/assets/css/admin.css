@@ -356,7 +356,7 @@ gallery.html css
 .fixed-layout .admin-sidebar.am-active {
   z-index: 1600;
 }
-/*sgkp.jsp css*/
+/*sgkj.jsp css*/
 .am-u-left {
   padding-left: 0em;
 }
@@ -370,14 +370,8 @@ gallery.html css
   text-align: center;
   margin: 0 50px;
 }
-.data-center-dtc {
-  display: inline;
-}
 .data-center .dtc {
   margin: 5px 50px; 
-}
-.data-center-dtc .am-btn-primary {
-  width: 170px;
 }
 .am-u-sm-1 {
   border-right:1px solid #ccc;
@@ -393,6 +387,5 @@ gallery.html css
   line-height: 32px;
 }
 .data-must {
-  color: red;
-  
+  color: red; 
 }

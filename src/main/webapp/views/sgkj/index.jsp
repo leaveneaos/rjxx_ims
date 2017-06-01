@@ -46,7 +46,7 @@
 							<div class="am-g  am-padding-top">
 								<div class="am-u-sm-12" style="border:1px solid #ccc;border-bottom: 0;padding: 10px 0;">
 									<form action="#" id="待定" class="js-search-form  am-form am-form-horizontal" style="margin-top: 3px;">
-		                                <div class="am-u-sm-4">
+		                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
 		                                	<span class="data-tz"><span class="data-must">*</span>合同 / 订单号</span>
 		                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 		                                        <input type="text" id="searchtxt" class="am-form-field ">
@@ -54,10 +54,8 @@
 										            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
 										        </span>
 		                                    </div>
-		                                </div>
-		                                
-		                                <div class="am-u-sm-3">
-		                                	<span class="data-tz"><span class="data-must">*</span>发票类型</span>
+		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+		                                    <span class="data-tz"><span class="data-must">*</span>发票类型</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
 									              <option value="1" selected="selected">选择发票类型</option>
@@ -66,7 +64,7 @@
 		                                    </div>
 		                                </div>
 		                                <br/><br/>
-		                                <div class="am-u-sm-3">
+		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 		                                	<span class="data-tz"><span class="data-must">*</span>销方名称</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
@@ -74,9 +72,7 @@
 									              <option value="2">后台返回</option>
 									            </select>
 		                                    </div>
-		                                </div>
-		                               
-		                                <div class="am-u-sm-4">
+		                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 		                                 	<span class="data-tz" style="margin-left: 90px;"><span class="data-must">*</span>开票点名称</span>
 		                                    <div class="am-form-group tpl-table-list-select">
 		                                        <select id="tip1" data-am-selected="{btnSize: 'sm'}">
@@ -85,6 +81,7 @@
 									            </select>
 		                                    </div>
 		                                </div>
+		                             
 									</form>
 								</div>
 								<div class="am-u-sm-12" style="border:1px solid #ccc;">
@@ -197,36 +194,30 @@
 								</div>
 							</div>
 							<div class="data-center" > 
-								<div class="data-center-dtc am-u-sm-4">
-			                    	<span style="line-height: 37px;">价税合计</span>
-									<button type="button" class="am-btn am-btn-primary" disabled="disabled">禁用状态</button>
-								</div>
-								<div class="data-center-dtc am-u-sm-3" style="margin-left: 19px;">
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+									<span style="line-height: 37px;">价税合计</span>
+									<button type="button" class="am-btn am-btn-primary" disabled="disabled" style="margin-right: 60px;">禁用状态</button>
 			                    	<span style="line-height: 37px;">金额合计（不含税）</span>
-									<button type="button" class="am-btn am-btn-primary" disabled="disabled">禁用状态</button>
-								</div>
-								<div class="data-center-dtc am-u-sm-4" style="margin-left: 89px;">
-			                    	<span style="line-height: 37px;">税额合计</span>
+									<button type="button" class="am-btn am-btn-primary" disabled="disabled" style="margin-right: 60px;">禁用状态</button>
+									<span style="line-height: 37px;">税额合计</span>
 									<button type="button" class="am-btn am-btn-primary" disabled="disabled">禁用状态</button>
 								</div>
 							</div>
 					     	
 							
-							
-							<div>备 注 :</div>
-							<textarea class="" rows="3" id="doc-ta-1" style="width: 100%;"></textarea>
-
+							<div class="am-g doc-am-g" style="border: 1px solid #ccc;margin: 10px auto;">
+							  <div class="am-u-sm-12 am-u-md-4 am-u-lg-2"">备 注 :</div>
+							  <div class="am-u-sm-12 am-u-md-8 am-u-lg-10">
+								<textarea class="" rows="3" id="doc-ta-1" style="width: 100%;"></textarea>
+							  </div>
+							</div>
 							<div class="data-center" > 
-								<div class="data-center-dtc am-u-sm-4">
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 			                    	<span style="line-height: 27px;">邮件地址</span>
 									<input type="" name="">
-								</div>
-								<div class="data-center-dtc am-u-sm-4">
-			                    	<span style="line-height: 27px;">联系电话</span>
+									<span style="line-height: 27px;">联系电话</span>
 									<input type="" name="">
-								</div>
-								<div class="data-center-dtc am-u-sm-4">
-			                    	<span style="line-height: 27px;">提取码</span>
+									<span style="line-height: 27px;">提取码</span>
 									<input type="" name="">
 								</div>
 							</div>
