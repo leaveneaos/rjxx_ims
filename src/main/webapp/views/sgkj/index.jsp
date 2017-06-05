@@ -32,7 +32,10 @@
 		color: red;
 	}
 	.data-buy {
-		padding-top: 100px;
+		padding-top: 60px;
+	}
+	.data-cte {
+		text-align: center;
 	}
 </style>
 </head>
@@ -46,9 +49,15 @@
 					<![endif]-->
 					<div class="am-cf admin-main">
 						<!-- content start -->
-						<div class="admin-content">
-							<div class="am-g  am-padding-top">
-								<div class="am-u-sm-12" style="border:1px solid #ccc;border-bottom: 0;padding: 10px 0;">
+						<div class="am-cf widget-head">
+							<div class="widget-title am-cf">
+								<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>手工开具</strong>
+							</div>
+						</div>
+
+						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
+							<div class="am-g">
+								<div class="am-u-sm-12">
 									<form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">
 										<div class="am-form-group">
 											<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
@@ -82,65 +91,78 @@
 											</div>
 											<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>订单号</label>
-											<div class="am-u-sm-3">
+
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+													<input id="ddh" name="ddh" type="text" placeholder="输入订单号" required>
+													<span class="am-input-group-btn">
+														<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+													</span>
+												</div>
+											</div>
+
+											<!-- <div class="am-u-sm-3">
 												<input type="text" id="ddh" name="ddh"
 													   placeholder="输入订单号" required />
-											</div>
+											</div> -->
 										</div>
 									</form>
 								</div>
-								<div class="am-u-sm-12" style="border:1px solid #ccc;">
+								<div class="am-u-sm-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
 								  <div class="am-u-sm-1 am-u-md-1 am-u-lg-1 data-buy">购买方</div>
 								  <div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">
 								  	<form id="gfform">
-									    <div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="gfmc" class="am-u-sm-2 am-form-label"><span class="star">*</span>购方名称</label>
-												<div class="am-u-sm-10">
-													<input id="gfmc" name="gfmc" type="text" placeholder="请输入购方名称">
+								  		<div class="am-u-sm-6">
+										    <div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
+													<div class="am-u-sm-7">
+														<input id="gfmc" name="gfmc" type="text" placeholder="请输入购方名称">
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="gfsh" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
+													<div class="am-u-sm-7">
+														<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
+													<div class="am-u-sm-7">
+														<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="gfsh" class="am-u-sm-2 am-form-label"><span class="star">*</span>纳税人识别号</label>
-												<div class="am-u-sm-10">
-													<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
+										<div class="am-u-sm-6">
+											<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="gfdh" class="am-u-sm-5 am-form-label data-cte">电话</label>
+													<div class="am-u-sm-7">
+														<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="gfdz" class="am-u-sm-2 am-form-label">地址</label>
-												<div class="am-u-sm-10">
-													<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
+										
+											<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
+													<div class="am-u-sm-7">
+														<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
+													</div>
 												</div>
 											</div>
-										</div>
-									
-										<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="gfdh" class="am-u-sm-2 am-form-label">电话</label>
-												<div class="am-u-sm-10">
-													<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
-												</div>
-											</div>
-										</div>
-									
-										<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="gfyh" class="am-u-sm-2 am-form-label">开户行</label>
-												<div class="am-u-sm-10">
-													<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
-												</div>
-											</div>
-										</div>
-									
-										<div class="am-offcanvas-content">
-											<div class="am-form-group">
-												<label for="yhzh" class="am-u-sm-2 am-form-label">银行账号</label>
-												<div class="am-u-sm-10">
-													<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
+										
+											<div class="am-offcanvas-content">
+												<div class="am-form-group">
+													<label for="yhzh" class="am-u-sm-5 am-form-label data-cte">银行账号</label>
+													<div class="am-u-sm-7">
+														<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
+													</div>
 												</div>
 											</div>
 										</div>
@@ -148,7 +170,27 @@
 								  </div>
 								</div>
 							</div>
+							<div class="am-u-sm-12" style="line-height: 60px;">
+								<div class="am-u-sm-3">
+									交易金额：<span></span>
+								</div>
+								<div class="am-u-sm-2">
+									支付宝：<span></span>
+								</div>
+								<div class="am-u-sm-2">
+									微信：<span></span>
+								</div>
+								<div class="am-u-sm-2">
+									银行卡：<span></span>
+								</div>
+								<div class="am-u-sm-2">
+									预付卡：<span></span>
+								</div>
+							</div>
 						</div>
+
+						
+
 						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 							<legend>商品明细列表</legend>
 							<div class="am-u-sm-12">
@@ -230,7 +272,6 @@
 							</div>
 							<div class="am-u-sm-12">
 								<button id="kj" type="button" class="am-btn am-btn-secondary">开 具</button>
-								<button id="dy" type="button" class="am-btn am-btn-secondary">打 印</button>
 								<button id="cz" type="button" class="am-btn am-btn-danger">重 置</button>
 							</div>
 						</div>
