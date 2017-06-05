@@ -87,7 +87,7 @@ $(function() {
     var index = 1;
     $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
         jyspmx_edit_table.draw();
-    })
+    });
     $("#addRow").click(function () {
         var r = $("#lrmx_form").validator("isFormValid");
         if (r) {
