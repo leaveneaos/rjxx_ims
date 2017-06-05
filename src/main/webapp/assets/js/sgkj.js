@@ -108,6 +108,7 @@ $(function() {
         jshj.val(FormatFloat(jshjstr,"#####0.00"));//价税合计
         hjje.val(FormatFloat(hjjestr,"#####0.00"));//不含税金额合计
         hjse.val(FormatFloat(hjsestr,"#####0.00"));//合计税额
+        $("#spxx").modal("close");
     });
     //定义鼠标样式
     $("#jyspmx_table").css("cursor","pointer");
@@ -190,6 +191,11 @@ $(function() {
         var jshjstr=0;
         var hjjestr=0;
         var hjsestr=0;
+        if (spdj.val()!= "") {
+            spsl.val(FormatFloat(spje.val() / spdj.val(), "#####0.00"));
+        }else if(spdj.val()==""&&spsl.val()!=""){
+            spdj.val(FormatFloat(spje.val() / spsl.val(), "#####0.00"));
+        }
         $("#jyspmx_table").find("tr").each(function(i,row){
             if(i!=0){
                 jshjstr+=$(row).children("td").eq(6).find('input[name="spje"]').val()/1;
