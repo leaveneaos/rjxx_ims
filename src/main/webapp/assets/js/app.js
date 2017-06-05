@@ -2,15 +2,15 @@
     'use strict';
 
     $(function () {
-        var $fullText = $('.admin-fullText');
-        $('#admin-fullscreen').on('click', function () {
-            $.AMUI.fullscreen.toggle();
-        });
+        // var $fullText = $('.admin-fullText');
+        // $('#admin-fullscreen').on('click', function () {
+        //     $.AMUI.fullscreen.toggle();
+        // });
 
-        $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function () {
-            $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
-        });
-
+        // $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function () {
+        //     $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
+        // });
+        
 
         var cd1 = $('#cd1', parent.document).val();
         var cd2 = $('#cd2', parent.document).val();
@@ -78,7 +78,34 @@
     }
 })(jQuery);
 
-
+// 全屏切换
+function toggleFullScreen() {  
+    var docEle = document.documentElement;
+    if (!document.fullscreenElement && // alternative standard method  
+        !document.mozFullScreenElement && !document.webkitFullscreenElement) {// current working methods  
+            if (docEle.requestFullscreen) {  
+                docEle.requestFullscreen();  
+            }else if (docEle.mozRequestFullScreen) {  
+                docEle.mozRequestFullScreen();  
+            }else if (docEle.msRequestFullscreen) {  
+                docEle.msRequestFullscreen();  
+            }else if (docEle.webkitRequestFullscreen) {  
+                docEle.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);  
+        }  
+        document.getElementById('data-fullscreen').innerHTML = ('退出全屏');
+    } else {  
+        if (document.cancelFullScreen) {  
+            document.cancelFullScreen();  
+        } else if (document.mozCancelFullScreen) {  
+            document.mozCancelFullScreen();  
+        }else if (document.msExitFullscreen) {  
+            document.msExitFullscreen();  
+        }else if (document.webkitCancelFullScreen) {  
+            document.webkitCancelFullScreen();  
+        }  
+        document.getElementById('data-fullscreen').innerHTML = ('开启全屏');
+    }  
+}
 //风格切换
 $('body').attr('class', "theme-white");
 //$('.tpl-skiner-toggle').on('click', function() {
