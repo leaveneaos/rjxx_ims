@@ -47,6 +47,18 @@ $(function() {
             ]).draw();
             mxarr.push(index);
     });
+    $("#searchddh").click(function(){
+        var ddh=$("#ddh").val();
+        $.ajax({
+            url : "sgkj/findjyxxsq",
+            data : {
+                "ddh" : ddh
+            },
+            success : function(data) {
+
+            }
+        });
+    });
     $('#jyspmx_table tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -340,12 +352,10 @@ $(function() {
     $('#cz').on('click',function() {
         $("input").val(''); 
         $("textarea").val('');
-        
         var SelectArr = $("select");
         for (var i = 0; i < SelectArr.length; i++) {
             SelectArr[i].options[0].selected = true; 
             $("#kpd").val('');
         }
-
     })
 });

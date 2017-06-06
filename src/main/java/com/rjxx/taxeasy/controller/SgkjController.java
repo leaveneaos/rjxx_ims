@@ -615,4 +615,24 @@ public class SgkjController extends BaseController{
         }
         return list;
     }
+    @RequestMapping("/findjyxxsq")
+    @ResponseBody
+    public Map findjyxxsq(String ddh){
+
+       Map resultMap=new HashMap();
+
+       Map parms=new HashMap();
+
+       parms.put("ddh",ddh);
+
+       Jyxxsq jyxxsq=jyxxsqService.findOneByParams(parms);
+
+       parms.put("sqlsh",jyxxsq.getSqlsh());
+
+       List<Jymxsq>jymxsqlist=jymxsqService.findAllByParams(parms);
+       resultMap.put("jyxxsq",jyxxsq);
+       resultMap.put("jymxsq",jymxsqlist);
+
+        return resultMap;
+    }
 }
