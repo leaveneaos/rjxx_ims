@@ -65,10 +65,10 @@ $(function() {
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {
         value=$(this).parent("td").parent("tr").children("td").eq(0).text();
-        $("#spxx").modal({"width": 600, "height": 330});
+        $("#spxx").modal({"width": 720, "height": 360});
         detail_table.ajax.reload();
     });
-    $('#detail_table tbody').on('dblclick','tr',function(){
+    $('#detail_table tbody').on('click','tr',function(){
         var data = detail_table.row($(this)).data();
         $("#jyspmx_table").find("tr").eq(value).children("td").each(function(i,cell){
             if(i==1){

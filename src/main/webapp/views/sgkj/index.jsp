@@ -302,7 +302,7 @@
 			</div>
 			<div class="am-modal-bd">
 				<hr />
-				<div class="am-u-sm-12 am-padding-top">
+				<div class="am-u-sm-12">
 					<div>
 						<table style="margin-bottom: 0px;" class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
 							   id="detail_table">
