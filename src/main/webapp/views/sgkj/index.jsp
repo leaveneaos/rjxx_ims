@@ -178,21 +178,18 @@
 								  </div>
 								</div>
 							</div>
-							<div class="am-u-sm-12" style="line-height: 60px;">
-								<div class="am-u-sm-3">
-									交易金额：<span></span>
-								</div>
-								<div class="am-u-sm-2">
-									支付宝：<span></span>
-								</div>
-								<div class="am-u-sm-2">
-									微信：<span></span>
-								</div>
-								<div class="am-u-sm-2">
-									银行卡：<span></span>
-								</div>
-								<div class="am-u-sm-2">
-									预付卡：<span></span>
+							<div class="am-u-sm-12 am-padding-top">
+								<div>
+									<table id="jyzfmx_table" style="margin: 0"
+										   class="js-table am-table am-table-bordered  am-text-nowrap">
+										<thead>
+										<tr>
+											<th>序号</th>
+											<th>支付方式</th>
+											<th>支付金额</th>
+										</tr>
+										</thead>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -253,7 +250,7 @@
 
 								</div>
 							<div class="am-u-sm-12" style="border: 1px solid #ccc;margin: 10px auto;">
-							  <div class="am-u-sm-1" style="line-height: 93px;">备 注 :</div>
+							  <div class="am-u-sm-1" style="margin-top: 30px;">备 注 :</div>
 							  <div class="am-u-sm-11">
 								<textarea id="bz" name="bz" rows="3"  style="width: 100%;"></textarea>
 							  </div>

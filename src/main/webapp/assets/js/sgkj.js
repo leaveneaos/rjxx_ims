@@ -73,6 +73,7 @@ $(function() {
         $('#jyspmx_table tbody').find("span.index").each(function (index, object) {
             $(object).html(index + 1);
         });
+        index=index-1;
     });
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {
@@ -333,28 +334,49 @@ $(function() {
         var lxdh=$("#lxdh").val();
         var tqm=$("#tqm").val();
         var bz=$("#bz").val();
+        if(ps.length==0){
+            swal("请选择商品！");
+            return;
+        }
         ps.push("mxcount=" + index);
         var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+
             "&ddh="+ddh+"&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
             "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&"+ps.join("&");
-        $.ajax({
-            url: "sgkj/save", "type": "POST", context: document.body, data: data, success: function (data) {
-                if (data.success) {
-                    swal("开票申请成功!");
-                } else {
-                    swal(data.msg);
+        swal({
+            title: "您确定要申请开票吗？",
+            text: "您确定要申请开票吗？",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "确 定",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "sgkj/save", "type": "POST", context: document.body, data: data, success: function (data) {
+                    if (data.success) {
+                        swal("开票申请成功!");
+                        $("input").val('');
+                        $("textarea").val('');
+                        var SelectArr = $("select");
+                        for (var i = 0; i < SelectArr.length; i++) {
+                            SelectArr[i].options[0].selected = true;
+                            $("#kpd").val('');
+                        }
+                    } else {
+                        swal(data.msg);
+                    }
                 }
-            }
+            });
         });
     });
     //添加重置功能
     $('#cz').on('click',function() {
-        $("input").val(''); 
+        $("input").val('');
         $("textarea").val('');
         var SelectArr = $("select");
         for (var i = 0; i < SelectArr.length; i++) {
-            SelectArr[i].options[0].selected = true; 
+            SelectArr[i].options[0].selected = true;
             $("#kpd").val('');
         }
     })
