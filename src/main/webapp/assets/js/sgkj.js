@@ -336,4 +336,16 @@ $(function() {
             }
         });
     });
+    //添加重置功能
+    $('#cz').on('click',function() {
+        $("input").val(''); 
+        $("textarea").val('');
+        
+        var SelectArr = $("select");
+        for (var i = 0; i < SelectArr.length; i++) {
+            SelectArr[i].options[0].selected = true; 
+            $("#kpd").val('');
+        }
+
+    })
 });
