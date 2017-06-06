@@ -36,6 +36,13 @@
 	}
 	.data-cte {
 		text-align: center;
+		margin-top: 5px;
+	}
+	.botm {
+		text-align: center;
+	}
+	.botm button {
+		margin: 10px 100px;
 	}
 </style>
 </head>
@@ -110,10 +117,10 @@
 									</form>
 								</div>
 								<div class="am-u-sm-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
-								  <div class="am-u-sm-1 am-u-md-1 am-u-lg-1 data-buy">购买方</div>
-								  <div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">
-								  	<form id="gfform">
-								  		<div class="am-u-sm-6">
+								  <div class="am-u-sm-2 am-u-md-3 am-u-lg-1 data-buy" style="text-align: center;">购买方</div>
+								  <div class="am-u-sm-10 am-u-md-8 am-u-lg-11" style="border-left: 1px solid #ccc;">
+								  	<form id="gfform" style="overflow: hidden;">
+								  		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 										    <div class="am-offcanvas-content">
 												<div class="am-form-group">
 													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
@@ -139,7 +146,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="am-u-sm-6">
+										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 											<div class="am-offcanvas-content">
 												<div class="am-form-group">
 													<label for="gfdh" class="am-u-sm-5 am-form-label data-cte">电话</label>
@@ -258,20 +265,20 @@
 							<div class="am-u-sm-12" > 
 								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;">
 									<div class="am-u-sm-4">
-				                    	<span>Email地址</span>
+				                    	<span style="vertical-align: middle;">Email地址</span>
 										<input type="text" name="yjdz" id="yjdz">
 									</div>
 									<div class="am-u-sm-4">
-										<span>联系电话</span>
+										<span style="vertical-align: middle;">联系电话</span>
 										<input type="text" name="lxdh" id="lxdh">
 									</div>
 									<div class="am-u-sm-4">
-										<span>提取码</span>
+										<span style="vertical-align: middle;">提取码</span>
 										<input type="text" name="tqm" id="tqm">
 									</div>
 								</div>
 							</div>
-							<div class="am-u-sm-12">
+							<div class="am-u-sm-12 botm" >
 								<button id="kj" type="button" class="am-btn am-btn-secondary">开 具</button>
 								<button id="cz" type="button" class="am-btn am-btn-danger">重 置</button>
 							</div>
@@ -367,7 +374,7 @@
 	<script src="assets/js/sweetalert.min.js"></script>
     <script src="assets/js/sgkj.js"></script>
 	<script>
-		// 按钮高度在Chrome下的兼容
+		// 按钮在Chrome下的兼容
 		var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
     	if(isChrome) {
     		$('.am-input-group-sm>.am-input-group-btn>.am-btn').css('height','40px');
