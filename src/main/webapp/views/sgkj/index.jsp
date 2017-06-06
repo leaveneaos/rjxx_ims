@@ -233,29 +233,25 @@
 									</table>
 								</div>
 							</div>
-							<div class="am-u-sm-12" > 
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;margin: 10px auto;">
-									<div class="am-u-sm-4">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;margin: 10px auto;">
+									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
 										<span>价税合计:</span>
 
 										<input id="jshj" name="jshj" type="text"  class="selected" readonly>
 									</div>
 									
-									<div class="am-u-sm-4">
+									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
 										<span>金额合计(不含税):</span>
 
 										<input id="hjje" name="hjje" type="text" class="selected" readonly>
 									</div>
-									<div class="am-u-sm-4">
+									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
 										<span>税额合计:</span>
 
 										<input id="hjse" name="hjse" type="text" class="selected" readonly>
 									</div>
 
 								</div>
-							</div>
-					     	
-							
 							<div class="am-u-sm-12" style="border: 1px solid #ccc;margin: 10px auto;">
 							  <div class="am-u-sm-1" style="line-height: 93px;">备 注 :</div>
 							  <div class="am-u-sm-11">
