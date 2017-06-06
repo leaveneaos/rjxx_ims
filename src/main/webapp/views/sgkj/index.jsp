@@ -374,11 +374,6 @@
 	<script src="assets/js/sweetalert.min.js"></script>
     <script src="assets/js/sgkj.js"></script>
 	<script>
-		// 按钮在Chrome下的兼容
-		var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
-    	if(isChrome) {
-    		$('.am-input-group-sm>.am-input-group-btn>.am-btn').css('height','40px');
-    	}
         //选择销方取得税控盘
         function getKpd() {
             var xfid = $('#xf option:selected').val();
