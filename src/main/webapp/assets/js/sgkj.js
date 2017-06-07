@@ -66,7 +66,7 @@ $(function() {
             jyspmx_table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    } );
+    });
     $("#del").click(function(){
         jyspmx_table.row('.selected').remove().draw(false);
         mxarr.pop();

@@ -348,6 +348,7 @@ public class SgkjController extends BaseController{
             if (0 == fpje) {
                 fpje = zdje;
             }
+            hsbz="0";
             if (hsbz.equals("1")) {
                 // 分票
                 if (jyxxsq.getFpzldm().equals("12")) {
