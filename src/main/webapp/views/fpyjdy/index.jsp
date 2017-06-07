@@ -139,13 +139,13 @@
 												<tr>
 													<th><input type="checkbox" id="selectAll" /></th>
 													<th>序号</th>
+													<th>操作</th>
 													<th>销方名称</th>
 													<th>销方税号</th>
 													<th>开票点名称</th>
 													<th>发票种类</th>
 													<th>剩余库存(张)</th>
 													<th>库存预警阈值</th>
-													<th>操作</th>
 												</tr>
 											</thead>
 										</table>

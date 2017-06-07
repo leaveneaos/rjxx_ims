@@ -88,6 +88,7 @@
 								<thead>
 									<tr>
 										<th>序号</th>
+										<th>操作</th>
 										<th>参数名</th>
 										<th>中文名称</th>
 										<th style="display: none;">公司代码</th>
@@ -98,7 +99,7 @@
 										<th style="display: none;">id</th>
 										<th style="display: none;">xfid</th>
 										<th style="display: none;">skpid</th>
-										<th>操作</th>
+										
 									</tr>
 								</thead>
 								<tbody>

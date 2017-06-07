@@ -64,15 +64,6 @@ $(function() {
 									"defaultContent" : ""
 								},
 								{
-									"data" : "name"
-								},
-								{
-									"data" : "lrr"
-								},
-								{
-									"data" : "xgr"
-								},
-								{
 									"data" : null,
 									"render" : function(data) {
 										return '<a class="xiugai">修改</a> '
@@ -80,7 +71,16 @@ $(function() {
 								// "defaultContent": ' <a class="view" href="' +
 								// data.href+ '" target="_blank">查看</a> <a
 								// class="hongchong">红冲</a> '
-								} ]
+								},
+								{
+									"data" : "name"
+								},
+								{
+									"data" : "lrr"
+								},
+								{
+									"data" : "xgr"
+								}]
 					});
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页

@@ -55,6 +55,15 @@ $(function() {
 					"data" : null,
 					"defaultContent" : ""
 				}, {
+					"data" : null,
+					"render" : function(data) {
+						return '<a class="xiugai">修改</a>   '+'<a class="shanchu">删除</a>';
+
+					}
+				// "defaultContent": ' <a class="view" href="' +
+				// data.href+ '" target="_blank">查看</a> <a
+				// class="hongchong">红冲</a> '
+				}, {
 					"data" : "csm"
 				}, {
 					"data" : "csmc"
@@ -89,16 +98,7 @@ $(function() {
 				 * return FormatFloat(data.jshj, "###,###.00");
 				 * }else{ return null; } }, 'sClass': 'right' },
 				 */
-				{
-					"data" : null,
-					"render" : function(data) {
-						return '<a class="xiugai">修改</a>   '+'<a class="shanchu">删除</a>';
-
-					}
-				// "defaultContent": ' <a class="view" href="' +
-				// data.href+ '" target="_blank">查看</a> <a
-				// class="hongchong">红冲</a> '
-				} ]
+				]
 			});
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页

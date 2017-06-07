@@ -211,6 +211,7 @@
 													<tr>
 													    <th><input type="checkbox" id="check_all" /></th>
 														<th>序号</th>
+														<th>操作</th>
 														<th>订单号</th>
 														<th>开票日期</th>
 														<th>发票代码</th>
@@ -220,7 +221,6 @@
 														<th>金额</th>
 														<th>税额</th>
 														<th>价税合计</th>
-														<th>操作</th>
 													</tr>
 												</thead>
 											</table>
@@ -419,6 +419,7 @@
 												<thead>
 													<tr>
 														<th>序号</th>
+														<th>操作</th>
 														<th>订单号</th>
 														<th>开票日期</th>
 														<th>发票代码</th>
@@ -428,7 +429,6 @@
 														<th>金额</th>
 														<th>税额</th>
 														<th>价税合计</th>
-														<th>操作</th>
 													</tr>
 												</thead>
 											</table>

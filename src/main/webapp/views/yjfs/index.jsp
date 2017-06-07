@@ -201,6 +201,7 @@
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
+												<th>操作</th>
 												<th>订单号</th>
 												<th>交易日期</th>
 												<th>购方名称</th>
@@ -213,7 +214,6 @@
 												<th>价稅合计</th>
 												<th>邮箱</th>
 												<th>发票接收方式</th>
-												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>

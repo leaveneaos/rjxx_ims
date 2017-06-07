@@ -96,6 +96,12 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
+                    {
+                        "data": null,
+                        "render": function (data) {
+                            return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                        }
+                    },
                     {"data": "ddh"},
                     {"data": "jylssj"},
                     {"data": "gfmc"},
@@ -131,12 +137,6 @@ $(function () {
                         '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="email" value="0" checked>邮件</label>'
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="text" value="1" >短信</label></td>' +
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="wechat" value="2" >微信</label></td>'
-                    },
-                    {
-                        "data": null,
-                        "render": function (data) {
-                            return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
-                        }
                     }
                 ]
             });

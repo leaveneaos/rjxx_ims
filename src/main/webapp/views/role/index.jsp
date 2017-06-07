@@ -94,10 +94,10 @@
 												<tr>
 													<th class="am-text-left"><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
+													<th>操作</th>
 													<th>角色名称</th>
 													<th>录入人员</th>
 													<th>修改人员</th>
-													<th>操作</th>
 												</tr>
 											</thead>
 										</table>

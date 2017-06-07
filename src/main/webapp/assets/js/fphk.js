@@ -85,6 +85,12 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
+                        {
+                            "data": null,
+                            "render": function (data) {
+                                return '<a href="'+ data.pdfurl+'" target="_blank">查看</a> ';                
+                            }
+                        },
                         {"data": "ddh"},
                         {"data": "kprq"},
                         {"data": "gfmc"},
@@ -122,13 +128,6 @@ $(function () {
                                 }
                             },
                             'sClass': 'right'
-                        },
-
-                        {
-                            "data": null,
-                            "render": function (data) {
-                                return '<a href="'+ data.pdfurl+'" target="_blank">查看</a> ';                
-                            }
                         }]
                 });
 

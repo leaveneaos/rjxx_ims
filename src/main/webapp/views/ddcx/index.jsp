@@ -185,6 +185,7 @@
 										<thead>
 											<tr>
 												<th>序号</th>
+												<th>处理状态</th>
 				                                <th>单据号</th>
 				                                <th>流水号</th>
 				                                <th>订单号</th>
@@ -194,7 +195,6 @@
 				                                <th>发票类型</th>
 				                                <th>提取码</th>
 				                                <th>数据来源</th>
-				                                <th>处理状态</th>
 											</tr>
 										</thead>
 									</table>

@@ -215,7 +215,19 @@ $(function () {
                             "orderable": false,
                             "data": null,
                             "defaultContent": ""
-                        },        
+                        }, 
+                        {
+                            "data": null,
+                            "render": function (data) {
+                                if(data.fpzldm=='12'){
+                                    return '<a class="view" href="'
+                                    + data.pdfurl
+                                    + '" target="_blank">查看</a>'
+                                }else{
+                                    return '<a class="view" target="_blank">查看</a>'
+                                }
+                            }
+                        },       
                         {"data": "ddh"},
                         {"data": "kprq"},
                         {"data": "fpdm"},
@@ -255,18 +267,7 @@ $(function () {
                             },
                             'sClass': 'right'
                         },
-                        {
-                            "data": null,
-                            "render": function (data) {
-                                if(data.fpzldm=='12'){
-                                    return '<a class="view" href="'
-                                    + data.pdfurl
-                                    + '" target="_blank">查看</a>'
-                                }else{
-                                    return '<a class="view" target="_blank">查看</a>'
-                                }
-                            }
-                        }]
+                        ]
                 });
              t1 = $("#ysTable")
             .DataTable({
@@ -301,7 +302,20 @@ $(function () {
                     }
                 },
                 "columns": [
-                   {"data":null},        
+                   {"data":null},  
+                    {
+                        "data": null,
+                        "render": function (data) {
+                            if(data.fpzldm=='12'){
+                                return '<a class="view" href="'
+                                + data.pdfurl
+                                + '" target="_blank">查看</a>'
+                            }else{
+                                return '<a class="view1"  target="_blank">查看</a>'
+                                
+                            }
+                        }
+                    },      
                     {"data": "ddh"},
                     {"data": "kprq"},
                     {"data": "fpdm"},
@@ -341,19 +355,7 @@ $(function () {
                         },
                         'sClass': 'right'
                     },
-                    {
-                        "data": null,
-                        "render": function (data) {
-                            if(data.fpzldm=='12'){
-                                return '<a class="view" href="'
-                                + data.pdfurl
-                                + '" target="_blank">查看</a>'
-                            }else{
-                                return '<a class="view1"  target="_blank">查看</a>'
-                                
-                            }
-                        }
-                    }]
+                   ]
             });
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页

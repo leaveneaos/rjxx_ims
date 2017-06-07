@@ -59,6 +59,10 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
+                    {
+                        "data": null,
+                        "defaultContent": '<a class="view">查看</a>'
+                    },
                     {"data": "ddh"},
                     {"data": "fpzlmc"},
                     {"data": "gfmc"},
@@ -93,10 +97,7 @@ $(function () {
                     },                   
                     {"data": "kprq"},
                     {"data": "kpr"},
-                    {
-                        "data": null,
-                        "defaultContent": '<a class="view">查看</a>'
-                    }
+                    
                 ]
             });
 

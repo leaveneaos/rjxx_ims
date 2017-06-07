@@ -129,6 +129,7 @@
 												<tr>
 													<th><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
+													<th>操作</th>
 													<th>用户名称</th>
 													<th>性别</th>
 													<th>账号</th>
@@ -136,7 +137,6 @@
 													<th>手机号码</th>
 													<th>用户邮箱</th>
 													<th>管理员</th>
-													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
