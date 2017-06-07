@@ -187,6 +187,7 @@
 										<thead>
 											<tr>
 												<th>序号</th>
+												<th>操作</th>
 												<th>订单号</th>
 												<th>发票种类</th>
 												<th>购方名称</th>
@@ -197,7 +198,6 @@
 												<th>价稅合计</th>
 												<th>换开日期</th>
 												<th>开票人</th>
-												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
