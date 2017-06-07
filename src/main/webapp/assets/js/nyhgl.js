@@ -87,6 +87,20 @@ $(function() {
 									"defaultContent" : ""
 								},
 								{
+									"data" : null,
+									"render" : function(data) {
+										if (data.sup == '否') {
+											return '<a class="xiugai">修改</a> <a class="chongzhimima">重置密码</a>'
+										} else {
+											return '<a class="xiugai"></a> <a class="shanchu"></a>'
+										}
+
+									}
+								// "defaultContent": ' <a class="view" href="' +
+								// data.href+ '" target="_blank">查看</a> <a
+								// class="hongchong">红冲</a> '
+								},
+								{
 									"data" : "yhmc"
 								},
 								{
@@ -118,20 +132,7 @@ $(function() {
 								 * return FormatFloat(data.jshj, "###,###.00");
 								 * }else{ return null; } }, 'sClass': 'right' },
 								 */
-								{
-									"data" : null,
-									"render" : function(data) {
-										if (data.sup == '否') {
-											return '<a class="xiugai">修改</a> <a class="chongzhimima">重置密码</a>'
-										} else {
-											return '<a class="xiugai"></a> <a class="shanchu"></a>'
-										}
-
-									}
-								// "defaultContent": ' <a class="view" href="' +
-								// data.href+ '" target="_blank">查看</a> <a
-								// class="hongchong">红冲</a> '
-								} ]
+								]
 					});
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
