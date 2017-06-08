@@ -7,6 +7,13 @@ $(function() {
         "bSort": false,
         "scrollX" : true,
     });
+    var jyzfmx_table = $('#jyzfmx_table').DataTable({
+        "searching": false,
+        "bPaginate": false,
+        "bAutoWidth": false,
+        "bSort": false,
+        "scrollX" : true,
+    });
     var detail_table=$("#detail_table").DataTable({
         "searching": false,
         "serverSide": true,
@@ -55,7 +62,42 @@ $(function() {
                 "ddh" : ddh
             },
             success : function(data) {
-
+                //alert(data.jyxxsq.sqlsh);
+                $("#xf").val(data.jyxxsq.xfid);
+                var kpd = $("#kpd");
+                $("#kpd").empty();
+                $.ajax({
+                    url : "fpkc/getKpd",
+                    data : {
+                        "xfid" : data.jyxxsq.xfid
+                    },
+                    success : function(test) {
+                        for (var i = 0; i < test.length; i++) {
+                            var option = $("<option>").text(test[i].kpdmc).val(
+                                test[i].skpid);
+                            kpd.append(option);
+                        }
+                    }
+                });
+                $("#kpd").val(data.jyxxsq.skpid);
+                $("#fpzldm").val(data.jyxxsq.fpzldm);
+                $("#gfmc").val(data.jyxxsq.gfmc);
+                $("#gfsh").val(data.jyxxsq.gfsh);//购方税号
+                $("#gfdz").val(data.jyxxsq.gfdz);//购方地址
+                $("#gfdh").val(data.jyxxsq.gfdh);//购方电话
+                $("#gfyh").val(data.jyxxsq.gfyh);//购方银行
+                $("#yhzh").val(data.jyxxsq.gfyhzh);//购方银行账号
+                var jyzfmx=data.jyzfmx;
+                var a=1;
+                jyzfmx_table.clear();
+                for(var i=0;i<jyzfmx.length;i++){
+                    jyzfmx_table.row.add([
+                        '<span class="index">' + a + '</span>',
+                        '<input type="text" id="zfmc" name="zfmc"  value="'+jyzfmx[i].zfmc +'">',
+                        '<input type="text" id="zfje" name="zfje"  value="'+jyzfmx[i].zfje +'">'
+                    ]).draw();
+                    a++;
+                }
             }
         });
     });

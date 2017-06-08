@@ -64,13 +64,13 @@
 
 						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 							<div class="am-g">
-								<div class="am-u-sm-12">
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 									<form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">
 										<div class="am-form-group">
 											<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>销方名称</label>
 											<div class="am-u-sm-3">
-												<select id="xf" name="xf" onchange="getKpd()" required>
+												<select id="xf" name="xf" oninput="getKpd()" required>
 													<option value="">选择销方</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.id}">${item.xfmc}</option>
@@ -103,7 +103,7 @@
 												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 													<input id="ddh" name="ddh" type="text" placeholder="输入订单号" required>
 													<span class="am-input-group-btn">
-														<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+														<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
 													</span>
 												</div>
 											</div>
@@ -125,7 +125,7 @@
 												<div class="am-form-group">
 													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
 													<div class="am-u-sm-7">
-														<input id="gfmc" name="gfmc" type="text" placeholder="请输入购方名称">
+														<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
 													</div>
 												</div>
 											</div>
@@ -178,7 +178,7 @@
 								  </div>
 								</div>
 							</div>
-							<div class="am-u-sm-12 am-padding-top">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
 								<div>
 									<table id="jyzfmx_table" style="margin: 0"
 										   class="js-table am-table am-table-bordered  am-text-nowrap">
@@ -198,7 +198,7 @@
 
 						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 							<legend>商品明细列表</legend>
-							<div class="am-u-sm-12">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 								<div class="am-btn-toolbar">
 									<div class="am-btn-group am-btn-group-xs">
 										<button type="button" id="add" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
@@ -210,7 +210,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="am-u-sm-12 am-padding-top">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
 								<div>
 									<table id="jyspmx_table" style="margin: 0"
 										class="js-table am-table am-table-bordered  am-text-nowrap">
@@ -303,7 +303,7 @@
 			</div>
 			<div class="am-modal-bd">
 				<hr />
-				<div class="am-u-sm-12">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 					<div>
 						<table style="margin-bottom: 0px;" class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"
 							   id="detail_table">

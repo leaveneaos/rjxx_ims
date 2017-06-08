@@ -170,6 +170,10 @@ $(function() {
     });
 	  //开票商品明细table
     var kpspmx_table = $('#mxTable1').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "lengthMenu": [ 20, 30, 40, 50, 100 ,10000],
+        "pageLength": 10000,
         "processing" : true,
         "serverSide" : true,
         ordering : false,

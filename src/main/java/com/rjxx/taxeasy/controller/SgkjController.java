@@ -6,6 +6,7 @@ import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JyspmxDecimal2;
+import com.rjxx.taxeasy.vo.Jyzfmxvo;
 import com.rjxx.taxeasy.vo.KplsVO4;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -53,7 +54,8 @@ public class SgkjController extends BaseController{
     private SkpService skpService;
     @Autowired
     private FpgzService fpgzService;
-
+    @Autowired
+    private JyzfmxService jyzfmxService;
 
     @RequestMapping
     public  String index()throws Exception{
@@ -616,7 +618,7 @@ public class SgkjController extends BaseController{
         }
         return list;
     }
-    @RequestMapping("/findjyxxsq")
+    @RequestMapping(value = "/findjyxxsq")
     @ResponseBody
     public Map findjyxxsq(String ddh){
 
@@ -625,15 +627,16 @@ public class SgkjController extends BaseController{
        Map parms=new HashMap();
 
        parms.put("ddh",ddh);
-
+       parms.put("gsdm",getGsdm());
        Jyxxsq jyxxsq=jyxxsqService.findOneByParams(parms);
 
        parms.put("sqlsh",jyxxsq.getSqlsh());
 
        List<Jymxsq>jymxsqlist=jymxsqService.findAllByParams(parms);
+       List<Jyzfmxvo>jyzfmxList=jyzfmxService.findAllByParamsVo(parms);
        resultMap.put("jyxxsq",jyxxsq);
        resultMap.put("jymxsq",jymxsqlist);
-
+       resultMap.put("jyzfmx",jyzfmxList);
         return resultMap;
     }
 }
