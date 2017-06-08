@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.css" />
     <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
     <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
     <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/loading.js"></script>
 </head>
@@ -465,6 +466,7 @@
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/sweetalert.min.js"></script>
     <script language="javascript" type="text/javascript"> 
     $(function(){
     	$("#业务处理").css('display','block'); 
@@ -483,11 +485,11 @@
 					$('#yhlx').html(data.yh.zhlxdm);
 					$('#yhzh').html(data.yh.dlyhid);
 				} else {
-					alert('后台错误: 数据修改失败' + data.msg);
+					swal('后台错误: 数据修改失败' + data.msg);
 				}
 			},
 			error : function() {
-				alert('数据修改失败, 请重新登陆再试...!');
+				swal('数据修改失败, 请重新登陆再试...!');
 			}
 		});
 	}
@@ -568,10 +570,10 @@
 		var yx = $('#yx').val(); // 性别
 		var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 		if(null==yhmc||""==yhmc){
-			alert("用户名称不能为空!");
+			swal("用户名称不能为空!");
 			return;
 		}else if(!reg.test(yx)){
-			alert("邮箱格式不对!");
+			swal("邮箱格式不对!");
 			return;
 		}
 		$.ajax({
@@ -586,13 +588,13 @@
 			success : function(data) {
 				if (data.success) {
 					$('#doc-modal-1').modal('close');
-					alert(data.msg);
+					swal(data.msg);
 				} else {
-					alert('后台错误: 数据修改失败' + data.msg);
+					swal('后台错误: 数据修改失败' + data.msg);
 				}
 			},
 			error : function() {
-				alert('数据修改失败, 请重新登陆再试...!');
+				swal('数据修改失败, 请重新登陆再试...!');
 			}
 		});
 	}
@@ -602,23 +604,23 @@
 		var newPass = $('#newPass').val(); // 新密码
 		var newPass1 = $('#newPass1').val(); // 确认密码
 		if (oldPass == null || oldPass == "") {
-			alert('请输入原密码');
+			swal('请输入原密码');
 			return;
 		}
 		if (newPass == null || newPass == "") {
-			alert('请输入新密码');
+			swal('请输入新密码');
 			return;
 		}
 		if (newPass1 == null || newPass1 == "") {
-			alert('请输入确认密码');
+			swal('请输入确认密码');
 			return;
 		}
 		if (newPass == oldPass) {
-			alert('新密码与原密码一致，请重新输入');
+			swal('新密码与原密码一致，请重新输入');
 			return;
 		}
 		if (newPass != newPass1) {
-			alert('两次密码输入不一致，请重新输入');
+			swal('两次密码输入不一致，请重新输入');
 			return;
 		}
 		$.ajax({
@@ -631,16 +633,16 @@
 			success : function(data) {
 				if (data.success) {
 					$('#doc-modal-2').modal('close');
-					alert(data.msg);
+					swal(data.msg);
 					window.location.href = "<c:url value='/login/logout'/>";
 				} else if (data.nosame) {
-					alert('原密码不正确，请重新输入');
+					swal('原密码不正确，请重新输入');
 				} else {
-					alert('后台错误: 数据修改失败' + data.msg);
+					swal('后台错误: 数据修改失败' + data.msg);
 				}
 			},
 			error : function() {
-				alert('数据修改失败, 请重新登陆再试...!');
+				swal('数据修改失败, 请重新登陆再试...!');
 			}
 		});
 	}
@@ -664,8 +666,9 @@
 			success:function(data){
 				$("#x_title").html(data.title);
 				$("#x_content").html(data.content);
-				$("#x_lrsj").html(data.lrsj);
-				$("#x_div").modal("open");
+				// $("#x_lrsj").html(data.lrsj);
+				// $("#x_div").modal("open");
+                swal(data.lrsj);
 			}
 		})
 	}
