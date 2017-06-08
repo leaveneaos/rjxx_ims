@@ -515,7 +515,7 @@
 									</div>
 								</div>
 								<div class="am-u-sm-6">
-									<div class="am-form-group tpl-table-list-select" id="selecthsbz">
+									<div class="am-form-group tpl-table-list-select" >
 										<select id="config_hsbz" name="config_hsbz"  >
 											<option value="1" >是</option>
 											<option value="0">否</option>
@@ -626,10 +626,10 @@
 		    $("#config_hsbz_radio").change(function(){
                  var config_hsbz_radio=$("#config_hsbz_radio").val();
                  if(config_hsbz_radio=="auto"){
-                     $("#selecthsbz").css("display","");
+                     $("#config_hsbz").css("display","");
                      $("#config_hsbz_input").css("display","none");
 				 }else if(config_hsbz_radio=="config"){
-                     $("#selecthsbz").css("display","none");
+                     $("#config_hsbz").css("display","none");
                      $("#config_hsbz_input").css("display","");
 				 }
 			});

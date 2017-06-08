@@ -149,10 +149,12 @@ $(function() {
 
 	                        if(zdm.indexOf('xf')!=0&&zdm!="skr"&&zdm!="kpr"&&zdm!="fhr"){
 								if (zdm != "gs") {
-                                    $("#config_" + zdm + "_radio").find("option[value="+pzlx+"]").prop("selected",true);
+                                    $("#config_" + zdm + "_radio").val(pzlx);
                                     if ("hsbz" == zdm||"fpzldm" == zdm) {
 										if(pzlx=="auto"){
-                                            $("#config_" + zdm).find("option[value="+pzz+"]").prop("selected",true);
+                                            $("#config_" + zdm +"_input").css("display","none");
+                                            $("#config_" + zdm ).css("display","");
+                                            $("#config_" + zdm).val(pzz);
                                         }else if(pzlx=="config"){
                                             $("#config_" + zdm).css("display","none");
                                             $("#config_" + zdm +"_input").css("display","");
