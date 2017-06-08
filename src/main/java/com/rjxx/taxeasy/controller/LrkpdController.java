@@ -134,7 +134,7 @@ public class LrkpdController extends BaseController {
     /**
      * 获取商品详情
      *
-     * @param spdm
+     * @param
      * @return
      * @throws Exception
      */
@@ -1345,6 +1345,10 @@ public class LrkpdController extends BaseController {
             }
             JymxsqVo mxsq = mxList.get(i);
             String spdm = mxsq.getSpdm();
+            if(spdm==null || "".equals(spdm)){
+                msgg = "第" + (i + 2) + "行商品代码不能为空，请重新填写！";
+                msg += msgg;
+            }
             if (spdm != null && spdm.length() > 20) {
                 msgg = "第" + (i + 2) + "行商品代码超过20个字符，请重新填写！";
                 msg += msgg;
