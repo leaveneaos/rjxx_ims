@@ -225,7 +225,7 @@ table thead th {
 															<th>购方银行</th>
 															<th>购方银行账号</th>
 															<th>备注</th>
-															<th>价税合计</th>
+															<th class="data-ctr">价税合计</th>
 														</tr>
 													</thead>
 												</table>

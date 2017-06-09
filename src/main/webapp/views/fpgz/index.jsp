@@ -80,12 +80,12 @@
 										<th>序号</th>
 										<th>操作</th>
 										<th>规则名称</th>
-										<th>专票分票金额</th>
-										<th>专票分票行数</th>
-										<th>普票分票金额</th>
-										<th>普票分票行数</th>
-										<th>电子盘分票金额</th>
-										<th>电子盘分票行数</th>
+										<th class="data-ctr">专票分票金额</th>
+										<th class="data-ctr">专票分票行数</th>
+										<th class="data-ctr">普票分票金额</th>
+										<th class="data-ctr">普票分票行数</th>
+										<th class="data-ctr">电子盘分票金额</th>
+										<th class="data-ctr">电子盘分票行数</th>
 										<th>是否默认</th>
 										<th>是否含税</th>
 										<th>是否打印清单</th>

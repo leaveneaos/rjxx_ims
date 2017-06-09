@@ -193,9 +193,9 @@
 												<th>购方名称</th>
 												<th>发票代码</th>
 												<th>发票号码</th>
-												<th>金额</th>
-												<th>税额</th>
-												<th>价稅合计</th>
+												<th class="data-ctr">金额</th>
+												<th class="data-ctr">税额</th>
+												<th class="data-ctr">价税合计</th>
 												<th>换开日期</th>
 												<th>开票人</th>
 											</tr>

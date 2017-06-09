@@ -189,7 +189,7 @@
 				                                <th>单据号</th>
 				                                <th>流水号</th>
 				                                <th>订单号</th>
-				                                <th>价稅合计</th>
+				                                <th class="data-ctr">价稅合计</th>
 				                                <th>购方名称</th>
 				                                <th>订单日期</th>
 				                                <th>发票类型</th>

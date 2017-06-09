@@ -175,10 +175,10 @@
 															<th>操作</th>
 															<th>商品代码</th>
 															<th>商品名称</th>
-															<th>税率</th>
+															<th class="data-ctr">税率</th>
 															<th>规格型号</th>
 															<th>计量单位</th>
-															<th>单价</th>
+															<th class="data-ctr">单价</th>
 															<th>商品和服务税收分类编码</th>
 														</tr>
 													</thead>

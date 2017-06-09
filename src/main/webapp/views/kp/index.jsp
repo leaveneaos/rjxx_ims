@@ -213,7 +213,7 @@
 														<!-- 	<th>购方邮件地址</th> -->
 														<th>购方手机号</th>
 														<th>备注</th>
-														<th>价税合计</th>
+														<th class="data-ctr">价税合计</th>
 														<!-- 	<th>操作</th> -->
 													</tr>
 												</thead>

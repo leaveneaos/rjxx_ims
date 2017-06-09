@@ -193,7 +193,7 @@
 												<th>序号</th>
 												<th>订单号</th>
 												<th>购方名称</th>
-												<th>价税合计</th>
+												<th class="data-ctr">价税合计</th>
 												<th>提取设备</th>
 												<th>记录来源</th>
 												<th>提取时间</th>
