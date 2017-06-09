@@ -1110,7 +1110,7 @@ public class LrkpdController extends BaseController {
             }
             jyxxsq.setGfsjh(sjh);
             jyxxsq.setZtbz("6");
-            jyxxsq.setSjly("0");
+            jyxxsq.setSjly("2");
             jyxxsq.setBz(getValue("bz", pzMap, columnIndexMap, row));
             jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
             jyxxsq.setTqm(getValue("tqm", pzMap, columnIndexMap, row));
