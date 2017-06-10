@@ -129,16 +129,19 @@
 							</div>
 						</div>
 					</div>
-					<div style="float: left; padding: 50px; padding-top: 10px;">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="6">完善后</font><p>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">将作为您开票的</font><font size="6" color="orange">销售方信息</font><p>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
-						
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="width: 200px" id="save" class="js-submit  am-btn am-radius am-btn-secondary">下一步</button><p>
-<!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="export" class="js-submit  am-btn am-btn-default">批量导入</button><p> -->
-<!-- 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button> -->
-					</div>
+					<div style="float: left; padding: 50px; padding-top: 10px;width: 50%;">
+						<!-- 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="6">完善后</font><p>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">将作为您开票的</font><font size="6" color="orange">销售方信息</font><p>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
+												
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="width: 200px" id="save" class="js-submit  am-btn am-radius am-btn-secondary">下一步</button><p>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="export" class="js-submit  am-btn am-btn-default">批量导入</button><p>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" style="width: 200px" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button>
+											</div> -->
+						<img src="img/ticket.png">
+						<p style="margin: 0 auto;">完善开票的&nbsp;&nbsp;<span style="color: orange;font-size: 28px;font-weight: 700;">销售方信息</span></p>
+						<button type="button" style="width: 230px;border-radius: 10px;margin: 10px 50%;" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button>
 				</form>
 			</div>
 		</div>

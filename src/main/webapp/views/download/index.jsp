@@ -44,21 +44,19 @@
 				</div>
 			</div>
 			<hr />
-			<div style="padding: 100px; padding-top: 10px; width: 1200px;">
-				<div class="am-modal-bd" style="border: none">
-					<div class="am-g">
-						<form id="frm" class="js-form-0 am-form am-form-horizontal">
-							
-							<div class="am-form-group">
-								<a href="http://invoice.datarj.com/update/kpt2/kpt2.0.0.0.zip" class="js-button  am-btn am-radius am-btn-primary">下载客户端</a>
-<!-- 								<button id="save" -->
-<!-- 									class="js-button am-btn am-radius am-btn-primary">下载客户端</button> -->
-								<a id="finish"
-									class="js-button  am-btn am-radius am-btn-success">完成</a>
-							</div>
+			<div class="am-modal-bd" style="border: none">
+				<div class="am-g" style="margin: 0 auto;">
+					<form id="frm" class="js-form-0 am-form am-form-horizontal">
+						<img src="img/success.png">&nbsp;&nbsp;<span style="font-size: 25px;color: #FF9800;">恭喜您初始化成功了！</span>
+						<h4>您可在“基础信息”内修改销售方信息、设备信息和商品信息；</h4>
+						<h4>您只需在本平台内维护商品税收服务分类编码信息即可开具发票，无需在开票软件中进行二次维护；</h4>
+						<h4>下载本地客户端，开启泰易之旅。</h4>
+						<div class="am-form-group">
+							<a href="http://invoice.datarj.com/update/kpt2/kpt2.0.0.0.zip" class="js-button  am-btn am-radius am-btn-primary">下载客户端</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="finish" class="js-button  am-btn am-radius am-btn-success">进入首页</a>
+						</div>
 
-						</form>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
