@@ -85,26 +85,8 @@
             });
             var ddhs = chk_value.substring(0, chk_value.length-1);
             if(chk_value.length==0){
-                // $("#alertt").html("请至少选择一条数据");
-                // $("#my-alert").modal('open');
                 swal("请至少选择一条数据");
             }else{
-                /*if (!confirm("您确认退回么？")) {
-                    return;
-                }
-                $.ajax({
-                    type : "POST",
-                    url : "kpdsh/th",
-                    data : {"ddhs":ddhs},
-                    success : function(data) {
-                        $("#alertt").html(data.msg);
-                        $("#my-alert").modal('open');
-                        jyls_table2.ajax.reload();
-                        jyspmx_table2.ajax.reload();
-                    }
-                });*/
-
-
                 swal({
                     title: "您确认退回么？",
                     type: "warning",
