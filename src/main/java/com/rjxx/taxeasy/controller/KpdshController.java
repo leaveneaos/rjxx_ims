@@ -557,7 +557,7 @@ public class KpdshController extends BaseController {
 			Skp skp = skpService.findOne(jyxxsq.getSkpid());
 			if (null != qdbz[i] && qdbz[i].equals("1")) {
 				fphs1 = 99999;
-				fphs2 = 99999;
+				fphs2 = 100;
 			} else {
 				for (Fpgz fpgz : listt) {
 					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
@@ -826,10 +826,11 @@ public class KpdshController extends BaseController {
 
 	public void saveKpspmx(Jyls jyls, List<JyspmxDecimal2> fpJyspmxList) throws Exception {
 		int djh = jyls.getDjh();
+		int i=0;
 		for (JyspmxDecimal2 mxItem : fpJyspmxList) {
 			Jyspmx jymx = new Jyspmx();
 			jymx.setDjh(djh);
-			jymx.setSpmxxh(mxItem.getSpmxxh());
+			jymx.setSpmxxh(i);
 			jymx.setSpdm(mxItem.getSpdm());
 			jymx.setSpmc(mxItem.getSpmc());
 			jymx.setSpggxh(mxItem.getSpggxh());
@@ -848,6 +849,7 @@ public class KpdshController extends BaseController {
 			jymx.setXgry(getYhid());
 			jymx.setFphxz("0");
 			jyspmxService.save(jymx);
+			i++;
 		}
 	}
 
