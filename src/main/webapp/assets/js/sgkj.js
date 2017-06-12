@@ -39,7 +39,20 @@ $(function() {
     });
     var index = 1;
     var mxarr = [];
+    var f=true;
     $("#add").click(function () {
+            var tr=$("#jyspmx_table").find("tr");
+            if(tr.length>2){
+               if(f){
+                   tr.each(function(i,row){
+                       if(i!=1){
+                           mxarr.push($(row).children("td").eq(0).text()/1);
+                       }
+                   });
+
+               }
+                f=false;
+            }
             index = mxarr.length + 1;
             jyspmx_table.row.add([
                  "<span class='index'>" + index + "</span>",
@@ -54,6 +67,14 @@ $(function() {
             ]).draw();
             mxarr.push(index);
     });
+    $("#del").click(function(){
+        jyspmx_table.row('.selected').remove().draw(false);
+        mxarr.pop();
+        $('#jyspmx_table tbody').find("span.index").each(function (index, object) {
+            $(object).html(index + 1);
+        });
+        index=index-1;
+    });
     $("#searchddh").click(function(){
         var ddh=$("#ddh").val();
         $.ajax({
@@ -62,7 +83,6 @@ $(function() {
                 "ddh" : ddh
             },
             success : function(data) {
-                //alert(data.jyxxsq.sqlsh);
                 $("#xf").val(data.jyxxsq.xfid);
                 var kpd = $("#kpd");
                 $("#kpd").empty();
@@ -98,6 +118,40 @@ $(function() {
                     ]).draw();
                     a++;
                 }
+                var jymxsq=data.jymxsq;
+                var b=1;
+                jyspmx_table.clear();
+                var jehj=0;
+                var sehj=0;
+                for(var j=0;j<jymxsq.length;j++){
+                    var spggxh=jymxsq[j].spggxh== null ? '' : jymxsq[j].spggxh;
+                    var spdw=jymxsq[j].spdw== null ? '' : jymxsq[j].spdw;
+                    var sps=jymxsq[j].sps== null ? '' : jymxsq[j].sps;
+                    var spdj=jymxsq[j].spdj== null ? '' : jymxsq[j].spdj;
+                    var spje=jymxsq[j].spje== null ? '' : jymxsq[j].spje;
+                    var spsl=jymxsq[j].spsl== null ? '' : jymxsq[j].spsl;
+                    var spse=jymxsq[j].spse== null ? '' : jymxsq[j].spse;
+                    jyspmx_table.row.add([
+                        "<span class='index'>" + b + "</span>",
+                        '<input type="text" id="spmc"  name="spmc" value="'+jymxsq[j].spmc+'" readonly><input type="hidden" id="spbm" name="spbm" value="'+jymxsq[j].spdm+'">',
+                        '<input type="text" id="ggxh" name="ggxh"  value="'+spggxh+'" >',
+                        '<input type="text" id="spdw" name="spdw"  value="'+spdw+'" >',
+                        '<input type="text" id="spsl" name="spsl"  style="text-align:right" value="'+sps+'" >',
+                        '<input type="text" id="spdj" name="spdj"  style="text-align:right" value="'+spdj+'" >',
+                        '<input type="text" id="spje" name="spje"  style="text-align:right" value="'+spje+'" >',
+                        '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right" value="'+spsl+'" >',
+                        '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly value="'+spse+'" >'
+                    ]).draw();
+                    b++;
+                    jehj+=jymxsq[j].spje/1;
+                    sehj+=jymxsq[j].spse/1;
+                }
+                $("#jshj").val(data.jyxxsq.jshj);
+                $("#hjje").val(jehj);
+                $("#hjse").val(sehj);
+                $("#yjdz").val(data.jyxxsq.gfemail);
+                $("#lxdh").val(data.jyxxsq.gfdh);
+                $("#tqm").val(data.jyxxsq.tqm);
             }
         });
     });
@@ -108,14 +162,6 @@ $(function() {
             jyspmx_table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    });
-    $("#del").click(function(){
-        jyspmx_table.row('.selected').remove().draw(false);
-        mxarr.pop();
-        $('#jyspmx_table tbody').find("span.index").each(function (index, object) {
-            $(object).html(index + 1);
-        });
-        index=index-1;
     });
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {

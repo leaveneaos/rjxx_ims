@@ -376,6 +376,7 @@ public class KpdshController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Xf xf = new Xf();
 		xf.setXfsh(jyxxsq.getXfsh());
+		xf.setGsdm(getGsdm());
 		Xf xf1 = xfService.findOneByParams(xf);
 		Map<String, Object> map = new HashMap<>();
 		map.put("kpddm", jyxxsq.getKpddm());
