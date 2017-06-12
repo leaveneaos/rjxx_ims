@@ -84,8 +84,8 @@
 										<th class="data-ctr">专票分票行数</th>
 										<th class="data-ctr">普票分票金额</th>
 										<th class="data-ctr">普票分票行数</th>
-										<th class="data-ctr">电子盘分票金额</th>
-										<th class="data-ctr">电子盘分票行数</th>
+										<th class="data-ctr">电子票分票金额</th>
+										<th class="data-ctr">电子票分票行数</th>
 										<th>是否默认</th>
 										<th>是否含税</th>
 										<th>是否打印清单</th>
