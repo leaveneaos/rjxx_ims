@@ -21,6 +21,11 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css">
 <script src="assets/js/loading.js"></script>
+<style type="text/css">
+	.data-ctr {
+  text-align: center;
+}
+</style>
 </head>
 <body>
 	<!--[if lte IE 9]>

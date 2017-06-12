@@ -29,6 +29,9 @@
 .am-form-horizontal .am-form-label {
 	text-align: left;
 }
+.data-ctr {
+  text-align: center;
+}
 </style>
 </head>
 <body>

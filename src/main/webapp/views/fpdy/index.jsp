@@ -26,9 +26,12 @@
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
-.am-form-horizontal .am-form-label {
-	text-align: left;
-}
+	.am-form-horizontal .am-form-label {
+		text-align: left;
+	}
+	.data-ctr {
+	  text-align: center;
+	}
 </style>
 </head>
 <body>

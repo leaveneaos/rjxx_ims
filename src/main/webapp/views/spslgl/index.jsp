@@ -33,6 +33,9 @@
 		text-overflow: clip;
 		overflow: visible;
 	}
+	.data-ctr {
+	  text-align: center;
+	}
 </style>
 <script src="assets/js/loading.js"></script>
 </head>

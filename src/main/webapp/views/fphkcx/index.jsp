@@ -25,6 +25,9 @@
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
      .top-position {margin-top:8px}
+     .data-ctr {
+		  text-align: center;
+		}
 </style>
 </head>
 <body>

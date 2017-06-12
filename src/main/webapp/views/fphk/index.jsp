@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
+<style type="text/css">
+	.data-ctr {
+	  text-align: center;
+	}
+</style>
 </head>
 <body>
 	<!--[if lte IE 9]>

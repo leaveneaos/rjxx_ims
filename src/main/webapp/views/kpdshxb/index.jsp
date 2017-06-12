@@ -31,6 +31,9 @@
 table thead th {
 	text-align: center;
 }
+.data-ctr {
+  text-align: center;
+}
 </style>
 </head>
 <body>
