@@ -41,6 +41,7 @@ $(function() {
     var mxarr = [];
     var f=true;
     $("#add").click(function () {
+
             var tr=$("#jyspmx_table").find("tr");
             if(tr.length>2){
                if(f){
@@ -51,8 +52,8 @@ $(function() {
                    });
 
                }
-                f=false;
             }
+            f=false;
             index = mxarr.length + 1;
             jyspmx_table.row.add([
                  "<span class='index'>" + index + "</span>",
