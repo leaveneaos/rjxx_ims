@@ -827,7 +827,7 @@ public class KpdshController extends BaseController {
 
 	public void saveKpspmx(Jyls jyls, List<JyspmxDecimal2> fpJyspmxList) throws Exception {
 		int djh = jyls.getDjh();
-		int i=0;
+		int i=1;
 		for (JyspmxDecimal2 mxItem : fpJyspmxList) {
 			Jyspmx jymx = new Jyspmx();
 			jymx.setDjh(djh);
