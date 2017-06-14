@@ -46,12 +46,22 @@ $(function() {
             if(tr.length>2){
                if(f){
                    tr.each(function(i,row){
-                       if(i!=1){
+                       if(i!=0){
                            mxarr.push($(row).children("td").eq(0).text()/1);
                        }
                    });
-
                }
+            }else if(tr.length==2){
+                if(f){
+                    tr.each(function(i,row){
+                        if(i!=0){
+                            var text=$(row).children("td").eq(0).text();
+                            if(text!="表中数据为空"){
+                                mxarr.push($(row).children("td").eq(0).text()/1);
+                            }
+                        }
+                    });
+                }
             }
             f=false;
             index = mxarr.length + 1;

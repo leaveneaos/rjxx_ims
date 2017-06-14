@@ -70,7 +70,7 @@
 											<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>销方名称</label>
 											<div class="am-u-sm-3">
-												<select id="xf" name="xf" oninput="getKpd()" required>
+												<select id="xf" name="xf" onchange="getKpd();" required>
 													<option value="">选择销方</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.id}">${item.xfmc}</option>
