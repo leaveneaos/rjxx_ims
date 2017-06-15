@@ -59,7 +59,10 @@ function pagesetup_default()
 			})
 			window.parent.opener.refresh();
 		}else{
-			alert("请使用ie浏览器！");
+			// alert("请使用ie浏览器！");
+			document.getElementById('Noprint').style.display = 'none';
+			window.print()
+			
 		}
 		
 	};
@@ -80,7 +83,10 @@ function pagesetup_default()
 			document.all.WebBrowser.ExecWB(7, 1);
 			document.all.Noprint.style.display="block";
 		}else{
-			alert("请使用ie浏览器！");
+			// alert("请使用ie浏览器！");
+			document.getElementById('Noprint').style.display = 'none';
+			window.print()
+			
 		}
 		
 		
