@@ -57,6 +57,7 @@ $(function() {
 			url : "kpdsh/yhqrbc",
 			data : {},
 			success : function(data) {
+				if(data.msg){
 				$('#yhqrbc').removeAttr("disabled");
                 swal("保存成功");
             	$("#cljgbt").hide();
@@ -64,6 +65,10 @@ $(function() {
             	$tab.tabs('open', 0);
             	t.ajax.reload();
 				kpspmx_table.ajax.reload();
+				}else{
+					 swal("所选数据无法进行整数分票，请调整分票规则！");
+					 $('#yhqrbc').removeAttr("disabled");
+				}
 			}
 		});
     	});

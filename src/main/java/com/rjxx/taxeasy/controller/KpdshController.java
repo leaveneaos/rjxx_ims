@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.domains.DrPz;
 import com.rjxx.taxeasy.domains.Drmb;
@@ -610,26 +611,50 @@ public class KpdshController extends BaseController {
 			}
 
 			// 分票
+			List<JyspmxDecimal2> splitKpspmxs = new ArrayList<JyspmxDecimal2>();
+			Map mapResult = new HashMap();
+			mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
-					jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);
+					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
 				} else {
-					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);
+					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
 				}
 			} else {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
-					jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);
+					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
+					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+
 				} else {
-					jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
-							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);
+					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
+							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+
 				}
 			}
+			
+			if(null == splitKpspmxs || splitKpspmxs.isEmpty()){
+				session.setAttribute("listsq", new ArrayList());
+				session.setAttribute("mxList", mxList);
+				if (listsq.size() == 1) {
+					session.setAttribute("bckkje", bckkje);
+				}
+				
+				result.put("recordsTotal", listfpcl.size());
+				result.put("recordsFiltered", listfpcl.size());
+				result.put("data", listfpcl);
+				result.put("msg", "所选信息不能进行整数分票!");
+				return result;
+			}
+			
 			// 保存进交易流水
 			Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
-			for (JyspmxDecimal2 jysmx : jyspmxs) {
+			for (JyspmxDecimal2 jysmx : splitKpspmxs) {
 				Date date = new Date();
 				Long long1 = date.getTime();
 				FpcljlVo fpcljlVo = new FpcljlVo(Integer.valueOf(jyxxsq.getSqlsh()), Integer.valueOf(jysmx.getSpmxxh()),
@@ -862,61 +887,66 @@ public class KpdshController extends BaseController {
 		List<Jyxxsq> listsq = (List<Jyxxsq>) session.getAttribute("listsq");
 		List<List<JyspmxDecimal2>> mxList = (List<List<JyspmxDecimal2>>) session.getAttribute("mxList");
 		Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
-		if (listsq.size() == 1) {
-			String[] bckkje = (String[]) session.getAttribute("bckkje");
-			Jyxxsq jyxxsq1 = listsq.get(0);
-			// 保存交易流水
-			for (int i = 0; i < mxList.size(); i++) {
-				Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
-				saveKpspmx(jyls, mxList.get(i));
-			}
-			// 保存审核状态
-			double zje = 0d;
-			double zje1 = 0d;
-			for (String bck : bckkje) {
-				zje += Double.valueOf(bck);
-			}
-			// 保存剩余明细
-			Map<String, Object> params = new HashMap<>();
-			params.put("sqlsh", jyxxsq1.getSqlsh());
-			List<Jymxsq> list = jymxsqService.findAllByParams(params);
-			for (int i = 0; i < bckkje.length; i++) {
-				zje1 += list.get(i).getKkjje();
-				list.get(i).setYkjje(Double.valueOf(bckkje[i]) + list.get(i).getYkjje());
-				list.get(i).setKkjje(list.get(i).getJshj() - list.get(i).getYkjje());
-
-			}
-			System.out.println(zje);
-			System.out.println(zje1);
-			if (zje == zje1) {
-				jyxxsq1.setZtbz("3");
-				cljlService.saveYhcljl(getYhid(), "开票单审核");
-				jyxxsqService.save(jyxxsq1);
-			} else {
-				jyxxsq1.setZtbz("5");
-				cljlService.saveYhcljl(getYhid(), "开票单审核");
-				jyxxsqService.save(jyxxsq1);
-			}
-			jymxsqService.save(list);
-		} else {
-			for (int i = 0; i < mxList.size(); i++) {
-				Jyxxsq jyxxsq1 = new Jyxxsq();
-				for (Jyxxsq jyxxsq : listsq) {
-					if (jyxxsq.getSqlsh().equals(mxList.get(i).get(0).getsqlsh())) {
-						jyxxsq1 = jyxxsq;
-					}
+		if (null != listsq && !listsq.isEmpty()) {
+			if (listsq.size() == 1) {
+				String[] bckkje = (String[]) session.getAttribute("bckkje");
+				Jyxxsq jyxxsq1 = listsq.get(0);
+				// 保存交易流水
+				for (int i = 0; i < mxList.size(); i++) {
+					Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
+					saveKpspmx(jyls, mxList.get(i));
 				}
-				Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
-				saveKpspmx(jyls, mxList.get(i));
+				// 保存审核状态
+				double zje = 0d;
+				double zje1 = 0d;
+				for (String bck : bckkje) {
+					zje += Double.valueOf(bck);
+				}
+				// 保存剩余明细
+				Map<String, Object> params = new HashMap<>();
+				params.put("sqlsh", jyxxsq1.getSqlsh());
+				List<Jymxsq> list = jymxsqService.findAllByParams(params);
+				for (int i = 0; i < bckkje.length; i++) {
+					zje1 += list.get(i).getKkjje();
+					list.get(i).setYkjje(Double.valueOf(bckkje[i]) + list.get(i).getYkjje());
+					list.get(i).setKkjje(list.get(i).getJshj() - list.get(i).getYkjje());
+
+				}
+				System.out.println(zje);
+				System.out.println(zje1);
+				if (zje == zje1) {
+					jyxxsq1.setZtbz("3");
+					cljlService.saveYhcljl(getYhid(), "开票单审核");
+					jyxxsqService.save(jyxxsq1);
+				} else {
+					jyxxsq1.setZtbz("5");
+					cljlService.saveYhcljl(getYhid(), "开票单审核");
+					jyxxsqService.save(jyxxsq1);
+				}
+				jymxsqService.save(list);
+			} else {
+				for (int i = 0; i < mxList.size(); i++) {
+					Jyxxsq jyxxsq1 = new Jyxxsq();
+					for (Jyxxsq jyxxsq : listsq) {
+						if (jyxxsq.getSqlsh().equals(mxList.get(i).get(0).getsqlsh())) {
+							jyxxsq1 = jyxxsq;
+						}
+					}
+					Jyls jyls = saveJyls(jyxxsq1, mxList.get(i));
+					saveKpspmx(jyls, mxList.get(i));
+				}
+				for (Jyxxsq jyxxsq : listsq) {
+					jyxxsq.setZtbz("3");
+					cljlService.saveYhcljl(getYhid(), "开票单审核");
+					jyxxsqService.save(jyxxsq);
+				}
 			}
-			for (Jyxxsq jyxxsq : listsq) {
-				jyxxsq.setZtbz("3");
-				cljlService.saveYhcljl(getYhid(), "开票单审核");
-				jyxxsqService.save(jyxxsq);
-			}
+			result.put("msg", true);
+			return result;
+		} else {
+			result.put("msg", false);
+			return result;
 		}
-		result.put("msg", true);
-		return result;
 	}
 
 	@RequestMapping(value = "/getyscjyxxsqlist")
