@@ -130,8 +130,9 @@
 						</div>
 					</div>
 					<div style="float: left; padding: 50px; padding-top: 10px;width: 50%;">
-						<!-- 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font>
+							<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font>
 						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="6">完善后</font><p>
+						
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">将作为您开票的</font><font size="6" color="orange">销售方信息</font><p>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="7">"</font><p>
 												
@@ -141,7 +142,7 @@
 											</div> -->
 						<img src="img/ticket.png">
 						<p style="margin: 0 auto;">完善开票的&nbsp;&nbsp;<span style="color: orange;font-size: 28px;font-weight: 700;">销售方信息</span></p>
-						<button type="button" style="width: 230px;border-radius: 10px;margin: 10px 50%;" id="nextStep" class="js-submit  am-btn am-btn-secondary">下一步</button>
+						<button type="button" style="width: 230px;border-radius: 10px;margin: 10px 50%;" id="save" class="js-submit  am-btn am-btn-secondary">下一步</button>
 				</form>
 			</div>
 		</div>
