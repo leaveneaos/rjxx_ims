@@ -114,7 +114,7 @@ $(function() {
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
 				$('#tbl tr').find('td:eq(1)').hide();
-				$('#tbl tr').find('td:eq(5)').hide();
+				$('#tbl tr').find('td:eq(6)').hide();
 			});
 
 			// 新增
