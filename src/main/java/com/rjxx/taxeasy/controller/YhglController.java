@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,6 @@ import com.rjxx.taxeasy.domains.Yh;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.security.SecurityContextUtils;
 import com.rjxx.taxeasy.security.WebPrincipal;
-import com.rjxx.taxeasy.service.GroupService;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.RolesService;
-import com.rjxx.taxeasy.service.SkpService;
-import com.rjxx.taxeasy.service.YhService;
 import com.rjxx.taxeasy.vo.YhVO;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
@@ -49,13 +45,21 @@ public class YhglController extends BaseController {
 	@Autowired
 	private GsxxService gs;
 
+	@Autowired
+	private XfService xfService;
+
 	@RequestMapping
 	public String index() throws Exception {
-		request.setAttribute("xfs", getXfList());
+		request.setAttribute("xfs", getXfList(getYhid()));
 		request.setAttribute("jss", loadJs(getGsdm()));
-		request.setAttribute("sksbs", getKpdByXf(getXfList()));
+		request.setAttribute("sksbs", getKpdByXf(getXfList(getYhid())));
 		request.setAttribute("gsdm", getGsdm());
 		return "nyhgl/index";
+	}
+
+	public List<Xf> getXfList(int yhid){
+		List<Xf> xfList = xfService.getXfListByYhId(yhid);
+		return  xfList;
 	}
 
 	public List<Roles> loadJs(String gsdm) throws Exception {
