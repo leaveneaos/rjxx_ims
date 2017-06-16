@@ -1671,22 +1671,21 @@ public class KpController extends BaseController {
 		String []kpsqh= kplshs.split(",");
         for(int i=0;i<kpsqh.length;i++){
             Kpls kpls=kplsService.findOne(Integer.parseInt(kpsqh[i]));
-            if(!kpls.getFpztdm().equals("05")&&!kpls.getFpztdm().equals("14")){
-				result.put("success", false);
-				result.put("msg", "第"+(i+1)+"条流水不是开具失败的发票流水，请重新选择！");
-				return result;
-			}else{
+            if(kpls.getFpztdm().equals("05")||kpls.getFpztdm().equals("14")){
 				kpls.setFpztdm("04");
 				try{
 					kplsService.save(kpls);
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
-					return result;
 				}catch (Exception e){
 					result.put("success", false);
 					result.put("msg", "第"+(i+1)+"条流水重新开具失败！");
-					return result;
+
 				}
+			}else{
+				result.put("success", false);
+				result.put("msg", "第"+(i+1)+"条流水不是开具失败的发票流水!");
+
             }
 		}
 		return result;
