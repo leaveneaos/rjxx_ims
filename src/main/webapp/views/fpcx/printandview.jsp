@@ -76,21 +76,21 @@ function pagesetup_default()
 	};
 
 	//打印预览
-	function printPrieview() {
-		if(window.ActiveXObject !== undefined){
-			document.all.Noprint.style.display="none";
-			pagesetup_default();
-			document.all.WebBrowser.ExecWB(7, 1);
-			document.all.Noprint.style.display="block";
-		}else{
-			// alert("请使用ie浏览器！");
-			document.getElementById('Noprint').style.display = 'none';
-			window.print()
+	// function printPrieview() {
+	// 	if(window.ActiveXObject !== undefined){
+	// 		document.all.Noprint.style.display="none";
+	// 		pagesetup_default();
+	// 		document.all.WebBrowser.ExecWB(7, 1);
+	// 		document.all.Noprint.style.display="block";
+	// 	}else{
+	// 		// alert("请使用ie浏览器！");
+	// 		document.getElementById('Noprint').style.display = 'none';
+	// 		window.print()
 			
-		}
+	// 	}
 		
 		
-	};
+	// };
 
 	function printImmediately() {
 		document.all.WebBrowser.ExecWB(6, 6);
@@ -105,8 +105,8 @@ function pagesetup_default()
 		     <div class="Noprint" id="Noprint" style="display:block">
 				<input type="button" style="width: 100px; height: 35px"
 						onclick="printWithAlert()" value="打印">
-				<input type="button" style="width: 100px; height: 35px"
-						onclick="printPrieview()" value="预览">
+				<!-- <input type="button" style="width: 100px; height: 35px"
+						onclick="printPrieview()" value="预览"> -->
 			 </div>
 			<c:forEach items="${kpList}" var="kp">
 			<div class="PageNext" style="width: 100%" id="${kp.kplsh}">			   
