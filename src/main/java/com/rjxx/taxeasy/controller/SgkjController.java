@@ -94,11 +94,13 @@ public class SgkjController extends BaseController{
             pMap.put("xfs", getXfList());
             list2 = spzService.findAllByParams(pMap);
         }
+        pagination.addParam("gsdm",gsdm);
         if (list2.size()==0) {
-            list2 = spvoService.findAllByGsdm(gsdm);
+            list2 = spvoService.findAllOnPage(pagination);
         }
-        result.put("recordsTotal", list2.size());
-        result.put("recordsFiltered", list2.size());
+        int total = pagination.getTotalRecord();
+        result.put("recordsTotal", total);
+        result.put("recordsFiltered", total);
         result.put("draw", draw);
         result.put("data", list2);
         return result;

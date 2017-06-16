@@ -696,6 +696,7 @@ $(function() {
             var kplsh = [];
             $("#fpck").click(function(){
                 var ckbz="";
+                kplsh.splice(0,kplsh.length);
                 t.column(0).nodes().each(function(cell, i) {
                     var $checkbox = $(cell).find('input[type="checkbox"]');
                     if ($checkbox.is(':checked')) {
@@ -741,26 +742,48 @@ $(function() {
                     }
                 })
                 if(flag){
-                    $.ajax({
-                        url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
-                            if (data.success) {
-                                $("#doc-modal-fpck").modal("open");
-                                $("#fpdm3").val(data.fpdm);
-                                $("#fphm3").val(data.fphm);
-                                if(fpzldm=="12"){
-                                    $("#fplxmc1").val("电子发票(增普)");
+                    if(fpzldm!="12"){
+                        $.ajax({
+                            url: "kp/hqfphm", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
+                                if (data.success) {
+                                    $("#doc-modal-fpck").modal("open");
+                                    $("#fpdm3").val(data.fpdm);
+                                    $("#fphm3").val(data.fphm);
+                                    if(fpzldm=="12"){
+                                        $("#fplxmc1").val("电子发票(增普)");
+                                    }
+                                    if(fpzldm=="02"){
+                                        $("#fplxmc1").val("增值税普通发票");
+                                    }
+                                    if(fpzldm=="01"){
+                                        $("#fplxmc1").val("增值税专用发票");
+                                    }
+                                } else {
+                                    swal(data.msg);
                                 }
-                                if(fpzldm=="02"){
-                                    $("#fplxmc1").val("增值税普通发票");
-                                }
-                                if(fpzldm=="01"){
-                                    $("#fplxmc1").val("增值税专用发票");
-                                }
-                            } else {
-                                swal(data.msg);
                             }
-                        }
-                    });
+                        });
+                    }else{
+                        swal({
+                            title:"请确认发票是否已经开具成功以避免重复开具发票！",
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            confirmButtonText: "确 定",
+                            confirmButtonColor: "#ec6c62"
+                        }, function() {
+                            $.ajax({
+                                url:"kp/fpck",
+                                data:{"kplshs" : kplsh.join(",")},
+                            }).done(function(data) {
+                                if(data.success){
+                                    swal(data.msg);
+                                    t.ajax.reload();
+                                }else{
+                                    swal(data.msg);
+                                }
+                            })
+                        });
+                    }
                 }
             });
             $("#fpckqr").click(function(){

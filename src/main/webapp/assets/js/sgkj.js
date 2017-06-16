@@ -20,7 +20,10 @@ $(function() {
         "sServerMethod": "POST",
         "processing": true,
         "bSort":true,
-        "scrollX": true,
+        "lengthMenu": [ 20, 30, 40, 50, 100 ],
+        "pageLength": 100,
+        "scrollY": "300px",
+        "scrollCollapse": "true",
         ordering: false,
         "ajax": {
             url: 'sgkj/getItems',
@@ -177,7 +180,7 @@ $(function() {
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {
         value=$(this).parent("td").parent("tr").children("td").eq(0).text();
-        $("#spxx").modal({"width": 720, "height": 360});
+        $("#spxx").modal({"width": 720, "height": 500});
         detail_table.ajax.reload();
     });
     $('#detail_table tbody').on('click','tr',function(){
