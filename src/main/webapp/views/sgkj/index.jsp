@@ -44,6 +44,12 @@
 	.botm button {
 		margin: 10px 100px;
 	}
+	tbody td input {
+		width: 90px;
+	}
+	tbody td #spmc {
+		width: 200px;
+	}
 </style>
 </head>
 <body>
