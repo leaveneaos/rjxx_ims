@@ -105,10 +105,10 @@ $(function() {
 				t.column(0).nodes().each(function(cell, i) {
 					cell.innerHTML = page + i + 1;
 				});
-				$('#tbl tr').find('td:eq(3)').hide();
-				$('#tbl tr').find('td:eq(8)').hide();
+				$('#tbl tr').find('td:eq(4)').hide();
 				$('#tbl tr').find('td:eq(9)').hide();
 				$('#tbl tr').find('td:eq(10)').hide();
+				$('#tbl tr').find('td:eq(11)').hide();
 			});
 
 			// 新增

@@ -570,6 +570,20 @@
 										placeholder="" required value="">
 								</div>
 							</div>
+							<div class="am-form-group">
+								<label for="config_khh" class="am-u-sm-2 am-form-label">客户号</label>
+								<div class="am-u-sm-4">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="config_khh_radio" name="config_khh_radio" >
+											<option value="config">导入文件表头</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-6">
+									<input type="text" id="config_khh" name="config_khh"
+										   placeholder="" required>
+								</div>
+							</div>
 						</div>
 						<div class="am-u-sm-12">
 							<button type="button" id="btnImportConfigSave"
