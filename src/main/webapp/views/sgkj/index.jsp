@@ -178,7 +178,7 @@
 								  </div>
 								</div>
 							</div>
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
+							<%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
 								<div>
 									<table id="jyzfmx_table" style="margin: 0"
 										   class="js-table am-table am-table-bordered  am-text-nowrap">
@@ -191,7 +191,7 @@
 										</thead>
 									</table>
 								</div>
-							</div>
+							</div>--%>
 						</div>
 
 						

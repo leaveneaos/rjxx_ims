@@ -7,13 +7,13 @@ $(function() {
         "bSort": false,
         "scrollX" : true,
     });
-    var jyzfmx_table = $('#jyzfmx_table').DataTable({
+   /* var jyzfmx_table = $('#jyzfmx_table').DataTable({
         "searching": false,
         "bPaginate": false,
         "bAutoWidth": false,
         "bSort": false,
         "scrollX" : true,
-    });
+    });*/
     var detail_table=$("#detail_table").DataTable({
         "searching": false,
         "serverSide": true,
@@ -118,7 +118,7 @@ $(function() {
                 $("#gfdh").val(data.jyxxsq.gfdh);//购方电话
                 $("#gfyh").val(data.jyxxsq.gfyh);//购方银行
                 $("#yhzh").val(data.jyxxsq.gfyhzh);//购方银行账号
-                var jyzfmx=data.jyzfmx;
+               /* var jyzfmx=data.jyzfmx;
                 var a=1;
                 jyzfmx_table.clear();
                 for(var i=0;i<jyzfmx.length;i++){
@@ -128,7 +128,7 @@ $(function() {
                         '<input type="text" id="zfje" name="zfje"  value="'+jyzfmx[i].zfje +'">'
                     ]).draw();
                     a++;
-                }
+                }*/
                 var jymxsq=data.jymxsq;
                 var b=1;
                 jyspmx_table.clear();
