@@ -92,7 +92,7 @@
 											class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
-													<th class="am-text-left"><input type="checkbox" id="check_all" /></th>
+													<th class="am-text-center"><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
 													<th>操作</th>
 													<th>角色名称</th>
