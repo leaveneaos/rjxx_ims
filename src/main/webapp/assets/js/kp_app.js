@@ -985,11 +985,37 @@ $(function() {
                 $('#importConfigForm').resetForm();
                 $importConfigModal.modal({"width": 600, "height": 480});
             });
-            /***发票开具*/
-            
-            
-            
-            
+            /***发票打印*/
+            $(".js-print").on('click',function() {
+                var ids = '';
+                var flag = true;
+                t.column(0).nodes().each(
+                    function(cell, i) {
+                        if (flag) {
+                            var $checkbox = $(cell).find('input[type="checkbox"]');
+                            if ($checkbox.is(':checked')) {
+                                var data =t.row(i).data();
+                                alert(data.fphm);
+                                if (data.fphm == null|| data.fphm == '') {
+                                    swal("存在正在开具或者开具失败的发票，不能批量打印！");
+                                    flag = false;
+                                    return false;
+                                }
+                                ids += $checkbox.val()+ ',';
+                            }
+                        }
+                    });
+                if (flag) {
+                    if (ids != '') {
+                        window.open('fpcx/printmany?ids='+ ids, '',
+                            'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
+                        $('#kplshStr').val(ids);
+                        ids = '';
+                    } else {
+                        swal("请先选中至少一条记录！");
+                    }
+                }
+            });
             return t;
         },
 
@@ -1145,55 +1171,7 @@ $(function() {
                 });
             });
         },
-        //批量打印
-        printAc : function() {
-            var _this = this;
-            var ids = '';
-            var flag = true;
-            el.$jsPrint
-                    .on(
-                            'click',
-                            function(e) {
-                                _this.tableEx
-                                        .column(0)
-                                        .nodes()
-                                        .each(
-                                                function(cell, i) {
-                                                    if (flag) {
-                                                        var $checkbox = $(cell)
-                                                                .find(
-                                                                        'input[type="checkbox"]');
-                                                        if ($checkbox
-                                                                .is(':checked')) {
-                                                            var rows = $(
-                                                                    '.js-table')
-                                                                    .find('tr');
-                                                            var fphm = rows[Number(i) + 2].cells[6].innerHTML;
-                                                            if (fphm == null
-                                                                    || fphm == '') {
-                                                                swal("存在正在开具或者开具失败的发票，不能批量打印！");
-                                                                flag = false;
-                                                            }
-                                                            ids += $checkbox
-                                                                    .val()
-                                                                    + ',';
-                                                        }
-                                                    }
-                                                });
-                                if (flag) {
-                                    if (ids != '') {
-                                        window
-                                                .open('fpcx/printmany?ids='
-                                                        + ids, '',
-                                                        'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-                                        $('#kplshStr').val(ids);
-                                        ids = '';
-                                    } else {
-                                        swal("请先选中至少一条记录！");
-                                    }
-                                }
-                            });
-        },
+
         //全选按钮
         checkAllAc : function() {
             var _this = this;
@@ -1229,7 +1207,6 @@ $(function() {
             _this.exportAc();
             _this.autoColumn();
             _this.autoColumn1();
-            _this.printAc();
             _this.checkAllAc();
             _this.modalAction(); // hidden action
             _this.saveColumn();

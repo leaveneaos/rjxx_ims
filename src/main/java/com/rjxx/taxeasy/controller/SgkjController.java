@@ -282,7 +282,7 @@ public class SgkjController extends BaseController{
             String errormessage=this.checkall(jyxxsq,jymxsqList);
             if(("").equals(errormessage)||errormessage==null){
                 Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList);
-                List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
+                //List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
                 zjkp(sqlsh);
                 result.put("success", true);
                 result.put("djh", jyxxsq.getSqlsh());
