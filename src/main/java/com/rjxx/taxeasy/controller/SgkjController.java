@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
@@ -55,6 +56,8 @@ public class SgkjController extends BaseController{
     private JyzfmxService jyzfmxService;
     @Autowired
     private FpkcService fpkcService;
+    @Autowired
+    private DiscountDealUtil discountDealUtil;
     @RequestMapping
     public  String index()throws Exception{
 
@@ -279,6 +282,7 @@ public class SgkjController extends BaseController{
             String errormessage=this.checkall(jyxxsq,jymxsqList);
             if(("").equals(errormessage)||errormessage==null){
                 Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList);
+                List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
                 zjkp(sqlsh);
                 result.put("success", true);
                 result.put("djh", jyxxsq.getSqlsh());
@@ -316,10 +320,10 @@ public class SgkjController extends BaseController{
                 msg += msgg;
             }
         } else {
-            if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
+            /*if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
                 msgg = "购方税号不是15位到20位，请重新填写！";
                 msg += msgg;
-            }
+            }*/
         }
         if (jyxxsq.getXfyhzh().length() > 30) {
             msgg = "销方银行超出30个字符，请重新在平台维护！";

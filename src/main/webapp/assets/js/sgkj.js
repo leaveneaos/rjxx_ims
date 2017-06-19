@@ -73,9 +73,9 @@ $(function() {
                 '<input type="text" id="spmc"  name="spmc" readonly><input type="hidden" id="spbm" name="spbm">',
                 '<input type="text" id="ggxh" name="ggxh">',
                 '<input type="text" id="spdw" name="spdw">',
-                '<input type="text" id="spsl" name="spsl" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
-                '<input type="text" id="spdj" name="spdj" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
-                '<input type="text" id="spje" name="spje" onkeypress="return event.keyCode >= 49 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
+                '<input type="text" id="spsl" name="spsl" onkeypress="return event.keyCode >= 48 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
+                '<input type="text" id="spdj" name="spdj" onkeypress="return event.keyCode >= 48 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
+                '<input type="text" id="spje" name="spje" onkeypress="return event.keyCode >= 48 && event.keyCode <= 57" oninput="this.value=this.value.replace(/\D/gi,"")" style="text-align:right">',
                 '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
                 '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
             ]).draw();
