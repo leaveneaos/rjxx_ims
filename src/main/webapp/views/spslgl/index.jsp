@@ -251,7 +251,7 @@
 														class="js-table1  am-table am-table-bordered am-table-striped am-text-nowrap">
 														<thead>
 															<tr>
-																<th class="am-text-left"><input type="checkbox" id="check_all1"></th>
+																<th><input type="checkbox" id="check_all1"></th>
 																<th>序号</th>
 <!-- 																<th style="display: none;">id</th> -->
 																<th>商品组名称</th>
