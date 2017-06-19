@@ -209,3 +209,9 @@ $(document).keyup(function(e){
         $('.am-modal').removeClass('am-modal-active').addClass('am-modal-out')
     }
 });
+// 只能输入数字和小数点
+$(".NumText").keyup(function(){    
+    $(this).val($(this).val().replace(/[^0-9.]/g,''));    
+}).bind("paste",function(){  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^0-9.]/g,''));     
+}).css("ime-mode", "disabled"); //CSS设置输入法不可用  

@@ -549,7 +549,7 @@ public class KpdshController extends BaseController {
 			double zdje = 0d;
 			boolean flag = false;
 			boolean qzfp = true;//是否强制分票
-			boolean spzsfp = true;//是否按商品整数分票
+			boolean spzsfp = false;//是否按商品整数分票
 
 			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 			Xf x = new Xf();
@@ -573,8 +573,8 @@ public class KpdshController extends BaseController {
 						if (fpgz.getSfqzfp().equals("0")) {
 							qzfp = false;
 						}
-						if (fpgz.getSfspzsfp().equals("0")) {
-							spzsfp = false;
+						if (fpgz.getSfspzsfp().equals("1")) {
+							spzsfp = true;
 						}
 						flag = true;
 						break;
@@ -596,8 +596,8 @@ public class KpdshController extends BaseController {
 						if (fpgz2.getSfqzfp().equals("0")) {
 							qzfp = false;
 						}
-						if (fpgz2.getSfspzsfp().equals("0")) {
-							spzsfp = false;
+						if (fpgz2.getSfspzsfp().equals("1")) {
+							spzsfp = true;
 						}
 					}
 				}
