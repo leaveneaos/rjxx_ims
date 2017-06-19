@@ -747,7 +747,7 @@ public class SgkjController extends BaseController{
         jyls1.setGfdz(jyxxsq.getGfdz());
         jyls1.setGfyb(jyxxsq.getGfyb());
         jyls1.setGfemail(jyxxsq.getGfemail());
-        jyls1.setClztdm("00");
+        jyls1.setClztdm("40");
         jyls1.setBz(jyxxsq.getBz());
         jyls1.setSkr(jyxxsq.getSkr());
         jyls1.setKpr(jyxxsq.getKpr());
