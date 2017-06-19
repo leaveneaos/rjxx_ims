@@ -28,6 +28,9 @@
  thead tr th {
  	text-align: center;
  }
+ table tbody td a {
+    text-decoration: underline;
+}
 </style>
 </head>
 <body>
