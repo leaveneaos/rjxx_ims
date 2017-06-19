@@ -77,17 +77,28 @@
 													class="star">*</span>销方名称</label>
 											<div class="am-u-sm-3">
 												<select id="xf" name="xf" onchange="getKpd();" required>
-													<option value="">选择销方</option>
-													<c:forEach items="${xfList}" var="item">
-														<option value="${item.id}">${item.xfmc}</option>
-													</c:forEach>
+													<c:if test="${xfnum>1}">
+														<option value="">选择销方</option>
+														<c:forEach items="${xfList}" var="item">
+															<option value="${item.id}">${item.xfmc}</option>
+														</c:forEach>
+													</c:if>
+													<c:if test="${xfnum==1}">
+														<c:forEach items="${xfList}" var="item">
+															<option value="${item.id}">${item.xfmc}</option>
+														</c:forEach>
+													</c:if>
 												</select>
 											</div>
 											<label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>开票点名称</label>
 											<div class="am-u-sm-3">
 												<select id="kpd" name="kpd" required>
-
+													<c:if test="${xfnum==1}">
+														<c:forEach items="${skpList}" var="item">
+															<option value="${item.skpid}">${item.kpdmc}</option>
+														</c:forEach>
+													</c:if>
 												</select>
 											</div>
 										</div>
@@ -97,8 +108,8 @@
 											<div class="am-u-sm-3 am-u-end">
 												<select id="fpzldm" name="fpzldm"  required>
 													<option value="">选择开票类型</option>
-													<option value="01">专用发票</option>
-													<option value="02">普通发票</option>
+												<%--	<option value="01">专用发票</option>
+													<option value="02">普通发票</option>--%>
 													<option value="12">电子发票</option>
 												</select>
 											</div>

@@ -53,7 +53,8 @@ public class SgkjController extends BaseController{
     private FpgzService fpgzService;
     @Autowired
     private JyzfmxService jyzfmxService;
-
+    @Autowired
+    private FpkcService fpkcService;
     @RequestMapping
     public  String index()throws Exception{
 
@@ -73,6 +74,31 @@ public class SgkjController extends BaseController{
         }
         request.setAttribute("spList", list2);
         request.setAttribute("xfList", getXfList());
+        request.setAttribute("xfnum", getXfList().size());
+        if(getXfList().size()==1) {
+            Map params = new HashMap<>();
+            String skpStr = "";
+            List<Skp> skpList = getSkpList();
+            if (skpList != null) {
+                for (int j = 0; j < skpList.size(); j++) {
+                    int skpid = skpList.get(j).getId();
+                    if (j == skpList.size() - 1) {
+                        skpStr += skpid + "";
+                    } else {
+                        skpStr += skpid + ",";
+                    }
+                }
+            }
+            String[] skpid = skpStr.split(",");
+            if (skpid.length == 0) {
+                skpid = null;
+            }
+            params.put("xfid", getXfList().get(0).getId());
+            params.put("gsdm", gsdm);
+            params.put("skpid", skpid);
+            List<Fpkcvo> list = fpkcService.findKpd(params);
+            request.setAttribute("skpList", list);
+        }
         return "sgkj/index";
     }
     // 查询方法
