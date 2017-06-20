@@ -73,9 +73,9 @@ $(function() {
                 '<input type="text" id="spmc"  name="spmc" readonly><input type="hidden" id="spbm" name="spbm">',
                 '<input type="text" id="ggxh" name="ggxh">',
                 '<input type="text" id="spdw" name="spdw">',
-                '<input type="text" id="spsl" name="spsl" onblur="check(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" style="text-align:right">',
-                '<input type="text" id="spdj" name="spdj" onblur="check(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" style="text-align:right">',
-                '<input type="text" id="spje" name="spje" onblur="check(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" style="text-align:right">',
+                '<input type="text" id="spsl" name="spsl" style="text-align:right">',
+                '<input type="text" id="spdj" name="spdj" style="text-align:right">',
+                '<input type="text" id="spje" name="spje" style="text-align:right">',
                 '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
                 '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
             ]).draw();
@@ -150,9 +150,9 @@ $(function() {
                         '<input type="text" id="spmc"  name="spmc" value="'+jymxsq[j].spmc+'" readonly><input type="hidden" id="spbm" name="spbm" value="'+jymxsq[j].spdm+'">',
                         '<input type="text" id="ggxh" name="ggxh"  value="'+spggxh+'" >',
                         '<input type="text" id="spdw" name="spdw"  value="'+spdw+'" >',
-                        '<input type="text" id="spsl" name="spsl"  onblur="check(this)" style="text-align:right" value="'+sps+'" >',
-                        '<input type="text" id="spdj" name="spdj"  onblur="check(this)" style="text-align:right" value="'+spdj+'" >',
-                        '<input type="text" id="spje" name="spje"  onblur="check(this)" style="text-align:right" value="'+spje+'" >',
+                        '<input type="text" id="spsl" name="spsl"  style="text-align:right" value="'+sps+'" >',
+                        '<input type="text" id="spdj" name="spdj"  style="text-align:right" value="'+spdj+'" >',
+                        '<input type="text" id="spje" name="spje"  style="text-align:right" value="'+spje+'" >',
                         '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right" value="'+spsl+'" >',
                         '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly value="'+spse+'" >'
                     ]).draw();
