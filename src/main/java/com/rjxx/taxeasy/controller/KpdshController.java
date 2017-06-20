@@ -500,7 +500,7 @@ public class KpdshController extends BaseController {
 			// 转换明细
 			Map<String, Object> params1 = new HashMap<>();
 			params1.put("sqlsh", sqh);
-			List<JyspmxDecimal2> jyspmxs = jyspmxService.getNeedToKP3(params1);
+			List<JyspmxDecimal2> jyspmxs = jyspmxService.getNeedToKP4(params1);
 
 			// 价税分离
 			if ("1".equals(jyxxsq.getHsbz())) {

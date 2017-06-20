@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -9,6 +10,7 @@ import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.BeanConvertUtils;
 import com.rjxx.utils.ExcelUtil;
 import com.rjxx.utils.StringUtils;
 import com.rjxx.utils.Tools;
@@ -60,6 +62,9 @@ public class LrkpdController extends BaseController {
 
     @Autowired
     private SmService smService;
+    
+    @Autowired
+    private DiscountDealUtil discountDealUtil;
 
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
@@ -1053,7 +1058,7 @@ public class LrkpdController extends BaseController {
             flag = true;
         }*/
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
-        List<JymxsqVo> mxList = new ArrayList<>();
+        List<Jymxsq> mxList = new ArrayList<>();
         Integer num = 1;
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
@@ -1148,7 +1153,7 @@ public class LrkpdController extends BaseController {
                 jyxxsqList.add(jyxxsq);
             }
             // int djh = jyls.getDjh();
-            JymxsqVo jymxsq = new JymxsqVo();
+            Jymxsq jymxsq = new Jymxsq();
             // jyspmx.setDjh(djh);
             jymxsq.setDdh(jyxxsq.getDdh());
             jymxsq.setSpmxxh(num);
@@ -1344,7 +1349,7 @@ public class LrkpdController extends BaseController {
                 msgg = "第" + (i + 2) + "行含税标志只能填写1或0！";
                 msg += msgg;
             }
-            JymxsqVo mxsq = mxList.get(i);
+            Jymxsq mxsq = mxList.get(i);
             String spdm = mxsq.getSpdm();
             if(spdm==null || "".equals(spdm)){
                 msgg = "第" + (i + 2) + "行商品代码不能为空，请重新填写！";
@@ -1470,12 +1475,21 @@ public class LrkpdController extends BaseController {
         }
         // 没有异常，保存
         if ("".equals(msg)) {
-            jyxxsqservice.saveAll(jyxxsqList, mxList);
+        	
+        	//处理折扣行数据
+            List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+            //复制一个新的list用于生成处理表
+            List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+            
+            jymxsqTempList = BeanConvertUtils.convertList(mxList, Jymxsq.class);
+
+            jymxsqClList = discountDealUtil.dealDiscount(jyxxsqList,jymxsqTempList,new ArrayList<Jyzfmx>(),gsdm);
+            jyxxsqservice.saveAll(jyxxsqList, mxList,jymxsqClList,new ArrayList<Jyzfmx>());
         }
         return msg;
     }
 
-
+    
     /**
      * 获取每一行中的
      *
@@ -1713,7 +1727,15 @@ public class LrkpdController extends BaseController {
                 jymxsqList.add(jymxsq);
             }
             jyxxsq.setJshj(jshj);
-            jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+            //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+            //处理折扣行数据
+            List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+            //复制一个新的list用于生成处理表
+            List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+            jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
+            
+            jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
+            jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,new ArrayList<Jyzfmx>());
             result.put("success", true);
             result.put("djh", jyxxsq.getSqlsh());
         } catch (Exception ex) {
