@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
@@ -219,7 +220,9 @@ public class SgkjController extends BaseController{
             String[] spdws = ((String) params.get("spdw")).split(",");//商品单位
             String[] spdjs = ((String) params.get("spdj")).split(",");//商品单价
             String[] spses = ((String) params.get("spse")).split(",");//商品税额
-
+            String[] yhzcbs = ((String) params.get("yhzcbs")).split(",");//优惠政策标识
+            String[] yhzcmc = ((String) params.get("yhzcmc")).split(",");//优惠政策名称
+            String[] lslbz = ((String) params.get("lslbz")).split(",");//零税率
             double jshj = 0.00;
             List<Jymxsq> jymxsqList = new ArrayList<>();
             for (int c = 0; c < mxcount; c++) {
@@ -274,7 +277,9 @@ public class SgkjController extends BaseController{
                 jymxsq.setXgsj(TimeUtil.getNowDate());
                 jymxsq.setXgry(yhid);
                 jymxsq.setGsdm(gsdm);
-
+                jymxsq.setYhzcbs(yhzcbs[c]);
+                jymxsq.setYhzcmc(yhzcmc[c]);
+                jymxsq.setLslbz(lslbz[c]);
                 jshj += jymxsq.getJshj();
                 jymxsqList.add(jymxsq);
             }
@@ -449,7 +454,7 @@ public class SgkjController extends BaseController{
                 break;
             }
             Double spse = mxsq.getSpse();
-            if (spse == null || spse <= 0) {
+            if (spse == null || spse < 0) {
                     msgg = "第" + (i + 1) + "行不含税商品税额不能为空或小于等于0，请重新填写！";
                     msg += msgg;
                     break;
@@ -545,24 +550,29 @@ public class SgkjController extends BaseController{
                 fpje = zdje;
             }
             hsbz="0";
+            List<JyspmxDecimal2> splitKpspmxs  = new ArrayList<JyspmxDecimal2>();
+            Map mapResult = new HashMap();
+            mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
             if (hsbz.equals("1")) {
                 // 分票
                 if (jyxxsq.getFpzldm().equals("12")) {
-                    jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false);
+                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false, 0, splitKpspmxs);
+
+                    //jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false);
                 } else {
-                    jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false);
+                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false, 0, splitKpspmxs);
                 }
             } else {
                 if (jyxxsq.getFpzldm().equals("12")) {
-                    jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false, 0, splitKpspmxs);
                 } else {
-                    jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false, 0, splitKpspmxs);
                 }
             }
 
             // 保存进交易流水
             Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
-            for (JyspmxDecimal2 jyspmx : jyspmxs) {
+            for (JyspmxDecimal2 jyspmx : splitKpspmxs) {
                 int fpnum = jyspmx.getFpnum();
                 List<JyspmxDecimal2> list2 = fpMap.get(fpnum);
                 if (list2 == null) {

@@ -70,7 +70,8 @@ $(function() {
             index = mxarr.length + 1;
             jyspmx_table.row.add([
                  "<span class='index'>" + index + "</span>",
-                '<input type="text" id="spmc"  name="spmc" readonly><input type="hidden" id="spbm" name="spbm">',
+                '<input type="text" id="spmc"  name="spmc" readonly><input type="hidden" id="spbm" name="spbm">' +
+                '<input type="hidden" id="yhzcbs" name="yhzcbs"><input type="hidden" id="yhzcmc" name="yhzcmc"><input type="hidden" id="lslbz" name="lslbz">',
                 '<input type="text" id="ggxh" name="ggxh">',
                 '<input type="text" id="spdw" name="spdw">',
                 '<input type="text" id="spsl" name="spsl" style="text-align:right">',
@@ -189,6 +190,9 @@ $(function() {
             if(i==1){
                 $(cell).find('input[name="spmc"]').val(data.spmc);
                 $(cell).find('input[name="spbm"]').val(data.spbm);
+                $(cell).find('input[name="yhzcbs"]').val(data.yhzcbs);
+                $(cell).find('input[name="yhzcmc"]').val(data.yhzcmc);
+                $(cell).find('input[name="lslbz"]').val(data.lslbz);
             }else if(i==2){
                 $(cell).find('input[name="ggxh"]').val(data.spggxh);
             }else if(i==3){
@@ -220,9 +224,9 @@ $(function() {
                 hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
             }
         });
-        jshj.val(FormatFloat(jshjstr,"#####0.00"));//价税合计
-        hjje.val(FormatFloat(hjjestr,"#####0.00"));//不含税金额合计
-        hjse.val(FormatFloat(hjsestr,"#####0.00"));//合计税额
+        jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
+        hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
+        hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
         $("#spxx").modal("close");
     });
     //定义鼠标样式
@@ -240,9 +244,9 @@ $(function() {
 
         var temp = (100 + taxrate.val() * 100) / 100;//税率计算方式
         if (spdj!= "") {
-            spje.val(FormatFloat(spsl.val() * spdj.val(), "#####0.00"));
+            spje.val(FormatFloat(spsl.val() * spdj.val(), "#.00"));
             var jj = spsl.val() * spdj.val();
-            spse.val(FormatFloat((jj / temp) * taxrate.val(),"#####0.00"));
+            spse.val(FormatFloat((jj / temp) * taxrate.val(),"#.00"));
         }
         var jshjstr=0;
         var hjjestr=0;
@@ -254,9 +258,9 @@ $(function() {
                 hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
               }
         });
-        jshj.val(FormatFloat(jshjstr,"#####0.00"));//价税合计
-        hjje.val(FormatFloat(hjjestr,"#####0.00"));//不含税金额合计
-        hjse.val(FormatFloat(hjsestr,"#####0.00"));//合计税额
+        jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
+        hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
+        hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
     });
     jyspmx_table.on('input', 'input#spdj', function () {
         var  rowstr=$(this).parent("td").parent("tr").children("td").eq(0).text();//获取当前行数
@@ -271,9 +275,9 @@ $(function() {
 
         var temp = (100 + taxrate.val() * 100) / 100;//税率计算方式
         if (spsl!= "") {
-            spje.val(FormatFloat(spsl.val() * spdj.val(), "#####0.00"));
+            spje.val(FormatFloat(spsl.val() * spdj.val(), "#.00"));
             var jj = spsl.val() * spdj.val();
-            spse.val(FormatFloat((jj / temp) * taxrate.val(),"#####0.00"));
+            spse.val(FormatFloat((jj / temp) * taxrate.val(),"#.00"));
         }
         var jshjstr=0;
         var hjjestr=0;
@@ -285,9 +289,9 @@ $(function() {
                 hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
             }
         });
-        jshj.val(FormatFloat(jshjstr,"#####0.00"));//价税合计
-        hjje.val(FormatFloat(hjjestr,"#####0.00"));//不含税金额合计
-        hjse.val(FormatFloat(hjsestr,"#####0.00"));//合计税额
+        jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
+        hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
+        hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
     });
     jyspmx_table.on('input', 'input#spje', function () {
         var  rowstr=$(this).parent("td").parent("tr").children("td").eq(0).text();//获取当前行数
@@ -302,14 +306,14 @@ $(function() {
 
         var temp = (100 + taxrate.val() * 100) / 100;//税率计算方式
         var jj = spje.val();
-        spse.val(FormatFloat((jj / temp) * taxrate.val(),"#####0.00"));
+        spse.val(FormatFloat((jj / temp) * taxrate.val(),"#.00"));
         var jshjstr=0;
         var hjjestr=0;
         var hjsestr=0;
         if (spdj.val()!= "") {
-            spsl.val(FormatFloat(spje.val() / spdj.val(), "#####0.00"));
+            spsl.val(FormatFloat(spje.val() / spdj.val(), "#.00"));
         }else if(spdj.val()==""&&spsl.val()!=""){
-            spdj.val(FormatFloat(spje.val() / spsl.val(), "#####0.00"));
+            spdj.val(FormatFloat(spje.val() / spsl.val(), "#.00"));
         }
         $("#jyspmx_table").find("tr").each(function(i,row){
             if(i!=0){
@@ -318,9 +322,9 @@ $(function() {
                 hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
             }
         });
-        jshj.val(FormatFloat(jshjstr,"#####0.00"));//价税合计
-        hjje.val(FormatFloat(hjjestr,"#####0.00"));//不含税金额合计
-        hjse.val(FormatFloat(hjsestr,"#####0.00"));//合计税额
+        jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
+        hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
+        hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
     });
     $("#kj").click(function(){
          var xf=$("#xf").val();//销方
@@ -396,8 +400,14 @@ $(function() {
                      errorspmessage+="第"+j+"行，商品名称不能为空，请点击选择！";
                  }
                 var spbm= $(cell).find('input[name="spbm"]').val();
+                var yhzcbs= $(cell).find('input[name="yhzcbs"]').val();
+                var yhzcmc= $(cell).find('input[name="yhzcmc"]').val();
+                var lslbz= $(cell).find('input[name="lslbz"]').val();
                  ps.push("spmc=" + spmc);
                  ps.push("spbm=" + spbm);
+                 ps.push("yhzcbs=" + yhzcbs);
+                 ps.push("yhzcmc=" + yhzcmc);
+                 ps.push("lslbz=" + lslbz);
                 }else if(i==2){
                 var ggxh=$(cell).find('input[name="ggxh"]').val();
                 ps.push("ggxh=" + ggxh);
