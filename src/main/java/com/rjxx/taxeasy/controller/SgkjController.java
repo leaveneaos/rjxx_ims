@@ -10,6 +10,7 @@ import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.*;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.BeanConvertUtils;
 import com.rjxx.utils.StringUtils;
 import com.rjxx.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,7 +287,16 @@ public class SgkjController extends BaseController{
             jyxxsq.setJshj(jshj);
             String errormessage=this.checkall(jyxxsq,jymxsqList);
             if(("").equals(errormessage)||errormessage==null){
-                Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList);
+
+                //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
+                //处理折扣行数据
+                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+                //复制一个新的list用于生成处理表
+                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+                jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
+
+                jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
+                 Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,new ArrayList<Jyzfmx>());
                 //List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
                 zjkp(sqlsh);
                 result.put("success", true);
