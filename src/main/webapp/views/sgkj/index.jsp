@@ -32,7 +32,7 @@
 		color: red;
 	}
 	.data-buy {
-		padding-top: 60px;
+		padding-top: 35px;
 	}
 	.data-cte {
 		text-align: center;
@@ -116,7 +116,7 @@
 											<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>订单号</label>
 
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+											<div class="am-u-sm-3">
 												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 													<input id="ddh" name="ddh" type="text" placeholder="输入订单号" required>
 													<span class="am-input-group-btn">
@@ -133,62 +133,62 @@
 										</div>
 									</form>
 								</div>
-								<div class="am-u-sm-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
-								  <div class="am-u-sm-2 am-u-md-3 am-u-lg-1 data-buy" style="text-align: center;">购买方</div>
-								  <div class="am-u-sm-10 am-u-md-8 am-u-lg-11" style="border-left: 1px solid #ccc;">
+								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
+								  <div class="am-u-sm-2 am-u-md-2 am-u-lg-2 data-buy" style="text-align: center;">购买方</div>
+								  <div class="am-u-sm-10 am-u-md-10 am-u-lg-10" style="border-left: 1px solid #ccc;">
 								  	<form id="gfform" style="overflow: hidden;">
-								  		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-										    <div class="am-offcanvas-content">
-												<div class="am-form-group">
+								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
+										    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
 													<div class="am-u-sm-7">
 														<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="gfsh" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
 													<div class="am-u-sm-7">
 														<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
 													<div class="am-u-sm-7">
 														<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
 										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
+										<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="gfdh" class="am-u-sm-5 am-form-label data-cte">电话</label>
 													<div class="am-u-sm-7">
 														<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
 										
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
 													<div class="am-u-sm-7">
 														<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
 										
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+												<!-- <div class="am-form-group"> -->
 													<label for="yhzh" class="am-u-sm-5 am-form-label data-cte">银行账号</label>
 													<div class="am-u-sm-7">
 														<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
 													</div>
-												</div>
+												<!-- </div> -->
 											</div>
 										</div>
 									</form>
@@ -248,46 +248,46 @@
 								</div>
 							</div>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;margin: 10px auto;">
-									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
-										<span>价税合计:</span>
+								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+									<span>价税合计:</span>
 
-										<input id="jshj" name="jshj" type="text"  class="selected" readonly>
-									</div>
-									
-									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
-										<span>金额合计(不含税):</span>
-
-										<input id="hjje" name="hjje" type="text" class="selected" readonly>
-									</div>
-									<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
-										<span>税额合计:</span>
-
-										<input id="hjse" name="hjse" type="text" class="selected" readonly>
-									</div>
-
+									<input id="jshj" name="jshj" type="text"  class="selected" readonly>
 								</div>
-							<div class="am-u-sm-12" style="border: 1px solid #ccc;margin: 10px auto;">
+								
+								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+									<span>金额合计(不含税):</span>
+
+									<input id="hjje" name="hjje" type="text" class="selected" readonly>
+								</div>
+								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+									<span>税额合计:</span>
+
+									<input id="hjse" name="hjse" type="text" class="selected" readonly>
+								</div>
+							</div>
+
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border: 1px solid #ccc;margin: 10px auto;">
 							  <div class="am-u-sm-1" style="margin-top: 30px;">备 注 :</div>
 							  <div class="am-u-sm-11">
 								<textarea id="bz" name="bz" rows="3"  style="width: 100%;"></textarea>
 							  </div>
 							</div>
-							<div class="am-u-sm-12" > 
+							<!-- <div class="am-u-sm-12" >  -->
 								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;">
-									<div class="am-u-sm-4">
+									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
 				                    	<span style="vertical-align: middle;">Email地址</span>
 										<input type="text" name="yjdz" id="yjdz">
 									</div>
-									<div class="am-u-sm-4">
+									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
 										<span style="vertical-align: middle;">联系电话</span>
 										<input type="text" name="lxdh" id="lxdh">
 									</div>
-									<div class="am-u-sm-4">
+									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
 										<span style="vertical-align: middle;">提取码</span>
 										<input type="text" name="tqm" id="tqm">
 									</div>
 								</div>
-							</div>
+							<!-- </div> -->
 							<div class="am-u-sm-12 botm" >
 								<button id="kj" type="button" class="am-btn am-btn-secondary">开 具</button>
 								<button id="cz" type="button" class="am-btn am-btn-danger">重 置</button>
