@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.utils.UrlUtils;
+import com.rjxx.utils.HtmlUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -417,8 +419,10 @@ public class FpcxController extends BaseController {
 		List<Kpls> kplsList = kplsService.printSingle(params);
 		List<Kpls> kpList = new ArrayList<Kpls>();
 		if (kplsList != null) {
+			String requestDomain = HtmlUtils.getBasePath(request);
 			for (Kpls kpls : kplsList) {
 				String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
+				pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
 				kpls.setPdfurl(pdfurl);
 				kpList.add(kpls);
 			}
@@ -437,8 +441,10 @@ public class FpcxController extends BaseController {
 		List<Fpcxvo> kplsList = kplsService.printmany(params);
 		List<Fpcxvo> kpList = new ArrayList<Fpcxvo>();
 		if (kplsList != null) {
+			String requestDomain = HtmlUtils.getBasePath(request);
 			for (Fpcxvo kpls : kplsList) {
 				String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
+				pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
 				kpls.setPdfurl(pdfurl);
 				kpList.add(kpls);
 			}
