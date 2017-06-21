@@ -628,12 +628,12 @@ public class KpdshController extends BaseController {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
 
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
 
 				}
 			}
