@@ -136,61 +136,47 @@
 									</form>
 								</div>
 								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
-								  <div class="am-u-sm-2 am-u-md-2 am-u-lg-2 data-buy" style="text-align: center;">购买方</div>
-								  <div class="am-u-sm-10 am-u-md-10 am-u-lg-10" style="border-left: 1px solid #ccc;">
+								  <div class="am-u-sm-1 am-u-md-1 am-u-lg-1 data-buy" style="text-align: center;">购买方</div>
+								  <div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">
 								  	<form id="gfform" style="overflow: hidden;">
 								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-										    <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
-													<div class="am-u-sm-7">
-														<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
-													</div>
-												<!-- </div> -->
+										    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
+												<div class="am-u-sm-7">
+													<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
+												</div>
 											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="gfsh" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
-													<div class="am-u-sm-7">
-														<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
-													</div>
-												<!-- </div> -->
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
+												<div class="am-u-sm-6">
+													<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
+												</div>
 											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
-													<div class="am-u-sm-7">
-														<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
-													</div>
-												<!-- </div> -->
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
+												<div class="am-u-sm-7">
+													<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
+												</div>
 											</div>
-										<!-- </div> -->
-										<!-- <div class="am-u-sm-12 am-u-md-12 am-u-lg-6"> -->
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="gfdh" class="am-u-sm-5 am-form-label data-cte">电话</label>
-													<div class="am-u-sm-7">
-														<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
-													</div>
-												<!-- </div> -->
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="gfdh" class="am-u-sm-6 am-form-label data-cte">电话</label>
+												<div class="am-u-sm-6">
+													<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
+												</div>
 											</div>
 										
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
-													<div class="am-u-sm-7">
-														<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
-													</div>
-												<!-- </div> -->
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
+												<div class="am-u-sm-7">
+													<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
+												</div>
 											</div>
 										
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-												<!-- <div class="am-form-group"> -->
-													<label for="yhzh" class="am-u-sm-5 am-form-label data-cte">银行账号</label>
-													<div class="am-u-sm-7">
-														<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
-													</div>
-												<!-- </div> -->
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+												<label for="yhzh" class="am-u-sm-6 am-form-label data-cte">银行账号</label>
+												<div class="am-u-sm-6">
+													<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
+												</div>
 											</div>
 										</div>
 									</form>
