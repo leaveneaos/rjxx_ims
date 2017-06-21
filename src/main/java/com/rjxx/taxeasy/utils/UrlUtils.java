@@ -6,10 +6,9 @@ package com.rjxx.taxeasy.utils;
 public class UrlUtils {
 
     public static String convertPdfUrlDomain(String targetDomain, String pdfurl) {
-        if (!pdfurl.contains(targetDomain) && (pdfurl.startsWith("http://") || pdfurl.startsWith("https://")) && pdfurl.length() > 10) {
+        if (pdfurl != null && !pdfurl.contains(targetDomain) && (pdfurl.startsWith("http://") || pdfurl.startsWith("https://")) && pdfurl.length() > 10) {
             int pos = pdfurl.indexOf("/", 10);
-            String currentDomain = pdfurl.substring(0, pos + 1);
-            pdfurl = pdfurl.replace(currentDomain, targetDomain);
+            pdfurl = pdfurl.substring(pos);
         }
         return pdfurl;
     }
