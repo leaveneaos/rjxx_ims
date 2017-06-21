@@ -287,7 +287,7 @@ public class FpdyController extends BaseController {
         List<Fpcxvo> kplsList = kplsService.printmany(params);
         List<Fpcxvo> kpList = new ArrayList<Fpcxvo>();
         if (kplsList != null) {
-            String requestDomain = HtmlUtils.getBasePath(request);
+            String requestDomain = HtmlUtils.getDomainPath(request);
             for (Fpcxvo kpls : kplsList) {
                 String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
                 pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
