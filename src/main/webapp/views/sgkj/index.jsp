@@ -139,8 +139,8 @@
 								  <div class="am-u-sm-2 am-u-md-2 am-u-lg-2 data-buy" style="text-align: center;">购买方</div>
 								  <div class="am-u-sm-10 am-u-md-10 am-u-lg-10" style="border-left: 1px solid #ccc;">
 								  	<form id="gfform" style="overflow: hidden;">
-								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-										    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+										    <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
 													<div class="am-u-sm-7">
@@ -148,7 +148,7 @@
 													</div>
 												<!-- </div> -->
 											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="gfsh" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
 													<div class="am-u-sm-7">
@@ -156,7 +156,7 @@
 													</div>
 												<!-- </div> -->
 											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
 													<div class="am-u-sm-7">
@@ -164,9 +164,9 @@
 													</div>
 												<!-- </div> -->
 											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+										<!-- </div> -->
+										<!-- <div class="am-u-sm-12 am-u-md-12 am-u-lg-6"> -->
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="gfdh" class="am-u-sm-5 am-form-label data-cte">电话</label>
 													<div class="am-u-sm-7">
@@ -175,7 +175,7 @@
 												<!-- </div> -->
 											</div>
 										
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
 													<div class="am-u-sm-7">
@@ -184,7 +184,7 @@
 												<!-- </div> -->
 											</div>
 										
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 												<!-- <div class="am-form-group"> -->
 													<label for="yhzh" class="am-u-sm-5 am-form-label data-cte">银行账号</label>
 													<div class="am-u-sm-7">
@@ -250,18 +250,18 @@
 								</div>
 							</div>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;margin: 10px auto;">
-								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
 									<span>价税合计:</span>
 
 									<input id="jshj" name="jshj" type="text"  class="selected" readonly>
 								</div>
 								
-								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
 									<span>金额合计(不含税):</span>
 
 									<input id="hjje" name="hjje" type="text" class="selected" readonly>
 								</div>
-								<div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
 									<span>税额合计:</span>
 
 									<input id="hjse" name="hjse" type="text" class="selected" readonly>
