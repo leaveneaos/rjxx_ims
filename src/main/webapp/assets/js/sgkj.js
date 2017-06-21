@@ -74,9 +74,9 @@ $(function() {
                 '<input type="hidden" id="yhzcbs" name="yhzcbs"><input type="hidden" id="yhzcmc" name="yhzcmc"><input type="hidden" id="lslbz" name="lslbz">',
                 '<input type="text" id="ggxh" name="ggxh">',
                 '<input type="text" id="spdw" name="spdw">',
-                '<input type="text" id="spsl" name="spsl" style="text-align:right">',
-                '<input type="text" id="spdj" name="spdj" style="text-align:right">',
-                '<input type="text" id="spje" name="spje" style="text-align:right">',
+                '<input type="text" id="spsl" name="spsl" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+                '<input type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+                '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
                 '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
                 '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
             ]).draw();
