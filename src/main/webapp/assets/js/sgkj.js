@@ -200,9 +200,9 @@ $(function() {
             if(i==1){
                 $(cell).find('input[name="spmc"]').val(data.spmc);
                 $(cell).find('input[name="spbm"]').val(data.spbm);
-                $(cell).find('input[name="yhzcbs"]').val(data.yhzcbs);
-                $(cell).find('input[name="yhzcmc"]').val(data.yhzcmc);
-                $(cell).find('input[name="lslbz"]').val(data.lslbz);
+                $(cell).find('input[name="yhzcbs"]').val(data.yhzcbs==null?"":data.yhzcbs);
+                $(cell).find('input[name="yhzcmc"]').val(data.yhzcmc==null?"":data.yhzcmc);
+                $(cell).find('input[name="lslbz"]').val(data.lslbz==null?"":data.lslbz);
             }else if(i==2){
                 $(cell).find('input[name="ggxh"]').val(data.spggxh);
             }else if(i==3){

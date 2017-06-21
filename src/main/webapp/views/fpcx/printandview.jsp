@@ -108,10 +108,17 @@ function pagesetup_default()
 				<!-- <input type="button" style="width: 100px; height: 35px"
 						onclick="printPrieview()" value="预览"> -->
 			 </div>
-			<c:forEach items="${kpList}" var="kp">
-			<div class="PageNext" style="width: 100%" id="${kp.kplsh}">			   
-				<img  style="width: 100%;" src="${kp.pdfurl}"/>				
-			</div>
+			<c:forEach items="${kpList}" var="kp" varStatus="status">
+				<c:if test="${num!=status.index+1}">
+					<div class="PageNext" style="width: 100%" id="${kp.kplsh}">
+						<img  style="width: 100%;" src="${kp.pdfurl}"/>
+					</div>
+				</c:if>
+				<c:if test="${num==status.index+1}">
+					<div  style="width: 100%" id="${kp.kplsh}">
+						<img  style="width: 100%;" src="${kp.pdfurl}"/>
+					</div>
+				</c:if>
 			</c:forEach>
 		</div>
 	</center>

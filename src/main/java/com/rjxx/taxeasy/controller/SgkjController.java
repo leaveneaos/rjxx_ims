@@ -278,9 +278,21 @@ public class SgkjController extends BaseController{
                 jymxsq.setXgsj(TimeUtil.getNowDate());
                 jymxsq.setXgry(yhid);
                 jymxsq.setGsdm(gsdm);
-                jymxsq.setYhzcbs(yhzcbs[c]);
-                jymxsq.setYhzcmc(yhzcmc[c]);
-                jymxsq.setLslbz(lslbz[c]);
+                if(yhzcbs.length==0){
+                    jymxsq.setYhzcbs("");
+                }else{
+                    jymxsq.setYhzcbs(yhzcbs[c]);
+                }
+                if(yhzcmc.length==0){
+                    jymxsq.setYhzcmc("");
+                }else{
+                    jymxsq.setYhzcmc(yhzcmc[c]);
+                }
+                if(lslbz.length==0){
+                    jymxsq.setLslbz("");
+                }else{
+                    jymxsq.setLslbz(lslbz[c]);
+                }
                 jshj += jymxsq.getJshj();
                 jymxsqList.add(jymxsq);
             }

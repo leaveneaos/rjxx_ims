@@ -296,6 +296,7 @@ public class FpdyController extends BaseController {
             }
         }
         request.setAttribute("kpList", kpList);
+        request.setAttribute("num", kpList.size());
         return "fpdy/printandview";
     }
 

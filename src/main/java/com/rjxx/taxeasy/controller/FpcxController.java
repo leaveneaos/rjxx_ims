@@ -436,6 +436,7 @@ public class FpcxController extends BaseController {
             }
         }
         request.setAttribute("kpList", kpList);
+        request.setAttribute("num", kpList.size());
         return "fpcx/printandview";
     }
 
