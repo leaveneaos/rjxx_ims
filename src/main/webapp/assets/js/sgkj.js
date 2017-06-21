@@ -92,12 +92,17 @@ $(function() {
     });
     $("#searchddh").click(function(){
         var ddh=$("#ddh").val();
+        var xfid=$("#xf").val();
         $.ajax({
             url : "sgkj/findjyxxsq",
             data : {
-                "ddh" : ddh
+                "ddh" : ddh,
+                "xfid" : xfid
             },
             success : function(data) {
+                if(data.jyxxsq!=null){
+
+
                 $("#xf").val(data.jyxxsq.xfid);
                 var kpd = $("#kpd");
                 $("#kpd").empty();
@@ -146,9 +151,13 @@ $(function() {
                     var spje=jymxsq[j].spje== null ? '' : jymxsq[j].spje;
                     var spsl=jymxsq[j].spsl== null ? '' : jymxsq[j].spsl;
                     var spse=jymxsq[j].spse== null ? '' : jymxsq[j].spse;
+                    var yhzcbs=jymxsq[j].spse== null ? '' : jymxsq[j].yhzcbs;
+                    var yhzcmc=jymxsq[j].spse== null ? '' : jymxsq[j].yhzcmc;
+                    var lslbz=jymxsq[j].spse== null ? '' : jymxsq[j].lslbz;
                     jyspmx_table.row.add([
                         "<span class='index'>" + b + "</span>",
-                        '<input type="text" id="spmc"  name="spmc" value="'+jymxsq[j].spmc+'" readonly><input type="hidden" id="spbm" name="spbm" value="'+jymxsq[j].spdm+'">',
+                        '<input type="text" id="spmc"  name="spmc" value="'+jymxsq[j].spmc+'" readonly><input type="hidden" id="spbm" name="spbm" value="'+jymxsq[j].spdm+'">'+
+                        '<input type="hidden" id="yhzcbs" name="yhzcbs" value="'+yhzcbs+'"><input type="hidden" id="yhzcmc" name="yhzcmc" value="'+yhzcmc+'"><input type="hidden" id="lslbz" name="lslbz" value="'+lslbz+'">',
                         '<input type="text" id="ggxh" name="ggxh"  value="'+spggxh+'" >',
                         '<input type="text" id="spdw" name="spdw"  value="'+spdw+'" >',
                         '<input type="text" id="spsl" name="spsl"  style="text-align:right" value="'+sps+'" >',
@@ -167,6 +176,7 @@ $(function() {
                 $("#yjdz").val(data.jyxxsq.gfemail);
                 $("#lxdh").val(data.jyxxsq.gfdh);
                 $("#tqm").val(data.jyxxsq.tqm);
+              }
             }
         });
     });

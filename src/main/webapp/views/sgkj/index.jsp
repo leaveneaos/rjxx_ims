@@ -117,12 +117,14 @@
 													class="star">*</span>订单号</label>
 
 											<div class="am-u-sm-3">
+<%--
 												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+--%>
 													<input id="ddh" name="ddh" type="text" placeholder="输入订单号" required>
-													<span class="am-input-group-btn">
+													<%--<span class="am-input-group-btn">
 														<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
-													</span>
-												</div>
+													</span>--%>
+												<%--</div>--%>
 											</div>
 
 

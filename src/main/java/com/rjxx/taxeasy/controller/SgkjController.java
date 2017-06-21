@@ -836,19 +836,18 @@ public class SgkjController extends BaseController{
     @RequestMapping(value = "/findjyxxsq")
     @ResponseBody
     public Map findjyxxsq(String ddh){
-
        Map resultMap=new HashMap();
-
        Map parms=new HashMap();
-
        parms.put("ddh",ddh);
        parms.put("gsdm",getGsdm());
        Jyxxsq jyxxsq=jyxxsqService.findOneByParams(parms);
-
-       parms.put("sqlsh",jyxxsq.getSqlsh());
-
-       List<Jymxsq>jymxsqlist=jymxsqService.findAllByParams(parms);
-       List<Jyzfmxvo>jyzfmxList=jyzfmxService.findAllByParamsVo(parms);
+       List<Jymxsq>jymxsqlist=null;
+        List<Jyzfmxvo>jyzfmxList=null;
+       if(jyxxsq!=null){
+           parms.put("sqlsh",jyxxsq.getSqlsh());
+           jymxsqlist=jymxsqService.findAllByParams(parms);
+           jyzfmxList=jyzfmxService.findAllByParamsVo(parms);
+       }
        resultMap.put("jyxxsq",jyxxsq);
        resultMap.put("jymxsq",jymxsqlist);
        resultMap.put("jyzfmx",jyzfmxList);
