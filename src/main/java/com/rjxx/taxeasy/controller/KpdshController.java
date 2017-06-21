@@ -558,8 +558,8 @@ public class KpdshController extends BaseController {
 			Xf xf = xfService.findOneByParams(x);
 			Skp skp = skpService.findOne(jyxxsq.getSkpid());
 			if (null != qdbz[i] && qdbz[i].equals("1")) {
-				fphs1 = 99999;
-				fphs2 = 100;
+				fphs1 = 99999999;
+				fphs2 = 99999999;
 			} else {
 				for (Fpgz fpgz : listt) {
 					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
