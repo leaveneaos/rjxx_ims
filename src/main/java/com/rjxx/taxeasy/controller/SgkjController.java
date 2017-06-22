@@ -4,6 +4,7 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -60,6 +61,8 @@ public class SgkjController extends BaseController{
     private FpkcService fpkcService;
     @Autowired
     private DiscountDealUtil discountDealUtil;
+    @Autowired
+    private SkService skService;
     @RequestMapping
     public  String index()throws Exception{
 
@@ -618,6 +621,7 @@ public class SgkjController extends BaseController{
                 //保存开票流水
                 Kpls kpls = saveKpls(jyls, list2, jyxxsq.getSfdy());
                 saveKpspmx(kpls, list2);
+                skService.callService(kpls.getKplsh());
                /* KplsVO4 kplsVO4 = new KplsVO4(kpls, jyxxsq);
                 result.add(kplsVO4);*/
                 //i++;
@@ -741,7 +745,7 @@ public class SgkjController extends BaseController{
         kpls.setJshj(jshj);
         kpls.setSfdyqd(jyls.getSfdyqd());
         kpls.setYxbz("1");
-        kpls.setFpztdm("04");
+        kpls.setFpztdm("14");
         kpls.setSkpid(jyls.getSkpid());
         kpls.setSerialorder(jyls.getJylsh()+jyls.getDdh());
         kplsService.save(kpls);
