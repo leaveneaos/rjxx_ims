@@ -232,7 +232,7 @@ public class FpzfController extends BaseController{
 		result.put("data", kpspmxList);
 		return result;
 	}
-	@Transactional
+
 	@RequestMapping(value = "/zf")
 	@ResponseBody
 	public Map<String, Object> update(Integer kplsh) throws Exception {

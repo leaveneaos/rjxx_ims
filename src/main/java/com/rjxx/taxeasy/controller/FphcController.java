@@ -223,7 +223,7 @@ public class FphcController extends BaseController {
 		return result;
 	}
 
-	@Transactional
+
 	@RequestMapping(value = "/hc")
 	@ResponseBody
 	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh,String hztzdh) throws Exception {
