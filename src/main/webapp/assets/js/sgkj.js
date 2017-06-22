@@ -89,6 +89,22 @@ $(function() {
             $(object).html(index + 1);
         });
         index=index-1;
+        var jshj=$("#jshj");//价税合计
+        var hjje=$("#hjje");//合计金额
+        var hjse=$("#hjse");//合计税额
+        var jshjstr=0;
+        var hjjestr=0;
+        var hjsestr=0;
+        $("#jyspmx_table").find("tr").each(function(i,row){
+            if(i!=0){
+                jshjstr+=$(row).children("td").eq(6).find('input[name="spje"]').val()/1;
+                hjjestr+=$(row).children("td").eq(6).find('input[name="spje"]').val()/1-$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
+                hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
+            }
+        });
+        jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
+        hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
+        hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
     });
     $("#searchddh").click(function(){
         var ddh=$("#ddh").val();
