@@ -140,14 +140,20 @@
 								  <div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">
 								  	<form id="gfform" style="overflow: hidden;">
 								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
+												<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;">
+													<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
+													<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
+												</div>
+											</div>
 										    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 												<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
-												<div class="am-u-sm-7">
+												<div class="am-u-sm-7" >
 													<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
 												</div>
 											</div>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star">*</span>纳税人识别号</label>
+												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star" id="show">*</span>纳税人识别号</label>
 												<div class="am-u-sm-6">
 													<input id="gfsh" name="gfsh" type="text" placeholder="请输入纳税人识别号">
 												</div>
@@ -390,7 +396,15 @@
                     }
                 }
             });
-        };
+        }
+        function sf(){
+            if ($("#sfbx").is(':checked')) {
+               $("#show").html("*");
+            }else{
+                $("#show").html("");
+			}
+		}
+
 	</script>
 
 </body>

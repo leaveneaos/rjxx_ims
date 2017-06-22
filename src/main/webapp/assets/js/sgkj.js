@@ -372,6 +372,13 @@ $(function() {
             swal("购方名称不能为空！");
             return;
         }
+        if ($("#sfbx").is(':checked')) {
+            if(gfsh==""){
+                $("#gfsh").focus();
+                swal("用于报销时，纳税人识别号不能为空！");
+                return;
+            }
+        }
         if(fpzldm=="01"){
             if(gfsh==""){
                 $("#gfsh").focus();
