@@ -191,53 +191,6 @@ $(function() {
 				});
 
 			});
-			t
-					.on(
-							'click',
-							'a.yulan',
-							function() {
-								var da = t.row($(this).parents('tr')).data();
-								window
-										.open('fpcx/printSingle?kplsh='
-												+ da.kplsh, '',
-												'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-								$('#kplshStr').val(da.kplsh);
-							});
-			t.on('click', 'a.fpck', function(e) {
-				var _this = this;
-				var da = t.row($(this).parents('tr')).data();
-				var kplsh = da.kplsh;
-				var djh = da.djh;
-				$.ajax({
-					url : 'fpcx/ck',
-					data : {
-						"kplsh" : kplsh,
-						"djh" : djh,
-						"yfpdm" : "",
-						"yfphm" : "",
-						"jylsh" : ""
-					},
-					success : function(data) {
-						if (data.success) {
-							// $("#alertt").html(data.msg);
-	      //               	$("#my-alert").modal('open');
-	      					swal(data.msg);
-							e.preventDefault();
-							t.ajax.reload();
-						} else {
-							// $("#alertt").html(data.msg);
-	      //               	$("#my-alert").modal('open');
-	      					swal(data.msg);
-						}
-					},
-					error : function() {
-						// $("#alertt").html("出现错误，请稍后重试！");
-      //               	$("#my-alert").modal('open');
-      					swal("出现错误，请稍后重试！");
-					}
-				})
-			});
-			
 			$("#mb_xfsh").change(function() {
 			     $('#mb_skp').empty();
 				 var xfsh = $(this).val();
