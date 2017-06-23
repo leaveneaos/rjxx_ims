@@ -616,24 +616,24 @@ public class KpdshController extends BaseController {
 			mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
-					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
 				}
 			} else {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
+					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
 
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
 
 				}
 			}
