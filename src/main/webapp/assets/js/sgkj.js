@@ -489,7 +489,7 @@ $(function() {
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
             "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&"+ps.join("&");
         swal({
-            title: "您确定要申请开票吗？",
+            title: "您申请开票吗？",
             text: "您确定要申请开票吗？",
             type: "warning",
             showCancelButton: true,
@@ -497,9 +497,11 @@ $(function() {
             confirmButtonText: "确 定",
             confirmButtonColor: "#ec6c62"
         }, function() {
+            $('.confirm').attr('disabled',"disabled");
             $.ajax({
                 url: "sgkj/save", "type": "POST", context: document.body, data: data, success: function (data) {
                     if (data.success) {
+                        $('.confirm').removeAttr('disabled');
                         swal("开票申请成功!");
                         $("input").val('');
                         $("textarea").val('');
