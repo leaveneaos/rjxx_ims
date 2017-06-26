@@ -564,11 +564,17 @@ public class KpdshController extends BaseController {
 				for (Fpgz fpgz : listt) {
 					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
 						if ("01".equals(jyxxsq.getFpzldm())) {
-							fphs1 = fpgz.getZphs();
+							if(!"".equals(fpgz.getZphs())&&null!=fpgz.getZphs()){
+								fphs1 = fpgz.getZphs();
+							}
 						} else if ("02".equals(jyxxsq.getFpzldm())) {
-							fphs1 = fpgz.getPphs();
+							if(!"".equals(fpgz.getPphs())&&null!=fpgz.getPphs()){
+								fphs1 = fpgz.getPphs();
+							}
 						} else if ("12".equals(jyxxsq.getFpzldm())) {
-							fphs2 = fpgz.getDzphs();
+							if(!"".equals(fpgz.getDzphs())&&null!=fpgz.getDzphs()){
+								fphs2 = fpgz.getDzphs();
+							}
 						}
 						if (fpgz.getSfqzfp().equals("0")) {
 							qzfp = false;
@@ -587,11 +593,17 @@ public class KpdshController extends BaseController {
 					Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
 					if (null != fpgz2) {
 						if ("01".equals(jyxxsq.getFpzldm())) {
-							fphs1 = fpgz2.getZphs();
+							if(!"".equals(fpgz2.getZphs())&&null!=fpgz2.getZphs()){
+								fphs1 = fpgz2.getZphs();
+							}
 						} else if ("02".equals(jyxxsq.getFpzldm())) {
-							fphs1 = fpgz2.getPphs();
+							if(!"".equals(fpgz2.getPphs())&&null!=fpgz2.getPphs()){
+								fphs1 = fpgz2.getPphs();
+							}
 						} else if ("12".equals(jyxxsq.getFpzldm())) {
-							fphs2 = fpgz2.getDzphs();
+							if(!"".equals(fpgz2.getDzphs())&&null!=fpgz2.getDzphs()){
+								fphs2 = fpgz2.getDzphs();
+							}
 						}
 						if (fpgz2.getSfqzfp().equals("0")) {
 							qzfp = false;

@@ -350,10 +350,10 @@ public class SgkjController extends BaseController{
                 msg += msgg;
             }
         } else {
-            /*if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
+            if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
                 msgg = "购方税号不是15位到20位，请重新填写！";
                 msg += msgg;
-            }*/
+            }
         }
         if (jyxxsq.getXfyhzh().length() > 30) {
             msgg = "销方银行超出30个字符，请重新在平台维护！";
@@ -508,8 +508,9 @@ public class SgkjController extends BaseController{
             double fpje = 0d;
             int fphs1 = 8;//专票、普票行数
             int fphs2 = 100;//电子票行数
-            String hsbz = "0";
+            String hsbz = "";
             boolean flag = false;
+            boolean spzsfp = false;//是否按商品整数分票
             Skp skp = skpService.findOne(jyxxsq.getSkpid());//取税控盘的最大金额和分票金额
             if ("01".equals(jyxxsq.getFpzldm())) {
                 zdje = skp.getZpmax();
@@ -529,19 +530,28 @@ public class SgkjController extends BaseController{
             for (Fpgz fpgz : listt) {
                 if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
                     if ("01".equals(jyxxsq.getFpzldm())) {
-                        fphs1 = fpgz.getZphs();
+                        if(!"".equals(fpgz.getZphs())&&null!=fpgz.getZphs()){
+                            fphs1 = fpgz.getZphs();
+                        }
                         fpje = fpgz.getZpxe();
                     } else if ("02".equals(jyxxsq.getFpzldm())) {
-                        fphs1 = fpgz.getPphs();
+                        if(!"".equals(fpgz.getPphs())&&null!=fpgz.getPphs()){
+                            fphs1 = fpgz.getPphs();
+                        }
                         fpje = fpgz.getPpxe();
                     } else if ("12".equals(jyxxsq.getFpzldm())) {
-                        fphs2 = fpgz.getDzphs();
+                        if(!"".equals(fpgz.getDzphs())&&null!=fpgz.getDzphs()){
+                            fphs2 = fpgz.getDzphs();
+                        }
                         fpje = fpgz.getDzpxe();
                     }
                     flag = true;
                     hsbz = fpgz.getHsbz();
                     if (fpgz.getSfqzfp().equals("0")) {
                         sfqzfp = false;
+                    }
+                    if (fpgz.getSfspzsfp().equals("1")) {
+                        spzsfp = true;
                     }
                 }
             }
@@ -552,18 +562,27 @@ public class SgkjController extends BaseController{
                 Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
                 if (null != fpgz2) {
                     if ("01".equals(jyxxsq.getFpzldm())) {
-                        fphs1 = fpgz2.getZphs();
+                        if(!"".equals(fpgz2.getZphs())&&null!=fpgz2.getZphs()){
+                            fphs1 = fpgz2.getZphs();
+                        }
                         fpje = fpgz2.getZpxe();
                     } else if ("02".equals(jyxxsq.getFpzldm())) {
-                        fphs1 = fpgz2.getPphs();
+                        if(!"".equals(fpgz2.getPphs())&&null!=fpgz2.getPphs()){
+                            fphs1 = fpgz2.getPphs();
+                        }
                         fpje = fpgz2.getPpxe();
                     } else if ("12".equals(jyxxsq.getFpzldm())) {
-                        fphs2 = fpgz2.getDzphs();
+                        if(!"".equals(fpgz2.getDzphs())&&null!=fpgz2.getDzphs()){
+                            fphs2 = fpgz2.getDzphs();
+                        }
                         fpje = fpgz2.getDzpxe();
                     }
                     hsbz = fpgz2.getHsbz();
                     if (fpgz2.getSfqzfp().equals("0")) {
                         sfqzfp = false;
+                    }
+                    if (fpgz2.getSfspzsfp().equals("1")) {
+                        spzsfp = true;
                     }
                 }
             }
@@ -574,24 +593,28 @@ public class SgkjController extends BaseController{
             if (0 == fpje) {
                 fpje = zdje;
             }
-            hsbz="0";
+            if (hsbz != null && !"".equals(hsbz)) {
+                hsbz = "1";
+            } else {
+                hsbz = "0";
+            }
             List<JyspmxDecimal2> splitKpspmxs  = new ArrayList<JyspmxDecimal2>();
             Map mapResult = new HashMap();
             mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
             if (hsbz.equals("1")) {
                 // 分票
                 if (jyxxsq.getFpzldm().equals("12")) {
-                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
 
                     //jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false);
                 } else {
-                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
                 }
             } else {
                 if (jyxxsq.getFpzldm().equals("12")) {
-                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
                 } else {
-                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, false, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
                 }
             }
 
