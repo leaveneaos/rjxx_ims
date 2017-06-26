@@ -436,7 +436,6 @@ $(function() {
 			_this.exportAc();
 			_this.autoColumn();
 			_this.autoColumn1();
-			_this.printAc();
 			_this.checkAllAc();
 			_this.modalAction(); // hidden action
 			_this.saveColumn();
