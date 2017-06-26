@@ -301,7 +301,8 @@ public class SgkjController extends BaseController{
                 jymxsqList.add(jymxsq);
             }
             jyxxsq.setJshj(jshj);
-            String errormessage=this.checkall(jyxxsq,jymxsqList);
+            String sfbx=request.getParameter("sfbx");
+            String errormessage=this.checkall(jyxxsq,jymxsqList,sfbx);
             if(("").equals(errormessage)||errormessage==null){
 
                 //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
@@ -330,7 +331,7 @@ public class SgkjController extends BaseController{
         return result;
     }
 
-    private String checkall(Jyxxsq jyxxsq,List<Jymxsq>jymxsqList ) {
+    private String checkall(Jyxxsq jyxxsq,List<Jymxsq>jymxsqList ,String sfbx) {
         String msgg="";
         String msg="";
         if (jyxxsq.getFpzldm().equals("01")) {
@@ -351,9 +352,11 @@ public class SgkjController extends BaseController{
                 msg += msgg;
             }
         } else {
-            if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
-                msgg = "购方税号不是15位到20位，请重新填写！";
-                msg += msgg;
+            if(sfbx.equals("1")){
+                if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh() .length() < 15 || jyxxsq.getGfsh() .length() > 20)) { // 购方税号长度的判断
+                    msgg = "购方税号不是15位到20位，请重新填写！";
+                    msg += msgg;
+                }
             }
         }
         if (jyxxsq.getXfyhzh().length() > 30) {

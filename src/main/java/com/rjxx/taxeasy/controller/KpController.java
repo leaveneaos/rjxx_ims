@@ -1641,7 +1641,7 @@ public class KpController extends BaseController {
 		BigDecimal b2 = new BigDecimal(Double.toString(value2.doubleValue()));
 		return b1.subtract(b2).doubleValue();
 	}
-	@RequestMapping(value = "/hqfphm")
+	@RequestMapping(value = "/hqfphm",method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> hqfphm(String fpzldm,Integer skpid) throws Exception{
 		Map<String, Object> result = new HashMap<>();

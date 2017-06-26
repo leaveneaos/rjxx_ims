@@ -388,12 +388,14 @@ $(function() {
             swal("购方名称不能为空！");
             return;
         }
+        var  sfbx="0";
         if ($("#sfbx").is(':checked')) {
             if(gfsh==""){
                 $("#gfsh").focus();
                 swal("用于报销时，纳税人识别号不能为空！");
                 return;
             }
+             sfbx="1";
         }
         if(fpzldm=="01"){
             if(gfsh==""){
@@ -487,7 +489,7 @@ $(function() {
         var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+
             "&ddh="+ddh+"&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
-            "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&"+ps.join("&");
+            "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&sfbx="+sfbx+"&"+ps.join("&");
         swal({
             title: "您确定要申请开票吗？",
             text: "您确定要申请开票吗？",
