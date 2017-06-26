@@ -597,6 +597,7 @@ $(function() {
                     if(fpzldm!="12"){
                         $.ajax({
                             url:"kp/hqfphm",
+                            "type": "POST",
                             data:{ "fpzldm" :fpzldm,"skpid":skpid }, 
                             success: function (data) {
                                 if (data.success) {
