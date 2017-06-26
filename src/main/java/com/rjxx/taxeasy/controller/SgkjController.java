@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -252,7 +253,7 @@ public class SgkjController extends BaseController{
                     }
                 }
                 try {
-                    jymxsq.setSps(Double.valueOf(spsls[c]));
+                    jymxsq.setSps(Double.parseDouble(spsls[c]));
                 } catch (Exception e) {
                     jymxsq.setSps(null);
                 }
@@ -289,7 +290,7 @@ public class SgkjController extends BaseController{
                 if(yhzcmc.length==0||yhzcmc==null){
                     jymxsq.setYhzcmc("");
                 }else{
-                    jymxsq.setYhzcmc(yhzcmc[c]);
+                    jymxsq.setYhzcmc(URLDecoder.decode(yhzcmc[c],"utf8"));
                 }
                 if(lslbz.length==0){
                     jymxsq.setLslbz("");
@@ -460,18 +461,7 @@ public class SgkjController extends BaseController{
                 msg += msgg;
                 break;
             }
-            Double sps = mxsq.getSps();
-            if (sps != null && !String.valueOf(sps).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
-                msgg = "第" + (i + 1) + "行商品数格式不正确，请重新填写！";
-                msg += msgg;
-                break;
-            }
-            Double spdj = mxsq.getSpdj();
-            if (spdj != null && !String.valueOf(spdj).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
-                msgg = "第" + (i + 1) + "行商品单价格式不正确，请重新填写！";
-                msg += msgg;
-                break;
-            }
+
             Double spje = mxsq.getSpje();
             if (spje == null || spje <= 0) {
                 msgg = "第" + (i + 1) + "行商品金额不能为空或小于等于0，请重新填写！";
