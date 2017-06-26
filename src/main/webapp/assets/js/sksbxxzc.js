@@ -230,10 +230,9 @@ $(function() {
 						{
 							relatedTarget : this,
 							onConfirm : function(options) {
-								var data = t.row(
-										$(this.relatedTarget).parents('tr'))
-										.data();
+								var data = t.row($(this.relatedTarget).parents('tr')).data();
 								el.$jsLoading.modal('open');
+								$('.confirm').attr('disabled',"disabled");
 								$.ajax({
 									url : url,
 									data : {
@@ -243,6 +242,7 @@ $(function() {
 									success : function(data) {
 										// todo 处理返回结果
 										if (data.success) {
+											$('.confirm').removeAttr('disabled');
 											// $('#msg').html('删除成功');
 											// $('#my-alert').modal('open');
 											swal({ 

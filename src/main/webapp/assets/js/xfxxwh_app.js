@@ -388,12 +388,14 @@ $(function() {
 	                        confirmButtonText: "确 定",
 	                        confirmButtonColor: "#ec6c62"
 	                    }, function() {
+	                    	$('.confirm').attr('disabled',"disabled");
 	                        $.ajax({
 	                            url: url,
 	          	                data: {ids : data},
 	          	                type: 'POST',
 	                        }).done(function(data) {
 	                        	if (data.success) {
+	                        		$('.confirm').removeAttr('disabled');
       		                	 	swal({ 
 										  title: "已成功删除", 
 										  timer: 1500, 

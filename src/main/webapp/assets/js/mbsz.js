@@ -187,6 +187,7 @@ $(function() {
 
 		     //删除
 			$("#del").on('click', function() {
+				$('.confirm').attr('disabled',"disabled");
 	            var mbidArr = [];
 	            $("input[type='checkbox']:checked").each(function (i, o) {
 	            	if ($(o).attr("data") != null) {
@@ -211,6 +212,7 @@ $(function() {
 				            "mbidArr="+ mbidArr.join(","),
 				            function(res) {
 				                if (res.success) {
+				                	$('.confirm').removeAttr('disabled');
 				                    swal({
 				                        title: "删除成功", 
 				                        timer: 1500, 

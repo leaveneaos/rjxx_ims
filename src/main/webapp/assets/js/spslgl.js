@@ -616,6 +616,7 @@
 	                confirmButtonText: "确 定",
 	                confirmButtonColor: "#ec6c62"
 	            }, function() {
+	            	$('.confirm').attr('disabled',"disabled");
 	                $.ajax({
 	                    url : url,
 						data : {
@@ -624,6 +625,7 @@
 						type : 'POST',
 	                }).done(function(data) {
 	                	if (data.success) {
+	                			$('.confirm').removeAttr('disabled');
 		                        _this.tableEx.ajax.reload();// reload table data
 		                        swal({ 
 									 	title: "已成功删除", 
@@ -740,6 +742,7 @@
 			var _this = this;
 			el.$jsForm2.validator({
 				submit : function() {
+					$('.confirm').attr('disabled',"disabled");
 					var formValidity = this.isFormValid();
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
@@ -753,6 +756,7 @@
 							method : 'POST',
 							success : function(data) {
 								if (data.success) {
+									$('.confirm').removeAttr('disabled');
 									el.$modal2.modal('close'); // close modal
 									// $('#msg').html(data.msg);
 									// $('#my-alert').modal('open');

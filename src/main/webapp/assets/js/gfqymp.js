@@ -123,7 +123,7 @@ $(function () {
 							"djhArr="+ djhArr.join(","),
 							function(res) {
 								if (res) {
-									alert("删除成功");
+									swal("删除成功");
 									window.location.reload(true);
 								}
 					});
@@ -194,6 +194,7 @@ $(function () {
 		 * 更新
 		 */
 		update : function() {
+			$('.confirm').attr('disabled',"disabled");
 			var _this = this;
 			if (null ==$('#xg_gfmc').val()|| $('#xg_gfmc').val()=='') {
             	swal('企业名称不能为空！');
@@ -218,7 +219,7 @@ $(function () {
 				method : 'POST',
 				success : function(data) {
 					if (data.success) {
-
+						$('.confirm').removeAttr('disabled');
 						// modal
 						 swal(data.msg);
 						 el.$xiugai.modal('close');
@@ -253,7 +254,7 @@ $(function () {
 					if (data.success) {
 
 						// modal
-						alert(data.msg);
+						swal(data.msg);
 					} else {
 
 						swal('删除购方信息失败: ' + data.msg);

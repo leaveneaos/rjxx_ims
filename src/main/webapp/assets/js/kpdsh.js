@@ -309,6 +309,7 @@ $(function() {
     	   }
     });
     kpspmx_table.on('click', 'a.kpdmx', function () {
+        $('.confirm').attr('disabled',"disabled");
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
             swal({
                 title: "您确认删除？",
@@ -323,6 +324,7 @@ $(function() {
                     url : "kpdsh/mxsc",
                     data : {"id":id},
                 }).done(function(data) {
+                    $('.confirm').removeAttr('disabled');
                     swal({ 
                           title: "已成功删除", 
                           timer: 1500, 
@@ -673,6 +675,7 @@ $(function() {
             });*/
             //删除
             $("#kpd_sc").click(function () {
+                $('.confirm').attr('disabled',"disabled");
         		var chk_value="" ;
         		$('input[name="dxk"]:checked').each(function(){
         		chk_value+=$(this).val()+",";
@@ -695,6 +698,7 @@ $(function() {
                             url : "kpdsh/sc",
                             data : {"ddhs":ddhs},
                         }).done(function(data) {
+                            $('.confirm').removeAttr('disabled');
                             swal(data.msg);
                             _this.tableEx.ajax.reload();
                         })
@@ -843,6 +847,7 @@ $(function() {
 			var _this = this;
 
 			$("#kpd_xgbc").on('click', function(e) {
+                $('.confirm').attr('disabled',"disabled");
 				 var r = $("#main_form").validator("isFormValid");
 		          if (r) {
 				$.ajax({
@@ -851,6 +856,7 @@ $(function() {
 					data : $('#main_form').serialize(),
 					success : function(data) {
 						if(data.msg){
+                            $('.confirm').removeAttr('disabled');
                             swal("修改成功");
 							$('#my-alert-edit').modal('close')
 							_this.tableEx.ajax.reload();	
@@ -868,6 +874,7 @@ $(function() {
 		xgbcmx : function() {
 			var _this = this;
 			$("#kpdmx_xgbc").on('click', function(e) {
+            $('.confirm').attr('disabled',"disabled");          
 		var r = $("#main_form1").validator("isFormValid");
 		if (r) {
 				$('#mx_spse1').val($('#mx_spse').val());
@@ -877,6 +884,7 @@ $(function() {
 					data : $('#main_form1').serialize(),
 					success : function(data) {
 						if(data.msg){
+                            $('.confirm').removeAttr('disabled');
                             swal("修改成功");
 							$('#my-alert-edit1').modal('close');
 							_this.tableEx.ajax.reload();	

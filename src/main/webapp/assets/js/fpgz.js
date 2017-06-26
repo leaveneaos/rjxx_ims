@@ -203,6 +203,7 @@ $("#qdbz").change(function () {
 			});
 			//删除
 			$("#gz_scgz").on('click', $("#gz_scgz"), function() {
+				$('.confirm').attr('disabled',"disabled");
                 var djhArr = [];
 		         $('input[name="gzdxk"]:checked').each(function(){    
 		                djhArr.push($(this).val()); 
@@ -229,6 +230,7 @@ $("#qdbz").change(function () {
 						data : {"id":djhArr.join(",")},
 						method : 'POST',
 				    }).done(function(data) {
+				    	$('.confirm').removeAttr('disabled');
 				    	swal("操作成功!", data.msg, "success");
 				            t.ajax.reload(); // reload table data
 				    }).error(function(data) {
