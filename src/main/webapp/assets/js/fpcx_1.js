@@ -119,21 +119,6 @@ $(function() {
 					});
 				}
 			})
-
-/*			var end = {
-				"data" : null,//
-				//"defaultContent": '<a class="view">查看</a>'
-				"render" : function(data) {
-					if (data.pdfurl) {
-						return '<a class="view" href="'
-								+ data.pdfurl
-								+ '" target="_blank">查看</a> <a class="yulan">打印</a>';
-					} else {
-						return null;
-					}
-				}
-			}
-			start.push(end);*/
 			var _this = this;
 			var t = el.$jsTable.DataTable({
 				"processing" : true,
@@ -211,7 +196,36 @@ $(function() {
 					 }
 				 });
 			 });
-	        
+            /***发票打印*/
+            $(".js-print").on('click',function() {
+                var ids = '';
+                var flag = true;
+                t.column(0).nodes().each(
+                    function(cell, i) {
+                        if (flag) {
+                            var $checkbox = $(cell).find('input[type="checkbox"]');
+                            if ($checkbox.is(':checked')) {
+                                var data =t.row(i).data();
+                                if (data.fphm == null|| data.fphm == ''||data.pdfurl=='') {
+                                    swal("存在正在开具或者开具失败的发票，不能批量打印！");
+                                    flag = false;
+                                    return false;
+                                }
+                                ids += $checkbox.val()+ ',';
+                            }
+                        }
+                    });
+                if (flag) {
+                    if (ids != '') {
+                        window.open('fpcx/printmany?ids='+ ids, '',
+                            'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
+                        $('#kplshStr').val(ids);
+                        ids = '';
+                    } else {
+                        swal("请先选中至少一条记录！");
+                    }
+                }
+            });
 			return t;
 		},
 
@@ -386,59 +400,6 @@ $(function() {
 					}
 				});
 			});
-		},
-		//批量打印
-		printAc : function() {
-			var _this = this;
-			var ids = '';
-			var flag = true;
-			el.$jsPrint
-					.on(
-							'click',
-							function(e) {
-								_this.tableEx
-										.column(0)
-										.nodes()
-										.each(
-												function(cell, i) {
-													if (flag) {
-														var $checkbox = $(cell)
-																.find(
-																		'input[type="checkbox"]');
-														if ($checkbox
-																.is(':checked')) {
-															var rows = $(
-																	'.js-table')
-																	.find('tr');
-															var fphm = rows[Number(i) + 2].cells[6].innerHTML;
-															if (fphm == null
-																	|| fphm == '') {
-																// $("#alertt").html("存在正在开具或者开具失败的发票，不能批量打印！");
-										      //               	$("#my-alert").modal('open');
-										      					swal("存在正在开具或者开具失败的发票，不能批量打印！");
-																flag = false;
-															}
-															ids += $checkbox
-																	.val()
-																	+ ',';
-														}
-													}
-												});
-								if (flag) {
-									if (ids != '') {
-										window
-												.open('fpcx/printmany?ids='
-														+ ids, '',
-														'scrollbars=yes,status=yes,left=0,top=0,menubar=yes,resizable=yes,location=yes');
-										$('#kplshStr').val(ids);
-										ids = '';
-									} else {
-										// $("#alertt").html("请先选中至少一条记录！");
-				      //               	$("#my-alert").modal('open');
-				      					swal("请先选中至少一条记录！");
-									}
-								}
-							});
 		},
 		//全选按钮
 		checkAllAc : function() {

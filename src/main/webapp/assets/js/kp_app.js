@@ -995,8 +995,7 @@ $(function() {
                             var $checkbox = $(cell).find('input[type="checkbox"]');
                             if ($checkbox.is(':checked')) {
                                 var data =t.row(i).data();
-                                alert(data.fphm);
-                                if (data.fphm == null|| data.fphm == '') {
+                                if (data.fphm == null|| data.fphm == ''||data.pdfurl=='') {
                                     swal("存在正在开具或者开具失败的发票，不能批量打印！");
                                     flag = false;
                                     return false;
