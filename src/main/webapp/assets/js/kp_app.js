@@ -744,7 +744,7 @@ $(function() {
                 if(flag){
                     if(fpzldm!="12"){
                         $.ajax({
-                            url: "kp/hqfphm",method:post, data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
+                            url: "kp/hqfphm","type": "POST", data:{ "fpzldm" :fpzldm,"skpid":skpid }, success: function (data) {
                                 if (data.success) {
                                     $("#doc-modal-fpck").modal("open");
                                     $("#fpdm3").val(data.fpdm);
