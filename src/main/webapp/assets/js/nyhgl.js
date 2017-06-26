@@ -380,6 +380,7 @@ $(function() {
                     confirmButtonText: "确 定",
                     confirmButtonColor: "#ec6c62"
                 }, function() {
+                	$('.confirm').attr('disabled',"disabled");
                 	el.$jsLoading.modal('open');
                     $.ajax({
                         url : url,
@@ -387,6 +388,7 @@ $(function() {
 						type : 'POST',
                     }).done(function(data) {
                     	if (data.success) {
+                    			$('.confirm').removeAttr('disabled');
 		                	 	swal({ 
 								  title: "已成功删除", 
 								  timer: 1500, 
@@ -513,6 +515,7 @@ $(function() {
 		 * 删除
 		 */
 		sc : function(da) {
+			$('.confirm').attr('disabled',"disabled");
 			var _this = this;
 			$.ajax({
 				url : _this.config.scUrl,
@@ -524,6 +527,7 @@ $(function() {
 					if (data.success) {
 						// $('#msg').html(data.msg);
 						// $('#my-alert').modal('open');
+						$('.confirm').removeAttr('disabled');
 						swal(data.msg);
 					} else {
 						// $('#msg').html('删除用户失败: ' + data.msg);

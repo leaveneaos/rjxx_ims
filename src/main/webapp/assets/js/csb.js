@@ -190,16 +190,18 @@ $(function() {
 								method : 'POST',
 								success : function(data) {
 									if(data.msg){
-										$("#alertt").html("操作成功");
-										$("#my-alert").modal('open')
+										// $("#alertt").html("操作成功");
+										// $("#my-alert").modal('open')
+										swal("操作成功");
 										_this.tableEx.ajax.reload();
 									}
 								},
 								error : function() {
 									el.$modalHongchong.modal('close'); // close
 									el.$jsLoading.modal('close'); // close loading
-									$("#alertt").html("操作失败");
-									$("#my-alert").modal('open')
+									// $("#alertt").html("操作失败");
+									// $("#my-alert").modal('open')
+									swal("操作失败");
 								}
 							});
 				        }
@@ -231,12 +233,14 @@ $(function() {
 					var csz = $('#xzxzcsz1').val();
 					var csz1 = $('#xzxzcsz3').val();
 					if(null==csb||""==csb){
-						$("#alertt").html("请选择参数");
-						$("#my-alert").modal('open')
+						// $("#alertt").html("请选择参数");
+						// $("#my-alert").modal('open')
+						swal("请选择参数");
 						return false;
 					}else if((null==csz&&null==csz1)||(""==csz&&""==csz1)){
-						$("#alertt").html("请选择或输入参数值");
-						$("#my-alert").modal('open')
+						// $("#alertt").html("请选择或输入参数值");
+						// $("#my-alert").modal('open')
+						swal("请选择或输入参数值");
 						return false;
 					}
 					if (formValidity) {
@@ -250,12 +254,14 @@ $(function() {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
 									el.$modalHongchong.modal('close'); // close
-									$("#alertt").html(data.msg);
-									$("#my-alert").modal('open')
+									// $("#alertt").html(data.msg);
+									// $("#my-alert").modal('open')
+									swal(data.msg);
 								} else {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-									$("#my-alert").modal('open')
+									// $("#alertt").html(data.msg);
+									// $("#my-alert").modal('open')
+									swal(data.msg);
 								}
 								_this.tableEx.ajax.reload(); // reload table
 								// data
@@ -264,14 +270,16 @@ $(function() {
 							error : function() {
 								el.$modalHongchong.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								$("#alertt").html("操作失败");
-								$("#my-alert").modal('open')
+								// $("#alertt").html("操作失败");
+								// $("#my-alert").modal('open')
+								swal("操作失败");
 							}
 						});
 						return false;
 					} else {
-						$("#alertt").html("验证失败,请注意红色输入框内格式!");
-						$("#my-alert").modal('open')
+						// $("#alertt").html("验证失败,请注意红色输入框内格式!");
+						// $("#my-alert").modal('open')
+						swal("验证失败,请注意红色输入框内格式!");
 						return false;
 					}
 				}
@@ -288,8 +296,9 @@ $(function() {
 					var csz = $('#xgxzcsz1').val();
 					var csz1 = $('#xgxzcsz3').val();
 					if((null==csz&&null==csz1)||(""==csz&&""==csz1)){
-						$("#alertt").html("请选择或输入参数值");
-						$("#my-alert").modal('open')
+						// $("#alertt").html("请选择或输入参数值");
+						// $("#my-alert").modal('open')
+						swal("请选择或输入参数值");
 						return false;
 					}
 					if (formValidity) {
@@ -303,12 +312,14 @@ $(function() {
 								if (data.success) {
 									el.$jsLoading.modal('close'); // close
 									el.$modalHongchong1.modal('close'); // close
-									$("#alertt").html(data.msg);
-									$("#my-alert").modal('open')
+									// $("#alertt").html(data.msg);
+									// $("#my-alert").modal('open')
+									swal(data.msg);
 								} else {
 									el.$jsLoading.modal('close'); // close
-									$("#alertt").html(data.msg);
-									$("#my-alert").modal('open')
+									// $("#alertt").html(data.msg);
+									// $("#my-alert").modal('open')
+									swal(data.msg);
 								}
 								_this.tableEx.ajax.reload(); // reload table
 								// data
@@ -317,14 +328,16 @@ $(function() {
 							error : function() {
 								el.$modalHongchong1.modal('close'); // close
 								el.$jsLoading.modal('close'); // close loading
-								$("#alertt").html("操作失败");
-								$("#my-alert").modal('open')
+								// $("#alertt").html("操作失败");
+								// $("#my-alert").modal('open')
+								swal("操作失败");
 							}
 						});
 						return false;
 					} else {
-						$("#alertt").html("验证失败");
-						$("#my-alert").modal('open')
+						// $("#alertt").html("验证失败");
+						// $("#my-alert").modal('open')
+						swal("验证失败");
 						return false;
 					}
 				}

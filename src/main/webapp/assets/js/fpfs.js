@@ -193,6 +193,7 @@ $(function () {
          * @param data { ids: '1,2,3,4' }
          */
         sentEmail: function (data) {
+            $('.confirm').attr('disabled',"disabled");
             var _this = this;
             el.$jsLoading.modal('open');
             if(data.ids==''){
@@ -212,6 +213,7 @@ $(function () {
                     if (data.statu === '0') {
                         // $('#msg').html(data.msg);
                         // $('#my-alert').modal('open');
+                        $('.confirm').removeAttr('disabled');
                         swal(data.msg);
                     } else {
                         // $('#msg').html('发送失败,服务器错误' + data.message);

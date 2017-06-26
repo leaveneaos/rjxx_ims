@@ -5,8 +5,8 @@ $(function () {
     "use strict";
     var ur ;
     var el = {
-    	$jsTable: $('.js-table'),//库存table
-    	$jsNewTable:$('#jsNewTable'),
+        $jsTable: $('.js-table'),//库存table
+        $jsNewTable:$('#jsNewTable'),
         $modalHongchong: $('#hongchong'),//弹出div
         $jsClose: $('.js-close'),//取消按钮
         $jsForm: $('.js-form-kc'), //  form
@@ -36,7 +36,7 @@ $(function () {
             url:'fpkc/getServerFpkc',
             type: 'POST',
             data: function (d) {                      
-            	d.skpid = $('#kpddm').val();
+                d.skpid = $('#kpddm').val();
             }
         },
         "columns": [                        
@@ -73,19 +73,19 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                        	var bz = $('#searchbz').val();
-                        	if(bz=='1'){
-                        		d.xfids = $('#xfid').val();
-                            	d.skpids = $('#s_skpid').val();
+                            var bz = $('#searchbz').val();
+                            if(bz=='1'){
+                                d.xfids = $('#xfid').val();
+                                d.skpids = $('#s_skpid').val();
                                 d.fpdm= el.$s_fpdm.val(); // search 用户账号
                                 d.fplx = el.$s_fplx.val();
-                        	}else{
-                        		var item = $('#s_mainkey').val();
-                        		if(item=='fpdm'){
-                        			d.fpdm = $('#searchValue').val();
-                        		}
-                        	}
-                        	
+                            }else{
+                                var item = $('#s_mainkey').val();
+                                if(item=='fpdm'){
+                                    d.fpdm = $('#searchValue').val();
+                                }
+                            }
+                            
                         }
                     },
                     "columns": [
@@ -111,7 +111,7 @@ $(function () {
                         {"data": "kyl"}
                         ]
                 });
-            	   
+                   
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(0).nodes().each(function (cell, i) {
@@ -139,25 +139,25 @@ $(function () {
                 var kpdmc = row.kpdmc;
                 selectIndex = -1;               
                 var xfid =  $('#xfsh option:selected').val();
-        		var skpid = $("#kpddm");
-        		$("#kpddm").empty();
-        		$.ajax({
-        			url:"fpkc/getKpd",
-        			data:{"xfid":xfid},
-        			success:function(data){
-        				for(var i=0;i<data.length;i++){
-        					if(data[i].skpid != row.skpid){
-        						var option = $("<option>").text(data[i].kpdmc).val(data[i].skpid);
-            				    skpid.append(option);
-        					}
-        					
-        				}
-        			}
-        			
-        		});
-        		var option = $("<option selected>").text(kpdmc).val(row.skpid);
-        		skpid.append(option);
-        		var fpzlmc = row.fpzlmc;
+                var skpid = $("#kpddm");
+                $("#kpddm").empty();
+                $.ajax({
+                    url:"fpkc/getKpd",
+                    data:{"xfid":xfid},
+                    success:function(data){
+                        for(var i=0;i<data.length;i++){
+                            if(data[i].skpid != row.skpid){
+                                var option = $("<option>").text(data[i].kpdmc).val(data[i].skpid);
+                                skpid.append(option);
+                            }
+                            
+                        }
+                    }
+                    
+                });
+                var option = $("<option selected>").text(kpdmc).val(row.skpid);
+                skpid.append(option);
+                var fpzlmc = row.fpzlmc;
                 var selectIndex = -1;
                 var options = $("#fplx").find("option");
                 for (var j = 0; j < options.size(); j++) {
@@ -172,15 +172,15 @@ $(function () {
                 el.$fphms.val(row.fphms);
                 el.$fphmz.val(row.fphmz);
                 el.$modalHongchong.modal('open');
-                ur =_this.config.xgUrl + '?id=' + row.id;   			 
+                ur =_this.config.xgUrl + '?id=' + row.id;                
             });
             // 删除
             t.on('click', 'a.shanchu', function () {
-            	  var da = t.row($(this).parents('tr')).data();
-            	  $('#my-confirm').modal({
+                  var da = t.row($(this).parents('tr')).data();
+                  $('#my-confirm').modal({
                       relatedTarget: this,
-                      onConfirm: function(options) {                   	
-                    	  _this.sc(da);
+                      onConfirm: function(options) {                    
+                          _this.sc(da);
                       },
                       onCancel: function() {
                      
@@ -195,133 +195,136 @@ $(function () {
         search_ac: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
-            	$('#searchbz').val("1");
+                $('#searchbz').val("1");
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
             });
         },
         find_mv:function(){
-        	var _this = this;
-        	$('#searchButton').on('click',function(e){
-        		$('#searchbz').val("0");
-        		e.preventDefault();
+            var _this = this;
+            $('#searchButton').on('click',function(e){
+                $('#searchbz').val("0");
+                e.preventDefault();
                 _this.tableEx.ajax.reload();
-        	})
+            })
         },
         
         add:function(){
-        	// 新增
-        	var _this = this;
+            // 新增
+            var _this = this;
             el.$jsAdd.on('click', el.$jsAdd, function () {
-            	 _this.resetForm();
-            	 $('#tablediv').hide();
-            	 $("#xfsh").find("option").eq(0).attr("selected", true);
-            	 $("#fplx").find("option").eq(0).attr("selected", true);
-            	 $("#kpddm").empty(); 
+                 _this.resetForm();
+                 $('#tablediv').hide();
+                 $("#xfsh").find("option").eq(0).attr("selected", true);
+                 $("#fplx").find("option").eq(0).attr("selected", true);
+                 $("#kpddm").empty(); 
                  ur = _this.config.xzUrl;
                 el.$modalHongchong.modal('toggle');
             });
         },
         
         autoWrite:function(){
-        	$('.autowrite').on('click',$('.autowrite'),function(e){
-        		var skpid = $('#kpddm').val();
-        		if(skpid==''||skpid==null){
-        			// $('#alert-msg').html("请先选择销方及开票点！");
-       				// $('#my-alert').modal('open');
+            $('.autowrite').on('click',$('.autowrite'),function(e){
+                var skpid = $('#kpddm').val();
+                if(skpid==''||skpid==null){
+                    // $('#alert-msg').html("请先选择销方及开票点！");
+                    // $('#my-alert').modal('open');
                     swal("请先选择销方及开票点！");
-        		}else{
-        			e.preventDefault();  
-        			tb.ajax.reload();
-        			$('#formdiv').hide();
-                	$('#tablediv').show();
-        		}
-        		
-        	});        	
+                }else{
+                    e.preventDefault();  
+                    tb.ajax.reload();
+                    $('#formdiv').hide();
+                    $('#tablediv').show();
+                }
+                
+            });         
         },
         
         retu:function(){
-        	$('.js-return').on('click',$('.js-return'),function(){
-        		$('#tablediv').hide();
-            	$('#formdiv').show();
-        	});       	
+            $('.js-return').on('click',$('.js-return'),function(){
+                $('#tablediv').hide();
+                $('#formdiv').show();
+            });         
         },
         /**
          * 新增保存
          */
         saveAllKc:function(){
-        	$('#autoKc').validator({
-        		submit:function(){
-        			var len = $("#jsNewTable").children("tr").length;
-        			alert(len)
-        			if(len<1){
-        				// $('#alert-msg').html("没有取到数据不能保存,请先检查开票通是否启动！");
-           	// 			$('#my-alert').modal('open');
+            $('#autoKc').validator({
+                submit:function(){
+                    var len = $("#jsNewTable").children("tr").length;
+                    $('.confirm').attr('disabled',"disabled");
+                    if(len<1){
+                        // $('#alert-msg').html("没有取到数据不能保存,请先检查开票通是否启动！");
+            //          $('#my-alert').modal('open');
                         swal("没有取到数据不能保存,请先检查开票通是否启动！");
-                       	return false;
-        			}else{
-        				var data = $('#autoKc').serialize();
-        				$.ajax({
-        					url:'fpkc/saveAllkc',
-        					data:data,
-        					method: 'POST',
-        					success:function(data){
-        						 if(data.success){
-        							 el.$modalHongchong.modal('close'); // close
-        							 $('#alert-msg').html(data.msg);
-        		           			 $('#my-alert').modal('open');
-        		           			 _this.tableEx.ajax.reload();
-        						 }
-        					 }
-        				})
-        			}
-        			return false;
-        		}
-        	})
+                        return false;
+                    }else{
+                        var data = $('#autoKc').serialize();
+                        $.ajax({
+                            url:'fpkc/saveAllkc',
+                            data:data,
+                            method: 'POST',
+                            success:function(data){
+                                 if(data.success){
+                                    $('.confirm').removeAttr('disabled');
+                                     el.$modalHongchong.modal('close'); // close
+                                     $('#alert-msg').html(data.msg);
+                                     $('#my-alert').modal('open');
+                                     _this.tableEx.ajax.reload();
+                                 }
+                             }
+                        })
+                    }
+                    return false;
+                }
+            })
         },
        save:function(){
-    	   var _this = this;
+           var _this = this;
            el.$jsForm.validator({
                submit: function () {
-               	var fpdm = $("#fpdm").val().trim();
-               	var fphms = $("#fphms").val().trim();          
+                var fpdm = $("#fpdm").val().trim();
+                var fphms = $("#fphms").val().trim();          
                    var fphmz = $("#fphmz").val().trim();
                    var formValidity = this.isFormValid();
+                   $('.confirm').attr('disabled',"disabled");
                    if (formValidity) {
-                   	if(parseInt(fphms)>parseInt(fphmz)){
-               //     		$('#alert-msg').html("起始号码大于终止号码，请重新输入！");
-           				// $('#my-alert').modal('open');
+                    if(parseInt(fphms)>parseInt(fphmz)){
+               //           $('#alert-msg').html("起始号码大于终止号码，请重新输入！");
+                        // $('#my-alert').modal('open');
                         swal("起始号码大于终止号码，请重新输入！");
-                       	return false;
+                        return false;
                        }
                        var data = el.$jsForm.serialize(); // get form data
                        $.ajax({
                            url: ur,
                            data: data,
                            method: 'POST',
-                           success: function (data) {                            	
+                           success: function (data) {                               
                                if (data.success) {
+                                    $('.confirm').removeAttr('disabled');
                                    el.$modalHongchong.modal('close'); // close
                           //          $('#alert-msg').html(data.msg);
-                   				   // $('#my-alert').modal('open');
+                                   // $('#my-alert').modal('open');
                                    swal(data.msg);
                                    _this.tableEx.ajax.reload();
                                }else{
-                           //         	$('#alert-msg').html(data.msg);
-                       				// $('#my-alert').modal('open');  
+                           //           $('#alert-msg').html(data.msg);
+                                    // $('#my-alert').modal('open');  
                                     swal(data.msg);                                
                                }                             
                            },
                            error: function () {
-                       //         	$('#alert-msg').html("保存失败，请检查！");
-                   				// $('#my-alert').modal('open');
+                       //           $('#alert-msg').html("保存失败，请检查！");
+                                // $('#my-alert').modal('open');
                                 swal("保存失败，请检查！");
                            }
                        });
                        return false;
                    } else {
-               //         	$('#alert-msg').html("数据验证失败，请检查！");
-           				// $('#my-alert').modal('open');
+               //           $('#alert-msg').html("数据验证失败，请检查！");
+                        // $('#my-alert').modal('open');
                         swal("数据验证失败，请检查！");
                    }
                }
@@ -332,29 +335,31 @@ $(function () {
          * 删除
          */
         sc: function (da) {
-        	   var _this = this;
+               var _this = this;
+               $('.confirm').attr('disabled',"disabled");
             $.ajax({
                 url: _this.config.scUrl,
                 data: {"id":da.id},
                 success: function (data) {
                     if (data.success) {
-            //         	$('#alert-msg').html(data.msg);
-        				// $('#my-alert').modal('open');
+            //          $('#alert-msg').html(data.msg);
+                        // $('#my-alert').modal('open');
+                        $('.confirm').removeAttr('disabled');
                         swal(data.msg);
-        				 _this.tableEx.ajax.reload(); // reload table 
+                         _this.tableEx.ajax.reload(); // reload table 
                     } else {    
-            //         	$('#alert-msg').html(data.msg);
-        				// $('#my-alert').modal('open'); 
+            //          $('#alert-msg').html(data.msg);
+                        // $('#my-alert').modal('open'); 
                         swal(data.msg);                    
                     }                                   
                 },
                 error: function () {
-        //         	$('#alert-msg').html("删除失败，请检查！");
-    				// $('#my-alert').modal('open');
+        //          $('#alert-msg').html("删除失败，请检查！");
+                    // $('#my-alert').modal('open');
                     swal("删除失败，请检查！");
                 }
             });
-            	
+                
         },
         resetForm: function () {
             el.$jsForm[0].reset();

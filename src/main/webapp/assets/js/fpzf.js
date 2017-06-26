@@ -476,6 +476,7 @@ $(function () {
                         confirmButtonText: "确 定",
                         confirmButtonColor: "#ec6c62"
                     }, function() {
+                        $('.confirm').attr('disabled',"disabled");
                         var xhStr = "";
                         var hcjeStr="";
                         var zhcje = 0;
@@ -485,6 +486,7 @@ $(function () {
                             data:{"kplsh":kplsh},
                         }).done(function(data) {
                             if(data.success){
+                                $('.confirm').removeAttr('disabled');
                                 swal(data.msg);
                                 $("#kplsh").val("");
                                 t.ajax.reload();
