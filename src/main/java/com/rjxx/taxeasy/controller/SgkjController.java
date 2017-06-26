@@ -281,12 +281,12 @@ public class SgkjController extends BaseController{
                 jymxsq.setXgsj(TimeUtil.getNowDate());
                 jymxsq.setXgry(yhid);
                 jymxsq.setGsdm(gsdm);
-                if(yhzcbs.length==0){
+                if(yhzcbs.length==0||yhzcmc==null){
                     jymxsq.setYhzcbs("");
                 }else{
                     jymxsq.setYhzcbs(yhzcbs[c]);
                 }
-                if(yhzcmc.length==0){
+                if(yhzcmc.length==0||yhzcmc==null){
                     jymxsq.setYhzcmc("");
                 }else{
                     jymxsq.setYhzcmc(yhzcmc[c]);
