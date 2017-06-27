@@ -1489,7 +1489,7 @@ table thead th {
 					var je = $('#lrje_edit');
 					var sl = $('#lrsltaxrate_edit');
 					var se = $('#lrse_edit');
-					var spsl = $('#lrsl_edit');
+					// var spsl = $('#lrsl_edit');
 
 					var jshj = $('#lrjshj_edit');
 					var dj = $('#lrdj_edit');
@@ -1501,7 +1501,7 @@ table thead th {
 
 					jshj.val(FormatFloat(hsje.val(), "#####0.00"));
 
-					spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
+					// spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
 				}
 			);
 
