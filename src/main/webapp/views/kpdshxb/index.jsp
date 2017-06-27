@@ -968,7 +968,7 @@ table thead th {
 									style="color: red;">*</span>金额(含税)</label>
 
 								<div class="am-u-sm-4">
-									<input type="text" id="lrhsje_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入金额(含税)..."
+									<input type="text" id="lrhsje_edit" placeholder="输入金额(含税)..."
 										required>
 								</div>
 								<div class="am-form-group">
