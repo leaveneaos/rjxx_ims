@@ -947,14 +947,14 @@ table thead th {
 									<label for="lrsl_edit" class="am-u-sm-2 am-form-label">数量</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrsl_edit" placeholder="输入数量...">
+										<input type="text" id="lrsl_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入数量...">
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label for="lrdj_edit" class="am-u-sm-2 am-form-label">单价(含税)</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrdj_edit" placeholder="输入单价...">
+										<input type="text" id="lrdj_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入单价...">
 									</div>
 									<label for="lrje_edit" class="am-u-sm-2 am-form-label"
 										style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
@@ -968,7 +968,7 @@ table thead th {
 									style="color: red;">*</span>金额(含税)</label>
 
 								<div class="am-u-sm-4">
-									<input type="text" id="lrhsje_edit" placeholder="输入金额(含税)..."
+									<input type="text" id="lrhsje_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入金额(含税)..."
 										required>
 								</div>
 								<div class="am-form-group">
@@ -1372,7 +1372,8 @@ table thead th {
 			});
 		    $("#lrsl_edit").keyup(function(){
                 var spsl = $('#lrsl_edit');//商品数量
-                var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                var num = $('#lrdj_edit').val();
                 if (!num.test(spsl.val())) {
                     if (spsl.val().length > 1) {
                         $('#lrsl_edit').val(
@@ -1401,7 +1402,8 @@ table thead th {
             });
             $("#lrdj_edit").keyup(function(){
                 var dj = $('#lrdj_edit');//单价
-                var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                var num = $('#lrdj_edit').val();
                 if (!num.test(dj.val())) {
                     if (dj.val().length > 1) {
                         $('#dj_edit').val(
@@ -1474,7 +1476,8 @@ table thead th {
 
 			$("#lrhsje_edit").keyup(
 				function() {
-					var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+					// var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+					var num = $('#lrhsje_edit').val();
 					var hsje = $('#lrhsje_edit');
 					if (!num.test(hsje.val())) {
 						if (hsje.val().length > 1) {
