@@ -165,7 +165,7 @@
 												<th>收款人</th>
 												<th>复核人</th>
 												<th>开票人</th>
-												<th>作废人</th>
+												<!-- <th>作废人</th> -->
 												<!-- <th>电子票开票限额</th>
 												<th>电子票分票金额</th>
 												<th>专票开票限额</th>
@@ -223,23 +223,27 @@
 										</div>
 									</div>
 									<div class="am-form-group">
-										<label for="khyh" class="am-u-sm-2 am-form-label">开户银行</label>
+										<label for="khyh" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>开户银行</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="khyh" name="khyh" placeholder="请输入开户银行"/>
 										</div>
-										<label for="yhzh" class="am-u-sm-2 am-form-label">银行账号</label>
+										<label for="yhzh" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>银行账号</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="yhzh" pattern="^[0-9a-zA-Z]{4,30}$"
 												name="yhzh" placeholder="请输入销方银行帐号"/>
 										</div>
 									</div>
 									<div class="am-form-group">
-										<label for="dz" class="am-u-sm-2 am-form-label">销方地址</label>
+										<label for="dz" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>销方地址</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="dz" name="dz" placeholder="请输入销方地址"
 												 />
 										</div>
-										<label for="xfdh" class="am-u-sm-2 am-form-label">销方电话</label>
+										<label for="xfdh" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>销方电话</label>
 										<div class="am-u-sm-4">
 											<input type="text" maxlength="20" id="xfdh" name="xfdh" placeholder="销售方联系电话">
 										</div>
@@ -257,6 +261,22 @@
 												placeholder="输入应为国内邮政编码" />
 										</div>
 									</div> -->
+									<div class="am-form-group">
+										<label for="skr" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>收款人</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
+										</div>
+										<label for="fhr" class="am-u-sm-2 am-form-label">复核人</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="fhr" name="fhr" placeholder="请输入复核人" />
+			
+										</div>
+										<!-- <label for="zfr" class="am-u-sm-2 am-form-label">作废人</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="zfr" name="zfr" placeholder="请输入作废人" />
+										</div> -->
+									</div>
 			
 									<div class="am-form-group">
 										<label for="kpr" class="am-u-sm-2 am-form-label">开票人</label>
@@ -264,23 +284,10 @@
 											<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"
 												/>
 										</div>
-										<label for="fhr" class="am-u-sm-2 am-form-label">复核人</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="fhr" name="fhr" placeholder="请输入复核人" />
-			
-										</div>
+										
 									</div>
 			
-									<div class="am-form-group">
-										<label for="skr" class="am-u-sm-2 am-form-label">收款人</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
-										</div>
-										<!-- <label for="zfr" class="am-u-sm-2 am-form-label">作废人</label>
-										<div class="am-u-sm-4">
-											<input type="text" id="zfr" name="zfr" placeholder="请输入作废人" />
-										</div> -->
-									</div>
+									
 									<!-- <div class="am-form-group">
 										<label for="dzpzdje" class="am-u-sm-2 am-form-label am-u-left">电子票开票限额</label>
 											<div class="am-u-sm-4">
@@ -457,7 +464,6 @@
 			$("#btnDownloadDefaultTemplate").click(function() {
 				location.href = "xfxxwh/downloadDefaultImportTemplate";
 			});
-
 		});
 	</script>
 
