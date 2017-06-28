@@ -454,26 +454,30 @@ $(function() {
 							dz = $('#dz').val(),
 							xfdh = $('#xfdh').val(),
 							skr = $('#skr').val();
-						if(xfmc == '' || xfmc == null) {
+							
+						if(!xfmc) {
 							swal('请输入销方名称');
 							return false;
-						}else if(khyh == '' || khyh == null) {
+						}
+						if(!khyh) {
 							swal('请输入开户银行');
 							return false;
-						}else if(yhzh == '' || yhzh == null) {
+						}
+						if(!yhzh) {
 							swal('请输入银行账号');
 							return false;
-						}else if(dz == '' || dz == null) {
+						}
+						if(!dz) {
 							swal('请输入销方地址');
 							return false;
-						}else if(xfdh == '' || xfdh == null) {
+						}
+						if(!xfdh) {
 							swal('请输入销方电话');
 							return false;
-						}else{
-							if(skr == '' || skr == null) {
-								swal('请输入收款人');
-								return false;
-							}
+						}
+						if(!skr) {
+							swal('请输入收款人');
+							return false;
 						}
       //                   if (parseFloat(zpmax) < parseFloat(zpfz)) {
       //   	             //    $('#msg').html('普通发票分票金额大于开票限额！');
