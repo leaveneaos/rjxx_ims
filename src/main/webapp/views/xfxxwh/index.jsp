@@ -241,8 +241,7 @@
 										</div>
 										<label for="xfdh" class="am-u-sm-2 am-form-label">销方电话</label>
 										<div class="am-u-sm-4">
-											<input type="text" maxlength="20" id="xfdh" name="xfdh"
-												class="js-pattern-Telephone" placeholder="销售方联系电话，如021-55571833">
+											<input type="text" maxlength="20" id="xfdh" name="xfdh" placeholder="销售方联系电话">
 										</div>
 									</div>
 			
