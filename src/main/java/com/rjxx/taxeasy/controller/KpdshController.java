@@ -210,29 +210,20 @@ public class KpdshController extends BaseController {
 			Double zdje = 0d;
 			String hsbz = "";
 			String qdbz = "";
+			/**
+			 * 取税控盘的开票限额
+			 */
 			if ("01".equals(jyxxsqVO.getFpzldm())) {
-				if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
-					fpje = skp.getZpfz();
-				} else if (skp.getZpmax() != null && (skp.getZpmax() > 0)) {
-					fpje = skp.getZpmax();
-				}
 				zdje = skp.getZpmax();
 			} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-				if (skp.getPpfz() != null && (skp.getPpfz() > 0)) {
-					fpje = skp.getPpfz();
-				} else if (skp.getPpmax() != null && (skp.getPpmax() > 0)) {
-					fpje = skp.getPpmax();
-				}
 				zdje = skp.getPpmax();
 			} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-				if (skp.getFpfz() != null && (skp.getFpfz()) > 0) {
-					fpje = skp.getFpfz();
-				} else if (skp.getDpmax() != null && (skp.getDpmax() > 0)) {
-					fpje = skp.getDpmax();
-				}
 				zdje = skp.getDpmax();
 			}
 			boolean flag = false;
+			/**
+			 * 先取税控盘的分票金额
+			 */
 			for (Fpgz fpgz : listt) {
 				if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
 					if ("01".equals(jyxxsqVO.getFpzldm())) {
@@ -248,20 +239,22 @@ public class KpdshController extends BaseController {
 					break;
 				}
 			}
+			/**
+			 * 分票规则没有取到，就取税控盘的分票金额
+			 */
 			if (!flag) {
-				Map<String, Object> params = new HashMap<>();
-				params.put("mrbz", "1");
-				Fpgz fpgz2 = fpgzService.findOneByParams(params);
-				if (null != fpgz2) {
-					if ("01".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz2.getZpxe();
-					} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz2.getPpxe();
-					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz2.getDzpxe();
+				if ("01".equals(jyxxsqVO.getFpzldm())) {
+					if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
+						fpje = skp.getZpfz();
 					}
-					hsbz = fpgz2.getHsbz();
-					qdbz = fpgz2.getQdbz();
+				} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+					if (skp.getPpfz() != null && (skp.getPpfz() > 0)) {
+						fpje = skp.getPpfz();
+					}
+				} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+					if (skp.getFpfz() != null && (skp.getFpfz()) > 0) {
+						fpje = skp.getFpfz();
+					}
 				}
 			}
 			if (null == zdje) {
@@ -587,31 +580,15 @@ public class KpdshController extends BaseController {
 					}
 				}
 				if (!flag) {
-					Map<String, Object> paramse = new HashMap<>();
-					paramse.put("mrbz", "1");
-					paramse.put("gsdm", getGsdm());
-					Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
-					if (null != fpgz2) {
-						if ("01".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz2.getZphs())&&null!=fpgz2.getZphs()){
-								fphs1 = fpgz2.getZphs();
-							}
-						} else if ("02".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz2.getPphs())&&null!=fpgz2.getPphs()){
-								fphs1 = fpgz2.getPphs();
-							}
-						} else if ("12".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz2.getDzphs())&&null!=fpgz2.getDzphs()){
-								fphs2 = fpgz2.getDzphs();
-							}
-						}
-						if (fpgz2.getSfqzfp().equals("0")) {
-							qzfp = false;
-						}
-						if (fpgz2.getSfspzsfp().equals("1")) {
-							spzsfp = true;
-						}
-					}
+					qzfp = false;
+					spzsfp = false;
+					/*if ("01".equals(jyxxsq.getFpzldm())) {
+
+					} else if ("02".equals(jyxxsq.getFpzldm())) {
+
+					} else if ("12".equals(jyxxsq.getFpzldm())) {
+
+					}*/
 				}
 			}
 			if ("01".equals(jyxxsq.getFpzldm())) {
@@ -621,7 +598,6 @@ public class KpdshController extends BaseController {
 			} else if ("12".equals(jyxxsq.getFpzldm())) {
 				zdje = skp.getDpmax();
 			}
-
 			// 分票
 			List<JyspmxDecimal2> splitKpspmxs = new ArrayList<JyspmxDecimal2>();
 			Map mapResult = new HashMap();

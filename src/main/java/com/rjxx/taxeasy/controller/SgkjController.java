@@ -504,17 +504,17 @@ public class SgkjController extends BaseController{
             String hsbz = "";
             boolean flag = false;
             boolean spzsfp = false;//是否按商品整数分票
-            Skp skp = skpService.findOne(jyxxsq.getSkpid());//取税控盘的最大金额和分票金额
-            if ("01".equals(jyxxsq.getFpzldm())) {
-                zdje = skp.getZpmax();
-                fpje = skp.getZpfz();
-            } else if ("02".equals(jyxxsq.getFpzldm())) {
-                zdje = skp.getPpmax();
-                fpje = skp.getPpfz();
-            } else if ("12".equals(jyxxsq.getFpzldm())) {
-                zdje = skp.getDpmax();
-                fpje = skp.getFpfz();
-            }
+            Skp skp = skpService.findOne(jyxxsq.getSkpid());
+            /**
+             * 取税控盘的开票限额
+             */
+                if ("01".equals(jyxxsq.getFpzldm())) {
+                    zdje = skp.getZpmax();
+                } else if ("02".equals(jyxxsq.getFpzldm())) {
+                    zdje = skp.getPpmax();
+                } else if ("12".equals(jyxxsq.getFpzldm())) {
+                    zdje = skp.getDpmax();
+                }
             List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
             Xf x = new Xf();
             x.setGsdm(jyxxsq.getGsdm());
@@ -548,35 +548,18 @@ public class SgkjController extends BaseController{
                     }
                 }
             }
-            if (!flag) {
-                Map<String, Object> paramse = new HashMap<>();
-                paramse.put("mrbz", "1");
-                paramse.put("gsdm", jyxxsq.getGsdm());
-                Fpgz fpgz2 = fpgzService.findOneByParams(paramse);
-                if (null != fpgz2) {
-                    if ("01".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz2.getZphs())&&null!=fpgz2.getZphs()){
-                            fphs1 = fpgz2.getZphs();
-                        }
-                        fpje = fpgz2.getZpxe();
-                    } else if ("02".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz2.getPphs())&&null!=fpgz2.getPphs()){
-                            fphs1 = fpgz2.getPphs();
-                        }
-                        fpje = fpgz2.getPpxe();
-                    } else if ("12".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz2.getDzphs())&&null!=fpgz2.getDzphs()){
-                            fphs2 = fpgz2.getDzphs();
-                        }
-                        fpje = fpgz2.getDzpxe();
-                    }
-                    hsbz = fpgz2.getHsbz();
-                    if (fpgz2.getSfqzfp().equals("0")) {
-                        sfqzfp = false;
-                    }
-                    if (fpgz2.getSfspzsfp().equals("1")) {
-                        spzsfp = true;
-                    }
+        /**
+         * 如果取不到分票规则的分票金额，就取税控盘的分票金额
+         */
+        if (!flag) {
+                sfqzfp = false;
+                spzsfp = false;
+                if ("01".equals(jyxxsq.getFpzldm())) {
+                    fpje = skp.getZpfz();//专票阈值，分票金额
+                } else if ("02".equals(jyxxsq.getFpzldm())) {
+                    fpje = skp.getPpfz();//普票阈值，分票金额
+                } else if ("12".equals(jyxxsq.getFpzldm())) {
+                    fpje = skp.getFpfz();//电票阈值，分票金额
                 }
             }
             if (jyxxsq.getSfdyqd() != null && jyxxsq.getSfdyqd().equals("1")) {
@@ -586,6 +569,9 @@ public class SgkjController extends BaseController{
             if (0 == fpje) {
                 fpje = zdje;
             }
+            /**
+             * 分票规则中的含税标志为空为不含税
+             */
             if (hsbz != null && !"".equals(hsbz)) {
                 hsbz = "1";
             } else {
@@ -598,8 +584,6 @@ public class SgkjController extends BaseController{
                 // 分票
                 if (jyxxsq.getFpzldm().equals("12")) {
                     InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
-
-                    //jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, false);
                 } else {
                     InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
                 }
