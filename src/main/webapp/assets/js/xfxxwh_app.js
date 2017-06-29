@@ -200,7 +200,7 @@ $(function() {
 				$('div').removeClass('am-form-success');
 				$('input').removeClass('am-field-success');
 				ur = _this.config.addUrl;
-				el.$modalHongchong.modal({"width": 950, "height": 500});
+				el.$modalHongchong.modal({"width": 950, "height": 400});
 			});
 			// 修改
 			t.on('click', 'a.modify', function() {
@@ -210,7 +210,7 @@ $(function() {
 				$('input').removeClass('am-field-success');
 				var row = t.row($(this).parents('tr')).data();
 				_this.setForm0(row);				
-				el.$modalHongchong.modal({"width": 950, "height": 500});
+				el.$modalHongchong.modal({"width": 950, "height": 400});
 				$('#xfid').val(row.id);
 				ur = _this.config.editUrl;
 			});
