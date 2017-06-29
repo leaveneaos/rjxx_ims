@@ -454,7 +454,6 @@ $(function() {
 							dz = $('#dz').val(),
 							xfdh = $('#xfdh').val(),
 							skr = $('#skr').val();
-							
 						if(!xfmc) {
 							swal('请输入销方名称');
 							return false;
@@ -609,14 +608,14 @@ $(function() {
 			// el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
 			// el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
 			el.$jsForm0.find('select[id="sjxf"]').val(data.sjjgbm == null ? "0" : data.sjjgbm);
-//			$('#sjxf').val(data.sjjgbm == null ? 0 : data.sjjgbm);
-//			if (data.sjjgbm != null) {
-//				$("#sjxf").find('option[value=' + data.sjjgbm + ']').attr('selected',
-//						true);
-//			}else{
-//				$("#sjxf").find('option[value=0]').attr('selected',
-//						true);
-//			}
+			$('#sjxf').val(data.sjjgbm == null ? 0 : data.sjjgbm);
+			if (data.sjjgbm != null) {
+				$("#sjxf").find('option[value=' + data.sjjgbm + ']').attr('selected',
+						true);
+			}else{
+				$("#sjxf").find('option[value=0]').attr('selected',
+						true);
+			}
 		},
 		setForm1 : function() {
 			var _this = this, i;
