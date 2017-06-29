@@ -100,9 +100,6 @@ $(function() {
 									"data" : "xfsh"
 								},
 								{
-									"data" : "sjxfmc"
-								},
-								{
 									"data" : "xfdz"
 								},
 								{
@@ -122,6 +119,9 @@ $(function() {
 								},
 								{
 									"data" : "kpr"
+								},
+								{
+									"data" : "sjxfmc"
 								},
 								/*{
 									"data" : "zfr"
