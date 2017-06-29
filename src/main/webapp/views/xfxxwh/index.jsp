@@ -90,7 +90,7 @@
 											    <div class="am-form-group">
 													<label for="kpr1" class="am-u-sm-4 am-form-label">开票人</label>
 													<div class="am-u-sm-8">
-														<input type="text" id="kpr1" name="kpr1" placeholder="请输入销方名称"
+														<input type="text" id="kpr1" name="kpr1" placeholder="请输入开票人"
 															required="required" />
 													</div>
 												</div>
@@ -198,15 +198,7 @@
 								<input type="hidden" name="xfid" id="xfid" />
 								<div class="am-g">
 									<div class="am-form-group">
-										<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
-										<div class="am-u-sm-10">
-											<select id="sjxf" name="sjxf">
-											<option value="0">请选择</option>
-												<c:forEach items="${xfs }" var="x">
-													<option value="${x.id }">${x.xfmc }</option>
-												</c:forEach>
-											</select>
-										</div>
+										
 									</div>
 									<div class="am-form-group">
 										<label for="xfsh" class="am-u-sm-2 am-form-label"><font
@@ -282,8 +274,17 @@
 									<div class="am-form-group">
 										<label for="kpr" class="am-u-sm-2 am-form-label">开票人</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"
-												/>
+											<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"/>
+										</div>
+
+										<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
+										<div class="am-u-sm-4">
+											<select id="sjxf" name="sjxf">
+											<option value="0">请选择</option>
+												<c:forEach items="${xfs }" var="x">
+													<option value="${x.id }">${x.xfmc }</option>
+												</c:forEach>
+											</select>
 										</div>
 										
 									</div>

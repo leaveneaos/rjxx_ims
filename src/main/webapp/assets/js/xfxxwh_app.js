@@ -233,9 +233,9 @@ $(function() {
 	        $("#close1").click(function () {
 	            $importModal.modal("close");
 	        });
-	        $('#xfmc').change(function(){
-	        	$('#kpr').val($(this).val());
-	        });
+	        // $('#xfmc').change(function(){
+	        // 	$('#kpr').val($(this).val());
+	        // });
 	      //导入excel
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
