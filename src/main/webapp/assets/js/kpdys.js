@@ -5,6 +5,7 @@
     'use strict';
     $(function () {
         var splsh1=[];
+        var loaddata2=false;
         var jyls_table2 = $('#jyls_table2').DataTable({
             "searching": false,
             "serverSide": true,
@@ -29,6 +30,7 @@
 	                 }else if("ddh2"==csm&&(d.ddh==null||d.ddh=="")){
 	                    d.ddh = $('#dxcsz2').val()
 	                  }
+	                d.loaddata2=loaddata2;
                     splsh1.splice(0,splsh1.length);
 
                 }
@@ -186,6 +188,7 @@
                 }
             }
             $("#dxcsz2").val("");
+            loaddata2=true;
         	jyls_table2.ajax.reload();
         });
         
@@ -193,6 +196,7 @@
         	$("#ycform2").resetForm();
         	$('#kssj2').attr("selected","selected");
          	$('#jssj2').attr("selected","selected");
+            loaddata2=true;
         	jyls_table2.ajax.reload();
         });
 

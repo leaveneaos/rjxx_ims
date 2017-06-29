@@ -32,7 +32,7 @@ $(function() {
         $checkAll : $('#select_all')
     };
 
-
+    var loaddata2=false;
     var action = {
         tableEx : null, // cache dataTable
         config : {
@@ -170,6 +170,7 @@ $(function() {
                         }else{
                             d.ddh = "-11111111";
                         }
+                        d.loaddata2=loaddata2;
                     }
                 },
                 "columns" : start
@@ -180,7 +181,6 @@ $(function() {
                 t.column(1).nodes().each(function(cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-
             });
             //预览
             $("#kp_yl").click(function () {
@@ -234,6 +234,7 @@ $(function() {
                 }
             });
             var djh=[];
+            var loaddata=false;
             var jyls_table = $('#jyls_table').DataTable({
                 "searching": false,
                 "serverSide": true,
@@ -263,6 +264,7 @@ $(function() {
                             d.rqq = $('#s_rqq1').val(); // search 开票日期
                             d.rqz = $('#s_rqz1').val(); // search 开票日期
                         }
+                        d.loaddata=loaddata;
                     }
                 },
                 "columns": [
@@ -390,10 +392,12 @@ $(function() {
                 $("#bz123").val("1");
                 $('#xzxfq').attr("selected","selected");
                 $('#xzlxq').attr("selected","selected");
+                loaddata=true;
                 jyls_table.ajax.reload();
             });
             $('#kp_search1').click(function () {
                 $("#bz123").val("2");
+                loaddata=true;
                 jyls_table.ajax.reload();
             });
             //删除
@@ -1027,6 +1031,7 @@ $(function() {
             el.$jsSearch.on('click', function(e) {
                 $('#bj').val('1');
                 e.preventDefault();
+                loaddata2=true;
                 _this.tableEx.ajax.reload();
 
             });
@@ -1056,6 +1061,7 @@ $(function() {
                     }
                 }
                 e.preventDefault();
+                loaddata2=true;
                 _this.tableEx.ajax.reload();
 
             });

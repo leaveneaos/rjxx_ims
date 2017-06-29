@@ -1388,7 +1388,7 @@ public class KpController extends BaseController {
 	@RequestMapping(value = "/getjylslist")
 	@ResponseBody
 	public Map getjylslist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
-			String fpzldm, String rqq, String rqz) {
+			String fpzldm, String rqq, String rqz,boolean loaddata) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -1427,10 +1427,17 @@ public class KpController extends BaseController {
 		List<Jyls> jylsList = jylsService.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", jylsList);
+		if(loaddata){
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", jylsList);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 		return result;
 	}
 

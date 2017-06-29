@@ -355,7 +355,8 @@ $(function() {
     });
     var t;
     var splsh=[];
-    var kpspmx_table3
+    var kpspmx_table3;
+    var loaddata=false;
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -385,6 +386,7 @@ $(function() {
 		                 }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
 		                    d.ddh = $('#dxcsz').val()
 						 }
+						 d.loaddata=loaddata;
                         splsh.splice(0,splsh.length);
 					}
 				},
@@ -760,10 +762,12 @@ $(function() {
 				$("#ycform").resetForm();
 	        	$('#xzxfq').attr("selected","selected");
 	         	$('#xzlxq').attr("selected","selected");
+                loaddata=true;
 				_this.tableEx.ajax.reload();
 			});
 			$("#kp_search1").on('click', function(e) {
 				$("#dxcsz").val("");
+                loaddata=true;
 				_this.tableEx.ajax.reload();
 			})
 			},

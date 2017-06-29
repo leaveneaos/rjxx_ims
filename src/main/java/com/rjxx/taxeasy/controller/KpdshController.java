@@ -137,7 +137,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getItems")
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
-			String spmc, String gfmc, String xfsh, String fpzldm) throws Exception {
+			String spmc, String gfmc, String xfsh, String fpzldm,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -273,12 +273,19 @@ public class KpdshController extends BaseController {
 			jyxxsqVO.setFpjshsbz(hsbz);
 			jyxxsqVO.setQdbz(qdbz);
 		}
-
-		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", ykfpList);
+        if(loaddata){
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", ykfpList);
+		}else{
+			int total = 0;
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 		return result;
 	}
 
@@ -940,7 +947,7 @@ public class KpdshController extends BaseController {
 	@RequestMapping(value = "/getyscjyxxsqlist")
 	@ResponseBody
 	public Map getyscjyxxsqlist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
-			String fpzldm, String rqq, String rqz) {
+			String fpzldm, String rqq, String rqz,boolean  loaddata2) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -997,10 +1004,18 @@ public class KpdshController extends BaseController {
 
 		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", jyxxsqList);
+		if(loaddata2){
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", jyxxsqList);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+
 		return result;
 	}
 
