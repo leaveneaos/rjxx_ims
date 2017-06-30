@@ -17,6 +17,7 @@ $(function () {
         $jsExport: $('.js-export'),
         $jsLoading: $('.js-modal-loading')
     };
+    var loaddata = false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -42,6 +43,7 @@ $(function () {
                             d.kprqq = el.$s_kprqq.val(); // search 开票日期
                             d.kprqz = el.$s_kprqz.val(); // search 开票日期
                             d.fpzl = el.$s_fpzl.val();
+                            d.loaddata = loaddata;
                     	}else{
                     		var item = $('#s_mainkey').val();
                     		if(item=='ddh'){
@@ -172,6 +174,7 @@ $(function () {
                 }
                 $('#searchbz').val("1");
                 e.preventDefault();
+                loaddata = true;
                 _this.tableEx.ajax.reload();
             });
         },
@@ -180,6 +183,7 @@ $(function () {
         	$('#jssearch').on('click',function(e){
         		$('#searchbz').val("0");
         		e.preventDefault();
+                loaddata = true;
                 _this.tableEx.ajax.reload();
         	})
         },

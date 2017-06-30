@@ -14,7 +14,7 @@ $(function () {
         //$jsSearch: $('.js-search'),
         $jsLoading: $('.js-modal-loading')
     };
-
+    var loaddata = false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -38,6 +38,7 @@ $(function () {
                         d.tqrqz = el.$s_kprqz.val(); // search 开票日期
                         d.tqsb = el.$s_tqsb.val();
                         d.jlly = el.$s_jlly.val();
+                        d.loaddata = loaddata;
                         var csm =  $('#dxcsm').val()
                         if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
                       	  d.gfmc = $('#dxcsz').val()
@@ -115,12 +116,14 @@ $(function () {
                 }
                 e.preventDefault();
                 $("#dxcsz").val("");
+                loaddata = true;
                 _this.tableEx.ajax.reload();
 
             });
             
             $('#kplscx_search').click(function () {
              	$("#ycform").resetForm();
+                loaddata = true;
               	_this.tableEx.ajax.reload();
              });
         },
