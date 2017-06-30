@@ -65,38 +65,6 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
-                    {
-                        "data": function (data) {
-                            var zt = data.ztbz;
-                            switch (zt) {
-                                case '0':
-                                    zt = '待提交';
-                                    break;
-                                case '1':
-                                    zt = '已申请';
-                                    break;
-                                case '2':
-                                    zt = '退回';
-                                    break;
-                                case '3':
-                                    zt = '已处理';
-                                    break;
-                                case '4':
-                                    zt = '删除';
-                                    break;
-                                case '5':
-                                    zt = '部分处理';
-                                    break;
-                                case '6':
-                                    zt = '待处理';
-                                    break;    
-                                    
-                                    
-                                    
-                            }
-                            return "<a class = 'view'>" + zt + "</a>";
-                        }
-                    },
                     {"data": "sqlsh"},
                     {"data": "jylsh"},
                     {"data": "ddh"},
@@ -131,6 +99,39 @@ $(function () {
                         }
                     	return sjly;
                     }},
+                    {
+                        "data": function (data) {
+                            var zt = data.ztbz;
+                            switch (zt) {
+                                case '0':
+                                    zt = '待提交';
+                                    break;
+                                case '1':
+                                    zt = '已申请';
+                                    break;
+                                case '2':
+                                    zt = '退回';
+                                    break;
+                                case '3':
+                                    zt = '已处理';
+                                    break;
+                                case '4':
+                                    zt = '删除';
+                                    break;
+                                case '5':
+                                    zt = '部分处理';
+                                    break;
+                                case '6':
+                                    zt = '待处理';
+                                    break;    
+                                    
+                                    
+                                    
+                            }
+                            // return "<a class = 'view'>" + zt + "</a>";
+                            return zt ;
+                        }
+                    },
                     
                     /*  {
                      "data": null,
@@ -138,8 +139,8 @@ $(function () {
                      return '<a class="view">查看</a>'
                      }
                      }*/
-                ],
-                "columnDefs": [{"bVisible": false, "aTargets": [1]}],
+                ]
+                // "columnDefs": [{"bVisible": false, "aTargets": [1]}],
             });
 
             t.on('draw.dt', function (e, settings, json) {
