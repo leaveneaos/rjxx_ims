@@ -21,6 +21,7 @@ $(function () {
     };
     var mxarr = [];
     var index = 1;
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -47,6 +48,7 @@ $(function () {
                         d.jylsh = el.$s_lsh.val();   // search 流水号
                         d.rqq = el.$s_rqq.val(); // search 开票日期
                         d.rqz = el.$s_rqz.val(); // search 开票日期
+                        d.loaddata=loaddata;
                         
                         var csm =  $('#dxcsm').val()
                         if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
@@ -249,12 +251,14 @@ $(function () {
                 }
                 e.preventDefault();
                 $("#dxcsz").val("");
+                loaddata=true;
                 _this.tableEx.ajax.reload();
 
             });
             
             $('#kplscx_search').click(function () {
              	$("#ycform").resetForm();
+                loaddata=true;
               	_this.tableEx.ajax.reload();
              });
             

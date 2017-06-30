@@ -48,7 +48,7 @@ public class FphccxController extends BaseController {
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
 	public Map getKplsList(int length, int start, int draw, Integer xfid,Integer skpid,String ddh, String gfmc, 
-			String kprqq, String kprqz,String fpzl) throws Exception {
+			String kprqq, String kprqz,String fpzl,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -90,6 +90,18 @@ public class FphccxController extends BaseController {
 		result.put("recordsFiltered", total);
 		result.put("draw", draw);
 		result.put("data", list);
+
+		if(loaddata){
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else {
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 
 		return result;
 	}

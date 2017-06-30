@@ -49,7 +49,7 @@ public class DdcxController extends BaseController {
 	@RequestMapping(value = "/getJylsDd")
 	@ResponseBody
 	public Map getItems(int length, int start, int draw, String xfsh, String gfmc, String ddh, String rqq, String rqz,
-			String jylsh) {
+			String jylsh,boolean loaddata) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -82,10 +82,17 @@ public class DdcxController extends BaseController {
 		pagination.addParam("gsdm", this.getGsdm());
 		List<JyxxsqVO> list = jyxxsqservice.findBykplscxPage(pagination);
 		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", list);
+		if(loaddata){
+			result.put("recordsTotal",total);
+			result.put("recordsFiltered",total);
+			result.put("draw",draw);
+			result.put("data",list);
+		}else {
+			result.put("recordsTotal",0);
+			result.put("recordsFiltered",0);
+			result.put("draw",draw);
+			result.put("data",new ArrayList<>());
+		}
 		return result;
 	}
 
