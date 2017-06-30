@@ -30,7 +30,7 @@ $(function() {
 		$jsPrint : $('.js-print'),
 		$checkAll : $('#select_all')
 	};
-
+    var loaddata = false;
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -118,7 +118,7 @@ $(function() {
 						start.push(j);
 					});
 				}
-			})
+			});
 			var _this = this;
 			var t = el.$jsTable.DataTable({
 				"processing" : true,
@@ -133,6 +133,7 @@ $(function() {
 						var bj = $('#bj').val();
 						var txt = $('#searchtxt').val();
 						var tip = $('#tip').val();
+                        d.loaddata=loaddata;
 						if (bj ==  "1") {
 							if (tip == "1") {
 								d.gfmc = txt; // search 订单号
@@ -161,6 +162,7 @@ $(function() {
 							d.xfsh=$("#mb_xfsh").val();
 							d.sk =$("#mb_skp").val();
 							d.fpzldm =$("#s_fpzldm").val();
+
 						}else{
 							d.ddh = "-11111111";
 						}
@@ -237,6 +239,7 @@ $(function() {
 			el.$jsSearch.on('click', function(e) {
 				$('#bj').val('1');
 				e.preventDefault();
+                loaddata=true;
 				_this.tableEx.ajax.reload();
 
 			});
@@ -276,6 +279,7 @@ $(function() {
 					}
 				}
 				e.preventDefault();
+                loaddata=true;
 				_this.tableEx.ajax.reload();
 
 			});
