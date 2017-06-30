@@ -45,7 +45,7 @@ public class FpdyController extends BaseController {
 
     @RequestMapping(value = "/getKplsList")
     @ResponseBody
-    public Map<String, Object> getItems(int length, int start, int draw) throws Exception {
+    public Map<String, Object> getItems(int length, int start, int draw,boolean loaddata) throws Exception {
 
 
         String kprqq = request.getParameter("kprqq");//开票日期起
@@ -116,16 +116,23 @@ public class FpdyController extends BaseController {
 
         List<Fpcxvo> kcdfpList = kplsService.findKcdfpByPage(pagination);
         int total = pagination.getTotalRecord();
-        result.put("recordsTotal", total);
-        result.put("recordsFiltered", total);
-        result.put("draw", draw);
-        result.put("data", kcdfpList);
+        if(loaddata){
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", kcdfpList);
+        }else{
+            result.put("recordsTotal", 0);
+            result.put("recordsFiltered", 0);
+            result.put("draw", draw);
+            result.put("data", new ArrayList<>());
+        }
         return result;
     }
 
     @RequestMapping(value = "/getKplsList1")
     @ResponseBody
-    public Map<String, Object> getItems1(int length, int start, int draw) throws Exception {
+    public Map<String, Object> getItems1(int length, int start, int draw,boolean loaddata2) throws Exception {
 
         String kprqq = request.getParameter("kprqq");//开票日期起
         String kprqz = request.getParameter("kprqz");//开票日期止
@@ -194,10 +201,17 @@ public class FpdyController extends BaseController {
 
         List<Fpcxvo> kcdfpList = kplsService.findKcdfpByPage1(pagination);
         int total = pagination.getTotalRecord();
-        result.put("recordsTotal", total);
-        result.put("recordsFiltered", total);
-        result.put("draw", draw);
-        result.put("data", kcdfpList);
+        if(loaddata2){
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", kcdfpList);
+        }else{
+            result.put("recordsTotal", 0);
+            result.put("recordsFiltered", 0);
+            result.put("draw", draw);
+            result.put("data", new ArrayList<>());
+        }
         return result;
     }
 

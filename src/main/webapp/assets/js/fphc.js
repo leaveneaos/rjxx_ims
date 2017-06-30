@@ -211,6 +211,7 @@ $(function () {
         });
     });
     var t1;
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -251,7 +252,7 @@ $(function () {
                                       d.ddh = $('#dxcsz').val();
                                  }
                             }
-                         
+                            d.loaddata=loaddata;
                         }
                     },
                     "columns": [
@@ -323,6 +324,7 @@ $(function () {
                             'sClass': 'right'
                         }]
                 });
+            var loaddata2=false;
             t1 = $('#ysTable')
             .DataTable({
                 "searching": false,
@@ -355,6 +357,7 @@ $(function () {
                               d.ddh = $('#dxcsz1').val();
                              }
                         }
+                        d.loaddata2=loaddata2;
                     }
                 },
                 "columns": [
@@ -478,12 +481,14 @@ $(function () {
                 $("#bj").val("2");
                 $('#xzxfq').attr("selected","selected");
                 $('#xzlxq').attr("selected","selected");
+                loaddata=true;
                 t.ajax.reload();
             });
             
             $('#hc_search1').click(function () {
                 $("#bj").val("1");
                 $("#dxcsz").val("");
+                loaddata=true;
                 t.ajax.reload();
             });
             
@@ -492,11 +497,13 @@ $(function () {
                 $("#bz").val("2");
                 $('#xzxfq1').attr("selected","selected");
                 $('#xzlxq1').attr("selected","selected");
+                loaddata2=true;
                 t1.ajax.reload();
              });
             $('#hc_search3').click(function () {
                 $("#bz").val("1");
                 $("#dxcsz1").val("");
+                loaddata2=true;
                 t1.ajax.reload();
 
             });

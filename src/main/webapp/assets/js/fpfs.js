@@ -31,7 +31,7 @@ $(function () {
 
         $jsLoading: $('.js-modal-loading')
     };
-
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -57,6 +57,7 @@ $(function () {
                     data: function (d) {
                        var tip = $('#tip').val();
                        var txt = $('#searchtxt').val();
+                        d.loaddata=loaddata;
                        if ($('#bj').val() == 1) {
                            if (tip == "1") {
                                d.gfmc = txt;
@@ -239,11 +240,13 @@ $(function () {
             el.$jsSearch.on('click', function (e) {
                 e.preventDefault();
                 $('#bj').val('1');
+                loaddata=true;
                 _this.tableEx.ajax.reload();
             });
             el.$button3.on('click', function (e) {
                 e.preventDefault();
                 $('#bj').val('2');
+                loaddata=true;
                 _this.tableEx.ajax.reload();
             });
         },

@@ -95,6 +95,7 @@ $(function () {
             cell.innerHTML = page + i + 1;
         });
     });
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -134,6 +135,7 @@ $(function () {
                                  	  d.ddh = $('#dxcsz').val();
                                  }
                         	}
+                            d.loaddata=loaddata;
                         }
                     },
                     "columns": [
@@ -242,11 +244,13 @@ $(function () {
 	        	$("#bj").val("2");
 	        	$('#xzxfq').attr("selected","selected");
 	         	$('#xzlxq').attr("selected","selected");
+                loaddata=true;
 	        	t.ajax.reload();
 	        });
 	        $('#cd_search1').click(function () {
 	        	$("#bj").val("1");
 	        	$("#dxcsz").val("");
+                loaddata=true;
 	        	t.ajax.reload();
 	        });
             //重打操作

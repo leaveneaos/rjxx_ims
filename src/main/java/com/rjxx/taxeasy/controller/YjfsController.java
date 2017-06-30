@@ -156,7 +156,7 @@ public class YjfsController extends BaseController {
 	@RequestMapping(value = "/getYjfsList")
 	@ResponseBody
 	public Map getYjfsList(int length, int start, int draw, String jyrqq, String jyrqz, String kprqq, String kprqz,
-			String gfmc, String ddh, String fpdm, String fphm, String xfmc, Integer xfid) throws Exception {
+			String gfmc, String ddh, String fpdm, String fphm, String xfmc, Integer xfid,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -195,10 +195,17 @@ public class YjfsController extends BaseController {
 		pagination.addParam("fpczlxdm", "11");
 		List<KplsVO> list = kvs.findByPage(pagination);
 		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", list);
+		if(loaddata){
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 		return result;
 	}
 }

@@ -29,7 +29,7 @@ $(function () {
 
         $jsLoading: $('.js-modal-loading')
     };
-
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -69,7 +69,9 @@ $(function () {
                           }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
                               d.ddh = $('#dxcsz').val()
                           }
+                            d.loaddata=loaddata;
                         }
+
                     },
                     "columns": [
             {
@@ -147,7 +149,7 @@ $(function () {
 
 
             });*/
-            
+
             t.on('click', 'input#chk', function () {
                 var data = t.row($(this).parents('tr')).data();
                 _this.setForm0(data);
@@ -205,10 +207,12 @@ $(function () {
 
            $('#hk_search').click(function () {
               $("#ycform").resetForm();
+               loaddata=true;
                 _this.tableEx.ajax.reload();
              });
              $('#hk_search1').click(function () {
               $("#dxcsz").val("");
+                 loaddata=true;
               /* if ((!el.$s_kprqq.val() && el.$s_kprqz.val())
                           || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
                           alert('Error,请选择开始和结束时间!');
