@@ -74,12 +74,13 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
                             var bz = $('#searchbz').val();
+                            d.loaddata = loaddata;
                             if(bz=='1'){
                                 d.xfids = $('#xfid').val();
                                 d.skpids = $('#s_skpid').val();
                                 d.fpdm= el.$s_fpdm.val(); // search 用户账号
                                 d.fplx = el.$s_fplx.val();
-                                d.loaddata = loaddata;
+
                             }else{
                                 var item = $('#s_mainkey').val();
                                 if(item=='fpdm'){

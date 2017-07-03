@@ -39,11 +39,12 @@ $(function () {
                         data: function (d) {
                         	 $("#xfidhide").val($("#xfid").val());
                         	 var bz = $('#searchbz').val();
+                             d.loaddata = loaddata;
                         	 if(bz=='1'){
                         		 d.xfid= el.$xfid.val(); // search                           
                                  d.skpider = $("#s_skpid").val();
                                  d.fpzl = $("#s_fplx").val();
-                                 d.loaddata = loaddata;
+
                         	 }else{
                         		 var item = $('#s_mainkey').val();
                         		 if(item=='xfsh'){

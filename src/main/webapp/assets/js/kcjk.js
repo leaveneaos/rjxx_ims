@@ -28,12 +28,13 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
                         	var bz = $('#searchbz').val();
+                            d.loaddata = loaddata;
                         	if(bz=='1'){
                         		 d.xfid = $('#s_xfid').val();
                                  d.skpid = $('#s_skpid').val();
                                  d.fplx = $('#s_fplx').val();
                                  d.fpsl = $('#s_fpsl').val();
-                                 d.loaddata = loaddata;
+
                         	}else{
                         		var item = $('#s_mainkey').val();
                         		if(item=='xfsh'){
