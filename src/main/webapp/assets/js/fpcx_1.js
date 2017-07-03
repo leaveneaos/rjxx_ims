@@ -30,7 +30,7 @@ $(function() {
 		$jsPrint : $('.js-print'),
 		$checkAll : $('#select_all')
 	};
-    var loaddata = false;
+    var loaddata2 = false;
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -133,7 +133,7 @@ $(function() {
 						var bj = $('#bj').val();
 						var txt = $('#searchtxt').val();
 						var tip = $('#tip').val();
-                        d.loaddata=loaddata;
+                        d.loaddata2=loaddata2;
 						if (bj ==  "1") {
 							if (tip == "1") {
 								d.gfmc = txt; // search 订单号
@@ -239,7 +239,7 @@ $(function() {
 			el.$jsSearch.on('click', function(e) {
 				$('#bj').val('1');
 				e.preventDefault();
-                loaddata=true;
+                loaddata2=true;
 				_this.tableEx.ajax.reload();
 
 			});
@@ -279,7 +279,7 @@ $(function() {
 					}
 				}
 				e.preventDefault();
-                loaddata=true;
+                loaddata2=true;
 				_this.tableEx.ajax.reload();
 
 			});
