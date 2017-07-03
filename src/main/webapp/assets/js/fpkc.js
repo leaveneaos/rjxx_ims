@@ -50,7 +50,7 @@ $(function () {
             {"data": "kyl"}
             ]
     });
-    
+    var loaddata = false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -79,6 +79,7 @@ $(function () {
                                 d.skpids = $('#s_skpid').val();
                                 d.fpdm= el.$s_fpdm.val(); // search 用户账号
                                 d.fplx = el.$s_fplx.val();
+                                d.loaddata = loaddata;
                             }else{
                                 var item = $('#s_mainkey').val();
                                 if(item=='fpdm'){
@@ -197,6 +198,7 @@ $(function () {
             el.$jsSearch.on('click', function (e) {
                 $('#searchbz').val("1");
                 e.preventDefault();
+                loaddata = true;
                 _this.tableEx.ajax.reload();
             });
         },
@@ -205,6 +207,7 @@ $(function () {
             $('#searchButton').on('click',function(e){
                 $('#searchbz').val("0");
                 e.preventDefault();
+                loaddata = true;
                 _this.tableEx.ajax.reload();
             })
         },

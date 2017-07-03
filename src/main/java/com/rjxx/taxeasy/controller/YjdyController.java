@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class YjdyController extends BaseController {
 
 	@RequestMapping(value = "/getItems")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpider,String fpzl,String xfsh) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpider,String fpzl,String xfsh,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int yhid = getYhid();
 		Pagination pagination = new Pagination();
@@ -92,10 +93,17 @@ public class YjdyController extends BaseController {
 			}			
 		}
 		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", dyList);
+		if(loaddata){
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", dyList);
+		}else {
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 		return result;
 	}
 
