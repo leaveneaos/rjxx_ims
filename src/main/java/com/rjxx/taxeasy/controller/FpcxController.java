@@ -123,7 +123,7 @@ public class FpcxController extends BaseController {
             fpcxvo.setKpddm(skp.getKpddm());
         }
         int total = pagination.getTotalRecord();
-        if(loaddata){
+        if(loaddata2){
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
             result.put("draw", draw);
