@@ -255,10 +255,10 @@
 										</div>
 									</div> -->
 									<div class="am-form-group">
-										<label for="skr" class="am-u-sm-2 am-form-label"><font
-											color="red">*</font>收款人</label>
+										<label for="kpr" class="am-u-sm-2 am-form-label"><font
+											color="red">*</font>开票人</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
+											<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"/>
 										</div>
 										<label for="fhr" class="am-u-sm-2 am-form-label">复核人</label>
 										<div class="am-u-sm-4">
@@ -272,11 +272,10 @@
 									</div>
 			
 									<div class="am-form-group">
-										<label for="kpr" class="am-u-sm-2 am-form-label">开票人</label>
+										<label for="skr" class="am-u-sm-2 am-form-label">收款人</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="kpr" name="kpr" placeholder="请输入开票人"/>
+											<input type="text" id="skr" name="skr" placeholder="请输入收款人" />
 										</div>
-
 										<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
 										<div class="am-u-sm-4">
 											<select id="sjxf" name="sjxf">

@@ -453,7 +453,7 @@ $(function() {
 							yhzh = $('#yhzh').val(),
 							dz = $('#dz').val(),
 							xfdh = $('#xfdh').val(),
-							skr = $('#skr').val();
+							kpr = $('#kpr').val();
 						if(!xfmc) {
 							swal('请输入销方名称');
 							return false;
@@ -474,8 +474,8 @@ $(function() {
 							swal('请输入销方电话');
 							return false;
 						}
-						if(!skr) {
-							swal('请输入收款人');
+						if(!kpr) {
+							swal('请输入开票人');
 							return false;
 						}
       //                   if (parseFloat(zpmax) < parseFloat(zpfz)) {
