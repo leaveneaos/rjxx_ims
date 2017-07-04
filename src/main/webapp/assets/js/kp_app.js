@@ -667,12 +667,14 @@ $(function() {
                             confirmButtonText: "确 定",
                             confirmButtonColor: "#ec6c62"
                         }, function() {
+                            $('.confirm').attr('disabled',"disabled");
                             $.ajax({
                                 url: "kp/doKp",
                                 context: document.body,
                                 data:{ "djhArr" : djhArr.join(","),"dybz":"0"},
                             }).done(function(data) {
                                 if (data.success) {
+                                    $('.confirm').removeAttr('disabled');
                                     $('#kp_kp').removeAttr("disabled");
                                     $('#kp_kpdy').removeAttr("disabled");
                                     $('#kp_del').removeAttr("disabled");
