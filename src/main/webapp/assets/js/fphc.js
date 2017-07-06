@@ -649,18 +649,16 @@ $(function () {
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
-            _this.search_ac();
-            _this.search_ac1();
             _this.modalAction(); // hidden action
         }
     };
     action.init();
     //定义鼠标样式
     $("#fpTable").css("cursor","pointer");
-    function delcommafy(num){
-           if((num+"").trim()==""){
-              return "";
-           }
+        function delcommafy(num){
+               if((num+"").trim()==""){
+                  return "";
+               }
            num=num.replace(/,/gi,'');
            return num;
         }
