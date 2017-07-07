@@ -210,6 +210,7 @@
 						<div class="am-g  am-padding-top">
 							<form action="<c:url value='fpcx/exportExcel'/>" id="searchform"
 								class="js-search-form  am-form am-form-horizontal">
+								<input type="hidden" name="kplsh1" value="" id="kplsh1"/>
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">

@@ -169,7 +169,7 @@ public class FpcxController extends BaseController {
     @RequestMapping(value = "/exportExcel")
     @ResponseBody
     public Map<String, Object> exportExcel(String ddh, String kprqq, String kprqz, String spmc, String fphm,
-                                           String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt) throws Exception {
+                                           String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt,String kplsh1) throws Exception {
         String gsdm = this.getGsdm();
         String xfStr = "";
         List<Xf> xfs = getXfList();
@@ -203,6 +203,16 @@ public class FpcxController extends BaseController {
         if (skpid.length == 0) {
             skpid = null;
         }
+
+        String []  kplsh ;
+        kplsh1 = request.getParameter("kplsh1");
+        //ids = ids.substring(0, ids.length() - 1);
+        if(kplsh1!=null&&!kplsh1.equals("")){
+            kplsh1 = kplsh1.substring(0,kplsh1.length() - 1);
+            kplsh = kplsh1.split(",");
+        }else {
+            kplsh = null;
+        }
         Map<String, Object> params = new HashMap<>();
         if (tip == "1") {
             params.put("gfmc", txt);
@@ -217,6 +227,7 @@ public class FpcxController extends BaseController {
         } else if (tip == "6") {
             params.put("fpdm", txt);
         }
+        params.put("kplsh",kplsh);
         params.put("gsdm", gsdm);
         params.put("xfid", xfid);
         params.put("skpid", skpid);
@@ -232,9 +243,10 @@ public class FpcxController extends BaseController {
         params.put("fpczlx", fpczlx);
         List<Fpcxvo> ykfpList = kplsService.findAllByParams(params);
         Map<String, Object> map = new HashMap<>();
-        map.put("yhid", getYhid());
+        int yhid = getYhid();
+        map.put("yhid", yhid);
         List<DczydlVo> list = yhDczdylService.findAllByParams(map);
-        String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票状态,商品名称,商品金额,商品税额";
+        String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票类型,商品名称,商品金额,商品税额";
         for (DczydlVo yhDczdyl : list) {
             headers1 += "," + yhDczdyl.getZdzwm();
         }

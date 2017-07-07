@@ -1022,6 +1022,62 @@ $(function() {
                     }
                 }
             });
+            //发票导出
+            el.$jsExport.on('click',function (e) {
+                var bj = $('#bj').val();
+                var kplsh11 ='';
+                var flag = true;
+                if(bj  == ""||bj == undefined||bj == null){
+                    flag = false;
+                    swal("请先加载数据!");
+                }
+                if(bj == '1'||bj=='2'){
+                    t.column(0).nodes().each(
+                        function (cell,i){
+                            if(flag){
+                                var $checkbox = $(cell).find('input[type="checkbox"]');
+                                if($checkbox.is(':checked')){
+                                    kplsh11 += $checkbox.val()+ ',';
+                                }
+                            }
+                        }
+                    )
+                    if(kplsh11.length == 0){
+                        flag = false;
+                        swal("请选择需要导出的数据!");
+                    }
+                    if(flag){
+                        $('#kplsh1').val(kplsh11);
+                        $('#searchform').submit();
+                    }
+                }else{
+                    var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
+                    var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
+                    if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
+                        if (dt1.getYear() == dt2.getYear()) {
+                            if (dt1.getMonth() == dt2.getMonth()) {
+                                if (dt1 - dt2 > 0) {
+                                    swal('开始日期大于结束日期,Error!');
+                                    return false;
+                                }
+                            } else {
+                                swal('Error,请选择同一个年月内的时间!');
+                                return false;
+                            }
+                        } else {
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    }
+                    if(flag){
+                        $('#kplsh1').val(kplsh11);
+                        $("#searchform").submit();
+                    }else{
+                        return false;
+                    }
+                }
+
+            });
             return t;
         },
 
@@ -1071,7 +1127,7 @@ $(function() {
         /**
          * 导出按钮
          */
-        exportAc : function() {
+    /*    exportAc : function() {
             el.$jsExport.on('click', function(e) {
                 var bj = $('#bj').val();
                 if (bj == '1') {
@@ -1099,7 +1155,7 @@ $(function() {
                 }
                 
             });
-        },
+        },*/
         /**
          * 自定义列
          */
@@ -1212,7 +1268,7 @@ $(function() {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
-            _this.exportAc();
+           /* _this.exportAc();*/
             _this.autoColumn();
             _this.autoColumn1();
             _this.checkAllAc();
