@@ -491,6 +491,7 @@
 															<th>开票日期</th>
 															<th>发票状态</th>
 															<th>发送打印状态</th>
+															<th>错误信息</th>
 														</tr>
 													</thead>
 												</table>
