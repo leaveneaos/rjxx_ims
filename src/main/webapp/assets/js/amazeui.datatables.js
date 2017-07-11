@@ -3477,7 +3477,7 @@ module.exports = DataTable;
 			replace(/_START_/g, formatter.call( settings, start ) ).
 			replace(/_END_/g,   formatter.call( settings, settings.fnDisplayEnd() ) ).
 			replace(/_MAX_/g,   formatter.call( settings, settings.fnRecordsTotal() ) ).
-			replace(/_TOTAL_/g, formatter.call( settings, vis ) ).
+			replace(/_TOTAL_/g, formatter.call( settings, vis ).indexOf("undefined") >= 0?formatter.call(settings, vis ).replace("undefined", ""):formatter.call( settings, vis )).
 			replace(/_PAGE_/g,  formatter.call( settings, all ? 1 : Math.ceil( start / len ) ) ).
 			replace(/_PAGES_/g, formatter.call( settings, all ? 1 : Math.ceil( vis / len ) ) );
 	}
