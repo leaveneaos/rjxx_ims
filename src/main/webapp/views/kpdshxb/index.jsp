@@ -558,7 +558,7 @@ table thead th {
 
 							<div class="am-u-sm-4">
 								<input type="text" id="gfsh_edit" name="gfsh" maxlength="20"
-									placeholder="输入购方税号...">
+									placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -823,7 +823,7 @@ table thead th {
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrgfsh_edit" name="lrgfsh_edit"
-											class="js-pattern-Taxid" placeholder="输入购方税号...">
+											class="js-pattern-Taxid" placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')">
 									</div>
 									<label for="gfyh_edit" class="am-u-sm-2 am-form-label"><span
 										style="color: red; display: none" id="lrspan_gfyh">*</span>购方银行</label>

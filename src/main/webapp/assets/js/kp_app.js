@@ -87,8 +87,17 @@ $(function() {
                     }, {
                         "data" : "fpzt"
                     },{
-                    "data" : "sfdy"
-                    } ]
+                        "data" :function (data) {
+                            if(data.fpzldm =="12"){
+                                return "";
+                            }else {
+                                return data.sfdy;
+                            }
+                        }
+                        /*"data" : "sfdy"*/
+                    },{
+                        "data" :"errorReason"
+                } ]
             $.ajax({
                 url : 'zdyl/query',
                 type : 'POST', //GET

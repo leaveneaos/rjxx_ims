@@ -72,8 +72,7 @@
 											    <div class="am-form-group">
 													<label for="xfmc" class="am-u-sm-4 am-form-label">销方税号</label>
 													<div class="am-u-sm-8">
-														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号"
-															required="required" />
+														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号" onkeyup="this.value=this.value.replace(/[, ]/g,'')" required="required" />
 													</div>
 												</div>
 										    </div>
@@ -206,7 +205,7 @@
 										<div class="am-u-sm-4">
 											<input type="text" id="xfsh" class="js-pattern-Taxid"
 												 name="xfsh"
-												placeholder="请输入税号,15位、18位或20位" required />
+												placeholder="请输入税号,15位、18位或20位" required onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
 										</div>
 										<label for="xfmc" class="am-u-sm-2 am-form-label"><font
 											color="red">*</font>销方名称</label>
@@ -225,7 +224,7 @@
 											color="red">*</font>银行账号</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="yhzh" pattern="^[0-9a-zA-Z]{4,30}$"
-												name="yhzh" placeholder="请输入销方银行帐号"/>
+												name="yhzh" placeholder="请输入销方银行帐号"/ onkeyup="this.value=this.value.replace(/[, ]/g,'')">
 										</div>
 									</div>
 									<div class="am-form-group">

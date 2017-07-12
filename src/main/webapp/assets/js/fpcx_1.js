@@ -83,8 +83,18 @@ $(function() {
 					}, {
 						"data" : "kprq"
 					}, {
-						"data" : "fpzt"
-					} ]
+                    "data" : "fpzt"
+                },{
+                    "data" :function (data) {
+                        if(data.fpzldm =="12"){
+                            return "";
+                        }else {
+                            return data.sfdy;
+                        }
+                    }
+                },{
+                    "data" :"errorReason"
+                } ]
 			$.ajax({
 				url : 'zdyl/query',
 				type : 'POST', //GET
