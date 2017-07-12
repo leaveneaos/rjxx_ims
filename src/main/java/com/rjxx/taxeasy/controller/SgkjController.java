@@ -491,7 +491,7 @@ public class SgkjController extends BaseController{
             Jyxxsq jyxxsq=jyxxsqService.findOne(sqlsh);
             Map<String, Object> params1 = new HashMap<>();
             params1.put("sqlsh", jyxxsq.getSqlsh());
-            List<JyspmxDecimal2> jyspmxs = jyspmxService.getNeedToKP3(params1);
+            List<JyspmxDecimal2> jyspmxs = jyspmxService.getNeedToKP4(params1);
             // 价税分离
             if ("1".equals(jyxxsq.getHsbz())) {
                 jyspmxs = SeperateInvoiceUtils.separatePrice2(jyspmxs);
