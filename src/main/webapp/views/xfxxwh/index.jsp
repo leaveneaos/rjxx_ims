@@ -72,8 +72,7 @@
 											    <div class="am-form-group">
 													<label for="xfmc" class="am-u-sm-4 am-form-label">销方税号</label>
 													<div class="am-u-sm-8">
-														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号"
-															required="required" />
+														<input type="text" id="s_xfsh" name="xfsh" placeholder="请输入销方税号" onkeyup="this.value=this.value.replace(/[, ]/g,'')" required="required" />
 													</div>
 												</div>
 										    </div>

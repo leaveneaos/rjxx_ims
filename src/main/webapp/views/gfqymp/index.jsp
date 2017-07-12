@@ -59,10 +59,9 @@
 									</div>
 									<div class="am-offcanvas-content" style="margin-top: 5px;">
 										<div class="am-form-group">
-											<label for="s_nsrsbh" class="am-u-sm-4 am-form-label">纳税人识别号</label>
+											<label for="s_nsrsbh" class="am-u-sm-4 am-form-label">购方税号</label>
 											<div class="am-u-sm-8">
-												<input id="s_nsrsbh" type="text"
-													placeholder="纳税人识别号">
+												<input id="s_nsrsbh" type="text" placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')">
 											</div>
 										</div>
 									</div>
@@ -165,10 +164,9 @@
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xg_gfsh" class="am-u-sm-4 am-form-label">纳税人识别号</label>
+											<label for="xg_gfsh" class="am-u-sm-4 am-form-label">购方税号</label>
 											<div class="am-u-sm-8">
-												<input type="text" id="xg_gfsh" name="xg_gfsh" class ="js-pattern-Taxid"
-													placeholder="" />
+												<input type="text" id="xg_gfsh" name="xg_gfsh" class ="js-pattern-Taxid" placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
 											</div>
 										</div>
 										<div class="am-form-group">
@@ -259,10 +257,10 @@
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfsh" class="am-u-sm-4 am-form-label">纳税人识别号</label>
+											<label for="xz_gfsh" class="am-u-sm-4 am-form-label">购方税号</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfsh" name="xz_gfsh" required
-													placeholder="" />
+													placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')" />
 											</div>
 										</div>
 										<div class="am-form-group">

@@ -289,6 +289,12 @@ $(function () {
 						}
 						//var data = el.$jsForm0.serialize(); // get form data
 						//alert($('#xz_gfmc').val());
+						if(null!=xz_gfsh&&xz_gfsh!=''){
+							if(xz_gfsh.length!=15&&xz_gfsh.length!=18&&xz_gfsh.length!=20){
+								swal(税号长度不对,税号为15,18,20位中一种");
+								return;
+							}
+						}
 						$.ajax({
 							url : ur,
 							 data: {
