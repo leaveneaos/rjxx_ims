@@ -12,12 +12,12 @@ $(function() {
 		$jsForm0 : $('.js-form-0'), // 红冲 form
 		$s_xfsh : $('#s_xfsh'), // search
 		$s_xfmc : $('#s_xfmc'), // search
-		// $dpmax:$('#dzpzdje'),
-		// $fpfz:$('#dzpfpje'),
-		// $zpmax:$('#zpzdje'),
-		// $zpfz:$('#zpfpje'),
-		// $ppmax:$('#ppzdje'),
-		// $ppfz:$('#ppzdje'),
+		$dpmax:$('#dzpzdje'),
+		$fpfz:$('#dzpfpje'),
+		$zpmax:$('#zpzdje'),
+		$zpfz:$('#zpfpje'),
+		$ppmax:$('#ppzdje'),
+		$ppfz:$('#ppzdje'),
 		$jsSearch : $('#button1'),
 		$jsSearch1 : $('#button3'),
 		$jsSearch2 : $('#button4'),  
@@ -123,9 +123,9 @@ $(function() {
 								{
 									"data" : "sjxfmc"
 								},
-								/*{
-									"data" : "zfr"
-								},
+								// {
+								// 	"data" : "zfr"
+								// },
 								{
 			                        "data": function (data) {
 			                            if (data.dzpzdje) {
@@ -179,7 +179,7 @@ $(function() {
 			                                return null;
 			                            }
 			                        }, 'sClass': 'right'
-			                    },*/
+			                    },
 								 
 			                    ]
 					});
@@ -435,19 +435,19 @@ $(function() {
 					if (formValidity) {
 						// el.$jsLoading.modal('toggle'); // show loading
 
-						// var dpmax = $('#dzpzdje').val();
-						// var fpfz = $('#dzpfpje').val();
-						// var zpmax = $('#zpzdje').val();
-						// var zpfz = $('#zpfpje').val();
-						// var ppmax = $('#ppzdje').val();
-						// var ppfz = $('#ppfpje').val();
-						// if (parseFloat(dpmax) < parseFloat(fpfz)) {
-      //   	             //    $('#msg').html('电子发票分票金额大于开票限额');
-      //   		            // $('#my-alert').modal('open'); 
-      //   		            swal('电子发票分票金额大于开票限额');
-      //                       el.$jsLoading.modal('close'); 
-      //                       return false;
-						// }
+						var dpmax = $('#dzpzdje').val();
+						var fpfz = $('#dzpfpje').val();
+						var zpmax = $('#zpzdje').val();
+						var zpfz = $('#zpfpje').val();
+						var ppmax = $('#ppzdje').val();
+						var ppfz = $('#ppfpje').val();
+						if (parseFloat(dpmax) < parseFloat(fpfz)) {
+        	             //    $('#msg').html('电子发票分票金额大于开票限额');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('电子发票分票金额大于开票限额');
+                            el.$jsLoading.modal('close'); 
+                            return false;
+						}
 						var xfmc = $('#xfmc').val(),
 							khyh = $('#khyh').val(),
 							yhzh = $('#yhzh').val(),
@@ -478,20 +478,20 @@ $(function() {
 							swal('请输入开票人');
 							return false;
 						}
-      //                   if (parseFloat(zpmax) < parseFloat(zpfz)) {
-      //   	             //    $('#msg').html('普通发票分票金额大于开票限额！');
-      //   		            // $('#my-alert').modal('open'); 
-      //   		            swal('普通发票分票金额大于开票限额！');
-      //                       el.$jsLoading.modal('close'); 
-      //                       return false;
-						// }
-      //                   if (parseFloat(ppmax) < parseFloat(ppfz)) {
-      //   	             //    $('#msg').html('专用发票分票金额大于开票限额！');
-      //   		            // $('#my-alert').modal('open'); 
-      //   		            swal('专用发票分票金额大于开票限额！');
-      //                       el.$jsLoading.modal('close'); 
-      //                       return false;
-						// }
+                        if (parseFloat(zpmax) < parseFloat(zpfz)) {
+        	             //    $('#msg').html('普通发票分票金额大于开票限额！');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('普通发票分票金额大于开票限额！');
+                            el.$jsLoading.modal('close'); 
+                            return false;
+						}
+                        if (parseFloat(ppmax) < parseFloat(ppfz)) {
+        	             //    $('#msg').html('专用发票分票金额大于开票限额！');
+        		            // $('#my-alert').modal('open'); 
+        		            swal('专用发票分票金额大于开票限额！');
+                            el.$jsLoading.modal('close'); 
+                            return false;
+						}
                         var sjxf = $('#sjxf').val();
         				var xfid = $('#xfid').val();
         				if (sjxf == xfid) {
@@ -601,12 +601,12 @@ $(function() {
 			el.$jsForm0.find('input[name="xfdh"]').val(data.xfdh);
 			el.$jsForm0.find('input[name="fhr"]').val(data.fhr);
 			// el.$jsForm0.find('input[name="zfr"]').val(data.zfr);
-			// el.$jsForm0.find('select[name="dzpzdje"]').val(data.dzpzdje);
-			// el.$jsForm0.find('input[name="dzpfpje"]').val(data.dzpfpje);
-			// el.$jsForm0.find('select[name="zpzdje"]').val(data.zpzdje);
-			// el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
-			// el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
-			// el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
+			el.$jsForm0.find('select[name="dzpzdje"]').val(data.dzpzdje);
+			el.$jsForm0.find('input[name="dzpfpje"]').val(data.dzpfpje);
+			el.$jsForm0.find('select[name="zpzdje"]').val(data.zpzdje);
+			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
+			el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
+			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
 			el.$jsForm0.find('select[id="sjxf"]').val(data.sjjgbm == null ? "0" : data.sjjgbm);
 			$('#sjxf').val(data.sjjgbm == null ? 0 : data.sjjgbm);
 			if (data.sjjgbm != null) {
