@@ -485,6 +485,10 @@ $(function() {
             swal("请选择商品！");
             return;
         }
+        if(bz.length>65){
+            swal("备注过长，只能为65个字符！");
+            return;
+        }
         ps.push("mxcount=" + index);
         var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+
             "&ddh="+ddh+"&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
