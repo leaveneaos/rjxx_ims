@@ -348,13 +348,13 @@ public class SgkjController extends BaseController{
                 msg += msgg;
             }
             if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh().length() != 15 &&jyxxsq.getGfsh().length() !=18&&jyxxsq.getGfsh().length() !=20)) { // 购方税号长度的判断
-                msgg = "购方税号不是15位到20位，请重新填写！";
+                msgg = "购方税号不是15，18，20位，请重新填写！";
                 msg += msgg;
             }
         } else {
             if(sfbx.equals("1")){
                 if (jyxxsq.getGfsh() != null && (jyxxsq.getGfsh().length() != 15 &&jyxxsq.getGfsh().length() !=18&& jyxxsq.getGfsh().length() !=20)) { // 购方税号长度的判断
-                    msgg = "购方税号不是15位到20位，请重新填写！";
+                    msgg = "购方税号不是15，18，20位，请重新填写！";
                     msg += msgg;
                 }
             }
