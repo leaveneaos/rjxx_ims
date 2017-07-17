@@ -106,24 +106,24 @@ $(function () {
                     {"data": "ddh"},
                     {"data": "jylssj"},
                     {"data": "gfmc"},
-                    {"data": "xfmc"},
-                    {"data": "kprq"},
-                    {"data": "fpdm"},
-                    {"data": "fphm"},
-                    {"data": function (data) {
-                        if (data.je) {
-                            return FormatFloat(data.je, "###,###.00");
-                        } else {
-                            return null;
-                        }
-                    }, 'sClass': 'right'},
-                    {"data": function (data) {
-                        if (data.se) {
-                            return FormatFloat(data.se, "###,###.00");
-                        } else {
-                            return null;
-                        }
-                    }, 'sClass': 'right'},
+                    // {"data": "xfmc"},
+                    // {"data": "kprq"},
+                    // {"data": "fpdm"},
+                    // {"data": "fphm"},
+                    // {"data": function (data) {
+                    //     if (data.je) {
+                    //         return FormatFloat(data.je, "###,###.00");
+                    //     } else {
+                    //         return null;
+                    //     }
+                    // }, 'sClass': 'right'},
+                    // {"data": function (data) {
+                    //     if (data.se) {
+                    //         return FormatFloat(data.se, "###,###.00");
+                    //     } else {
+                    //         return null;
+                    //     }
+                    // }, 'sClass': 'right'},
                     {"data": function (data) {
                         if (data.jshj) {
                             return FormatFloat(data.jshj, "###,###.00");

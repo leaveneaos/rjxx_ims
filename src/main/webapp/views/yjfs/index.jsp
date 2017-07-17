@@ -210,12 +210,12 @@
 												<th>订单号</th>
 												<th>交易日期</th>
 												<th>购方名称</th>
-												<th>销方名称</th>
+												<!-- <th>销方名称</th>
 												<th>开票日期</th>
 												<th>发票代码</th>
 												<th>发票号码</th>
 												<th class="data-ctr">金额</th>
-												<th class="data-ctr">税额</th>
+												<th class="data-ctr">税额</th> -->
 												<th class="data-ctr">价税合计</th>
 												<th>邮箱</th>
 												<th>发票接收方式</th>
