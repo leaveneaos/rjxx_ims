@@ -191,40 +191,40 @@
 																</div>
 															</div>
 														</div>
-														<div class="am-u-sm-12">
+														<div class="am-u-sm-12" style="margin-top: 10px;">
 															<div class="am-form-group">
 																<label for="mrbz" class="am-u-lg-4 am-form-label">默认标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-2">
+																<div class="am-u-lg-2">
 																	<input id="mrbz" value="1" type="checkbox" name="mrbz">
 																</div>
 																<label for="hsbz" class="am-u-lg-4 am-form-label">含税标志</label>
-																<div style="margin-top: 10px;" class="am-u-lg-2">
+																<div class="am-u-lg-2">
 																	<input id="hsbz" value="1" type="checkbox" name="hsbz">
 																</div>
 															
 															</div>
 														</div>
-															<div class="am-u-sm-12">
-																	<div class="am-form-group">
-																			<label for="qdbz" class="am-u-lg-4 am-form-label">清单标志</label>
-																		<div style="margin-top: 10px;" class="am-u-lg-2">
-																			<input id="qdbz" value="1" type="checkbox" name="qdbz">
-																		</div>
-																		<label for="qzfp" class="am-u-lg-4 am-form-label">强制分票</label>
-																		<div style="margin-top: 10px;" class="am-u-lg-2">
-																			<input id="qzfp" value="1" type="checkbox" name="sfqzfp">
-																		</div>
-																	</div>
-															</div>
-															<div class="am-u-sm-12">
+														<div class="am-u-sm-12">
 																<div class="am-form-group">
-																	<label for="sfspzsfp" class="am-u-lg-4 am-form-label">商品整数分票</label>
-																	<div style="margin-top: 10px;" class="am-u-lg-2">
-																		<input id="sfspzsfp" value="1" type="checkbox" name="sfspzsfp">
+																		<label for="qdbz" class="am-u-lg-4 am-form-label">清单标志</label>
+																	<div class="am-u-lg-2">
+																		<input id="qdbz" value="1" type="checkbox" name="qdbz">
+																	</div>
+																	<label for="qzfp" class="am-u-lg-4 am-form-label">强制分票</label>
+																	<div class="am-u-lg-2">
+																		<input id="qzfp" value="1" type="checkbox" name="sfqzfp">
 																	</div>
 																</div>
-															</div>
+														</div>
 														<div class="am-u-sm-12">
+															<div class="am-form-group">
+																<label for="sfspzsfp" class="am-u-lg-4 am-form-label">商品整数分票</label>
+																<div class="am-u-lg-2">
+																	<input id="sfspzsfp" value="1" type="checkbox" name="sfspzsfp">
+																</div>
+															</div>
+														</div>
+														<div class="am-u-sm-12" style="margin-top: 10px;">
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
 																	<button type="submit"
@@ -250,7 +250,7 @@
 													</tr>
 													<tr align="left">
 														<td style="width: 100%" colspan="2">
-															<div title="用户机构" style="padding: 80px;" id="bm-box1">
+															<div title="用户机构" id="bm-box1">
 																<c:forEach items="${xfs }" var="x">
 																	<div id="type-${x.id}" class="chk">
 																		<label> <input type="checkbox"

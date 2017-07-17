@@ -249,7 +249,7 @@
 								<div class="am-g">
 									<div class="am-u-sm-12">
 										<div class="am-form-group">
-											<label for="xz_gfmc" class="am-u-sm-4 am-form-label"><span
+											<label for="xz_gfmc" class="am-u-sm-3 am-form-label"><span
 												style="color: red;">*</span>企业名称</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfmc" name="xz_gfmc"
@@ -257,63 +257,63 @@
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfsh" class="am-u-sm-4 am-form-label">购方税号</label>
+											<label for="xz_gfsh" class="am-u-sm-3 am-form-label">购方税号</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfsh" name="xz_gfsh" required
 													placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfdz" class="am-u-sm-4 am-form-label">地址</label>
+											<label for="xz_gfdz" class="am-u-sm-3 am-form-label">地址</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfdz" name="xz_gfdz" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfdh" class="am-u-sm-4 am-form-label">电话</label>
+											<label for="xz_gfdh" class="am-u-sm-3 am-form-label">电话</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfdh" name="xz_gfdh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfyh" class="am-u-sm-4 am-form-label">开户银行</label>
+											<label for="xz_gfyh" class="am-u-sm-3 am-form-label">开户银行</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfyh" name="xz_gfyh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_gfyhzh" class="am-u-sm-4 am-form-label">开户账号</label>
+											<label for="xz_gfyhzh" class="am-u-sm-3 am-form-label">开户账号</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_gfyhzh" name="xz_gfyhzh" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_lxr" class="am-u-sm-4 am-form-label">联系人</label>
+											<label for="xz_lxr" class="am-u-sm-3 am-form-label">联系人</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_lxr" name="xz_lxr" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_lxdh" class="am-u-sm-4 am-form-label">联系电话</label>
+											<label for="xz_lxdh" class="am-u-sm-3 am-form-label">联系电话</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_lxdh" name="xz_lxdh"  
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_yjdz" class="am-u-sm-4 am-form-label">邮寄地址</label>
+											<label for="xz_yjdz" class="am-u-sm-3 am-form-label">邮寄地址</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_yjdz" name="xz_yjdz" 
 													placeholder="" />
 											</div>
 										</div>
 										<div class="am-form-group">
-											<label for="xz_email" class="am-u-sm-4 am-form-label">Email</label>
+											<label for="xz_email" class="am-u-sm-3 am-form-label">Email</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="xz_email" name="xz_email" 
 													placeholder="" />

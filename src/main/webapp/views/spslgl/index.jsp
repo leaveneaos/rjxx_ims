@@ -428,7 +428,7 @@
 												<hr />
 												<div class="am-g">
 													<div class="am-form-group">
-														<label for="spzmc" class="am-u-sm-4 am-form-label"><font
+														<label for="spzmc" class="am-u-sm-3 am-form-label"><font
 															color="red">*</font>商品组名称</label>
 														<div class="am-u-sm-8">
 															<input type="text" id="spzmc" name="spzmc"
@@ -437,7 +437,7 @@
 														</div>
 													</div>
 													<div class="am-form-group">
-														<label for="zbz" class="am-u-sm-4 am-form-label"><font
+														<label for="zbz" class="am-u-sm-3 am-form-label"><font
 															color="red">*</font>商品组类别</label>
 														<div class="am-u-sm-8">
 															<select name="zbz" id="zbz" required>
