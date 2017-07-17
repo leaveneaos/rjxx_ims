@@ -14,12 +14,12 @@ $(function() {
 		$s_xfmc : $('#s_xfmc'), // search
 
 
-		// $dpmax:$('#dzpzdje'),
-		// $fpfz:$('#dzpfpje'),
-		// $zpmax:$('#zpzdje'),
-		// $zpfz:$('#zpfpje'),
-		// $ppmax:$('#ppzdje'),
-		// $ppfz:$('#ppzdje'),
+		$dpmax:$('#dzpzdje'),
+		$fpfz:$('#dzpfpje'),
+		$zpmax:$('#zpzdje'),
+		$zpfz:$('#zpfpje'),
+		$ppmax:$('#ppzdje'),
+		$ppfz:$('#ppzdje'),
 
 
 		$jsSearch : $('#button1'),
@@ -184,7 +184,6 @@ $(function() {
 			                            }
 			                        }, 'sClass': 'right'
 			                    },*/
-								 
 			                    ]
 					});
 			t.on('draw.dt', function(e, settings, json) {
