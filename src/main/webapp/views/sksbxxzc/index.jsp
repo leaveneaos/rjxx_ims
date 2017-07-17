@@ -25,7 +25,6 @@
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 
-
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
@@ -340,11 +339,13 @@
 												<label  class="am-u-sm-2 am-form-label"><font
 													color="red">*</font>开票类型</label>
 												<c:forEach items="${fpzls }" var="f">
-													<label for="fplx-${f.fpzldm }" class="am-u-sm-5"><input
-														type="checkbox" onclick="xzfp(this)" id="fplx-${f.fpzldm }" name="fplx"
+													<label for="fplx-${f.fpzldm }" class="am-u-sm-5">
+													<input type="checkbox" onclick="xzfp(this)" id="fplx-${f.fpzldm }" name="fplx"
 														value="${f.fpzldm }">${f.fpzlmc }</label>
 												</c:forEach>
-												<label for="wrzs" class="am-u-sm-5">
+
+
+												<label for="wrzs" class="am-u-sm-3">
 													<input type="checkbox"  id="wrzs" name="wrzs" value="1"/>
 													无人值守
 												</label>
@@ -538,7 +539,9 @@
 			$("#btnDownloadDefaultTemplate").click(function() {
 				location.href = "sksbxxzc/downloadDefaultImportTemplate";
 			});
-			
+			// 修改样式位置
+			$('#fplx-12').parent().css('margin-left','142px').removeClass('am-u-sm-5').addClass('am-u-sm-3');
+			$('#fplx-03').parent().removeClass('am-u-sm-5').addClass('am-u-sm-4');
 		});
 		
 		function xzfp(obj){
@@ -550,6 +553,9 @@
 				$(id).hide();
 			}
 		}
+
+		
+
 	</script>
 </body>
 </html>
