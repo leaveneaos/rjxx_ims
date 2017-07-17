@@ -236,9 +236,20 @@ $(function() {
 	        $("#close1").click(function () {
 	            $importModal.modal("close");
 	        });
-	        // $('#xfmc').change(function(){
-	        // 	$('#kpr').val($(this).val());
-	        // });
+
+
+	        $('#dzpzdje').change(function() {
+				$('#dzpfpje').val($('#dzpzdje').val());
+			});
+			$('#zpzdje').change(function() {
+				$('#zpfpje').val($('#zpzdje').val());
+			});
+			$('#ppzdje').change(function() {
+				$('#ppfpje').val($('#ppzdje').val());
+			});
+
+
+			
 	      //导入excel
 	        $("#btnImport").click(function () {
 	            var filename = $("#importFile").val();
