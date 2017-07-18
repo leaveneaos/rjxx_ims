@@ -118,8 +118,11 @@ public class FpcxController extends BaseController {
             pagination.addParam("sk", sk);
         }
         List<Fpcxvo> ykfpList = kplsService.findByPage(pagination);
+        String requestDomain = HtmlUtils.getDomainPath(request);
         for (Fpcxvo fpcxvo : ykfpList) {
             Skp skp = skpService.findOne(fpcxvo.getSkpid());
+            String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
+            fpcxvo.setPdfurl(pdfurl);
             fpcxvo.setKpdmc(skp.getKpdmc());
             fpcxvo.setKpddm(skp.getKpddm());
         }
