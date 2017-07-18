@@ -226,7 +226,7 @@ $(function() {
             }else if(i==4){
                 $(cell).find('input[name="spsl"]').val("");
             }else if(i==5){
-                $(cell).find('input[name="spdj"]').val(data.spdj == null ? '' : FormatFloat(data.spdj, "#.00#############"));
+                $(cell).find('input[name="spdj"]').val(data.spdj == null ? '' : FormatFloat(data.spdj, "#.00####"));
             }else if(i==6){
                 $(cell).find('input[name="spje"]').val("");
             }else if(i==7){
@@ -337,9 +337,9 @@ $(function() {
         var hjjestr=0;
         var hjsestr=0;
         if (spdj.val()!= "") {
-            spsl.val(FormatFloat(spje.val() / spdj.val(), "#.00#############"));
+            spsl.val(FormatFloat(spje.val() / spdj.val(), "#.00####"));
         }else if(spdj.val()==""&&spsl.val()!=""){
-            spdj.val(FormatFloat(spje.val() / spsl.val(), "#.00#############"));
+            spdj.val(FormatFloat(spje.val() / spsl.val(), "#.00####"));
         }
         $("#jyspmx_table").find("tr").each(function(i,row){
             if(i!=0){
