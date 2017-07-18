@@ -155,7 +155,7 @@
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star" id="show">*</span>购方税号</label>
 												<div class="am-u-sm-6">
-													<input id="gfsh" name="gfsh" type="text" placeholder="购方税号(15,18,20位数)" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+													<input id="gfsh" name="gfsh" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
 												</div>
 											</div>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -404,6 +404,16 @@
                 $("#show").html("");
 			}
 		}
+
+		$('#gfsh').blur(function() {
+			var gfsh = $('#gfsh').val();
+			if(null != gfsh && gfsh != ''){
+				if(gfsh.length != 15 && gfsh.length != 18 && gfsh.length !=20 ){
+					swal("购方税号由(15,18或20位)数字或大写字母组成")
+					return;
+				}
+			};
+		})
 	</script>
 
 </body>
