@@ -155,7 +155,7 @@
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star" id="show">*</span>购方税号</label>
 												<div class="am-u-sm-6">
-													<input id="gfsh" name="gfsh" type="text" placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')">
+													<input id="gfsh" name="gfsh" type="text" placeholder="购方税号(15,18,20位数)" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
 												</div>
 											</div>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -404,7 +404,6 @@
                 $("#show").html("");
 			}
 		}
-
 	</script>
 
 </body>
