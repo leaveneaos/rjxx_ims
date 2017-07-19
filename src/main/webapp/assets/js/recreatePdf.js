@@ -173,7 +173,7 @@ $(function () {
                 t.column(0).nodes().each(function (cell, i) {
                     var $checkbox = $(cell).find('input[type="checkbox"]');
                     if ($checkbox.is(':checked')) {
-                        var row = t.row(i).data().djh;
+                        var row = t.row(i).data().kplsh;
                         djhArr.push(row);
                     }
                 });
