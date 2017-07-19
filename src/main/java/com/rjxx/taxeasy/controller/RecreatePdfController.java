@@ -5,6 +5,8 @@ package com.rjxx.taxeasy.controller;
  */
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.service.KplsService;
@@ -28,6 +30,8 @@ public class RecreatePdfController extends BaseController{
 
     @Autowired
     private KplsService kplsService;
+    @Autowired
+    private SkService skService;
 
 
     @RequestMapping
@@ -47,25 +51,12 @@ public class RecreatePdfController extends BaseController{
      */
     @RequestMapping(value = "/getKplsList")
     @ResponseBody
-    public Map getKplsList(int length, int start, int draw, Integer xfid,Integer skpid,String ddh, String gfmc,
-                           String kprqq,String kprqz,String fpzl,boolean loaddata) throws Exception {
+    public Map getKplsList(int length, int start, int draw,String ddh, String gfmc,
+                           String kprqq,String kprqz,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
-        List<Integer> xfs = new ArrayList<>();
-        if (!getXfList().isEmpty()) {
-            for (Xf xf : getXfList()) {
-                xfs.add(xf.getId());
-            }
-        }
-        if (xfs.size() > 0) {
-            pagination.addParam("xfList", xfs);
-        }
-        pagination.addParam("skps", getSkpList());
-        pagination.addParam("gsdm", getGsdm());
-        pagination.addParam("xfid", xfid);
-        pagination.addParam("skpid", skpid);
         pagination.addParam("ddh", ddh);
         pagination.addParam("gfmc", gfmc);
         if (!"".equals(kprqq)) {
@@ -74,9 +65,6 @@ public class RecreatePdfController extends BaseController{
         if (!"".equals(kprqz)) {
             pagination.addParam("kprqz", kprqz);
         }
-
-       // pagination.addParam("fpczlxdm", "14");
-        pagination.addParam("fpzl", fpzl);
         List<Fpcxvo> list = kplsService.findPdf(pagination);
         int total = pagination.getTotalRecord();
         if(loaddata){
@@ -89,6 +77,25 @@ public class RecreatePdfController extends BaseController{
             result.put("recordsFiltered",0);
             result.put("draw",draw);
             result.put("data",new ArrayList<>());
+        }
+        return result;
+    }
+    @RequestMapping(value = "/recreate")
+    @ResponseBody
+    public Map<String, Object> update(String djhArr) throws Exception {
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        String[] djhs = djhArr.split(",");
+        for (int j = 0; j < djhs.length; j++) {
+            InvoiceResponse flag = skService.ReCreatePdf(Integer.valueOf(djhs[j]));
+            if (flag.getReturnCode().equals("0000")) {
+                result.put("success", true);
+                result.put("msg", "重新生成PDF成功！");
+            }else{
+                result.put("success", false);
+                result.put("msg", "第"+(j+1)+"重新生成PDF失败!"+flag.getReturnMessage());
+                return result;
+            }
         }
         return result;
     }

@@ -50,34 +50,34 @@
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 										<form class="js-search-form am-form">
-											<div class="am-offcanvas-content">
-												<div class="am-form-group">
-													<label for="xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
-													<div class="am-u-sm-8">
-														<select id="s_xfid" name="xfid"
-															data-am-selected="{btnSize: 'sm'}">
-															<option value="">请选择销方</option>
-															<c:forEach items="${xfList}" var="xf">
-																<option value="${xf.id}">${xf.xfmc}</option>
-															</c:forEach>
-														</select>
-													</div>
-												</div>
-											</div>
-											<div class="am-offcanvas-content top-position">
-												<div class="am-form-group">
-													<label for="kpdmc" class="am-u-sm-4 am-form-label">开票点</label>
-													<div class="am-u-sm-8">
-														<select id="s_skpid" name="skpid"
-															data-am-selected="{btnSize: 'sm'}">
-															<option value="">请选择开票点</option>
-															<c:forEach items="${skpList}" var="skp">
-																<option value="${skp.id}">${skp.kpdmc}</option>
-															</c:forEach>
-														</select>
-													</div>
-												</div>
-											</div>
+											<%--	<div class="am-offcanvas-content">
+                                                    <div class="am-form-group">
+                                                        <label for="s_xfid" class="am-u-sm-4 am-form-label">销方名称</label>
+                                                        <div class="am-u-sm-8">
+                                                            <select id="s_xfid" name="xfid"
+                                                                data-am-selected="{btnSize: 'sm'}">
+                                                                <option value="">请选择销方</option>
+                                                                <c:forEach items="${xfList}" var="xf">
+                                                                    <option value="${xf.id}">${xf.xfmc}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="am-offcanvas-content top-position">
+                                                    <div class="am-form-group">
+                                                        <label for="s_skpid" class="am-u-sm-4 am-form-label">开票点</label>
+                                                        <div class="am-u-sm-8">
+                                                            <select id="s_skpid" name="skpid"
+                                                                data-am-selected="{btnSize: 'sm'}">
+                                                                <option value="">请选择开票点</option>
+                                                                <c:forEach items="${skpList}" var="skp">
+                                                                    <option value="${skp.id}">${skp.kpdmc}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>--%>
 											<%--<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
 													<label for="fpzldm" class="am-u-sm-4 am-form-label">发票种类</label>
@@ -94,7 +94,7 @@
 											</div>--%>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="ddh" class="am-u-sm-4 am-form-label">订单号</label>
+													<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
 													<div class="am-u-sm-8">
 														<input type="text" class="am-form-field" id="s_ddh"
 															name="s_ddh" placeholder="请输入订单号" />
@@ -103,7 +103,7 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+													<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
 													<div class="am-u-sm-8">
 														<input type="text" class="am-form-field" id="s_gfmc"
 															name="s_gfmc" placeholder="请输入购方名称" />
@@ -112,7 +112,7 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
+													<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
 													<div class="am-input-group am-datepicker-date am-u-sm-8"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}">
 														<input type="text" id="s_kprqq" class="am-form-field"
@@ -127,7 +127,7 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="kprqz" class="am-u-sm-4 am-form-label">——</label>
+													<label for="s_kprqz" class="am-u-sm-4 am-form-label">——</label>
 													<div class="am-input-group am-datepicker-date am-u-sm-8"
 														data-am-datepicker="{format: 'yyyy-mm-dd'}">
 														<input type="text" id="s_kprqz" class="am-form-field"
@@ -156,7 +156,10 @@
 										<div class="am-form-group">
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
-													<input type="hidden" id="searchbz">
+													<button type="button" id="recreatePdf"
+															class="am-btn am-btn-default am-btn-success">
+														<span></span> 重新生成PDF
+													</button>
 												</div>
 											</div>
 										</div>
@@ -189,8 +192,8 @@
 										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
+												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
-												<%--<th>操作</th>--%>
 												<th>订单号</th>
 												<th>发票种类</th>
 												<th>购方名称</th>

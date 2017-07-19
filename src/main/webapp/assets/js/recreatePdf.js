@@ -15,7 +15,9 @@ $(function () {
        // $s_fpzl:$('#s_fpzl'),
         $jsSearch: $('.js-search'),
         $jsExport: $('.js-export'),
-        $jsLoading: $('.js-modal-loading')
+        $jsLoading: $('.js-modal-loading'),
+        $checkAll : $('#check_all')
+
     };
     var loaddata = false;
     var action = {
@@ -52,19 +54,24 @@ $(function () {
                             if(item=='gfmc'){
                                 d.gfmc = $('#searchValue').val();
                             }
+                            d.loaddata = loaddata;
                         }
                     }
                 },
                 "columns": [
                     {
+                        "orderable" : false,
+                        "data" : null,
+                        render : function(data, type, full, meta) {
+                            return '<input type="checkbox" value="'
+                                + data.kplsh + '" name="chk"  />';
+                        }
+                    },
+                    {
                         "orderable": false,
                         "data": null,
                         "defaultContent": ""
                     },
-                   /* {
-                        "data": null,
-                        "defaultContent": '<a class="view">查看</a>'
-                    },*/
                     {"data": "ddh"},
                     {"data": "fpzlmc"},
                     {"data": "gfmc"},
@@ -97,49 +104,23 @@ $(function () {
                             }
                         }, 'sClass': 'right'
                     },                   
-                  /*  {"data": "kprq"},
-                    {"data": "kpr"},*/
-                    
                 ]
             });
 
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+                t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-
             });
 
-            // 
-            t.on('click', 'a.generates', function () {
-                var data = t.row($(this).parents('tr')).data();
-                swal('生成成功');
-
+            $('#jssearch').on('click',function(e){
+                $('#searchbz').val("0");
+                e.preventDefault();
+                loaddata = true;
+                t.ajax.reload();
             });
-
-            // 原发票明细
-            t.on('click', 'a.view', function () {
-                var data = t.row($(this).parents('tr')).data();
-                _this.setForm0(data);
-                el.$modalHuankai.modal('open');
-
-            });
-
-            // 
-            t.on('click', 'a.sent', function () {
-                var data = t.row($(this).parents('tr')).data();
-                swal('发送成功');
-            });
-
-            return t;
-        },
-        /**
-         * search action
-         */
-        search_ac: function () {
-            var _this = this;
             el.$jsSearch.on('click', function (e) {
                 if ((!el.$s_kprqq.val() && el.$s_kprqz.val()) || (el.$s_kprqq.val() && !el.$s_kprqz.val())) {
                     swal('Error,请选择开始和结束时间!');
@@ -168,62 +149,70 @@ $(function () {
                 $('#searchbz').val("1");
                 e.preventDefault();
                 loaddata = true;
-                _this.tableEx.ajax.reload();
+                t.ajax.reload();
             });
-        },
-        
-        find_mv:function(){
-            var _this = this;
-            $('#jssearch').on('click',function(e){
-                $('#searchbz').val("0");
-                e.preventDefault();
-                loaddata = true;
-                _this.tableEx.ajax.reload();
-            })
-        },
-        /**
-         * 导出按钮
-         */
-        exportAc: function () {
-            el.$jsExport.on('click', function (e) {
-                // todo
-                swal('导出成功');
+            //全选按钮
+                el.$checkAll.on('change', function(e) {
+                    var $this = $(this), check = null;
+                    if ($(this).is(':checked')) {
+                        t.column(0).nodes().each(
+                            function(cell, i) {
+                                $(cell).find('input[type="checkbox"]').prop(
+                                    'checked', true);
+                            });
+                    } else {
+                        t.column(0).nodes().each(
+                            function(cell, i) {
+                                $(cell).find('input[type="checkbox"]').prop(
+                                    'checked', false);
+                            });
+                    }
+                });
+            $('#recreatePdf').click(function () {
+                var djhArr = [];
+                t.column(0).nodes().each(function (cell, i) {
+                    var $checkbox = $(cell).find('input[type="checkbox"]');
+                    if ($checkbox.is(':checked')) {
+                        var row = t.row(i).data().djh;
+                        djhArr.push(row);
+                    }
+                });
+                if (djhArr.length == 0) {
+                    swal("请勾选需要开票的交易流水");
+                    return;
+                }
+                swal({
+                    title: "您是否需要重新生成PDF！",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "确 定",
+                    confirmButtonColor: "#ec6c62"
+                }, function() {
+                    $.ajax({
+                        url: "recreatePdf/recreate",
+                        context: document.body,
+                        data:{ "djhArr" : djhArr.join(",")},
+                    }).done(function(data) {
+                        if (data.success) {
+                            swal({
+                                title: "生成成功",
+                                timer: 1500,
+                                type: "success",
+                                showConfirmButton: false
+                            });
+                            t.ajax.reload();
+                        } else {
+                            t.ajax.reload();
+                            swal(data.msg);
+                        }
+                    });
+                });
             });
-        },
-        setForm0: function (data) {
-            var _this = this,
-                i;
-            // todo set data
-            // ajax get data
-            el.$jsForm0.find('[name="hk_fpdm"]').val(data.fpdm);
-            el.$jsForm0.find('[name="hk_fphm"]').val(data.fphm);
-            el.$jsForm0.find('[name="hk_je"]').val(FormatFloat(data.je, "###,###.00"));
-            el.$jsForm0.find('[name="hk_se"]').val(FormatFloat(data.se, "###,###.00"));
-            el.$jsForm0.find('[name="hk_gfmc"]').val(data.gfmc);
-            el.$jsForm0.find('[name="hk_yfpdm"]').val(data.hzyfpdm);
-            el.$jsForm0.find('[name="hk_yfphm"]').val(data.hzyfphm);
-            el.$jsForm0.find('[name="id"]').val(data.id);
-        },
-        resetForm: function () {
-            el.$jsForm0[0].reset();
-        },
-        modalAction: function () {
-            var _this = this;
-            el.$modalHuankai.on('closed.modal.amui', function () {
-                el.$jsForm0[0].reset();
-            });
-            // close modal
-            el.$jsClose.on('click', function () {
-                el.$modalHuankai.modal('close');
-            });
+            return t;
         },
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
-            _this.search_ac();
-            _this.exportAc();
-            _this.modalAction(); // hidden action
-            _this.find_mv();
         }
     };
     action.init();
