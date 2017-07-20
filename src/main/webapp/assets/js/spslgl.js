@@ -469,6 +469,7 @@
 	                confirmButtonText: "确 定",
 	                confirmButtonColor: "#ec6c62"
 	            }, function() {
+	            	$('.confirm').attr('disabled',"disabled");
 	                $.ajax({
 	                    url : "spslgl/deleteSpz",
 						data : {
@@ -477,6 +478,7 @@
 						type : 'POST',
 	                }).done(function(data) {
 	                	if (data.success) {
+	                		$('.confirm').removeAttr('disabled');
 		                        spz_table.ajax.reload(); // reload table data
 		                        swal({ 
 									  title: "已成功删除", 

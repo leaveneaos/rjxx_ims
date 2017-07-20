@@ -309,7 +309,6 @@ $(function() {
     	   }
     });
     kpspmx_table.on('click', 'a.kpdmx', function () {
-        $('.confirm').attr('disabled',"disabled");
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
             swal({
                 title: "您确认删除？",
@@ -319,6 +318,7 @@ $(function() {
                 confirmButtonText: "确 定",
                 confirmButtonColor: "#ec6c62"
             }, function() {
+                $('.confirm').attr('disabled',"disabled");
                 $.ajax({
                     type : "POST",
                     url : "kpdsh/mxsc",
@@ -677,7 +677,7 @@ $(function() {
             });*/
             //删除
             $("#kpd_sc").click(function () {
-                $('.confirm').attr('disabled',"disabled");
+               
         		var chk_value="" ;
         		$('input[name="dxk"]:checked').each(function(){
         		chk_value+=$(this).val()+",";
@@ -695,6 +695,7 @@ $(function() {
                         confirmButtonText: "确 定",
                         confirmButtonColor: "#ec6c62"
                     }, function() {
+                        $('.confirm').attr('disabled',"disabled");
                         $.ajax({
                             type : "POST",
                             url : "kpdsh/sc",

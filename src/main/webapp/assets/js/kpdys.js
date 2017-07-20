@@ -97,11 +97,13 @@
                     confirmButtonText: "确 定",
                     confirmButtonColor: "#ec6c62"
                 }, function() {
+                    $('.confirm').attr('disabled',"disabled");
                     $.ajax({
                         type : "POST",
                         url : "kpdsh/th",
                         data : {"ddhs":ddhs},
                     }).done(function(data) {
+                         $('.confirm').removeAttr('disabled');
                         swal(data.msg);
                         jyls_table2.ajax.reload();
                         jyspmx_table2.ajax.reload();
