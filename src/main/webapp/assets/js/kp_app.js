@@ -646,12 +646,15 @@ $(function() {
                                         confirmButtonText: "确 定",
                                         confirmButtonColor: "#ec6c62"
                                     }, function() {
+                                        $('.confirm').attr('disabled',"disabled");
                                         $.ajax({
                                             url: "kp/doKp", 
                                             context: document.body,
                                             data:{ "djhArr" : djhArr.join(","),"dybz":"0"},
                                             }).done(function(data) {
                                                 if (data.success) {
+                                                    console.log(222);
+                                                    $('.confirm').removeAttr('disabled');
                                                     $('#kp_kp').removeAttr("disabled");
                                                     $('#kp_kpdy').removeAttr("disabled");
                                                     $('#kp_del').removeAttr("disabled");
@@ -796,11 +799,13 @@ $(function() {
                             confirmButtonText: "确 定",
                             confirmButtonColor: "#ec6c62"
                         }, function() {
+                            $('.confirm').attr('disabled',"disabled");
                             $.ajax({
                                 url:"kp/fpck",
                                 data:{"kplshs" : kplsh.join(",")},
                             }).done(function(data) {
                                 if(data.success){
+                                    $('.confirm').removeAttr('disabled');
                                     swal(data.msg);
                                     t.ajax.reload();
                                 }else{
@@ -820,6 +825,7 @@ $(function() {
                     confirmButtonText: "确 定",
                     confirmButtonColor: "#ec6c62"
                 }, function() {
+                    $('.confirm').attr('disabled',"disabled");
                     $.ajax({
                         url:"kp/fpck",
                         data:{"kplshs" : kplsh.join(",")},
@@ -875,6 +881,7 @@ $(function() {
                         },
                     }).done(function(data) {
                         if (data.success) {
+                            $('.confirm').removeAttr('disabled');
                             swal("发送到开票队列成功!");
                             jyls_table.ajax.reload();
                         } else {
