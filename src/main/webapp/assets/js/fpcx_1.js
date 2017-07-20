@@ -147,6 +147,7 @@ $(function() {
 				"scrollX" : true,
 				"ajax" : {
 					url : _this.config.getUrl,
+                    timeout: 600000,
 					type : 'POST',
 					data : function(d) {
 						var bj = $('#bj').val();
