@@ -261,6 +261,7 @@ $(function() {
 	                confirmButtonText: "确 定",
 	                confirmButtonColor: "#ec6c62"
 	            }, function() {
+	            	$('.confirm').attr('disabled',"disabled");
 	            	el.$jsLoading.modal('open');
 	                $.ajax({
 	                    url : url,
@@ -270,6 +271,7 @@ $(function() {
 						type : 'POST',
 	                }).done(function(data) {
 	                	if (data.success) {
+	                			$('.confirm').removeAttr('disabled');
 		                        swal({ 
 									  title: "已成功删除", 
 									  timer: 1500, 

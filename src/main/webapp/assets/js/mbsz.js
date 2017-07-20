@@ -187,7 +187,6 @@ $(function() {
 
 		     //删除
 			$("#del").on('click', function() {
-				$('.confirm').attr('disabled',"disabled");
 	            var mbidArr = [];
 	            $("input[type='checkbox']:checked").each(function (i, o) {
 	            	if ($(o).attr("data") != null) {
@@ -207,6 +206,7 @@ $(function() {
 				    confirmButtonText: "确 定",
 				    confirmButtonColor: "#ec6c62"
 				}, function() {
+						$('.confirm').attr('disabled',"disabled");
 				        $.post(
 				            "mbsz/doDel",
 				            "mbidArr="+ mbidArr.join(","),

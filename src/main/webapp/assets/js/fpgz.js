@@ -203,7 +203,7 @@ $("#qdbz").change(function () {
 			});
 			//删除
 			$("#gz_scgz").on('click', $("#gz_scgz"), function() {
-				$('.confirm').attr('disabled',"disabled");
+				
                 var djhArr = [];
 		         $('input[name="gzdxk"]:checked').each(function(){    
 		                djhArr.push($(this).val()); 
@@ -225,6 +225,7 @@ $("#qdbz").change(function () {
 				    confirmButtonText: "确 定",
 				    confirmButtonColor: "#ec6c62"
 				}, function() {
+					$('.confirm').attr('disabled',"disabled");
 				    $.ajax({
 				        url : ur,
 						data : {"id":djhArr.join(",")},

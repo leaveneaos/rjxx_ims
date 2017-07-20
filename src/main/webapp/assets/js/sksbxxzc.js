@@ -440,6 +440,7 @@ $(function() {
                 confirmButtonText: "确 定",
                 confirmButtonColor: "#ec6c62"
             }, function() {
+            	$('.confirm').attr('disabled',"disabled");
                 $.ajax({
                     url : url,
 					data : {
@@ -448,6 +449,7 @@ $(function() {
 					type : 'POST',
                 }).done(function(data) {
                 	if (data.success) {
+                		$('.confirm').removeAttr('disabled');
 	                        _this.tableEx.ajax.reload(); // reload table data
 	                        swal({ 
 								    title: "已成功删除", 
