@@ -80,8 +80,7 @@
 										color="red">*</font>企业电话</label>
 									<div class="am-u-sm-8">
 										<input type="text" id="xfdh" name="xfdh" style="float: left;"
-											placeholder="企业电话(发票票面)如021-55571833" required class="js-pattern-Telephone" 
-											maxlength="30" />
+											placeholder="企业电话" required  maxlength="30" />
 									</div>
 								</div>
 								<div class="am-form-group">
