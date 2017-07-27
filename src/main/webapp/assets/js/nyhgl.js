@@ -32,7 +32,7 @@ $(function() {
 		$jsdel : $('.js-sent'), // del all
 		$jsLoading : $('.js-modal-loading')
 	};
-	el.$modalHongchong.draggable();
+	// el.$modalHongchong.draggable();
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
