@@ -252,26 +252,18 @@ $(function() {
             el.$jsExport.on('click',function (e) {
                 var bj = $('#bj').val();
                 var kplsh11 ='';
-                var flag = true;
                 t.column(0).nodes().each(//循环检测勾选复选框并取得kplsh
                     function (cell,i){
-                        if(flag){
                             var $checkbox = $(cell).find('input[type="checkbox"]');
                             if($checkbox.is(':checked')){
                                 kplsh11 += $checkbox.val()+ ',';
                             }
-                        }
                     }
                 )
-                if(kplsh11.length == 0){
-                    flag = false;
-                    swal("请选择需要导出的数据!");
-                }
+
                 if(bj == '1'){
-                    if(flag){
                         $('#kplsh1').val(kplsh11);
                         $('#searchform').submit();
-                    }
                 }else{
                     var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
                     var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
@@ -291,13 +283,8 @@ $(function() {
                             return false;
                         }
                     }
-                    if(flag){
                         $('#kplsh1').val(kplsh11);
                         $("#searchform").submit();
-					}else{
-                    	return false;
-					}
-
 				}
 
             })

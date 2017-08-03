@@ -1067,10 +1067,10 @@ $(function() {
                             }
                         }
                     )
-                    if(kplsh11.length == 0){
+                    /*if(kplsh11.length == 0){
                         flag = false;
                         swal("请选择需要导出的数据!");
-                    }
+                    }*/
                     if(flag){
                         $('#kplsh1').val(kplsh11);
                         $('#searchform').submit();
