@@ -60,6 +60,8 @@ $(function() {
 						"render":  function(data){
 							if(data.fpzldm=="12"&&data.pdfurl!=null){
 								return '<a  href="'+ data.pdfurl + '" target="_blank">'+data.fphm+'</a>';
+							}else if(data.fpzldm=="12"&&data.pdfurl==null){
+                                return data.fphm;
 							}else if(data.fphm!=null&&data.fpzldm!="12"){
 								return data.fphm;
 							}else{
