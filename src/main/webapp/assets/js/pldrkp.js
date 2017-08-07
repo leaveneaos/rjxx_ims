@@ -123,8 +123,7 @@ $(function() {
 				                confirmButtonText: "确 定",
 				                confirmButtonColor: "#ec6c62"
 				            }, function() {
-				                $('.confirm').attr('disabled',"disabled");
-				                showMask();
+				                $('.confirm').attr('disabled',"disabled");				  
 				                $.ajax({
 				                    type : "POST",
 				                    url : 'pldrkp/plkjcl',
@@ -136,6 +135,7 @@ $(function() {
 									},
 				                }).done(function(data) {
 				                    $('.confirm').removeAttr('disabled');
+				                    showMask();
 				                    if(data.success){
 				                    	swal({ 
 					                          title: data.msg, 

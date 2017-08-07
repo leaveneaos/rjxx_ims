@@ -409,7 +409,6 @@ table thead th {
             showMask();
             var options = {
                 success: function (res) {
-
                     if (res["success"]) {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
