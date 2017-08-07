@@ -75,6 +75,7 @@ $(function() {
 									}						
 							},
 	                        {"data": "jylsh"},
+	                        {"data": "drwjm"},
 	                        {"data": "lrsj"},
 	                        {"data": "jlts"},
 	                        {"data": function (data) {
@@ -107,8 +108,8 @@ $(function() {
 				t.column(1).nodes().each(function(cell, i) {
 					cell.innerHTML = page + i + 1;
 				});
-				$('#jyls_table tr').find('td:eq(7)').hide();
 				$('#jyls_table tr').find('td:eq(8)').hide();
+				$('#jyls_table tr').find('td:eq(9)').hide();
 			});
 			
 			// 批量开具处理

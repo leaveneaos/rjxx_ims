@@ -1865,7 +1865,7 @@ public class LrkpdController extends BaseController {
                     break;
                 }
             }
- 
+            String fileName = importFile.getOriginalFilename();
             Pldrjl pldrjl = new Pldrjl();
             String gsdm = this.getGsdm();
             pldrjl.setGsdm(gsdm);
@@ -1875,6 +1875,7 @@ public class LrkpdController extends BaseController {
             pldrjl.setLrsj(allTime); 
             pldrjl.setXfid(xf.getId());
             pldrjl.setZtbz("0");
+            pldrjl.setDrwjm(fileName);
             pldrjlService.save(pldrjl);
     	}
     	return resultMap;

@@ -172,6 +172,7 @@ table thead th {
 															<th>序号</th>
 															<th>操作</th>
 															<th>批次号</th>
+															<th>导入文件名</th>
 															<th>导入日期</th>
 															<th>导入条数</th>
 															<th>金额</th>
