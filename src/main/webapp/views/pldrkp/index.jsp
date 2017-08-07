@@ -59,14 +59,6 @@ table thead th {
 	top: -5%;
 	width: 60px;
 }   
-.state{
-	color: #fff;
-	text-align: center;
-}
-.state {
-	font-size: 16px;
-	padding: 15px 0;
-}
 </style>
 </head>
 <body>
@@ -518,7 +510,7 @@ table thead th {
 	        $("#mask").css("height",$(document).height());     
 	        $("#mask").css("width",$(document).width());     
 	        $("#mask").show();  
-	        loading.innerHTML = "<img src='img/loading2.gif' class='loadingImg'><p class='state'>正在处理...</p>";   
+	        loading.innerHTML = "<img src='img/loading2.gif' class='loadingImg'>";   
 	    }
 
 	</script>

@@ -135,7 +135,6 @@ $(function() {
 									},
 				                }).done(function(data) {
 				                    $('.confirm').removeAttr('disabled');
-				                    showMask();
 				                    if(data.success){
 				                    	swal({ 
 					                          title: data.msg, 
