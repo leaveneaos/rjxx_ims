@@ -33,6 +33,40 @@ table thead th {
 .data-ctr {
   text-align: center;
 }
+/*模态框*/
+.mask {      
+	height: 100%; 
+    position: absolute; 
+    top: 0px; 
+    left: 0px;  
+    filter: alpha(opacity=60); 
+    background-color: #777;     
+    z-index: 1002;      
+    opacity:0.8; 
+    -moz-opacity:0.8;     
+} 
+#loading,.loadingImg {
+    z-index:10001;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+} 
+#loading {
+	width: 70%;
+}
+.loadingImg {
+	top: -5%;
+	width: 60px;
+}   
+.state{
+	color: #fff;
+	text-align: center;
+}
+.state {
+	font-size: 16px;
+	padding: 15px 0;
+}
 </style>
 </head>
 <body>
@@ -289,6 +323,9 @@ table thead th {
 			</div>
 		</div>
 	</div>
+	<!-- 遮罩层 -->
+	<div id="mask" class="mask"></div>   
+	<div id="loading"></div> 
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.form.js"></script>
 	<!--<![endif]-->
@@ -369,8 +406,10 @@ table thead th {
             }
             $("#btnImport").attr("disabled", true);
             $('.js-modal-loading').modal('open');
+            showMask();
             var options = {
                 success: function (res) {
+
                     if (res["success"]) {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
@@ -473,8 +512,16 @@ table thead th {
         var $importModal = $("#bulk-import-div");
       
         $("#close1").click(function () {
+        	showMask()
             $importModal.modal("close");
         });
+        // 模态框
+		function showMask(){    
+	        $("#mask").css("height",$(document).height());     
+	        $("#mask").css("width",$(document).width());     
+	        $("#mask").show();  
+	        loading.innerHTML = "<img src='img/loading2.gif' class='loadingImg'><p class='state'>正在处理...</p>";   
+	    }
 
 	</script>
 
