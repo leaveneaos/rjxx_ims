@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.security.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -65,6 +66,9 @@ public class LrkpdController extends BaseController {
     
     @Autowired
     private DiscountDealUtil discountDealUtil;
+    
+    @Autowired
+    private PldrjlService pldrjlService;
 
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
@@ -785,6 +789,7 @@ public class LrkpdController extends BaseController {
     public Map importExcel(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp)
             throws Exception {
         Map<String, Object> result = new HashMap<>();
+        java.sql.Timestamp allTime = TimeUtil.getNowDate();
         if (importFile == null || importFile.isEmpty()) {
             result.put("success", false);
             result.put("message", "请选择要导入的文件");
@@ -820,10 +825,11 @@ public class LrkpdController extends BaseController {
             if (mb == null || mb < 1) {
                 mb = mrmb;
             }
-            String msg = processExcelList(resultList, mb, mb_xfsh, mb_skp);
-            if (!"".equals(msg)) {
+            
+            Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,null);
+            if (!"".equals(msgMap.get("msg").toString())) {
                 result.put("success", false);
-                result.put("message", msg);
+                result.put("message", msgMap.get("msg").toString());
                 return result;
             }
         } catch (NullPointerException e) {
@@ -839,10 +845,87 @@ public class LrkpdController extends BaseController {
         }
 
         result.put("success", true);
+        result.put("allTime", allTime);
         result.put("count", resultList.size() - 1);
         return result;
     }
 
+    
+    /**
+     * 批量导入excel数据
+     *
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> importExcel4Pl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp,String pch)
+            throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        Map msgMap = new HashMap();
+        java.sql.Timestamp allTime = TimeUtil.getNowDate();
+        if (importFile == null || importFile.isEmpty()) {
+            result.put("success", false);
+            result.put("message", "请选择要导入的文件");
+            return result;
+        }
+        List<List> resultList = ExcelUtil.exportListFromExcel(importFile.getInputStream(),
+                FilenameUtils.getExtension(importFile.getOriginalFilename()), 0);
+        if (resultList.size() < 2) {
+            result.put("success", false);
+            result.put("message", "行数少于2行，没有数据");
+            return result;
+        }
+        try {
+            String fileName = importFile.getOriginalFilename();
+            if (fileName != null && fileName.length() > 0) {
+                fileName = fileName.substring(0, fileName.lastIndexOf("."));
+                if (mb > 0) {
+                    Drmb d = drmbService.findOne(mb);
+                    if (d != null && fileName.equals(d.getMbmc())) {
+                        XfMb mr = new XfMb();
+                        mr.setMbid(mb);
+                        mr.setXfsh(mb_xfsh);
+                        mr.setYxbz("1");
+                        mr.setLrry(getYhid());
+                        mr.setLrsj(new Date());
+                        mr.setXgry(getYhid());
+                        mr.setXgsj(new Date());
+                        xfmbService.save(mr);
+                        result.put("yes", true);
+                    }
+                }
+            }
+            if (mb == null || mb < 1) {
+                mb = mrmb;
+            }
+            System.out.println("校验处理开始时间："+new Date());
+             msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,pch);
+            if (!"".equals(msgMap.get("msg").toString())) {
+                result.put("success", false);
+                result.put("message", msgMap.get("msg").toString());
+                result.put("jshj", msgMap.get("jshj").toString());
+                return result;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("jshj","0");
+            result.put("message", "模板的配置和excel表格表头不一致，请修改模板或表头使两者一致再导入！");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("jshj","0");
+            result.put("message", "导入出错");
+            return result;
+        }
+
+        result.put("success", true);
+        result.put("allTime", allTime);
+        result.put("jshj", msgMap.get("jshj").toString());
+        result.put("count", resultList.size() - 1);
+        return result;
+    }
+    
     /**
      * 导入字段映射
      */
@@ -967,11 +1050,13 @@ public class LrkpdController extends BaseController {
      * @param dataList
      * @throws Exception
      */
-    private String processExcelList(List<List> dataList, Integer mb, String xfsh1, Integer skpid) throws Exception {
+    private Map processExcelList(List<List> dataList, Integer mb, String xfsh1, Integer skpid,java.sql.Timestamp allTime,String pch) throws Exception {
 
         // 数据的校验
         String msgg = "";
         String msg = "";
+        Map result = new HashMap();
+        double zjshj = 0.0; //导入明细的总价税合计
         int yhid = this.getYhid();
         DrPz params = new DrPz();
         if (mb == null) {
@@ -1010,7 +1095,9 @@ public class LrkpdController extends BaseController {
             }
         }
         if (!"".equals(msg)) {
-            return msg;
+        	result.put("msg", result);
+        	result.put("jshj", zjshj);
+            return result;
         }
         // 转换成key为中文，value为英文的map
         Map<String, String> cnEnExcelColumnMap = new HashMap<>();
@@ -1060,22 +1147,28 @@ public class LrkpdController extends BaseController {
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
         List<Jymxsq> mxList = new ArrayList<>();
         Integer num = 1;
+     
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
             Jyxxsq jyxxsq = new Jyxxsq();
             jyxxsq.setGsdm(gsdm);
             jyxxsq.setLrry(yhid);
             jyxxsq.setXgry(yhid);
-            jyxxsq.setLrsj(TimeUtil.getNowDate());
-            jyxxsq.setXgsj(TimeUtil.getNowDate());
+            jyxxsq.setLrsj(allTime);
+            jyxxsq.setXgsj(allTime);
             jyxxsq.setYkpjshj(0d);
             jyxxsq.setClztdm("00");
             jyxxsq.setFpzldm(getValue("fpzldm", pzMap, columnIndexMap, row));
             jyxxsq.setFpczlxdm("11");
             jyxxsq.setYxbz("1");
-            jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
+            if(null != pch && !pch.equals("")){
+            	 jyxxsq.setJylsh(pch);
+            }else{
+            	 jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
+            }
+           
             jyxxsq.setDdh(getValue("ddh", pzMap, columnIndexMap, row));
-            jyxxsq.setDdrq(TimeUtil.getNowDate());
+            jyxxsq.setDdrq(allTime);
            /* if (!flag) {*/
                 jyxxsq.setXfid(xf.getId());
                 jyxxsq.setXfsh(xf.getXfsh());
@@ -1131,6 +1224,7 @@ public class LrkpdController extends BaseController {
                 // 不含税
                 jshj = spje * (1.0 + spsl);
             }
+            zjshj +=jshj;
             jyxxsq.setJshj(jshj);
 //			if (jyls.getGfmc() == null && jyls.getJshj() == null) {
 //				continue;
@@ -1163,8 +1257,8 @@ public class LrkpdController extends BaseController {
             //jymxsq.setYkphj(0d);
             jymxsq.setYxbz("1");
             jymxsq.setFphxz("0");
-            jymxsq.setLrsj(TimeUtil.getNowDate());
-            jymxsq.setXgsj(TimeUtil.getNowDate());
+            jymxsq.setLrsj(allTime);
+            jymxsq.setXgsj(allTime);
             jymxsq.setSpdm(getValue("spdm", pzMap, columnIndexMap, row));
             jymxsq.setSpmc(getValue("spmc", pzMap, columnIndexMap, row));
             jymxsq.setSpggxh(getValue("spggxh", pzMap, columnIndexMap, row));
@@ -1475,18 +1569,22 @@ public class LrkpdController extends BaseController {
         }
         // 没有异常，保存
         if ("".equals(msg)) {
-        	
+        	System.out.println("校验处理结束时间："+new Date());
+        	System.out.println("保存数据开始时间："+new Date());
         	//处理折扣行数据
             List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
             //复制一个新的list用于生成处理表
             List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
             
             jymxsqTempList = BeanConvertUtils.convertList(mxList, Jymxsq.class);
-
+            
             jymxsqClList = discountDealUtil.dealDiscount(jyxxsqList,jymxsqTempList,new ArrayList<Jyzfmx>(),gsdm);
             jyxxsqservice.saveAll(jyxxsqList, mxList,jymxsqClList,new ArrayList<Jyzfmx>());
+            System.out.println("保存数据结束时间："+new Date());
         }
-        return msg;
+        result.put("msg", msg);
+        result.put("jshj", zjshj);
+        return result;
     }
 
     
@@ -1746,7 +1844,41 @@ public class LrkpdController extends BaseController {
         return result;
     }
 
-
+    
+    @RequestMapping(value = "/importPldrjl", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional
+    public Map<String,Object> importPldrjl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp) throws Exception{
+    	Map<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	String pch = "PCH" + System.currentTimeMillis();
+    	System.out.println("导入处理开始时间："+new Date());
+    	resultMap = importExcel4Pl(importFile,mb,mrmb, mb_xfsh,mb_skp,pch);
+    	if(resultMap.get("success").equals("true") || (boolean)resultMap.get("success") ==true){
+    		java.sql.Timestamp allTime = (java.sql.Timestamp)resultMap.get("allTime");
+    		 // 获取导入销方
+    		List<Xf> xfList = this.getXfList();
+            Xf xf = null;
+            for (Xf x : xfList) {
+                if (x.getXfsh().equals(mb_xfsh)) {
+                    xf = x;
+                    break;
+                }
+            }
+ 
+            Pldrjl pldrjl = new Pldrjl();
+            String gsdm = this.getGsdm();
+            pldrjl.setGsdm(gsdm);
+            pldrjl.setJlts((Integer)resultMap.get("count"));
+            pldrjl.setJshj(Double.valueOf(resultMap.get("jshj").toString()));
+            pldrjl.setJylsh(pch);
+            pldrjl.setLrsj(allTime); 
+            pldrjl.setXfid(xf.getId());
+            pldrjl.setZtbz("0");
+            pldrjlService.save(pldrjl);
+    	}
+    	return resultMap;
+    }
     /**
      * 导入excel数据
      *
@@ -1794,10 +1926,11 @@ public class LrkpdController extends BaseController {
             if (mb == null || mb < 1) {
                 mb = mrmb;
             }
-            String msg = processExcelList(resultList, mb, mb_xfsh, mb_skp);
-            if (!"".equals(msg)) {
+            java.sql.Timestamp allTime = TimeUtil.getNowDate();
+            Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,null);
+            if (!"".equals(msgMap.get("msg").toString())) {
                 result.put("success", false);
-                result.put("message", msg);
+                result.put("message", msgMap.get("msg").toString());
                 return result;
             }
         } catch (NullPointerException e) {
