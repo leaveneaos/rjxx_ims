@@ -301,6 +301,7 @@ table thead th {
 	<script src="assets/js/pldrkp.js"></script>
 	<!-- <script src="assets/js/kpdys.js"></script> -->
 	<script src="assets/js/sweetalert.min.js"></script>
+	<!-- <script src="assets/js/loading.js"></script> -->
 	<script type="text/javascript">
 		$(function() {
 			var tabCounter = 0;

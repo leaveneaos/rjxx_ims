@@ -31,9 +31,10 @@ $(function() {
 			t = el.$jsTable.DataTable({
 				"processing" : true,
 				"serverSide" : true,
-				ordering : false,
+				ordering : true,
 				searching : false,
 				"scrollX" : true,
+				"order": [[ 7, "desc" ]],
 				"ajax" : {
 					url : _this.config.getUrl,
 					type : 'POST',
@@ -113,7 +114,38 @@ $(function() {
 			// 批量开具处理
 			t.on('click', 'a.kaiju', function() {
 				        	var row = t.row($(this).parents('tr')).data();
-							$.ajax({
+				        	swal({
+				                title: "您确认处理该批数据吗？",
+				                type: "warning",
+				                showCancelButton: true,
+				                closeOnConfirm: false,
+				                confirmButtonText: "确 定",
+				                confirmButtonColor: "#ec6c62"
+				            }, function() {
+				                $('.confirm').attr('disabled',"disabled");
+				                $.ajax({
+				                    type : "POST",
+				                    url : 'pldrkp/plkjcl',
+				                    data : {
+				                    	jylsh:row.jylsh,
+									    xfid:row.xfid,
+									    lrsj:row.lrsj,
+									    xh:row.xh
+									},
+				                }).done(function(data) {
+				                    $('.confirm').removeAttr('disabled');
+				                    if(data.success){
+				                    	swal({ 
+					                          title: data.msg, 
+					                          timer: 1500, 
+					                          type: "success", 
+					                          showConfirmButton: false 
+					                        });
+									}
+				                    _this.tableEx.ajax.reload();
+				                })
+				            });
+							/*$.ajax({
 								url : 'pldrkp/plkjcl',
 								data : {
 										jylsh:row.jylsh,
@@ -132,7 +164,7 @@ $(function() {
 									// $("#my-alert").modal('open')
 									swal("操作失败");
 								}
-							});
+							});*/
 	
 			});
 	          //删除
