@@ -512,7 +512,6 @@ table thead th {
         var $importModal = $("#bulk-import-div");
       
         $("#close1").click(function () {
-        	showMask()
             $importModal.modal("close");
         });
         // 模态框
