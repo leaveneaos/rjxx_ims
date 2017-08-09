@@ -44,7 +44,7 @@ public class Qydata2 extends BaseController {
             for(int i=0;i<xfList.size();i++){
                 Xf xf=(Xf)xfList.get(i);
                 List<Object> skplist=Transferdata.getdata("t_skp",gsdm,0,0,xf.getId(),0);
-
+                xf.setLrry(getYhid());
                 xf.setId(null);
                 xfService.saveNew(xf);
                 List<Skp> skpList= reload4(skplist);
