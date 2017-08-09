@@ -46,7 +46,7 @@ table thead th {
     -moz-opacity:0.8;     
 } 
 #loading,.loadingImg {
-    z-index:10001;
+    z-index:1000001;
     position:absolute;
     left:50%;
     top:50%;
@@ -420,6 +420,7 @@ table thead th {
 								$('#select_skpid').append(option);
 							}
 						}});
+						hideMask();
                         swal({
                             title: "导入成功，共导入" + count + "条数据",
                             showCancelButton: false,
@@ -505,14 +506,18 @@ table thead th {
         $("#close1").click(function () {
             $importModal.modal("close");
         });
-        // 模态框
+        // 显示模态框
 		function showMask(){    
 	        $("#mask").css("height",$(document).height());     
 	        $("#mask").css("width",$(document).width());     
 	        $("#mask").show();  
 	        loading.innerHTML = "<img src='img/loading2.gif' class='loadingImg'>";   
 	    }
-
+	    // 隐藏模态框
+	    function hideMask(){  
+	        $("#mask").hide(); 
+	        loading.innerHTML = '';    
+	    } 
 	</script>
 
 </body>
