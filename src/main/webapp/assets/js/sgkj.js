@@ -368,7 +368,7 @@ $(function() {
             swal("销方名称不能为空！");
             return;
         }
-        if(kpd==""){
+        if(null == kpd || kpd==""){
             $("#kpd").focus();
             swal("开票点不能为空！");
             return;
