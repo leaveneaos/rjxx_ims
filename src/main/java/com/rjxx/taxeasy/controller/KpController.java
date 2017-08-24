@@ -1679,15 +1679,19 @@ public class KpController extends BaseController {
         for(int i=0;i<kpsqh.length;i++){
             Kpls kpls=kplsService.findOne(Integer.parseInt(kpsqh[i]));
             if(kpls.getFpztdm().equals("05")||kpls.getFpztdm().equals("14")){
-				kpls.setFpztdm("04");
 				try{
-					kplsService.save(kpls);
+					Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), null, "kpfs");
+					if(cszb.getCsz().equals("01")) {
+						kpls.setFpztdm("04");
+						kplsService.save(kpls);
+					}else if(cszb.getCsz().equals("03")){
+                       skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+					}
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
 				}catch (Exception e){
 					result.put("success", false);
 					result.put("msg", "第"+(i+1)+"条流水重新开具失败！");
-
 				}
 			}else{
 				result.put("success", false);
