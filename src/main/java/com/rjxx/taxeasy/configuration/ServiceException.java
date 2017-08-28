@@ -4,6 +4,7 @@ package com.rjxx.taxeasy.configuration;
  * Created by xlm on 2017/3/14.
  */
 public class ServiceException extends RuntimeException{
+    private static final long serialVersionUID = 8624944628363400977L;
 
     public ServiceException() {
         super();
