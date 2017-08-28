@@ -200,9 +200,9 @@ $(function () {
     
     kpspmx_table.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table, page = x.page.info().start; // 设置第几页
-        kpspmx_table.column(0).nodes().each(function (cell, i) {
+        /*kpspmx_table.column(0).nodes().each(function (cell, i) {
             cell.innerHTML = page + i + 1;
-        });
+        });*/
     });
     kpspmx_table1.on('draw.dt', function (e, settings, json) {
         var x = kpspmx_table1, page = x.page.info().start; // 设置第几页
