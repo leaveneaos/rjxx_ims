@@ -107,9 +107,9 @@
 												class="star">*</span>发票种类</label>
 										<div class="am-u-sm-3 am-u-end">
 											<select id="fpzldm" name="fpzldm"  required>
-												<%--<option value="">选择开票类型</option>
+												<option value="">选择开票类型</option>
                                                 <option value="01">专用发票</option>
-                                                <option value="02">普通发票</option>--%>
+                                                <option value="02">普通发票</option>
 												<option value="12">电子发票</option>
 											</select>
 										</div>
@@ -376,7 +376,7 @@
 <script src="assets/js/app.js"></script>
 <script src="assets/js/format.js"></script>
 <script src="assets/js/sweetalert.min.js"></script>
-<script src="assets/js/sgkj.js"></script>
+<script src="assets/js/pttqkp.js"></script>
 <script>
     //选择销方取得税控盘
     function getKpd() {

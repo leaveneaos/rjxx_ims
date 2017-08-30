@@ -28,6 +28,7 @@ $(function() {
 		},
 		dataTable : function() {
 			var _this = this;
+			alert("111");
 			t = el.$jsTable.DataTable({
 				"processing" : true,
 				"serverSide" : true,

@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.GetDataService;
@@ -86,8 +87,9 @@ public class PttqkpController extends BaseController {
 			request.setAttribute("xf", xfList.get(0));
 		}
 		request.setAttribute("spList", list2);
-		request.setAttribute("xfSum", xfList.size());
-
+		request.setAttribute("xfList", getXfList());
+		request.setAttribute("xfnum", getXfList().size());
+		System.out.println("销方下拉--"+ JSON.toJSONString(getXfList()));
 		return "pttqkp/index";
 	}
 
