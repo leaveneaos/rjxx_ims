@@ -166,13 +166,8 @@ public class PttqkpController extends BaseController {
 					Map parmMap = new HashMap();
 					parmMap.put("zffsDm",jyzfmx.getZffsDm());
 					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
-					jyzfmx.setZffsDm(zffsss.get(0).getZffsMc());
+					jyzfmx.setZffsMc(zffsss.get(0).getZffsMc());
 				}
-			}
-		}
-		if(null!=jyxxsqList){
-			for (Jyxxsq jyxxsqlist : jyxxsqList){
-
 			}
 		}
 		System.out.println("---"+JSON.toJSONString(jyzfmxList));
@@ -195,6 +190,7 @@ public class PttqkpController extends BaseController {
 		List<Jyzfmx>jyzfmxList= (List<Jyzfmx>) request.getSession().getAttribute("jyzfmx");
 
 		Jyxxsq jyxxsq = new Jyxxsq();
+		jyxxsq = jyxxsqList.get(0);
 		jyxxsq.setClztdm("00");
 		jyxxsq.setBz(request.getParameter("bz"));
 		jyxxsq.setGfmc(request.getParameter("gfmc"));
@@ -206,19 +202,18 @@ public class PttqkpController extends BaseController {
 		jyxxsq.setGfemail(request.getParameter("yjdz"));
 		jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
 		jyxxsq.setSjly("0");//0平台录入，1接口接入
-		jyxxsq = jyxxsqList.get(0);
 		String tqm = request.getParameter("tqm");
-//		if (StringUtils.isNotBlank(tqm)) {
-//			Map params = new HashMap();
-//			params.put("gsdm", gsdm);
-//			params.put("tqm", tqm);
-//			Jyxxsq tmp = jyxxsqService.findOneByParams(params);
-//			if (tmp != null) {
-//				result.put("failure", true);
-//				result.put("msg", "提取码已经存在");
-//				return result;
-//			}
-//		}
+		if (StringUtils.isNotBlank(tqm)) {
+			Map params = new HashMap();
+			params.put("gsdm", gsdm);
+			params.put("tqm", tqm);
+			Jyxxsq tmp = jyxxsqService.findOneByParams(params);
+			if (tmp != null) {
+				result.put("failure", true);
+				result.put("msg", "提取码已经存在");
+				return result;
+			}
+		}
 		try {
 			Map gsMap = new HashMap();
 			gsMap.put("gsdm",jyxxsq.getGsdm());
@@ -226,7 +221,8 @@ public class PttqkpController extends BaseController {
 			System.out.println("----交易信息申请"+JSON.toJSONString(jyxxsq));
 			System.out.println("----交易信息申请"+JSON.toJSONString(jymxsqList));
 			System.out.println("----交易信息申请"+JSON.toJSONString(jyzfmxList));
-			String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
+			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
+			System.out.println("封装的xml--"+xml);
 			logger.info("secretKey------" + gsxx.getSecretKey());
 			logger.info("appKey------" + gsxx.getAppKey());
 			String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());

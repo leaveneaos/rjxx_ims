@@ -92,7 +92,7 @@ $(function() {
 					 for(var i=0;i<jyzfmx.length;i++){
 					 jyzfmx_table.row.add([
 					 '<span class="index">' + a + '</span>',
-					 '<input type="text" id="zfmc" name="zfmc" readonly value="'+ jyzfmx[i].zffsDm +'">',
+					 '<input type="text" id="zfmc" name="zfmc" readonly value="'+ jyzfmx[i].zffsMc +'">',
 					 '<input type="text" id="zfje" name="zfje" readonly value="'+jyzfmx[i].zfje +'">'
 					 ]).draw();
 					 a++;
@@ -146,11 +146,6 @@ $(function() {
         }
     });
     var value;
-   /* jyspmx_table.on('click', 'input#spmc', function () {
-        value=$(this).parent("td").parent("tr").children("td").eq(0).text();
-        $("#spxx").modal({"width": 720, "height": 500});
-        detail_table.ajax.reload();
-    });*/
     $('#detail_table tbody').on('click','tr',function(){
         var data = detail_table.row($(this)).data();
         $("#jyspmx_table").find("tr").eq(value).children("td").each(function(i,cell){
@@ -437,7 +432,6 @@ $(function() {
             confirmButtonColor: "#ec6c62"
         }, function() {
             $('.confirm').attr('disabled',"disabled");
-            alert(data);
             $.ajax({
                 url: "pttqkp/save", "type": "POST", context: document.body, data: data, success: function (data) {
                     if (data.success) {
