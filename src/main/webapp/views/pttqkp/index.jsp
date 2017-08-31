@@ -117,21 +117,15 @@
 												class="star">*</span>订单号</label>
 
 										<div class="am-u-sm-3">
-											<%--
                                                                                             <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                            --%>
 											<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>
-											<%--<span class="am-input-group-btn">
+											<span class="am-input-group-btn">
                                                 <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
-                                            </span>--%>
-											<%--</div>--%>
+                                            </span>
+											</div>
 										</div>
 
 
-										<!-- <div class="am-u-sm-3">
-                                            <input type="text" id="ddh" name="ddh"
-                                                   placeholder="输入订单号" required />
-                                        </div> -->
 									</div>
 								</form>
 							</div>
@@ -142,7 +136,7 @@
 										<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
 												<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;">
-													<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
+													<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>公司</label>
 													<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
 												</div>
 											</div>
@@ -189,8 +183,9 @@
 								</div>
 							</div>
 						</div>
-						<%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
-                            <div>
+						<legend>支付明细列表</legend>
+						<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
+							<div>
                                 <table id="jyzfmx_table" style="margin: 0"
                                        class="js-table am-table am-table-bordered  am-text-nowrap">
                                     <thead>
@@ -202,14 +197,14 @@
                                     </thead>
                                 </table>
                             </div>
-                        </div>--%>
+                        </div>
 					</div>
 
 
 
 					<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 						<legend>商品明细列表</legend>
-						<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+						<%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 							<div class="am-btn-toolbar">
 								<div class="am-btn-group am-btn-group-xs">
 									<button type="button" id="add" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
@@ -220,7 +215,7 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						</div>--%>
 						<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
 							<div>
 								<table id="jyspmx_table" style="margin: 0"
@@ -278,7 +273,7 @@
 							</div>
 							<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
 								<span style="vertical-align: middle;">提取码</span>
-								<input type="text" name="tqm" id="tqm">
+								<input type="text" name="tqm" id="tqm" readonly>
 							</div>
 						</div>
 						<!-- </div> -->
@@ -307,7 +302,7 @@
 		</div>
 	</div>
 </div>
-<div class="am-modal am-modal-no-btn" tabindex="-1" id="spxx">
+<%--<div class="am-modal am-modal-no-btn" tabindex="-1" id="spxx">
 	<div class="am-modal-dialog">
 		<div class="am-modal-hd">
 			商品信息详情
@@ -333,7 +328,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>--%>
 <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
 	<div class="am-modal-dialog">
 		<div class="am-modal-hd">提示</div>
@@ -344,7 +339,7 @@
 	</div>
 </div>
 
-<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+<%--<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 	<div class="am-modal-dialog">
 		<div class="am-modal-hd">提示</div>
 		<div class="am-modal-bd">你确定要删除这条记录吗？</div>
@@ -353,7 +348,7 @@
 				class="am-modal-btn" data-am-modal-confirm>确定</span>
 		</div>
 	</div>
-</div>
+</div>--%>
 <a href="#"
    class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>

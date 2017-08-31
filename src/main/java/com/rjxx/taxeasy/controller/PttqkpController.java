@@ -4,20 +4,31 @@ import com.alibaba.fastjson.JSON;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.GetDataService;
+import com.rjxx.taxeasy.bizcomm.utils.GetXmlUtil;
+import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.Jyzfmxvo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.BeanConvertUtils;
+import com.rjxx.utils.StringUtils;
+import com.rjxx.utils.Tools;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/pttqkp")
@@ -41,7 +52,12 @@ public class PttqkpController extends BaseController {
 	private PldrjlService pldrjlService;
 	@Autowired
 	private GetDataService getDataService;
-
+	@Autowired
+	private ZffsService zffsService;
+	@Autowired
+	private JyxxsqService jyxxsqService;
+	@Autowired
+	private GsxxService gsxxservice;
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
 	public String index() {
@@ -125,6 +141,123 @@ public class PttqkpController extends BaseController {
 		}
 		return result;
 	}
+
+
+	@RequestMapping(value = "/findjyxxsq")
+	@ResponseBody
+	public Map findjyxxsq(String ddh){
+		Map resultMap=new HashMap();
+		String gsdm = getGsdm();
+		Map map = getDataService.getldyxFirData(ddh,gsdm);
+		String accessToken = map.get("accessToken").toString();
+		Map resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
+		Jyxxsq jyxxsq = new Jyxxsq();
+		List<Jyxxsq> jyxxsqList = null;
+		List<Jymxsq>jymxsqList=null;
+		List<Jyzfmx>jyzfmxList=null;
+		if(resMap!=null){
+			jyxxsqList = (List<Jyxxsq>) resMap.get("jyxxsqList");
+			jymxsqList = (List<Jymxsq>) resMap.get("jymxsqList");
+			jyzfmxList = (List<Jyzfmx>) resMap.get("jyzfmxList");
+		}
+		if(jyzfmxList!=null){
+			for (Jyzfmx jyzfmx : jyzfmxList){
+				if(null!=jyzfmxList){
+					Map parmMap = new HashMap();
+					parmMap.put("zffsDm",jyzfmx.getZffsDm());
+					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+					jyzfmx.setZffsDm(zffsss.get(0).getZffsMc());
+				}
+			}
+		}
+		if(null!=jyxxsqList){
+			for (Jyxxsq jyxxsqlist : jyxxsqList){
+
+			}
+		}
+		System.out.println("---"+JSON.toJSONString(jyzfmxList));
+		resultMap.put("jyxxsq",jyxxsqList);
+		resultMap.put("jymxsq",jymxsqList);
+		resultMap.put("jyzfmx",jyzfmxList);
+		request.getSession().setAttribute("jyxxsq",jyxxsqList);
+		request.getSession().setAttribute("jymxsq",jymxsqList);
+		request.getSession().setAttribute("jyzfmx",jyzfmxList);
+		return resultMap;
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@ResponseBody
+	public Map save() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String gsdm = getGsdm();
+		List<Jyxxsq> jyxxsqList = (List<Jyxxsq>) request.getSession().getAttribute("jyxxsq");
+		List<Jymxsq>jymxsqList= (List<Jymxsq>) request.getSession().getAttribute("jymxsq");
+		List<Jyzfmx>jyzfmxList= (List<Jyzfmx>) request.getSession().getAttribute("jyzfmx");
+
+		Jyxxsq jyxxsq = new Jyxxsq();
+		jyxxsq.setClztdm("00");
+		jyxxsq.setBz(request.getParameter("bz"));
+		jyxxsq.setGfmc(request.getParameter("gfmc"));
+		jyxxsq.setGfsh(request.getParameter("gfsh"));
+		jyxxsq.setGfdz(request.getParameter("gfdz"));
+		jyxxsq.setGfdh(request.getParameter("gfdh"));
+		jyxxsq.setGfyh(request.getParameter("gfyh"));
+		jyxxsq.setGfyhzh(request.getParameter("yhzh"));
+		jyxxsq.setGfemail(request.getParameter("yjdz"));
+		jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
+		jyxxsq.setSjly("0");//0平台录入，1接口接入
+		jyxxsq = jyxxsqList.get(0);
+		String tqm = request.getParameter("tqm");
+//		if (StringUtils.isNotBlank(tqm)) {
+//			Map params = new HashMap();
+//			params.put("gsdm", gsdm);
+//			params.put("tqm", tqm);
+//			Jyxxsq tmp = jyxxsqService.findOneByParams(params);
+//			if (tmp != null) {
+//				result.put("failure", true);
+//				result.put("msg", "提取码已经存在");
+//				return result;
+//			}
+//		}
+		try {
+			Map gsMap = new HashMap();
+			gsMap.put("gsdm",jyxxsq.getGsdm());
+			Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
+			System.out.println("----交易信息申请"+JSON.toJSONString(jyxxsq));
+			System.out.println("----交易信息申请"+JSON.toJSONString(jymxsqList));
+			System.out.println("----交易信息申请"+JSON.toJSONString(jyzfmxList));
+			String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
+			logger.info("secretKey------" + gsxx.getSecretKey());
+			logger.info("appKey------" + gsxx.getAppKey());
+			String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
+			logger.info("-------返回值---------" + resultxml);
+			Document document = DocumentHelper.parseText(resultxml);
+			Element root = document.getRootElement();
+			List<Element> childElements = root.elements();
+			Map xmlMap = new HashMap();
+			for (Element child : childElements) {
+                xmlMap.put(child.getName(),child.getText());
+            }
+			String returncode=(String)xmlMap.get("ReturnCode");
+			String ReturnMessage=(String)xmlMap.get("ReturnMessage");
+			if (returncode.equals("9999")) {
+				logger.info("发送客户端失败----msg--"+ReturnMessage);
+				result.put("failure", true);
+				result.put("msg", ReturnMessage);
+				return result;
+			}else {
+				result.put("success", true);
+				result.put("djh", jyxxsq.getSqlsh());
+				result.put("msg", "开票申请成功！");
+			}
+		} catch (DocumentException e) {
+			e.printStackTrace();
+			result.put("failure", true);
+			result.put("msg", "保存出现错误: " + e.getMessage());
+		}
+		return result;
+	}
+
 
 	@ResponseBody
 	@RequestMapping("/plkjcl")
