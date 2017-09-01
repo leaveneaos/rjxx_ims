@@ -23,7 +23,7 @@ $(function() {
 		$s_fpzt : $('#s_fpzt'), //关键字发票状态
 		$s_fpczlx : $('#s_fpczlx'),
 		$s_dyzt : $('#s_dyzt'), // search 开票日期
-		$jsSearch : $('.js-search'),
+		$jsSearch : $('#button4'),
 		$jsSearch1 : $('#button3'),
 		$jsExport : $('.js-export'),
 		$jsLoading : $('.js-modal-loading'),
@@ -266,7 +266,7 @@ $(function() {
                 if(bj == '1'){
                         $('#kplsh1').val(kplsh11);
                         $('#searchform').submit();
-                }else{
+                }else if(bj=='2'){
                     var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
                     var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
                     if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
@@ -286,7 +286,7 @@ $(function() {
                         }
                     }
                         $('#kplsh1').val(kplsh11);
-                        $("#searchform").submit();
+                        $("#searchform1").submit();
 				}
 
             })

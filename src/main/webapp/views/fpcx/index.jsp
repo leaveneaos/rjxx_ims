@@ -251,7 +251,7 @@
 										<input type="text" id="searchtxt" name="txt"
 											class="am-form-field "> <span
 											class="am-input-group-btn" id="button1">
-											<button
+											<button  id="button4"
 												class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 												type="button"></button>
 										</span>
