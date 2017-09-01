@@ -55,4 +55,28 @@ public class FwkGetDataJob implements Job {
 
         return null;
     }
+
+    public static void main(String[] args) {
+        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:y1j=\"http://0001092235-one-off.sap.com/Y1JU2A0ZY_\">\n" +
+                "   <soapenv:Header/>\n" +
+                "   <soapenv:Body>\n" +
+                "      <glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                "         <CustomerInvoiceSelectionByElements>\n" +
+                "            <SelectionByLastChangeDateTime>\n" +
+                "               <InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                "               <IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
+                "               <LowerBoundaryCustomerInvoiceLastChangeDateTime>2017-07-21T00:00:00.00000Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
+                "               <UpperBoundaryCustomerInvoiceLastChangeDateTime>2017-07-31T00:00:00.00000Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n" +
+                "            </SelectionByLastChangeDateTime>\n" +
+                "         </CustomerInvoiceSelectionByElements>\n" +
+                "         <ProcessingConditions>\n" +
+                "            <QueryHitsMaximumNumberValue>500</QueryHitsMaximumNumberValue>\n" +
+                "            <QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                "         </ProcessingConditions>\n" +
+                "      </glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                "   </soapenv:Body>\n" +
+                "</soapenv:Envelope>";
+        String Data= HttpUtils.doPostSoap1_1("https://my338217.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my338217.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
+        System.out.println(Data);
+    }
 }
