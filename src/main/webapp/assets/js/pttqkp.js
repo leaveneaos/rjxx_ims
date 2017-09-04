@@ -90,12 +90,68 @@ $(function() {
 					 var a=1;
 					 jyzfmx_table.clear();
 					 for(var i=0;i<jyzfmx.length;i++){
-					 jyzfmx_table.row.add([
-					 '<span class="index">' + a + '</span>',
-					 '<input type="text" id="zfmc" name="zfmc" readonly value="'+ jyzfmx[i].zffsMc +'">',
-					 '<input type="text" id="zfje" name="zfje" readonly value="'+jyzfmx[i].zfje +'">'
-					 ]).draw();
-					 a++;
+
+					     var zffsMc="";
+					     if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("A")){
+					         zffsMc="门店本地卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("B")){
+                             zffsMc="整单取消";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("C")){
+                             zffsMc="现金";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("D")){
+                             zffsMc="赊销";
+                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("E")){
+                             zffsMc="体验卡";
+                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("F")){
+                             zffsMc="百联OK卡";
+                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("G")){
+                             zffsMc="积分直购";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("h")){
+                             zffsMc="会员卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("I")){
+                             zffsMc="备用I";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("J")){
+                             zffsMc="得仕卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("K")){
+                             zffsMc="支票";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("L")){
+                             zffsMc="礼品卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("M")){
+                             zffsMc="外卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("N")){
+                             zffsMc="微店券";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("O")){
+                             zffsMc="支付宝";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("P")){
+                             zffsMc="其它支付";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Q")){
+                             zffsMc="空卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("R")){
+                             zffsMc="信用卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("S")){
+                             zffsMc="礼券";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("T")){
+                             zffsMc="微信支付";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("U")){
+                             zffsMc="飞凡通";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("V")){
+                             zffsMc="提货卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("W")){
+                             zffsMc="外卖";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("X")){
+                             zffsMc="杉德卡";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Y")){
+                             zffsMc="备用Y";
+                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Z")){
+                             zffsMc="斯马特";
+                         }
+
+                         jyzfmx_table.row.add([
+                         '<span class="index">' + a + '</span>',
+                         '<input type="text" id="zfmc" name="zfmc" readonly value="'+ zffsMc +'">',
+                         '<input type="text" id="zfje" name="zfje" readonly value="'+jyzfmx[i].zfje +'">'
+                         ]).draw();
+                         a++;
 					 }
                     var jymxsq=data.jymxsq;
                     var b=1;
@@ -133,6 +189,8 @@ $(function() {
                     $("#hjje").val(jehj);
                     $("#hjse").val(sehj);
 
+                }else {
+                    swal("获取数据失败，请重试！");
                 }
             }
         });

@@ -58,6 +58,11 @@ public class PttqkpController extends BaseController {
 	private JyxxsqService jyxxsqService;
 	@Autowired
 	private GsxxService gsxxservice;
+	@Autowired
+	private XfService xfService;
+	@Autowired
+	private SkpService skpService;
+
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
 	public String index() {
@@ -150,6 +155,9 @@ public class PttqkpController extends BaseController {
 		String gsdm = getGsdm();
 		Map map = getDataService.getldyxFirData(ddh,gsdm);
 		String accessToken = map.get("accessToken").toString();
+		if(accessToken==null || "".equals(accessToken)){
+			return resultMap;
+		}
 		Map resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
 		Jyxxsq jyxxsq = new Jyxxsq();
 		List<Jyxxsq> jyxxsqList = null;
@@ -160,16 +168,16 @@ public class PttqkpController extends BaseController {
 			jymxsqList = (List<Jymxsq>) resMap.get("jymxsqList");
 			jyzfmxList = (List<Jyzfmx>) resMap.get("jyzfmxList");
 		}
-		if(jyzfmxList!=null){
-			for (Jyzfmx jyzfmx : jyzfmxList){
-				if(null!=jyzfmxList){
-					Map parmMap = new HashMap();
-					parmMap.put("zffsDm",jyzfmx.getZffsDm());
-					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
-					jyzfmx.setZffsMc(zffsss.get(0).getZffsMc());
-				}
-			}
-		}
+//		if(jyzfmxList!=null){
+//			for (Jyzfmx jyzfmx : jyzfmxList){
+//				if(null!=jyzfmxList){
+//					Map parmMap = new HashMap();
+//					parmMap.put("zffsDm",jyzfmx.getZffsDm());
+//					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+//					jyzfmx.setZffsMc(zffsss.get(0).getZffsMc());
+//				}
+//			}
+//		}
 		System.out.println("---"+JSON.toJSONString(jyzfmxList));
 		resultMap.put("jyxxsq",jyxxsqList);
 		resultMap.put("jymxsq",jymxsqList);
@@ -188,9 +196,29 @@ public class PttqkpController extends BaseController {
 		List<Jyxxsq> jyxxsqList = (List<Jyxxsq>) request.getSession().getAttribute("jyxxsq");
 		List<Jymxsq>jymxsqList= (List<Jymxsq>) request.getSession().getAttribute("jymxsq");
 		List<Jyzfmx>jyzfmxList= (List<Jyzfmx>) request.getSession().getAttribute("jyzfmx");
+		Jyxxsq jyxxsq = jyxxsqList.get(0);
+		//销方
+		String xfid = request.getParameter("xf");
+		Xf xf = xfService.findOne(Integer.parseInt(xfid));
+		jyxxsq.setXfid(xf.getId());
+		jyxxsq.setXfsh(xf.getXfsh());
+		jyxxsq.setXfmc(xf.getXfmc());
+		jyxxsq.setXfyh(xf.getXfyh());
+		jyxxsq.setXfyhzh(xf.getXfyhzh());
+		jyxxsq.setXfdz(xf.getXfdz());
+		jyxxsq.setXfdh(xf.getXfdh());
+		jyxxsq.setKpr(xf.getKpr());
+		jyxxsq.setFhr(xf.getFhr());
+		jyxxsq.setSkr(xf.getSkr());
+		//发票种类代码
+		jyxxsq.setFpzldm(request.getParameter("fpzldm"));
+		String skpid = request.getParameter("kpd");
+		if (skpid != null && !"".equals(skpid)) {
+			jyxxsq.setSkpid(Integer.parseInt(skpid));
+		}
+		Skp skp = skpService.findOne(Integer.valueOf(skpid));
+		jyxxsq.setKpddm(skp.getKpddm());
 
-		Jyxxsq jyxxsq = new Jyxxsq();
-		jyxxsq = jyxxsqList.get(0);
 		jyxxsq.setClztdm("00");
 		jyxxsq.setBz(request.getParameter("bz"));
 		jyxxsq.setGfmc(request.getParameter("gfmc"));
@@ -250,71 +278,6 @@ public class PttqkpController extends BaseController {
 			e.printStackTrace();
 			result.put("failure", true);
 			result.put("msg", "保存出现错误: " + e.getMessage());
-		}
-		return result;
-	}
-
-
-	@ResponseBody
-	@RequestMapping("/plkjcl")
-	public Map<String, Object> plkjcl(String jylsh, String xfid, String lrsj, String xh) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<String, Object>();
-		String gsdm = this.getGsdm();
-		params.put("xh", xh);
-		params.put("jylsh", jylsh);
-		params.put("lrsj", lrsj);
-		params.put("xfid", xfid);
-		params.put("gsdm", gsdm);
-		Pldrjl pljl = pldrjlService.findOneByParams(params);
-		pljl.setZtbz("1");
-		pldrjlService.save(pljl);
-		List<Jyxxsq> jyxxsqList = pldrjlService.findAllJyxxsqByParams(params);
-		try {
-			fpclService.zjkp(jyxxsqList, "01");
-			result.put("success", true);
-			result.put("msg", "数据已处理，请关注发票开具结果");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result.put("success", true);
-			result.put("msg", "数据已处理，请关注发票开具结果");
-		}
-		return result;
-	}
-
-	@ResponseBody
-	@RequestMapping("/plkjsh")
-	public Map<String, Object> plkjsh(String jylsh, String xfid, String lrsj, String xh) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<String, Object>();
-		String gsdm = this.getGsdm();
-		params.put("xh", xh);
-		params.put("jylsh", jylsh);
-		params.put("lrsj", lrsj);
-		params.put("xfid", xfid);
-		params.put("gsdm", gsdm);
-
-		try {
-			Pldrjl pljl = pldrjlService.findOneByParams(params);
-			pldrjlService.delete(pljl);
-
-			List<Jyxxsq> jyxxsqList = pldrjlService.findAllJyxxsqByParams(params);
-			List<Integer> sqlshList = new ArrayList<Integer>();
-			if (null != jyxxsqList && !jyxxsqList.isEmpty()) {
-				for (int i = 0; i < jyxxsqList.size(); i++) {
-					Jyxxsq jyxxsq = jyxxsqList.get(i);
-					sqlshList.add(jyxxsq.getSqlsh());
-				}
-			}
-			JyxxsqService.delBySqlshList2(sqlshList);
-			result.put("success", true);
-			result.put("msg", "删除成功");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result.put("success", false);
-			result.put("msg", "删除失败");
 		}
 		return result;
 	}
