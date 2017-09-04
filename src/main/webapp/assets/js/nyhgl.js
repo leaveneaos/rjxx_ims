@@ -449,12 +449,15 @@ $(function() {
 						if (jsids[i].checked == true) {
 							fl = true;
 							break;
-						}else{
+						}/*else{
 							swal("请选择角色!");
 							return false;
-						}
+						}*/
 					}
-					
+					if(fl == false){
+                        swal("请选择角色!");
+                        return ;
+					}
 					if (pass1 != pass2) {
 						// $('#msg').html("两次密码输入不一致，请重新输入!");
 						// $('#my-alert').modal('open');

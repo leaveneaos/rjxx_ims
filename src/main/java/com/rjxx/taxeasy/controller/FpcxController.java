@@ -128,10 +128,19 @@ public class FpcxController extends BaseController {
                 fpcxvo.setKpddm(skp.getKpddm());
             }
         }
-        int total = pagination.getTotalRecord();
+
+       // String tmp = (String)request.getSession().getAttribute("total");
+        int total;
+        if(0 == start){
+            total = pagination.getTotalRecord();
+            request.getSession().setAttribute("total",total);
+        }else{
+            total =  (Integer)request.getSession().getAttribute("total");
+            //request.getSession().getAttribute("total");
+        }
         if(loaddata2){
-            result.put("recordsTotal", total);
-            result.put("recordsFiltered", total);
+           result.put("recordsTotal", total);
+           result.put("recordsFiltered", total);
             result.put("draw", draw);
             result.put("data", ykfpList);
         }else{
