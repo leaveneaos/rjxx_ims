@@ -92,57 +92,57 @@ $(function() {
 					 for(var i=0;i<jyzfmx.length;i++){
 
 					     var zffsMc="";
-					     if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("A")){
+					     if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm == "A"){
 					         zffsMc="门店本地卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("B")){
+                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm == "B"){
                              zffsMc="整单取消";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("C")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "C"){
                              zffsMc="现金";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("D")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="D"){
                              zffsMc="赊销";
-                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("E")){
+                         } if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "E"){
                              zffsMc="体验卡";
-                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("F")){
+                         } if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="F"){
                              zffsMc="百联OK卡";
-                         } if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("G")){
+                         } if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="G"){
                              zffsMc="积分直购";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("h")){
+                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="h"){
                              zffsMc="会员卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("I")){
+                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="I"){
                              zffsMc="备用I";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("J")){
+                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="J"){
                              zffsMc="得仕卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("K")){
+                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="K"){
                              zffsMc="支票";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("L")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="L"){
                              zffsMc="礼品卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("M")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="M"){
                              zffsMc="外卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("N")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="N"){
                              zffsMc="微店券";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("O")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "O"){
                              zffsMc="支付宝";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("P")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="P"){
                              zffsMc="其它支付";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Q")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="Q"){
                              zffsMc="空卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("R")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="R"){
                              zffsMc="信用卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("S")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="S"){
                              zffsMc="礼券";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("T")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="T"){
                              zffsMc="微信支付";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("U")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="U"){
                              zffsMc="飞凡通";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("V")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="V"){
                              zffsMc="提货卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("W")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="W"){
                              zffsMc="外卖";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("X")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="X"){
                              zffsMc="杉德卡";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Y")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="Y"){
                              zffsMc="备用Y";
-                         }if(null!=jyzfmx[i].zffsdm&&jyzfmx[i].zffsdm.equals("Z")){
+                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="Z"){
                              zffsMc="斯马特";
                          }
 

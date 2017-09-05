@@ -96,7 +96,7 @@
 											<select id="kpd" name="kpd" required>
 												<c:if test="${xfnum==1}">
 													<c:forEach items="${skpList}" var="item">
-														<option value="${item.skpid}">${item.kpdmc}</option>
+														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
 												</c:if>
 											</select>
