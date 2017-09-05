@@ -212,6 +212,7 @@ public class PttqkpController extends BaseController {
 		jyxxsq.setSkr(xf.getSkr());
 		//发票种类代码
 		jyxxsq.setFpzldm(request.getParameter("fpzldm"));
+		logger.info("发票种类代码"+jyxxsq.getFpczlxdm());
 		String skpid = request.getParameter("kpd");
 		if (skpid != null && !"".equals(skpid)) {
 			jyxxsq.setSkpid(Integer.parseInt(skpid));
@@ -250,7 +251,6 @@ public class PttqkpController extends BaseController {
 			System.out.println("----交易信息申请"+JSON.toJSONString(jymxsqList));
 			System.out.println("----交易信息申请"+JSON.toJSONString(jyzfmxList));
 			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
-			System.out.println("封装的xml--"+xml);
 			logger.info("secretKey------" + gsxx.getSecretKey());
 			logger.info("appKey------" + gsxx.getAppKey());
 			String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());

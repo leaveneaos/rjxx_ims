@@ -2,7 +2,7 @@
 <Request>
 	<ClientNO>${jyxxsq.kpddm!}</ClientNO>
 	<SerialNumber>${jyxxsq.jylsh!}</SerialNumber>
-	<InvType>12</InvType>
+	<InvType>${jyxxsq.fpzldm!}</InvType>
 	<Spbmbbh>13.0</Spbmbbh>
 	<Drawer>${jyxxsq.kpr!}</Drawer>
 	<Payee>${jyxxsq.skr!}</Payee>
