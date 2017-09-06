@@ -1,7 +1,6 @@
 package com.rjxx.taxeasy.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FpclService;
 import com.rjxx.taxeasy.bizcomm.utils.GetDataService;
 import com.rjxx.taxeasy.bizcomm.utils.GetXmlUtil;
@@ -12,10 +11,7 @@ import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Jyzfmxvo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.BeanConvertUtils;
 import com.rjxx.utils.StringUtils;
-import com.rjxx.utils.Tools;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -26,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -153,35 +147,43 @@ public class PttqkpController extends BaseController {
 	public Map findjyxxsq(String ddh){
 		Map resultMap=new HashMap();
 		String gsdm = getGsdm();
-		Map map = getDataService.getldyxFirData(ddh,gsdm);
-		String accessToken = map.get("accessToken").toString();
-		if(accessToken==null || "".equals(accessToken)){
-			return resultMap;
+		Map resMap = new HashMap();
+		if(null!=gsdm && gsdm.equals("ldyx")){
+			Map map = getDataService.getldyxFirData(ddh,gsdm);
+			String accessToken = map.get("accessToken").toString();
+			if(accessToken==null || "".equals(accessToken)){
+				return resultMap;
+			}
+			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
+		}if(null != gsdm && gsdm.equals("Family")){
+			resMap=getDataService.getData(ddh,gsdm);
 		}
-		Map resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
-		Jyxxsq jyxxsq = new Jyxxsq();
 		List<Jyxxsq> jyxxsqList = null;
 		List<Jymxsq>jymxsqList=null;
 		List<Jyzfmx>jyzfmxList=null;
+
+		List list = new ArrayList();
 		if(resMap!=null){
 			jyxxsqList = (List<Jyxxsq>) resMap.get("jyxxsqList");
 			jymxsqList = (List<Jymxsq>) resMap.get("jymxsqList");
 			jyzfmxList = (List<Jyzfmx>) resMap.get("jyzfmxList");
 		}
-//		if(jyzfmxList!=null){
-//			for (Jyzfmx jyzfmx : jyzfmxList){
-//				if(null!=jyzfmxList){
-//					Map parmMap = new HashMap();
-//					parmMap.put("zffsDm",jyzfmx.getZffsDm());
-//					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
-//					jyzfmx.setZffsMc(zffsss.get(0).getZffsMc());
-//				}
-//			}
-//		}
-		System.out.println("---"+JSON.toJSONString(jyzfmxList));
+		if(jyzfmxList!=null){
+			for (Jyzfmx jyzfmx : jyzfmxList){
+					Map parmMap = new HashMap();
+					parmMap.put("zffsDm",jyzfmx.getZffsDm());
+					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+					Jyzfmxvo jyzfmxVo = new Jyzfmxvo();
+					jyzfmxVo.setZfmc(zffsss.get(0).getZffsMc());
+					jyzfmxVo.setZffsDm(zffsss.get(0).getZffsDm());
+					jyzfmxVo.setZfje(jyzfmx.getZfje());
+					list.add(jyzfmxVo);
+			}
+		}
+		logger.info("---"+JSON.toJSONString(list));
 		resultMap.put("jyxxsq",jyxxsqList);
 		resultMap.put("jymxsq",jymxsqList);
-		resultMap.put("jyzfmx",jyzfmxList);
+		resultMap.put("jyzflist",list);
 		request.getSession().setAttribute("jyxxsq",jyxxsqList);
 		request.getSession().setAttribute("jymxsq",jymxsqList);
 		request.getSession().setAttribute("jyzfmx",jyzfmxList);
@@ -247,9 +249,29 @@ public class PttqkpController extends BaseController {
 			Map gsMap = new HashMap();
 			gsMap.put("gsdm",jyxxsq.getGsdm());
 			Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
-			System.out.println("----交易信息申请"+JSON.toJSONString(jyxxsq));
-			System.out.println("----交易信息申请"+JSON.toJSONString(jymxsqList));
-			System.out.println("----交易信息申请"+JSON.toJSONString(jyzfmxList));
+			logger.info("----交易信息申请"+JSON.toJSONString(jyxxsq));
+			logger.info("----交易信息申请"+JSON.toJSONString(jymxsqList));
+			logger.info("----交易信息申请"+JSON.toJSONString(jyzfmxList));
+			if(jyzfmxList!=null){
+				String kpfsDm="";
+				for (Jyzfmx jyzfmx : jyzfmxList){
+						Map parmMap = new HashMap();
+						parmMap.put("zffsDm",jyzfmx.getZffsDm());
+						List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+						System.out.println("---支付金额"+jyzfmx.getZfje());
+						String str = zffsss.get(0).getKpfsDm();
+						System.out.println("---开票方式代码"+str);
+						if(!"0.0".equals(jyzfmx.getZfje()) && str.equals("01")){
+							kpfsDm=zffsss.get(0).getKpfsDm();
+						}
+				}
+				if("".equals(kpfsDm)||null==kpfsDm){
+					result.put("failure",true);
+					result.put("msg", "可开票金额为0元");
+					return result;
+				}
+			}
+
 			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
 			logger.info("secretKey------" + gsxx.getSecretKey());
 			logger.info("appKey------" + gsxx.getAppKey());

@@ -86,70 +86,14 @@ $(function() {
                         $("#tqm").val(jyxxsq[i].tqm);
                         $("#jshj").val(jyxxsq[i].jshj);
                     }
-					 var jyzfmx=data.jyzfmx;
+					 var jyzflist=data.jyzflist;
 					 var a=1;
 					 jyzfmx_table.clear();
-					 for(var i=0;i<jyzfmx.length;i++){
-
-					     var zffsMc="";
-					     if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm == "A"){
-					         zffsMc="门店本地卡";
-                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm == "B"){
-                             zffsMc="整单取消";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "C"){
-                             zffsMc="现金";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="D"){
-                             zffsMc="赊销";
-                         } if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "E"){
-                             zffsMc="体验卡";
-                         } if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="F"){
-                             zffsMc="百联OK卡";
-                         } if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="G"){
-                             zffsMc="积分直购";
-                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="h"){
-                             zffsMc="会员卡";
-                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="I"){
-                             zffsMc="备用I";
-                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="J"){
-                             zffsMc="得仕卡";
-                         }if(null!=jyzfmx[i].zffsDm&&jyzfmx[i].zffsDm =="K"){
-                             zffsMc="支票";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="L"){
-                             zffsMc="礼品卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="M"){
-                             zffsMc="外卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="N"){
-                             zffsMc="微店券";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm == "O"){
-                             zffsMc="支付宝";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="P"){
-                             zffsMc="其它支付";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm =="Q"){
-                             zffsMc="空卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="R"){
-                             zffsMc="信用卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="S"){
-                             zffsMc="礼券";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="T"){
-                             zffsMc="微信支付";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="U"){
-                             zffsMc="飞凡通";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="V"){
-                             zffsMc="提货卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="W"){
-                             zffsMc="外卖";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="X"){
-                             zffsMc="杉德卡";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="Y"){
-                             zffsMc="备用Y";
-                         }if(null!=jyzfmx[i].zffsDm &&jyzfmx[i].zffsDm=="Z"){
-                             zffsMc="斯马特";
-                         }
-
+					 for(var i=0;i<jyzflist.length;i++){
                          jyzfmx_table.row.add([
                          '<span class="index">' + a + '</span>',
-                         '<input type="text" id="zfmc" name="zfmc" readonly value="'+ zffsMc +'">',
-                         '<input type="text" id="zfje" name="zfje" readonly value="'+jyzfmx[i].zfje +'">'
+                         '<input type="text" id="zfmc" name="zfmc" readonly value="'+jyzflist[i].zfmc +'">',
+                         '<input type="text" id="zfje" name="zfje" readonly value="'+jyzflist[i].zfje +'">'
                          ]).draw();
                          a++;
 					 }
