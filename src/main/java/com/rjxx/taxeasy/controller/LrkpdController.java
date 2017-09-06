@@ -70,6 +70,8 @@ public class LrkpdController extends BaseController {
     @Autowired
     private PldrjlService pldrjlService;
 
+    @Autowired
+    private CszbService cszbService;
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
     public String index() {
@@ -1283,6 +1285,17 @@ public class LrkpdController extends BaseController {
                 jymxsq.setSpse(Double.valueOf(new DecimalFormat("0.00").format(jymxsq.getJshj() - Double.valueOf(je))));
             }
             mxList.add(jymxsq);
+        }
+        //是否自动附码 @zsq
+        Cszb sfzdfm = cszbService.getSpbmbbh(getGsdm(), getXfid(), null, "sfzdfm");
+        if(null!= sfzdfm && !"".equals(sfzdfm.getCsz())){
+            for(Jymxsq jymxsq : mxList){
+                Map map = new HashMap();
+                map.put("gsdm",jymxsq.getGsdm());
+                map.put("spmc",jymxsq.getSpmc());
+                Spvo spvo = spvoService.findOneSpvo(map);
+                jymxsq.setSpdm(spvo.getSpbm());
+            }
         }
         // 提取码
         List<String> tqmList = new ArrayList<>();
