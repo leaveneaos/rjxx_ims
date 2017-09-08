@@ -1288,7 +1288,7 @@ public class LrkpdController extends BaseController {
         }
         //是否自动附码 @zsq
         Cszb sfzdfm = cszbService.getSpbmbbh(getGsdm(), getXfid(), null, "sfzdfm");
-        if(null!= sfzdfm && !"".equals(sfzdfm.getCsz())){
+        if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
             for(Jymxsq jymxsq : mxList){
                 Map map = new HashMap();
                 map.put("gsdm",jymxsq.getGsdm());
