@@ -59,6 +59,7 @@ public class RecreatePdfController extends BaseController{
         pagination.setPageSize(length);
         pagination.addParam("ddh", ddh);
         pagination.addParam("gfmc", gfmc);
+        pagination.addParam("gsdm",getGsdm());
         if (!"".equals(kprqq)) {
             pagination.addParam("kprqq", kprqq);
         }
