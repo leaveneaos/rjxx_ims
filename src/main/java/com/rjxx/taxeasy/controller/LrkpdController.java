@@ -1300,9 +1300,10 @@ public class LrkpdController extends BaseController {
                     msgg = "第" + (i + 2) + "行商品名称没有税收分类编码！";
                     msg += msgg;
                     logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
+                }else {
+                    jymxsq.setSpdm(spvo.getSpbm());
+                    logger.info("第"+i+"行自动附码成功------------------附码之后的结果为"+jymxsq.getSpdm());
                 }
-                jymxsq.setSpdm(spvo.getSpbm());
-                logger.info("第"+i+"行自动附码成功------------------附码之后的结果为"+jymxsq.getSpdm());
             }
         }
         // 提取码
