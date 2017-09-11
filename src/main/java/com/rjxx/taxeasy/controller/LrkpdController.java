@@ -1289,12 +1289,20 @@ public class LrkpdController extends BaseController {
         //是否自动附码 @zsq
         Cszb sfzdfm = cszbService.getSpbmbbh(getGsdm(), getXfid(), null, "sfzdfm");
         if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
-            for(Jymxsq jymxsq : mxList){
+            for(int i = 0; i < mxList.size(); i++){
+                Jymxsq jymxsq = mxList.get(i);
+                logger.info("第"+i+"行开始自动附码------");
                 Map map = new HashMap();
                 map.put("gsdm",jymxsq.getGsdm());
                 map.put("spmc",jymxsq.getSpmc());
                 Spvo spvo = spvoService.findOneSpvo(map);
+                if(null==spvo){
+                    msgg = "第" + (i + 2) + "行商品名称没有税收分类编码！";
+                    msg += msgg;
+                    logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
+                }
                 jymxsq.setSpdm(spvo.getSpbm());
+                logger.info("第"+i+"行自动附码成功------------------附码之后的结果为"+jymxsq.getSpdm());
             }
         }
         // 提取码
