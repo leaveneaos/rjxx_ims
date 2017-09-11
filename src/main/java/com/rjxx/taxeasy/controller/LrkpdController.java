@@ -1297,7 +1297,7 @@ public class LrkpdController extends BaseController {
                 map.put("spmc",jymxsq.getSpmc());
                 Spvo spvo = spvoService.findOneSpvo(map);
                 if(null==spvo){
-                    msgg = "第" + (i + 2) + "行商品名称没有税收分类</br>编码！\r\n";
+                    msgg = "第" + (i + 2) + "行商品名称没有税收分类编码！\r\n";
                     msg += msgg;
                     logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
                 }else {
@@ -1316,19 +1316,19 @@ public class LrkpdController extends BaseController {
             }
             String jylsh = jyxxsq.getJylsh();
             if (jylsh == null || "".equals(jylsh)) { // 交易流水号的判断
-                msgg = "第" + (i + 2) + "行交易流水号没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行交易流水号没有填写，请重新填写！\r\n";
                 msg += msgg;
             }
             if (jylsh != null && jylsh.length() > 20) { // 交易流水号长度的判断
-                msgg = "第" + (i + 2) + "行交易流水号超出20个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行交易流水号超出20个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String ddh = jyxxsq.getDdh();// 订单号的校验
             if (ddh == null || "".equals(ddh)) {
-                msgg = "第" + (i + 2) + "行订单号不能为空，请重新填写！";
+                msgg = "第" + (i + 2) + "行订单号不能为空，请重新填写！\r\n";
                 msg += msgg;
             } else if (ddh.length() > 20) {
-                msgg = "第" + (i + 2) + "行订单号超出20个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行订单号超出20个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String xfsh = jyxxsq.getXfsh();
@@ -1336,65 +1336,65 @@ public class LrkpdController extends BaseController {
             if (xfList != null) {
                 for (int x = 0; x < xfList.size(); x++) {
                     if (!xfsh.equals(xfList.get(x).getXfsh()) && xfmc.equals(xfList.get(x).getXfmc())) {
-                        msgg = "第" + (i + 2) + "行销方税号，销方名称不存在或者不对应，请重新填写！";
+                        msgg = "第" + (i + 2) + "行销方税号，销方名称不存在或者不对应，请重新填写！\r\n";
                         msg += msgg;
                     }
                 }
             } else {
-                msgg = "数据库中不存在有效的销方,请先去维护销方信息！";
+                msgg = "数据库中不存在有效的销方,请先去维护销方信息！\r\n";
                 msg += msgg;
             }
             String xfdz = jyxxsq.getXfdz();// 销方地址的校验
             if (xfdz == null || "".equals(xfdz)) {
-                msgg = "第" + (i + 2) + "行销方地址没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方地址没有填写，请重新填写！\r\n";
                 msg += msgg;
             } else if (xfdz.length() > 100) {
-                msgg = "第" + (i + 2) + "行销方地址超出100个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方地址超出100个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String fpzldm = jyxxsq.getFpzldm();// 发票种类代码
             if (fpzldm == null || "".equals(fpzldm)) {
-                msgg = "第" + (i + 2) + "行发票种类没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行发票种类没有填写，请重新填写！\r\n";
                 msg += msgg;
             }
 
             String xfdh = jyxxsq.getXfdh();// 销方电话校验
             if (xfdh == null || "".equals(xfdh)) {
-                msgg = "第" + (i + 2) + "行销方电话没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方电话没有填写，请重新填写！\r\n";
                 msg += msgg;
             } else if (xfdh.length() > 25) {
-                msgg = "第" + (i + 2) + "行销方电话超出25个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方电话超出25个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String xfyh = jyxxsq.getXfyh();// 销方银行校验
             if (xfyh == null || "".equals(xfyh)) {
-                msgg = "第" + (i + 2) + "行销方银行没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方银行没有填写，请重新填写！\r\n";
                 msg += msgg;
             } else if (xfyh.length() > 25) {
-                msgg = "第" + (i + 2) + "行销方银行超出25个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方银行超出25个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String xfyhzh = jyxxsq.getXfyhzh();// 销方银行账号的校验
             if (xfyhzh == null || "".equals(xfyhzh)) {
-                msgg = "第" + (i + 2) + "行销方银行账号没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方银行账号没有填写，请重新填写！\r\n";
                 msg += msgg;
             } else if (xfyhzh.length() > 30) {
-                msgg = "第" + (i + 2) + "行销方银行超出30个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行销方银行超出30个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String skr = jyxxsq.getSkr();// 收款人校验
             if (skr != null && skr.length() > 10) {
-                msgg = "第" + (i + 2) + "行收款人超出10个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行收款人超出10个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String fhr = jyxxsq.getFhr();// 复核人校验
             if (fhr != null && fhr.length() > 10) {
-                msgg = "第" + (i + 2) + "行复核人超出10个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行复核人超出10个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String kpr = jyxxsq.getKpr();// 开票人校验
             if (kpr != null && kpr.length() > 10) {
-                msgg = "第" + (i + 2) + "行开票人超出10个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行开票人超出10个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfsh = jyxxsq.getGfsh();// 购方税号校验
@@ -1402,131 +1402,131 @@ public class LrkpdController extends BaseController {
             String gfyhzh1 = jyxxsq.getGfyhzh();// 购方税号校验
             if (fpzldm.equals("01")) {
                 if (gfsh == null || gfsh.equals("")) {
-                    msgg = "第" + (i + 2) + "行专票购方税号为空，请重新填写！";
+                    msgg = "第" + (i + 2) + "行专票购方税号为空，请重新填写！\r\n";
                     msg += msgg;
                 }
                 if (StringUtils.isBlank(gfyh1) && StringUtils.isBlank(gfyhzh1)) {
-                    msgg = "第" + (i + 2) + "行专票购方银行及账号都为空，请重新填写！";
+                    msgg = "第" + (i + 2) + "行专票购方银行及账号都为空，请重新填写！\r\n";
                     msg += msgg;
                 }
                 if (StringUtils.isBlank(jyxxsq.getGfdz()) && StringUtils.isBlank(jyxxsq.getGfdh())) {
-                    msgg = "第" + (i + 2) + "行专票购方地址及电话都为空，请重新填写！";
+                    msgg = "第" + (i + 2) + "行专票购方地址及电话都为空，请重新填写！\r\n";
                     msg += msgg;
                 }
                 if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
-                    msgg = "第" + (i + 2) + "行购方税号不是15位到20位，请重新填写！";
+                    msgg = "第" + (i + 2) + "行购方税号不是15位到20位，请重新填写！\r\n";
                     msg += msgg;
                 }
             } else {
                 if (gfsh != null && (gfsh.length() < 15 || gfsh.length() > 20)) { // 购方税号长度的判断
-                    msgg = "第" + (i + 2) + "行购方税号不是15位到20位，请重新填写！";
+                    msgg = "第" + (i + 2) + "行购方税号不是15位到20位，请重新填写！\r\n";
                     msg += msgg;
                 }
             }
             String gfmc = jyxxsq.getGfmc();// 购方名称校验
             if (gfmc == null || "".equals(gfmc)) {
-                msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！\r\n";
                 msg += msgg;
             }
             if (gfmc != null && gfmc.length() > 100) { // 购方名称长度的判断
-                msgg = "第" + (i + 2) + "行购方名称超出100个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方名称超出100个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfyh = jyxxsq.getGfyh();// 购方银行校验
             if (gfyh != null && gfyh.length() > 50) { // 购方银行长度的判断
-                msgg = "第" + (i + 2) + "行购方银行超出50个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方银行超出50个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfyhzh = jyxxsq.getGfyhzh();// 购方银行账号校验
             if (gfyhzh != null && gfyhzh.length() > 50) { // 购方银行账号长度的判断
-                msgg = "第" + (i + 2) + "行购方银行账号超出50个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方银行账号超出50个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfdz = jyxxsq.getGfdz();// 购方地址校验
             if (gfdz != null && gfdz.length() > 100) { // 购方地址长度的判断
-                msgg = "第" + (i + 2) + "行购方地址超出200个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方地址超出200个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfdh = jyxxsq.getGfdh();// 购方电话校验
             if (gfdh != null && gfdh.length() > 25) { // 购方电话长度的判断
-                msgg = "第" + (i + 2) + "行购方电话超出25位，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方电话超出25位，请重新填写！\r\n";
                 msg += msgg;
             }
             String gfEmail = jyxxsq.getGfemail();// 购方email校验
             if (gfEmail != null && !"".equals(gfEmail.trim()) && !gfEmail.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")) {
-                msgg = "第" + (i + 2) + "行购方email格式不正确，请重新填写！";
+                msgg = "第" + (i + 2) + "行购方email格式不正确，请重新填写！\r\n";
                 msg += msgg;
             }
             String hsbz = jyxxsq.getHsbz();// 含税标志校验
             if (hsbz == null || "".equals(hsbz)) {
-                msgg = "第" + (i + 2) + "行含税标志不能为空，请重新填写！";
+                msgg = "第" + (i + 2) + "行含税标志不能为空，请重新填写！\r\n";
                 msg += msgg;
             } else if (!("0".equals(hsbz) || "1".equals(hsbz))) {
-                msgg = "第" + (i + 2) + "行含税标志只能填写1或0！";
+                msgg = "第" + (i + 2) + "行含税标志只能填写1或0！\r\n";
                 msg += msgg;
             }
             Jymxsq mxsq = mxList.get(i);
             String spdm = mxsq.getSpdm();
             if(spdm==null || "".equals(spdm)){
-                msgg = "第" + (i + 2) + "行商品代码不能为空，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品代码不能为空，请重新填写！\r\n";
                 msg += msgg;
             }
             if (spdm != null && spdm.length() > 20) {
-                msgg = "第" + (i + 2) + "行商品代码超过20个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品代码超过20个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String spmc = mxsq.getSpmc();
             if (spmc == null || "".equals(spmc)) {
-                msgg = "第" + (i + 2) + "行商品名称不能为空，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品名称不能为空，请重新填写！\r\n";
                 msg += msgg;
             } else if (spmc.length() > 50) {
-                msgg = "第" + (i + 2) + "行商品名称超过50个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品名称超过50个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String spggxh = mxsq.getSpggxh();
             if (spggxh != null && spggxh.length() > 36) {
-                msgg = "第" + (i + 2) + "行商品规格型号超过36个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品规格型号超过36个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             String spdw = mxsq.getSpdw();
             if (spdw != null && spdw.length() > 5) {
-                msgg = "第" + (i + 2) + "行商品单位超过5个字符，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品单位超过5个字符，请重新填写！\r\n";
                 msg += msgg;
             }
             Double sps = mxsq.getSps();
             if (sps != null && !String.valueOf(sps).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
-                msgg = "第" + (i + 2) + "行商品数格式不正确，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品数格式不正确，请重新填写！\r\n";
                 msg += msgg;
             }
             Double spdj = mxsq.getSpdj();
             if (spdj != null && !String.valueOf(spdj).matches("^[0-9]{0,16}+(.[0-9]{0,})?$")) {
-                msgg = "第" + (i + 2) + "行商品单价格式不正确，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品单价格式不正确，请重新填写！\r\n";
                 msg += msgg;
             }
             Double spje = mxsq.getSpje();
             if (spje == null || spje <= 0) {
-                msgg = "第" + (i + 2) + "行商品金额不能为空或小于等于0，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品金额不能为空或小于等于0，请重新填写！\r\n";
                 msg += msgg;
             }
             Double spsl = mxsq.getSpsl();
             if (spsl == null || "".equals(spsl)) {
-                msgg = "第" + (i + 2) + "行商品税率不能为空，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品税率不能为空，请重新填写！\r\n";
                 msg += msgg;
             } else if (!slList.contains(String.valueOf(spsl))) {
-                msgg = "第" + (i + 2) + "行商品税率数据库中不存在，请重新填写！";
+                msgg = "第" + (i + 2) + "行商品税率数据库中不存在，请重新填写！\r\n";
                 msg += msgg;
             }
             Double spse = mxsq.getSpse();
             if ("0".equals(hsbz)) {
                 if (spse == null || spse <= 0) {
-                    msgg = "第" + (i + 2) + "行不含税商品税额不能为空或小于等于0，请重新填写！";
+                    msgg = "第" + (i + 2) + "行不含税商品税额不能为空或小于等于0，请重新填写！\r\n";
                     msg += msgg;
                 }
             }
             if (spje != null && spsl != null && spse != null && "1".equals(hsbz)) {
                 boolean code = checkWC(spje, spsl, spse);
                 if (!code) {
-                    msgg = "第" + (i + 2) + "行商品金额，商品税率，商品税额之间的计算校验不通过，请检查！";
+                    msgg = "第" + (i + 2) + "行商品金额，商品税率，商品税额之间的计算校验不通过，请检查！\r\n";
                     msg += msgg;
                 }
             }
@@ -1537,7 +1537,7 @@ public class LrkpdController extends BaseController {
                 BigDecimal big2 = new BigDecimal(mxsq.getSpje());
                 big2 = big2.setScale(2, BigDecimal.ROUND_HALF_UP);
                 if (big1.compareTo(big2) != 0) {
-                    msgg = "第" + (i + 2) + "行商品单价，商品数量，商品金额之间的计算校验不通过，请检查！";
+                    msgg = "第" + (i + 2) + "行商品单价，商品数量，商品金额之间的计算校验不通过，请检查！\r\n";
                     msg += msgg;
                 }
             }
@@ -1557,7 +1557,7 @@ public class LrkpdController extends BaseController {
                     String jylsh1 = jyxxsq1.getJylsh();
                     String gfmc1 = jyxxsq1.getGfmc();
                     if (jylsh1 != null && gfmc != null && jylsh.equals(jylsh1) && !gfmc.equals(gfmc1)) {
-                        msgg = "交易流水号" + jylsh + "不能对应多个不同的购方，请重新填写！";
+                        msgg = "交易流水号" + jylsh + "不能对应多个不同的购方，请重新填写！\r\n";
                         msg += msgg;
                     }
                 }
@@ -1571,7 +1571,7 @@ public class LrkpdController extends BaseController {
             List<Jyxxsq> jyxxsqList1 = jyxxsqservice.findByMapParams(mapParams);
             if (jyxxsqList1.size() != 0) {
                 for (Jyxxsq jyxxsq : jyxxsqList1) {
-                    msgg = "交易流水号" + jyxxsq.getJylsh() + "已存在，请重新填写！";
+                    msgg = "交易流水号" + jyxxsq.getJylsh() + "已存在，请重新填写！\r\n";
                     msg += msgg;
                 }
             }
@@ -1584,7 +1584,7 @@ public class LrkpdController extends BaseController {
             List<Jyxxsq> jyxxsqList1 = jyxxsqservice.findByMapParams(mapParams);
             if (!jyxxsqList1.isEmpty()) {
                 for (Jyxxsq jyxxq : jyxxsqList1) {
-                    msgg = "提取码" + jyxxq.getTqm() + "已存在，请重新填写！";
+                    msgg = "提取码" + jyxxq.getTqm() + "已存在，请重新填写！\r\n";
                     msg += msgg;
                 }
             }
