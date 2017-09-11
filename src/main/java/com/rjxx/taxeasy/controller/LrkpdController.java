@@ -1297,7 +1297,7 @@ public class LrkpdController extends BaseController {
                 map.put("spmc",jymxsq.getSpmc());
                 Spvo spvo = spvoService.findOneSpvo(map);
                 if(null==spvo){
-                    msgg = "第" + (i + 2) + "行商品名称没有税收分类编码！";
+                    msgg = "第" + (i + 2) + "行商品名称没有税收分类</br>编码！\r\n";
                     msg += msgg;
                     logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
                 }else {
