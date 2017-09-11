@@ -59,9 +59,12 @@ public class FpcxController extends BaseController {
                                         String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String fpzldm,
                                         String xfsh, String sk, String xfmc,boolean loaddata2,String errorReason) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
-        Pagination pagination = new Pagination();
-        pagination.setPageNo(start / length + 1);
-        pagination.setPageSize(length);
+        //Pagination pagination = new Pagination();
+        //pagination.setPageNo(start / length + 1);
+        //pagination.setPageSize(length);
+        Map maps = new HashMap();
+        maps.put("start",start);
+        maps.put("length",length);
         String gsdm = getGsdm();
         String xfStr = "";
         List<Xf> xfs = getXfList();
@@ -95,29 +98,29 @@ public class FpcxController extends BaseController {
         if (skpid.length == 0) {
             skpid = null;
         }
-        pagination.addParam("gsdm", gsdm);
-        pagination.addParam("xfid", xfid);
-        pagination.addParam("skpid", skpid);
-        pagination.addParam("ddh", ddh);
-        pagination.addParam("fpzldm", fpzldm);
-        pagination.addParam("fphm", fphm);
-        pagination.addParam("kprqq", kprqq);
-        pagination.addParam("kprqz", kprqz);
-        pagination.addParam("spmc", spmc);
-        pagination.addParam("printflag", printflag);
-        pagination.addParam("gfmc", gfmc);
-        pagination.addParam("fpdm", fpdm);
-        pagination.addParam("fpzt", fpzt);
-        pagination.addParam("xfmc", xfmc);
-        pagination.addParam("fpczlx", fpczlx);
-        pagination.addParam("errorReason",errorReason);
+        maps.put("gsdm", gsdm);
+        maps.put("xfid", xfid);
+        maps.put("skpid", skpid);
+        maps.put("ddh", ddh);
+        maps.put("fpzldm", fpzldm);
+        maps.put("fphm", fphm);
+        maps.put("kprqq", kprqq);
+        maps.put("kprqz", kprqz);
+        //maps.put("spmc", spmc);
+        maps.put("printflag", printflag);
+        maps.put("gfmc", gfmc);
+        maps.put("fpdm", fpdm);
+        maps.put("fpzt", fpzt);
+        maps.put("xfmc", xfmc);
+        maps.put("fpczlx", fpczlx);
+        maps.put("errorReason",errorReason);
         if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
-            pagination.addParam("xfsh", xfsh);
+            maps.put("xfsh", xfsh);
         }
         if (null != sk && !"".equals(sk) && !"-1".equals(sk)) {
-            pagination.addParam("sk", sk);
+            maps.put("sk", sk);
         }
-        List<Fpcxvo> ykfpList = kplsService.findByPage(pagination);
+        List<Fpcxvo> ykfpList = kplsService.findByPage2(maps);
         String requestDomain = HtmlUtils.getDomainPath(request);
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
@@ -132,7 +135,7 @@ public class FpcxController extends BaseController {
        // String tmp = (String)request.getSession().getAttribute("total");
         int total;
         if(0 == start){
-            total = pagination.getTotalRecord();
+            total = kplsService.findTotal(maps);
             request.getSession().setAttribute("total",total);
         }else{
             total =  (Integer)request.getSession().getAttribute("total");
@@ -256,7 +259,7 @@ public class FpcxController extends BaseController {
         params.put("fpdm", fpdm);
         params.put("fpzt", fpzt);
         params.put("fpczlx", fpczlx);
-        List<Fpcxvo> ykfpList = kplsService.findAllByParams(params);
+        List<Fpcxvo> ykfpList = kplsService.findAllByParams2(params);
         Map<String, Object> map = new HashMap<>();
         int yhid = getYhid();
         map.put("yhid", yhid);
@@ -313,8 +316,8 @@ public class FpcxController extends BaseController {
             row.createCell(6).setCellValue(ykfpcx.getKprq() == null ? "" : ykfpcx.getKprq());
             row.createCell(7).setCellValue(ykfpcx.getFpzlmc() == null ? "" : ykfpcx.getFpzlmc());
             row.createCell(8).setCellValue(ykfpcx.getSpmc() == null ? "" : ykfpcx.getSpmc());
-            row.createCell(9).setCellValue(ykfpcx.getSpje().toString() == null ? "" : ykfpcx.getSpje().toString());
-            row.createCell(10).setCellValue(ykfpcx.getSpse().toString() == null ? "" : ykfpcx.getSpse().toString());
+            row.createCell(9).setCellValue(ykfpcx.getSpje() == null ? "" : ykfpcx.getSpje().toString());
+            row.createCell(10).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
 
 
             int k = 11;

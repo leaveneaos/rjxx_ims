@@ -70,7 +70,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="am-offcanvas-content">
+									<%--<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">商品名称</label>
 											<div class="am-u-sm-8">
@@ -78,7 +78,7 @@
 													placeholder="请输入商品名称" />
 											</div>
 										</div>
-									</div>
+									</div>--%>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
@@ -236,12 +236,12 @@
 									<div class="am-form-group tpl-table-list-select">
 										<select id="tip" name="tip" data-am-selected="{btnSize: 'sm'}">
 											<option value="0">请选择</option>
-											<option value="1" selected="selected">购方名称</option>
-											<option value="2">订单号</option>
-											<option value="3">商品名称</option>
-											<!-- 														<option value="4">销方名称</option> -->
+											<option value="2" selected="selected">订单号</option>
+											<option value="1">购方名称</option>
 											<option value="5">发票号码</option>
 											<option value="6">发票代码</option>
+											<%--<option value="3">商品名称</option>--%>
+											<!-- 														<option value="4">销方名称</option> -->
 										</select>
 									</div>
 								</div>
@@ -257,6 +257,22 @@
 										</span>
 									</div>
 								</div>
+
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+									<div class="am-form-group">
+										<div class="am-u-md-6 am-u-lg-3">
+											<input type="text" id="w_kprqq" name="w_kprqq"
+												   placeholder="开票起始时间"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+										<div class="am-u-md-6 am-u-lg-3">
+											<input type="text" id="w_kprqz" name="w_kprqz"
+												   placeholder="开票截止时间"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+									</div>
+								</div>
+
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
