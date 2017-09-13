@@ -57,6 +57,9 @@ public class PttqkpController extends BaseController {
 	@Autowired
 	private SkpService skpService;
 
+	@Autowired
+	private FpgzService fpgzService;
+
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
 	public String index() {
@@ -272,6 +275,15 @@ public class PttqkpController extends BaseController {
 				}
 			}
 
+			//获取分票规则信息
+			Map fpgzMap = new HashMap();
+			fpgzMap.put("gsdm",gsdm);
+			fpgzMap.put("xfids",xfid);
+			Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
+			logger.info("获取到分票规则----清单标志"+fpgz.getQdbz());
+			logger.info("获取到分票规则----强制分票"+fpgz.getSfqzfp());
+			logger.info("获取到分票规则----是否按商品整数最高限额分票"+fpgz.getSfspzsfp());
+			jyxxsq.setSfdyqd(fpgz.getQdbz());
 			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
 			logger.info("secretKey------" + gsxx.getSecretKey());
 			logger.info("appKey------" + gsxx.getAppKey());
