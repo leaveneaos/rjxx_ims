@@ -21,9 +21,9 @@
 		<Order>
 			<OrderMain>
 				<OrderNo>${jyxxsq.ddh!}</OrderNo>
-				<InvoiceList>0</InvoiceList>
+				<InvoiceList>${jyxxsq.sfdyqd!}</InvoiceList>
 				<InvoiceSplit>1</InvoiceSplit>
-				<InvoiceSfdy>0</InvoiceSfdy>
+				<InvoiceSfdy>${jyxxsq.sfdy!}</InvoiceSfdy>
 				<OrderDate>${jylssj!}</OrderDate>
 				<ChargeTaxWay>0</ChargeTaxWay>
 				<TotalAmount>${jyxxsq.jshj?c!}</TotalAmount>

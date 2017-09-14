@@ -281,9 +281,12 @@ public class PttqkpController extends BaseController {
 			fpgzMap.put("xfids",xfid);
 			Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
 			logger.info("获取到分票规则----清单标志"+fpgz.getQdbz());
-			logger.info("获取到分票规则----强制分票"+fpgz.getSfqzfp());
-			logger.info("获取到分票规则----是否按商品整数最高限额分票"+fpgz.getSfspzsfp());
 			jyxxsq.setSfdyqd(fpgz.getQdbz());
+			if("01".equals(jyxxsq.getFpczlxdm()) ||  "02".equals(jyxxsq.getFpczlxdm())){
+				jyxxsq.setSfdy("1");
+			}else {
+				jyxxsq.setSfdy("0");
+			}
 			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
 			logger.info("secretKey------" + gsxx.getSecretKey());
 			logger.info("appKey------" + gsxx.getAppKey());
