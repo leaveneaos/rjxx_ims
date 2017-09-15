@@ -7,6 +7,7 @@ $(function () {
     	$jsTable: $('.js-table'),
     	$jsSlTable: $('.js-sltable'),
         $jsDate: $('#s_xzrq'),
+        $jsDate1:$('#s_xzrq1'),
         $jsForm: $('.js-form'),
         $jsSearch: $('#jsSearch'),
         $jsLoading: $('.js-modal-loading')
@@ -24,20 +25,27 @@ $(function () {
             type: 'POST',
             data: function (d) {
             	var bz = $('#searchbz').val();
-            	if(bz=='1'){
-            		d.xfid = $('#s_xfid option:selected').val(),
-                    d.fpzl = $('#s_fpzl option:selected').val(),
-                    d.kprq = $('#s_kprq').val()
-            	}
-            	d.xfid = $('#m_xfid').val();
-                d.kprq = el.$jsDate.val()
+                if(bz=='1'){
+                    d.xfid = $('#s_xfid option:selected').val();
+                    d.skpid  = $('#s_skpid option:selected').val();
+                    d.ppid = $('#s_ppid option:selected').val();
+                    d.fpzl = $('#s_fpzl option:selected').val();
+                    d.kprqq = $('#s_kprqq').val();
+                    d.kprqz = $('#s_kprqz').val();
+                }else{
+                    d.xfid = $('#xfid option:selected').val();
+                    d.skpid  = $('#skpid option:selected').val();
+                    d.ppid = $('#ppid option:selected').val();
+                    d.kprqq = el.$jsDate.val();
+                    d.kprqz = el.$jsDate1.val();
+                }
             }
         },
         "columns": [                 
             {"data": "sl"},
             {"data": "xfmc"},
             {"data": "fpzl"},
-            {"data": "jzjtbz"},                   
+            // {"data": "jzjtbz"},
             {"data": "zsje"},
             {"data": "fsje"},
             {"data": "hjje"},
@@ -56,36 +64,47 @@ $(function () {
         showFp:function(){
         	var _this = this;
         	var bz = $('#searchbz').val();
+        	var xfid = null;
+        	var skpid = null;
+        	var ppid = null;
+        	var fpzl = null;
+            var kprqq = null;
+            var kprqz = null;
         	if(bz=='1'){
-        		var xfid = $('#s_xfid option:selected').val();
-            	var fpzl = $('#s_fpzl option:selected').val();
-            	var kprq = $('#s_kprq').val();
+        		 xfid = $('#s_xfid option:selected').val();
+                 skpid  = $('#s_skpid option:selected').val();
+                 ppid = $('#s_ppid option:selected').val();
+            	 fpzl = $('#s_fpzl option:selected').val();
+            	 kprqq = $('#s_kprqq').val();
+            	 kprqz = $('#s_kprqz').val();
         	}else{
-        		var xfid = null;
-        		var fpzl = null;
-        		var kprq = el.$jsDate.val();
-        	}       	
-        	el.$jsLoading.modal('toggle'),  // show loading         	
-        	$.ajax({  		
+                xfid = $('#xfid option:selected').val();
+                skpid = $('#kpd option:selected').val();
+                ppid = $('#ppid option:selected').val();
+                kprqq = el.$jsDate.val();
+                kprqz = el.$jsDate1.val();
+        	}
+        	//el.$jsLoading.modal('toggle'),  // show loading
+        	$.ajax({
                 url: _this.config.getURL,
-                data:{"xfid":xfid,"fpzl":fpzl,"kprq":kprq},
+                data:{"xfid":xfid,"fpzl":fpzl,"skpid":skpid,"ppid":ppid,"kprqq":kprqq,"kprqz":kprqz},
                 type: 'POST',
-                dataType: 'json',             
-                success: function (data) {              	
+                dataType: 'json',
+                success: function (data) {
                 	if(data.success){
-                		$("#zspfs").val(data.zspfs); 
+                		$("#zspfs").val(data.zspfs);
                         $("#fspfs").val(data.fspfs);
                         $("#hjpfs").val(data.hjpfs);
                         $("#zcpfs").val(data.zcpfs);
-                        $("#hcpfs").val(data.hcpfs); 
+                        $("#hcpfs").val(data.hcpfs);
                         $("#hkpfs").val(data.hkpfs);
                         $("#zfpfs").val(data.zfpfs);
                         $("#ckpfs").val(data.ckpfs);
-                		$("#cdpfs").val(data.cdpfs); 
+                		$("#cdpfs").val(data.cdpfs);
                 	}else{
                 		// $('#alert-msg').html(data.msg);
-                		// $('#my-alert').modal('open'); 
-                        swal(data.msg);   
+                		// $('#my-alert').modal('open');
+                        swal(data.msg);
                 	}
                 	el.$jsLoading.modal('close'); // close loading
                 },
@@ -93,7 +112,7 @@ $(function () {
                 	// $('#alert-msg').html("出错，请检查！");
                 	// $('#my-alert').modal('open');
                     swal("出错，请检查！");
-                }        	
+                }
            });
         },
         
@@ -122,12 +141,24 @@ $(function () {
         },
         preAc: function () {
         	var _this = this; 	
-            el.$jsPre.on('click', function (e) { 
-            	var kprq=el.$jsDate.val();       
-            	if(!kprq){
-            		swal('Error,请选择开票日期!');
+            el.$jsPre.on('click', function (e) {
+                $('#searchbz').val("1");
+                var kprqq = $('#s_kprqq').val();
+                var kprqz = $('#s_kprqz').val();
+                if(kprqq==''||kprqz==''){
+                    //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("请先选择起始月份，终止月份！");
+                    //el.$jsLoading.modal('toggle');
                     return false;
-            	}
+                }
+                if(kprqq>kprqz){
+                    //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("起始月份不能大于终止月份！");
+                    //el.$jsLoading.modal('toggle');
+                    return false;
+                }
             	_this.qyt({kprq:kprq});      
             	e.preventDefault();
               
@@ -138,16 +169,24 @@ $(function () {
         	var _this = this;
         	el.$jsSearch.on('click', function (e) {
         		$('#searchbz').val("1");
-        		el.$jsLoading.modal('toggle');  // show loading
-                var kprq = $('#s_kprq').val();
-                if(kprq==''){
-        //         	$('#alert-msg').html("请先选择月份！");
-    				// $('#my-alert').modal('open');
-                    swal("请先选择月份！");
-                	el.$jsLoading.modal('toggle');
-                	return false;               	
+                //el.$jsLoading.modal('toggle');  // show loading
+                var kprqq = $('#s_kprqq').val();
+                var kprqz = $('#s_kprqz').val();
+                if(kprqq==''||kprqz==''){
+                    //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("请先选择起始月份，终止月份！");
+                    //el.$jsLoading.modal('toggle');
+                    return false;
                 }
-                _this.showFp();                
+                if(kprqq>kprqz){
+                    //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("起始月份不能大于终止月份！");
+                    //el.$jsLoading.modal('toggle');
+                    return false;
+                }
+                _this.showFp();
                e.preventDefault();              
                t.ajax.reload();
             })
@@ -156,14 +195,22 @@ $(function () {
         	var _this = this;
         	$('#searchButton').on('click',function(e){
         		$('#searchbz').val("0");
-        		el.$jsLoading.modal('toggle');  // show loading
-                var kprq = el.$jsDate.val();
-                if(kprq==''){
-        //         	$('#alert-msg').html("请先选择月份！");
-    				// $('#my-alert').modal('open');
-                    swal("请先选择月份！");
-                	el.$jsLoading.modal('toggle');
-                	return false;               	
+        		//el.$jsLoading.modal('toggle');  // show loading
+                var kprqq = el.$jsDate.val();
+                var kprqz = el.$jsDate1.val();
+                if(kprqq==''||kprqz==''){
+                    //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("请先选择起始日期，终止日期！");
+                    //el.$jsLoading.modal('toggle');
+                    return false;
+                }
+                if(kprqq>kprqz){
+                    //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+                    // $('#my-alert').modal('open');
+                    swal("起始日期不能大于终止日期！");
+                    //el.$jsLoading.modal('toggle');
+                    return false;
                 }
                 _this.showFp();                
                e.preventDefault();              
