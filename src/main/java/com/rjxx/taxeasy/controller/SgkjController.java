@@ -621,7 +621,15 @@ public class SgkjController extends BaseController{
                 //保存开票流水
                 Kpls kpls = saveKpls(jyls, list2, jyxxsq.getSfdy());
                 saveKpspmx(kpls, list2);
-                skService.callService(kpls.getKplsh());
+                //区分开票方式
+                Cszb cszb = cszbService.getSpbmbbh(getGsdm(), getXfid(), jyxxsq.getSkpid(), "kpfs");
+                if(cszb != null && cszb.getCsz().equals("01")){
+                    skService.callService(kpls.getKplsh());
+                }
+                if(cszb != null && cszb.getCsz().equals("03")){
+                    skService.SkServerKP(kpls.getKplsh());
+                }
+
                /* KplsVO4 kplsVO4 = new KplsVO4(kpls, jyxxsq);
                 result.add(kplsVO4);*/
                 //i++;
