@@ -74,9 +74,11 @@
 														<select id="s_skpid" name="s_skpid"
 																data-am-selected="{btnSize: 'sm'}">
 															<option value="">请选择开票点</option>
-															<c:forEach items="${skpList}" var="item">
-																<option value="${item.skpid}">${item.kpdmc}</option>
-															</c:forEach>
+															<c:if test="${xfnum==1}">
+																<c:forEach items="${skpList}" var="item">
+																	<option value="${item.id}">${item.kpdmc}</option>
+																</c:forEach>
+															</c:if>
 														</select>
 													</div>
 												</div>
@@ -173,7 +175,7 @@
 												<option value="">选择开票点</option>
 												<c:if test="${xfnum==1}">
 													<c:forEach items="${skpList}" var="item">
-														<option value="${item.skpid}">${item.kpdmc}</option>
+														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
 												</c:if>
 											</select>
