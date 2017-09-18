@@ -50,10 +50,48 @@
 												<div class="am-form-group">
 													<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
 													<div class="am-u-sm-8">
-														<select id="s_xfid" name="xfid"
+														<select id="s_xfid" name="xfid"  onchange="gets_Kpd();" required
 															data-am-selected="{btnSize: 'sm'}">
-															<c:forEach items="${xfs}" var="xf">
+															<c:if test="${xfnum>1}">
+																<option value="">选择销方</option>
+																<<c:forEach items="${xfs}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
+															</c:forEach>
+															</c:if>
+															<c:if test="${xfnum==1}">
+																<c:forEach items="${xfs}" var="xf">
+																	<option value="${xf.id}">${xf.xfmc}</option>
+																</c:forEach>
+															</c:if>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
+													<label for="s_kpd" class="am-u-sm-4 am-form-label">开票点</label>
+													<div class="am-u-sm-8">
+														<select id="s_skpid" name="s_skpid"
+																data-am-selected="{btnSize: 'sm'}">
+															<option value="">请选择开票点</option>
+															<c:if test="${xfnum==1}">
+																<c:forEach items="${skpList}" var="item">
+																	<option value="${item.id}">${item.kpdmc}</option>
+																</c:forEach>
+															</c:if>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
+													<label for="s_fplx" class="am-u-sm-4 am-form-label">品牌</label>
+													<div class="am-u-sm-8">
+														<select id="s_ppid" name="ppid"
+																data-am-selected="{btnSize: 'sm'}">
+															<option value="">选择品牌</option>
+															<c:forEach items="${pp}" var="pp">
+																<option value="${pp.id}">${pp.ppmc}</option>
 															</c:forEach>
 														</select>
 													</div>
@@ -75,11 +113,26 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
-													<label for="s_kprq" class="am-u-sm-4 am-form-label">开票年月</label>
+													<label for="s_kprqq" class="am-u-sm-4 am-form-label">起始日期</label>
 													<div class="am-input-group am-datepicker-date am-u-sm-8"
-														data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
-														<input type="text" id="s_kprq" class="am-form-field"
-															placeholder="选择起始月份" readonly> <span
+														 data-am-datepicker="{format: 'yyyy-mm-dd',viewMode: 'days', minViewMode: 'days'}">
+														<input type="text" id="s_kprqq" class="am-form-field"
+															   placeholder="选择起始月份" readonly> <span
+															class="am-input-group-btn am-datepicker-add-on">
+															<button class="am-btn am-btn-default" type="button">
+																<span class="am-icon-calendar"></span>
+															</button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
+													<label for="s_kprqq" class="am-u-sm-4 am-form-label">终止日期</label>
+													<div class="am-input-group am-datepicker-date am-u-sm-8"
+														 data-am-datepicker="{format: 'yyyy-mm-dd',viewMode: 'days', minViewMode: 'days'}">
+														<input type="text" id="s_kprqz" class="am-form-field"
+															   placeholder="选择终止月份" readonly> <span
 															class="am-input-group-btn am-datepicker-add-on">
 															<button class="am-btn am-btn-default" type="button">
 																<span class="am-icon-calendar"></span>
@@ -103,17 +156,67 @@
 								<div class="am-g">
 									<div class="am-u-sm-12">
 									    <div class="am-u-sm-4">
-									         <select id="m_xfid" name="xfid">
-												<c:forEach items="${xfs}" var="xf">
-												<option value="${xf.id}">${xf.xfmc}</option>
+									         <select id="xfid" name="xfid" onchange="getKpd();" required>
+												 <c:if test="${xfnum>1}">
+													 <option value="">选择销方</option>
+													 <<c:forEach items="${xfs}" var="xf">
+													 <option value="${xf.id}">${xf.xfmc}</option>
+												 	</c:forEach>
+												 </c:if>
+												 <c:if test="${xfnum==1}">
+													 <c:forEach items="${xfs}" var="xf">
+														 <option value="${xf.id}">${xf.xfmc}</option>
+													 </c:forEach>
+												 </c:if>
+											</select>
+									    </div>
+										<div class="am-u-sm-4">
+											<select id="skpid" name="skpid" required>
+												<option value="">选择开票点</option>
+												<c:if test="${xfnum==1}">
+													<c:forEach items="${skpList}" var="item">
+														<option value="${item.id}">${item.kpdmc}</option>
+													</c:forEach>
+												</c:if>
+											</select>
+										</div>
+										<div class="am-u-sm-4">
+											<select id="ppid" name="ppid">
+												<option value="">选择品牌</option>
+												<c:forEach items="${pp}" var="pp">
+													<option value="${pp.id}">${pp.ppmc}</option>
 												</c:forEach>
 											</select>
-									    </div>											
+										</div>
+									<%--<div class="am-u-sm-4">
+											<div class="am-input-group am-datepicker-date am-u-sm-12"
+												data-am-datepicker="{format: 'yyyy-mm-dd',viewMode: 'days', minViewMode: 'days'}">
+												<input type="text" id="s_xzrq" class="am-form-field"
+													placeholder="选择开始日期" readonly> <span
+													class="am-input-group-btn am-datepicker-add-on">
+													<button class="am-btn am-btn-default" type="button">
+														<span class="am-icon-calendar"></span>
+													</button>
+												</span>
+											</div>
+										</div>--%>
+										<div class="am-u-sm-4" style="margin-left: -1%">
+											<div class="am-input-group am-datepicker-date am-u-sm-12"
+												 data-am-datepicker="{format: 'yyyy-mm-dd',viewMode: 'days', minViewMode: 'days'}">
+												<input type="text" id="s_xzrq" class="am-form-field"
+													   placeholder="选择起始日期" readonly> <span
+													class="am-input-group-btn am-datepicker-add-on">
+													<button class="am-btn am-btn-default" type="button">
+														<span class="am-icon-calendar"></span>
+													</button>
+												</span>
+											</div>
+										</div>
 										<div class="am-u-sm-4">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
-												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
-												<input type="text" id="s_xzrq" class="am-form-field"
-													placeholder="选择月份" readonly> <span
+												 data-am-datepicker="{format: 'yyyy-mm-dd',viewMode: 'days', minViewMode: 'days'}">
+												<input type="text" id="s_xzrq1" class="am-form-field"
+													   placeholder="选择终止日期" readonly> <span
 													class="am-input-group-btn am-datepicker-add-on">
 													<button class="am-btn am-btn-default" type="button">
 														<span class="am-icon-calendar"></span>
@@ -161,11 +264,14 @@
 											<td>红冲发票份数</td>
 											<td><input type="text" id="hcpfs" placeholder="张"
 												readonly style="border: none; background: transparent;" /></td>
-											<td>换开发票份数</td>
+											<td>作废发票份数</td>
+											<td><input type="text" id="zfpfs" placeholder="张"
+													   readonly style="border: none; background: transparent;" /></td>
+											<%--<td>换开发票份数</td>
 											<td><input type="text" id="hkpfs" placeholder="张"
-												readonly style="border: none; background: transparent;" /></td>
+												readonly style="border: none; background: transparent;" /></td>--%>
 										</tr>
-										<tr>
+										<%--<tr>
 											<td>作废发票份数</td>
 											<td><input type="text" id="zfpfs" placeholder="张"
 												readonly style="border: none; background: transparent;" /></td>
@@ -175,7 +281,7 @@
 											<td>重打发票份数</td>
 											<td><input type="text" id="cdpfs" placeholder="张"
 												readonly style="border: none; background: transparent;" /></td>
-										</tr>
+										</tr>--%>
 									</tbody>
 								</table>
 								<br>
@@ -190,7 +296,7 @@
 											<th>税率(%)</th>
 											<th>销方名称</th>
 											<th>发票种类</th>
-											<th>税率类型</th>
+											<%--<th>税率类型</th>--%>
 											<th>销项正数金额</th>
 											<th>销项负数金额</th>
 											<th>合计金额</th>
@@ -243,5 +349,44 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/fytjbb.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
+	<script>
+        //选择销方取得税控盘
+        function getKpd() {
+            var xfid = $('#xfid option:selected').val();
+            var kpd = $("#skpid");
+            $("#skpid").empty();
+            $.ajax({
+                url : "fpkc/getKpd",
+                data : {
+                    "xfid" : xfid
+                },
+                success : function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var option = $("<option>").text(data[i].kpdmc).val(
+                            data[i].skpid);
+                        kpd.append(option);
+                    }
+                }
+            });
+        }
+        function gets_Kpd() {
+            var xfid = $('#s_xfid option:selected').val();
+            var kpd = $("#s_skpid");
+            $("#s_skpid").empty();
+            $.ajax({
+                url : "fpkc/getKpd",
+                data : {
+                    "xfid" : xfid
+                },
+                success : function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var option = $("<option>").text(data[i].kpdmc).val(
+                            data[i].skpid);
+                        kpd.append(option);
+                    }
+                }
+            });
+        }
+	</script>
 </body>
 </html>

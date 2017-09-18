@@ -171,7 +171,7 @@ public class PttqkpController extends BaseController {
 			jymxsqList = (List<Jymxsq>) resMap.get("jymxsqList");
 			jyzfmxList = (List<Jyzfmx>) resMap.get("jyzfmxList");
 		}
-		if(jyzfmxList!=null){
+		if(jyzfmxList.size() > 0){
 			for (Jyzfmx jyzfmx : jyzfmxList){
 					Map parmMap = new HashMap();
 					parmMap.put("zffsDm",jyzfmx.getZffsDm());
@@ -184,12 +184,16 @@ public class PttqkpController extends BaseController {
 			}
 		}
 		logger.info("---"+JSON.toJSONString(list));
-		resultMap.put("jyxxsq",jyxxsqList);
-		resultMap.put("jymxsq",jymxsqList);
-		resultMap.put("jyzflist",list);
-		request.getSession().setAttribute("jyxxsq",jyxxsqList);
-		request.getSession().setAttribute("jymxsq",jymxsqList);
-		request.getSession().setAttribute("jyzfmx",jyzfmxList);
+		if(jyxxsqList.size()>0){
+			resultMap.put("jyxxsq",jyxxsqList);
+			resultMap.put("jymxsq",jymxsqList);
+			resultMap.put("jyzflist",list);
+			request.getSession().setAttribute("jyxxsq",jyxxsqList);
+			request.getSession().setAttribute("jymxsq",jymxsqList);
+			request.getSession().setAttribute("jyzfmx",jyzfmxList);
+		}else {
+			resultMap.put("msg", resMap.get("msg"));
+		}
 		return resultMap;
 	}
 
@@ -201,120 +205,126 @@ public class PttqkpController extends BaseController {
 		List<Jyxxsq> jyxxsqList = (List<Jyxxsq>) request.getSession().getAttribute("jyxxsq");
 		List<Jymxsq>jymxsqList= (List<Jymxsq>) request.getSession().getAttribute("jymxsq");
 		List<Jyzfmx>jyzfmxList= (List<Jyzfmx>) request.getSession().getAttribute("jyzfmx");
-		Jyxxsq jyxxsq = jyxxsqList.get(0);
-		//销方
-		String xfid = request.getParameter("xf");
-		Xf xf = xfService.findOne(Integer.parseInt(xfid));
-		jyxxsq.setXfid(xf.getId());
-		jyxxsq.setXfsh(xf.getXfsh());
-		jyxxsq.setXfmc(xf.getXfmc());
-		jyxxsq.setXfyh(xf.getXfyh());
-		jyxxsq.setXfyhzh(xf.getXfyhzh());
-		jyxxsq.setXfdz(xf.getXfdz());
-		jyxxsq.setXfdh(xf.getXfdh());
-		jyxxsq.setKpr(xf.getKpr());
-		jyxxsq.setFhr(xf.getFhr());
-		jyxxsq.setSkr(xf.getSkr());
-		//发票种类代码
-		jyxxsq.setFpzldm(request.getParameter("fpzldm"));
-		logger.info("发票种类代码"+jyxxsq.getFpczlxdm());
-		String skpid = request.getParameter("kpd");
-		if (skpid != null && !"".equals(skpid)) {
-			jyxxsq.setSkpid(Integer.parseInt(skpid));
-		}
-		Skp skp = skpService.findOne(Integer.valueOf(skpid));
-		jyxxsq.setKpddm(skp.getKpddm());
-
-		jyxxsq.setClztdm("00");
-		jyxxsq.setBz(request.getParameter("bz"));
-		jyxxsq.setGfmc(request.getParameter("gfmc"));
-		jyxxsq.setGfsh(request.getParameter("gfsh"));
-		jyxxsq.setGfdz(request.getParameter("gfdz"));
-		jyxxsq.setGfdh(request.getParameter("gfdh"));
-		jyxxsq.setGfyh(request.getParameter("gfyh"));
-		jyxxsq.setGfyhzh(request.getParameter("yhzh"));
-		jyxxsq.setGfemail(request.getParameter("yjdz"));
-		jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
-		jyxxsq.setSjly("0");//0平台录入，1接口接入
-		String tqm = request.getParameter("tqm");
-		if (StringUtils.isNotBlank(tqm)) {
-			Map params = new HashMap();
-			params.put("gsdm", gsdm);
-			params.put("tqm", tqm);
-			Jyxxsq tmp = jyxxsqService.findOneByParams(params);
-			if (tmp != null) {
-				result.put("failure", true);
-				result.put("msg", "提取码已经存在");
-				return result;
+		if(jyxxsqList.size()>0) {
+			Jyxxsq jyxxsq = jyxxsqList.get(0);
+			//销方
+			String xfid = request.getParameter("xf");
+			Xf xf = xfService.findOne(Integer.parseInt(xfid));
+			jyxxsq.setXfid(xf.getId());
+			jyxxsq.setXfsh(xf.getXfsh());
+			jyxxsq.setXfmc(xf.getXfmc());
+			jyxxsq.setXfyh(xf.getXfyh());
+			jyxxsq.setXfyhzh(xf.getXfyhzh());
+			jyxxsq.setXfdz(xf.getXfdz());
+			jyxxsq.setXfdh(xf.getXfdh());
+			jyxxsq.setKpr(xf.getKpr());
+			jyxxsq.setFhr(xf.getFhr());
+			jyxxsq.setSkr(xf.getSkr());
+			//发票种类代码
+			jyxxsq.setFpzldm(request.getParameter("fpzldm"));
+			logger.info("发票种类代码" + jyxxsq.getFpczlxdm());
+			String skpid = request.getParameter("kpd");
+			if (skpid != null && !"".equals(skpid)) {
+				jyxxsq.setSkpid(Integer.parseInt(skpid));
 			}
-		}
-		try {
-			Map gsMap = new HashMap();
-			gsMap.put("gsdm",jyxxsq.getGsdm());
-			Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
-			logger.info("----交易信息申请"+JSON.toJSONString(jyxxsq));
-			logger.info("----交易信息申请"+JSON.toJSONString(jymxsqList));
-			logger.info("----交易信息申请"+JSON.toJSONString(jyzfmxList));
-			if(jyzfmxList!=null){
-				String kpfsDm="";
-				for (Jyzfmx jyzfmx : jyzfmxList){
-						Map parmMap = new HashMap();
-						parmMap.put("zffsDm",jyzfmx.getZffsDm());
-						List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
-						System.out.println("---支付金额"+jyzfmx.getZfje());
-						String str = zffsss.get(0).getKpfsDm();
-						System.out.println("---开票方式代码"+str);
-						if(!"0.0".equals(jyzfmx.getZfje()) && str.equals("01")){
-							kpfsDm=zffsss.get(0).getKpfsDm();
-						}
-				}
-				if("".equals(kpfsDm)||null==kpfsDm){
-					result.put("failure",true);
-					result.put("msg", "可开票金额为0元");
+			Skp skp = skpService.findOne(Integer.valueOf(skpid));
+			jyxxsq.setKpddm(skp.getKpddm());
+
+			jyxxsq.setClztdm("00");
+			jyxxsq.setBz(request.getParameter("bz"));
+			jyxxsq.setGfmc(request.getParameter("gfmc"));
+			jyxxsq.setGfsh(request.getParameter("gfsh"));
+			jyxxsq.setGfdz(request.getParameter("gfdz"));
+			jyxxsq.setGfdh(request.getParameter("gfdh"));
+			jyxxsq.setGfyh(request.getParameter("gfyh"));
+			jyxxsq.setGfyhzh(request.getParameter("yhzh"));
+			jyxxsq.setGfemail(request.getParameter("yjdz"));
+			jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
+			jyxxsq.setSjly("0");//0平台录入，1接口接入
+			String tqm = request.getParameter("tqm");
+			if (StringUtils.isNotBlank(tqm)) {
+				Map params = new HashMap();
+				params.put("gsdm", gsdm);
+				params.put("tqm", tqm);
+				Jyxxsq tmp = jyxxsqService.findOneByParams(params);
+				if (tmp != null) {
+					result.put("failure", true);
+					result.put("msg", "提取码已经存在");
 					return result;
 				}
 			}
+			try {
+				Map gsMap = new HashMap();
+				gsMap.put("gsdm", jyxxsq.getGsdm());
+				Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
+				logger.info("----交易信息申请" + JSON.toJSONString(jyxxsq));
+				logger.info("----交易信息申请" + JSON.toJSONString(jymxsqList));
+				logger.info("----交易信息申请" + JSON.toJSONString(jyzfmxList));
+				if (jyzfmxList != null) {
+					String kpfsDm = "";
+					for (Jyzfmx jyzfmx : jyzfmxList) {
+						Map parmMap = new HashMap();
+						parmMap.put("zffsDm", jyzfmx.getZffsDm());
+						List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+						System.out.println("---支付金额" + jyzfmx.getZfje());
+						String str = zffsss.get(0).getKpfsDm();
+						System.out.println("---开票方式代码" + str);
+						if (!"0.0".equals(jyzfmx.getZfje()) && str.equals("01")) {
+							kpfsDm = zffsss.get(0).getKpfsDm();
+						}
+					}
+					if ("".equals(kpfsDm) || null == kpfsDm) {
+						result.put("failure", true);
+						result.put("msg", "可开票金额为0元");
+						return result;
+					}
+				}
 
-			//获取分票规则信息
-			Map fpgzMap = new HashMap();
-			fpgzMap.put("gsdm",gsdm);
-			fpgzMap.put("xfids",xfid);
-			Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
-			logger.info("获取到分票规则----清单标志"+fpgz.getQdbz());
-			jyxxsq.setSfdyqd(fpgz.getQdbz());
-			if("01".equals(jyxxsq.getFpczlxdm()) ||  "02".equals(jyxxsq.getFpczlxdm())){
-				jyxxsq.setSfdy("1");
-			}else {
-				jyxxsq.setSfdy("0");
-			}
-			String xml=GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
-			logger.info("secretKey------" + gsxx.getSecretKey());
-			logger.info("appKey------" + gsxx.getAppKey());
-			String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
-			logger.info("-------返回值---------" + resultxml);
-			Document document = DocumentHelper.parseText(resultxml);
-			Element root = document.getRootElement();
-			List<Element> childElements = root.elements();
-			Map xmlMap = new HashMap();
-			for (Element child : childElements) {
-                xmlMap.put(child.getName(),child.getText());
-            }
-			String returncode=(String)xmlMap.get("ReturnCode");
-			String ReturnMessage=(String)xmlMap.get("ReturnMessage");
-			if (returncode.equals("9999")) {
-				logger.info("发送客户端失败----msg--"+ReturnMessage);
+				//获取分票规则信息
+				Map fpgzMap = new HashMap();
+				fpgzMap.put("gsdm", gsdm);
+				fpgzMap.put("xfids", xfid);
+				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
+				logger.info("获取到分票规则----清单标志" + fpgz.getQdbz());
+				jyxxsq.setSfdyqd(fpgz.getQdbz());
+				if ("01".equals(jyxxsq.getFpczlxdm()) || "02".equals(jyxxsq.getFpczlxdm())) {
+					jyxxsq.setSfdy("1");
+				} else {
+					jyxxsq.setSfdy("0");
+				}
+				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
+				logger.info("secretKey------" + gsxx.getSecretKey());
+				logger.info("appKey------" + gsxx.getAppKey());
+				String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
+				logger.info("-------返回值---------" + resultxml);
+				Document document = DocumentHelper.parseText(resultxml);
+				Element root = document.getRootElement();
+				List<Element> childElements = root.elements();
+				Map xmlMap = new HashMap();
+				for (Element child : childElements) {
+					xmlMap.put(child.getName(), child.getText());
+				}
+				String returncode = (String) xmlMap.get("ReturnCode");
+				String ReturnMessage = (String) xmlMap.get("ReturnMessage");
+				if (returncode.equals("9999")) {
+					logger.info("发送客户端失败----msg--" + ReturnMessage);
+					result.put("failure", true);
+					result.put("msg", ReturnMessage);
+					return result;
+				} else {
+					result.put("success", true);
+					result.put("djh", jyxxsq.getSqlsh());
+					result.put("msg", "开票申请成功！");
+				}
+			} catch (DocumentException e) {
+				e.printStackTrace();
 				result.put("failure", true);
-				result.put("msg", ReturnMessage);
-				return result;
-			}else {
-				result.put("success", true);
-				result.put("djh", jyxxsq.getSqlsh());
-				result.put("msg", "开票申请成功！");
+				result.put("msg", "保存出现错误: " + e.getMessage());
 			}
-		} catch (DocumentException e) {
-			e.printStackTrace();
+		}else {
 			result.put("failure", true);
-			result.put("msg", "保存出现错误: " + e.getMessage());
+			result.put("msg", "保存出现错误，请重试！");
+			return result;
 		}
 		return result;
 	}
