@@ -283,10 +283,21 @@ public class PttqkpController extends BaseController {
 				//获取分票规则信息
 				Map fpgzMap = new HashMap();
 				fpgzMap.put("gsdm", gsdm);
-				fpgzMap.put("xfids", xfid);
+				logger.info("取到的销方id+++++++++++"+xfid);
 				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
-				logger.info("获取到分票规则----清单标志" + fpgz.getQdbz());
-				jyxxsq.setSfdyqd(fpgz.getQdbz());
+				String xfids = fpgz.getXfids();
+				String[] strs = xfids.split(",");
+				for(int i=0,len=strs.length;i<len;i++){
+					if(xfid.equals(strs[i].toString())){
+						//销方在分票规则里
+						logger.info("获取到分票规则----清单标志" + fpgz.getQdbz());
+						jyxxsq.setSfdyqd(fpgz.getQdbz());
+					}else {
+						//选择的销方没有取到分票规则里面的销方
+						jyxxsq.setSfdyqd("0");
+					}
+				}
+
 				if ("01".equals(jyxxsq.getFpczlxdm()) || "02".equals(jyxxsq.getFpczlxdm())) {
 					jyxxsq.setSfdy("1");
 				} else {
