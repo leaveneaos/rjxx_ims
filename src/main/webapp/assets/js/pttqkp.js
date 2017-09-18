@@ -134,7 +134,7 @@ $(function() {
                     $("#hjse").val(sehj);
 
                 }else {
-                    swal("获取数据失败，请重试！");
+                    swal(data.msg);
                 }
             }
         });
