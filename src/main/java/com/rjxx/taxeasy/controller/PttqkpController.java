@@ -184,7 +184,7 @@ public class PttqkpController extends BaseController {
 			}
 		}
 		logger.info("---"+JSON.toJSONString(list));
-		if(jymxsqList.size()>0){
+		if(jyxxsqList.size()>0){
 			resultMap.put("jyxxsq",jyxxsqList);
 			resultMap.put("jymxsq",jymxsqList);
 			resultMap.put("jyzflist",list);
