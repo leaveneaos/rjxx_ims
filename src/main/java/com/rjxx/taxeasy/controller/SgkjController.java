@@ -808,6 +808,7 @@ public class SgkjController extends BaseController{
         jyls1.setXgry(jyxxsq.getXgry());
         jyls1.setXgsj(TimeUtil.getNowDate());
         jyls1.setSkpid(jyxxsq.getSkpid());
+        jyls1.setSqlsh(jyxxsq.getSqlsh());
         jylsService.save(jyls1);
         return jyls1;
     }
