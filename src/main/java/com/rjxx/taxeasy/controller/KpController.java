@@ -1680,7 +1680,7 @@ public class KpController extends BaseController {
             Kpls kpls=kplsService.findOne(Integer.parseInt(kpsqh[i]));
             if(kpls.getFpztdm().equals("05")||kpls.getFpztdm().equals("14")){
 				try{
-					Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), null, "kpfs");
+					Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), kpls.getSkpid(), "kpfs");
 					if(cszb.getCsz().equals("01")) {
 						kpls.setFpztdm("04");
 						kplsService.save(kpls);
