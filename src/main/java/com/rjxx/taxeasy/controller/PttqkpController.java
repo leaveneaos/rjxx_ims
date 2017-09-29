@@ -241,6 +241,11 @@ public class PttqkpController extends BaseController {
 			jyxxsq.setGfemail(request.getParameter("yjdz"));
 			jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
 			jyxxsq.setSjly("0");//0平台录入，1接口接入
+			if(null!=request.getParameter("gfsh")&&!"".equals(request.getParameter("gfsh")) ){
+				jyxxsq.setGflx("1");
+			}else {
+				jyxxsq.setGflx("0");
+			}
 			String tqm = request.getParameter("tqm");
 			if (StringUtils.isNotBlank(tqm)) {
 				Map params = new HashMap();
