@@ -134,7 +134,15 @@ $(function() {
                     $("#hjse").val(sehj);
 
                 }else {
-                    swal(data.msg);
+                    if(""!= data.error){
+                        swal(data.error);
+                    }
+                    if(""!=data.msg){
+                        swal(data.msg);
+                    }
+                    if(""!=data.temp){
+                        swal(data.temp);
+                    }
                 }
             }
         });

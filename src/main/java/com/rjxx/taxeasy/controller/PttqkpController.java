@@ -192,8 +192,17 @@ public class PttqkpController extends BaseController {
 			request.getSession().setAttribute("jymxsq",jymxsqList);
 			request.getSession().setAttribute("jyzfmx",jyzfmxList);
 		}else {
-			resultMap.put("msg", resMap.get("msg"));
+			if(null!=resMap.get("msg")|| !"".equals(resultMap.get("msg"))){
+				resultMap.put("msg", resMap.get("msg"));
+			}
+			if(null!=resultMap.get("tmp")|| !"".equals(resultMap.get("tmp"))){
+				resultMap.put("temp", resMap.get("tmp"));
+			}
+			if(null!= resMap.get("error")|| !"".equals(resultMap.get("error"))){
+				resultMap.put("error", resMap.get("error"));
+			}
 		}
+
 		return resultMap;
 	}
 
