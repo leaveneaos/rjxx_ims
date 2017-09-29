@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,6 +131,7 @@ public class FphcController extends BaseController {
 			result.put("draw", draw);
 			result.put("data", new ArrayList<>());
 		}
+		logger.info("result={}", JSON.toJSONString(result));
 		return result;
 	}
 	@RequestMapping(value = "/getKplsList1")
