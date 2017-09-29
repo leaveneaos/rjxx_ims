@@ -158,7 +158,7 @@ public class PttqkpController extends BaseController {
 				return resultMap;
 			}
 			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
-		}if(null != gsdm && gsdm.equals("Family")){
+		}if(null != gsdm && gsdm.equals("family")){
 			resMap=getDataService.getData(ddh,gsdm);
 		}
 		List<Jyxxsq> jyxxsqList = null;
