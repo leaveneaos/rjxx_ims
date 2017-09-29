@@ -131,7 +131,7 @@ public class FphcController extends BaseController {
 			result.put("draw", draw);
 			result.put("data", new ArrayList<>());
 		}
-		logger.info("result={}", JSON.toJSONString(result));
+		//logger.info("result={}", JSON.toJSONString(result));
 		return result;
 	}
 	@RequestMapping(value = "/getKplsList1")
