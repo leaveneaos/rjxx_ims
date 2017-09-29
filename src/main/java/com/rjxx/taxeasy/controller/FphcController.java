@@ -117,9 +117,9 @@ public class FphcController extends BaseController {
 		pagination.addParam("ddh", ddh);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fphm", fphm);
-		List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage(pagination);
-		int total = pagination.getTotalRecord();
 		if(loaddata){
+			int total = pagination.getTotalRecord();
+			List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage(pagination);
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
@@ -199,9 +199,9 @@ public class FphcController extends BaseController {
 		pagination.addParam("ddh", ddh);
 		pagination.addParam("fpdm", fpdm);
 		pagination.addParam("fphm", fphm);
-		List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage1(pagination);
-		int total = pagination.getTotalRecord();
 		if(loaddata2){
+			int total = pagination.getTotalRecord();
+			List<Fpcxvo> khcfpList = kplsService.findKhcfpByPage1(pagination);
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
