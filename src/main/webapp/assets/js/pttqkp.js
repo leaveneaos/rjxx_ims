@@ -134,13 +134,13 @@ $(function() {
                     $("#hjse").val(sehj);
 
                 }else {
-                    if(null!= data.error || ""!=data.error){
+                    if(null!= data.error){
                         swal(data.error);
                     }
-                    if(null!=data.msg || ""!=data.msg){
+                    if(null!=data.msg){
                         swal(data.msg);
                     }
-                    if(null!=data.temp || ""!=data.temp){
+                    if(null!=data.temp){
                         swal(data.temp);
                     }
                 }
