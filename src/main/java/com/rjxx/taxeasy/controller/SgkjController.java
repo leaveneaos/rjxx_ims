@@ -158,7 +158,7 @@ public class SgkjController extends BaseController{
         jyxxsq.setGfmc(request.getParameter("gfmc"));
         jyxxsq.setGfyh(request.getParameter("gfyh"));
         jyxxsq.setGfyhzh(request.getParameter("yhzh"));
-        //jyxxsq.setGfsjh(request.getParameter("gfsjh"));
+        jyxxsq.setGfsjh(request.getParameter("lxdh"));
         //jyxxsq.setGflxr(request.getParameter("gflxr"));
         jyxxsq.setBz(request.getParameter("bz"));
         jyxxsq.setGfemail(request.getParameter("yjdz"));
@@ -791,6 +791,7 @@ public class SgkjController extends BaseController{
         jyls1.setGfdz(jyxxsq.getGfdz());
         jyls1.setGfyb(jyxxsq.getGfyb());
         jyls1.setGfemail(jyxxsq.getGfemail());
+        jyls1.setGfsjh(jyxxsq.getGfsjh());
         jyls1.setClztdm("40");
         jyls1.setBz(jyxxsq.getBz());
         jyls1.setSkr(jyxxsq.getSkr());
