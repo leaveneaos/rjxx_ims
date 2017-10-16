@@ -95,7 +95,7 @@ $(function() {
 						"data" : "kprq"
 					}, {
                     "data" : "fpzt"
-                },{
+                }/*,{
                     "data" :function (data) {
                         if(data.fpzldm =="12"){
                             return "";
@@ -103,7 +103,7 @@ $(function() {
                             return data.sfdy;
                         }
                     }
-                },{
+                }*/,{
                     "data" :"errorReason"
                 } ]
 			$.ajax({
@@ -329,7 +329,7 @@ $(function() {
                             // alert('月份不同,Error!');
                             // $("#alertt").html('Error,请选择同一个年月内的时间!');
                             //               	$("#my-alert").modal('open');
-                            swal('Error,请选择同一个年月内的时间!');
+                            swal('Error,选择日期不能跨月!');
                             return false;
                         }
                     } else {
@@ -369,7 +369,7 @@ $(function() {
 							// alert('月份不同,Error!');
 							// $("#alertt").html('Error,请选择同一个年月内的时间!');
 	      //               	$("#my-alert").modal('open');
-	      					swal('Error,请选择同一个年月内的时间!');
+	      					swal('Error,选择日期不能跨月!');
 							return false;
 						}
 					} else {

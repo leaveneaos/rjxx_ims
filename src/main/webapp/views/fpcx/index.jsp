@@ -79,7 +79,7 @@
 											</div>
 										</div>
 									</div>--%>
-									<div class="am-offcanvas-content">
+									<%--<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 											<div class="am-u-sm-8">
@@ -87,7 +87,7 @@
 													placeholder="请输入发票代码" />
 											</div>
 										</div>
-									</div>
+									</div>--%>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票号码</label>
@@ -119,12 +119,12 @@
 													<option value="">----请选择----</option>
 													<option value="11">正常开具</option>
 													<option value="12">红冲开具</option>
-													<option value="13">纸质发票换开</option>
+													<%--<option value="13">纸质发票换开</option>--%>
 												</select>
 											</div>
 										</div>
 									</div>
-									<div class="am-offcanvas-content">
+									<%--<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票状态</label>
 											<div class="am-u-sm-7">
@@ -137,8 +137,8 @@
 												</select>
 											</div>
 										</div>
-									</div>
-									<div class="am-offcanvas-content">
+									</div>--%>
+									<%--<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">打印状态</label>
 											<div class="am-u-sm-7">
@@ -150,7 +150,7 @@
 												</select>
 											</div>
 										</div>
-									</div>
+									</div>--%>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
@@ -239,7 +239,7 @@
 											<option value="2" selected="selected">订单号</option>
 											<option value="1">购方名称</option>
 											<option value="5">发票号码</option>
-											<option value="6">发票代码</option>
+											<%--<option value="6">发票代码</option>--%>
 											<%--<option value="3">商品名称</option>--%>
 											<!-- 														<option value="4">销方名称</option> -->
 										</select>
@@ -291,7 +291,7 @@
 												<th>购方名称</th>
 												<th>开票日期</th>
 												<th>发票状态</th>
-												<th>发送打印状态</th>
+												<%--<th>发送打印状态</th>--%>
 												<th>错误信息</th>
 											</tr>
 										</thead>
@@ -769,6 +769,35 @@
 	<script src="assets/js/sweetalert.min.js"></script>
 </body>
 <script>
+
+    function getCurrentMonthFirst(){
+        var date=new Date();
+        date.setDate(1);
+        return date;
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    $(function() {
+        var startDate = getCurrentMonthFirst();
+        var endDate = new Date();
+        //var $alert = $('#my-alert');
+        $("#w_kprqq").val(formatDate(startDate));
+		$("#w_kprqz").val(formatDate(endDate));
+		$("#s_kprqq").val(formatDate(startDate));
+        $("#s_kprqz").val(formatDate(endDate));
+    });
+
 	function refresh() {
 		this.location = this.location;
 	}
