@@ -39,238 +39,35 @@
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 				<div class="am-cf admin-main widget">
+<%--
 					<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
-						<ul class="am-tabs-nav am-nav am-nav-tabs">
-							<li class="am-active"><a href="#tab1">发票开具</a></li>
-							<li style="display: none"><a href="#tab2">发票查询</a></li>
-						</ul>
+--%>
+						<%--<ul class="am-tabs-nav am-nav am-nav-tabs">
+							<li class="am-active"><a href="#tab1">发票异常重开</a></li>
+						</ul>--%>
 
-						<div class="am-tabs-bd">
-							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-								<div class="am-cf widget-head">
-									<input type="hidden" id="djh" value="0">
-									<input type="hidden" id="bz123" value="0">
-									<div class="widget-title am-cf">
-										<strong class="am-text-primary am-text-lg">业务</strong> / <strong>发票</strong>
-										<button class="am-btn am-btn-success am-fr"
-											data-am-offcanvas="{target: '#doc-oc-demo1'}">更多查询</button>
-									</div>
-									<div id="doc-oc-demo1" class="am-offcanvas">
-										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
-											<form id="ycform">
-												<div class="am-offcanvas-content">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
-														<div class="am-u-sm-8">
-															<select data-am-selected="{btnSize: 'sm'}" id="s_xfsh1"
-																name="xfsh">
-																<option id="xzxfq" value="">选择销方</option>
-																<c:forEach items="${xfList}" var="item">
-																	<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 5px;">
-													<div class="am-form-group">
-														<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
-														<div class="am-u-sm-8">
-															<input id="s_gfmc1" type="text" placeholder="购方名称">
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 5px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
-														<div class="am-u-sm-8">
-															<input id="s_ddh1" type="text" placeholder="订单号">
-														</div>
-													</div>
-												</div>
-
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
-														<div class="am-u-sm-8">
-															<select data-am-selected="{btnSize: 'sm'}" id="s_fplx"
-																name="xfsh">
-																<option id="xzlxq1" value="">选择类型</option>
-																<option value="12">电子发票(增普)</option>
-																<option value="01">增值税专用发票</option>
-																<option value="02">增值税普通发票</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
-														<div class="am-input-group am-datepicker-date am-u-sm-8"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}">
-															<input type="text" id="s_rqq1" class="am-form-field"
-																placeholder="开始时间" readonly> <span
-																class="am-input-group-btn am-datepicker-add-on">
-																<button class="am-btn am-btn-default" type="button">
-																	<span class="am-icon-calendar"></span>
-																</button>
-															</span>
-														</div>
-													</div>
-												</div>
-
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
-														<div class="am-input-group am-datepicker-date am-u-sm-8"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}">
-															<input type="text" id="s_rqz1" class="am-form-field"
-																placeholder="截止时间" readonly> <span
-																class="am-input-group-btn am-datepicker-add-on">
-																<button class="am-btn am-btn-default" type="button">
-																	<span class="am-icon-calendar"></span>
-																</button>
-															</span>
-														</div>
-
-													</div>
-												</div>
-												<div style="padding: 32px;">
-													<button type="button" id="kp_search1"
-														class="am-btn am-btn-default am-btn-success data-back">
-														<span></span> 查询
-													</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-
-
-								<div class="am-g  am-padding-top">
-									<form action="#"
-										class="js-search-form  am-form am-form-horizontal">
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-											<div class="am-form-group">
-												<div class="am-btn-toolbar">
-													<div class="am-btn-group am-btn-group-xs">
-														<button type="button" id="kp_kpdy"
-															class="am-btn am-btn-default am-btn-success">
-															<span></span> 开票
-														</button>
-														<button type="button" id="kp_del"
-															class="am-btn am-btn-default am-btn-danger">
-															<span></span> 删除
-														</button>
-														<button type="button" id="kp_yl"
-															class="am-btn am-btn-default am-btn-success">
-															<span></span> 预览
-														</button>
-													<!-- 	<button type="button" id="kp_kpdy"
-															class="am-btn am-btn-default am-btn-success">
-															<span></span> 开票并打印
-														</button> -->
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-											<div class="am-form-group tpl-table-list-select">
-												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-													<option value="gfmc">购方名称</option>
-													<option value="ddh">订单号</option>
-												</select>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-											<div
-												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-												<input id="dxcsz" type="text" class="am-form-field ">
-												<span class="am-input-group-btn">
-													<button id="kp_search"
-														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-														type="button"></button>
-												</span>
-											</div>
-										</div>
-									</form>
-									<div class="am-u-sm-12 am-padding-top">
-										<div>
-											<table style="margin-bottom: 0px;"
-												class="js-table2 am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap "
-												id="jyls_table">
-												<thead>
-													<tr>
-														<th><input type="checkbox" id="check_all1" /></th>
-														<th>序号</th>
-														<th>交易流水号</th>
-														<th>订单号</th>
-														<th>订单审核时间</th>
-														<th>发票类型</th>
-														<th>购方税号</th>
-														<th>购方名称</th>
-														<th>购方银行</th>
-														<th>购方账号</th>
-														<th>购方联系人</th>
-														<th>购方地址</th>
-														<!-- 	<th>购方邮件地址</th> -->
-														<th>购方手机号</th>
-														<th>备注</th>
-														<th class="data-ctr">价税合计</th>
-														<!-- 	<th>操作</th> -->
-													</tr>
-												</thead>
-											</table>
-											<legend>商品明细列表</legend>
-										</div>
-									</div>
-
-									<div style="margin-top: 0px; margin-left: 0px;"
-										class="am-u-sm-12">
-										<div>
-											<table style="margin-bottom: 0px;"
-												class="js-mxtable am-table am-table-bordered am-table-hover am-text-nowrap am-table-striped"
-												id="jyspmx_table">
-												<thead>
-													<tr>
-														<th>序号</th>
-														<th>名称</th>
-														<th>规格型号</th>
-														<th>单位</th>
-														<th>数量</th>
-														<th>单价</th>
-														<th>金额</th>
-														<th>税率</th>
-														<th>税额</th>
-														<th>价税合计</th>
-													</tr>
-												</thead>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="am-tab-panel am-fade" id="tab2">
-								<div class="admin-content">
+					<%--	<div class="am-tabs-bd">
+							<div class="am-tab-panel am-fade am-in&lt;%&ndash; am-active&ndash;%&gt;" &lt;%&ndash;id="tab1"&ndash;%&gt;>
+							--%>	<div class="admin-content">
 									<input type="hidden" id="bj">
 									<div class="am-cf widget-head">
 										<div class="widget-title am-cf">
 											<strong id="yjcd" class="am-text-primary am-text-lg"></strong>/
 											<strong id="ejcd"></strong>
 											<button class="am-btn am-btn-success am-fr"
-												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+													data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 										</div>
 									</div>
 									<div id="doc-oc-demo3" class="am-offcanvas">
 										<form action="<c:url value='fpcx/exportExcel'/>"
-											id="searchform1">
+											  id="searchform1">
 											<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">订单号</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_ddh" name="ddh"
-																placeholder="请输入订单号" />
+																   placeholder="请输入订单号" />
 														</div>
 													</div>
 												</div>
@@ -279,60 +76,60 @@
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">购方名称</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_gfmc" name="gfmc"
-																placeholder="请输入购方名称" />
+																   placeholder="请输入购方名称" />
 														</div>
 													</div>
 												</div>
-												<div class="am-offcanvas-content">
+												<%--<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">商品名称</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_spmc" name="spmc"
-																placeholder="请输入商品名称" />
+																   placeholder="请输入商品名称" />
 														</div>
 													</div>
-												</div>
-												<div class="am-offcanvas-content">
+												</div>--%>
+												<%--<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_fpdm" name="fpdm"
-																placeholder="请输入发票代码" />
+																   placeholder="请输入发票代码" />
 														</div>
 													</div>
-												</div>
+												</div>--%>
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票号码</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_fphm" name="fphm"
-																placeholder="请输入发票号码" />
+																   placeholder="请输入发票号码" />
 														</div>
 													</div>
 												</div>
-													<div class="am-offcanvas-content">
-										<div class="am-form-group">
-											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票类型</label>
-											<div class="am-u-sm-7">
-												<select id="s_fpzldm" name="fpzldm" data-am-selected="{btnSize: 'sm'}">
-													<option value="">----请选择----</option>
-													<option value="01">增值税专用发票</option>
-													<option value="02">增值税普通发票</option>
-													<option value="12">电子发票(增普)</option>
-												</select>
-											</div>
-										</div>
-									</div>
+												<div class="am-offcanvas-content">
+													<div class="am-form-group">
+														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票类型</label>
+														<div class="am-u-sm-7">
+															<select id="s_fpzldm" name="fpzldm" data-am-selected="{btnSize: 'sm'}">
+																<option value="">----请选择----</option>
+																<option value="01">增值税专用发票</option>
+																<option value="02">增值税普通发票</option>
+																<option value="12">电子发票(增普)</option>
+															</select>
+														</div>
+													</div>
+												</div>
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">操作类型</label>
 														<div class="am-u-sm-7">
 															<select id="s_fpczlx" name="fpczlx"
-																data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{btnSize: 'sm'}">
 																<option value="">----请选择----</option>
 																<option value="11">正常开具</option>
 																<option value="12">红冲开具</option>
-																<option value="13">纸质发票换开</option>
+																<%--<option value="13">纸质发票换开</option>--%>
 															</select>
 														</div>
 													</div>
@@ -342,7 +139,7 @@
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票状态</label>
 														<div class="am-u-sm-7">
 															<select id="s_fpzt" name="fpzt"
-																data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{btnSize: 'sm'}">
 																<option value="">------请选择------</option>
 																<c:forEach items="${ztList}" var="zt">
 																	<option value="${zt.fpztdm}">${zt.fpztmc}</option>
@@ -351,25 +148,25 @@
 														</div>
 													</div>
 												</div>
-												<div class="am-offcanvas-content">
+												<%--<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">打印状态</label>
 														<div class="am-u-sm-7">
 															<select id="s_dyzt" name="printflag"
-																data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{btnSize: 'sm'}">
 																<option value="">------请选择------</option>
 																<option value="0">未打印</option>
 																<option value="1">已打印</option>
 															</select>
 														</div>
 													</div>
-												</div>
+												</div>--%>
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
 														<div class="am-u-sm-7">
 															<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12"
-																data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{btnSize: 'sm'}">
 																<option value="-1">请选择</option>
 																<c:forEach items="${xfList}" var="item">
 																	<option value="${item.xfsh}">${item.xfmc}</option>
@@ -383,7 +180,7 @@
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点</label>
 														<div class="am-u-sm-7">
 															<select id="mb_skp" name="mb_skp" class="am-u-sm-12"
-																data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{btnSize: 'sm'}">
 
 															</select>
 														</div>
@@ -394,8 +191,8 @@
 														<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_kprqq" name="kprqq"
-																placeholder="点击选择开票起始日"
-																data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+																   placeholder="点击选择开票起始日"
+																   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 														</div>
 													</div>
 												</div>
@@ -404,14 +201,14 @@
 														<!-- 											<label for="s_kprqz" class="am-u-sm-4 am-form-label">开票日期止</label> -->
 														<div class="am-u-sm-7">
 															<input type="text" id="s_kprqz" name="kprqz"
-																placeholder="点击选择开票终止日"
-																data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+																   placeholder="点击选择开票终止日"
+																   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 														</div>
 													</div>
 												</div>
 												<div class="am-offcanvas-content" style="padding: 32px;">
 													<button id="button3" type="button"
-														class="am-btn am-btn-default am-btn-success data-back">查询</button>
+															class="am-btn am-btn-default am-btn-success data-back">查询</button>
 												</div>
 
 											</div>
@@ -421,25 +218,21 @@
 									</div>
 									<div class="am-g  am-padding-top">
 										<form action="<c:url value='fpcx/exportExcel'/>"
-											id="searchform"
-											class="js-search-form  am-form am-form-horizontal">
+											  id="searchform"
+											  class="js-search-form  am-form am-form-horizontal">
 											<input type="hidden" name="kplsh1" value="" id="kplsh1"/>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 												<div class="am-form-group">
 													<div class="am-btn-toolbar">
 														<div class="am-btn-group am-btn-group-xs">
-															<!-- 												<button type="button" id="button2" -->
-															<!-- 													class="js-sent am-btn am-btn-default am-btn-success"> -->
-															<!-- 													发送</button> -->
-															<!-- 												<button type="button" class="js-search  am-btn am-btn-primary">查询</button> -->
+															<%--<button type="button"
+																	class="js-export  am-btn am-btn-success">导出</button>
 															<button type="button"
-																class="js-export  am-btn am-btn-success">导出</button>
-															<button type="button"
-																class="js-print  am-btn am-btn-warning">批量打印</button>
+																	class="js-print  am-btn am-btn-warning">批量打印</button>
 															<button id="autoColumn" type="button"
-																class="js-auto  am-btn am-btn-success">自定义显示列</button>
+																	class="js-auto  am-btn am-btn-success">自定义显示列</button>
 															<button id="autoColumn1" type="button"
-																class="js-out  am-btn am-btn-primary">自定义导出列</button>
+																	class="js-out  am-btn am-btn-primary">自定义导出列</button>--%>
 															<button id="fpck" type="button"
 																	class="js-fpck  am-btn am-btn-success">重新开具</button>
 														</div>
@@ -449,158 +242,77 @@
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="tip" name="tip"
-														data-am-selected="{btnSize: 'sm'}">
+															data-am-selected="{btnSize: 'sm'}">
 														<option value="0">请选择</option>
-														<option value="1" selected="selected">购方名称</option>
-														<option value="2">订单号</option>
-														<option value="3">商品名称</option>
-<!-- 														<option value="4">销方名称</option> -->
+														<option value="2" selected="selected">订单号</option>
+														<%--<option value="3">商品名称</option>--%>
 														<option value="5">发票号码</option>
-														<option value="6">发票代码</option>
+														<option value="1" >购方名称</option>
+														<%--<option value="6">发票代码</option>--%>
 													</select>
 												</div>
 											</div>
 											<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
 												<div
-													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+														class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 													<input type="text" id="searchtxt" name="txt"
-														class="am-form-field "> <span
+														   class="am-form-field "> <span
 														class="am-input-group-btn" id="button1">
 														<button
-															class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-															type="button"></button>
+																class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+																type="button"></button>
 													</span>
+												</div>
+											</div>
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+												<div class="am-form-group">
+													<div class="am-u-md-6 am-u-lg-3">
+														<input type="text" id="w_kprqq" name="w_kprqq"
+															   placeholder="开票起始时间"
+															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+													</div>
+													<div class="am-u-md-6 am-u-lg-3">
+														<input type="text" id="w_kprqz" name="w_kprqz"
+															   placeholder="开票截止时间"
+															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+													</div>
 												</div>
 											</div>
 										</form>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table id="kpls_table"
-													class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
+													   class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 													<thead>
-														<tr id="bt">
-															<th><input type="checkbox" id="select_all" /></th>
-															<th>序号</th>
-															<th>订单号</th>
-															<th>操作类型</th>
-															<th>发票代码</th>
-															<th>发票号码</th>
-															<th>发票类型</th>
-															<th>价稅合计</th>
-															<th>购方名称</th>
-															<th>开票日期</th>
-															<th>发票状态</th>
-															<th>发送打印状态</th>
-															<th>错误信息</th>
-														</tr>
+													<tr id="bt">
+														<th><input type="checkbox" id="select_all" /></th>
+														<th>序号</th>
+														<th>订单号</th>
+														<th>操作类型</th>
+														<th>发票代码</th>
+														<th>发票号码</th>
+														<th>发票类型</th>
+														<th>价稅合计</th>
+														<th>购方名称</th>
+														<th>开票日期</th>
+														<th>发票状态</th>
+														<th>发送打印状态</th>
+														<th>错误信息</th>
+													</tr>
 													</thead>
 												</table>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
+						<%--	</div>
+						</div>--%>
+
+<%--
+					</div>
+--%>
 					</div>
 
-
-
-
-					<!-- content end -->
-					<!-- model -->
-					<div class="am-modal am-modal-no-btn" tabindex="-1" id="fpxx">
-						<div class="am-modal-dialog">
-							<div class="am-modal-hd">
-								发票查询详情 <a href="javascript: void(0)"
-									class="am-close am-close-spin" data-am-modal-close>&times;</a>
-							</div>
-							<div class="am-modal-bd">
-								<hr />
-								<form action="#" class="js-form-0  am-form am-form-horizontal">
-									<div class="am-g">
-										<div class="am-u-sm-12">
-											<div class="am-form-group">
-												<label for="fpdm" class="am-u-sm-4 am-form-label">订单号</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="ddh" name="ddh" placeholder=""
-														readonly />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="fpdm" name="fpdm" placeholder=""
-														readonly /> <input type="hidden" name="id" />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="fphm" class="am-u-sm-4 am-form-label">发票号码</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="fphm" name="fphm" placeholder=""
-														readonly />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="je" class="am-u-sm-4 am-form-label">金额</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="je" name="je" placeholder=""
-														readonly />
-												</div>
-											</div>
-
-										</div>
-										<div class="am-u-sm-12">
-											<div class="am-form-group">
-												<label for="se" class="am-u-sm-4 am-form-label">税额</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="se" name="se" placeholder=""
-														readonly />
-												</div>
-											</div>
-
-											<div class="am-form-group">
-												<label for="gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="gfmc" name="gfmc" placeholder=""
-														readonly />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="sh" class="am-u-sm-4 am-form-label">税号</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="sh" name="sh" placeholder=""
-														readonly />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="yh" class="am-u-sm-4 am-form-label">银行</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="yh" name="yh" placeholder=""
-														readonly />
-												</div>
-											</div>
-											<div class="am-form-group">
-												<label for="yhzh" class="am-u-sm-4 am-form-label">银行账号</label>
-												<div class="am-u-sm-8">
-													<input type="text" id="yhzh" name="yhzh" placeholder=""
-														readonly />
-												</div>
-											</div>
-
-										</div>
-										<div class="am-u-sm-12">
-											<div class="am-form-group">
-												<div class="am-u-sm-12  am-text-center">
-													<button type="button"
-														class="js-close  am-btn am-btn-danger">关闭</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 
 					<!-- loading do not delete this -->
 					<div
@@ -1007,17 +719,17 @@
 		</div>
 	</div>
 
-<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
-     <div class="am-modal-hd">
-      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-    </div>
-  <div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
-       <div class="am-modal-bd" >
-       <div id="doc-modal-fpyll">
-		<%@ include file="fapiao.jsp" %>
-		</div>
-	</div>
-  </div>
+	<%--<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+         <div class="am-modal-hd">
+          <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+      <div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+           <div class="am-modal-bd" >
+           <div id="doc-modal-fpyll">
+            <%@ include file="fapiao.jsp" %>
+            </div>
+        </div>
+      </div>--%>
 </div>
 	<input type="hidden" id="kplshStr">
 	<a href="#"
@@ -1032,10 +744,39 @@
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script src="assets/js/kp_app.js"></script>
+	<script src="assets/js/fpycck.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
 </body>
 <script>
+
+    function getCurrentMonthFirst(){
+        var date=new Date();
+        date.setDate(1);
+        return date;
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    $(function() {
+        var startDate = getCurrentMonthFirst();
+        var endDate = new Date();
+        //var $alert = $('#my-alert');
+        $("#w_kprqq").val(formatDate(startDate));
+        $("#w_kprqz").val(formatDate(endDate));
+        $("#s_kprqq").val(formatDate(startDate));
+        $("#s_kprqz").val(formatDate(endDate));
+    });
+
 	function refresh() {
 		this.location = this.location;
 	}
