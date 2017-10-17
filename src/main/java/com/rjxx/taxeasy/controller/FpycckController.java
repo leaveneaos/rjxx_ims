@@ -109,6 +109,11 @@ public class FpycckController extends BaseController {
         maps.put("printflag", printflag);
         maps.put("gfmc", gfmc);
         maps.put("fpdm", fpdm);
+        //发票异常开具只查询发票状态为05,14
+        List fpztlist = new ArrayList();
+        fpztlist.add("05");
+        fpztlist.add("14");
+        maps.put("fpztlist", fpztlist);
         maps.put("fpzt", fpzt);
         maps.put("xfmc", xfmc);
         maps.put("fpczlx", fpczlx);

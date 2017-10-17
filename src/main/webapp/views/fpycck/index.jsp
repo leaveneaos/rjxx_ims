@@ -134,7 +134,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="am-offcanvas-content">
+												<%--<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票状态</label>
 														<div class="am-u-sm-7">
@@ -147,7 +147,7 @@
 															</select>
 														</div>
 													</div>
-												</div>
+												</div>--%>
 												<%--<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">打印状态</label>
