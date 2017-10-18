@@ -41,6 +41,7 @@ public class ErrorExceptionSkJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
+            logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
             do {
                 String kplshStr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "12");
                 if (StringUtils.isNotBlank(kplshStr)) {
@@ -52,6 +53,7 @@ public class ErrorExceptionSkJob implements Job {
                 } else {
                     break;
                 }
+                logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
             } while (true);
         } catch (Exception e) {
             e.printStackTrace();
