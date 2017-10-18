@@ -1337,6 +1337,7 @@ $(function() {
             _this.modalAction(); // hidden action
             _this.saveColumn();
             _this.saveColumn1();
+            _this.tableEx.ajax.reload();
         }
     };
     action.init();

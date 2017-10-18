@@ -234,6 +234,8 @@
 																	class="js-auto  am-btn am-btn-success">自定义显示列</button>
 															<button id="autoColumn1" type="button"
 																	class="js-out  am-btn am-btn-primary">自定义导出列</button>--%>
+															<button id="autoColumn" type="button"
+																		class="js-auto  am-btn am-btn-primary">自定义显示列</button>
 															<button id="fpck" type="button"
 																	class="js-fpck  am-btn am-btn-success">重新开具</button>
 														</div>
@@ -274,6 +276,9 @@
 														<input type="text" id="w_kprqq" name="w_kprqq"
 															   placeholder="开票起始时间"
 															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+													</div>
+													<div class="am-u-md-6 am-u-lg-1">
+														至
 													</div>
 													<div class="am-u-md-6 am-u-lg-3">
 														<input type="text" id="w_kprqz" name="w_kprqz"

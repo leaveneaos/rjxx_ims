@@ -260,10 +260,16 @@
 
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
 									<div class="am-form-group">
+										<div class="am-u-md-6 am-u-lg-2">
+											开票日期
+										</div>
 										<div class="am-u-md-6 am-u-lg-3">
 											<input type="text" id="w_kprqq" name="w_kprqq"
 												   placeholder="开票起始时间"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+										<div class="am-u-md-6 am-u-lg-1">
+											至
 										</div>
 										<div class="am-u-md-6 am-u-lg-3">
 											<input type="text" id="w_kprqz" name="w_kprqz"
