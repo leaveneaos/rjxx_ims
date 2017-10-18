@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
+import com.rjxx.taxeasy.config.RabbitmqUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import org.apache.commons.io.FilenameUtils;
@@ -78,7 +79,8 @@ public class KpController extends BaseController {
 	private XfService xfService;
 	@Autowired
 	private FpclService fpclService;
-
+	@Autowired
+	private RabbitmqUtils rabbitmqSend;
 	@Autowired
 	DrmbService drmbService;
 	@Autowired
@@ -1685,7 +1687,8 @@ public class KpController extends BaseController {
 						kpls.setFpztdm("04");
 						kplsService.save(kpls);
 					}else if(cszb.getCsz().equals("03")){
-                       skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+                       //skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+						rabbitmqSend.sendMsg("ErrorException_Sk", kpls.getFpzldm(), kpls.getKplsh() + "");
 					}
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
