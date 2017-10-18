@@ -165,7 +165,7 @@
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
 														<div class="am-u-sm-7">
-															<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12"
+															<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-7"
 																	data-am-selected="{btnSize: 'sm'}">
 																<option value="-1">请选择</option>
 																<c:forEach items="${xfList}" var="item">
@@ -179,7 +179,7 @@
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点</label>
 														<div class="am-u-sm-7">
-															<select id="mb_skp" name="mb_skp" class="am-u-sm-12"
+															<select id="mb_skp" name="mb_skp" class="am-u-sm-7"
 																	data-am-selected="{btnSize: 'sm'}">
 
 															</select>
@@ -188,7 +188,7 @@
 												</div>
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
-														<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
+														<label for="s_kprqq" class="am-u-sm-4 am-form-label">订单日期</label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_kprqq" name="kprqq"
 																   placeholder="点击选择开票起始日"
@@ -199,6 +199,7 @@
 												<div class="am-offcanvas-content">
 													<div class="am-form-group">
 														<!-- 											<label for="s_kprqz" class="am-u-sm-4 am-form-label">开票日期止</label> -->
+														<label for="s_kprqq" class="am-u-sm-4 am-form-label"></label>
 														<div class="am-u-sm-7">
 															<input type="text" id="s_kprqz" name="kprqz"
 																   placeholder="点击选择开票终止日"
@@ -266,6 +267,9 @@
 											</div>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
 												<div class="am-form-group">
+													<div class="am-u-md-6 am-u-lg-2">
+														订单日期
+													</div>
 													<div class="am-u-md-6 am-u-lg-3">
 														<input type="text" id="w_kprqq" name="w_kprqq"
 															   placeholder="开票起始时间"

@@ -124,28 +124,33 @@ public class FpycckController extends BaseController {
         if (null != sk && !"".equals(sk) && !"-1".equals(sk)) {
             maps.put("sk", sk);
         }
-        List<Fpcxvo> ykfpList = kplsService.findByPage2(maps);
-        String requestDomain = HtmlUtils.getDomainPath(request);
-        for (Fpcxvo fpcxvo : ykfpList) {
-            String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
-            fpcxvo.setPdfurl(pdfurl);
-            if(fpcxvo.getSkpid()!=null){
-                Skp skp = skpService.findOne(fpcxvo.getSkpid());
-                fpcxvo.setKpdmc(skp.getKpdmc());
-                fpcxvo.setKpddm(skp.getKpddm());
-            }
-        }
+
 
        // String tmp = (String)request.getSession().getAttribute("total");
         int total;
-        if(0 == start){
+        if(0 == start && loaddata2){
             total = kplsService.findTotal(maps);
             request.getSession().setAttribute("total",total);
         }else{
-            total =  (Integer)request.getSession().getAttribute("total");
+            if(!loaddata2){
+                total = 0;
+            }else {
+                total = (Integer) request.getSession().getAttribute("total");
+            }
             //request.getSession().getAttribute("total");
         }
         if(loaddata2){
+            List<Fpcxvo> ykfpList = kplsService.findByPage2(maps);
+            String requestDomain = HtmlUtils.getDomainPath(request);
+            for (Fpcxvo fpcxvo : ykfpList) {
+                String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
+                fpcxvo.setPdfurl(pdfurl);
+                if(fpcxvo.getSkpid()!=null){
+                    Skp skp = skpService.findOne(fpcxvo.getSkpid());
+                    fpcxvo.setKpdmc(skp.getKpdmc());
+                    fpcxvo.setKpddm(skp.getKpddm());
+                }
+            }
            result.put("recordsTotal", total);
            result.put("recordsFiltered", total);
             result.put("draw", draw);

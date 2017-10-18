@@ -56,9 +56,230 @@ public class FpzfController extends BaseController{
 		return "fpzf/index";
 	}
 
+
+
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw,boolean loaddata) throws Exception {
+	public Map<String, Object> getZfItems(int length, int start, int draw,boolean loaddata) throws Exception {
+
+		String kprqq=request.getParameter("kprqq");//开票日期起
+		String kprqz=request.getParameter("kprqz");//开票日期止
+
+		String gfmc=request.getParameter("gfmc");//购方名称
+
+		String xfi=request.getParameter("xfi");//销方税号
+
+		String fpzldm=request.getParameter("fplx");//发票类型
+
+		String ddh=request.getParameter("ddh");//订单号
+
+		String fpdm=request.getParameter("fpdm");//发票代码
+
+		String fphm=request.getParameter("fphm");//发票号码
+
+
+		Map<String, Object> result = new HashMap<String, Object>();
+		//Pagination pagination = new Pagination();
+		//pagination.setPageNo(start / length + 1);
+		//pagination.setPageSize(length);
+		Map params = new HashMap();
+		params.put("start",start);
+		params.put("length",length);
+		String gsdm = getGsdm();
+		String xfStr = "";
+		List<Xf> xfs = getXfList();
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid + "";
+				} else {
+					xfStr += xfid + ",";
+				}
+			}
+		}
+		String[] xfid = xfStr.split(",");
+		if (xfid.length == 0) {
+			xfid = null;
+		}
+		String skpStr = "";
+		List<Skp> skpList = getSkpList();
+		if (skpList != null) {
+			for (int j = 0; j < skpList.size(); j++) {
+				int skpid = skpList.get(j).getId();
+				if (j == skpList.size() - 1) {
+					skpStr += skpid + "";
+				} else {
+					skpStr += skpid + ",";
+				}
+			}
+		}
+		String[] skpid = skpStr.split(",");
+		if (skpid.length == 0) {
+			skpid = null;
+		}
+		params.put("fpzldm", fpzldm);
+		params.put("gsdm", gsdm);
+		params.put("xfid", xfid);
+		params.put("xfi", xfi);
+		params.put("skpid", skpid);
+		params.put("kprqq2", kprqq);
+		params.put("kprqz2", kprqz);
+		params.put("gfmc", gfmc);
+		params.put("ddh", ddh);
+		params.put("fpdm", fpdm);
+		params.put("fphm", fphm);
+		List fpzllist = new ArrayList();
+		fpzllist.add("01");
+		fpzllist.add("02");
+		params.put("fpzllist",fpzllist);
+		params.put("fpztdm", "00");
+		params.put("fpczlx","11");
+		//List<Fpcxvo> khcfpList = kplsService.findKzffpByPage(pagination);
+		int total ;
+		if(0 == start && loaddata){
+			total = kplsService.findTotal(params);
+			request.getSession().setAttribute("total",total);
+		}else{
+			if(!loaddata){
+				 total = 0;
+			}else {
+				total = (Integer) request.getSession().getAttribute("total");
+			}
+			//request.getSession().getAttribute("total");
+		}
+		if(loaddata){
+			List<Fpcxvo> khcfpList = kplsService.findByPage2(params);
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", khcfpList);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+		return result;
+	}
+
+
+	@RequestMapping(value = "/getKplsList1")
+	@ResponseBody
+	public Map<String, Object> getItems1(int length, int start, int draw,boolean loaddata2) throws Exception {
+
+		String kprqq=request.getParameter("kprqq");//开票日期起
+		String kprqz=request.getParameter("kprqz");//开票日期止
+
+		String gfmc=request.getParameter("gfmc");//购方名称
+
+		String xfi=request.getParameter("xfi");//销方税号
+
+		String fplx=request.getParameter("fplx");//发票类型
+
+		String ddh=request.getParameter("ddh");//订单号
+
+		String fpdm=request.getParameter("fpdm");//发票代码
+
+		String fphm=request.getParameter("fphm");//发票号码
+
+		Map<String, Object> result = new HashMap<String, Object>();
+		/*Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);*/
+		Map params = new HashMap();
+		params.put("start",start);
+		params.put("length",length);
+		String gsdm = getGsdm();
+		String xfStr = "";
+		List<Xf> xfs = getXfList();
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid + "";
+				} else {
+					xfStr += xfid + ",";
+				}
+			}
+		}
+		String[] xfid = xfStr.split(",");
+		if (xfid.length == 0) {
+			xfid = null;
+		}
+		String skpStr = "";
+		List<Skp> skpList = getSkpList();
+		if (skpList != null) {
+			for (int j = 0; j < skpList.size(); j++) {
+				int skpid = skpList.get(j).getId();
+				if (j == skpList.size() - 1) {
+					skpStr += skpid + "";
+				} else {
+					skpStr += skpid + ",";
+				}
+			}
+		}
+		String[] skpid = skpStr.split(",");
+		if (skpid.length == 0) {
+			skpid = null;
+		}
+		params.put("fpzldm", fplx);
+		params.put("gsdm", gsdm);
+		params.put("xfid", xfid);
+		params.put("xfi", xfi);
+		params.put("skpid", skpid);
+		params.put("kprqq2", kprqq);
+		params.put("kprqz2", kprqz);
+		params.put("gfmc", gfmc);
+		params.put("ddh", ddh);
+		params.put("fpdm", fpdm);
+		params.put("fphm", fphm);
+
+		List fpzllist = new ArrayList();
+		fpzllist.add("01");
+		fpzllist.add("02");
+		params.put("fpzllist",fpzllist);
+		params.put("fpzt", "08");
+		params.put("fpczlx","14");
+		params.put("yxbz","1");
+		//List<Fpcxvo> khcfpList = kplsService.findKzffpByPage1(pagination);
+
+		int total ;
+		if(0 == start && loaddata2){
+			total = kplsService.findTotal(params);
+			request.getSession().setAttribute("total",total);
+		}else{
+			if(!loaddata2){
+				total = 0;
+			}else {
+				total = (Integer) request.getSession().getAttribute("total");
+			}
+			//request.getSession().getAttribute("total");
+		}
+		if(loaddata2){
+			List<Fpcxvo> khcfpList = kplsService.findByPage2(params);
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", khcfpList);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+		return result;
+	}
+
+
+	/**
+	 *
+	 * 弃用
+	 *
+	 */
+	//@RequestMapping(value = "/getKplsList")
+	//@ResponseBody
+	/*public Map<String, Object> getItems(int length, int start, int draw,boolean loaddata) throws Exception {
 		
 		String kprqq=request.getParameter("kprqq");//开票日期起
 		String kprqz=request.getParameter("kprqz");//开票日期止
@@ -224,7 +445,7 @@ public class FpzfController extends BaseController{
 		}
 		return result;
 	}
-
+*/
 	@RequestMapping(value = "/getMx")
 	@ResponseBody
 	public Map<String, Object> getMx(int kplsh) throws Exception {

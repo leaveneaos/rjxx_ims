@@ -74,7 +74,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="am-offcanvas-content" style="margin-top: 5px;">
+												<%--<div class="am-offcanvas-content" style="margin-top: 5px;">
 													<div class="am-form-group">
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 														<div class="am-u-sm-8">
@@ -82,7 +82,7 @@
 																placeholder="发票代码">
 														</div>
 													</div>
-												</div>
+												</div>--%>
 												<div class="am-offcanvas-content" style="margin-top: 5px;">
 													<div class="am-form-group">
 														<label for="s_fphm" class="am-u-sm-4 am-form-label">发票号码</label>
@@ -99,7 +99,7 @@
 															<select data-am-selected="{btnSize: 'sm'}" id="s_fplx"
 																name="s_fplx">
 																<option id="xzlxq" value="">选择类型</option>
-																<option value="12">电子发票(增普)</option>
+																<%--<option value="12">电子发票(增普)</option>--%>
 																<option value="01">增值税专用发票</option>
 																<option value="02">增值税普通发票</option>
 															</select>
@@ -188,8 +188,8 @@
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 											<div class="am-form-group tpl-table-list-select">
 												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-													<option value="gfmc">购方名称</option>
 													<option value="ddh">订单号</option>
+													<option value="gfmc">购方名称</option>
 												</select>
 											</div>
 										</div>
