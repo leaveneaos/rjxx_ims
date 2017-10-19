@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.comm.utils.ApplicationContextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -153,6 +155,32 @@ public class PldrkpController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 线程池执行任务
+	 */
+	private static ThreadPoolTaskExecutor taskExecutor = null;
+	/**
+	 * 多线程执行生成pdf
+	 */
+	class ZjkpTask implements Runnable {
+
+		private List jyxxsqList;
+		@Override
+		public void run() {
+			//synchronized (this){
+			logger.info("------多线程执行生成pdf----------");
+			try {
+				fpclService.zjkp(jyxxsqList, "01");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//}
+		}
+		public void setJyxxsqList(List jyxxsqList) {
+			this.jyxxsqList = jyxxsqList;
+		}
+	}
+
 	@ResponseBody
 	@RequestMapping("/plkjcl")
 	public Map<String, Object> plkjcl(String jylsh, String xfid, String lrsj, String xh) {
@@ -169,7 +197,13 @@ public class PldrkpController extends BaseController {
 		pldrjlService.save(pljl);
 		List<Jyxxsq> jyxxsqList = pldrjlService.findAllJyxxsqByParams(params);
 		try {
-			fpclService.zjkp(jyxxsqList, "01");
+			//fpclService.zjkp(jyxxsqList, "01");
+			ZjkpTask zjkpTask =new ZjkpTask();
+			zjkpTask.setJyxxsqList(jyxxsqList);
+			if (taskExecutor == null) {
+				taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
+			}
+			taskExecutor.execute(zjkpTask);
 			result.put("success", true);
 			result.put("msg", "数据已处理，请关注发票开具结果");
 		} catch (Exception e) {
