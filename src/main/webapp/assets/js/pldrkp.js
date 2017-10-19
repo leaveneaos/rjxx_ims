@@ -140,13 +140,16 @@ $(function() {
 				                    if(data.success){
 				                    	swal({ 
 					                          title: data.msg, 
-					                          timer: 1500, 
+					                          //timer: 1500,
 					                          type: "success", 
 					                          showConfirmButton: false 
 					                        });
 									}
+
 				                    _this.tableEx.ajax.reload();
+
 				                })
+                                hideMask();
 				            });
 							/*$.ajax({
 								url : 'pldrkp/plkjcl',

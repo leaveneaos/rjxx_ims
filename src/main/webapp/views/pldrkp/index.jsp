@@ -442,7 +442,9 @@ table thead th {
                         swal(res["message"]);
                     }
                 }
+
             };
+            hideMask();
             $("#importExcelForm").ajaxSubmit(options);
         });
         //导入选择销方模板

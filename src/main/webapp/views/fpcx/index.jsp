@@ -190,6 +190,7 @@
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<!-- 											<label for="s_kprqz" class="am-u-sm-4 am-form-label">开票日期止</label> -->
+											<label for="s_kprqq" class="am-u-sm-4 am-form-label"></label>
 											<div class="am-u-sm-8">
 												<input type="text" id="s_kprqz" name="kprqz"
 													placeholder="点击选择开票终止日" readonly
