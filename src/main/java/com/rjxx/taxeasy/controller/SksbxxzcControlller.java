@@ -757,8 +757,8 @@ public class SksbxxzcControlller extends BaseController {
 			if (kplx != null) {
 				String[] strs = kplx.split(",");
 				for (String str : strs) {
-					if (!str.equals("01") || !str.equals("02") || !str.equals("12")) {
-						msgg = "第" + (i + 2) + "行开票类型填写不正确（应为01,02,12三种，多种用英文“,”隔开），请重新填写！";
+					if (!str.equals("01") && !str.equals("02") && !str.equals("12")) {
+						msgg = "第" + (i + 2) + "行开票类型填写不正确（应为01,02,12三种，多种用英文“,”隔开），请重新填写！\r\n";
 						msg += msgg;
 					}
 				}
