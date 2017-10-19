@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.Fpcxvo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -153,7 +154,84 @@ public class YjfsController extends BaseController {
 		return result;
 	}
 
+
 	@RequestMapping(value = "/getYjfsList")
+	@ResponseBody
+	public Map getYjfsList(int length, int start, int draw, String jyrqq, String jyrqz, String kprqq, String kprqz,
+						   String gfmc, String ddh, String fpdm, String fphm, String xfmc, Integer xfid,boolean loaddata) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		/*Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);*/
+		Map maps = new HashMap();
+		maps.put("start",start);
+		maps.put("length",length);
+		List<Integer> xfs = new ArrayList<>();
+		if (!getXfList().isEmpty()) {
+			for (Xf xf : getXfList()) {
+				xfs.add(xf.getId());
+			}
+		}
+		if(null != xfid && !xfid.equals("")){
+			xfs.add(xfid);
+		}
+		if (xfs.size() > 0) {
+			maps.put("xfList", xfs);
+		}
+		maps.put("gsdm", getGsdm());
+		maps.put("gfmc", gfmc);
+		maps.put("ddh", ddh);
+		maps.put("fphm", fphm);
+		maps.put("fpdm", fpdm);
+		maps.put("xfmc", xfmc);
+		//maps.put("xfid", xfid);
+		maps.put("fpzldm", "12");
+		maps.put("fpzt","00");
+		// pagination.addParam("jyrqq", jyrqq);
+		// pagination.addParam("jyrqz", jyrqz);
+		if (!"".equals(jyrqq)) {
+			maps.put("kprqq", jyrqq);
+		}
+		if (!"".equals(jyrqz)) {
+			maps.put("kprqz", jyrqz);
+		}
+		if (!"".equals(kprqq)) {
+			maps.put("kprqq2", kprqq);
+		}
+		if (!"".equals(kprqz)) {
+			maps.put("kprqz2", kprqz);
+		}
+		maps.put("fpczlx", "11");
+
+		//int total = pagination.getTotalRecord();
+		int total;
+		if(0 == start){
+			total = kplsService.findTotal(maps);
+			request.getSession().setAttribute("total",total);
+		}else{
+			total =  (Integer)request.getSession().getAttribute("total");
+			//request.getSession().getAttribute("total");
+		}
+		if(loaddata){
+			List<Fpcxvo> list = kplsService.findByPage2(maps);
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else{
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+		return result;
+	}
+
+	/*
+	*
+	* 弃用
+	* */
+	/*@RequestMapping(value = "/getYjfsList")
 	@ResponseBody
 	public Map getYjfsList(int length, int start, int draw, String jyrqq, String jyrqz, String kprqq, String kprqz,
 			String gfmc, String ddh, String fpdm, String fphm, String xfmc, Integer xfid,boolean loaddata) throws Exception {
@@ -207,5 +285,5 @@ public class YjfsController extends BaseController {
 			result.put("data", new ArrayList<>());
 		}
 		return result;
-	}
+	}*/
 }
