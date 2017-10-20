@@ -160,7 +160,7 @@ public class PldrkpController extends BaseController {
 	 */
 	private static ThreadPoolTaskExecutor taskExecutor = null;
 	/**
-	 * 多线程执行生成pdf
+	 * 开具处理多线程
 	 */
 	class ZjkpTask implements Runnable {
 
@@ -168,7 +168,7 @@ public class PldrkpController extends BaseController {
 		@Override
 		public void run() {
 			//synchronized (this){
-			logger.info("------多线程执行生成pdf----------");
+			logger.info("------多线程执行开具处理----------");
 			try {
 				fpclService.zjkp(jyxxsqList, "01");
 			} catch (Exception e) {
