@@ -124,7 +124,7 @@ $(function() {
 				                confirmButtonColor: "#ec6c62"
 				            }, function() {
 				                $('.confirm').attr('disabled',"disabled");	
-				                showMask();			  
+				                showMask();
 				                $.ajax({
 				                    type : "POST",
 				                    url : 'pldrkp/plkjcl',
@@ -140,7 +140,7 @@ $(function() {
 				                    if(data.success){
 				                    	swal({ 
 					                          title: data.msg, 
-					                          //timer: 1500,
+					                          timer: 1500,
 					                          type: "success", 
 					                          showConfirmButton: false 
 					                        });
