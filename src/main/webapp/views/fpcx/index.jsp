@@ -425,7 +425,7 @@
 							<div class="am-tabs" data-am-tabs>
 								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 									<div class="am-modal-hd">
-										自定义列显示<a href="javascript: void(0)"
+										自定义显示列<a href="javascript: void(0)"
 											class="am-close am-close-spin" data-am-modal-close>&times;</a>
 									</div>
 									<div class="am-modal-bd" style="overflow: auto; height: 400px;">
@@ -698,6 +698,8 @@
 														name="column" type="checkbox" value="hjje" id="hjje1" />合计金额</label>
 													<label class="am-u-sm-4 am-form-label"><input
 														name="column" type="checkbox" value="hjse" id="hjse1" />合计税额</label>
+													<label class="am-u-sm-4 am-form-label"><input
+															name="column" type="checkbox" value="pdfurl" id="pdfurl" />发票网址</label>
 													<label style="display: none;"
 														class="am-u-sm-4 am-form-label"><input
 														name="column" type="checkbox" disabled="disabled" />合计税额</label>

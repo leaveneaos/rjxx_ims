@@ -393,6 +393,8 @@ public class FpcxController extends BaseController {
                 } else if ("hjse".equals(dczydlVo.getZddm())) {
                     row.createCell(k)
                             .setCellValue(ykfpcx.getHjse() == null ? "0.00" : String.format("%.2f", ykfpcx.getHjse()));
+                } else if("pdfurl".equals(dczydlVo.getZddm())){
+                    row.createCell(k).setCellValue(ykfpcx.getPdfurl());
                 }
                 k++;
             }
