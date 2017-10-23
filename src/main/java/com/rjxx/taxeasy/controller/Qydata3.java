@@ -1,10 +1,12 @@
 package com.rjxx.taxeasy.controller;
 
+import com.rjxx.comm.utils.ApplicationContextUtils;
 import com.rjxx.taxeasy.bizcomm.utils.Transferdata;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,11 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by xlm on 2017/8/7.
+ * Created by xlm on 2017/10/20.
  */
 @Controller
-@RequestMapping("/QyData2")
-public class Qydata2 extends BaseController {
+@RequestMapping("/QyData3")
+public class Qydata3 extends BaseController{
     @Autowired
     private KplsService kplsService;
     @Autowired
@@ -32,7 +34,32 @@ public class Qydata2 extends BaseController {
     private XfService xfService;
     @Autowired
     private SkpService skpService;
+    /**
+     * 线程池执行任务
+     */
+    private static ThreadPoolTaskExecutor taskExecutor = null;
+    /**
+     * 多线程执行生成pdf
+     */
+    class QydataTask implements Runnable {
 
+        private Xf xf;
+        private String gsdm;
+
+        @Override
+        public void run() {
+            synchronized (this){
+            logger.info("------多线程执行生成pdf----------");
+            Qydata(xf,gsdm);
+            }
+        }
+        public void setXf(Xf xf) {
+            this.xf = xf;
+        }
+        public void setGsdm(String gsdm) {
+            this.gsdm = gsdm;
+        }
+    }
     @RequestMapping
     @ResponseBody
     public Map transferdata(){
@@ -43,57 +70,73 @@ public class Qydata2 extends BaseController {
             List<Xf> xfList=reload3(xflist);
             for(int i=0;i<xfList.size();i++){
                 Xf xf=(Xf)xfList.get(i);
-                List<Object> skplist=Transferdata.getdata("t_skp",gsdm,0,0,xf.getId(),0);
-                xf.setLrry(getYhid());
-                xf.setId(null);
-                xfService.saveNew(xf);
-                List<Skp> skpList= reload4(skplist);
-                for(Skp skp:skpList){
-                   // List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,0,0,0,skp.getId());
-                    skp.setId(null);
-                    skp.setXfid(xf.getId());
-                    skpService.save(skp);
-                /*    List<Jyls> jylsList= reload5(jylslist);
-                    for(Jyls jyls:jylsList){
-                        List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,jyls.getDjh(),0,0,0);
-                        List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,jyls.getDjh(),0,0,0);
-                        jyls.setXfid(xf.getId());
-                        jyls.setSkpid(skp.getId());
-                        jyls.setDjh(null);
-                        jylsService.save(jyls);
-                        List<Jyspmx> jyspmxList=reload1(jyspmxlist);
-                        for(Jyspmx jyspmx:jyspmxList){
-                            jyspmx.setId(null);
-                            jyspmx.setDjh(jyls.getDjh());
-                            jyspmx.setXfid(xf.getId());
-                            jyspmx.setSkpid(skp.getId());
-                            jyspmxService.save(jyspmx);
-                        }
-                        List<Kpls> kplsList=reload(kplslist);
-                        for(Kpls kpls:kplsList){
-                            List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,0,kpls.getKplsh(),0,0);
-                            kpls.setDjh(jyls.getDjh());
-                            kpls.setXfid(xf.getId());
-                            kpls.setSkpid(skp.getId());
-                            kpls.setKplsh(null);
-                            kplsService.save(kpls);
-                            List<Kpspmx> kpspmxList=reload2(kpspmxlist);
-                            for(Kpspmx kpspmx:kpspmxList){
-                                kpspmx.setId(null);
-                                kpspmx.setDjh(jyls.getDjh());
-                                kpspmx.setKplsh(kpls.getKplsh());
-                                kpspmxService.save(kpspmx);
-                            }
-                        }
-                    }*/
+                QydataTask qydataTask=new QydataTask();
+                qydataTask.setXf(xf);
+                qydataTask.setGsdm(gsdm);
+                if (taskExecutor == null) {
+                    taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                 }
-
+                taskExecutor.execute(qydataTask);
             }
-        result.put("msg","迁移数据成功！");
+            result.put("msg","迁移数据成功！");
         }catch (Exception e){
             result.put("msg","迁移数据失败！");
         }
         return result;
+    }
+
+    public void Qydata(Xf xf,String gsdm){
+            Xf xfparms=new Xf();
+            xfparms.setGsdm(gsdm);
+            xfparms.setXfsh(xf.getXfsh());
+            Xf xfims=xfService.findOneByParams(xfparms);
+            List<Object> skplist=Transferdata.getdata("t_skp",gsdm,0,0,xf.getId(),0);
+                /* xf.setLrry(getYhid());
+                xf.setId(null);
+                xfService.saveNew(xf);*/
+            List<Skp> skpList= reload4(skplist);
+            for(Skp skp:skpList){
+                List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,0,0,0,skp.getId());
+                Map skpmap=new HashMap();
+                skpmap.put("kpddm",skp.getKpddm());
+                Skp skp1 =skpService.findOneByParams(skpmap);
+                   /* skp.setId(null);
+                    skp.setXfid(xf.getId());
+                    skpService.save(skp);*/
+                List<Jyls> jylsList= reload5(jylslist);
+                for(Jyls jyls:jylsList){
+                    List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,jyls.getDjh(),0,0,0);
+                    List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,jyls.getDjh(),0,0,0);
+                    jyls.setXfid(xfims.getId());
+                    jyls.setSkpid(skp1.getId());
+                    jyls.setDjh(null);
+                    jylsService.save(jyls);
+                    List<Jyspmx> jyspmxList=reload1(jyspmxlist);
+                    for(Jyspmx jyspmx:jyspmxList){
+                        jyspmx.setId(null);
+                        jyspmx.setDjh(jyls.getDjh());
+                        jyspmx.setXfid(xfims.getId());
+                        jyspmx.setSkpid(skp1.getId());
+                        jyspmxService.save(jyspmx);
+                    }
+                    List<Kpls> kplsList=reload(kplslist);
+                    for(Kpls kpls:kplsList){
+                        List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,0,kpls.getKplsh(),0,0);
+                        kpls.setDjh(jyls.getDjh());
+                        kpls.setXfid(xfims.getId());
+                        kpls.setSkpid(skp1.getId());
+                        kpls.setKplsh(null);
+                        kplsService.save(kpls);
+                        List<Kpspmx> kpspmxList=reload2(kpspmxlist);
+                        for(Kpspmx kpspmx:kpspmxList){
+                            kpspmx.setId(null);
+                            kpspmx.setDjh(jyls.getDjh());
+                            kpspmx.setKplsh(kpls.getKplsh());
+                            kpspmxService.save(kpspmx);
+                        }
+                    }
+                }
+            }
     }
     public List<Kpls> reload(List<Object> kplslist){
         List<Kpls> kplsList=new ArrayList<>();
