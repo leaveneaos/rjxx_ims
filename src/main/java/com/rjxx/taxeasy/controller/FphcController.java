@@ -453,7 +453,7 @@ public class FphcController extends BaseController {
 
 	@RequestMapping(value = "/hc")
 	@ResponseBody
-	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh,String hztzdh) throws Exception {
+	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh,String hztzdh,String jylsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
 		result.put("msg", "红冲成功！");
@@ -467,7 +467,7 @@ public class FphcController extends BaseController {
 				return result;
 			}
 		}
-		InvoiceResponse flag = FphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh);
+		InvoiceResponse flag = FphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh,jylsh);
 		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
 			result.put("msg", "红冲请求已接受!");

@@ -52,6 +52,7 @@
 									<input type="hidden" id="bz" value="0">
 									<input type="hidden" id="bj" value="0">
 									<input type="hidden" id="kplsh" value="0">
+									<input type="hidden" id="gsdm" value="0">
 									<div class="widget-title am-cf">
 										<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票红冲</strong>
 										<button class="am-btn am-btn-success am-fr"
@@ -507,6 +508,41 @@
 						            </div>
 						        </div>
 						    </div>
+		<div class="am-modal am-modal-no-btn" tabindex="-1" id="jylsh">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">红冲请求交易流水号
+					<!--  <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
+				</div>
+				<div class="am-tab-panel am-fade am-in am-active">
+					<hr/>
+					<form action="" class="am-form am-form-horizontal" id="jylsh_form">
+						<fieldset>
+							<div class="am-form-group"  id="hide2" >
+
+								<label for="jylsh_edit" class="am-u-sm-5 am-form-label"><span
+										style="color: red; align :cener " id="span_jylsh">*</span>红冲请求交易流水号:</label>
+
+								<div class="am-u-sm-7">
+									<input type="text" id="jylsh_edit" name="jylsh_edit" align="cener"
+										   placeholder="红冲请求交易流水号..."  required>
+								</div>
+							</div>
+
+							<div class="am-margin">
+								<button type="button" id="jylsh-submit"
+										class="am-btn am-btn-default am-btn-success">
+									<span></span> 确定
+								</button>
+								<button type="button" id="jylsh-close"
+										class="am-btn am-btn-default am-btn-danger">
+									<span></span> 关闭
+								</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
            <div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
 			     <div class="am-modal-hd">
 			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
