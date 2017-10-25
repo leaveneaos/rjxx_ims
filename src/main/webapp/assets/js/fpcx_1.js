@@ -22,6 +22,7 @@ $(function() {
 		$s_spmc : $('#s_spmc'), // search商品名称
 		$s_fpzt : $('#s_fpzt'), //关键字发票状态
 		$s_fpczlx : $('#s_fpczlx'),
+        $s_jzjtzt : $('#s_jzjtzt'),
 		$s_dyzt : $('#s_dyzt'), // search 开票日期
 		$jsSearch : $('#button4'),
 		$jsSearch1 : $('#button3'),
@@ -185,6 +186,7 @@ $(function() {
 							d.fpzt = el.$s_fpzt.val(); //发票状态
 							d.fpczlx = el.$s_fpczlx.val();
 							d.printflag = el.$s_dyzt.val();//打印状态
+							d.jzjtzt = el.$s_jzjtzt.val();
 							d.xfsh=$("#mb_xfsh").val();
 							d.sk =$("#mb_skp").val();
 							d.fpzldm =$("#s_fpzldm").val();

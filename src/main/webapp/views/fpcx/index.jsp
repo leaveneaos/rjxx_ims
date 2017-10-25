@@ -124,6 +124,20 @@
 											</div>
 										</div>
 									</div>
+									<div class="am-offcanvas-content">
+										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-4 am-form-label">税率类型</label>
+											<div class="am-u-sm-7">
+												<select id="s_jzjtzt" name="jzjtzt"
+														data-am-selected="{btnSize: 'sm'}">
+													<option value="">----请选择----</option>
+													<option value="0">普通</option>
+													<option value="1">即征即退</option>
+													<%--<option value="13">纸质发票换开</option>--%>
+												</select>
+											</div>
+										</div>
+									</div>
 									<%--<div class="am-offcanvas-content">
 										<div class="am-form-group">
 											<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票状态</label>
