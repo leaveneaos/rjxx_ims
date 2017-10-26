@@ -49,11 +49,11 @@ public class Qydata2 extends BaseController {
                 xfService.saveNew(xf);
                 List<Skp> skpList= reload4(skplist);
                 for(Skp skp:skpList){
-                   // List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,0,0,0,skp.getId());
+                    List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,0,0,0,skp.getId());
                     skp.setId(null);
                     skp.setXfid(xf.getId());
                     skpService.save(skp);
-                /*    List<Jyls> jylsList= reload5(jylslist);
+                    List<Jyls> jylsList= reload5(jylslist);
                     for(Jyls jyls:jylsList){
                         List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,jyls.getDjh(),0,0,0);
                         List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,jyls.getDjh(),0,0,0);
@@ -85,7 +85,7 @@ public class Qydata2 extends BaseController {
                                 kpspmxService.save(kpspmx);
                             }
                         }
-                    }*/
+                    }
                 }
 
             }
