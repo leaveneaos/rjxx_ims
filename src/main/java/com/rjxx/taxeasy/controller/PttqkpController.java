@@ -303,7 +303,7 @@ public class PttqkpController extends BaseController {
 				String[] strs = xfids.split(",");
 				List<String> xfList = Arrays.asList(strs);
 				logger.info("++++++"+JSON.toJSONString(xfList));
-				boolean b = xfList.contains(xfids);
+				boolean b = xfList.contains(xfids.toString());
 				logger.info("+"+b);
 				if(b){
 					logger.info("-----打印清单");
