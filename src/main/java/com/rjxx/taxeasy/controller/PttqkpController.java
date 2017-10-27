@@ -297,14 +297,11 @@ public class PttqkpController extends BaseController {
 				//获取分票规则信息
 				Map fpgzMap = new HashMap();
 				fpgzMap.put("gsdm", gsdm);
-				logger.info("取到的销方id+++++++++++"+xfid);
 				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
 				String xfids = fpgz.getXfids();
 				String[] strs = xfids.split(",");
 				List<String> xfList = Arrays.asList(strs);
-				logger.info("++++++"+JSON.toJSONString(xfList));
-				boolean b = xfList.contains(xfids.toString());
-				logger.info("+"+b);
+				boolean b = xfList.contains(xfid.toString());
 				if(b){
 					logger.info("-----打印清单");
 					jyxxsq.setSfdyqd(fpgz.getQdbz());
