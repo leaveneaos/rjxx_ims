@@ -231,7 +231,7 @@ public class PttqkpController extends BaseController {
 			jyxxsq.setSkr(xf.getSkr());
 			//发票种类代码
 			jyxxsq.setFpzldm(request.getParameter("fpzldm"));
-			logger.info("发票种类代码" + jyxxsq.getFpczlxdm());
+			logger.info("发票种类代码" + jyxxsq.getFpzldm());
 			String skpid = request.getParameter("kpd");
 			if (skpid != null && !"".equals(skpid)) {
 				jyxxsq.setSkpid(Integer.parseInt(skpid));
@@ -312,7 +312,7 @@ public class PttqkpController extends BaseController {
 					}
 				}
 
-				if ("01".equals(jyxxsq.getFpczlxdm()) || "02".equals(jyxxsq.getFpczlxdm())) {
+				if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
 					jyxxsq.setSfdy("1");
 				} else {
 					jyxxsq.setSfdy("0");
