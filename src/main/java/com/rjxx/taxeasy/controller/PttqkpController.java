@@ -302,10 +302,14 @@ public class PttqkpController extends BaseController {
 				String xfids = fpgz.getXfids();
 				String[] strs = xfids.split(",");
 				List<String> xfList = Arrays.asList(strs);
+				logger.info("++++++"+JSON.toJSONString(xfList));
 				boolean b = xfList.contains(xfids);
+				logger.info("+"+b);
 				if(b){
+					logger.info("-----打印清单");
 					jyxxsq.setSfdyqd(fpgz.getQdbz());
 				}else {
+					logger.info("-----不打印清单");
 					jyxxsq.setSfdyqd("0");
 				}
 				if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
