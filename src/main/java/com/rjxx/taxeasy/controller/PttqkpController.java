@@ -317,6 +317,7 @@ public class PttqkpController extends BaseController {
 				} else {
 					jyxxsq.setSfdy("0");
 				}
+				logger.info("--------jyxxsq------"+JSON.toJSONString(jyxxsq));
 				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
 				logger.info("secretKey------" + gsxx.getSecretKey());
 				logger.info("appKey------" + gsxx.getAppKey());
