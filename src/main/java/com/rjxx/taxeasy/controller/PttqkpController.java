@@ -301,17 +301,13 @@ public class PttqkpController extends BaseController {
 				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
 				String xfids = fpgz.getXfids();
 				String[] strs = xfids.split(",");
-				for(int i=0,len=strs.length;i<len;i++){
-					if(xfid.equals(strs[i].toString())){
-						//销方在分票规则里
-						logger.info("获取到分票规则----清单标志" + fpgz.getQdbz());
-						jyxxsq.setSfdyqd(fpgz.getQdbz());
-					}else {
-						//选择的销方没有取到分票规则里面的销方
-						jyxxsq.setSfdyqd("0");
-					}
+				List<String> xfList = Arrays.asList(strs);
+				boolean b = xfList.contains(xfids);
+				if(b){
+					jyxxsq.setSfdyqd(fpgz.getQdbz());
+				}else {
+					jyxxsq.setSfdyqd("0");
 				}
-
 				if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
 					jyxxsq.setSfdy("1");
 				} else {
