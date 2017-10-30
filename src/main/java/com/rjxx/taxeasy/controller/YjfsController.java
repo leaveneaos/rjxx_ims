@@ -166,17 +166,25 @@ public class YjfsController extends BaseController {
 		Map maps = new HashMap();
 		maps.put("start",start);
 		maps.put("length",length);
-		List<Integer> xfs = new ArrayList<>();
-		if (!getXfList().isEmpty()) {
-			for (Xf xf : getXfList()) {
-				xfs.add(xf.getId());
+		List<Xf> xfs = getXfList();
+		String xfStr = "";
+		if (xfs != null) {
+			for (int i = 0; i < xfs.size(); i++) {
+				int xfid2 = xfs.get(i).getId();
+				if (i == xfs.size() - 1) {
+					xfStr += xfid2 + "";
+				} else {
+					xfStr += xfid2 + ",";
+				}
 			}
 		}
-		if(null != xfid && !xfid.equals("")){
-			xfs.add(xfid);
+		if(null !=xfid && !xfid.equals("")){
+			xfStr += ","+xfid;
 		}
-		if (xfs.size() > 0) {
-			maps.put("xfList", xfs);
+		String[] xfid2 = xfStr.split(",");
+
+		if (xfid2.length == 0) {
+			xfid2 = null;
 		}
 		maps.put("gsdm", getGsdm());
 		maps.put("gfmc", gfmc);
@@ -184,7 +192,7 @@ public class YjfsController extends BaseController {
 		maps.put("fphm", fphm);
 		maps.put("fpdm", fpdm);
 		maps.put("xfmc", xfmc);
-		//maps.put("xfid", xfid);
+		maps.put("xfid", xfid2);
 		maps.put("fpzldm", "12");
 		maps.put("fpzt","00");
 		// pagination.addParam("jyrqq", jyrqq);
