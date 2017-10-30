@@ -39,7 +39,7 @@ public class QyDataController extends BaseController {
     public Map transferdata(){
         Map result=new HashMap();
         String gsdm=getGsdm();
-        List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,0,0,0,0);
+        List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,0);
         List<Jyls> jylsList=new ArrayList<>();
         List<Xf> xfList=getXfList();
         List<Skp> skpList=getSkpList();
@@ -57,8 +57,8 @@ public class QyDataController extends BaseController {
             jylsList.add(jyls);
         }
             for(Jyls jyls:jylsList){
-                List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,jyls.getDjh(),0,0,0);
-                List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,jyls.getDjh(),0,0,0);
+                List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,"",jyls.getDjh(),0,0,0);
+                List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,"",jyls.getDjh(),0,0,0);
                 jyls.setXfid(xfList.get(0).getId());
                 jyls.setSkpid(skpList.get(0).getId());
                 jyls.setDjh(null);
@@ -71,7 +71,7 @@ public class QyDataController extends BaseController {
                 }
                 List<Kpls> kplsList=reload(kplslist);
                 for(Kpls kpls:kplsList){
-                    List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,0,kpls.getKplsh(),0,0);
+                    List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,"",0,kpls.getKplsh(),0,0);
                     kpls.setDjh(jyls.getDjh());
                     kpls.setXfid(xfList.get(0).getId());
                     kpls.setSkpid(skpList.get(0).getId());

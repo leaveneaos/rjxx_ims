@@ -1,27 +1,30 @@
-package com.rjxx.taxeasy.controller;
+package com.rjxx.taxeasy.bizcomm.utils;
 
+import com.rjxx.Application;
 import com.rjxx.comm.utils.ApplicationContextUtils;
-import com.rjxx.taxeasy.bizcomm.utils.Transferdata;
+import com.rjxx.taxeasy.controller.Qydata3;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.web.BaseController;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * Created by xlm on 2017/8/7.
+ * Created by xlm on 2017/10/27.
  */
-@Controller
-@RequestMapping("/QyData2")
-public class Qydata2 extends BaseController {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+public class QydataTest {
+
     @Autowired
     private KplsService kplsService;
     @Autowired
@@ -34,14 +37,14 @@ public class Qydata2 extends BaseController {
     private XfService xfService;
     @Autowired
     private SkpService skpService;
-
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 线程池执行任务
      */
     private static ThreadPoolTaskExecutor taskExecutor = null;
     /**
-     * 多线程执行迁移数据
+     * 多线程执行生成pdf
      */
     class QydataTask implements Runnable {
 
@@ -51,9 +54,9 @@ public class Qydata2 extends BaseController {
         @Override
         public void run() {
             //synchronized (this){
-                logger.info("------多线程执行生成pdf----------");
-                qydata(gsdm,xf);
-          //  }
+            logger.info("------多线程执行生成pdf----------");
+            Qydata(xf,gsdm);
+            // }
         }
         public void setXf(Xf xf) {
             this.xf = xf;
@@ -75,9 +78,9 @@ public class Qydata2 extends BaseController {
         @Override
         public void run() {
             //synchronized (this){
-                logger.info("------多线程执行生成pdf----------");
-                qyda2(gsdm,jyls,xf,skp);
-           // }
+            logger.info("------多线程执行生成pdf----------");
+            qyda2(gsdm,jyls,xf,skp);
+            // }
         }
         public void setXf(Xf xf) {
             this.xf = xf;
@@ -94,18 +97,16 @@ public class Qydata2 extends BaseController {
             this.jyls = jyls;
         }
     }
-
-    @RequestMapping
-    @ResponseBody
-    public Map transferdata(){
+    @Test
+    public void transferdata(){
         Map result=new HashMap();
         try{
-            String gsdm = request.getParameter("gsdm");
-            String xfsh = request.getParameter("xfsh");
-            List<Object> xflist= Transferdata.getdata("t_xf",gsdm,xfsh,0,0,0,0);
+            String gsdm = "sqj";
+            List<Object> xflist= Transferdata.getdata("t_xf",gsdm,"",0,0,0,0);
             List<Xf> xfList=reload3(xflist);
             for(int i=0;i<xfList.size();i++){
                 Xf xf=(Xf)xfList.get(i);
+                Qydata(xf,gsdm);
                 QydataTask qydataTask=new QydataTask();
                 qydataTask.setXf(xf);
                 qydataTask.setGsdm(gsdm);
@@ -113,33 +114,40 @@ public class Qydata2 extends BaseController {
                     taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                 }
                 taskExecutor.execute(qydataTask);
-
             }
-        result.put("msg","迁移数据成功！");
+            result.put("msg","迁移数据成功！");
         }catch (Exception e){
             result.put("msg","迁移数据失败！");
         }
-        return result;
+
     }
 
-    public void qydata(String gsdm,Xf xf){
+    public void Qydata(Xf xf,String gsdm){
+        Xf xfparms=new Xf();
+        xfparms.setGsdm(gsdm);
+        xfparms.setXfsh(xf.getXfsh());
+        Xf xfims=xfService.findOneByParams(xfparms);
         List<Object> skplist=Transferdata.getdata("t_skp",gsdm,"",0,0,xf.getId(),0);
-        //xf.setLrry(getYhid());
-        xf.setId(null);
-        xfService.saveNew(xf);
+                /* xf.setLrry(getYhid());
+                xf.setId(null);
+                xfService.saveNew(xf);*/
         List<Skp> skpList= reload4(skplist);
         for(Skp skp:skpList){
             List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,skp.getId());
-            skp.setId(null);
-            skp.setXfid(xf.getId());
-            skpService.save(skp);
+            Map skpmap=new HashMap();
+            skpmap.put("kpddm",skp.getKpddm());
+            Skp skp1 =skpService.findOneByParams(skpmap);
+                   /* skp.setId(null);
+                    skp.setXfid(xf.getId());
+                    skpService.save(skp);*/
             List<Jyls> jylsList= reload5(jylslist);
             for(Jyls jyls:jylsList){
+                // qyda2(gsdm,jyls,xfims,skp1);
                 Qydata2Task qydataTask2=new Qydata2Task();
-                qydataTask2.setXf(xf);
+                qydataTask2.setXf(xfims);
                 qydataTask2.setGsdm(gsdm);
-                qydataTask2.setSkp(skp);
                 qydataTask2.setJyls(jyls);
+                qydataTask2.setSkp(skp1);
                 if (taskExecutor == null) {
                     taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                 }
@@ -147,27 +155,43 @@ public class Qydata2 extends BaseController {
             }
         }
     }
-    public void qyda2(String gsdm,Jyls jyls,Xf xf,Skp skp){
+    public void qyda2(String gsdm,Jyls jyls,Xf xfims,Skp skp1){
         List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,"",jyls.getDjh(),0,0,0);
         List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,"",jyls.getDjh(),0,0,0);
-        jyls.setXfid(xf.getId());
-        jyls.setSkpid(skp.getId());
+        jyls.setXfid(xfims.getId());
+        jyls.setSkpid(skp1.getId());
+        jyls.setHsbz("1");
+        if(jyls.getLrsj()==null){
+            jyls.setLrsj(new Date());
+        }else if(jyls.getXgsj()==null){
+            jyls.setXgsj(new Date());
+        }
         jyls.setDjh(null);
         jylsService.save(jyls);
         List<Jyspmx> jyspmxList=reload1(jyspmxlist);
         for(Jyspmx jyspmx:jyspmxList){
             jyspmx.setId(null);
             jyspmx.setDjh(jyls.getDjh());
-            jyspmx.setXfid(xf.getId());
-            jyspmx.setSkpid(skp.getId());
+            jyspmx.setXfid(xfims.getId());
+            jyspmx.setSkpid(skp1.getId());
+            if(jyspmx.getLrsj()==null){
+                jyspmx.setLrsj(new Date());
+            }else if(jyspmx.getXgsj()==null){
+                jyspmx.setXgsj(new Date());
+            }
             jyspmxService.save(jyspmx);
         }
         List<Kpls> kplsList=reload(kplslist);
         for(Kpls kpls:kplsList){
             List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,"",0,kpls.getKplsh(),0,0);
             kpls.setDjh(jyls.getDjh());
-            kpls.setXfid(xf.getId());
-            kpls.setSkpid(skp.getId());
+            kpls.setXfid(xfims.getId());
+            kpls.setSkpid(skp1.getId());
+            if(kpls.getLrsj()==null){
+                kpls.setLrsj(new Date());
+            }else if(kpls.getXgsj()==null){
+                kpls.setXgsj(new Date());
+            }
             kpls.setKplsh(null);
             kplsService.save(kpls);
             List<Kpspmx> kpspmxList=reload2(kpspmxlist);
@@ -175,6 +199,11 @@ public class Qydata2 extends BaseController {
                 kpspmx.setId(null);
                 kpspmx.setDjh(jyls.getDjh());
                 kpspmx.setKplsh(kpls.getKplsh());
+                if(kpspmx.getLrsj()==null){
+                    kpspmx.setLrsj(new Date());
+                }else if(kpspmx.getXgsj()==null){
+                    kpspmx.setXgsj(new Date());
+                }
                 kpspmxService.save(kpspmx);
             }
         }
@@ -277,4 +306,5 @@ public class Qydata2 extends BaseController {
         }
         return SkpList;
     }
+
 }
