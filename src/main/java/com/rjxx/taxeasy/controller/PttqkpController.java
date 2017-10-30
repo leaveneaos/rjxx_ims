@@ -231,7 +231,7 @@ public class PttqkpController extends BaseController {
 			jyxxsq.setSkr(xf.getSkr());
 			//发票种类代码
 			jyxxsq.setFpzldm(request.getParameter("fpzldm"));
-			logger.info("发票种类代码" + jyxxsq.getFpczlxdm());
+			logger.info("发票种类代码" + jyxxsq.getFpzldm());
 			String skpid = request.getParameter("kpd");
 			if (skpid != null && !"".equals(skpid)) {
 				jyxxsq.setSkpid(Integer.parseInt(skpid));
@@ -297,26 +297,24 @@ public class PttqkpController extends BaseController {
 				//获取分票规则信息
 				Map fpgzMap = new HashMap();
 				fpgzMap.put("gsdm", gsdm);
-				logger.info("取到的销方id+++++++++++"+xfid);
 				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
 				String xfids = fpgz.getXfids();
 				String[] strs = xfids.split(",");
-				for(int i=0,len=strs.length;i<len;i++){
-					if(xfid.equals(strs[i].toString())){
-						//销方在分票规则里
-						logger.info("获取到分票规则----清单标志" + fpgz.getQdbz());
-						jyxxsq.setSfdyqd(fpgz.getQdbz());
-					}else {
-						//选择的销方没有取到分票规则里面的销方
-						jyxxsq.setSfdyqd("0");
-					}
+				List<String> xfList = Arrays.asList(strs);
+				boolean b = xfList.contains(xfid.toString());
+				if(b){
+					logger.info("-----打印清单");
+					jyxxsq.setSfdyqd(fpgz.getQdbz());
+				}else {
+					logger.info("-----不打印清单");
+					jyxxsq.setSfdyqd("0");
 				}
-
-				if ("01".equals(jyxxsq.getFpczlxdm()) || "02".equals(jyxxsq.getFpczlxdm())) {
+				if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
 					jyxxsq.setSfdy("1");
 				} else {
 					jyxxsq.setSfdy("0");
 				}
+				logger.info("--------jyxxsq------"+JSON.toJSONString(jyxxsq));
 				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
 				logger.info("secretKey------" + gsxx.getSecretKey());
 				logger.info("appKey------" + gsxx.getAppKey());
