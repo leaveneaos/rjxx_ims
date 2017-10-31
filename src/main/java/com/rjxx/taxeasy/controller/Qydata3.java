@@ -65,13 +65,13 @@ public class Qydata3 extends BaseController{
         private Xf xf;
         private String gsdm;
         private Skp skp;
-        private Jyls jyls;
+
 
         @Override
         public void run() {
             //synchronized (this){
             logger.info("------多线程执行生成pdf----------");
-            qyda2(gsdm,jyls,xf,skp);
+            qyda2(gsdm,xf,skp);
             // }
         }
         public void setXf(Xf xf) {
@@ -85,9 +85,6 @@ public class Qydata3 extends BaseController{
             this.skp = skp;
         }
 
-        public void setJyls(Jyls jyls) {
-            this.jyls = jyls;
-        }
     }
     @RequestMapping
     @ResponseBody
@@ -100,14 +97,14 @@ public class Qydata3 extends BaseController{
             List<Xf> xfList=reload3(xflist);
             for(int i=0;i<xfList.size();i++){
                 Xf xf=(Xf)xfList.get(i);
-                Qydata(xf,gsdm);
-               /* QydataTask qydataTask=new QydataTask();
+                //Qydata(xf,gsdm);
+               QydataTask qydataTask=new QydataTask();
                 qydataTask.setXf(xf);
                 qydataTask.setGsdm(gsdm);
                 if (taskExecutor == null) {
                     taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                 }
-                taskExecutor.execute(qydataTask);*/
+                taskExecutor.execute(qydataTask);
             }
             result.put("msg","迁移数据成功！");
         }catch (Exception e){
@@ -127,78 +124,74 @@ public class Qydata3 extends BaseController{
                 xfService.saveNew(xf);*/
             List<Skp> skpList= reload4(skplist);
             for(Skp skp:skpList){
-                List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,skp.getId());
-                Map skpmap=new HashMap();
-                skpmap.put("kpddm",skp.getKpddm());
-                Skp skp1 =skpService.findOneByParams(skpmap);
-                   /* skp.setId(null);
-                    skp.setXfid(xf.getId());
-                    skpService.save(skp);*/
-                List<Jyls> jylsList= reload5(jylslist);
-                for(Jyls jyls:jylsList){
-                    qyda2(gsdm,jyls,xfims,skp1);
-                  /*  Qydata2Task qydataTask2=new Qydata2Task();
+                    /*Qydata2Task qydataTask2=new Qydata2Task();
                     qydataTask2.setXf(xfims);
                     qydataTask2.setGsdm(gsdm);
-                    qydataTask2.setJyls(jyls);
-                    qydataTask2.setSkp(skp1);
+                    qydataTask2.setSkp(skp);
                     if (taskExecutor == null) {
                         taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                     }
                     taskExecutor.execute(qydataTask2);*/
-                }
+                qyda2(gsdm,xfims,skp);
             }
     }
-    public void qyda2(String gsdm,Jyls jyls,Xf xfims,Skp skp1){
-        List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,"",jyls.getDjh(),0,0,0);
-        List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,"",jyls.getDjh(),0,0,0);
-        jyls.setXfid(xfims.getId());
-        jyls.setSkpid(skp1.getId());
-        jyls.setHsbz("1");
-        if(jyls.getLrsj()==null){
-            jyls.setLrsj(new Date());
-        }else if(jyls.getXgsj()==null){
-            jyls.setXgsj(new Date());
-        }
-        jyls.setDjh(null);
-        jylsService.save(jyls);
-        List<Jyspmx> jyspmxList=reload1(jyspmxlist);
-        for(Jyspmx jyspmx:jyspmxList){
-            jyspmx.setId(null);
-            jyspmx.setDjh(jyls.getDjh());
-            jyspmx.setXfid(xfims.getId());
-            jyspmx.setSkpid(skp1.getId());
-            if(jyspmx.getLrsj()==null){
-                jyspmx.setLrsj(new Date());
-            }else if(jyspmx.getXgsj()==null){
-                jyspmx.setXgsj(new Date());
+    public void qyda2(String gsdm,Xf xfims,Skp skp){
+        List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,skp.getId());
+        Map skpmap=new HashMap();
+        skpmap.put("kpddm",skp.getKpddm());
+        Skp skp1 =skpService.findOneByParams(skpmap);
+        List<Jyls> jylsList= reload5(jylslist);
+        for(Jyls jyls:jylsList){
+            List<Object> jyspmxlist=Transferdata.getdata("t_jyspmx",gsdm,"",jyls.getDjh(),0,0,0);
+            List<Object> kplslist=Transferdata.getdata("t_kpls",gsdm,"",jyls.getDjh(),0,0,0);
+            jyls.setXfid(xfims.getId());
+            jyls.setSkpid(skp1.getId());
+            jyls.setHsbz("1");
+            if(jyls.getLrsj()==null){
+                jyls.setLrsj(new Date());
+            }else if(jyls.getXgsj()==null){
+                jyls.setXgsj(new Date());
             }
-            jyspmxService.save(jyspmx);
-        }
-        List<Kpls> kplsList=reload(kplslist);
-        for(Kpls kpls:kplsList){
-            List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,"",0,kpls.getKplsh(),0,0);
-            kpls.setDjh(jyls.getDjh());
-            kpls.setXfid(xfims.getId());
-            kpls.setSkpid(skp1.getId());
-            if(kpls.getLrsj()==null){
-                kpls.setLrsj(new Date());
-            }else if(kpls.getXgsj()==null){
-                kpls.setXgsj(new Date());
-            }
-            kpls.setKplsh(null);
-            kplsService.save(kpls);
-            List<Kpspmx> kpspmxList=reload2(kpspmxlist);
-            for(Kpspmx kpspmx:kpspmxList){
-                kpspmx.setId(null);
-                kpspmx.setDjh(jyls.getDjh());
-                kpspmx.setKplsh(kpls.getKplsh());
-                if(kpspmx.getLrsj()==null){
-                    kpspmx.setLrsj(new Date());
-                }else if(kpspmx.getXgsj()==null){
-                    kpspmx.setXgsj(new Date());
+            jyls.setDjh(null);
+            jylsService.save(jyls);
+            List<Jyspmx> jyspmxList=reload1(jyspmxlist);
+            for(Jyspmx jyspmx:jyspmxList){
+                jyspmx.setId(null);
+                jyspmx.setDjh(jyls.getDjh());
+                jyspmx.setXfid(xfims.getId());
+                jyspmx.setSkpid(skp1.getId());
+                if(jyspmx.getLrsj()==null){
+                    jyspmx.setLrsj(new Date());
+                }else if(jyspmx.getXgsj()==null){
+                    jyspmx.setXgsj(new Date());
                 }
-                kpspmxService.save(kpspmx);
+                jyspmxService.save(jyspmx);
+            }
+            List<Kpls> kplsList=reload(kplslist);
+            for(Kpls kpls:kplsList){
+                List<Object> kpspmxlist=Transferdata.getdata("t_kpspmx",gsdm,"",0,kpls.getKplsh(),0,0);
+                kpls.setDjh(jyls.getDjh());
+                kpls.setXfid(xfims.getId());
+                kpls.setSkpid(skp1.getId());
+                if(kpls.getLrsj()==null){
+                    kpls.setLrsj(new Date());
+                }else if(kpls.getXgsj()==null){
+                    kpls.setXgsj(new Date());
+                }
+                kpls.setKplsh(null);
+                kplsService.save(kpls);
+                List<Kpspmx> kpspmxList=reload2(kpspmxlist);
+                for(Kpspmx kpspmx:kpspmxList){
+                    kpspmx.setId(null);
+                    kpspmx.setDjh(jyls.getDjh());
+                    kpspmx.setKplsh(kpls.getKplsh());
+                    if(kpspmx.getLrsj()==null){
+                        kpspmx.setLrsj(new Date());
+                    }else if(kpspmx.getXgsj()==null){
+                        kpspmx.setXgsj(new Date());
+                    }
+                    kpspmxService.save(kpspmx);
+                }
             }
         }
     }
