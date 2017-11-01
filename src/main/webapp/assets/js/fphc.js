@@ -148,6 +148,7 @@ $(function () {
             }
         },
         "columns": [
+            {"data": "id"},
             {"data": "spmxxh"},
             {"data": "spmc"},
             {"data": "spggxh"},
@@ -666,14 +667,14 @@ $(function () {
                                 if (hcje == '') {
                                     hcje = 0;
                                 }
-                                if (!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")) {
+                               /* if (!hcje.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")) {
                                     swal("第" + (i + 1) + "条明细的本次红冲金额格式错误，请重新填写！");
                                     return;
                                 }
                                 if (Number(hcje) > Number(delcommafy(rows[i + 1].cells[4].innerHTML))) {
                                     swal("第" + (i + 1) + "条明细的本次红冲金额不能大于可红冲金额！");
                                     return;
-                                }
+                                }*/
                                 zhcje += hcje;
                                 hcjeStr += hcje + ",";
                             }

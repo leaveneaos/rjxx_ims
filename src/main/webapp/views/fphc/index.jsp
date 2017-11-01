@@ -240,6 +240,7 @@
 												id="mxTable">
 												<thead>
 													<tr>
+														<th style="display: none">id</th>
 														<th>序号</th>
 														<th>商品名称</th>
 														<th>商品规格型号</th>
