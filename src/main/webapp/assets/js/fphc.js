@@ -51,6 +51,7 @@ $(function () {
             }
         },
         "columns": [
+            {"data": "id"},
             {"data": "spmxxh"},
             {"data": "spmc"},
             {"data": "spggxh"},
@@ -148,7 +149,6 @@ $(function () {
             }
         },
         "columns": [
-            {"data": "id"},
             {"data": "spmxxh"},
             {"data": "spmc"},
             {"data": "spggxh"},
