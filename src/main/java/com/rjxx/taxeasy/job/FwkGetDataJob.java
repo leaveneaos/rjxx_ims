@@ -21,6 +21,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ import java.util.*;
 /**
  * Created by xlm on 2017/8/2.
  */
+@Service
 public class FwkGetDataJob implements Job {
 
     private static Logger logger = LoggerFactory.getLogger(FwkGetDataJob.class);
@@ -47,26 +49,25 @@ public class FwkGetDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:y1j=\"http://0001092235-one-off.sap.com/Y1JU2A0ZY_\">\n" +
-                "   <soapenv:Header/>\n" +
-                "   <soapenv:Body>\n" +
-                "      <glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "         <CustomerInvoiceSelectionByElements>\n" +
-                "            <SelectionByLastChangeDateTime>\n" +
-                "               <InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "               <IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
-                "               <LowerBoundaryCustomerInvoiceLastChangeDateTime>2017-07-21T00:00:00.00000Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
-                "               <UpperBoundaryCustomerInvoiceLastChangeDateTime>2017-07-31T00:00:00.00000Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n" +
-                "            </SelectionByLastChangeDateTime>\n" +
-                "         </CustomerInvoiceSelectionByElements>\n" +
-                "         <ProcessingConditions>\n" +
-                "            <QueryHitsMaximumNumberValue>4</QueryHitsMaximumNumberValue>\n" +
-                "            <QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "         </ProcessingConditions>\n" +
-                "      </glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "   </soapenv:Body>\n" +
+        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
+                "<soapenv:Header/>\n" +
+                    "<soapenv:Body>\n" +
+                        "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                            "<CustomerInvoiceSelectionByElements>\n" +
+                                "<SelectionByDate>\n" +
+                                    "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                                    "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                                    "<LowerBoundaryCustomerInvoiceDate>2017-11-01</LowerBoundaryCustomerInvoiceDate>\n" +
+                                "</SelectionByDate>\n" +
+                            "</CustomerInvoiceSelectionByElements>\n" +
+                            "<ProcessingConditions>\n" +
+                                    "<QueryHitsMaximumNumberValue>10</QueryHitsMaximumNumberValue>\n" +
+                                    "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                            "</ProcessingConditions>\n" +
+                        "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                    "</soapenv:Body>\n" +
                 "</soapenv:Envelope>";
-        String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
+        String Data= HttpUtils.doPostSoap1_2("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
         Map jyxxMap=interping(Data);
 
 
@@ -86,21 +87,37 @@ public class FwkGetDataJob implements Job {
         Map Envelope=(Map)dataMap.get("soap-env:Envelope");
         Map Body=(Map)Envelope.get("soap-env:Body");
         Map CustomerInvoiceByElementsResponse_sync=(Map)Body.get("n0:CustomerInvoiceByElementsResponse_sync");
-        List<Map> CustomerInvoice=(List)CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice");
+        List<Map> CustomerInvoice=new ArrayList<>();
+        if(CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice") instanceof List){
+            CustomerInvoice=(List)CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice");
+        }else if(CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice") instanceof Map){
+            Map CustomerInvoiceMap = (Map)CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice");
+            CustomerInvoice.add(CustomerInvoiceMap);
+        }
         for(int i = 0; i < CustomerInvoice.size(); i++) {
             Map CustomerInvoiceMap = CustomerInvoice.get(i);
+
             String InvoiceTypeCI = null;/**订单发票种类(销售单/服务订单扩展字段)**/
-            if (null != CustomerInvoiceMap.get("InvoiceTypeCI") && !CustomerInvoiceMap.get("InvoiceTypeCI").equals("")) {
-                InvoiceTypeCI = CustomerInvoiceMap.get("InvoiceTypeCI").toString();
+            if(CustomerInvoiceMap.get("n1:InvoiceTypeCI")!=null) {
+                Map InvoiceTypeCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceTypeCI");
+                if (null != InvoiceTypeCIMap.get("$") && !InvoiceTypeCIMap.get("$").equals("")) {
+                    InvoiceTypeCI = (String) InvoiceTypeCIMap.get("$");
+                }
             }
             Map ProcessingTypeNameMap = (Map) CustomerInvoiceMap.get("ProcessingTypeName");
             String processingTypeName = null;/**发票类型**/
             if (null != ProcessingTypeNameMap.get("$") && !ProcessingTypeNameMap.get("$").equals("")) {
-                processingTypeName = ProcessingTypeNameMap.get("$").toString();//发票类型
+                processingTypeName = (String)ProcessingTypeNameMap.get("$");//发票类型
             }
-            String OriginalSerialNumber = null;/**SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)**/
-            if (null != CustomerInvoiceMap.get("OriginalSerialNumber") && !CustomerInvoiceMap.get("OriginalSerialNumber").equals("")) {
-                OriginalSerialNumber = CustomerInvoiceMap.get("OriginalSerialNumber").toString();//SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)
+            Map OriginalSerialNumberMap = (Map) CustomerInvoiceMap.get("n1:OriginalSerialNumber");
+            String OriginalSerialNumber = null;/**OriginalSerialNumber交易流水号(贷记凭证：原发票InvoiceID+SapOrderID)**/
+            if (null != OriginalSerialNumberMap.get("$") && !OriginalSerialNumberMap.get("$").equals("")) {
+                OriginalSerialNumber =OriginalSerialNumberMap.get("$").toString();//SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)
+            }
+            Map SerialNoMap = (Map) CustomerInvoiceMap.get("n1:SerialNo");
+            String SerialNo = null;/**SerialNumber交易流水号(发票：InvoiceID+SapOrderID**/
+            if (null != SerialNoMap.get("$") && !SerialNoMap.get("$").equals("")) {
+                SerialNo = SerialNoMap.get("$").toString();
             }
             if(processingTypeName.equals("贷记凭证")){
                     Map paramsMap=new HashMap();
@@ -109,14 +126,14 @@ public class FwkGetDataJob implements Job {
                     Kpls kpls=kplsService.findOneByParams(paramsMap);
                     HcData hcData=new HcData();
                     hcData.setClientNO(kpls.getKpddm());
-                    hcData.setSerialNumber(kpls.getJylsh());
+                    hcData.setSerialNumber(SerialNo);
                     hcData.setInvType("12");
                     hcData.setServiceType("1");
                     hcData.setChargeTaxWay("0");
                     hcData.setTotalAmount("-"+(kpls.getJshj()).toString());
                     hcData.setCNNoticeNo("");
                     hcData.setCNDNCode(kpls.getFpdm());
-                    hcData.setClientNO(kpls.getFphm());
+                    hcData.setCNDNNo(kpls.getFphm());
                     String xml= XmlJaxbUtils.toXml(hcData);
                     Map parms=new HashMap();
                     parms.put("gsdm","fwk");
@@ -127,48 +144,70 @@ public class FwkGetDataJob implements Job {
                 if (null != CustomerInvoiceMap.get("ID") && !CustomerInvoiceMap.get("ID").equals("")) {
                     InvoiceID = CustomerInvoiceMap.get("ID").toString();//sap发票ID
                 }
-
                 String CISalesPlatform = null;/**销售平台**/
-                if (null != CustomerInvoiceMap.get("CISalesPlatform") && !CustomerInvoiceMap.get("CISalesPlatform").equals("")) {
-                    CISalesPlatform = CustomerInvoiceMap.get("CISalesPlatform").toString();
+                if(CustomerInvoiceMap.get("n1:CISalesPlatform")!=null) {
+                    Map CISalesPlatformMap = (Map) CustomerInvoiceMap.get("n1:CISalesPlatform");
+                    if (null != CISalesPlatformMap.get("$") && !CISalesPlatformMap.get("$").equals("")) {
+                        CISalesPlatform = (String) CISalesPlatformMap.get("$");
+                    }
+                }
+                String CISalesOrderType = null;/**销售订单类型**/
+                if(CustomerInvoiceMap.get("n1:CISalesOrderType")!=null) {
+                    Map CISalesOrderTypeMap = (Map) CustomerInvoiceMap.get("n1:CISalesOrderType");
+                    if (null != CISalesOrderTypeMap.get("$") && !CISalesOrderTypeMap.get("$").equals("")) {
+                        CISalesOrderType = (String) CISalesOrderTypeMap.get("$");
+                    }
                 }
                 String InvoiceCustomerNameCI = null;/**sap发票客户名称对应平台购方名称**/
-                if (null != CustomerInvoiceMap.get("InvoiceCustomerNameCI") && !CustomerInvoiceMap.get("InvoiceCustomerNameCI").equals("")) {
-                    InvoiceCustomerNameCI = CustomerInvoiceMap.get("InvoiceCustomerNameCI").toString();
+                if(CustomerInvoiceMap.get("n1:InvoiceCustomerNameCI")!=null) {
+                    Map InvoiceCustomerNameCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceCustomerNameCI");
+                    if (null != InvoiceCustomerNameCIMap.get("$") && !InvoiceCustomerNameCIMap.get("$").equals("")) {
+                        InvoiceCustomerNameCI = (String) InvoiceCustomerNameCIMap.get("$");
+                    }
                 }
                 String InvoiceCustomerTaxNumberCI = null;/**sap发票客户税号对应平台购方税号**/
-                if (null != CustomerInvoiceMap.get("InvoiceCustomerTaxNumberCI") && !CustomerInvoiceMap.get("InvoiceCustomerTaxNumberCI").equals("")) {
-                    InvoiceCustomerTaxNumberCI = CustomerInvoiceMap.get("InvoiceCustomerTaxNumberCI").toString();
+                if(CustomerInvoiceMap.get("n1:InvoiceCustomerTaxNumberCI")!=null) {
+                    Map InvoiceCustomerTaxNumberCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceCustomerTaxNumberCI");
+                    if (null != InvoiceCustomerTaxNumberCIMap.get("$") && !InvoiceCustomerTaxNumberCIMap.get("$").equals("")) {
+                        InvoiceCustomerTaxNumberCI =(String) InvoiceCustomerTaxNumberCIMap.get("$");
+                    }
                 }
                 String InvoiceCustomerAddressTelCI = null;/**sap 发票客户地址电话 对应平台购方地址电话**/
-                if (null != CustomerInvoiceMap.get("InvoiceCustomerAddressTelCI") && !CustomerInvoiceMap.get("InvoiceCustomerAddressTelCI").equals("")) {
-                    InvoiceCustomerAddressTelCI = CustomerInvoiceMap.get("InvoiceCustomerAddressTelCI").toString();
+                if(CustomerInvoiceMap.get("n1:InvoiceCustomerAddressTelCI")!=null) {
+                    Map InvoiceCustomerAddressTelCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceCustomerAddressTelCI");
+                    if (null != InvoiceCustomerAddressTelCIMap.get("$") && !InvoiceCustomerAddressTelCIMap.get("$").equals("")) {
+                        InvoiceCustomerAddressTelCI = (String)InvoiceCustomerAddressTelCIMap.get("$");
+                    }
                 }
                 String CustomerBankAccountCI = null;/**sap 客户银行及账号对应平台购方银行账号**/
-                if (null != CustomerInvoiceMap.get("CustomerBankAccountCI") && !CustomerInvoiceMap.get("CustomerBankAccountCI").equals("")) {
-                    CustomerBankAccountCI = CustomerInvoiceMap.get("CustomerBankAccountCI").toString();
+                if(CustomerInvoiceMap.get("n1:CustomerBankAccountCI")!=null) {
+                    Map CustomerBankAccountCIMap = (Map) CustomerInvoiceMap.get("n1:CustomerBankAccountCI");
+                    if (null != CustomerBankAccountCIMap.get("$") && !CustomerBankAccountCIMap.get("$").equals("")) {
+                        CustomerBankAccountCI = (String)CustomerBankAccountCIMap.get("$");
+                    }
                 }
-                String DrawerCI = null;/**sap 开票人**/
+              /*  String DrawerCI = null;*//**sap 开票人**//*
                 if (null != CustomerInvoiceMap.get("DrawerCI") && !CustomerInvoiceMap.get("DrawerCI").equals("")) {
                     DrawerCI = CustomerInvoiceMap.get("DrawerCI").toString();
                 }
-                String BillingContentCI = null;/**sap 开票内容**/
+                String BillingContentCI = null;*//**sap 开票内容**//*
                 if (null != CustomerInvoiceMap.get("BillingContentCI") && !CustomerInvoiceMap.get("BillingContentCI").equals("")) {
                     BillingContentCI = CustomerInvoiceMap.get("BillingContentCI").toString();
                 }
-                String BillingAddressCI = null;/**sap 送票地址**/
+                String BillingAddressCI = null;*//**sap 送票地址**//*
                 if (null != CustomerInvoiceMap.get("BillingAddressCI") && !CustomerInvoiceMap.get("BillingAddressCI").equals("")) {
                     BillingAddressCI = CustomerInvoiceMap.get("BillingAddressCI").toString();
-                }
-                String OrderDateTime = null;/**sap 订单时间**/
-                if (null != CustomerInvoiceMap.get("OrderDateTime") && !CustomerInvoiceMap.get("OrderDateTime").equals("")) {
-                    OrderDateTime = CustomerInvoiceMap.get("OrderDateTime").toString();
-                }
+                }*/
 
+                Map OrderDateMap = (Map) CustomerInvoiceMap.get("n1:OrderDate");
+                String OrderDate = null;/**sap 订单时间**/
+                if (null != OrderDateMap.get("$") && !OrderDateMap.get("$").equals("")) {
+                    OrderDate = (String)OrderDateMap.get("$");
+                }
                 String PartyID = null;/**sap销方编号，对应平台开票点代码**/
                 Map SellerPartyMap = (Map) CustomerInvoiceMap.get("SellerParty");
                 if (null != SellerPartyMap.get("PartyID") && !SellerPartyMap.get("PartyID").equals("")) {
-                    PartyID = SellerPartyMap.get("PartyID").toString();
+                    PartyID = (String)SellerPartyMap.get("PartyID");
                 }
                 Map PriceAndTaxMap = (Map) CustomerInvoiceMap.get("PriceAndTax");
 
@@ -189,7 +228,7 @@ public class FwkGetDataJob implements Job {
                 }
                 Jyxxsq jyxxsq = new Jyxxsq();
                 jyxxsq.setKpddm(PartyID);//开票点代码
-                jyxxsq.setJylsh(OriginalSerialNumber);//交易流水号
+                jyxxsq.setJylsh(SerialNo);//交易流水号
                 jyxxsq.setFpzldm("12");//发票种类
                 Map params = new HashMap();
                 params.put("gsdm", "fwk");
@@ -206,9 +245,13 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setXfdh(xf.getXfdh());//销方电话
                 jyxxsq.setXfyh(xf.getXfyh());//销方银行
                 jyxxsq.setXfyhzh(xf.getXfyhzh());//销方银行账号
-                SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                jyxxsq.setGfmc(InvoiceCustomerNameCI);//购方名称
+                jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
+                jyxxsq.setGfdz(InvoiceCustomerAddressTelCI);
+                jyxxsq.setGfyh(CustomerBankAccountCI);
+                SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    jyxxsq.setDdrq(OrderDateTime == null ? new Date() : sim.parse(OrderDateTime));//订单时间
+                    jyxxsq.setDdrq(OrderDate == null ? new Date() : sim.parse(OrderDate));//订单时间
                 } catch (ParseException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -219,7 +262,7 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setZsfs("0");//征收方式
                 jyxxsq.setJshj(Double.valueOf(GrossAmount));//价税合计
                 jyxxsq.setHsbz("1");
-                jyxxsq.setTqm(OriginalSerialNumber);
+                jyxxsq.setTqm(SerialNo);
                 // jyxxsq.setBz();
                 String ddh = "";//订单号
                 String bz = "";//备注
@@ -337,7 +380,7 @@ public class FwkGetDataJob implements Job {
                         String MeasureUnitName = null;/**sap 商品单位  **/
                         Map MeasureUnitNameMap = (Map) QuantityMap.get("MeasureUnitName");
                         if (null != MeasureUnitNameMap.get("$") && !MeasureUnitNameMap.get("$").equals("")) {
-                            MeasureUnitName = MeasureUnitNameMap.get("$").toString();
+                            MeasureUnitName =MeasureUnitNameMap.get("$").toString();
                         }
 
                         String SalesOrderReferenceID = null;/**sap销售订单号**/
@@ -347,7 +390,7 @@ public class FwkGetDataJob implements Job {
                         }
                         Map DistributionChannelCodeMap = (Map) ItemMap.get("SalesAndServiceBusinessArea");
                         if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
-                            DistributionChannelCode = DistributionChannelCodeMap.get("DistributionChannelCode").toString();
+                            DistributionChannelCode =DistributionChannelCodeMap.get("DistributionChannelCode").toString();
                         }
                         String MobilePhoneFormattedNumberDescription = null;/**sap收货人手机  对应平台购方手机号**/
                         Map ProductRecipientPartyMap = (Map) ItemMap.get("ProductRecipientParty");
@@ -360,6 +403,7 @@ public class FwkGetDataJob implements Job {
                         Map PurchaseOrderReferenceMap = (Map) ItemMap.get("PurchaseOrderReference");
                         if (null != PurchaseOrderReferenceMap.get("ID") && !PurchaseOrderReferenceMap.get("ID").equals("")) {
                             PurchaseOrderReferenceID = PurchaseOrderReferenceMap.get("ID").toString();
+                            bz = PurchaseOrderReferenceID;
                         }
                         Map ItemPriceAndTaxMap = (Map) ItemMap.get("PriceAndTax");
 
@@ -420,25 +464,24 @@ public class FwkGetDataJob implements Job {
     }
 
     public static void main(String[] args) {
-        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:y1j=\"http://0001092235-one-off.sap.com/Y1JU2A0ZY_\">\n" +
-                "   <soapenv:Header/>\n" +
-                "   <soapenv:Body>\n" +
-                "      <glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "         <CustomerInvoiceSelectionByElements>\n" +
-                "            <SelectionByLastChangeDateTime>\n" +
-                "               <InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "               <IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
-                "               <LowerBoundaryCustomerInvoiceLastChangeDateTime>2017-10-01T00:00:00.00000Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
-                "               <UpperBoundaryCustomerInvoiceLastChangeDateTime>2017-10-23T00:00:00.00000Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n" +
-                "            </SelectionByLastChangeDateTime>\n" +
-                "         </CustomerInvoiceSelectionByElements>\n" +
-                "         <ProcessingConditions>\n" +
-                "            <QueryHitsMaximumNumberValue>3</QueryHitsMaximumNumberValue>\n" +
-                "            <QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "         </ProcessingConditions>\n" +
-                "      </glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "   </soapenv:Body>\n" +
-                "</soapenv:Envelope>";
+        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
+                    "<soapenv:Header/>\n" +
+                    "<soapenv:Body>\n" +
+                        "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                            "<CustomerInvoiceSelectionByElements>\n" +
+                            "<SelectionByDate>\n" +
+                                "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                                "<LowerBoundaryCustomerInvoiceDate>2017-11-01</LowerBoundaryCustomerInvoiceDate>\n" +
+                            "</SelectionByDate>\n" +
+                            "</CustomerInvoiceSelectionByElements>\n" +
+                            "<ProcessingConditions>\n" +
+                                "<QueryHitsMaximumNumberValue>10</QueryHitsMaximumNumberValue>\n" +
+                                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                            "</ProcessingConditions>\n" +
+                        "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                    "</soapenv:Body>\n" +
+                "</soapenv:Envelope>\n";
         String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
         FwkGetDataJob fwkGetDataJob=new FwkGetDataJob();
         Map resultMap=fwkGetDataJob.interping(Data);
