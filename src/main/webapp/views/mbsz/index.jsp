@@ -385,7 +385,7 @@
 								</div>
 								<div class="am-u-sm-6">
 									<input type="text" id="config_spdm" name="config_spdm"
-										placeholder="" required value="${sp.spdm}">
+										placeholder="" required value="${sp.spbm}">
 								</div>
 							</div>
 							<div class="am-form-group">
@@ -676,7 +676,7 @@
                     var url = "<%=request.getContextPath()%>/mbsz/getSpxq";
 		            $.post(url, {spid: spid, spmc:spmc}, function (res) {
 		                if (res) {
-		                    $("input[name=config_spdm]").val(res["spdm"]);
+		                    $("input[name=config_spdm]").val(res["spbm"]);
 		                    $("input[name=config_spmc]").val(res["spmc"]);
 		                    $("input[name=config_spggxh]").val(res["spggxh"]);
 		                    $("input[name=config_spdw]").val(res["spdw"]);
