@@ -63,7 +63,7 @@
 												<label for="s_gfmc" class="am-u-sm-4  am-form-label">销方</label>
 												<div class="am-u-sm-7">
 													<select id="xfid" name="xfid"
-														data-am-selected="{btnSize: 'sm'}">
+															data-am-selected="{maxHeight: 300, btnSize: 'sm',searchBox: 1}" >
 														<option value="">请选择</option>
 														<c:forEach items="${xfs}" var="item">
 															<option value="${item.id}">${item.xfmc}(${item.xfsh})</option>

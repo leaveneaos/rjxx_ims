@@ -179,7 +179,7 @@ public class YjfsController extends BaseController {
 			}
 		}
 		if(null !=xfid && !xfid.equals("")){
-			xfStr += ","+xfid;
+			maps.put("xfid2", xfid);
 		}
 		String[] xfid2 = xfStr.split(",");
 

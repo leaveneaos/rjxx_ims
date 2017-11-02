@@ -166,7 +166,7 @@
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">销方</label>
 														<div class="am-u-sm-7">
 															<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-7"
-																	data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 																<option value="-1">请选择</option>
 																<c:forEach items="${xfList}" var="item">
 																	<option value="${item.xfsh}">${item.xfmc}</option>
