@@ -173,8 +173,10 @@ $(function() {
                             }else if (tip == "6") {
                                 d.fpdm = txt;
                             }
-                            d.kprqq = $('#w_kprqq').val(); // search 开票日期
-                            d.kprqz = $('#w_kprqz').val(); // search 开票日期
+                            if(txt =='') {
+                                d.kprqq = $('#w_kprqq').val(); // search 开票日期
+                                d.kprqz = $('#w_kprqz').val(); // search 开票日期
+                            }
                         }else if (bj ==  "2") {
                             d.ddh = el.$s_ddh.val(); // search 订单号
                             d.gfmc = el.$s_gfmc.val(); //购方名称
