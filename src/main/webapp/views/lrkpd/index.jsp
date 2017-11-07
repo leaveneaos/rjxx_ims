@@ -65,7 +65,7 @@ table thead th { text-align: center; }
 									<form id="ycform">
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<label for="xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
 												<div class="am-u-sm-8">
 													<select data-am-selected="{btnSize: 'sm'}" id="xfsh"
 														name="xfsh">
@@ -79,7 +79,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 5px;">
 											<div class="am-form-group">
-												<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+												<label for="gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
 												<div class="am-u-sm-8">
 													<input id="gfmc" type="text" placeholder="购方名称">
 												</div>
@@ -87,7 +87,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 5px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
+												<label for="ddh" class="am-u-sm-4 am-form-label">订单号</label>
 												<div class="am-u-sm-8">
 													<input id="ddh" type="text" placeholder="订单号">
 												</div>
@@ -95,7 +95,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+												<label for="fplxdm" class="am-u-sm-4 am-form-label">发票类型</label>
 												<div class="am-u-sm-8">
 													<select data-am-selected="{btnSize: 'sm'}" id="fplxdm"
 														name="xfsh">
@@ -109,7 +109,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
+												<label for="kssj" class="am-u-sm-4 am-form-label">开始时间</label>
 												<div class="am-input-group am-datepicker-date am-u-sm-8"
 													data-am-datepicker="{format: 'yyyy-mm-dd'}">
 													<input type="text" id="kssj" class="am-form-field"
@@ -125,7 +125,7 @@ table thead th { text-align: center; }
 
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
+												<label for="jssj" class="am-u-sm-4 am-form-label">截止时间</label>
 												<div class="am-input-group am-datepicker-date am-u-sm-8"
 													data-am-datepicker="{format: 'yyyy-mm-dd'}">
 													<input type="text" id="jssj" class="am-form-field"
@@ -267,7 +267,7 @@ table thead th { text-align: center; }
 									<form id="ycform2">
 										<div class="am-offcanvas-content">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+												<label for="xfsh2" class="am-u-sm-4 am-form-label">选择销方</label>
 												<div class="am-u-sm-8">
 													<select data-am-selected="{btnSize: 'sm'}" id="xfsh2"
 														name="xfsh">
@@ -281,7 +281,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 5px;">
 											<div class="am-form-group">
-												<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
+												<label for="gfmc2" class="am-u-sm-4 am-form-label">购方名称</label>
 												<div class="am-u-sm-8">
 													<input id="gfmc2" type="text" placeholder="购方名称">
 												</div>
@@ -289,7 +289,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 5px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
+												<label for="ddh2" class="am-u-sm-4 am-form-label">订单号</label>
 												<div class="am-u-sm-8">
 													<input id="ddh2" type="text" placeholder="订单号">
 												</div>
@@ -297,7 +297,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
+												<label for="fplxdm2" class="am-u-sm-4 am-form-label">发票类型</label>
 												<div class="am-u-sm-8">
 													<select data-am-selected="{btnSize: 'sm'}" id="fplxdm2"
 														name="xfsh">
@@ -311,7 +311,7 @@ table thead th { text-align: center; }
 										</div>
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
+												<label for="kssj2" class="am-u-sm-4 am-form-label">开始时间</label>
 												<div class="am-input-group am-datepicker-date am-u-sm-8"
 													data-am-datepicker="{format: 'yyyy-mm-dd'}">
 													<input type="text" id="kssj2" class="am-form-field"
@@ -327,7 +327,7 @@ table thead th { text-align: center; }
 
 										<div class="am-offcanvas-content" style="margin-top: 8px;">
 											<div class="am-form-group">
-												<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
+												<label for="jssj2" class="am-u-sm-4 am-form-label">截止时间</label>
 												<div class="am-input-group am-datepicker-date am-u-sm-8"
 													data-am-datepicker="{format: 'yyyy-mm-dd'}">
 													<input type="text" id="jssj2" class="am-form-field"
@@ -434,8 +434,7 @@ table thead th { text-align: center; }
 					id="bulk-import-div">
 					<div class="am-modal-dialog">
 						<div class="am-modal-hd am-modal-footer-hd">
-							批量导入<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a> -->
+							批量导入
 						</div>
 
 						<div class="am-tab-panel am-fade am-in am-active">
@@ -453,7 +452,7 @@ table thead th { text-align: center; }
 										<div class="am-u-sm-8">
 											<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12">
 												<c:if test="${xfSum > 1}">
-													<option value="-1">请选择</option>
+													<option value="1">---请选择---</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
 													</c:forEach>
@@ -476,7 +475,7 @@ table thead th { text-align: center; }
 													</c:forEach>
 												</c:if>
 												<c:if test="${skpSum > 1 || xfSum > 1}">
-													<option value="-1">请选择</option>
+													<option value="1">---请选择---</option>
 													<c:forEach items="${skps}" var="item">
 														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
@@ -494,7 +493,7 @@ table thead th { text-align: center; }
 													</c:forEach>
 												</c:if>
 												<c:if test="${mbSum > 1 || xfSum > 1}">
-													<option value="-1">请选择</option>
+													<option value="1">---请选择---</option>
 													<c:forEach items="${mbList}" var="item">
 														<option value="${item.id}">${item.mbmc}</option>
 													</c:forEach>
@@ -502,472 +501,21 @@ table thead th { text-align: center; }
 											</select>
 										</div>
 									</div>
-									<%-- <div class="am-u-sm-12">
-										<label class="am-u-sm-4 am-form-label">默认模板</label>
-										<div class="am-u-sm-8">
-											<select id="mrmb" name="mrmb" class="am-u-sm-12">
-												<option value="${mrmb.id}">${mrmb.mbmc}</option>
-											</select>
-										</div>
-									</div> --%>
 									<div class="am-u-sm-12" style="margin-top: 30px;">
 										<button type="button" id="btnImport"
 											class="am-btn am-btn-xs am-btn-primary">导入</button>
-										<!-- <button type="button" id="btnMrConfig"
-											class="am-btn am-btn-success am-btn-xs">设置默认模板</button> -->
 										<button type="button" id="close1"
 											class="am-btn am-btn-danger am-btn-xs">关闭</button>
-										<!-- 							<button type="button" id="btnImportConfig" -->
-										<!-- 								class="am-btn am-btn-secondary am-btn-xs">新增模板</button> -->
-										<!-- <button type="button" id="update1"
-											class="am-btn am-btn-secondary am-btn-xs">查看模板</button> -->
-										<!-- 							<button type="button" id="delete1" -->
-										<!-- 								class="am-btn am-btn-danger am-btn-xs">删除模板</button> -->
-
 									</div>
 									<div class="am-u-sm-12" style="margin-top: 10px;">
 										<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
 											style="text-decoration: underline;">下载默认模板</a>
-										<!-- 								<a -->
-										<!-- 								href="javascript:void(0)" id="btnImportConfig" -->
-										<!-- 								style="text-decoration: underline; margin-left: 10px;">配置导入文件对照关系</a> -->
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-
-				<div class="am-modal am-modal-no-btn" tabindex="-1"
-					id="import_config_div">
-					<div class="am-modal-dialog">
-						<div class="am-modal-hd am-modal-footer-hd">
-							导入配置<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a> -->
-						</div>
-
-						<div class="am-tab-panel am-fade am-in am-active">
-							<form class="am-form am-form-horizontal" id="importConfigForm">
-								<div class="am-form-group"
-									style="overflow-y: auto; height: 400px;">
-									<div class="am-u-sm-12">
-										<div class="am-form-group">
-											<label for="config_jylsh" class="am-u-sm-4 am-form-label">模板名称</label>
-											<div class="am-u-sm-8">
-												<input type="text" name="mbmc" id="mbmc" required="required">
-												<input type="text" name="mbid" id="mbid"
-													style="display: none">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_sfgx" class="am-u-sm-4 am-form-label">是否共享</label>
-											<div class="am-u-sm-4">
-												<input type="radio" id="yes" name="config_gs_radio"
-													value="1">是 <input type="radio" id="no" checked
-													name="config_gs_radio" value="0">否
-											</div>
-											<div class="am-u-sm-4">
-												<input type="hidden" id="pre_zd" name="pre_zd"
-													placeholder="">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_jylsh" class="am-u-sm-4 am-form-label">交易流水号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" name="config_jylsh_radio" value="auto">自动
-												<input type="radio" checked name="config_jylsh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_jylsh" name="config_jylsh"
-													placeholder="" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_ddh" class="am-u-sm-4 am-form-label">订单号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" name="config_ddh_radio" value="auto">自动
-												<input type="radio" checked name="config_ddh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_ddh" name="config_ddh"
-													placeholder="" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label class="am-u-sm-4 am-form-label">选择销方</label>
-											<div class="am-u-sm-8">
-												<select id="selectImportConfigXf" class="am-u-sm-12">
-													<c:forEach items="${xfList}" var="item">
-														<option value="${item.id}">${item.xfmc}(${item.xfsh})</option>
-													</c:forEach>
-												</select>
-											</div>
-											<div class="am-u-sm-4"></div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfsh" class="am-u-sm-4 am-form-label">销方税号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfsh_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfsh_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfsh" name="config_xfsh"
-													placeholder="" required value="${xf.xfsh}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfmc_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfmc_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfmc" name="config_xfmc"
-													placeholder="" required value="${xf.xfmc}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfdz" class="am-u-sm-4 am-form-label">销方地址</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfdz_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfdz_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfdz" name="config_xfdz"
-													placeholder="" required value="${xf.xfdz}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfdh" class="am-u-sm-4 am-form-label">销方电话</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfdh_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfdh_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfdh" name="config_xfdh"
-													placeholder="" required value="${xf.xfdh}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfyh" class="am-u-sm-4 am-form-label">销方银行</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfyh_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfyh_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfyh" name="config_xfyh"
-													placeholder="" required value="${xf.xfyh}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_xfyhzh" class="am-u-sm-4 am-form-label">销方银行账号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_xfyhzh_radio"
-													value="auto">默认 <input type="radio"
-													name="config_xfyhzh_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_xfyhzh" name="config_xfyhzh"
-													placeholder="" required value="${xf.xfyhzh}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_skr" class="am-u-sm-4 am-form-label">收款人</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_skr_radio"
-													value="auto">默认 <input type="radio"
-													name="config_skr_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_skr" name="config_skr"
-													placeholder="" required value="${xf.skr}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_kpr" class="am-u-sm-4 am-form-label">开票人</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_kpr_radio"
-													value="auto">默认 <input type="radio"
-													name="config_kpr_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_kpr" name="config_kpr"
-													placeholder="" required value="${xf.kpr}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_fhr" class="am-u-sm-4 am-form-label">复核人</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_fhr_radio"
-													value="auto">默认 <input type="radio"
-													name="config_fhr_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_fhr" name="config_fhr"
-													placeholder="" required value="${xf.fhr}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfsh" class="am-u-sm-4 am-form-label">购方税号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfsh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfsh" name="config_gfsh"
-													placeholder="如无可不填" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfmc_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfmc" name="config_gfmc"
-													placeholder="" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfdz" class="am-u-sm-4 am-form-label">购方地址</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfdz_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfdz" name="config_gfdz"
-													placeholder="如无可不填">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfdh" class="am-u-sm-4 am-form-label">购方电话</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfdh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfdh" name="config_gfdh"
-													placeholder="如无可不填" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfyh" class="am-u-sm-4 am-form-label">购方银行</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfyh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfyh" name="config_gfyh"
-													placeholder="如无可不填" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfyhzh" class="am-u-sm-4 am-form-label">购方银行账号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfyhzh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfyhzh" name="config_gfyhzh"
-													placeholder="如无可不填" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfsjh" class="am-u-sm-4 am-form-label">购方手机号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_gfsjh_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfsjh" name="config_gfsjh"
-													placeholder="如无可不填" required>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label class="am-u-sm-4 am-form-label">选择商品</label>
-											<div class="am-u-sm-8">
-												<select id="selectImportConfigSp" class="am-u-sm-12">
-													<c:forEach items="${spList}" var="item">
-														<option value="${item.spdm}">${item.spmc}(${item.spdm})</option>
-													</c:forEach>
-												</select>
-											</div>
-											<div class="am-u-sm-4"></div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spdm" class="am-u-sm-4 am-form-label">商品代码</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spdm_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spdm_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spdm" name="config_spdm"
-													placeholder="" required value="${sp.spdm}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spmc" class="am-u-sm-4 am-form-label">商品名称</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spmc_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spmc_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spmc" name="config_spmc"
-													placeholder="" required value="${sp.spmc}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spggxh" class="am-u-sm-4 am-form-label">规格型号</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spggxh_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spggxh_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spggxh" name="config_spggxh"
-													placeholder="" required value="${sp.spggxh}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spdw" class="am-u-sm-4 am-form-label">商品单位</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spdw_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spdw_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spdw" name="config_spdw"
-													placeholder="" required value="${sp.spdw}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_sps" class="am-u-sm-4 am-form-label">商品数量</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_sps_radio"
-													value="auto">默认 <input type="radio"
-													name="config_sps_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_sps" name="config_sps"
-													placeholder="" required value="1">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spdj" class="am-u-sm-4 am-form-label">商品单价</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spdj_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spdj_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spdj" name="config_spdj"
-													placeholder="" required value="${sp.spdj}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spje" class="am-u-sm-4 am-form-label">商品金额</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spje_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spje" name="config_spje"
-													placeholder="" required value="">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spsl" class="am-u-sm-4 am-form-label">商品税率</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spsl_radio"
-													value="auto">默认 <input type="radio"
-													name="config_spsl_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_spsl" name="config_spsl"
-													placeholder="" required value="${sp.sl}">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_spse" class="am-u-sm-4 am-form-label">商品税额</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_spse_radio"
-													value="auto">自动 <input type="radio"
-													name="config_spse_radio" value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" readonly id="config_spse"
-													name="config_spse" placeholder="" required value="">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label class="am-u-sm-4 am-form-label">含税标志</label>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_hsbz_radio"
-													value="auto">默认
-											</div>
-											<div class="am-u-sm-4">
-												<input type="radio" checked name="config_hsbz" value="1">是
-												<input type="radio" name="config_hsbz" value="0">否
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_gfemail" class="am-u-sm-4 am-form-label">购方邮箱</label>
-											<div class="am-u-sm-4">
-												<input type="radio" name="config_gfemail_radio" value="auto">默认
-												<input type="radio" checked name="config_gfemail_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_gfemail" name="config_gfemail"
-													placeholder="" required value="">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_bz" class="am-u-sm-4 am-form-label">备注</label>
-											<div class="am-u-sm-4">
-												<input type="radio" name="config_bz_radio" value="auto">默认
-												<input type="radio" checked name="config_bz_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_bz" name="config_bz"
-													placeholder="" required value="">
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="config_tqm" class="am-u-sm-4 am-form-label">提取码</label>
-											<div class="am-u-sm-4">
-												<input type="radio" name="config_tqm_radio" value="auto">默认
-												<input type="radio" checked name="config_tqm_radio"
-													value="config">导入文件
-											</div>
-											<div class="am-u-sm-4">
-												<input type="text" id="config_tqm" name="config_tqm"
-													placeholder="" required value="">
-											</div>
-										</div>
-									</div>
-									<div class="am-u-sm-12">
-										<button type="button" id="close2"
-											class="am-btn am-btn-danger am-btn-xs">关闭</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-
-
 				<div class="am-modal am-modal-no-btn" tabindex="-1"
 					id="my-alert-edit">
 					<div class="am-modal-dialog" style="overflow: auto">
@@ -992,7 +540,7 @@ table thead th { text-align: center; }
 										<fieldset>
 											<input type="hidden" id="formid">
 											<div class="am-form-group">
-												<label for="xfid_edit" class="am-u-sm-2 am-form-label"><span
+												<label for="select_xfid" class="am-u-sm-2 am-form-label"><span
 													style="color: red;">*</span>销方名称</label>
 												<div class="am-u-sm-4">
 													<select id="select_xfid" name="xfid_edit"
@@ -1003,7 +551,7 @@ table thead th { text-align: center; }
 														</c:forEach>
 													</select>
 												</div>
-												<label for="skpid_edit" class="am-u-sm-2 am-form-label"><span
+												<label for="select_skpid" class="am-u-sm-2 am-form-label"><span
 													style="color: red;">*</span>开票点名称</label>
 												<div class="am-u-sm-4">
 													<select id="select_skpid" name="skpid_edit" required>
@@ -1114,11 +662,6 @@ table thead th { text-align: center; }
 													<input type="text" id="gfbz_edit" name="gfbz_edit"
 														placeholder="输入备注信息...">
 												</div>
-												<!-- 									<label for="gfsjh_edit" class="am-u-sm-2 am-form-label">购方手机号</label> -->
-												<!-- 									<div class="am-u-sm-4"> -->
-												<!-- 										<input type="text" id="gfsjh_edit" name="gfsjh_edit" -->
-												<!-- 											placeholder="输入购方手机号..."> -->
-												<!-- 									</div> -->
 											</div>
 										</fieldset>
 									</form>
@@ -1287,7 +830,7 @@ table thead th { text-align: center; }
 								<fieldset>
 									<input type="hidden" id="formid_modify" name="sqlsh">
 									<div class="am-form-group">
-										<label for="xfid_edit" class="am-u-sm-2 am-form-label"><span
+										<label for="select_xfid_modify" class="am-u-sm-2 am-form-label"><span
 											style="color: red;">*</span>销方名称</label>
 										<div class="am-u-sm-4">
 											<select id="select_xfid_modify" name="xfid" required>
@@ -1297,7 +840,7 @@ table thead th { text-align: center; }
 												</c:forEach>
 											</select>
 										</div>
-										<label for="skpid_edit" class="am-u-sm-2 am-form-label"><span
+										<label for="select_skpid_modify" class="am-u-sm-2 am-form-label"><span
 											style="color: red;">*</span>开票点名称</label>
 										<div class="am-u-sm-4">
 											<select id="select_skpid_modify" name="skpid" required>
@@ -1458,7 +1001,7 @@ table thead th { text-align: center; }
 								</div>
 								<div class="am-u-lg-12">
 									<div class="am-form-group">
-										<label for="mx_dw" class="am-u-sm-4 am-form-label">商品单位</label>
+										<label for="mx_spdw" class="am-u-sm-4 am-form-label">商品单位</label>
 										<div class="am-u-sm-8">
 											<input id="mx_spdw" type="text" name="spdw"
 												class="am-form-field" placeholder="商品单位">
@@ -1579,24 +1122,7 @@ table thead th { text-align: center; }
     	
     	
     	$('#someTabs').tabs({noSwipe: 1});
-        //初始化导入配置
-        var url = "<%=request.getContextPath()%>/lrkpd/initImportConfig";
-        $.post(url, {}, function (res) {
-            if (res && res.length > 0) {
-                for (var i = 0; i < res.length; i++) {
-                    var obj = res[i];
-                    var zdm = obj["zdm"];
-                    var pzlx = obj["pzlx"];
-                    var pzz = obj["pzz"];
-                    $("input[name=config_" + zdm + "_radio][value=" + pzlx + "]").attr("checked", true);
-                    if ("hsbz" == zdm) {
-                        $("input[name=config_" + zdm + "][value=" + pzz + "]").attr("checked", true);
-                    } else {
-                        $("input[name=config_" + zdm + "]").val(pzz);
-                    }
-                }
-            }
-        });
+
         
         $('#jyls_table tr td').attr("class","weizhi");
         
@@ -1622,18 +1148,7 @@ table thead th { text-align: center; }
                 return;
             }
             var ur = "<%=request.getContextPath()%>/lrkpd/getSpxq";
-          /*   $.post(url, {spdm: spdm,spmc:spmc}, function (res) {
-                if (res) {
-                    $("#mx_form #spdm_edit").val(res["spdm"]);
-                    $("#mx_form #mc_edit").val(res["spmc"]);
-                    $("#mx_form #ggxh_edit").val(res["spggxh"] == null ? "" : res["spggxh"]);
-                    $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
-                    $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
-                    $("#mx_form #sltaxrate_edit").val(res["sl"]);
-                    spsl = res["sl"];
-                    alert(spsl+"QQQ");
-                }
-            }) */
+
             
             $.ajax({
                 url: ur,
@@ -1651,14 +1166,11 @@ table thead th { text-align: center; }
                          $("#mx_form #dw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
                          $("#mx_form #dj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
                          $("#mx_form #sltaxrate_edit").val(res["sl"]);
-                        // $("#mx_form #spid_edit").val(res["id"]);
                          spsl = res["sl"];
-                        // alert(spsl+"QQQ");
                      }
                 }
             })
             if(null!=je && je.val() !=""){
-            	//alert(spsl);
             	var temp = (100+sl.val()*100)/100;
 				se.val(FormatFloat(je.val() * spsl, "#####0.00"));
 				var je1 = parseFloat(je.val());
@@ -1693,38 +1205,18 @@ table thead th { text-align: center; }
 			se.val(FormatFloat(hsje.val() -je.val(), "#####0.00"));
 			jshj.val(FormatFloat(hsje.val(), "#####0.00"));
         });
-        
-        //导入配置选择商品
-        $("#selectImportConfigSp").change(function () {
-            var spdm = $(this).val();
-            var spmc = $("#selectImportConfigSp option:checked").text();
-            var pos = spmc.indexOf("(");
-            spmc = spmc.substring(0, pos);
-            var url = "<%=request.getContextPath()%>/lrkpd/getSpxq";
-            $.post(url, {spdm: spdm, spmc:spmc}, function (res) {
-                if (res) {
-                    $("input[name=config_spdm]").val(res["spdm"]);
-                    $("input[name=config_spmc]").val(res["spmc"]);
-                    $("input[name=config_spggxh]").val(res["spggxh"]);
-                    $("input[name=config_spdw]").val(res["spdw"]);
-                    $("input[name=config_spdj]").val(res["spdj"]);
-                    $("input[name=config_spsl]").val(res["sl"]);
-                }
-            })
-        });
         //导入选择销方模板
         $("#mb_xfsh").change(function () {
             var xfsh = $(this).val();
             $('#mb').empty();
             $('#mb_skp').empty();
-            $('#mrmb').empty();
             if (xfsh == null || xfsh == '' || xfsh == "") {
 				return;
 			}
             var url = "<%=request.getContextPath()%>/lrkpd/getSkpList";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
-                	var option = $("<option>").text('请选择').val("-1");
+                	var option = $("<option>").text('---请选择---').val("1");
                 	$('#mb_skp').append(option);
                     for (var i = 0; i < data.skps.length; i++) {
                     	option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
@@ -1735,7 +1227,7 @@ table thead th { text-align: center; }
             url = "<%=request.getContextPath()%>/lrkpd/getTemplate";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
-                	var option = $("<option>").text('请选择').val("-1");
+                	var option = $("<option>").text('---请选择---').val("1");
                 	$('#mb').append(option);
                     for (var i = 0; i < data.mbs.length; i++) {
                     	option = $("<option>").text(data.mbs[i].mbmc).val(data.mbs[i].id);
@@ -1743,178 +1235,34 @@ table thead th { text-align: center; }
 					}
                 }
             });
-            url = "<%=request.getContextPath()%>/lrkpd/getMrmb";
-            $.post(url, {xfsh: xfsh}, function (data) {
-                if (data) {
-                    	var option = $("<option>").text(data.mrmb.mbmc).val(data.mrmb.id);
-                    	$('#mrmb').append(option);
-                }
-            });
         });
-        //导入配置选择销方
-        $("#selectImportConfigXf").change(function () {
-            var xfid = $(this).val();
-            var url = "<%=request.getContextPath()%>/lrkpd/getXfxxById";
-            $.post(url, {xfid: xfid}, function (res) {
-                if (res) {
-                    $("input[name=config_xfsh]").val(res["xfsh"]);
-                    $("input[name=config_xfmc]").val(res["xfmc"]);
-                    $("input[name=config_xfdz]").val(res["xfdz"]);
-                    $("input[name=config_xfdh]").val(res["xfdh"]);
-                    $("input[name=config_xfyh]").val(res["xfyh"]);
-                    $("input[name=config_xfyhzh]").val(res["xfyhzh"]);
-                    $("input[name=config_skr]").val(res["skr"]);
-                    $("input[name=config_kpr]").val(res["kpr"]);
-                    $("input[name=config_fhr]").val(res["fhr"]);
-                }
-            });
-        });
-        //保存导入模板配置
-        $("#btnImportConfigSave").click(function () {
-            var data = $("#importConfigForm").serialize();
-            var url = "<%=request.getContextPath()%>/lrkpd/saveImportConfig";
-            var mbmc = $('#mbmc').val();
-            var xfsh = $('#config_xfsh').val();
-            if (mbmc == null || mbmc == '') {
-            	alert("请输入模板名称");
-            	return;
-			}
-            if (xfsh == null || xfsh == '') {
-            	alert("销方税号不能为空，请重新选择");
-            	return;
-			}
-            $.post(url, data, function (res) {
-                var success = res["success"];
-                if (success) {
-                    alert("保存成功");
-                    var option = $("<option>").text(res.drmb.mbmc).val(res.drmb.id);
-                	$('#mb').append(option);
-                    $("#import_config_div").modal("close");
-                } else {
-                    var message = res["message"];
-                    alert(message);
-                }
-            });
-        });
-        //切换默认与导入文件radio
-        $("input[type=radio][name^=config_][name$=_radio]").click(function () {
-            var obj = $(this);
-            var name = obj.attr("name");
-            if (name.indexOf("jylsh") != -1) {
-                var value = obj.val();
-                if (value == 'auto') {
-                    $("input[name=config_jylsh]").val("").attr("readonly", true);
-                } else {
-                    $("input[name=config_jylsh]").attr("readonly", false);
-                }
-            } else if (name.indexOf("ddh") != -1) {
-                var value = obj.val();
-                if (value == 'auto') {
-                    $("input[name=config_ddh]").val("").attr("readonly", true);
-                } else {
-                    $("input[name=config_ddh]").attr("readonly", false);
-                }
-            } else if (name.indexOf("spse") != -1) {
-                var value = obj.val();
-                if (value == 'auto') {
-                    $("input[name=config_spse]").val("").attr("readonly", true);
-                } else {
-                    $("input[name=config_spse]").attr("readonly", false);
-                }
-            }
-        });
-
-        $("#update1").click(function () {
-            //导入配置
-            var $importConfigModal = $("#import_config_div");
-            var $importModal = $("#importExcelForm");
-        	var mbid = $('#mb').val();
-        	var xfsh = $('#mb_xfsh').val();
-        	var mbmc = $("#mb option:checked").text();
-        	if (mbid == null || mbid == "" || mbid == -1) {
-				alert('请选择要修改的销方导入模板');
-				return;
-			}
-            $importModal.modal("close");
-            var url = "<%=request.getContextPath()%>/lrkpd/initImport";
-            $.post(url, {mbid:mbid,xfsh:xfsh}, function (res) {
-                if (res && res.length > 0) {
-                    for (var i = 0; i < res.length; i++) {
-                        var obj = res[i];
-                        var zdm = obj["zdm"];
-                        var pzlx = obj["pzlx"];
-                        var pzz = obj["pzz"];
-                        $("input[name=config_" + zdm + "_radio][value=" + pzlx + "]").prop("checked", true);
-                        if ("hsbz" == zdm) {
-                            $("input[name=config_" + zdm + "][value=" + pzz + "]").prop("checked", true);
-                        } else {
-                            $("input[name=config_" + zdm + "]").val(pzz);
-                        }
-                    }
-					
-                    $('#mbmc').val(mbmc);
-                    $('#mbid').val(mbid);
-                }
-            });
-            var url = "<%=request.getContextPath()%>/lrkpd/getMb";
-            $.post(url, {mbid:mbid}, function (res) {
-                if (res) {
-                    if (res.gxbz == "1") {
-                    	$('#yes').prop("checked", true);						
-					}else{
-						$('#no').prop("checked", true);
-					}
-                }
-            });
-            $importConfigModal.modal({"width": 600, "height": 480});
-            
-        });
-       <%--  $("#delete1").click(function () {
-        	var mbid = $('#mb').val();
-        	if (mbid == null || mbid == "") {
-				alert('请选择要删除的销方导入模板');
-				return;
-			}
-        	if (confirm("您确认删除？")) {
-                $.post("<%=request.getContextPath()%>/lrkpd/deleteMb",
-						"mbid="+ mbid,
-						function(res) {
-							if (res.success) {
-								$("#mb option[value="+mbid+"]").remove();
-								alert("删除成功");
-							}else{
-								alert(res.msg);
-							}
-				});
-			}
-        }); --%>
-        
         //下载默认导入模板
         $("#btnDownloadDefaultTemplate").click(function () {
         		window.location.href='lrkpd/downloadDefaultImportTemplate';
-//             $("#downloadDefaultImportTemplateForm").submit();
         });
         //导入excel
         $("#btnImport").click(function () {
             var filename = $("#importFile").val();
-            var xfsh = $("#mb_xfsh").val();
-            var mb = $("#mb").val();
-            var mrmb = $("#mrmb").val();
-            var skpid = $("#mb_skp").val();
-            if (!xfsh) {
-                alert("请选择要导入的销方");
+            var xfsh = $('#mb_xfsh').val();
+            var mb = $('#mb').val();
+            var skpid = $('#mb_skp').val();
+            alert(mb);
+            alert(skpid);
+            alert(xfsh);
+            if (xfsh=='1') {
+                swal("请选择要导入的销方");
                 return;
             }
-            if (skpid=="-1") {
+            if (skpid=='1') {
                 swal("请选择要导入的开票点");
                 return;
             }
-            if (mb=="-1") {
+            if (mb=='1') {
                 swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
                 return;
             }
             if (!filename) {
-                alert("请选择要导入的文件");
+                swal("请选择要导入的文件");
                 return;
             }
             var pos = filename.lastIndexOf(".");
@@ -1938,10 +1286,8 @@ table thead th { text-align: center; }
                         alert("导入成功，共导入" + count + "条数据");
                         window.location.reload();
                         if (res["yes"]) {
-                			$('#mrmb').empty();
                 			var txt = $('#mb').find("option:selected").text();
         					var option = $("<option>").text(txt).val(mbid);
-                        	$('#mrmb').append(option);
 						}
                     } else {
                         $("#btnImport").attr("disabled", false);
@@ -1952,32 +1298,7 @@ table thead th { text-align: center; }
             };
             $("#importExcelForm").ajaxSubmit(options);
         });
-        
-        $('#btnMrConfig').click(function () {
-        	var xfsh = $('#mb_xfsh').val();
-        	var mbid = $('#mb').val();
-        	if (!xfsh) {
-				alert('请选择销方！')
-				return;
-			}
-        	if (!mbid) {
-				alert('请选择模板！')
-				return;
-			}
-        	
-        	var url = "<%=request.getContextPath()%>/lrkpd/saveMb";
-        	$.post(url, {mbid:mbid,xfsh:xfsh}, function (res) {
-        		if (res.success) {
-        			$('#mrmb').empty();
-        			var txt = $('#mb').find("option:selected").text();
-					var option = $("<option>").text(txt).val(mbid);
-                	$('#mrmb').append(option);
-					alert("设置成功");
-				}else{
-					alert(msg);
-				}
-            });
-        });
+
         //删除
         $("#kp_del").click(function () {
             var djhArr = [];
