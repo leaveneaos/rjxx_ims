@@ -8,7 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 /**
  * Created by Administrator on 2017/1/4.
  */
-@Configuration
+@Configuration("ThreadPoolConfig")
 public class ThreadPoolConfig {
 
     @Value("${threadPool.corePoolSize:300}")

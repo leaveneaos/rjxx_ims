@@ -22,7 +22,7 @@ import java.util.List;
  * Created by xlm on 2017/3/15.
  */
 
-@Service
+@Service("taskService")
 public class TaskService {
     private Logger logger= LoggerFactory.getLogger(TaskService.class);
     @Autowired

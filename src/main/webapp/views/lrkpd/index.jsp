@@ -1905,12 +1905,12 @@ table thead th { text-align: center; }
                 alert("请选择要导入的销方");
                 return;
             }
-            if (!skpid) {
-                alert("请选择要导入的开票点");
+            if (skpid==-1) {
+                swal("请选择要导入的开票点");
                 return;
             }
-            if (!mb && !mrmb) {
-                alert("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
+            if (mb==-1) {
+                swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
                 return;
             }
             if (!filename) {

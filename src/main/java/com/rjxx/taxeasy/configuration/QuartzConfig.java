@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * Created by xlm on 2017/3/14.
  */
-@Configuration
+@Configuration("QuartzConfig")
 public class QuartzConfig {
 	
 	@Autowired
