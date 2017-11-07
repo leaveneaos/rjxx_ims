@@ -453,7 +453,7 @@ table thead th { text-align: center; }
 										<div class="am-u-sm-8">
 											<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12">
 												<c:if test="${xfSum > 1}">
-													<option value="">请选择</option>
+													<option value="-1">请选择</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
 													</c:forEach>
@@ -476,7 +476,7 @@ table thead th { text-align: center; }
 													</c:forEach>
 												</c:if>
 												<c:if test="${skpSum > 1 || xfSum > 1}">
-													<option value="">请选择</option>
+													<option value="-1">请选择</option>
 													<c:forEach items="${skps}" var="item">
 														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
@@ -494,7 +494,7 @@ table thead th { text-align: center; }
 													</c:forEach>
 												</c:if>
 												<c:if test="${mbSum > 1 || xfSum > 1}">
-													<option value=-1>请选择</option>
+													<option value="-1">请选择</option>
 													<c:forEach items="${mbList}" var="item">
 														<option value="${item.id}">${item.mbmc}</option>
 													</c:forEach>
@@ -1724,7 +1724,7 @@ table thead th { text-align: center; }
             var url = "<%=request.getContextPath()%>/lrkpd/getSkpList";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
-                	var option = $("<option>").text('请选择').val(-1);
+                	var option = $("<option>").text('请选择').val("-1");
                 	$('#mb_skp').append(option);
                     for (var i = 0; i < data.skps.length; i++) {
                     	option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
@@ -1735,7 +1735,7 @@ table thead th { text-align: center; }
             url = "<%=request.getContextPath()%>/lrkpd/getTemplate";
             $.post(url, {xfsh: xfsh}, function (data) {
                 if (data) {
-                	var option = $("<option>").text('请选择').val(-1);
+                	var option = $("<option>").text('请选择').val("-1");
                 	$('#mb').append(option);
                     for (var i = 0; i < data.mbs.length; i++) {
                     	option = $("<option>").text(data.mbs[i].mbmc).val(data.mbs[i].id);
@@ -1905,11 +1905,11 @@ table thead th { text-align: center; }
                 alert("请选择要导入的销方");
                 return;
             }
-            if (skpid==-1) {
+            if (skpid=="-1") {
                 swal("请选择要导入的开票点");
                 return;
             }
-            if (mb==-1) {
+            if (mb=="-1") {
                 swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
                 return;
             }
