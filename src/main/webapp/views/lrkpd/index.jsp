@@ -494,7 +494,7 @@ table thead th { text-align: center; }
 													</c:forEach>
 												</c:if>
 												<c:if test="${mbSum > 1 || xfSum > 1}">
-													<option value="">请选择</option>
+													<option value=-1>请选择</option>
 													<c:forEach items="${mbList}" var="item">
 														<option value="${item.id}">${item.mbmc}</option>
 													</c:forEach>
