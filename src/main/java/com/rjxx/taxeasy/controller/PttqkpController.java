@@ -197,11 +197,7 @@ public class PttqkpController extends BaseController {
 			request.getSession().setAttribute("jyzfmx",jyzfmxList);
 		}else {
 			if(null!=resMap.get("msg")|| !"".equals(resultMap.get("msg"))){
-				if(jyxxsqList.size()==0){
-					resultMap.put("msg", "获取数据为空，请稍后再试！");
-				}else {
 					resultMap.put("msg", resMap.get("msg"));
-				}
 			}
 			if(null!=resultMap.get("tmp")|| !"".equals(resultMap.get("tmp"))){
 				resultMap.put("temp", resMap.get("tmp"));
