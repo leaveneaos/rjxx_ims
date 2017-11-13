@@ -106,13 +106,14 @@ public class Qydata2 extends BaseController {
             List<Xf> xfList=reload3(xflist);
             for(int i=0;i<xfList.size();i++){
                 Xf xf=(Xf)xfList.get(i);
-                QydataTask qydataTask=new QydataTask();
+                qydata(gsdm,xf);
+               /* QydataTask qydataTask=new QydataTask();
                 qydataTask.setXf(xf);
                 qydataTask.setGsdm(gsdm);
                 if (taskExecutor == null) {
                     taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
                 }
-                taskExecutor.execute(qydataTask);
+                taskExecutor.execute(qydataTask);*/
 
             }
         result.put("msg","迁移数据成功！");
@@ -123,22 +124,29 @@ public class Qydata2 extends BaseController {
     }
 
     public void qydata(String gsdm,Xf xf){
+        Xf xfparms=new Xf();
+        xfparms.setGsdm(gsdm);
+        xfparms.setXfsh(xf.getXfsh());
+        Xf xfims=xfService.findOneByParams(xfparms);
         List<Object> skplist=Transferdata.getdata("t_skp",gsdm,"",0,0,xf.getId(),0);
-        //xf.setLrry(getYhid());
+        /*xf.setLrry(getYhid());
         xf.setId(null);
-        xfService.saveNew(xf);
+        xfService.saveNew(xf);*/
         List<Skp> skpList= reload4(skplist);
         for(Skp skp:skpList){
             List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,skp.getId());
-            skp.setId(null);
+           /* skp.setId(null);
             skp.setXfid(xf.getId());
-            skpService.save(skp);
+            skpService.save(skp);*/
+            Map skpmap=new HashMap();
+            skpmap.put("gsdm","zydc");
+            Skp skp1 =skpService.findOneByParams(skpmap);
             List<Jyls> jylsList= reload5(jylslist);
             for(Jyls jyls:jylsList){
                 Qydata2Task qydataTask2=new Qydata2Task();
-                qydataTask2.setXf(xf);
+                qydataTask2.setXf(xfims);
                 qydataTask2.setGsdm(gsdm);
-                qydataTask2.setSkp(skp);
+                qydataTask2.setSkp(skp1);
                 qydataTask2.setJyls(jyls);
                 if (taskExecutor == null) {
                     taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);

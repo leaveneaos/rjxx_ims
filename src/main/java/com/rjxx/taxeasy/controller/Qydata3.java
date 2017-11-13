@@ -138,7 +138,7 @@ public class Qydata3 extends BaseController{
     public void qyda2(String gsdm,Xf xfims,Skp skp){
         List<Object> jylslist=Transferdata.getdata("t_jyls",gsdm,"",0,0,0,skp.getId());
         Map skpmap=new HashMap();
-        skpmap.put("kpddm",skp.getKpddm());
+        skpmap.put("gsdm","zydc");
         Skp skp1 =skpService.findOneByParams(skpmap);
         List<Jyls> jylsList= reload5(jylslist);
         for(Jyls jyls:jylsList){
