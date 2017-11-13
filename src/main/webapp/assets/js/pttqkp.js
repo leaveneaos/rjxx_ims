@@ -135,13 +135,13 @@ $(function() {
 
                 }else {
                     if(null!= data.error){
-                        swal(data.error);
+                        swal("提示:"+data.error);
                     }
                     if(null!=data.msg){
-                        swal(data.msg);
+                        swal("提示:"+data.msg);
                     }
                     if(null!=data.temp){
-                        swal(data.temp);
+                        swal("提示:"+data.temp);
                     }
                 }
             }

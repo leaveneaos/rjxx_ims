@@ -152,6 +152,10 @@ public class PttqkpController extends BaseController {
 		String gsdm = getGsdm();
 		Map resMap = new HashMap();
 		if(null!=gsdm && gsdm.equals("ldyx")){
+			if(ddh.length()!=19){
+				resultMap.put("msg", "您输入的订单号不符合规定，请重试！");
+				return resultMap;
+			}
 			Map map = getDataService.getldyxFirData(ddh,gsdm);
 			String accessToken = map.get("accessToken").toString();
 			if(accessToken==null || "".equals(accessToken)){
@@ -193,7 +197,11 @@ public class PttqkpController extends BaseController {
 			request.getSession().setAttribute("jyzfmx",jyzfmxList);
 		}else {
 			if(null!=resMap.get("msg")|| !"".equals(resultMap.get("msg"))){
-				resultMap.put("msg", resMap.get("msg"));
+				if(jyxxsqList.size()==0){
+					resultMap.put("msg", "获取数据为空，请稍后再试！");
+				}else {
+					resultMap.put("msg", resMap.get("msg"));
+				}
 			}
 			if(null!=resultMap.get("tmp")|| !"".equals(resultMap.get("tmp"))){
 				resultMap.put("temp", resMap.get("tmp"));
@@ -271,9 +279,6 @@ public class PttqkpController extends BaseController {
 				Map gsMap = new HashMap();
 				gsMap.put("gsdm", jyxxsq.getGsdm());
 				Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
-				logger.info("----交易信息申请" + JSON.toJSONString(jyxxsq));
-				logger.info("----交易信息申请" + JSON.toJSONString(jymxsqList));
-				logger.info("----交易信息申请" + JSON.toJSONString(jyzfmxList));
 				if (jyzfmxList != null) {
 					String kpfsDm = "";
 					for (Jyzfmx jyzfmx : jyzfmxList) {
@@ -293,7 +298,6 @@ public class PttqkpController extends BaseController {
 						return result;
 					}
 				}
-
 				//获取分票规则信息
 				Map fpgzMap = new HashMap();
 				fpgzMap.put("gsdm", gsdm);
@@ -314,10 +318,7 @@ public class PttqkpController extends BaseController {
 				} else {
 					jyxxsq.setSfdy("0");
 				}
-				logger.info("--------jyxxsq------"+JSON.toJSONString(jyxxsq));
 				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
-				logger.info("secretKey------" + gsxx.getSecretKey());
-				logger.info("appKey------" + gsxx.getAppKey());
 				String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
 				logger.info("-------返回值---------" + resultxml);
 				Document document = DocumentHelper.parseText(resultxml);
