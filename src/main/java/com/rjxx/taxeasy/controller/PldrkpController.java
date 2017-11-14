@@ -165,12 +165,13 @@ public class PldrkpController extends BaseController {
 	class ZjkpTask implements Runnable {
 
 		private List jyxxsqList;
+		private String kpfs;
 		@Override
 		public void run() {
 			//synchronized (this){
 			logger.info("------多线程执行开具处理----------");
 			try {
-				fpclService.zjkp(jyxxsqList, "01");
+				fpclService.zjkp(jyxxsqList, kpfs);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -178,6 +179,10 @@ public class PldrkpController extends BaseController {
 		}
 		public void setJyxxsqList(List jyxxsqList) {
 			this.jyxxsqList = jyxxsqList;
+		}
+
+		public void setKpfs(String kpfs) {
+			this.kpfs = kpfs;
 		}
 	}
 
@@ -198,8 +203,21 @@ public class PldrkpController extends BaseController {
 		List<Jyxxsq> jyxxsqList = pldrjlService.findAllJyxxsqByParams(params);
 		try {
 			//fpclService.zjkp(jyxxsqList, "01");
+			Cszb cszb = cszbService.getSpbmbbh(jyxxsqList.get(0).getGsdm(), jyxxsqList.get(0).getXfid(), jyxxsqList.get(0).getSkpid(), "kpfs");
+			String kpfs=null;
+			if(cszb != null && cszb.getCsz().equals("01")){
+				kpfs=cszb.getCsz();
+			}
+			if(cszb != null && cszb.getCsz().equals("03")){
+				if(!jyxxsqList.get(0).getFpzldm().equals("12")){
+					kpfs="01";
+				}else{
+					kpfs=cszb.getCsz();
+				}
+			}
 			ZjkpTask zjkpTask =new ZjkpTask();
 			zjkpTask.setJyxxsqList(jyxxsqList);
+			zjkpTask.setKpfs(kpfs);
 			if (taskExecutor == null) {
 				taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
 			}
