@@ -109,16 +109,24 @@ public class FwkGetDataJob implements Job {
             if (null != ProcessingTypeNameMap.get("$") && !ProcessingTypeNameMap.get("$").equals("")) {
                 processingTypeName = (String)ProcessingTypeNameMap.get("$");//发票类型
             }
-            Map OriginalSerialNumberMap = (Map) CustomerInvoiceMap.get("n1:OriginalSerialNumber");
             String OriginalSerialNumber = null;/**OriginalSerialNumber交易流水号(贷记凭证：原发票InvoiceID+SapOrderID)**/
-            if (null != OriginalSerialNumberMap.get("$") && !OriginalSerialNumberMap.get("$").equals("")) {
-                OriginalSerialNumber =OriginalSerialNumberMap.get("$").toString();//SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)
+            if(CustomerInvoiceMap.get("n1:OriginalSerialNumber")!=null) {
+                Map OriginalSerialNumberMap = (Map) CustomerInvoiceMap.get("n1:OriginalSerialNumber");
+                if (null != OriginalSerialNumberMap.get("$") && !OriginalSerialNumberMap.get("$").equals("")) {
+                    OriginalSerialNumber = OriginalSerialNumberMap.get("$").toString();//SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)
+                }
             }
-            Map SerialNoMap = (Map) CustomerInvoiceMap.get("n1:SerialNo");
-            String SerialNo = null;/**SerialNumber交易流水号(发票：InvoiceID+SapOrderID**/
-            if (null != SerialNoMap.get("$") && !SerialNoMap.get("$").equals("")) {
-                SerialNo = SerialNoMap.get("$").toString();
+            String InvoiceID = null;/**sap发票ID**/
+            if (null != CustomerInvoiceMap.get("ID") && !CustomerInvoiceMap.get("ID").equals("")) {
+                InvoiceID = CustomerInvoiceMap.get("ID").toString();//sap发票ID
             }
+           /* String SerialNo = null;*//**SerialNumber交易流水号(发票：InvoiceID+SapOrderID**//*
+            if(CustomerInvoiceMap.get("n1:SerialNo")!=null) {
+                Map SerialNoMap = (Map) CustomerInvoiceMap.get("n1:SerialNo");
+                if (null != SerialNoMap.get("$") && !SerialNoMap.get("$").equals("")) {
+                    SerialNo = SerialNoMap.get("$").toString();
+                }
+            }*/
             if(processingTypeName.equals("贷记凭证")){
                     Map paramsMap=new HashMap();
                     paramsMap.put("jylsh",OriginalSerialNumber);
@@ -126,7 +134,7 @@ public class FwkGetDataJob implements Job {
                     Kpls kpls=kplsService.findOneByParams(paramsMap);
                     HcData hcData=new HcData();
                     hcData.setClientNO(kpls.getKpddm());
-                    hcData.setSerialNumber(SerialNo);
+                    hcData.setSerialNumber(InvoiceID);
                     hcData.setInvType("12");
                     hcData.setServiceType("1");
                     hcData.setChargeTaxWay("0");
@@ -140,10 +148,7 @@ public class FwkGetDataJob implements Job {
                     Gsxx gsxx=gsxxService.findOneByParams(parms);
                     String ss=HttpUtils.HttpUrlWebService(xml,gsxx.getAppKey(),gsxx.getSecretKey(),"04");
             }else if (!InvoiceTypeCI.equals("专票")) {
-                String InvoiceID = null;/**sap发票ID**/
-                if (null != CustomerInvoiceMap.get("ID") && !CustomerInvoiceMap.get("ID").equals("")) {
-                    InvoiceID = CustomerInvoiceMap.get("ID").toString();//sap发票ID
-                }
+
                 String CISalesPlatform = null;/**销售平台**/
                 if(CustomerInvoiceMap.get("n1:CISalesPlatform")!=null) {
                     Map CISalesPlatformMap = (Map) CustomerInvoiceMap.get("n1:CISalesPlatform");
@@ -165,25 +170,42 @@ public class FwkGetDataJob implements Job {
                         InvoiceCustomerNameCI = (String) InvoiceCustomerNameCIMap.get("$");
                     }
                 }
+                if(null==InvoiceCustomerNameCI||"".equals(InvoiceCustomerNameCI)){
+                    InvoiceCustomerNameCI="个人";
+                }
                 String InvoiceCustomerTaxNumberCI = null;/**sap发票客户税号对应平台购方税号**/
                 if(CustomerInvoiceMap.get("n1:InvoiceCustomerTaxNumberCI")!=null) {
                     Map InvoiceCustomerTaxNumberCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceCustomerTaxNumberCI");
                     if (null != InvoiceCustomerTaxNumberCIMap.get("$") && !InvoiceCustomerTaxNumberCIMap.get("$").equals("")) {
-                        InvoiceCustomerTaxNumberCI =(String) InvoiceCustomerTaxNumberCIMap.get("$");
+                        InvoiceCustomerTaxNumberCI = InvoiceCustomerTaxNumberCIMap.get("$").toString();
                     }
                 }
                 String InvoiceCustomerAddressTelCI = null;/**sap 发票客户地址电话 对应平台购方地址电话**/
                 if(CustomerInvoiceMap.get("n1:InvoiceCustomerAddressTelCI")!=null) {
                     Map InvoiceCustomerAddressTelCIMap = (Map) CustomerInvoiceMap.get("n1:InvoiceCustomerAddressTelCI");
                     if (null != InvoiceCustomerAddressTelCIMap.get("$") && !InvoiceCustomerAddressTelCIMap.get("$").equals("")) {
-                        InvoiceCustomerAddressTelCI = (String)InvoiceCustomerAddressTelCIMap.get("$");
+                        InvoiceCustomerAddressTelCI = InvoiceCustomerAddressTelCIMap.get("$").toString();
                     }
                 }
                 String CustomerBankAccountCI = null;/**sap 客户银行及账号对应平台购方银行账号**/
                 if(CustomerInvoiceMap.get("n1:CustomerBankAccountCI")!=null) {
                     Map CustomerBankAccountCIMap = (Map) CustomerInvoiceMap.get("n1:CustomerBankAccountCI");
                     if (null != CustomerBankAccountCIMap.get("$") && !CustomerBankAccountCIMap.get("$").equals("")) {
-                        CustomerBankAccountCI = (String)CustomerBankAccountCIMap.get("$");
+                        CustomerBankAccountCI = CustomerBankAccountCIMap.get("$").toString();
+                    }
+                }
+                String ProductRecipientEMail = null;/**邮箱**/
+                if(CustomerInvoiceMap.get("n1:ProductRecipientEMail")!=null) {
+                    Map ProductRecipientEMailMap = (Map) CustomerInvoiceMap.get("n1:ProductRecipientEMail");
+                    if (null != ProductRecipientEMailMap.get("$") && !ProductRecipientEMailMap.get("$").equals("")) {
+                        ProductRecipientEMail = ProductRecipientEMailMap.get("$").toString();
+                    }
+                }
+                String ProductRecipientMobileNumber = null;/**手机号**/
+                if(CustomerInvoiceMap.get("n1:ProductRecipientMobileNumber")!=null) {
+                    Map ProductRecipientMobileNumberMap = (Map) CustomerInvoiceMap.get("n1:ProductRecipientMobileNumber");
+                    if (null != ProductRecipientMobileNumberMap.get("$") && !ProductRecipientMobileNumberMap.get("$").equals("")) {
+                        ProductRecipientMobileNumber = ProductRecipientMobileNumberMap.get("$").toString();
                     }
                 }
               /*  String DrawerCI = null;*//**sap 开票人**//*
@@ -228,7 +250,7 @@ public class FwkGetDataJob implements Job {
                 }
                 Jyxxsq jyxxsq = new Jyxxsq();
                 jyxxsq.setKpddm(PartyID);//开票点代码
-                jyxxsq.setJylsh(SerialNo);//交易流水号
+                jyxxsq.setJylsh(InvoiceID);//交易流水号
                 jyxxsq.setFpzldm("12");//发票种类
                 Map params = new HashMap();
                 params.put("gsdm", "fwk");
@@ -246,7 +268,7 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setXfyh(xf.getXfyh());//销方银行
                 jyxxsq.setXfyhzh(xf.getXfyhzh());//销方银行账号
                 jyxxsq.setGfmc(InvoiceCustomerNameCI);//购方名称
-                jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
+                //jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
                 jyxxsq.setGfdz(InvoiceCustomerAddressTelCI);
                 jyxxsq.setGfyh(CustomerBankAccountCI);
                 SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
@@ -262,16 +284,17 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setZsfs("0");//征收方式
                 jyxxsq.setJshj(Double.valueOf(GrossAmount));//价税合计
                 jyxxsq.setHsbz("1");
-                jyxxsq.setTqm(SerialNo);
+                jyxxsq.setTqm(InvoiceID);
                 // jyxxsq.setBz();
                 String ddh = "";//订单号
                 String bz = "";//备注
-                String gfsjh = "";//购方手机号
+                String gfsjh=ProductRecipientMobileNumber;//购方手机号
                 String DistributionChannelCode = null;/**分销渠道代码**/
                 List<Jymxsq> jymxsqList = new ArrayList<>();
                 if (CustomerInvoiceMap.get("Item") instanceof Map) {
 
                     Map ItemMap = (Map) CustomerInvoiceMap.get("Item");
+
                     String ID = null;/**sap 产品编号*/
                     if (null != ItemMap.get("ID") && !ItemMap.get("ID").equals("")) {
                         ID = ItemMap.get("ID").toString();
@@ -281,9 +304,15 @@ public class FwkGetDataJob implements Job {
                     if (null != DescriptionMap.get("$") && !DescriptionMap.get("$").equals("")) {
                         Description = DescriptionMap.get("$").toString();
                     }
-                    String ItemType = null;/**sap 产品自行编码*/
-                    if (null != ItemMap.get("ItemType") && !ItemMap.get("ItemType").equals("")) {
-                        ItemType = ItemMap.get("ItemType").toString();
+                    String Pitemtype = null;/**sap 产品自行编码*/
+                    Map PitemtypeMap = (Map) ItemMap.get("n1:PItemType");
+                    if (null != PitemtypeMap.get("$") && !PitemtypeMap.get("$").equals("")) {
+                        Pitemtype = PitemtypeMap.get("$").toString();
+                    }
+                    String UnitPrice = null;/**sap 单价*/
+                    Map UnitPriceMap = (Map) ItemMap.get("n1:UnitPrice");
+                    if (null != UnitPriceMap.get("$") && !UnitPriceMap.get("$").equals("")) {
+                        UnitPrice = UnitPriceMap.get("$").toString();
                     }
                     String Quantity = null;/** sap 产品数量  即商品数量 **/
                     Map QuantityMap = (Map) ItemMap.get("Quantity");
@@ -307,13 +336,13 @@ public class FwkGetDataJob implements Job {
                     if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
                         DistributionChannelCode = DistributionChannelCodeMap.get("DistributionChannelCode").toString();
                     }
-                    String MobilePhoneFormattedNumberDescription = null;/**sap收货人手机  对应平台购方手机号**/
+                    /*String MobilePhoneFormattedNumberDescription = null;*//**sap收货人手机  对应平台购方手机号**//*
                     Map ProductRecipientPartyMap = (Map) ItemMap.get("ProductRecipientParty");
                     Map AddressMap = (Map) ProductRecipientPartyMap.get("Address");
                     if (null != AddressMap.get("MobilePhoneFormattedNumberDescription") && !AddressMap.get("MobilePhoneFormattedNumberDescription").equals("")) {
                         MobilePhoneFormattedNumberDescription = AddressMap.get("MobilePhoneFormattedNumberDescription").toString();
                         gfsjh = MobilePhoneFormattedNumberDescription;
-                    }
+                    }*/
                     String PurchaseOrderReferenceID = null;/** sap 前台订单号/外部参考号**/
                     Map PurchaseOrderReferenceMap = (Map) ItemMap.get("PurchaseOrderReference");
                     if (null != PurchaseOrderReferenceMap.get("ID") && !PurchaseOrderReferenceMap.get("ID").equals("")) {
@@ -340,19 +369,22 @@ public class FwkGetDataJob implements Job {
                     Jymxsq jymxsq = new Jymxsq();
                     Map spMap=new HashMap();
                     spMap.put("gsdm","fwk");
-                    spMap.put("spdm",ItemType);
+                    spMap.put("spdm",Pitemtype);
                     Spvo spvo=spvoService.findOneSpvo(spMap);
                     jymxsq.setSpdm(spvo.getSpbm());
                     jymxsq.setSpmc(spvo.getSpmc());
                     jymxsq.setSpggxh(Description);
                     jymxsq.setFphxz("0");
                     jymxsq.setSps(Double.valueOf(Quantity));
-                    // jymxsq.setSpdj();
+                    jymxsq.setSpdj(Double.valueOf(UnitPrice));
                     jymxsq.setSpdw(MeasureUnitName);
                     jymxsq.setSpje(Double.valueOf(ItemGrossAmount));
                     jymxsq.setSpse(Double.valueOf(ItemTaxAmount));
                     jymxsq.setJshj(Double.valueOf(ItemGrossAmount));
                     jymxsq.setSpsl(spvo.getSl());
+                    jymxsq.setYhzcmc(spvo.getYhzcmc());
+                    jymxsq.setLslbz(spvo.getLslbz());
+                    jymxsq.setYhzcbs(spvo.getYhzcbs());
                     jymxsqList.add(jymxsq);
                 } else if (CustomerInvoiceMap.get("Item") instanceof List) {
                     List<Map> ItemList = (List) CustomerInvoiceMap.get("Item");
@@ -367,9 +399,10 @@ public class FwkGetDataJob implements Job {
                         if (null != DescriptionMap.get("$") && !DescriptionMap.get("$").equals("")) {
                             Description = DescriptionMap.get("$").toString();
                         }
-                        String ItemType = null;/**sap 产品自行编码*/
-                        if (null != ItemMap.get("ItemType") && !ItemMap.get("ItemType").equals("")) {
-                            ItemType = ItemMap.get("ItemType").toString();
+                        String Pitemtype = null;/**sap 产品自行编码*/
+                        Map PitemtypeMap = (Map) ItemMap.get("n1:PItemType");
+                        if (null != PitemtypeMap.get("$") && !PitemtypeMap.get("$").equals("")) {
+                            Pitemtype = PitemtypeMap.get("$").toString();
                         }
                         String Quantity = null;/** sap 产品数量  即商品数量 **/
                         Map QuantityMap = (Map) ItemMap.get("Quantity");
@@ -382,7 +415,11 @@ public class FwkGetDataJob implements Job {
                         if (null != MeasureUnitNameMap.get("$") && !MeasureUnitNameMap.get("$").equals("")) {
                             MeasureUnitName =MeasureUnitNameMap.get("$").toString();
                         }
-
+                        String UnitPrice = null;/**sap 单价*/
+                        Map UnitPriceMap = (Map) ItemMap.get("n1:UnitPrice");
+                        if (null != UnitPriceMap.get("$") && !UnitPriceMap.get("$").equals("")) {
+                            UnitPrice = UnitPriceMap.get("$").toString();
+                        }
                         String SalesOrderReferenceID = null;/**sap销售订单号**/
                         Map SalesOrderReferenceMap = (Map) ItemMap.get("SalesOrderReference");
                         if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
@@ -392,13 +429,13 @@ public class FwkGetDataJob implements Job {
                         if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
                             DistributionChannelCode =DistributionChannelCodeMap.get("DistributionChannelCode").toString();
                         }
-                        String MobilePhoneFormattedNumberDescription = null;/**sap收货人手机  对应平台购方手机号**/
+                       /* String MobilePhoneFormattedNumberDescription = null;*//**sap收货人手机  对应平台购方手机号**//*
                         Map ProductRecipientPartyMap = (Map) ItemMap.get("ProductRecipientParty");
                         Map AddressMap = (Map) ProductRecipientPartyMap.get("Address");
                         if (null != AddressMap.get("MobilePhoneFormattedNumberDescription") && !AddressMap.get("MobilePhoneFormattedNumberDescription").equals("")) {
                             MobilePhoneFormattedNumberDescription = AddressMap.get("MobilePhoneFormattedNumberDescription").toString();
                             gfsjh = MobilePhoneFormattedNumberDescription;
-                        }
+                        }*/
                         String PurchaseOrderReferenceID = null;/** sap 前台订单号/外部参考号**/
                         Map PurchaseOrderReferenceMap = (Map) ItemMap.get("PurchaseOrderReference");
                         if (null != PurchaseOrderReferenceMap.get("ID") && !PurchaseOrderReferenceMap.get("ID").equals("")) {
@@ -425,19 +462,22 @@ public class FwkGetDataJob implements Job {
                         Jymxsq jymxsq = new Jymxsq();
                         Map spMap=new HashMap();
                         spMap.put("gsdm","fwk");
-                        spMap.put("spdm",ItemType);
+                        spMap.put("spdm",Pitemtype);
                         Spvo spvo=spvoService.findOneSpvo(spMap);
                         jymxsq.setSpdm(spvo.getSpbm());
                         jymxsq.setSpmc(spvo.getSpmc());
                         jymxsq.setSpggxh(Description);
                         jymxsq.setFphxz("0");
                         jymxsq.setSps(Double.valueOf(Quantity));
-                        // jymxsq.setSpdj();
+                        jymxsq.setSpdj(Double.valueOf(UnitPrice));
                         jymxsq.setSpdw(MeasureUnitName);
                         jymxsq.setSpje(Double.valueOf(ItemGrossAmount));
                         jymxsq.setSpse(Double.valueOf(ItemTaxAmount));
                         jymxsq.setJshj(Double.valueOf(ItemGrossAmount));
                         jymxsq.setSpsl(spvo.getSl());
+                        jymxsq.setYhzcmc(spvo.getYhzcmc());
+                        jymxsq.setLslbz(spvo.getLslbz());
+                        jymxsq.setYhzcbs(spvo.getYhzcbs());
                         jymxsqList.add(jymxsq);
                     }
                 }
@@ -472,7 +512,7 @@ public class FwkGetDataJob implements Job {
                             "<SelectionByDate>\n" +
                                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                                "<LowerBoundaryCustomerInvoiceDate>2017-11-01</LowerBoundaryCustomerInvoiceDate>\n" +
+                                "<LowerBoundaryCustomerInvoiceDate>2017-11-13</LowerBoundaryCustomerInvoiceDate>\n" +
                             "</SelectionByDate>\n" +
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +

@@ -21,9 +21,12 @@ public class SkServiceTest {
 
     @Test
     public void testCallService() throws Exception {
-        InvoiceResponse response = skService.callService(4355);
-        System.out.println(response.getReturnCode());
-        System.out.println(response.getReturnMessage());
+        for(int i=0;i<=3000;i++) {
+            InvoiceResponse response = skService.callService(143);
+            System.out.println("第"+i+"条数据");
+            System.out.println(response.getReturnCode());
+            System.out.println(response.getReturnMessage());
+        }
     }
 
 

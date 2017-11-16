@@ -32,7 +32,7 @@ public class FwkGetDataTest {
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2017-11-01</LowerBoundaryCustomerInvoiceDate>\n" +
+                "<LowerBoundaryCustomerInvoiceDate>2017-11-09</LowerBoundaryCustomerInvoiceDate>\n" +
                 "</SelectionByDate>\n" +
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +
