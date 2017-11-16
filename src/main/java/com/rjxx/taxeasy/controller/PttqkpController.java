@@ -150,7 +150,7 @@ public class PttqkpController extends BaseController {
 	public Map findjyxxsq(String ddh){
 		Map resultMap=new HashMap();
 		String gsdm = getGsdm();
-		Map resMap = new HashMap();
+		Map resMap = null;
 		if(null!=gsdm && gsdm.equals("ldyx")){
 			if(ddh.length()!=19){
 				resultMap.put("msg", "您输入的订单号不符合规定，请重试！");
