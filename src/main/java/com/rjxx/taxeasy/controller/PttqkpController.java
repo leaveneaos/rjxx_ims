@@ -162,7 +162,7 @@ public class PttqkpController extends BaseController {
 				return resultMap;
 			}
 			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
-		}if(null != gsdm && gsdm.equals("Family")){
+		}else if(null != gsdm && gsdm.equals("Family")){
 			resMap=getDataService.getData(ddh,gsdm);
 		}
 		List<Jyxxsq> jyxxsqList = null;
@@ -174,6 +174,9 @@ public class PttqkpController extends BaseController {
 			jyxxsqList = (List<Jyxxsq>) resMap.get("jyxxsqList");
 			jymxsqList = (List<Jymxsq>) resMap.get("jymxsqList");
 			jyzfmxList = (List<Jyzfmx>) resMap.get("jyzfmxList");
+		}else {
+			resultMap.put("msg", "未查询到数据，请重试！");
+			return  resultMap;
 		}
 		if(jyzfmxList.size() > 0){
 			for (Jyzfmx jyzfmx : jyzfmxList){
