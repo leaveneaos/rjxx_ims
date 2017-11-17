@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -30,34 +32,7 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
-import com.rjxx.taxeasy.domains.DrPz;
-import com.rjxx.taxeasy.domains.Drmb;
-import com.rjxx.taxeasy.domains.Fpgz;
-import com.rjxx.taxeasy.domains.Fpzt;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Jymxsq;
-import com.rjxx.taxeasy.domains.Jyspmx;
-import com.rjxx.taxeasy.domains.Jyxxsq;
-import com.rjxx.taxeasy.domains.Kpls;
-import com.rjxx.taxeasy.domains.Kpspmx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Sm;
-import com.rjxx.taxeasy.domains.Sp;
-import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.DrPzService;
-import com.rjxx.taxeasy.service.DrmbService;
-import com.rjxx.taxeasy.service.FpgzService;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.JymxsqService;
-import com.rjxx.taxeasy.service.JyspmxService;
-import com.rjxx.taxeasy.service.JyxxsqService;
-import com.rjxx.taxeasy.service.SkpService;
-import com.rjxx.taxeasy.service.SmService;
-import com.rjxx.taxeasy.service.SpService;
-import com.rjxx.taxeasy.service.SpvoService;
-import com.rjxx.taxeasy.service.XfService;
-import com.rjxx.taxeasy.service.YhcljlService;
 import com.rjxx.taxeasy.vo.FpcljlVo;
 import com.rjxx.taxeasy.vo.JyspmxDecimal;
 import com.rjxx.taxeasy.vo.JyspmxDecimal2;
@@ -95,6 +70,10 @@ public class KpdshController extends BaseController {
 	private SmService smService;
 	@Autowired
 	private SpvoService spvoService;
+
+	@Autowired
+	private JymxsqClService jymxsqclService;
+
 
 	@RequestMapping
 	@SystemControllerLog(description = "开票单审核页面进入", key = "")
@@ -137,7 +116,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getItems")
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
-			String spmc, String gfmc, String xfsh, String fpzldm,boolean loaddata) throws Exception {
+										String spmc, String gfmc, String xfsh, String fpzldm,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -273,7 +252,7 @@ public class KpdshController extends BaseController {
 			jyxxsqVO.setFpjshsbz(hsbz);
 			jyxxsqVO.setQdbz(qdbz);
 		}
-        if(loaddata){
+		if(loaddata){
 			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
@@ -300,10 +279,11 @@ public class KpdshController extends BaseController {
 		List sqlshlist=new ArrayList();
 		for(int i=0;i<sqlshs.length;i++){
 			//if(!"0".equals(sqlshs[i])){
-				sqlshlist.add(sqlshs[i]);
+			sqlshlist.add(sqlshs[i]);
 			//}
 		}
 		pagination.addParam("sqlshlist",sqlshlist);
+		pagination.addParam("orderBy","spmxxh asc,fphxz desc");
 		List<Jymxsq> ykfpList = jymxsqService.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
@@ -322,15 +302,15 @@ public class KpdshController extends BaseController {
 		for (String sqlsh : sqlshs) {
 			Jyls jylsparams=new Jyls();
 			jylsparams.setSqlsh(Integer.valueOf(sqlsh));
-            boolean f =true;
+			boolean f =true;
 			List<Jyls> jylslist=jylsService.findAllByParams(jylsparams);
-            for(Jyls jyls:jylslist){
+			for(Jyls jyls:jylslist){
 				if(jyls.getClztdm().equals("40")){
 					f=false;
 					break;
 				}
 			}
-            if(f){
+			if(f){
 				for(Jyls jyls:jylslist){
 					jyls.setYxbz("0");
 					jylsService.save(jyls);
@@ -611,7 +591,7 @@ public class KpdshController extends BaseController {
 			mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
-					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
 				} else {
@@ -623,7 +603,7 @@ public class KpdshController extends BaseController {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					 InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
 
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
@@ -632,21 +612,21 @@ public class KpdshController extends BaseController {
 
 				}
 			}
-			
+
 			if(null == splitKpspmxs || splitKpspmxs.isEmpty()){
 				session.setAttribute("listsq", new ArrayList());
 				session.setAttribute("mxList", mxList);
 				if (listsq.size() == 1) {
 					session.setAttribute("bckkje", bckkje);
 				}
-				
+
 				result.put("recordsTotal", listfpcl.size());
 				result.put("recordsFiltered", listfpcl.size());
 				result.put("data", listfpcl);
 				result.put("msg", "所选信息不能进行整数分票!");
 				return result;
 			}
-			
+
 			// 保存进交易流水
 			Map<Integer, List<JyspmxDecimal2>> fpMap = new HashMap<>();
 			for (JyspmxDecimal2 jysmx : splitKpspmxs) {
@@ -902,7 +882,8 @@ public class KpdshController extends BaseController {
 				// 保存剩余明细
 				Map<String, Object> params = new HashMap<>();
 				params.put("sqlsh", jyxxsq1.getSqlsh());
-				List<Jymxsq> list = jymxsqService.findAllByParams(params);
+				//List<Jymxsq> list = jymxsqService.findAllByParams(params);
+				List<JymxsqCl> list = jymxsqclService.findAllByParams2(params);
 				for (int i = 0; i < bckkje.length; i++) {
 					zje1 += list.get(i).getKkjje();
 					list.get(i).setYkjje(Double.valueOf(bckkje[i]) + list.get(i).getYkjje());
@@ -920,7 +901,8 @@ public class KpdshController extends BaseController {
 					cljlService.saveYhcljl(getYhid(), "开票单审核");
 					jyxxsqService.save(jyxxsq1);
 				}
-				jymxsqService.save(list);
+				//jymxsqService.save(list);
+				jymxsqclService.save(list);
 			} else {
 				for (int i = 0; i < mxList.size(); i++) {
 					Jyxxsq jyxxsq1 = new Jyxxsq();
@@ -949,7 +931,7 @@ public class KpdshController extends BaseController {
 	@RequestMapping(value = "/getyscjyxxsqlist")
 	@ResponseBody
 	public Map getyscjyxxsqlist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
-			String fpzldm, String rqq, String rqz,boolean  loaddata2) {
+								String fpzldm, String rqq, String rqz,boolean  loaddata2) {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
@@ -990,7 +972,7 @@ public class KpdshController extends BaseController {
 		pagination.addParam("orderBy", "lrsj desc");
 
 		List<JyxxsqVO> jyxxsqList = jyxxsqService.findByPage(pagination);
-        for(JyxxsqVO jyxxsqVO:jyxxsqList){
+		for(JyxxsqVO jyxxsqVO:jyxxsqList){
 			Jyls jylsparams=new Jyls();
 			jylsparams.setSqlsh(Integer.valueOf(jyxxsqVO.getSqlsh()));
 			Double f =0.0;
