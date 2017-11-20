@@ -263,11 +263,7 @@ public class SksbxxzcControlller extends BaseController {
 			old.setXgsj(new Date());
 			old.setYxbz("1");
 			old.setKplx(fplx);
-			if(wrzs!=null&&!"".equals(wrzs)&&wrzs.equals("1")){
-				old.setWrzs(wrzs);
-			}else{
-				old.setWrzs("0");
-			}
+			old.setWrzs("1");//无人值守 ：默认1
 			skpService.save(old);
 			Group group = new Group();
 			group.setYhid(getYhid());
@@ -341,11 +337,7 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setSbcs(sbcs);
 			skp.setSkpmm(skpmm);
 			skp.setZsmm(zsmm);
-			if(wrzs!=null&&!"".equals(wrzs)&&wrzs.equals("1")){
-				skp.setWrzs(wrzs);
-			}else{
-				skp.setWrzs("0");
-			}
+			skp.setWrzs("1");//无人值守：默认1
 			skp.setLxdz(lxdz);
 			skp.setLxdh(lxdh);
 			skp.setKhyh(khyh);

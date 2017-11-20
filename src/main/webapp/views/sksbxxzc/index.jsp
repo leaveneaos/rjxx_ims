@@ -96,13 +96,13 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="sbcs1" class="am-u-sm-4 am-form-label">设备类型</label>
+											<label for="sbcs1" class="am-u-sm-4 am-form-label">设备厂商</label>
 											<div class="am-u-sm-7">
 												<select id="sbcs1" name="sbcs1"
 													data-am-selected="{{btnSize: 'sm'}">
 													<option value="">请选择</option>
-													<option value="1">税控盘</option>
-													<option value="2">金税盘</option>
+													<option value="1">百旺盘</option>
+													<option value="2">航信盘</option>
 												</select>
 											</div>
 										</div>
@@ -253,12 +253,12 @@
 											</div>
 											<div class="am-form-group">
 												<label for="sbcs" class="am-u-sm-2 am-form-label"><font
-													color="red">*</font>设备类型</label>
+													color="red">*</font>设备厂商</label>
 												<div class="am-u-sm-4">
 													<select id="sbcs" name="sbcs">
 														<option value="0">请选择</option>
-														<option value="1">税控盘</option>
-														<option value="2">金税盘</option>
+														<option value="1">百旺盘</option>
+														<option value="2">航信盘</option>
 													</select>
 												</div>
 												<label for="skph" class="am-u-sm-2 am-form-label">设备号</label>
@@ -345,7 +345,7 @@
 												</c:forEach>
 
 
-												<label for="wrzs" class="am-u-sm-3">
+												<label for="wrzs" class="am-u-sm-3" style="display: none">
 													<input type="checkbox"  id="wrzs" name="wrzs" value="1"/>
 													无人值守
 												</label>

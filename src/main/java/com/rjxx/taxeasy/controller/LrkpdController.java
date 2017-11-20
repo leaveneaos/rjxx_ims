@@ -1119,6 +1119,8 @@ public class LrkpdController extends BaseController {
         }
         // 获取所有的销方
         List<Xf> xfList = this.getXfList();
+        List<Skp> skpList = this.getSkpList();
+
         // 获取税率
         List<Sm> slModel = smService.findAll();
         List<String> slList = new ArrayList<String>();
@@ -1132,6 +1134,14 @@ public class LrkpdController extends BaseController {
         for (Xf x : xfList) {
             if (x.getXfsh().equals(xfsh1)) {
                 xf = x;
+                break;
+            }
+        }
+
+        Skp skp = null;
+        for (Skp x : skpList) {
+            if (x.getId().equals(skpid)) {
+                skp = x;
                 break;
             }
         }
@@ -1194,6 +1204,16 @@ public class LrkpdController extends BaseController {
                 jyxxsq.setKpr(getValue("kpr", pzMap, columnIndexMap, row));
                 jyxxsq.setFhr(getValue("fhr", pzMap, columnIndexMap, row));
             }*/
+            if(null !=skp.getKpr() &&!skp.getKpr().equals("")){
+                jyxxsq.setKpr(skp.getKpr());
+            }
+            if(null !=skp.getFhr() &&!skp.getFhr().equals("")){
+                jyxxsq.setFhr(skp.getFhr());
+            }
+            if(null !=skp.getSkr() &&!skp.getSkr().equals("")){
+                jyxxsq.setSkr(skp.getSkr());
+            }
+
             jyxxsq.setSkpid(skpid);
             jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
             jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));

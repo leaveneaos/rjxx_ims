@@ -74,11 +74,11 @@
 								</div>
 								<div class="am-form-group">
 									<label  for="hc_yfphm" class="am-u-sm-3 am-form-label"><font
-										color="red">*</font>设备类型</label>
+										color="red">*</font>设备厂商</label>
 									<div class="am-u-sm-3">
 										<select id="sbcs" name="sbcs">
-											<option value="1">税控盘</option>
-											<option value="2">金税盘</option>
+											<option value="1">百旺盘</option>
+											<option value="2">航信盘</option>
 										</select>
 									</div>
 									<label for="hc_yfphm" class="am-u-sm-3 am-form-label"><font

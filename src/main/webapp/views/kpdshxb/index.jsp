@@ -1056,7 +1056,7 @@ table thead th {
 								accept="application/vnd.ms-excel" required>
 						</div>
 						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label">选择销方</label>
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择销方</label>
 							<div class="am-u-sm-8">
 								<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12">
 									<c:if test="${xfSum > 1}">
@@ -1074,7 +1074,7 @@ table thead th {
 							</div>
 						</div>
 						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label">选择开票点</label>
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择开票点</label>
 							<div class="am-u-sm-8">
 								<select id="mb_skp" name="mb_skp" class="am-u-sm-12">
 									<c:if test="${skpSum == 1 && xfSum == 1 }">
@@ -1092,7 +1092,7 @@ table thead th {
 							</div>
 						</div>
 						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label">选择模板</label>
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择模板</label>
 							<div class="am-u-sm-8">
 								<select id="mb" name="mb" class="am-u-sm-12">
 									<c:if test="${mbSum == 1 && xfSum == 1 }">
@@ -1273,7 +1273,7 @@ table thead th {
                 swal("请选择要导入的销方");
                 return;
             }
-            if (skpid==-1) {
+            if (skpid==-1 || skpid =='-1') {
                 swal("请选择要导入的开票点");
                 return;
             }
