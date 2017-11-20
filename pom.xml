@@ -220,7 +220,10 @@
                         <!-- 不混淆filter包下的所有类名，这里主要是过滤器混淆，对类的属性和方法进行了混淆-->
                         <option>-keep class com.rjxx.taxeasy.filter.**{ &lt;methods&gt;; } </option>
                         <!-- 不混淆controller包下的所有类名，且类中的方法也不混淆-->
-                        <!--<option>-keep class com.rjxx.taxeasy.controller.** { &lt;methods&gt;; }</option>-->
+                        <option>-keep class com.rjxx.taxeasy.controller.KpController { &lt;methods&gt;; }</option>
+                        <option>-keep class com.rjxx.taxeasy.controller.FpzfController { &lt;methods&gt;; }</option>
+                        <option>-keep class com.rjxx.taxeasy.controller.FphcController { &lt;methods&gt;; }</option>
+
                         <option>-keep class com.rjxx.taxeasy.security.** </option>
                         <option>-keep class com.rjxx.taxeasy.configuration.**{ &lt;methods&gt;; } </option>
                         <!-- com.rjxx.taxeasy.util, util包不混淆的类的属性及方法，实体包  -->
