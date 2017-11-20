@@ -111,7 +111,6 @@
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
                                                 <button type="button"  id="button2" class="am-btn am-btn-default am-btn-success"> 录入</button>
-<!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
                                                 <button type="button" id="deletexf" class="am-btn am-btn-default am-btn-danger js-sent"> 删除</button>
                                                 <%--<button type="button" id="kp_dr" class="am-btn am-btn-default"> 导入</button>--%>
                                             </div>
@@ -163,7 +162,7 @@
 						</div>
 					</div>
 			
-					<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong"
+					<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal"
 						title="品牌信息">
 						<div class="am-modal-dialog" style="overflow: auto">
 							<div class="am-modal-hd">
@@ -172,42 +171,43 @@
 							</div>
 			
 							<hr />
-							<form class="js-form-0 am-form am-form-horizontal">
-								<input type="hidden" name="xfid" id="xfid" />
+							<form action="pp/save" method="get" autocomplete="off" class="js-form am-form am-form-horizontal">
 								<div class="am-g">
 									<div class="am-form-group">
 										
-									</div>
 									<div class="am-form-group">
-										<label for="xfsh" class="am-u-sm-2 am-form-label"><font
+										<label for="ppmc" class="am-u-sm-2 am-form-label"><font
 											color="red">*</font>品牌名称</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="xfsh" class="js-pattern-Taxid"
-												 name="xfsh"
-												placeholder="请输入品牌名称" required onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+											<input type="text" id="ppmc" name="ppmc" required
+												placeholder="请输入品牌名称"  />
 										</div>
-										<label for="xfmc" class="am-u-sm-2 am-form-label"><font
+										<label for="ppdm" class="am-u-sm-2 am-form-label"><font
 											color="red">*</font>品牌代码</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="xfmc" name="xfmc" placeholder="请输入品牌代码"
-												required="required" />
+											<input type="text" id="ppdm" name="ppdm" placeholder="请输入品牌代码" required
+												 />
 										</div>
 									</div>
 									<div class="am-form-group">
-										<label for="khyh" class="am-u-sm-2 am-form-label"><font
-											color="red">*</font>品牌地址</label>
+										<label for="ppurl" class="am-u-sm-2 am-form-label">品牌地址</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="khyh" name="khyh" placeholder="请输入品牌地址"/>
+											<input type="text" id="ppurl" name="ppurl" placeholder="请输入品牌地址"/>
 										</div>
-										<label for="yhzh" class="am-u-sm-2 am-form-label"><font
-											color="red">*</font>发票管家品牌代码</label>
+									</div>
+									<div class="am-form-group">
+										<label for="aliMShortName" class="am-u-sm-2 am-form-label">发票管家代码</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="yhzh" pattern="^[0-9a-zA-Z]{4,30}$"
-												name="yhzh" placeholder="请输入发票管家品牌代码" onkeyup="this.value=this.value.replace(/[, ]/g,'')">
+											<input type="text" id="aliMShortName" name="aliMShortName" placeholder="请输入发票管家品牌代码">
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label for="aliMShortName" class="am-u-sm-2 am-form-label">微信logoURL</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="wechatLogoUrl" name="wechatLogoUrl" placeholder="请输入微信logoURL">
 										</div>
 									</div>
 
-			
 									<div class="am-u-sm-12 am-margin-top-lg">
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
@@ -216,6 +216,7 @@
 											</div>
 										</div>
 									</div>
+								</div>
 								</div>
 							</form>
 						</div>
