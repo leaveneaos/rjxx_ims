@@ -7,6 +7,7 @@ import com.rjxx.taxeasy.domains.Pp;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.PpService;
+import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.vo.SkpVo;
 import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class PpController  extends BaseController {
 
     @Autowired
     private PpService ppService;
+
+    @Autowired
+    private SkpService skpService;
 
 
     @RequestMapping
@@ -161,6 +165,16 @@ public class PpController  extends BaseController {
                     Pp pp = ppService.findOne(Integer.valueOf(id));
                     pp.setYxbz("0");
                     ppService.save(pp);
+                    Skp s = new Skp();
+                    s.setGsdm(getGsdm());
+                    s.setPid(Integer.valueOf(id));
+                    List<Skp> skpList = skpService.findAllByParams(s);
+                    if (!skpList.isEmpty()) {
+                        for (Skp skp : skpList) {
+                            skp.setPid(null);
+                        }
+                        skpService.save(skpList);
+                    }
                     result.put("success", true);
                     result.put("msg", "删除成功");
                 } catch (Exception e) {
