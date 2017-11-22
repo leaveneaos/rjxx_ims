@@ -23,10 +23,17 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
 <script src="assets/js/loading.js"></script>
-<link rel="stylesheet"
-	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.css" />
-<link rel="stylesheet"
-	href="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.css" />
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/amazeui.min.js"></script>
+	<script
+			src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/amazeui.datatables.js"></script>
+	<script src="assets/js/amazeui.tree.min.js"></script>
+	<script src="assets/js/echarts.min.3.0.js"></script>
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/Sjdtjbb.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <style type="text/css">
 .top-position {
@@ -167,7 +174,7 @@
 							<div class="am-u-sm-12">
 								<!-- 折线图开始 -->
 							<div class="am-u-sm-6" style="padding-left: 20px">
-								<div id="chart1" style="width: 1000px; height: 300px"></div>
+								<div id="main" style="width: 1000px;height:300px;"></div>
 							</div>
 							<!-- 折线图结束 -->
 							<!-- 折线图开始 -->
@@ -186,8 +193,9 @@
 										<tr>
 											<th>序号</th>
 											<th>统计年月</th>
+											<th>发票种类</th>
 											<th>用票量</th>
-											<th>提取量</th>
+											<th>价税合计</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -225,40 +233,6 @@
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/amazeui.min.js"></script>
-	<script
-		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
-	<script src="assets/js/amazeui.datatables.js"></script>
-	<script src="assets/js/amazeui.tree.min.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/jquery.jqplot.min.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/excanvas.min.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/excanvas.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pieRenderer.min.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pieRenderer.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasAxisTickRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasAxisLabelRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.canvasTextRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.enhancedLegendRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.dateAxisRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.highlighter.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.pointLabels.min.js"></script>
-	<script src="plugins/jquery.jqplot.1.0.8/dist/jqplot.cursor.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.categoryAxisRenderer.min.js"></script>
-	<script
-		src="plugins/jquery.jqplot.1.0.8/dist/jqplot.barRenderer.min.js"></script>
-	<script src="assets/js/app.js"></script>
-	<script src="assets/js/Sjdtjbb.js"></script>
-	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		function getKpd() {
 			var xfid = $('#s_xfid').val();

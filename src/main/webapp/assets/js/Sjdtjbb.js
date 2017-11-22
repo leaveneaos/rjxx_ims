@@ -12,6 +12,9 @@ $(function () {
         $jsSearch: $('#jsSearch'),
         $jsLoading: $('.js-modal-loading')
     };
+
+
+
     var t = el.$jsSlTable.DataTable({
         "processing": true,
         "serverSide": true,
@@ -44,8 +47,15 @@ $(function () {
                "defaultContent": ""
             },
             {"data": "kpny"},
+            {"data": function (data) {
+                if (data.fpzldm =='00') {
+                    return '小计';
+                }else{
+                    return data.fpzlmc;
+                }
+            },},
             {"data": "fpsl"},
-            {"data": "tqsl"}                  
+            {"data": "jshj"}
             ]
     });
     t.on('draw.dt', function (e, settings, json) {
@@ -56,258 +66,14 @@ $(function () {
         });
 
     });
-    
     var action = {
     	tableEx: null, // cache dataTable
         config: {
             getURL:'fytjbb/getfps',
             getJE:'fytjbb/getje'
         },
-        getPlot1:function(){       //用票量折线图
-        	$('#chart1').html("");
-        	var bz = $('#searchbz').val();
-        	var xfid = null;
-        	var skpid = null;
-        	var kprqq = null;
-        	var kprqz = null;
-        	if(bz=='1'){
-        		xfid = $('#s_xfid').val(),
-                skpid = $('#s_spkid').val(),
-                kprqq = $('#s_kprqq').val(),
-                kprqz = $('#s_kprqz').val()
-        	}else{
-        		xfid = $('#m_xfid').val();
-        		kprqq = el.$jsDate.val(),
-                kprqz = el.$jsDate1.val()
-        	}
-        	var line1 = new Array();
-			var ticks = new Array();
-			var line2 = new Array();
-        	$.ajax({
-        		url:'sjdtjbb/getYplPlot',
-        		data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
-        		success:function(data){        			
-        			var i = 0;
-					for (var key in data) {
-						ticks[i] = key;
-						line1[i] = data[key];
-						i++;
-					}
-					$.ajax({
-		        		url:'sjdtjbb/getTqlPlot',
-		        		data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
-		        		success:function(data){        			
-		        			var i = 0;
-							for (var key in data) {
-								line2[i] = data[key];
-								i++;
-							}
-							//plot开始
-							$('#chart1').jqplot([line1,line2],
-									{
-										title : '蓝线：用票量       黄线：提取量',
-										seriesColors:["#2894FF","#FFE153"],
-										varyBarColor: true,
-										seriesDefaults : {
-										pointLabels : {
-											show : true
-										},
-										shadow : false,
-										showMarker : true
-									},
-									axes : {
-										xaxis : {
-										label : '月份',
-										labelOptions: {
-									        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-									        fontSize: '18px'
-									    },
-										tickRenderer : $.jqplot.CanvasAxisTickRenderer,
-										renderer : $.jqplot.CategoryAxisRenderer,
-										ticks : ticks,
-										showTicks : true, // 是否显示刻度线以及坐标轴上的刻度值  
-										showTickMarks : true, //设置是否显示刻度
-										tickOptions : {
-											show : true,
-											fontSize : '14px',
-											fontFamily : 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-											angle : -30,
-											showLabel : true, //是否显示刻度线以及坐标轴上的刻度值
-											showMark : false,//设置是否显示刻度
-											showGridline : false // 是否在图表区域显示刻度值方向的网格
-										}
-									},
-									yaxis : {
-										label : '票量',
-										labelOptions: {
-									        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-									        fontSize: '18px'
-									    },
-										show : true,
-										showTicks : true, // 是否显示刻度线以及坐标轴上的刻度值  
-										showTickMarks : true, //设置是否显示刻度
-										autoscale : true,
-										borderWidth : 1,
-										tickOptions : {
-											show : true,
-											showLabel : true,
-											showMark : true,
-											showGridline : true
-										}
-									}
-								}
-						   });
-		        		}
-		        	});
-        		}
-        	});
-        	        	
-        },
-        
-        getPlot2:function(){               //提取量折线图
-        	$('#chart2').html("");
-        	var bz = $('#searchbz').val();
-        	var xfid = null;
-        	var skpid = null;
-        	var kprqq = null;
-        	var kprqz = null;
-        	if(bz=='1'){
-        		xfid = $('#s_xfid').val(),
-                skpid = $('#s_skpid').val(),
-                kprqq = $('#s_kprqq').val(),
-                kprqz = $('#s_kprqz').val()
-        	}else{
-        		xfid = $('#m_xfid').val();
-        		kprqq = el.$jsDate.val(),
-                kprqz = el.$jsDate1.val()
-        	}
-        	$.ajax({
-        		url:'sjdtjbb/getTqlPlot',
-        		data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
-        		success:function(data){
-        			var line1 = new Array();
-        			var ticks = new Array();
-        			var i = 0;
-					for (var key in data) {
-						ticks[i] = key;
-						line1[i] = data[key];
-						i++;
-					}
-        				//plot开始
-        				$('#chart2').jqplot([line1],
-        						{
-        							title : '月提取量统计',
-        							//seriesColors:["#2894FF","#FFE153"],
-        							//varyBarColor: true,
-        							seriesDefaults : {
-        							pointLabels : {
-        								show : true
-        							},
-        							shadow : false,
-        							showMarker : true
-        						},
-        						axes : {
-        							xaxis : {
-        							label : '月份',
-        							labelOptions: {
-        						        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-        						        fontSize: '14px'
-        						    },
-        							tickRenderer : $.jqplot.CanvasAxisTickRenderer,
-        							renderer : $.jqplot.CategoryAxisRenderer,
-        							ticks : ticks,
-        							showTicks : true, // 是否显示刻度线以及坐标轴上的刻度值  
-        							showTickMarks : true, //设置是否显示刻度
-        							tickOptions : {
-        								show : true,
-        								fontSize : '14px',
-        								fontFamily : 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-        								angle : -30,
-        								showLabel : true, //是否显示刻度线以及坐标轴上的刻度值
-        								showMark : false,//设置是否显示刻度
-        								showGridline : false // 是否在图表区域显示刻度值方向的网格
-        							}
-        						},
-        						yaxis : {
-        							label : '提取量',
-        							labelOptions: {
-        						        fontFamily: 'tahoma,arial,"Hiragino Sans GB",宋体b8b体,sans-serif',
-        						        fontSize: '14px'
-        						    },
-        							show : true,
-        							showTicks : true, // 是否显示刻度线以及坐标轴上的刻度值  
-        							showTickMarks : true, //设置是否显示刻度
-        							autoscale : true,
-        							borderWidth : 1,
-        							tickOptions : {
-        								show : true,
-        								showLabel : true,
-        								showMark : true,
-        								showGridline : true
-        							}
-        						}
-        					}
-        			});
-        		}
-        	});
-        },
-        
-        searchAc:function(){
-        	var _this = this;
-        	el.$jsSearch.on('click', function (e) {
-        		$('#searchbz').val("1");
-        		//el.$jsLoading.modal('toggle');  // show loading
-                var kprqq = $('#s_kprqq').val();
-                var kprqz = $('#s_kprqz').val();
-                if(kprqq==''||kprqz==''){
-        //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
-    				// $('#my-alert').modal('open');
-                    swal("请先选择起始月份，终止月份！");
-                	//el.$jsLoading.modal('toggle');
-                	return false;               	
-                }
-                if(kprqq>kprqz){
-        //         	$('#alert-msg').html("起始月份不能大于终止月份！");
-    				// $('#my-alert').modal('open');
-                    swal("起始月份不能大于终止月份！");
-                	//el.$jsLoading.modal('toggle');
-                	return false;               
-                }
-                _this.getPlot1();
-                //_this.getPlot2();
-               e.preventDefault();              
-               t.ajax.reload();
-            })
-        },
-          
-        find_mv:function(){
-        	var _this = this;
-        	$('#searchButton').on('click',function(e){
-        		$('#searchbz').val("0");
-        		//el.$jsLoading.modal('toggle');  // show loading
-                var kprqq = el.$jsDate.val();
-                var kprqz = el.$jsDate1.val();
-                if(kprqq==''||kprqz==''){
-        //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
-    				// $('#my-alert').modal('open');
-                    swal("请先选择起始月份，终止月份！");
-                	//el.$jsLoading.modal('toggle');
-                	return false;               	
-                }
-                if(kprqq>kprqz){
-        //         	$('#alert-msg').html("起始月份不能大于终止月份！");
-    				// $('#my-alert').modal('open');
-                    swal("起始月份不能大于终止月份！");
-                	//el.$jsLoading.modal('toggle');
-                	return false;               
-                }
-                _this.getPlot1(); 
-                //_this.getPlot2();
-        		e.preventDefault();
-                t.ajax.reload();
-        	})
-        },
-        
+
+
         kpd:function(){
         	var xfid = $('#s_xfid').val();
 			var skpid = $("#s_skpid");
@@ -332,12 +98,234 @@ $(function () {
         
         init: function () {
             var _this = this;
-            _this.searchAc();
-            _this.find_mv();
-            _this.getPlot1();
+            //_this.searchAc();
+            //_this.find_mv();
+            //_this.getPlot1();
             //_this.getPlot2();
             _this.kpd();
         }
     }; 
-    action.init(); 
+    action.init();
+
+
+        el.$jsSearch.on('click', function (e) {
+            $('#searchbz').val("1");
+            //el.$jsLoading.modal('toggle');  // show loading
+            var kprqq = $('#s_kprqq').val();
+            var kprqz = $('#s_kprqz').val();
+            if(kprqq==''||kprqz==''){
+                //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+                // $('#my-alert').modal('open');
+                swal("请先选择起始月份，终止月份！");
+                //el.$jsLoading.modal('toggle');
+                return false;
+            }
+            if(kprqq>kprqz){
+                //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+                // $('#my-alert').modal('open');
+                swal("起始月份不能大于终止月份！");
+                //el.$jsLoading.modal('toggle');
+                return false;
+            }
+            if(kprqq.split("-")[0]<kprqz.split("-")[0]){
+                swal("所选日期不能跨年！");
+                //el.$jsLoading.modal('toggle');
+                return false;
+            }
+            getPlot1();
+            //_this.getPlot2();
+            e.preventDefault();
+            t.ajax.reload();
+        });
+
+    $('#searchButton').on('click',function(e){
+        $('#searchbz').val("0");
+        //el.$jsLoading.modal('toggle');  // show loading
+        var kprqq = el.$jsDate.val();
+        var kprqz = el.$jsDate1.val();
+        if(kprqq==''||kprqz==''){
+            //         	$('#alert-msg').html("请先选择起始月份，终止月份！");
+            // $('#my-alert').modal('open');
+            swal("请先选择起始月份，终止月份！");
+            //el.$jsLoading.modal('toggle');
+            return false;
+        }
+        if(kprqq>kprqz){
+            //         	$('#alert-msg').html("起始月份不能大于终止月份！");
+            // $('#my-alert').modal('open');
+            swal("起始月份不能大于终止月份！");
+            //el.$jsLoading.modal('toggle');
+            return false;
+        }
+        if(kprqq.split("-")[0]<kprqz.split("-")[0]){
+            swal("所选日期不能跨年！");
+            //el.$jsLoading.modal('toggle');
+            return false;
+        }
+        getPlot1();
+        //_this.getPlot2();
+        //e.preventDefault();
+        t.ajax.reload();
+    });
+
+
+    function getPlot1(){       //用票量折线图
+        //$('#chart1').html("");
+        var bz = $('#searchbz').val();
+        var xfid = null;
+        var skpid = null;
+        var kprqq = null;
+        var kprqz = null;
+        if(bz=='1'){
+            xfid = $('#s_xfid').val(),
+                skpid = $('#s_spkid').val(),
+                kprqq = $('#s_kprqq').val(),
+                kprqz = $('#s_kprqz').val()
+        }else{
+            xfid = $('#m_xfid').val();
+            kprqq = el.$jsDate.val(),
+                kprqz = el.$jsDate1.val()
+        }
+        var line1 = new Array();
+        var ticks = new Array();
+        var line2 = new Array();
+        $.ajax({
+            url:'sjdtjbb/getYplPlot',
+            data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
+            success:function(msg){
+                var dateArray = msg.dateArray;
+                var zpArray = msg.zpArray;
+                var zpjeArray = msg.zpjeArray;
+                var ppArray = msg.ppArray;
+                var ppjeArray = msg.ppjeArray;
+                var dpArray = msg.dpArray;
+                var dpjeArray = msg.dpjeArray;
+                fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray);
+            }
+        });
+
+    };
+
+
+    function fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray) {
+        var t3 = document.getElementById('main');
+        var myChart = echarts.init(t3);
+        myChart.showLoading(
+            {text: 'Loding...'}
+        );
+
+        var colors = ['#5793f3', '#d14a61', '#675bba','#0000CD','#00BFFF','#ADFF2F'];
+
+        var option = {
+            color: colors,
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            grid: {
+                right: '20%'
+            },
+            toolbox: {
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data:['电票量','专票量','普票量','电票金额','专票金额','普票金额']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    //data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    data :dateArray
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '价税合计',
+                    //min: 0,
+                    //max: 25,
+                    position: 'right',
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[0]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} 元'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '票量',
+                    min: 0,
+                    //max: 250,
+                    position: 'left',
+                    //offset: 80,
+                    axisLine: {
+                        lineStyle: {
+                            color: colors[2]
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} 张'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'电票量',
+                    type:'bar',
+                    yAxisIndex: 1,
+                    data:dpArray
+                },
+                {
+                    name:'专票量',
+                    type:'bar',
+                    yAxisIndex: 1,
+                    data:zpArray
+                },
+                {
+                    name:'普票量',
+                    type:'bar',
+                    yAxisIndex: 1,
+                    data:ppArray
+                },
+
+                {
+                    name:'电票金额',
+                    type:'line',
+                    // yAxisIndex: 1,
+                    data:dpjeArray
+                },
+                {
+                    name:'专票金额',
+                    type:'line',
+                    //yAxisIndex: 1,
+                    data:zpjeArray
+                },
+                {
+                    name:'普票金额',
+                    type:'line',
+                    //yAxisIndex: 1,
+                    data:ppjeArray
+                }
+
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.hideLoading();
+        myChart.setOption(option);
+    }
 });
+
+
