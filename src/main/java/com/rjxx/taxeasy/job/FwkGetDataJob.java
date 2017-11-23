@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * Created by xlm on 2017/8/2.
  */
-@Service
+
 public class FwkGetDataJob implements Job {
 
     private static Logger logger = LoggerFactory.getLogger(FwkGetDataJob.class);
@@ -57,7 +57,8 @@ public class FwkGetDataJob implements Job {
                                 "<SelectionByDate>\n" +
                                     "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                                     "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                                    "<LowerBoundaryCustomerInvoiceDate>2017-11-01</LowerBoundaryCustomerInvoiceDate>\n" +
+                                    "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2017-11-01T00:00:00.00000Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
+                                    "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2017-11-30T00:00:00.00000Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>"+
                                 "</SelectionByDate>\n" +
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
@@ -109,27 +110,28 @@ public class FwkGetDataJob implements Job {
             if (null != ProcessingTypeNameMap.get("$") && !ProcessingTypeNameMap.get("$").equals("")) {
                 processingTypeName = (String)ProcessingTypeNameMap.get("$");//发票类型
             }
-            String OriginalSerialNumber = null;/**OriginalSerialNumber交易流水号(贷记凭证：原发票InvoiceID+SapOrderID)**/
+            /*String OriginalSerialNumber = null;*//**OriginalSerialNumber交易流水号(贷记凭证：原发票InvoiceID+SapOrderID)**//*
             if(CustomerInvoiceMap.get("n1:OriginalSerialNumber")!=null) {
                 Map OriginalSerialNumberMap = (Map) CustomerInvoiceMap.get("n1:OriginalSerialNumber");
                 if (null != OriginalSerialNumberMap.get("$") && !OriginalSerialNumberMap.get("$").equals("")) {
                     OriginalSerialNumber = OriginalSerialNumberMap.get("$").toString();//SerialNumber交易流水号(发票：InvoiceID+SapOrderID，贷记凭证：原发票InvoiceID+SapOrderID)
                 }
-            }
+            }*/
             String InvoiceID = null;/**sap发票ID**/
             if (null != CustomerInvoiceMap.get("ID") && !CustomerInvoiceMap.get("ID").equals("")) {
                 InvoiceID = CustomerInvoiceMap.get("ID").toString();//sap发票ID
             }
-           /* String SerialNo = null;*//**SerialNumber交易流水号(发票：InvoiceID+SapOrderID**//*
-            if(CustomerInvoiceMap.get("n1:SerialNo")!=null) {
-                Map SerialNoMap = (Map) CustomerInvoiceMap.get("n1:SerialNo");
-                if (null != SerialNoMap.get("$") && !SerialNoMap.get("$").equals("")) {
-                    SerialNo = SerialNoMap.get("$").toString();
-                }
-            }*/
-            if(processingTypeName.equals("贷记凭证")){
+            String ReferenceBusinessTransactionDocumentID = null;/**SerialNumber交易流水号(原发票：交易流水号)**/
+            if (null != CustomerInvoiceMap.get("ReferenceBusinessTransactionDocumentID") && !CustomerInvoiceMap.get("ReferenceBusinessTransactionDocumentID").equals("")) {
+                ReferenceBusinessTransactionDocumentID = CustomerInvoiceMap.get("ReferenceBusinessTransactionDocumentID").toString();//sap发票ID
+            }
+            boolean CancellationInvoiceIndicator = false;/**是否是红冲发票**/
+            if (null != CustomerInvoiceMap.get("CancellationInvoiceIndicator") && !CustomerInvoiceMap.get("CancellationInvoiceIndicator").equals("")) {
+                CancellationInvoiceIndicator =(boolean) CustomerInvoiceMap.get("CancellationInvoiceIndicator");
+            }
+            if(CancellationInvoiceIndicator){
                     Map paramsMap=new HashMap();
-                    paramsMap.put("jylsh",OriginalSerialNumber);
+                    paramsMap.put("jylsh",ReferenceBusinessTransactionDocumentID);
                     paramsMap.put("gsdm","fwk");
                     Kpls kpls=kplsService.findOneByParams(paramsMap);
                     HcData hcData=new HcData();

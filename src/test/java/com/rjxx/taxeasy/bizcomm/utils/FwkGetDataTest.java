@@ -29,11 +29,11 @@ public class FwkGetDataTest {
                 "<soapenv:Body>\n" +
                 "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "<CustomerInvoiceSelectionByElements>\n" +
-                "<SelectionByDate>\n" +
+                "<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2017-11-09</LowerBoundaryCustomerInvoiceDate>\n" +
-                "</SelectionByDate>\n" +
+                "<LowerBoundaryIdentifier>140019</LowerBoundaryIdentifier>\n" +
+                "</SelectionByID>\n" +
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +
                 "<QueryHitsMaximumNumberValue>1</QueryHitsMaximumNumberValue>\n" +
