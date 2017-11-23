@@ -68,7 +68,7 @@ public class FwkGetDataJob implements Job {
                         "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                     "</soapenv:Body>\n" +
                 "</soapenv:Envelope>";
-        String Data= HttpUtils.doPostSoap1_2("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
+        String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
         Map jyxxMap=interping(Data);
 
 
