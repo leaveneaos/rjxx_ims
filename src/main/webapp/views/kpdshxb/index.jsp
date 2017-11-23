@@ -39,6 +39,7 @@ table thead th {
 <body>
 	<input type="hidden" id="kplsh" value="0">
 	<input type="hidden" id="kplsh1" value="0">
+	<input type="hidden" id="bj" value="2">
 	<div class="row-content am-cf">
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -48,7 +49,7 @@ table thead th {
 						<ul id="btbq" class="am-tabs-nav am-nav am-nav-tabs">
 							<li class="am-active"><a href="#tabs1">待处理</a></li>
 							<li id="cljgbt"><a href="#cljg">处理结果</a></li>
-							<li><a href="#tabs3">已处理</a></li>
+							<li style="display: none"><a href="#tabs3">已处理</a></li>
 						</ul>
 
 						<div id="nrbq" class="am-tabs-bd">
@@ -187,8 +188,8 @@ table thead th {
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-														<option value="gfmc">购方名称</option>
 														<option value="ddh">订单号</option>
+														<option value="gfmc">购方名称</option>
 													</select>
 												</div>
 											</div>
@@ -201,6 +202,26 @@ table thead th {
 															class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 															type="button"></button>
 													</span>
+												</div>
+											</div>
+											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+												<div class="am-form-group">
+													<div class="am-u-md-6 am-u-lg-2">
+														处理日期
+													</div>
+													<div class="am-u-md-6 am-u-lg-3">
+														<input type="text" id="w_kprqq" name="w_kprqq"
+															   placeholder="处理起始时间"
+															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+													</div>
+													<div class="am-u-md-6 am-u-lg-1">
+														至
+													</div>
+													<div class="am-u-md-6 am-u-lg-3">
+														<input type="text" id="w_kprqz" name="w_kprqz"
+															   placeholder="处理截止时间"
+															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+													</div>
 												</div>
 											</div>
 										</form>
@@ -1153,6 +1174,35 @@ table thead th {
 	function refresh() {
 		this.location = this.location;
 	}
+
+    function getCurrentMonthFirst(){
+        var date=new Date();
+        date.setDate(1);
+        return date;
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    $(function() {
+        var startDate = getCurrentMonthFirst();
+        var endDate = new Date();
+        //var $alert = $('#my-alert');
+        $("#w_kprqq").val(formatDate(startDate));
+        $("#w_kprqz").val(formatDate(endDate));
+        $("#s_rqq").val(formatDate(startDate));
+        $("#s_rqz").val(formatDate(endDate));
+    });
+
 	$(function() {
 		$("#select_xfid").change(
 				function() {

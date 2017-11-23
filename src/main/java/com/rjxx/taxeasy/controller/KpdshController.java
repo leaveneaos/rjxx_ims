@@ -113,147 +113,155 @@ public class KpdshController extends BaseController {
 		return "kpdshxb/index";
 	}
 
+
 	@ResponseBody
 	@RequestMapping("/getItems")
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
 										String spmc, String gfmc, String xfsh, String fpzldm,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Pagination pagination = new Pagination();
+		/*Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
-		pagination.setPageSize(length);
-		String gsdm = getGsdm();
-		String xfStr = "";
-		List<Xf> xfs = getXfList();
-		if (xfs != null) {
-			for (int i = 0; i < xfs.size(); i++) {
-				int xfid = xfs.get(i).getId();
-				if (i == xfs.size() - 1) {
-					xfStr += xfid + "";
-				} else {
-					xfStr += xfid + ",";
-				}
-			}
-		}
-		String[] xfid = xfStr.split(",");
-		if (xfid.length == 0) {
-			xfid = null;
-		}
-		String skpStr = "";
-		List<Skp> skpList = getSkpList();
-		if (skpList != null) {
-			for (int j = 0; j < skpList.size(); j++) {
-				int skpid = skpList.get(j).getId();
-				if (j == skpList.size() - 1) {
-					skpStr += skpid + "";
-				} else {
-					skpStr += skpid + ",";
-				}
-			}
-		}
-		String[] skpid = skpStr.split(",");
-		if (skpid.length == 0) {
-			skpid = null;
-		}
-		// pagination.addParam("gsdm", gsdm);
-		// pagination.addParam("xfid", xfid);
-		// pagination.addParam("skpid", skpid);
-		if ("".equals(fpzldm)) {
-			pagination.addParam("fpzldm", null);
-		} else {
-			pagination.addParam("fpzldm", fpzldm);
-		}
-		pagination.addParam("ddh", ddh);
-		pagination.addParam("xfs", xfs);
-		pagination.addParam("ztbz", "6");
-		pagination.addParam("bfzt", "5");
-		pagination.addParam("skps", skpList);
-		pagination.addParam("kprqq", kprqq);
-		pagination.addParam("kprqz", kprqz);
-		pagination.addParam("gsdm", gsdm);
-		pagination.addParam("spmc", spmc);
-		pagination.addParam("gfmc", gfmc);
-		pagination.addParam("order", "sqlsh");
-		pagination.addParam("ord", "asc");
-		if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
-			pagination.addParam("xfsh", xfsh);
-		}
-		List<JyxxsqVO> ykfpList = jyxxsqService.findByPage(pagination);
-		for (JyxxsqVO jyxxsqVO : ykfpList) {
-			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
-			Xf xf2 = new Xf();
-			xf2.setXfsh(jyxxsqVO.getXfsh());
-			xf2.setGsdm(gsdm);
-			Xf xf = xfService.findOneByParams(xf2);
-			Skp skp = skpService.findOne(jyxxsqVO.getSkpid());
-			double fpje = 0d;
-			Double zdje = 0d;
-			String hsbz = "";
-			String qdbz = "";
-			/**
-			 * 取税控盘的开票限额
-			 */
-			if ("01".equals(jyxxsqVO.getFpzldm())) {
-				zdje = skp.getZpmax();
-			} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-				zdje = skp.getPpmax();
-			} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-				zdje = skp.getDpmax();
-			}
-			boolean flag = false;
-			/**
-			 * 先取税控盘的分票金额
-			 */
-			for (Fpgz fpgz : listt) {
-				if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
-					if ("01".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz.getZpxe();
-					} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz.getPpxe();
-					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-						fpje = fpgz.getDzpxe();
-					}
-					flag = true;
-					hsbz = fpgz.getHsbz();
-					qdbz = fpgz.getQdbz();
-					break;
-				}
-			}
-			/**
-			 * 分票规则没有取到，就取税控盘的分票金额
-			 */
-			if (!flag) {
-				if ("01".equals(jyxxsqVO.getFpzldm())) {
-					if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
-						fpje = skp.getZpfz();
-					}
-				} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-					if (skp.getPpfz() != null && (skp.getPpfz() > 0)) {
-						fpje = skp.getPpfz();
-					}
-				} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-					if (skp.getFpfz() != null && (skp.getFpfz()) > 0) {
-						fpje = skp.getFpfz();
-					}
-				}
-			}
-			if (null == zdje) {
-				zdje = 0d;
-			}
-			if (hsbz != null && hsbz.equals("1")) {
-				zdje = (double) Math.round(zdje * 1.17 * 100) / 100;
-				System.out.println(zdje);
-			}
-			if (zdje >= fpje) {
-				jyxxsqVO.setFpje(fpje);
-			} else {
-				jyxxsqVO.setFpje(zdje);
-			}
-			jyxxsqVO.setZdje(zdje);
-			jyxxsqVO.setFpjshsbz(hsbz);
-			jyxxsqVO.setQdbz(qdbz);
-		}
+		pagination.setPageSize(length);*/
+		Map map = new HashMap();
 		if(loaddata){
-			int total = pagination.getTotalRecord();
+			map.put("start",start);
+			map.put("length",length);
+			String gsdm = getGsdm();
+			//String xfStr = "";
+			List<Xf> xfs = getXfList();
+			/*if (xfs != null) {
+				for (int i = 0; i < xfs.size(); i++) {
+					int xfid = xfs.get(i).getId();
+					if (i == xfs.size() - 1) {
+						xfStr += xfid + "";
+					} else {
+						xfStr += xfid + ",";
+					}
+				}
+			}
+			String[] xfid = xfStr.split(",");
+			if (xfid.length == 0) {
+				xfid = null;
+			}*/
+			//String skpStr = "";
+			List<Skp> skpList = getSkpList();
+			/*if (skpList != null) {
+				for (int j = 0; j < skpList.size(); j++) {
+					int skpid = skpList.get(j).getId();
+					if (j == skpList.size() - 1) {
+						skpStr += skpid + "";
+					} else {
+						skpStr += skpid + ",";
+					}
+				}
+			}
+			String[] skpid = skpStr.split(",");
+			if (skpid.length == 0) {
+				skpid = null;
+			}*/
+			if ("".equals(fpzldm)) {
+				map.put("fpzldm",null);
+			} else {
+				map.put("fpzldm",fpzldm);
+			}
+			map.put("ddh",ddh);
+			map.put("xfs",xfs);
+			map.put("ztbz","6");//状态标志6表示未处理，5表示已部分处理
+			map.put("bfzt","5");
+			map.put("skps",skpList);
+			map.put("kprqq",kprqq);
+			map.put("kprqz",kprqz);
+			map.put("gsdm",gsdm);
+			map.put("spmc",spmc);
+			map.put("gfmc",gfmc);
+			//pagination.addParam("order", "sqlsh");
+			//pagination.addParam("ord", "asc");
+			if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
+				map.put("xfsh", xfsh);
+			}
+			List<JyxxsqVO> ykfpList = jyxxsqService.findByPage2(map);
+			for (JyxxsqVO jyxxsqVO : ykfpList) {
+				List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
+				Xf xf2 = new Xf();
+				xf2.setXfsh(jyxxsqVO.getXfsh());
+				xf2.setGsdm(gsdm);
+				Xf xf = xfService.findOneByParams(xf2);
+				Skp skp = skpService.findOne(jyxxsqVO.getSkpid());
+				double fpje = 0d;
+				Double zdje = 0d;
+				String hsbz = "";
+				String qdbz = "";
+				/**
+				 * 取税控盘的开票限额
+				 */
+				if ("01".equals(jyxxsqVO.getFpzldm())) {
+					zdje = skp.getZpmax();
+				} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+					zdje = skp.getPpmax();
+				} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+					zdje = skp.getDpmax();
+				}
+				boolean flag = false;
+				/**
+				 * 先取税控盘的分票金额
+				 */
+				for (Fpgz fpgz : listt) {
+					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
+						if ("01".equals(jyxxsqVO.getFpzldm())) {
+							fpje = fpgz.getZpxe();
+						} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+							fpje = fpgz.getPpxe();
+						} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+							fpje = fpgz.getDzpxe();
+						}
+						flag = true;
+						hsbz = fpgz.getHsbz();
+						qdbz = fpgz.getQdbz();
+						break;
+					}
+				}
+				/**
+				 * 分票规则没有取到，就取税控盘的分票金额
+				 */
+				if (!flag) {
+					if ("01".equals(jyxxsqVO.getFpzldm())) {
+						if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
+							fpje = skp.getZpfz();
+						}
+					} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+						if (skp.getPpfz() != null && (skp.getPpfz() > 0)) {
+							fpje = skp.getPpfz();
+						}
+					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+						if (skp.getFpfz() != null && (skp.getFpfz()) > 0) {
+							fpje = skp.getFpfz();
+						}
+					}
+				}
+				if (null == zdje) {
+					zdje = 0d;
+				}
+				if (hsbz != null && hsbz.equals("1")) {
+					zdje = (double) Math.round(zdje * 1.17 * 100) / 100;
+					System.out.println(zdje);
+				}
+				if (zdje >= fpje) {
+					jyxxsqVO.setFpje(fpje);
+				} else {
+					jyxxsqVO.setFpje(zdje);
+				}
+				jyxxsqVO.setZdje(zdje);
+				jyxxsqVO.setFpjshsbz(hsbz);
+				jyxxsqVO.setQdbz(qdbz);
+			}
+			int total;
+			if(0 == start){
+				total = jyxxsqService.findtotal(map);
+				request.getSession().setAttribute("total",total);
+			}else{
+				total =  (Integer)request.getSession().getAttribute("total");
+				//request.getSession().getAttribute("total");
+			}
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
@@ -267,6 +275,7 @@ public class KpdshController extends BaseController {
 		}
 		return result;
 	}
+
 
 	@ResponseBody
 	@RequestMapping("/getMx")
@@ -932,63 +941,64 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	public Map getyscjyxxsqlist(int length, int start, int draw, String clztdm, String xfsh, String gfmc, String ddh,
 								String fpzldm, String rqq, String rqz,boolean  loaddata2) {
-		Pagination pagination = new Pagination();
-		pagination.setPageNo(start / length + 1);
-		pagination.setPageSize(length);
-		List<Xf> xfs = getXfList();
-		List<Skp> skps = getSkpList();
-		if (xfs != null && xfs.size() > 0) {
-			pagination.addParam("xfs", xfs);
-		}
-		if (skps != null && skps.size() > 0) {
-			pagination.addParam("skps", skps);
-		}
-		if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
-			pagination.addParam("xfsh", xfsh);
-		}
-		pagination.addParam("gfmc", gfmc);
-		pagination.addParam("ddh", ddh);
-		if ("".equals(fpzldm)) {
-			pagination.addParam("fpzldm", null);
-		} else {
-			pagination.addParam("fpzldm", fpzldm);
-		}
-
-		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
-		} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
-			pagination.addParam("rqq", rqz);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		}
-		pagination.addParam("clztdm", "00");
-		// pagination.addParam("fpzldm", "12");
-		pagination.addParam("fpczlxdm", "11");
-		pagination.addParam("ztbz", "3");
-		pagination.addParam("gsdm", this.getGsdm());
-		pagination.addParam("orderBy", "lrsj desc");
-
-		List<JyxxsqVO> jyxxsqList = jyxxsqService.findByPage(pagination);
-		for(JyxxsqVO jyxxsqVO:jyxxsqList){
-			Jyls jylsparams=new Jyls();
-			jylsparams.setSqlsh(Integer.valueOf(jyxxsqVO.getSqlsh()));
-			Double f =0.0;
-			List<Jyls> jylslist=jylsService.findAllByParams(jylsparams);
-			for(Jyls Jyls:jylslist){
-				if(Jyls.getClztdm().equals("40")){
-					f+=Jyls.getJshj();
-				}
-			}
-			jyxxsqVO.setYkjje(f);
-		}
-
-
-		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
+
 		if(loaddata2){
+			Pagination pagination = new Pagination();
+			pagination.setPageNo(start / length + 1);
+			pagination.setPageSize(length);
+			List<Xf> xfs = getXfList();
+			List<Skp> skps = getSkpList();
+			if (xfs != null && xfs.size() > 0) {
+				pagination.addParam("xfs", xfs);
+			}
+			if (skps != null && skps.size() > 0) {
+				pagination.addParam("skps", skps);
+			}
+			if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
+				pagination.addParam("xfsh", xfsh);
+			}
+			pagination.addParam("gfmc", gfmc);
+			pagination.addParam("ddh", ddh);
+			if ("".equals(fpzldm)) {
+				pagination.addParam("fpzldm", null);
+			} else {
+				pagination.addParam("fpzldm", fpzldm);
+			}
+
+			if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
+				pagination.addParam("rqq", rqq);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+			} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
+				pagination.addParam("rqq", rqq);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
+			} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
+				pagination.addParam("rqq", rqz);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+			}
+			pagination.addParam("clztdm", "00");
+			// pagination.addParam("fpzldm", "12");
+			pagination.addParam("fpczlxdm", "11");
+			pagination.addParam("ztbz", "3");
+			pagination.addParam("gsdm", this.getGsdm());
+			pagination.addParam("orderBy", "lrsj desc");
+
+			List<JyxxsqVO> jyxxsqList = jyxxsqService.findByPage(pagination);
+			for(JyxxsqVO jyxxsqVO:jyxxsqList){
+				Jyls jylsparams=new Jyls();
+				jylsparams.setSqlsh(Integer.valueOf(jyxxsqVO.getSqlsh()));
+				Double f =0.0;
+				List<Jyls> jylslist=jylsService.findAllByParams(jylsparams);
+				for(Jyls Jyls:jylslist){
+					if(Jyls.getClztdm().equals("40")){
+						f+=Jyls.getJshj();
+					}
+				}
+				jyxxsqVO.setYkjje(f);
+			}
+
+
+			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);

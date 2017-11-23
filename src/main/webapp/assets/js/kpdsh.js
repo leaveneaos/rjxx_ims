@@ -374,18 +374,24 @@ $(function() {
 					url : _this.config.getUrl,
 					type : 'POST',
 					data : function(d) {
-						d.kprqq = $("#s_rqq").val(); // search 开票日期
-						d.kprqz = $("#s_rqz").val(); // search 开票日期
-					    d.xfsh = $('#s_xfsh').val();   // search 销方
-		                d.gfmc = $('#s_gfmc').val();	// search 购方名称
-		                d.ddh = $('#s_ddh').val();   // search 订单号
-		                d.fpzldm = $('#s_fplx').val();   // search 发票号码
-		                var csm =  $('#dxcsm').val()
-		                if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){
-		                    d.gfmc = $('#dxcsz').val()
-		                 }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){
-		                    d.ddh = $('#dxcsz').val()
-						 }
+					    if($("#bj").val()=='1'){
+                            d.kprqq = $("#s_rqq").val(); // search 开票日期
+                            d.kprqz = $("#s_rqz").val(); // search 开票日期
+                            d.xfsh = $('#s_xfsh').val();   // search 销方
+                            d.gfmc = $('#s_gfmc').val();	// search 购方名称
+                            d.ddh = $('#s_ddh').val();   // search 订单号
+                            d.fpzldm = $('#s_fplx').val();   // search 发票号码
+                        }else{
+                            var csm =  $('#dxcsm').val();
+                            if("gfmc"==csm){
+                                d.gfmc = $('#dxcsz').val();
+                            }else if("ddh"==csm){
+                                d.ddh = $('#dxcsz').val()
+                            }
+                            d.kprqq =$("#w_kprqq").val();
+                            d.kprqz = $("#w_kprqz").val(); // search 开票日期
+                        }
+
 						 d.loaddata=loaddata;
                         splsh.splice(0,splsh.length);
 					}
@@ -761,13 +767,81 @@ $(function() {
 			var _this = this;
 			$("#kp_search").on('click', function(e) {
 				$("#ycform").resetForm();
+				$("#bj").val('2');
 	        	$('#xzxfq').attr("selected","selected");
 	         	$('#xzlxq').attr("selected","selected");
+                if ((!$("#w_kprqq").val() && $("#w_kprqz").val())
+                    || ($("#w_kprqq").val() && !$("#w_kprqz").val())) {
+                    // $("#alertt").html('Error,请选择开始和结束时间!');
+                    //            	$("#my-alert").modal('open');
+                    swal('Error,请选择开始和结束时间!');
+                    return false;
+                }
+                var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                if (($("#w_kprqq").val() && $("#w_kprqz").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                // $("#alertt").html('开始日期大于结束日期,Error!');
+                                //               	$("#my-alert").modal('open');
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                            //               	$("#my-alert").modal('open');
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                        //               	$("#my-alert").modal('open');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 loaddata=true;
 				_this.tableEx.ajax.reload();
 			});
 			$("#kp_search1").on('click', function(e) {
 				$("#dxcsz").val("");
+                $("#bj").val('2');
+                if ((!$("#s_rqq").val() && $("#s_rqz").val())
+                    || ($("#s_rqq").val() && !$("#s_rqz").val())) {
+                    // $("#alertt").html('Error,请选择开始和结束时间!');
+                    //            	$("#my-alert").modal('open');
+                    swal('Error,请选择开始和结束时间!');
+                    return false;
+                }
+                var dt1 = new Date($("#s_rqq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#s_rqz").val().replace(/-/g, "/"));
+                if (($("#s_rqq").val() && $("#s_rqz").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                // $("#alertt").html('开始日期大于结束日期,Error!');
+                                //               	$("#my-alert").modal('open');
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                            //               	$("#my-alert").modal('open');
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                        //               	$("#my-alert").modal('open');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 loaddata=true;
 				_this.tableEx.ajax.reload();
 			})
