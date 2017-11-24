@@ -42,21 +42,26 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'post',
                     data: function (d) {
-                        d.xfsh = el.$xfsh.val();   // search 销方
-                        d.gfmc = el.$gfmc.val();	// search 购方名称
-                        d.ddh = el.$s_ddh.val();   // search 订单号
-                        d.jylsh = el.$s_lsh.val();   // search 流水号
-                        d.rqq = el.$s_rqq.val(); // search 开票日期
-                        d.rqz = el.$s_rqz.val(); // search 开票日期
+                        if($('#bj').val() =='1'){
+                            d.xfsh = el.$xfsh.val();   // search 销方
+                            d.gfmc = el.$gfmc.val();	// search 购方名称
+                            d.ddh = el.$s_ddh.val();   // search 订单号
+                            d.jylsh = el.$s_lsh.val();   // search 流水号
+                            d.rqq = el.$s_rqq.val(); // search 开票日期
+                            d.rqz = el.$s_rqz.val(); // search 开票日期
+                        }else{
+                            var csm =  $('#dxcsm').val();
+                            //alert(csm);
+                            if("gfmc"==csm){ //购方名称
+                                d.gfmc = $('#dxcsz').val();
+                            }else if("ddh"==csm){//订单号
+                                d.ddh = $('#dxcsz').val();
+                            }
+                            d.rqq = $('#w_kprqq').val(); // search 开票日期
+                            d.rqz = $('#w_kprqz').val(); // search 开票日期
+                        }
+
                         d.loaddata=loaddata;
-                        
-                        var csm =  $('#dxcsm').val()
-                        if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
-                      	  d.gfmc = $('#dxcsz').val()
-                      }else if("ddh"==csm&&(d.ddh==null||d.ddh=="")){//订单号
-                      	  d.ddh = $('#dxcsz').val()
-                      }
-                        
                     }
                 },
                 "columns": [
@@ -94,8 +99,14 @@ $(function () {
                         	sjly = '平台导入';
                             break;
                         case '3':
-                        sjly = '钉钉录入';
-                        break;
+                            sjly = '钉钉录入';
+                            break;
+                        case '4':
+                            sjly = '微信录入';
+                            break;
+                        case '5':
+                            sjly = '支付宝录入';
+                            break;
                         }
                     	return sjly;
                     }},
@@ -238,27 +249,63 @@ $(function () {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期!');
+                                swal('开始日期大于结束日期!');
                                 return false;
                             }
                         } else {
-                            alert('请选择同一个年月内的时间!');
+                            swal('请选择同一个年月内的时间!');
                             return false;
                         }
                     } else {
-                        alert('请选择同一个年月内的时间!');
+                        swal('请选择同一个年月内的时间!');
                         return false;
                     }
                 }
                 e.preventDefault();
-                $("#dxcsz").val("");
+                //$("#dxcsz").val("");
+                $('#bj').val('1');
                 loaddata=true;
                 _this.tableEx.ajax.reload();
 
             });
             
             $('#kplscx_search').click(function () {
-             	$("#ycform").resetForm();
+             	//$("#ycform").resetForm();
+             	//alert($("#w_kprqq").val());
+                if ((!$("#w_kprqq").val() && $("#w_kprqz").val())
+                    || ($("#w_kprqq").val() && !$("#w_kprqz").val())) {
+                    // $("#alertt").html('Error,请选择开始和结束时间!');
+                    //            	$("#my-alert").modal('open');
+                    swal('Error,请选择开始和结束时间!');
+                    return false;
+                }
+                var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                if (($("#w_kprqq").val() && $("#w_kprqq").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                // $("#alertt").html('开始日期大于结束日期,Error!');
+                                //               	$("#my-alert").modal('open');
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                            //               	$("#my-alert").modal('open');
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                        //               	$("#my-alert").modal('open');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
+                $('#bj').val('2');
                 loaddata=true;
               	_this.tableEx.ajax.reload();
              });
@@ -294,11 +341,11 @@ $(function () {
                         el.$jsForm0.find('[name="je"]').val((FormatFloat(data.hjje, "###,###.00")));
                         el.$jsForm0.find('[name="se"]').val((FormatFloat(data.hjse, "###,###.00")));
                     }else{
-                    	alert('您要查询的订单发票还未开具，请稍后再试！');
+                        swal('您要查询的订单发票还未开具，请稍后再试！');
                     }
                 },
                 error: function () {
-                    alert('后台错误,请稍后重试');
+                    swal('后台错误,请稍后重试');
                 }
             });
         },

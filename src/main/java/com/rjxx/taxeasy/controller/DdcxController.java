@@ -51,38 +51,49 @@ public class DdcxController extends BaseController {
 	public Map getItems(int length, int start, int draw, String xfsh, String gfmc, String ddh, String rqq, String rqz,
 			String jylsh,boolean loaddata) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Pagination pagination = new Pagination();
-		pagination.setPageNo(start / length + 1);
-		pagination.setPageSize(length);
-		List<Integer> xfs = new ArrayList<>();
-		if (!getXfList().isEmpty()) {
-			for (Xf xf : getXfList()) {
-				xfs.add(xf.getId());
-			}
-		}
-		if (xfs.size() > 0) {
-			pagination.addParam("xfList", xfs);
-		}
-		pagination.addParam("xfsh", xfsh);
-		pagination.addParam("gfmc", gfmc);
-		pagination.addParam("ddh", ddh);
-		pagination.addParam("jylsh", jylsh);
-		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
-		} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
-			pagination.addParam("rqq", rqz);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		}
-
-		pagination.addParam("orderBy", "ddrq desc");
-		pagination.addParam("gsdm", this.getGsdm());
-		List<JyxxsqVO> list = jyxxsqservice.findBykplscxPage(pagination);
-		int total = pagination.getTotalRecord();
 		if(loaddata){
+			Map params = new HashMap();
+			/*Pagination pagination = new Pagination();
+			pagination.setPageNo(start / length + 1);
+			pagination.setPageSize(length);*/
+			List<Integer> xfs = new ArrayList<>();
+			if (!getXfList().isEmpty()) {
+				for (Xf xf : getXfList()) {
+					xfs.add(xf.getId());
+				}
+			}
+			if (xfs.size() > 0) {
+				params.put("xfList", xfs);
+			}
+			params.put("xfsh", xfsh);
+			params.put("gfmc", gfmc);
+			params.put("ddh", ddh);
+			params.put("jylsh", jylsh);
+			if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
+				params.put("rqq", rqq);
+				params.put("rqz", TimeUtil.getAfterDays(rqz, 1));
+			} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
+				params.put("rqq", rqq);
+				params.put("rqz", TimeUtil.getAfterDays(rqq, 1));
+			} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
+				params.put("rqq", rqz);
+				params.put("rqz", TimeUtil.getAfterDays(rqz, 1));
+			}
+
+			//params.addParam("orderBy", "ddrq desc");
+			params.put("gsdm", this.getGsdm());
+			params.put("start",start);
+			params.put("length",length);
+			List<JyxxsqVO> list = jyxxsqservice.findBykplscxPage(params);
+			//int total = pagination.getTotalRecord();
+			int total;
+			if(0 == start){
+				total = jyxxsqservice.findBykplscxtotal(params);
+				request.getSession().setAttribute("total",total);
+			}else{
+				total =  (Integer)request.getSession().getAttribute("total");
+				//request.getSession().getAttribute("total");
+			}
 			result.put("recordsTotal",total);
 			result.put("recordsFiltered",total);
 			result.put("draw",draw);

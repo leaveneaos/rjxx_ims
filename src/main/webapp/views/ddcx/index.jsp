@@ -21,7 +21,9 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css">
 <script src="assets/js/loading.js"></script>
-<style type="text/css">
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+
+	<style type="text/css">
 	.data-ctr {
 	  text-align: center;
 	}
@@ -36,6 +38,7 @@
 	<!-- sidebar end -->
 	<!-- content start -->
 	<input type="hidden" id="djh" value="0">
+	<input type="hidden" id="bj" value="1">
 	<div class="row-content am-cf">
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -161,13 +164,12 @@
 											</div>
 										</div>
 									</div>
-								</div> 
-							
+								</div>
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 									<div class="am-form-group tpl-table-list-select">
 										<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-											<option value="gfmc">购方名称</option>
 											<option value="ddh">订单号</option>
+											<option value="gfmc">购方名称</option>
 										</select>
 									</div>
 								</div>
@@ -180,6 +182,26 @@
 												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 												type="button"></button>
 										</span>
+									</div>
+								</div>
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+									<div class="am-form-group">
+										<div class="am-u-md-6 am-u-lg-2">
+											订单日期
+										</div>
+										<div class="am-u-md-6 am-u-lg-3">
+											<input type="text" id="w_kprqq" name="w_kprqq"
+												   placeholder="订单起始时间"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+										<div class="am-u-md-6 am-u-lg-1">
+											至
+										</div>
+										<div class="am-u-md-6 am-u-lg-3">
+											<input type="text" id="w_kprqz" name="w_kprqz"
+												   placeholder="订单截止时间"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
 									</div>
 								</div>
 							</form>
@@ -326,10 +348,7 @@
 		</div>
 </div>
 
-<script type="text/javascript">
 
-
-</script>
 <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
   <div class="am-modal-dialog">
     <div id="alertt" class="am-modal-bd">
@@ -360,5 +379,37 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
     <script src="assets/js/fpcx_4.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
+
+	<script type="text/javascript">
+        function getCurrentMonthFirst(){
+            var date=new Date();
+            date.setDate(1);
+            return date;
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(function() {
+            var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            //var $alert = $('#my-alert');
+            $("#w_kprqq").val(formatDate(startDate));
+            $("#w_kprqz").val(formatDate(endDate));
+            $("#s_rqq").val(formatDate(startDate));
+            $("#s_rqz").val(formatDate(endDate));
+        });
+
+	</script>
 </body>
 </html>

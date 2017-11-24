@@ -207,11 +207,11 @@ table thead th {
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
 												<div class="am-form-group">
 													<div class="am-u-md-6 am-u-lg-2">
-														处理日期
+														订单日期
 													</div>
 													<div class="am-u-md-6 am-u-lg-3">
 														<input type="text" id="w_kprqq" name="w_kprqq"
-															   placeholder="处理起始时间"
+															   placeholder="订单起始时间"
 															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 													</div>
 													<div class="am-u-md-6 am-u-lg-1">
@@ -219,7 +219,7 @@ table thead th {
 													</div>
 													<div class="am-u-md-6 am-u-lg-3">
 														<input type="text" id="w_kprqz" name="w_kprqz"
-															   placeholder="处理截止时间"
+															   placeholder="订单截止时间"
 															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 													</div>
 												</div>

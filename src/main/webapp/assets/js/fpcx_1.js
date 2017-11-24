@@ -320,7 +320,7 @@ $(function() {
                 }
                 var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
                 var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
-                if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
+                if (($("#w_kprqq").val() && $("#w_kprqz").val())) {// 都不为空
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
