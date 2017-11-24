@@ -163,65 +163,64 @@ public class YjfsController extends BaseController {
 		/*Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);*/
-		Map maps = new HashMap();
-		maps.put("start",start);
-		maps.put("length",length);
-		List<Xf> xfs = getXfList();
-		String xfStr = "";
-		if (xfs != null) {
-			for (int i = 0; i < xfs.size(); i++) {
-				int xfid2 = xfs.get(i).getId();
-				if (i == xfs.size() - 1) {
-					xfStr += xfid2 + "";
-				} else {
-					xfStr += xfid2 + ",";
+		//int total = pagination.getTotalRecord();
+		if(loaddata){
+			Map maps = new HashMap();
+			maps.put("start",start);
+			maps.put("length",length);
+			List<Xf> xfs = getXfList();
+			String xfStr = "";
+			if (xfs != null) {
+				for (int i = 0; i < xfs.size(); i++) {
+					int xfid2 = xfs.get(i).getId();
+					if (i == xfs.size() - 1) {
+						xfStr += xfid2 + "";
+					} else {
+						xfStr += xfid2 + ",";
+					}
 				}
 			}
-		}
-		if(null !=xfid && !xfid.equals("")){
-			maps.put("xfid2", xfid);
-		}
-		String[] xfid2 = xfStr.split(",");
+			if(null !=xfid && !xfid.equals("")){
+				maps.put("xfid2", xfid);
+			}
+			String[] xfid2 = xfStr.split(",");
 
-		if (xfid2.length == 0) {
-			xfid2 = null;
-		}
-		maps.put("gsdm", getGsdm());
-		maps.put("gfmc", gfmc);
-		maps.put("ddh", ddh);
-		maps.put("fphm", fphm);
-		maps.put("fpdm", fpdm);
-		maps.put("xfmc", xfmc);
-		maps.put("xfid", xfid2);
-		maps.put("fpzldm", "12");
-		maps.put("fpzt","00");
-		// pagination.addParam("jyrqq", jyrqq);
-		// pagination.addParam("jyrqz", jyrqz);
-		if (!"".equals(jyrqq)) {
-			maps.put("kprqq", jyrqq);
-		}
-		if (!"".equals(jyrqz)) {
-			maps.put("kprqz", jyrqz);
-		}
-		if (!"".equals(kprqq)) {
-			maps.put("kprqq2", kprqq);
-		}
-		if (!"".equals(kprqz)) {
-			maps.put("kprqz2", kprqz);
-		}
-		maps.put("fpczlx", "11");
-
-		//int total = pagination.getTotalRecord();
-		int total;
-		if(0 == start){
-			total = kplsService.findTotal(maps);
-			request.getSession().setAttribute("total",total);
-		}else{
-			total =  (Integer)request.getSession().getAttribute("total");
-			//request.getSession().getAttribute("total");
-		}
-		if(loaddata){
+			if (xfid2.length == 0) {
+				xfid2 = null;
+			}
+			maps.put("gsdm", getGsdm());
+			maps.put("gfmc", gfmc);
+			maps.put("ddh", ddh);
+			maps.put("fphm", fphm);
+			maps.put("fpdm", fpdm);
+			maps.put("xfmc", xfmc);
+			maps.put("xfid", xfid2);
+			maps.put("fpzldm", "12");
+			maps.put("fpzt","00");
+			// pagination.addParam("jyrqq", jyrqq);
+			// pagination.addParam("jyrqz", jyrqz);
+			if (!"".equals(jyrqq)) {
+				maps.put("kprqq", jyrqq);
+			}
+			if (!"".equals(jyrqz)) {
+				maps.put("kprqz", jyrqz);
+			}
+			if (!"".equals(kprqq)) {
+				maps.put("kprqq2", kprqq);
+			}
+			if (!"".equals(kprqz)) {
+				maps.put("kprqz2", kprqz);
+			}
+			maps.put("fpczlx", "11");
 			List<Fpcxvo> list = kplsService.findByPage2(maps);
+			int total;
+			if(0 == start){
+				total = kplsService.findTotal(maps);
+				request.getSession().setAttribute("total",total);
+			}else{
+				total =  (Integer)request.getSession().getAttribute("total");
+				//request.getSession().getAttribute("total");
+			}
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
