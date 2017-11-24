@@ -22,7 +22,9 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css" />
-<script src="assets/js/loading.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+
+	<script src="assets/js/loading.js"></script>
 <style type="text/css">
      .top-position {margin-top:8px}
      .data-ctr {
@@ -88,6 +90,15 @@
 																<option value="${item.fpzldm}">${item.fpzlmc}</option>
 															</c:forEach>
 														</select>
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
+													<label for="fphm" class="am-u-sm-4 am-form-label">发票号码</label>
+													<div class="am-u-sm-8">
+														<input type="text" class="am-form-field" id="s_fphm"
+															   name="s_fphm" placeholder="请输入发票号码" />
 													</div>
 												</div>
 											</div>
@@ -164,6 +175,7 @@
 										<div class="am-form-group tpl-table-list-select">
 											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
 												<option value="ddh">订单号</option>
+												<option value="fphm">发票号码</option>
 												<option value="gfmc">购方名称</option>
 											</select>
 										</div>
@@ -179,13 +191,33 @@
 											</span>
 										</div>
 									</div>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+										<div class="am-form-group">
+											<div class="am-u-md-6 am-u-lg-2">
+												红冲日期
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqq" name="w_kprqq"
+													   placeholder="红冲起始时间"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+											<div class="am-u-md-6 am-u-lg-1">
+												至
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqz" name="w_kprqz"
+													   placeholder="红冲截止时间"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+										</div>
+									</div>
 								</form>
 							</div>
 							<hr />
-							<div class="am-u-sm-12">
-								<div class="am-scrollable-horizontal">
+							<div class="am-u-sm-12 am-padding-top">
+								<div>
 									<table
-										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th>序号</th>
@@ -326,6 +358,37 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fphccx.js"></script>
+	<script src="assets/js/sweetalert.min.js"></script>
+
+    <script type="text/javascript">
+        function getCurrentMonthFirst(){
+            var date=new Date();
+            date.setDate(1);
+            return date;
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(function() {
+            var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            //var $alert = $('#my-alert');
+            $("#w_kprqq").val(formatDate(startDate));
+            $("#w_kprqz").val(formatDate(endDate));
+            $("#s_kprqq").val(formatDate(startDate));
+            $("#s_kprqz").val(formatDate(endDate));
+        });
+	</script>
 
 </body>
 </html>
