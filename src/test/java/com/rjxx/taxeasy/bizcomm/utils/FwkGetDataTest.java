@@ -32,7 +32,7 @@ public class FwkGetDataTest {
                 "<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryIdentifier>140019</LowerBoundaryIdentifier>\n" +
+                "<LowerBoundaryIdentifier>140022</LowerBoundaryIdentifier>\n" +
                 "</SelectionByID>\n" +
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +

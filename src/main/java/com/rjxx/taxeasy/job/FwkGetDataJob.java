@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * Created by xlm on 2017/8/2.
  */
-
+@Service
 public class FwkGetDataJob implements Job {
 
     private static Logger logger = LoggerFactory.getLogger(FwkGetDataJob.class);
