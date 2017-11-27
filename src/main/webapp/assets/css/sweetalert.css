@@ -48,7 +48,9 @@ body.stop-scrolling {
     margin: 25px 0;
     padding: 0;
     line-height: 40px;
-    display: block; }
+    display: block;
+    overflow: auto;
+    height: 120px;}
   .sweet-alert p {
     color: #797979;
     font-size: 16px;
@@ -465,7 +467,8 @@ body.stop-scrolling {
 
 .showSweetAlert[data-animation=pop] {
   -webkit-animation: showSweetAlert 0.3s;
-  animation: showSweetAlert 0.3s; }
+  animation: showSweetAlert 0.3s;
+  word-wrap : break-word}
 
 .showSweetAlert[data-animation=none] {
   -webkit-animation: none;

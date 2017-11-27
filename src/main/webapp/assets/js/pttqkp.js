@@ -47,6 +47,11 @@ $(function() {
     $("#searchddh").click(function(){
         var ddh=$("#ddh").val();
         var xfid=$("#xf").val();
+        if(ddh==""){
+            $("#ddh").focus();
+            swal("订单号不能为空！");
+            return;
+        }
         $.ajax({
             url : "pttqkp/findjyxxsq",
             data : {
@@ -135,13 +140,13 @@ $(function() {
 
                 }else {
                     if(null!= data.error){
-                        swal("提示:"+data.error);
+                        swal("提示:\r\n"+data.error);
                     }
                     if(null!=data.msg){
-                        swal("提示:"+data.msg);
+                        swal("提示:\r\n"+data.msg);
                     }
                     if(null!=data.temp){
-                        swal("提示:"+data.temp);
+                        swal("提示:\r\n"+data.temp);
                     }
                 }
             }
