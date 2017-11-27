@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.service.KplsService;
+import com.rjxx.taxeasy.vo.Fpcxvo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,9 @@ public class FpzfcxController extends BaseController{
 	private KplsvoService kvs;
 	@Autowired
 	private FpzlService fpzlService;
+
+	@Autowired
+	private KplsService kplsService;
 	
 	@RequestMapping
 	public String index() {
@@ -49,38 +54,77 @@ public class FpzfcxController extends BaseController{
 	@RequestMapping(value = "/getKplsList")
 	@ResponseBody
 	public Map getKplsList(int length, int start, int draw, Integer xfid,Integer skpid,String ddh, String gfmc, 
-			String kprqq,String kprqz,String fpzl,boolean loaddata) throws Exception {
+			String kprqq,String kprqz,String fpzl,String fphm,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		Pagination pagination = new Pagination();
+		/*Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
-		pagination.setPageSize(length);
-		List<Integer> xfs = new ArrayList<>();
-		if (!getXfList().isEmpty()) {
-			for (Xf xf : getXfList()) {
-				xfs.add(xf.getId());
+		pagination.setPageSize(length);*/
+		Map params = new HashMap();
+		if(loaddata){
+			String xfStr = "";
+			List<Xf> xfs = getXfList();
+			if (xfs != null) {
+				for (int i = 0; i < xfs.size(); i++) {
+					int xfid2 = xfs.get(i).getId();
+					if (i == xfs.size() - 1) {
+						xfStr += xfid2 + "";
+					} else {
+						xfStr += xfid2 + ",";
+					}
+				}
 			}
-		}
-		if (xfs.size() > 0) {
-			pagination.addParam("xfList", xfs);
-		}
-		pagination.addParam("skps", getSkpList());
-		pagination.addParam("gsdm", getGsdm());
-		pagination.addParam("xfid", xfid);
-		pagination.addParam("skpid", skpid);
-		pagination.addParam("ddh", ddh);
-		pagination.addParam("gfmc", gfmc);
+			String[] xfid2 = xfStr.split(",");
+			if (xfid2.length == 0) {
+				xfid2 = null;
+			}
+			params.put("xfid", xfid2);
+			String skpStr = "";
+			List<Skp> skpList = getSkpList();
+			if (skpList != null) {
+				for (int j = 0; j < skpList.size(); j++) {
+					int skpid2 = skpList.get(j).getId();
+					if (j == skpList.size() - 1) {
+						skpStr += skpid2 + "";
+					} else {
+						skpStr += skpid2 + ",";
+					}
+				}
+			}
+			String[] skpid2 = skpStr.split(",");
+			if (skpid2.length == 0) {
+				skpid2 = null;
+			}
+			params.put("skpid", skpid2);
+			params.put("gsdm", getGsdm());
+			params.put("xfid2",xfid);
+			params.put("sk",skpid);
+			params.put("start",start);
+			params.put("length",length);
+			params.put("ddh", ddh);
+			params.put("gfmc", gfmc);
+			params.put("fphm", fphm);
 		if (!"".equals(kprqq)) {
-			pagination.addParam("kprqq", kprqq);
+			params.put("kprqq2", kprqq);
 		}
 		if (!"".equals(kprqz)) {
-			pagination.addParam("kprqz", kprqz);
+			params.put("kprqz2", kprqz);
 		}
 
-		pagination.addParam("fpczlxdm", "14");
-		pagination.addParam("fpzl", fpzl);
-		List<KplsVO> list = kvs.findByPage(pagination);
-		int total = pagination.getTotalRecord();
-		if(loaddata){
+			params.put("fpczlx", "14");
+			params.put("fpzldm", fpzl);
+			params.put("fpzt", "08");
+
+			//List<KplsVO> list = kvs.findByPage(pagination);
+			List<Fpcxvo> list = kplsService.findByPage2(params);
+
+			//int total = pagination.getTotalRecord();
+			int total;
+			if(0 == start){
+				total = kplsService.findTotal(params);
+				request.getSession().setAttribute("total",total);
+			}else{
+				total = (Integer) request.getSession().getAttribute("total");
+			}
 			result.put("recordsTotal",total);
 			result.put("recordsFiltered",total);
 			result.put("draw",draw);

@@ -94,6 +94,15 @@
 											</div>
 											<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
+													<label for="fphm" class="am-u-sm-4 am-form-label">发票号码</label>
+													<div class="am-u-sm-8">
+														<input type="text" class="am-form-field" id="s_fphm"
+															   name="s_fphm" placeholder="请输入发票号码" />
+													</div>
+												</div>
+											</div>
+											<div class="am-offcanvas-content top-position">
+												<div class="am-form-group">
 													<label for="ddh" class="am-u-sm-4 am-form-label">订单号</label>
 													<div class="am-u-sm-8">
 														<input type="text" class="am-form-field" id="s_ddh"
@@ -165,6 +174,7 @@
 										<div class="am-form-group tpl-table-list-select">
 											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
 												<option value="ddh">订单号</option>
+												<option value="fphm">发票号码</option>
 												<option value="gfmc">购方名称</option>
 											</select>
 										</div>
@@ -178,6 +188,26 @@
 													class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 													type="button"></button>
 											</span>
+										</div>
+									</div>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+										<div class="am-form-group">
+											<div class="am-u-md-6 am-u-lg-2">
+												作废日期
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqq" name="w_kprqq"
+													   placeholder="作废起始时间"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+											<div class="am-u-md-6 am-u-lg-1">
+												至
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqz" name="w_kprqz"
+													   placeholder="作废截止时间"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
 										</div>
 									</div>
 								</form>
@@ -213,7 +243,7 @@
 						<!-- content end -->
 
 						<!-- model -->
-						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="huankai">
 							<div class="am-modal-dialog">
 								<div class="am-modal-hd">
 									作废发票详情 <a href="javascript: void(0)"
@@ -264,7 +294,7 @@
 															placeholder="" readonly />
 													</div>
 												</div>
-												<div class="am-form-group">
+												<%--<div class="am-form-group">
 													<label for="hc_yfpdm" class="am-u-sm-4 am-form-label">原发票代码</label>
 													<div class="am-u-sm-8">
 														<input type="text" id="hc_yfpdm" name="hc_yfpdm"
@@ -277,7 +307,7 @@
 														<input type="text" id="hc_yfphm" name="hc_yfphm"
 															placeholder="" readonly />
 													</div>
-												</div>
+												</div>--%>
 											</div>
 											<div class="am-u-sm-12">
 												<div class="am-form-group">
@@ -326,5 +356,34 @@
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpzfcx.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
+	<script type="text/javascript">
+        function getCurrentMonthFirst(){
+            var date=new Date();
+            date.setDate(1);
+            return date;
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(function() {
+            var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            //var $alert = $('#my-alert');
+            $("#w_kprqq").val(formatDate(startDate));
+            $("#w_kprqz").val(formatDate(endDate));
+            $("#s_kprqq").val(formatDate(startDate));
+            $("#s_kprqz").val(formatDate(endDate));
+        });
+	</script>
 </body>
 </html>

@@ -108,6 +108,7 @@ public class FphccxController extends BaseController {
 			}
 			params.put("fpczlx", "12");
 			params.put("fpzldm", fpzl);
+			params.put("fpzt", "00");
 			List<Fpcxvo> list = kplsService.findByPage2(params);
 			int total;
 			if(0 == start){
