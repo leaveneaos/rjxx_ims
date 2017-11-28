@@ -27,15 +27,16 @@ $(function () {
             type: 'POST',
             data: function (d) {
             	var bz = $('#searchbz').val();
-            	if(bz=='1'){
-            		d.xfid = $('#s_xfid').val(),
+            	if(bz=='0'){
+                    d.xfid = $('#m_xfid').val();
+                    d.kprqq = el.$jsDate.val(),
+                    d.kprqz = el.$jsDate1.val()
+            	}else{
+                    d.xfid = $('#s_xfid').val(),
                     d.skpid = $('#s_skpid').val(),
                     d.kprqq = $('#s_kprqq').val(),
-                    d.kprqz = $('#s_kprqq').val()
-            	}else{
-            		d.xfid = $('#m_xfid').val();
-            		d.kprqq = el.$jsDate.val(),
-                    d.kprqz = el.$jsDate1.val()
+                    d.kprqz = $('#s_kprqz').val()
+                    //alert($('#s_skpid').val());
             	}
                 
             }
@@ -132,10 +133,11 @@ $(function () {
                 //el.$jsLoading.modal('toggle');
                 return false;
             }
-            getPlot1();
-            //_this.getPlot2();
             e.preventDefault();
             t.ajax.reload();
+            getPlot1();
+            //_this.getPlot2();
+
         });
 
     $('#searchButton').on('click',function(e){
@@ -162,10 +164,11 @@ $(function () {
             //el.$jsLoading.modal('toggle');
             return false;
         }
+        e.preventDefault();
+        t.ajax.reload();
         getPlot1();
         //_this.getPlot2();
-        //e.preventDefault();
-        t.ajax.reload();
+
     });
 
 
@@ -176,15 +179,16 @@ $(function () {
         var skpid = null;
         var kprqq = null;
         var kprqz = null;
-        if(bz=='1'){
-            xfid = $('#s_xfid').val(),
-                skpid = $('#s_spkid').val(),
-                kprqq = $('#s_kprqq').val(),
-                kprqz = $('#s_kprqz').val()
-        }else{
+        if(bz=='0'){
             xfid = $('#m_xfid').val();
             kprqq = el.$jsDate.val(),
-                kprqz = el.$jsDate1.val()
+            kprqz = el.$jsDate1.val()
+
+        }else{
+            xfid = $('#s_xfid').val(),
+            skpid = $('#s_skpid').val(),
+            kprqq = $('#s_kprqq').val(),
+            kprqz = $('#s_kprqz').val()
         }
         var line1 = new Array();
         var ticks = new Array();
