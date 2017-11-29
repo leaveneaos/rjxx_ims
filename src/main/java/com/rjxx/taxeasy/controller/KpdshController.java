@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitParamsUtil;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -47,8 +48,6 @@ public class KpdshController extends BaseController {
 	@Autowired
 	private JyxxsqService jyxxsqService;
 	@Autowired
-	private FpgzService fpgzService;
-	@Autowired
 	private JyspmxService jyspmxService;
 	@Autowired
 	private YhcljlService cljlService;
@@ -73,7 +72,8 @@ public class KpdshController extends BaseController {
 
 	@Autowired
 	private JymxsqClService jymxsqclService;
-
+	@Autowired
+	private InvoiceSplitParamsUtil invoiceSplitParamsUtil;
 
 	@RequestMapping
 	@SystemControllerLog(description = "开票单审核页面进入", key = "")
@@ -181,7 +181,7 @@ public class KpdshController extends BaseController {
 			}
 			List<JyxxsqVO> ykfpList = jyxxsqService.findByPage2(map);
 			for (JyxxsqVO jyxxsqVO : ykfpList) {
-				List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
+				//List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
 				Xf xf2 = new Xf();
 				xf2.setXfsh(jyxxsqVO.getXfsh());
 				xf2.setGsdm(gsdm);
@@ -557,91 +557,41 @@ public class KpdshController extends BaseController {
 					}
 				}
 			}
-			int fphs1 = 8;
-			int fphs2 = 100;
-			double zdje = 0d;
-			boolean flag = false;
-			boolean qzfp = true;//是否强制分票
-			boolean spzsfp = false;//是否按商品整数分票
 
-			List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
-			Xf x = new Xf();
-			x.setGsdm(getGsdm());
-			x.setXfsh(jyxxsq.getXfsh());
-			Xf xf = xfService.findOneByParams(x);
-			Skp skp = skpService.findOne(jyxxsq.getSkpid());
-			if (null != qdbz[i] && qdbz[i].equals("1")) {
-				fphs1 = 99999999;
-				fphs2 = 99999999;
-			} else {
-				for (Fpgz fpgz : listt) {
-					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
-						if ("01".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz.getZphs())&&null!=fpgz.getZphs()){
-								fphs1 = fpgz.getZphs();
-							}
-						} else if ("02".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz.getPphs())&&null!=fpgz.getPphs()){
-								fphs1 = fpgz.getPphs();
-							}
-						} else if ("12".equals(jyxxsq.getFpzldm())) {
-							if(!"".equals(fpgz.getDzphs())&&null!=fpgz.getDzphs()){
-								fphs2 = fpgz.getDzphs();
-							}
-						}
-						if (fpgz.getSfqzfp().equals("0")) {
-							qzfp = false;
-						}
-						if (fpgz.getSfspzsfp().equals("1")) {
-							spzsfp = true;
-						}
-						flag = true;
-						break;
-					}
-				}
-				if (!flag) {
-					qzfp = false;
-					spzsfp = false;
-					/*if ("01".equals(jyxxsq.getFpzldm())) {
+			Map params2 = invoiceSplitParamsUtil.getInvoiceSplitParams(jyxxsq);
+			String hsbz = String.valueOf(params2.get("hsbz"));//确定是否含税分票，目前只支持不含税。
+			double zdje = Double.valueOf(params2.get("zdje").toString());//开票限额
+			double fpje = Double.valueOf(params2.get("fpje").toString());//分票金额
+			int fphs1 = Integer.valueOf(params2.get("fphs1").toString());//纸票分票行数
+			int fphs2 = Integer.valueOf(params2.get("fphs2").toString());//电子票分票行数
+			int fphs3 = Integer.valueOf(params2.get("fphs3").toString());//卷票票分票行数
+			boolean sfqzfp = Boolean.valueOf(params2.get("sfqzfp").toString());//是否强制分票
+			boolean spzsfp = Boolean.valueOf(params2.get("spzsfp").toString());//是否整数分票
 
-					} else if ("02".equals(jyxxsq.getFpzldm())) {
-
-					} else if ("12".equals(jyxxsq.getFpzldm())) {
-
-					}*/
-				}
-			}
-			if ("01".equals(jyxxsq.getFpzldm())) {
-				zdje = skp.getZpmax();
-			} else if ("02".equals(jyxxsq.getFpzldm())) {
-				zdje = skp.getPpmax();
-			} else if ("12".equals(jyxxsq.getFpzldm())) {
-				zdje = skp.getDpmax();
-			}
 			// 分票
 			List<JyspmxDecimal2> splitKpspmxs = new ArrayList<JyspmxDecimal2>();
 			Map mapResult = new HashMap();
 			mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
 			if (jyxxsq.getFpzldm().equals("12")) {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
-					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
 				}
 			} else {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoicesbhs(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoiceshs((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
 
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, qzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
 
 				}
 			}
