@@ -191,21 +191,45 @@ public class KpdshController extends BaseController {
 				Double zdje = 0d;
 				String hsbz = "";
 				String qdbz = "";
+				boolean flag = false;
 				/**
 				 * 取税控盘的开票限额
 				 */
-				if ("01".equals(jyxxsqVO.getFpzldm())) {
-					zdje = skp.getZpmax();
-				} else if ("02".equals(jyxxsqVO.getFpzldm())) {
-					zdje = skp.getPpmax();
-				} else if ("12".equals(jyxxsqVO.getFpzldm())) {
-					zdje = skp.getDpmax();
+				if (skp != null) {
+					if ("01".equals(jyxxsqVO.getFpzldm())) {
+						zdje = skp.getZpmax();
+						fpje = skp.getZpfz();
+					} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+						zdje = skp.getPpmax();
+						fpje = skp.getPpfz();
+					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+						zdje = skp.getDpmax();
+						fpje = skp.getFpfz();
+					}
+					flag = true;
 				}
-				boolean flag = false;
+				/**
+				 * 如果取不到税控盘的限额，就取销方的限额
+				 */
+				if (!flag) {
+					if ("01".equals(jyxxsqVO.getFpzldm())) {
+						zdje = xf.getZpzdje();
+						fpje = xf.getZpfpje();
+					} else if ("02".equals(jyxxsqVO.getFpzldm())) {
+						zdje = xf.getPpzdje();
+						fpje = xf.getPpfpje();
+					} else if ("12".equals(jyxxsqVO.getFpzldm())) {
+						zdje = xf.getDzpzdje();
+						fpje = xf.getDzpfpje();
+					} else if ("03".equals(jyxxsqVO.getFpzldm())) {
+						zdje = xf.getDzpzdje();
+						fpje = xf.getDzpfpje();
+					}
+				}
 				/**
 				 * 先取税控盘的分票金额
 				 */
-				for (Fpgz fpgz : listt) {
+				/*for (Fpgz fpgz : listt) {
 					if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
 						if ("01".equals(jyxxsqVO.getFpzldm())) {
 							fpje = fpgz.getZpxe();
@@ -220,9 +244,9 @@ public class KpdshController extends BaseController {
 						break;
 					}
 				}
-				/**
+				*//**
 				 * 分票规则没有取到，就取税控盘的分票金额
-				 */
+				 *//*
 				if (!flag) {
 					if ("01".equals(jyxxsqVO.getFpzldm())) {
 						if (skp.getZpfz() != null && (skp.getZpfz() > 0)) {
@@ -237,7 +261,7 @@ public class KpdshController extends BaseController {
 							fpje = skp.getFpfz();
 						}
 					}
-				}
+				}*/
 				if (null == zdje) {
 					zdje = 0d;
 				}
