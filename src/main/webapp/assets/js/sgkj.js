@@ -363,6 +363,7 @@ $(function() {
          var gfdh=$("#gfdh").val();//购方电话
          var gfyh=$("#gfyh").val();//购方银行
          var yhzh=$("#yhzh").val();//购方银行账号
+         var filter  = /^[-_a-zA-Z0-9]+$/;
         if(xf==""){
             $("#xf").focus();
             swal("销方名称不能为空！");
@@ -381,6 +382,11 @@ $(function() {
         if(ddh==""){
             $("#ddh").focus();
             swal("订单号不能为空！");
+            return;
+        }
+        if(!filter.test(ddh)){
+            $("#ddh").focus();
+            swal("请输入正确的订单号！");
             return;
         }
         if(gfmc==""){
@@ -502,7 +508,7 @@ $(function() {
             closeOnConfirm: false,
             confirmButtonText: "确 定",
             confirmButtonColor: "#ec6c62"
-        }, function() {
+        }/*, function() {
             $('.confirm').attr('disabled',"disabled");
             $.ajax({
                 url: "sgkj/save", "type": "POST", context: document.body, data: data, success: function (data) {
@@ -521,7 +527,7 @@ $(function() {
                     }
                 }
             });
-        });
+        }*/);
     });
     //添加重置功能
     $('#cz').on('click',function() {
