@@ -194,20 +194,17 @@
 										<div class="am-u-sm-4">
 											<input type="text" id="ppurl" name="ppurl" placeholder="请输入品牌地址"/>
 										</div>
-									</div>
-									<div class="am-form-group">
 										<label for="aliMShortName" class="am-u-sm-2 am-form-label">发票管家代码</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="aliMShortName" name="aliMShortName" placeholder="请输入发票管家品牌代码">
 										</div>
 									</div>
 									<div class="am-form-group">
-										<label for="aliMShortName" class="am-u-sm-2 am-form-label">微信logoURL</label>
+										<label for="wechatLogoUrl" class="am-u-sm-2 am-form-label">微信logoURL</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="wechatLogoUrl" name="wechatLogoUrl" placeholder="请输入微信logoURL">
 										</div>
 									</div>
-
 									<div class="am-u-sm-12 am-margin-top-lg">
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">

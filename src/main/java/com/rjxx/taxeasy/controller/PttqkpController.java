@@ -39,12 +39,6 @@ public class PttqkpController extends BaseController {
 	@Autowired
 	private DrmbService drmbService;
 	@Autowired
-	private FpclService fpclService;
-	@Autowired
-	private JyxxsqService JyxxsqService;
-	@Autowired
-	private PldrjlService pldrjlService;
-	@Autowired
 	private GetDataService getDataService;
 	@Autowired
 	private ZffsService zffsService;
@@ -56,9 +50,6 @@ public class PttqkpController extends BaseController {
 	private XfService xfService;
 	@Autowired
 	private SkpService skpService;
-
-	@Autowired
-	private FpgzService fpgzService;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
@@ -298,7 +289,7 @@ public class PttqkpController extends BaseController {
 					}
 				}
 				//获取分票规则信息
-				Map fpgzMap = new HashMap();
+				/*Map fpgzMap = new HashMap();
 				fpgzMap.put("gsdm", gsdm);
 				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
 				String xfids = fpgz.getXfids();
@@ -309,14 +300,14 @@ public class PttqkpController extends BaseController {
 					logger.info("-----打印清单");
 					jyxxsq.setSfdyqd(fpgz.getQdbz());
 				}else {
-					logger.info("-----不打印清单");
+					logger.info("-----不打印清单");*/
 					jyxxsq.setSfdyqd("0");
-				}
-				if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
-					jyxxsq.setSfdy("1");
-				} else {
+				//}
+				//if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
+				//	jyxxsq.setSfdy("1");
+				//} else {
 					jyxxsq.setSfdy("0");
-				}
+				//}
 				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
 				String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
 				logger.info("-------返回值---------" + resultxml);
