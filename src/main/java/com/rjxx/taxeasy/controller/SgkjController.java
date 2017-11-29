@@ -1,10 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
-import com.rjxx.taxeasy.bizcomm.utils.InvoiceSplitUtils;
-import com.rjxx.taxeasy.bizcomm.utils.SeperateInvoiceUtils;
-import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -55,8 +52,6 @@ public class SgkjController extends BaseController{
     @Autowired
     private SkpService skpService;
     @Autowired
-    private FpgzService fpgzService;
-    @Autowired
     private JyzfmxService jyzfmxService;
     @Autowired
     private FpkcService fpkcService;
@@ -64,6 +59,8 @@ public class SgkjController extends BaseController{
     private DiscountDealUtil discountDealUtil;
     @Autowired
     private SkService skService;
+    @Autowired
+    private InvoiceSplitParamsUtil invoiceSplitParamsUtil;
     @RequestMapping
     public  String index()throws Exception{
 
@@ -486,7 +483,7 @@ public class SgkjController extends BaseController{
      */
     public void zjkp(Integer sqlsh) throws Exception {
             List<Object> result = new ArrayList<>();
-            boolean sfqzfp = true;//是否强制分票  默认强制分票
+            boolean sfqzfp = false;//是否强制分票  默认强制分票
             // 转换明细
             Jyxxsq jyxxsq=jyxxsqService.findOne(sqlsh);
             Map<String, Object> params1 = new HashMap<>();
@@ -496,87 +493,16 @@ public class SgkjController extends BaseController{
             if ("1".equals(jyxxsq.getHsbz())) {
                 jyspmxs = SeperateInvoiceUtils.separatePrice2(jyspmxs);
             }
-            //取最大限额
-            double zdje = 0d;
-            double fpje = 0d;
-            int fphs1 = 8;//专票、普票行数
-            int fphs2 = 100;//电子票行数
-            String hsbz = "";
-            boolean flag = false;
-            boolean spzsfp = false;//是否按商品整数分票
-            Skp skp = skpService.findOne(jyxxsq.getSkpid());
-            /**
-             * 取税控盘的开票限额
-             */
-                if ("01".equals(jyxxsq.getFpzldm())) {
-                    zdje = skp.getZpmax();
-                } else if ("02".equals(jyxxsq.getFpzldm())) {
-                    zdje = skp.getPpmax();
-                } else if ("12".equals(jyxxsq.getFpzldm())) {
-                    zdje = skp.getDpmax();
-                }
-            List<Fpgz> listt = fpgzService.findAllByParams(new HashMap<>());
-            Xf x = new Xf();
-            x.setGsdm(jyxxsq.getGsdm());
-            x.setXfsh(jyxxsq.getXfsh());
-            Xf xf = xfService.findOneByParams(x);
-            for (Fpgz fpgz : listt) {
-                if (fpgz.getXfids().contains(String.valueOf(xf.getId()))) {
-                    if ("01".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz.getZphs())&&null!=fpgz.getZphs()){
-                            fphs1 = fpgz.getZphs();
-                        }
-                        fpje = fpgz.getZpxe();
-                    } else if ("02".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz.getPphs())&&null!=fpgz.getPphs()){
-                            fphs1 = fpgz.getPphs();
-                        }
-                        fpje = fpgz.getPpxe();
-                    } else if ("12".equals(jyxxsq.getFpzldm())) {
-                        if(!"".equals(fpgz.getDzphs())&&null!=fpgz.getDzphs()){
-                            fphs2 = fpgz.getDzphs();
-                        }
-                        fpje = fpgz.getDzpxe();
-                    }
-                    flag = true;
-                    hsbz = fpgz.getHsbz();
-                    if (fpgz.getSfqzfp().equals("0")) {
-                        sfqzfp = false;
-                    }
-                    if (fpgz.getSfspzsfp().equals("1")) {
-                        spzsfp = true;
-                    }
-                }
-            }
-        /**
-         * 如果取不到分票规则的分票金额，就取税控盘的分票金额
-         */
-        if (!flag) {
-                sfqzfp = false;
-                spzsfp = false;
-                if ("01".equals(jyxxsq.getFpzldm())) {
-                    fpje = skp.getZpfz();//专票阈值，分票金额
-                } else if ("02".equals(jyxxsq.getFpzldm())) {
-                    fpje = skp.getPpfz();//普票阈值，分票金额
-                } else if ("12".equals(jyxxsq.getFpzldm())) {
-                    fpje = skp.getFpfz();//电票阈值，分票金额
-                }
-            }
-            if (jyxxsq.getSfdyqd() != null && jyxxsq.getSfdyqd().equals("1")) {
-                fphs1 = 99999;
-                fphs2 = 99999;
-            }
-            if (0 == fpje) {
-                fpje = zdje;
-            }
-            /**
-             * 分票规则中的含税标志为空为不含税
-             */
-            if (hsbz != null && !"".equals(hsbz)) {
-                hsbz = "1";
-            } else {
-                hsbz = "0";
-            }
+
+        Map params = invoiceSplitParamsUtil.getInvoiceSplitParams(jyxxsq);
+        String hsbz = String.valueOf(params.get("hsbz"));//确定是否含税分票，目前只支持不含税。
+        double zdje = Double.valueOf(params.get("zdje").toString());//开票限额
+        double fpje = Double.valueOf(params.get("fpje").toString());//分票金额
+        int fphs1 = Integer.valueOf(params.get("fphs1").toString());//纸票分票行数
+        int fphs2 = Integer.valueOf(params.get("fphs2").toString());//电子票分票行数
+        sfqzfp = Boolean.valueOf(params.get("sfqzfp").toString());//是否强制分票
+        boolean spzsfp = Boolean.valueOf(params.get("spzsfp").toString());//是否整数分票
+
             List<JyspmxDecimal2> splitKpspmxs  = new ArrayList<JyspmxDecimal2>();
             Map mapResult = new HashMap();
             mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
