@@ -502,7 +502,6 @@ $(function() {
             "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&sfbx="+sfbx+"&"+ps.join("&");
         swal({
             title: "您确定要申请开票吗？",
-            text: "您确定要申请开票吗？",
             type: "warning",
             showCancelButton: true,
             closeOnConfirm: false,
