@@ -508,7 +508,7 @@ $(function() {
             closeOnConfirm: false,
             confirmButtonText: "确 定",
             confirmButtonColor: "#ec6c62"
-        }/*, function() {
+        }, function() {
             $('.confirm').attr('disabled',"disabled");
             $.ajax({
                 url: "sgkj/save", "type": "POST", context: document.body, data: data, success: function (data) {
@@ -527,7 +527,7 @@ $(function() {
                     }
                 }
             });
-        }*/);
+        });
     });
     //添加重置功能
     $('#cz').on('click',function() {
