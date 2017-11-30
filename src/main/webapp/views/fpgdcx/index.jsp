@@ -52,35 +52,39 @@
 					             </div>
 					        </div>
 					    </div>
-					 </div>
-					 <div class="am-g">				
 						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_kprqq" class="am-u-sm-3 am-form-label">开票日期</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="s_kprqq" name="kprqq"
-										placeholder="点击选择日期"
-										data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-								</div>
-							</div>
+							<button type="button" class="js-search am-btn am-btn-primary">查询</button>
 						</div>
-						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_kprqz"
-									class="am-u-sm-3 am-form-label am-text-center">-</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="s_kprqz" name="kprqz"
-										placeholder="点击选择日期"
-										data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-								</div>
-							</div>
-						</div>						
 					</div>
-					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-center">
-						<button type="button" class="js-search am-btn am-btn-primary">刷新</button>
-						<button type="button" class="js-compass am-btn am-btn-success">归档</button>
-					</div>
+					<hr/>
+					 <%--<div class="am-g">				--%>
+						<%--<div class="am-u-sm-6">--%>
+							<%--<div class="am-form-group">--%>
+								<%--<label for="s_kprqq" class="am-u-sm-3 am-form-label">开票日期</label>--%>
+								<%--<div class="am-u-sm-9">--%>
+									<%--<input type="text" id="s_kprqq" name="kprqq"--%>
+										<%--placeholder="点击选择日期"--%>
+										<%--data-am-datepicker="{format: 'yyyy-mm'}" />--%>
+								<%--</div>--%>
+							<%--</div>--%>
+						<%--</div>--%>
+						<%--<div class="am-u-sm-6">--%>
+							<%--<div class="am-form-group">--%>
+								<%--<label for="s_kprqz"--%>
+									<%--class="am-u-sm-3 am-form-label am-text-center">-</label>--%>
+								<%--<div class="am-u-sm-9">--%>
+									<%--<input type="text" id="s_kprqz" name="kprqz"--%>
+										<%--placeholder="点击选择日期"--%>
+										<%--data-am-datepicker="{format: 'yyyy-mm-dd'}" />--%>
+								<%--</div>--%>
+							<%--</div>--%>
+						<%--</div>						--%>
+					<%--</div>--%>
+					<%--<hr />--%>
+					<%--<div class="am-u-sm-12  am-padding  am-text-center">--%>
+						<%--<button type="button" class="js-search am-btn am-btn-primary">刷新</button>--%>
+						<%--<button type="button" class="js-compass am-btn am-btn-success">归档</button>--%>
+					<%--</div>--%>
 				</form>
 				<div class="am-u-sm-12">
 					<div>
@@ -90,12 +94,13 @@
 								<tr>								
 									<th>序号</th>
 									<th>销方名称</th>
-									<th>起始日期</th>
-									<th>终止日期</th>
-									<th>状态</th>
+									<th>销方税号</th>
+								<%--<th>起始日期</th>--%>
+									<th>日期</th>
+									<%--<th>状态</th>--%>
 									<th>文件数量</th>
-									<th>操作人</th>
-									<th>操作时间</th>
+									<%--<th>操作人</th>--%>
+									<%--<th>操作时间</th>--%>
 									<th>操作</th>						
 								</tr>
 							</thead>

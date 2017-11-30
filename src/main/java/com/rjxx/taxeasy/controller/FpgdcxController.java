@@ -1,14 +1,5 @@
 package com.rjxx.taxeasy.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FileCopyAndCompass;
 import com.rjxx.taxeasy.domains.Gdjl;
@@ -18,6 +9,16 @@ import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Gdjlvo;
 import com.rjxx.taxeasy.web.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/fpgdcx")
@@ -36,12 +37,13 @@ public class FpgdcxController extends BaseController {
 
 	@RequestMapping(value = "/getFPList")
 	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw) throws Exception {
+	public Map<String, Object> getItems(int length, int start, int draw,String xfid) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		pagination.addParam("gsdm", this.getGsdm());
+		pagination.addParam("xfid", xfid);
 		List<Gdjlvo> list = gdService.findByPage(pagination);
 		int total = pagination.getTotalRecord();
 		result.put("recordsTotal", total);
