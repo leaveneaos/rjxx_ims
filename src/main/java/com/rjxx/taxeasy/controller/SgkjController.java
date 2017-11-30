@@ -681,7 +681,7 @@ public class SgkjController extends BaseController{
         kpls.setYxbz("1");
         kpls.setFpztdm("14");
         kpls.setSkpid(jyls.getSkpid());
-        kpls.setSerialorder(jyls.getJylsh()+jyls.getDdh());
+        kpls.setSerialorder(jyls.getJylsh()+jyls.getDdh()+jyls.getGsdm());
         kplsService.save(kpls);
         return kpls;
     }
