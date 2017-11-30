@@ -476,7 +476,6 @@ $(function () {
                 if(kplsh!=0){
                     swal({
                         title: "确定要作废该条数据吗？",
-                        text: "确定要作废该条数据吗？",
                         type: "warning",
                         showCancelButton: true,
                         closeOnConfirm: false,

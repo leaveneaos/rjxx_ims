@@ -442,7 +442,7 @@ $(function() {
                     return;
                 }
                 swal({
-                    title: "您确定要删除吗？",
+                    title: "提示",
                     text: "您确定要删除这条数据？",
                     type: "warning",
                     showCancelButton: true,
@@ -799,7 +799,8 @@ $(function() {
                         });
                     }else{
                         swal({
-                            title:"请确认发票是否已经开具成功以避免重复开具发票！",
+                            title:"提示",
+                            text:"请确认发票是否已经开具成功以避免重复开具发票！",
                             showCancelButton: true,
                             closeOnConfirm: false,
                             confirmButtonText: "确 定",
@@ -825,7 +826,9 @@ $(function() {
             $("#fpckqr").click(function(){
                 $("#doc-modal-fpck").modal("close");
                 swal({
-                    title:"请确认发票是否已经开具成功以避免重复开具发票！",
+                    title:"提示",
+                    text:"请确认发票是否已经开具成功以避免重复开具发票！",
+                    type:"warning",
                     showCancelButton: true,
                     closeOnConfirm: false,
                     confirmButtonText: "确 定",
@@ -868,7 +871,9 @@ $(function() {
 
             $('#kp_all').click(function () {
                 swal({
-                    title: "您确认开票？",
+                    title:"提示",
+                    text: "您确认开票？",
+                    type:"warning",
                     showCancelButton: true,
                     closeOnConfirm: false,
                     confirmButtonText: "确 定",
@@ -979,7 +984,7 @@ $(function() {
                         url: "kp/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
                             if (data.success) {
                                 swal({
-                                  title: "保存成功", 
+                                  title: "保存成功",
                                   timer: 1500, 
                                   type: "success", 
                                   showConfirmButton: false 

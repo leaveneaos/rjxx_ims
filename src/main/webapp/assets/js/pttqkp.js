@@ -438,7 +438,7 @@ $(function() {
             "&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm;
         swal({
-            title: "您确定要申请开票吗？",
+            title: "提示",
             text: "您确定要申请开票吗？",
             type: "warning",
             showCancelButton: true,

@@ -90,7 +90,8 @@
                 swal("请至少选择一条数据");
             }else{
                 swal({
-                    title: "您确认退回么？",
+                    title:"提示",
+                    text: "您确认退回么？",
                     type: "warning",
                     showCancelButton: true,
                     closeOnConfirm: false,

@@ -501,7 +501,8 @@ $(function() {
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
             "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&sfbx="+sfbx+"&"+ps.join("&");
         swal({
-            title: "您确定要申请开票吗？",
+            title:"提示",
+            text: "您确定要申请开票吗？",
             type: "warning",
             showCancelButton: true,
             closeOnConfirm: false,

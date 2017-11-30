@@ -532,7 +532,9 @@ $(function () {
                     $("#js-submit").click(function(){
                         var hztzdh=$("#hztzdh_edit").val();
                             swal({
-                                title: "确定要红冲该条数据吗？",
+                                title:"提示",
+                                text: "确定要红冲该条数据吗？",
+                                type: "warning",
                                 showCancelButton: true,
                                 closeOnConfirm: false,
                                 confirmButtonText: "确 定",

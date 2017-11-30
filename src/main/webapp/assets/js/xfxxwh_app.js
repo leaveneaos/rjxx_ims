@@ -394,7 +394,8 @@ $(function() {
           	                }
           	            });*/
           	            swal({
-	                        title: "您确定要删除这条数据吗？",
+          	            	title:"提示",
+	                        text: "您确定要删除这条数据吗？",
 	                        type: "warning",
 	                        showCancelButton: true,
 	                        closeOnConfirm: false,

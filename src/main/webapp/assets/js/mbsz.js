@@ -198,7 +198,7 @@ $(function() {
 	                return;
 	            }
 				swal({
-				    title: "您确定要删除吗？",
+				    title: "提示",
 				    text: "您确定要删除这条数据？",
 				    type: "warning",
 				    showCancelButton: true,

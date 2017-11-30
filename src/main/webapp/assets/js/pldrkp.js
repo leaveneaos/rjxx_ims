@@ -116,7 +116,8 @@ $(function() {
 			t.on('click', 'a.kaiju', function() {
 				        	var row = t.row($(this).parents('tr')).data();
 				        	swal({
-				                title: "您确认处理该批数据吗？",
+				        		title:"提示",
+				                text: "您确认处理该批数据吗？",
 				                type: "warning",
 				                showCancelButton: true,
 				                closeOnConfirm: false,
@@ -178,7 +179,8 @@ $(function() {
 	        	var row = t.row($(this).parents('tr')).data();
 	        	
 	        	swal({
-	                title: "您确认删除？",
+	        		title:"提示",
+	                text: "您确认删除吗？",
 	                type: "warning",
 	                showCancelButton: true,
 	                closeOnConfirm: false,

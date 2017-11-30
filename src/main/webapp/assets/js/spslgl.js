@@ -461,8 +461,8 @@
 				var url = _this.config.delUrl;
 
 				swal({
-	                title: "您确定要删除吗？",
-	                text: "您确定要删除这条数据？",
+	                title: "提示",
+	                text: "您确定要删除这条数据吗？",
 	                type: "warning",
 	                showCancelButton: true,
 	                closeOnConfirm: false,
@@ -610,8 +610,8 @@
 				var url = _this.config.delUrl;
 
 				swal({
-	                title: "您确定要删除吗？",
-	                text: "您确定要删除这条数据？",
+	                title: "提示",
+	                text: "您确定要删除这条数据吗？",
 	                type: "warning",
 	                showCancelButton: true,
 	                closeOnConfirm: false,

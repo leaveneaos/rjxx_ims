@@ -311,7 +311,8 @@ $(function() {
     kpspmx_table.on('click', 'a.kpdmx', function () {
     	var id = kpspmx_table.row($(this).parents('tr')).data().id;
             swal({
-                title: "您确认删除？",
+                title:"提示",
+                text: "您确认删除吗？",
                 type: "warning",
                 showCancelButton: true,
                 closeOnConfirm: false,
