@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,26 +26,29 @@ public class GetParamScheduled {
     @Value("${gd_file_path_day}")
     private String gdFilePathDay;
 
-//    @Scheduled(cron = "0 0 1 1 * ?")
+    @Scheduled(cron = "0 0 1 1 * ?")
     public void getSfgd(){
+    logger.info("--------get param start---------");
         List<Xf> xfs = csUserService.getXfsByCsm("sfgd", "月");
         if(xfs!=null){
             IOhelper.clearInfoForFile(gdFilePath);
             for(Xf xf:xfs){
                 IOhelper.wirteString(gdFilePath,xf.getXfsh());
             }
+            logger.info("----------over-----------");
         }else{
-            logger.error("【写入税号文件】获取销方列表失败");
+            logger.error("------get xf list faild------");
         }
 
         List<Xf> xfs_day = csUserService.getXfsByCsm("sfgd", "日");
         if(xfs_day!=null){
             IOhelper.clearInfoForFile(gdFilePathDay);
-            for(Xf xf:xfs_day){
-                IOhelper.wirteString(gdFilePathDay,xf.getXfsh());
+            for(Xf xf_day:xfs_day){
+                IOhelper.wirteString(gdFilePathDay,xf_day.getXfsh());
             }
+            logger.info("===========over============");
         }else{
-            logger.error("【写入税号文件】获取销方列表失败");
+            logger.error("===========get xf list faild===========");
         }
 
     }
