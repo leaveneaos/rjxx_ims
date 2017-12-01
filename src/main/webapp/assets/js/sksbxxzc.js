@@ -529,19 +529,23 @@ $(function() {
 				submit : function() {
 					var formValidity = this.isFormValid();
 					if (formValidity) {
-						el.$jsLoading.modal('toggle'); // show loading
+						//el.$jsLoading.modal('toggle'); // show loading
 						// alert('验证成功');
 						if ($('#xfid').val() == 0) {
 							// $('#msg').html('请选择销方');
 							// $('#my-alert').modal('open');
 							swal('请选择销方');
-							return;
+							return false;
 						}
 						if ($('#sbcs').val() == 0) {
 							// $('#msg').html('请选择设备厂商');
 							// $('#my-alert').modal('open');
 							swal('请选择设备厂商');
-							return;
+							return false;
+						}
+						if($('#skph').val().length != 12){
+                            swal('请输入正确的设备号');
+                            return false;
 						}
 						var data = el.$jsForm.serialize(); // get form data
 						// data
