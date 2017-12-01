@@ -806,6 +806,7 @@ public class KpdshController extends BaseController {
 		jyls1.setSqlsh(jyxxsq.getSqlsh());
 		jyls1.setKhh(jyxxsq.getKhh());
 		jyls1.setGfsjh(jyxxsq.getGfsjh());
+		jyls1.setGfsjrdz(jyxxsq.getGfsjrdz());
 		jylsService.save(jyls1);
 		return jyls1;
 	}

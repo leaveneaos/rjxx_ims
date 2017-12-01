@@ -552,9 +552,8 @@
 														name="column" type="checkbox" value="hjje" id="hjje" />合计金额</label>
 													<label class="am-u-sm-4 am-form-label"><input
 														name="column" type="checkbox" value="hjse" id="hjse" />合计税额</label>
-													<label style="display: none;"
-														class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" disabled="disabled" />合计税额</label>
+													<label class="am-u-sm-4 am-form-label"><input
+														name="column" value="gfsjrdz" id="gfsjrdz" type="checkbox" />收件地址</label>
 												</div>
 											</div>
 											<div class="am-u-sm-12">
