@@ -10,10 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -39,17 +41,23 @@ public class InsertGdjlScheduled {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//    @Scheduled(cron = "0 0 6 1 * ?")
+    @Scheduled(cron = "0 0 14 1 * ?")
     public void start(){
+        logger.info("--------insert t_gdjl start------------");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH,-1);
-        String lastMonth = calendar.getTime().toString();
+//        String lastMonth = calendar.getTime().toString();
+        String lastMonth = new SimpleDateFormat("yyyyMM").format(calendar.getTime());
         BufferedReader r = IOhelper.readString(gdFilePath);
         try {
-            while(r.readLine()!=null){
+            String line = "";
+            while((line=r.readLine())!=null){
+                if("".equals(line)){
+                    continue;
+                }
                 try {
-                    Map result = invoiceArchiveService.getPDFPath(lastMonth, r.readLine());
+                    Map result = invoiceArchiveService.getPDFPath(lastMonth, line);
                     if(result!=null){
                         Integer count = (Integer) result.get("count");
                         String pdfPath = (String) result.get("path");
@@ -59,36 +67,41 @@ public class InsertGdjlScheduled {
                         gdjl.setZzrq(lastMonth);
                         gdjl.setWjsl(count);
                         gdjl.setXzlj(pdfPath);
-                        Xf oneByXfsh = xfJpaDao.findOneByXfsh(r.readLine());
+                        Xf oneByXfsh = xfJpaDao.findOneByXfsh(line).get(0);
                         Integer xfid = oneByXfsh.getId();
                         gdjl.setXfid(xfid);
                         gdjl.setGsdm(oneByXfsh.getGsdm());
                         gdjlJpaDao.save(gdjl);
                     }else{
-                        logger.warn("【发票归档】【"+r.readLine()+"】获取pdf数量为0或未知异常");
+                        logger.warn("----------["+line+"]pdfcount is 0 or error----------");
                         continue;
                     }
                 } catch(Exception e){
                     e.printStackTrace();
-                    logger.error("【发票归档】【"+r.readLine()+"】保存归档记录失败");
+                    logger.error("--------["+line+"]save t_gdjl fail----------");
                 }
             }
-            logger.info("【发票归档】读取完毕");
+            logger.info("--------read over--------");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("【发票归档】读取税号文件失败");
+            logger.error("-------read fail -------");
         }
 
 
         Calendar calendar_day = Calendar.getInstance();
         calendar_day.setTime(new Date());
         calendar_day.add(Calendar.DAY_OF_MONTH,-1);
-        String yesterday = calendar_day.getTime().toString();
+//        String yesterday = calendar_day.getTime().toString();
+        String yesterday = new SimpleDateFormat("yyyyMMdd").format(calendar_day.getTime());
         BufferedReader re = IOhelper.readString(gdFilePathDay);
         try {
-            while(re.readLine()!=null){
+            String line_day="";
+            while((line_day=re.readLine())!=null){
+                if("".equals(line_day)){
+                    continue;
+                }
                 try {
-                    Map result = invoiceArchiveService.getPDFPath_Day(yesterday, re.readLine());
+                    Map result = invoiceArchiveService.getPDFPath_Day(yesterday, line_day);
                     if(result!=null){
                         Integer count = (Integer) result.get("count");
                         String pdfPath = (String) result.get("path");
@@ -98,24 +111,24 @@ public class InsertGdjlScheduled {
                         gdjl.setZzrq(yesterday);
                         gdjl.setWjsl(count);
                         gdjl.setXzlj(pdfPath);
-                        Xf oneByXfsh = xfJpaDao.findOneByXfsh(re.readLine());
+                        Xf oneByXfsh = xfJpaDao.findOneByXfsh(line_day).get(0);
                         Integer xfid = oneByXfsh.getId();
                         gdjl.setXfid(xfid);
                         gdjl.setGsdm(oneByXfsh.getGsdm());
                         gdjlJpaDao.save(gdjl);
                     }else{
-                        logger.warn("【发票归档】【"+re.readLine()+"】获取pdf数量为0或未知异常");
+                        logger.warn("=========["+line_day+"]pdfcount is 0 or error========");
                         continue;
                     }
                 } catch(Exception e){
                     e.printStackTrace();
-                    logger.error("【发票归档】【"+re.readLine()+"】保存归档记录失败");
+                    logger.error("===========["+line_day+"]save t_gdjl fail============");
                 }
             }
-            logger.info("【发票归档】读取完毕");
+            logger.info("==========read over============");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("【发票归档】读取税号文件失败");
+            logger.error("======read fail ======");
         }
     }
 }

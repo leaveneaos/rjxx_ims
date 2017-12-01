@@ -23,7 +23,7 @@ public class InvoiceArchiveService {
     public Map getPDFPath(String date, String taxNo){
         try {
             Integer count = kplsJpaDao.countByLrsj(date, taxNo);
-            if(count==0||count==null){
+            if(count==null||count==0){
                 return null;
             }
             String pdfPath = path + taxNo + "/" + taxNo + "-" + date + "-" + count;
@@ -40,7 +40,7 @@ public class InvoiceArchiveService {
     public Map getPDFPath_Day(String date, String taxNo){
         try {
             Integer count = kplsJpaDao.countByLrsjDay(date, taxNo);
-            if(count==0||count==null){
+            if(count==null||count==0){
                 return null;
             }
             String pdfPath = path +"day/"+ taxNo + "/" + taxNo + "-" + date + "-" + count;

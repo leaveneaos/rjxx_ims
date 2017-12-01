@@ -26,7 +26,7 @@ public class GetParamScheduled {
     @Value("${gd_file_path_day}")
     private String gdFilePathDay;
 
-    @Scheduled(cron = "0 0 1 1 * ?")
+    @Scheduled(cron = "0 0 13 1 * ?")
     public void getSfgd(){
     logger.info("--------get param start---------");
         List<Xf> xfs = csUserService.getXfsByCsm("sfgd", "月");
