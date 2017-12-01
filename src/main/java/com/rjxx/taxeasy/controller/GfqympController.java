@@ -136,7 +136,7 @@ public class GfqympController extends BaseController {
             	qympk.setLxdh(lxdh);
             	qympk.setYjdz(yjdz);
             	qympk.setEmail(email);
-            	qympkService.save(qympk);
+            	//qympkService.save(qympk);
             }
 			
 			gfxxservice.save(gfxx);
