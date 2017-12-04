@@ -148,6 +148,9 @@ $(function() {
 				ordering : false,
 				searching : false,
 				"scrollX" : true,
+                fixedColumns : {//关键是这里了，需要第一列不滚动就设置1
+                    leftColumns : 2
+                },
 				"ajax" : {
 					url : _this.config.getUrl,
                     timeout: 600000,
@@ -198,7 +201,13 @@ $(function() {
 				},
 				"columns" : start
 			});
-
+            $('.js-table tbody').on('dblclick', 'tr', function () {
+                if ( $(this).find('td:eq(0) input').is(':checked')){
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                }else {
+                    $(this).find('td:eq(0) input').prop('checked',true);
+                }
+            });
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
 				t.column(1).nodes().each(function(cell, i) {

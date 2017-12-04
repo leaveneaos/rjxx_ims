@@ -20,12 +20,16 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="assets/css/fixedColumns.dataTables.scss">
 <script src="assets/js/loading.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 
 	<style type="text/css">
 	.data-ctr {
 	  text-align: center;
+	}
+	.xh{
+		background-color: #fbf9f9;
 	}
 </style>
 </head>
@@ -380,7 +384,7 @@
 	<script src="assets/js/format.js"></script>
     <script src="assets/js/fpcx_4.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
-
+    <script src="assets/js/dataTables.fixedColumns.js"></script>
 	<script type="text/javascript">
         function getCurrentMonthFirst(){
             var date=new Date();

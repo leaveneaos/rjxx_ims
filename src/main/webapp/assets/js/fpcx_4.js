@@ -37,7 +37,9 @@ $(function () {
                 ordering: false,
                 searching: false,
                 "scrollX": true,
-
+                fixedColumns : {//关键是这里了，需要第一列不滚动就设置1
+                    leftColumns : 1
+                },
                 "ajax": {
                     url: _this.config.getUrl,
                     type: 'post',
@@ -68,7 +70,8 @@ $(function () {
                     {
                         "orderable": false,
                         "data": null,
-                        "defaultContent": ""
+                        "defaultContent": "",
+                        'sClass':'xh'
                     },
                     {"data": "sqlsh"},
                     {"data": "jylsh"},
