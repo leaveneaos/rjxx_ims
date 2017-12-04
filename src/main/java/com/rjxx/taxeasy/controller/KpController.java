@@ -1194,81 +1194,24 @@ public class KpController extends BaseController {
 	@ResponseBody
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
 	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
-/*		Map<String, Object> result = new HashMap<String, Object>();
-		boolean fl=true;
-		List<Integer> djhList = convertToList(djhArr);
-		String[] djhs = djhArr.split(",");
-		HashSet<Integer> set = new HashSet<>();
-		for (String st : djhs) {
-			Jyls jyls = jylsService.findOne(Integer.valueOf(st));
-			set.add(jyls.getSkpid());
-		}
-		if (set.size()!=djhs.length) {
-			fl=false;
-		}
-		for (int i = 0; i < djhs.length; i++) {
-			//判断是否直连开票
-			Jyls jyls = jylsService.findOne(Integer.valueOf(djhs[i]));
-			Cszb cszb = cszbService.getSpbmbbh(getGsdm(), jyls.getXfid(), jyls.getSkpid(), "sfzlkp");
-			if (null!=cszb&&cszb.getCsz().equals("是")) {
-				if (!fl) {
-					result.put("csz", "2");
-					InvoiceResponse invoiceResponse = skService.getCodeAndNo(jyls.getSkpid(), jyls.getFpzldm());
-					if ("0000".equals(invoiceResponse.getReturnCode())) {
-						result.put("msg", "获取号码成功 ");
-						result.put("success", true);
-						result.put("fpdm", invoiceResponse.getFpdm());
-						result.put("fphm", invoiceResponse.getFphm());
-						return result;
-					}else{
-						result.put("success1", false);
-						result.put("msg", invoiceResponse.getReturnMessage());
-						return result;
-					}
-				}else{
-					result.put("csz", "1");
-					InvoiceResponse invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,1);
-					 if (!invoiceResponse.getReturnCode().equals("0000")) {
-							result.put("success", false);
-							result.put("msg", "第"+(i+1)+"条流水申请开具失败"+invoiceResponse.getReturnMessage());
-							return result;
-						}
-				}
-			}else{
-				result.put("csz", "0");
-				fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,0);
-
-			}
-			cljlService.saveYhcljl(getYhid(), "申请开具发票");
-			result.put("success", true);
-			result.put("msg", "申请开票成功！");
-		}
-		
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			result.put("failure", true);
-			result.put("msg", "保存出现错误: " + ex.getMessage());
-		}
-		return result;*/
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Integer> djhList = convertToList(djhArr);
 		String[] djhs = djhArr.split(",");
 		for (int i = 0; i < djhs.length; i++) {
-             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz);
-		if (!flag) {
-			result.put("success", false);
-			result.put("msg", "第"+(i+1)+"条流水申请开具失败");
-			return result;
-		}
+			boolean first=false;
+			 if(i==0){
+				 first=true;
+			 }
+             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,first);
+			if (!flag) {
+				result.put("success", false);
+				result.put("msg", "第"+(i+1)+"条流水申请开具失败");
+				return result;
+			}
 		}
 		cljlService.saveYhcljl(getYhid(), "申请开具发票");
 		result.put("success", true);
 		result.put("msg", "申请开票成功！");
-	/*	} catch (Exception ex) {
-			ex.printStackTrace();
-			result.put("failure", true);
-			result.put("msg", "保存出现错误: " + ex.getMessage());
-		}*/
 		return result;
 	}
 
@@ -1280,7 +1223,11 @@ public class KpController extends BaseController {
 		Map<String, Object> result = new HashMap<>();
 		String[] djhs = djhArr.split(",");
 			for (int j = 0; j < djhs.length; j++) {
-			boolean invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[j]),dybz);
+				boolean first=false;
+				if(j==0){
+					first=true;
+				}
+			boolean invoiceResponse = fpclService.kpcl1(Integer.valueOf(djhs[j]),dybz, first);
 			 if (!invoiceResponse) {
 					result.put("success", false);
 					result.put("msg", "第"+(j+1)+"条流水申请开具失败");
