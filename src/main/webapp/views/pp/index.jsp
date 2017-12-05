@@ -149,7 +149,8 @@
 												<th>品牌名称</th>
 												<th>品牌代码</th>
 												<th>品牌地址</th>
-												<th>发票管家品牌代码</th>
+												<th>支付宝品牌简称</th>
+												<th>支付宝品牌门店简称</th>
 												<th>微信logo地址</th>
 											</tr>
 										</thead>
@@ -194,12 +195,16 @@
 										<div class="am-u-sm-4">
 											<input type="text" id="ppurl" name="ppurl" placeholder="请输入品牌地址"/>
 										</div>
-										<label for="aliMShortName" class="am-u-sm-2 am-form-label">发票管家代码</label>
+										<label for="aliMShortName" class="am-u-sm-2 am-form-label">支付宝品牌简称</label>
 										<div class="am-u-sm-4">
-											<input type="text" id="aliMShortName" name="aliMShortName" placeholder="请输入发票管家品牌代码">
+											<input type="text" id="aliMShortName" name="aliMShortName" placeholder="请输入发票管家品牌简称">
 										</div>
 									</div>
 									<div class="am-form-group">
+										<label for="aliSubMShortName" class="am-u-sm-2 am-form-label">支付宝门店简称</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="aliSubMShortName" name="aliSubMShortName" placeholder="请输入发票管家门店简称">
+										</div>
 										<label for="wechatLogoUrl" class="am-u-sm-2 am-form-label">微信logoURL</label>
 										<div class="am-u-sm-4">
 											<input type="text" id="wechatLogoUrl" name="wechatLogoUrl" placeholder="请输入微信logoURL">

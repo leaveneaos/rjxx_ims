@@ -75,7 +75,7 @@ public class PpController  extends BaseController {
     @ResponseBody
     @Transactional
     @SystemControllerLog(description = "新增品牌信息",key = "kpddm")
-    public Map save( String ppmc, String ppdm, String ppurl, String aliMShortName, String wechatLogoUrl) {
+    public Map save( String ppmc, String ppdm, String ppurl, String aliMShortName,String aliSubMShortName, String wechatLogoUrl) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             Map<String, Object> prms = new HashMap<>();
@@ -97,9 +97,11 @@ public class PpController  extends BaseController {
             pp.setXgry(getYhid());
             pp.setXgsj(new Date());
             pp.setGsdm(getGsdm());
-            pp.setAliSubMShortName(aliMShortName);
+            pp.setAliSubMShortName(aliSubMShortName);
             pp.setAliMShortName(aliMShortName);
-            pp.setWechatLogoUrl(wechatLogoUrl);
+            if(wechatLogoUrl!=null&&!wechatLogoUrl.equals("")){
+                pp.setWechatLogoUrl(wechatLogoUrl);
+            }
             ppService.save(pp);
             result.put("success", true);
             result.put("msg", "添加成功");
@@ -123,16 +125,18 @@ public class PpController  extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     @SystemControllerLog(description = "修改品牌信息",key = "id")
-    public Map  update(int id,  String ppmc, String ppdm, String ppurl, String aliMShortName, String wechatLogoUrl) {
+    public Map  update(int id,  String ppmc, String ppdm, String ppurl, String aliMShortName,String aliSubMShortName, String wechatLogoUrl) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             Pp pp = ppService.findOne(id);
             pp.setPpdm(ppdm);
             pp.setPpmc(ppmc);
             pp.setPpurl(ppurl);
-            pp.setAliMShortName(aliMShortName);
+            pp.setAliMShortName(aliSubMShortName);
             pp.setAliSubMShortName(aliMShortName);
-            pp.setWechatLogoUrl(wechatLogoUrl);
+            if(null!=wechatLogoUrl&&!wechatLogoUrl.equals("")){
+                pp.setWechatLogoUrl(wechatLogoUrl);
+            }
             pp.setGsdm(getGsdm());
             pp.setLrry(pp.getLrry());
             pp.setLrsj(pp.getLrsj());

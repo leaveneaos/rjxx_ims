@@ -75,7 +75,9 @@ $(function() {
                         "data" : "ppurl"
                     },  {
                         "data" : "aliMShortName"
-                    }, {
+                    },  {
+                        "data" : "aliSubMShortName"
+                    },{
                         "data" : "wechatLogoUrl"
                     },]
             });
@@ -93,6 +95,7 @@ $(function() {
                 el.$jsForm.find('[name="ppdm"]').val(data.ppdm);
                 el.$jsForm.find('[name="ppurl"]').val(data.ppurl);
                 el.$jsForm.find('[name="aliMShortName"]').val(data.aliMShortName);
+                el.$jsForm.find('[name="aliSubMShortName"]').val(data.aliSubMShortName);
                 el.$jsForm.find('[name="wechatLogoUrl"]').val(data.wechatLogoUrl);
                 url = _this.config.editUrl + "?id=" + data.id;
                 $('#your-modal').modal({
