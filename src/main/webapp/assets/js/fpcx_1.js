@@ -59,7 +59,7 @@ $(function() {
 					}, {
 						"data": null,
 						"render":  function(data){
-							if(data.fpzldm=="12"&&data.pdfurl!=null){
+							if((data.fpzldm=="12" || data.fpzldm=="01")&&data.pdfurl!=null){
 								return '<a  href="'+ data.pdfurl + '" target="_blank">'+data.fphm+'</a>';
 							}else if(data.fpzldm=="12"&&data.pdfurl==null){
                                 return data.fphm;
