@@ -192,7 +192,7 @@
                     <!-- 是否混淆-->
                     <obfuscate>true</obfuscate>
                     <!-- 指定生成文件分类 -->
-                    <attachArtifactClassifier>pg</attachArtifactClassifier>
+                    <attachArtifactClassifier>ims-pg</attachArtifactClassifier>
                     <options>
                         <!-- JDK目标版本1.8-->
                         <option>-target 1.8</option>
