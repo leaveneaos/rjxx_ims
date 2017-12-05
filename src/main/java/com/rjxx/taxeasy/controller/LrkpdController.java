@@ -964,6 +964,7 @@ public class LrkpdController extends BaseController {
             put("bz", "备注");
             put("gfsjh", "购方手机号");
             put("fpzldm", "发票种类");
+            put("gfsjrdz", "收件地址");
         }
     };
 
