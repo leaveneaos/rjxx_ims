@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by wangyahui on 2017/11/21 0021.
  */
-@Service
+@Service("invoiceArchiveService")
 public class InvoiceArchiveService {
 
     @Value("${gd_request_Path}")
