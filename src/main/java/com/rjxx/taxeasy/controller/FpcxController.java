@@ -57,7 +57,7 @@ public class FpcxController extends BaseController {
     @ResponseBody
     public Map<String, Object> getItems(int length, int start, int draw, String ddh, String fphm, String kprqq,
                                         String kprqz, String spmc, String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String fpzldm,
-                                        String xfsh, String sk, String xfmc,String jzjtzt,boolean loaddata2,String errorReason) throws Exception {
+                                        String xfsh, String sk, String xfmc,String jzjtzt,String check,boolean loaddata2,String errorReason) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         //Pagination pagination = new Pagination();
         //pagination.setPageNo(start / length + 1);
@@ -97,6 +97,9 @@ public class FpcxController extends BaseController {
         String[] skpid = skpStr.split(",");
         if (skpid.length == 0) {
             skpid = null;
+        }
+        if(null!= check && check.equals("1")){
+            maps.put("lrry", getYhid());
         }
         maps.put("gsdm", gsdm);
         maps.put("xfid", xfid);

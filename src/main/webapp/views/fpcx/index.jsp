@@ -193,6 +193,14 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
+											<label for="s_fpdm" class="am-u-sm-4 am-form-label"></label>
+											<div class="am-u-sm-7">
+												<input type="checkbox" value="1" id="s_check" name="s_check">登录用户开票数据
+											</div>
+										</div>
+									</div>
+									<div class="am-offcanvas-content">
+										<div class="am-form-group">
 											<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
 											<div class="am-u-sm-8">
 												<input type="text" id="s_kprqq" name="kprqq"

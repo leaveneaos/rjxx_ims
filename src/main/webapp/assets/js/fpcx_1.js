@@ -178,6 +178,7 @@ $(function() {
                                 d.kprqq = $('#w_kprqq').val(); // search 开票日期
                                 d.kprqz = $('#w_kprqz').val(); // search 开票日期
 							}
+                            d.check ='0';
 						}else if (bj ==  "2") {
 							d.ddh = el.$s_ddh.val(); // search 订单号
 							d.gfmc = el.$s_gfmc.val(); //购方名称
@@ -193,6 +194,11 @@ $(function() {
 							d.xfsh=$("#mb_xfsh").val();
 							d.sk =$("#mb_skp").val();
 							d.fpzldm =$("#s_fpzldm").val();
+                            if ($("input[id='s_check']").prop('checked')) {
+                                d.check ='1';
+                            }else{
+                                d.check ='0';
+							}
 
 						}else{
 							d.ddh = "-11111111";
@@ -355,6 +361,7 @@ $(function() {
                 }
 				e.preventDefault();
                 loaddata2=true;
+                $("#s_check").attr("checked",false);
 				_this.tableEx.ajax.reload();
 
 			});
