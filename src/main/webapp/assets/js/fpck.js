@@ -210,6 +210,13 @@ $(function() {
                 });
             });
 
+            $('.js-table tbody').on('dblclick', 'tr', function () {
+                if ( $(this).find('td:eq(0) input').is(':checked')){
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                }else {
+                    $(this).find('td:eq(0) input').prop('checked',true);
+                }
+            });
 
             t.on('click', 'a.modify', function() {
                 var data = t.row($(this).parents('tr')).data();

@@ -159,7 +159,7 @@ public class PttqkpController extends BaseController {
 		List<Jyxxsq> jyxxsqList = null;
 		List<Jymxsq>jymxsqList=null;
 		List<Jyzfmx>jyzfmxList=null;
-
+        logger.info("全家拉取数据之后的map"+JSON.toJSONString(resMap));
 		List list = new ArrayList();
 		if(resMap!=null){
 			jyxxsqList = (List<Jyxxsq>) resMap.get("jyxxsqList");
