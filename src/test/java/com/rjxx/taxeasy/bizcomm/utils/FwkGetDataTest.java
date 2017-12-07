@@ -42,9 +42,25 @@ public class FwkGetDataTest {
                 "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "</soapenv:Body>\n" +
                 "</soapenv:Envelope>\n";
-        String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
+       /* String Data= HttpUtils.doPostSoap1_2("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
         //FwkGetDataJob fwkGetDataJob=new FwkGetDataJob();
-        Map resultMap=fwkGetDataJob.interping(Data);
+        Map resultMap=fwkGetDataJob.interping(Data);*/
+       String ss=" <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\">\n" +
+               "    <soap:Header/>\n" +
+               "    <soap:Body>\n" +
+               "       <glob:GoldenTaxGoldenTaxCreateRequest_sync>\n" +
+               "          <BasicMessageHeader></BasicMessageHeader>\n" +
+               "          <GoldenTax>\n" +
+               "             <CutInvID>166890</CutInvID>\n" +
+               "             <GoldenTaxID>88297004</GoldenTaxID>\n" +
+               "             <GoldenTaxDate>2017-12-07</GoldenTaxDate>\n" +
+               "             <GoldenTaxResult>Succeed</GoldenTaxResult>\n" +
+               "             <GoldenTaxCode>031001700111</GoldenTaxCode>\n" +
+               "          </GoldenTax>\n" +
+               "       </glob:GoldenTaxGoldenTaxCreateRequest_sync>\n" +
+               "    </soap:Body>\n" +
+               " </soap:Envelope>\n";
+        String Data= HttpUtils.doPostSoap1_2("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/yyb40eysay_managegoldentaxinvo?sap-vhost=my337076.sapbydesign.com", ss, null,"Wendy","Welcome9");
 
     }
 
