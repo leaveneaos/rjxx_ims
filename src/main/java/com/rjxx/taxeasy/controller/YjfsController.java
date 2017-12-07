@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.bizcomm.utils.MailService;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +57,11 @@ public class YjfsController extends BaseController {
 	private YjmbService yjmbService;
 	@Autowired
 	private JyxxsqService jyxxsqService;
+	@Autowired
+	private MailService mailService;
 
+	@Value("${pdf.save-path:}")
+	private String pdfSavePath;
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfs", getXfList());
@@ -109,8 +115,15 @@ public class YjfsController extends BaseController {
 					csmap.put("pdfurls",pdfUrlList);
 					csmap.put("xfmc",jyls.getXfmc());
 					String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
-					se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
-							String.valueOf(kpls.getDjh()), content, "电子发票");
+					if(kpls.getGsdm().equals("afb")){
+						String [] to=new String[1];
+						to[0]=kpls.getGfemail();
+						String filePath=pdfSavePath+kpls.getPdfurl().substring(kpls.getPdfurl().indexOf(kpls.getXfsh()),kpls.getPdfurl().length());
+						mailService.sendAttachmentsMail(to,"电子发票",content,filePath);
+					}else {
+						se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
+								String.valueOf(kpls.getDjh()), content, "电子发票");
+					}
 					/*
 					 * SendEmail se = new SendEmail();
 					 * se.sendMail(jyls.getDdh(), kpls.getGfemail(), new
