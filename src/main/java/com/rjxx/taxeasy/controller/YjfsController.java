@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceQueryUtil;
 import com.rjxx.taxeasy.bizcomm.utils.MailService;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
@@ -59,9 +60,13 @@ public class YjfsController extends BaseController {
 	private JyxxsqService jyxxsqService;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private InvoiceQueryUtil invoiceQueryUtil;
 
 	@Value("${pdf.save-path:}")
 	private String pdfSavePath;
+	@Value("${emailInfoUrl:}")
+	private String emailInfoUrl;
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfs", getXfList());
@@ -108,12 +113,23 @@ public class YjfsController extends BaseController {
 					Integer yjmbDm=gsxx.getYjmbDm();
 					Yjmb yjmb=yjmbService.findOne(yjmbDm);
 					String yjmbcontent=yjmb.getYjmbNr();
+					String q="";
+					String infoUrl="";
+					List<Fpcxvo> fpcxvos = invoiceQueryUtil.getInvoiceListByDdh(gsxx.getGsdm(), jyls.getDdh());
+					if(fpcxvos.get(0).getTqm()!=null && !fpcxvos.get(0).getTqm().equals("")){
+						q=fpcxvos.get(0).getTqm();
+						infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+					}else if(fpcxvos.get(0).getKhh()!=null&&!fpcxvos.get(0).getKhh().equals("")){
+						q=fpcxvos.get(0).getKhh();
+						infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+					}
 					Map csmap=new HashMap();
 					csmap.put("ddh",jyls.getDdh());
 					SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 					csmap.put("ddrq",sdf.format(jyxxsq.getDdrq()));
 					csmap.put("pdfurls",pdfUrlList);
 					csmap.put("xfmc",jyls.getXfmc());
+					csmap.put("infoUrl",infoUrl);
 					String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
 					if(kpls.getGsdm().equals("afb")){
 						String [] to=new String[1];
