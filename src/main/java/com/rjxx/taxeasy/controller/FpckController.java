@@ -302,6 +302,12 @@ public class FpckController extends BaseController {
                             jyxxsq.setSffsyj("1");
                         }
                         jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+                        if(jyxxsq.getHsbz().equals("1")){
+                            for (int i = 0;i<jymxsqList.size();i++){
+                                jymxsqList.get(i).setSpse(null);
+                                jymxsqList.get(i).setSpje(jymxsqList.get(i).getJshj());
+                            }
+                        }
                         jyxxsqList.add(jyxxsq);
                         Map kpMap = new HashMap();
                         kpMap.put("jyxxsqList",jyxxsqList);
