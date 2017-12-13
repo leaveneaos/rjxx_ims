@@ -389,7 +389,7 @@
                 minLength: 2,
                 source:function(request,response){
                     $.post(
-                        "../companyInfo/getNames",
+                        "companyInfo/getNames",
                         {
                             "name": $("#gfmc").val()
                         },function (obj) {
