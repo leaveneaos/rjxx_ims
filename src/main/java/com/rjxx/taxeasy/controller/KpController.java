@@ -1195,14 +1195,27 @@ public class KpController extends BaseController {
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
 	public Map doKp(String djhArr,Double kpxe,String dybz) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		List<Integer> djhList = convertToList(djhArr);
+		//List<Integer> djhList = convertToList(djhArr);
 		String[] djhs = djhArr.split(",");
-		for (int i = 0; i < djhs.length; i++) {
+		Date xgsj = new Date();
+		List djhList = new ArrayList();
+		for(int m=0;m<djhs.length;m++){
+			Map params = new HashMap();
+			params.put("clztdm","40");
+			params.put("xgsj",xgsj);
+			params.put("djh",djhs[m]);
+			int res = jylsService.updateClzt2(params);
+			//System.out.println("dddddd:"+res);
+			if(res>0){
+				djhList.add(djhs[m]);
+			}
+		}
+		for (int i = 0; i < djhList.size(); i++) {
 			boolean first=false;
 			 if(i==0){
 				 first=true;
 			 }
-             boolean flag = fpclService.kpcl1(Integer.valueOf(djhs[i]),dybz,first);
+             boolean flag = fpclService.kpcl1(Integer.valueOf(djhList.get(i).toString()),dybz,first);
 			if (!flag) {
 				result.put("success", false);
 				result.put("msg", "第"+(i+1)+"条流水申请开具失败");
