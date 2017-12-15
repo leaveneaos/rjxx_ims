@@ -543,10 +543,14 @@ $(function() {
 							swal('请选择设备厂商');
 							return false;
 						}
-						if($('#skph').val().length != 12){
-                            swal('请输入正确的设备号');
-                            return false;
+						if($('#skph').val()!=null&&($('#skph').val()!="")){
+							if($('#skph').val().length != 12){
+								swal('请输入正确的设备号');
+								return false;
+							}
 						}
+
+
 						var data = el.$jsForm.serialize(); // get form data
 						// data
 						$.ajax({
