@@ -209,25 +209,40 @@ $(function() {
 				if(data.wrzs=="1"){
                     $("#wrzs").prop('checked', true);
                 }
-                if(data.dpmax!=0&&data.dpmax!=null){
-                    el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
-                    el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
-                    el.$jsForm.find('[id="kplx-12"]').show();
-                }else {
+                var fplx12=$("#fplx-12");
+                if(fplx12.is(':checked')){
+                    if(data.dpmax!=0&&data.dpmax!=null){
+                        el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
+                        el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
+                        el.$jsForm.find('[id="kplx-12"]').show();
+                    }
+				}else {
+                    el.$jsForm.find('select[id="kpxe-12"]').val(null);
+                    el.$jsForm.find('[id="fpje-12"]').val(null);
                     el.$jsForm.find('[id="kplx-12"]').hide();
                 }
-                if(data.zpmax!=0&&data.zpmax!=null){
-                    el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
-                    el.$jsForm.find('[id="fpje-01"]').val(data.zpfz);
-                    el.$jsForm.find('[id="kplx-01"]').show();
+                var fplx01=$("#fplx-01");
+                if(fplx01.is(':checked')) {
+                    if (data.zpmax != 0 && data.zpmax != null) {
+                        el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
+                        el.$jsForm.find('[id="fpje-01"]').val(data.zpfz);
+                        el.$jsForm.find('[id="kplx-01"]').show();
+                    }
                 }else{
+                    el.$jsForm.find('select[id="kpxe-01"]').val(null);
+                    el.$jsForm.find('[id="fpje-01"]').val(null);
                     el.$jsForm.find('[id="kplx-01"]').hide();
                 }
-                if(data.ppmax!=0&&data.ppmax!=null){
-                    el.$jsForm.find('select[id="kpxe-02"]').val(data.ppmax);
-                    el.$jsForm.find('[id="fpje-02"]').val(data.ppfz);
-                    el.$jsForm.find('[id="kplx-02"]').show();
+                var fplx02=$("#fplx-02");
+                if(fplx02.is(':checked')) {
+                    if (data.ppmax != 0 && data.ppmax != null) {
+                        el.$jsForm.find('select[id="kpxe-02"]').val(data.ppmax);
+                        el.$jsForm.find('[id="fpje-02"]').val(data.ppfz);
+                        el.$jsForm.find('[id="kplx-02"]').show();
+                    }
                 }else {
+                    el.$jsForm.find('select[id="kpxe-02"]').val(null);
+                    el.$jsForm.find('[id="fpje-02"]').val(null);
                     el.$jsForm.find('[id="kplx-02"]').hide();
                 }
 				url = _this.config.editUrl + "?id=" + data.id;
