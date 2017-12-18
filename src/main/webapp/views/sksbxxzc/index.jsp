@@ -550,12 +550,11 @@
 			if (obj.checked == true) {
 				$(id).show();
 			}else{
+                $('.js-form').find('select[id="kpxe-'+val+'"]').val(null);
+                $('.js-form').find('[id="fpje-'+val+'"]').val(null);
 				$(id).hide();
 			}
 		}
-
-		
-
 	</script>
 </body>
 </html>
