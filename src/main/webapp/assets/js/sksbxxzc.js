@@ -209,76 +209,33 @@ $(function() {
 				if(data.wrzs=="1"){
                     $("#wrzs").prop('checked', true);
                 }
-				el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
-				el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
-				el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
-				el.$jsForm.find('[id="fpje-01"]').val(data.zpfz);
-				el.$jsForm.find('select[id="kpxe-02"]').val(data.ppmax);
-				el.$jsForm.find('[id="fpje-02"]').val(data.ppfz);
-				// el.$jsForm.find('[name="zcm"]').val(data.zcm);
+                if(data.dpmax!=0&&data.dpmax!=null){
+                    el.$jsForm.find('select[id="kpxe-12"]').val(data.dpmax);
+                    el.$jsForm.find('[id="fpje-12"]').val(data.fpfz);
+                    el.$jsForm.find('[id="kplx-12"]').show();
+                }else {
+                    el.$jsForm.find('[id="kplx-12"]').hide();
+                }
+                if(data.zpmax!=0&&data.zpmax!=null){
+                    el.$jsForm.find('select[id="kpxe-01"]').val(data.zpmax);
+                    el.$jsForm.find('[id="fpje-01"]').val(data.zpfz);
+                    el.$jsForm.find('[id="kplx-01"]').show();
+                }else{
+                    el.$jsForm.find('[id="kplx-01"]').hide();
+                }
+                if(data.ppmax!=0&&data.ppmax!=null){
+                    el.$jsForm.find('select[id="kpxe-02"]').val(data.ppmax);
+                    el.$jsForm.find('[id="fpje-02"]').val(data.ppfz);
+                    el.$jsForm.find('[id="kplx-02"]').show();
+                }else {
+                    el.$jsForm.find('[id="kplx-02"]').hide();
+                }
 				url = _this.config.editUrl + "?id=" + data.id;
 				$('#your-modal').modal({
 					"width" : 900,
 					"height" : 500
 				});
 			});
-
-			t.on('click', 'a.del', function() {
-
-				url = _this.config.delUrl;
-				$('#my-confirm').modal(
-						{
-							relatedTarget : this,
-							onConfirm : function(options) {
-								var data = t.row($(this.relatedTarget).parents('tr')).data();
-								el.$jsLoading.modal('open');
-								$('.confirm').attr('disabled',"disabled");
-								$.ajax({
-									url : url,
-									data : {
-										ids : data.id
-									},
-									type : 'POST',
-									success : function(data) {
-										// todo 处理返回结果
-										if (data.success) {
-											$('.confirm').removeAttr('disabled');
-											// $('#msg').html('删除成功');
-											// $('#my-alert').modal('open');
-											swal({ 
-												    title: "已成功删除", 
-												    timer: 1500, 
-								  					type: "success", 
-												  showConfirmButton: false 
-												});
-											_this.tableEx.ajax.reload(); // reload
-											// table
-											// data
-										} else {
-											// $('#msg').html('删除失败,服务器错误' + data.msg);
-											// $('#my-alert').modal('open');
-											swal('删除失败,服务器错误' + data.msg);
-										}
-										el.$jsLoading.modal('close');
-
-									},
-									error : function() {
-										// $('#msg').html('请求失败,请刷新后稍后重试!');
-										// $('#my-alert').modal('open');
-										swal('请求失败,请刷新后稍后重试!');
-										el.$jsLoading.modal('close');
-									}
-								});
-							},
-							// closeOnConfirm: false,
-							onCancel : function() {
-
-							}
-						});
-				// var data = t.row($(this).parents('tr')).data();
-				// _this.del({ids: data.id});
-			});
-
 			var $importModal = $("#bulk-import-div");
 			$("#close1").click(function() {
 				$importModal.modal("close");
@@ -335,49 +292,37 @@ $(function() {
 			$("#btnImport").click(function() {
 				var filename = $("#importFile").val();
 				if (filename == null || filename == "") {
-					// $('#msg').html("请选择要导入的文件");
-					// $('#my-alert').modal('open');
 					swal("请选择要导入的文件");
 					return;
 				}
 				var pos = filename.lastIndexOf(".");
 				if (pos == -1) {
-					// $('#msg').html("导入的文件必须是excel文件");
-					// $('#my-alert').modal('open');
 					swal("导入的文件必须是excel文件");
 					return;
 				}
 				var extName = filename.substring(pos + 1);
 				if ("xls" != extName && "xlsx" != extName) {
-					// $('#msg').html("导入的文件必须是excel文件");
-					// $('#my-alert').modal('open');
 					swal("导入的文件必须是excel文件");
 					return;
 				}
 				$("#btnImport").attr("disabled", true);
 				$('.js-modal-loading').modal('toggle'); // show loading
-				// alert('验证成功');
 				var options = {
 					success : function(res) {
 						if (res.success) {
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
 							var count = res.count;
-							// $('#msg').html("导入成功，共导入" + count + "条数据");
-							// $('#my-alert').modal('open');
 							swal("导入成功，共导入" + count + "条数据");
 							window.location.reload();
 						} else {
 							$("#btnImport").attr("disabled", false);
 							$('.js-modal-loading').modal('close');
-							// $('#msg').html(res.message);
-							// $('#my-alert').modal('open');
 							swal(res.message);
 						}
 					}
 				};
 				$("#importExcelForm").ajaxSubmit(options);
-
 			});
 			return t;
 		},
@@ -390,7 +335,6 @@ $(function() {
 					"width" : 900,
 					"height" : 500
 				});
-
 			});
 		},
 		/**
@@ -401,36 +345,6 @@ $(function() {
 		 */
 		del : function(data) {
 			var _this = this;
-
-			/*if (!confirm("是否删除？")) {
-				return;
-			}
-			el.$jsLoading.modal('open');
-			$.ajax({
-				url : url,
-				data : {
-					ids : data.ids
-				},
-				type : 'POST',
-				success : function(data) {
-					// todo 处理返回结果
-					if (data.success) {
-						$('#msg').html('删除成功');
-						$('#my-alert').modal('open');
-						_this.tableEx.ajax.reload(); // reload table data
-					} else {
-						$('#msg').html('删除失败,服务器错误' + data.msg);
-						$('#my-alert').modal('open');
-					}
-					el.$jsLoading.modal('close');
-
-				},
-				error : function() {
-					$('#msg').html('请求失败,请刷新后稍后重试!');
-					$('#my-alert').modal('open');
-					el.$jsLoading.modal('close');
-				}
-			});*/
 			swal({
                 title: "提示",
                 text: "您确定要删除这条数据吗？",
@@ -460,12 +374,10 @@ $(function() {
 	                    } else {
 		                	swal('删除失败,服务器错误' + data.msg);
 	                    }
-                    
                 }).error(function(data) {
                     swal('请求失败,请刷新后稍后重试!', "error");
                 });
             });
-
 		},
 		/**
 		 * check all action
@@ -496,18 +408,13 @@ $(function() {
 				e.preventDefault();
 				var data = '', row = '', $tr = null;
 				_this.tableEx.column(0).nodes().each(function(cell, i) {
-
 					var $checkbox = $(cell).find('input[type="checkbox"]');
 					if ($checkbox.is(':checked')) {
-
 						row = _this.tableEx.row(i).data().id;
 						data += row + ',';
 					}
-
 				});
 				if (!data) {
-					// $('#msg').html("请选择要删除的税控盘");
-					// $('#my-alert').modal('open');
 					swal("请选择要删除的税控盘");
 					return;
 				}
@@ -518,7 +425,6 @@ $(function() {
 				});
 				el.$checkAll.prop('checked', false);
 			});
-
 		},
 		/**
 		 * 添加方法
@@ -529,17 +435,11 @@ $(function() {
 				submit : function() {
 					var formValidity = this.isFormValid();
 					if (formValidity) {
-						//el.$jsLoading.modal('toggle'); // show loading
-						// alert('验证成功');
 						if ($('#xfid').val() == 0) {
-							// $('#msg').html('请选择销方');
-							// $('#my-alert').modal('open');
 							swal('请选择销方');
 							return false;
 						}
 						if ($('#sbcs').val() == 0) {
-							// $('#msg').html('请选择设备厂商');
-							// $('#my-alert').modal('open');
 							swal('请选择设备厂商');
 							return false;
 						}
@@ -549,10 +449,7 @@ $(function() {
 								return false;
 							}
 						}
-
-
 						var data = el.$jsForm.serialize(); // get form data
-						// data
 						$.ajax({
 							url : url,
 							data : data,
@@ -560,88 +457,23 @@ $(function() {
 							success : function(data) {
 								if (data.success) {
 									el.$modal.modal('close'); // close modal
-									// $('#msg').html(data.msg);
-									// $('#my-alert').modal('open');
 									swal(data.msg);
 									_this.tableEx.ajax.reload(); // reload
-									// table
-									// data
 								} else if (data.failure) {
-									// $('#msg').html(data.msg);
-									// $('#my-alert').modal('open');
 									swal(data.msg);
 								} else {
-									// $('#msg').html('后台错误: 数据操作失败' + data.msg);
-									// $('#my-alert').modal('open');
 									swal('后台错误: 数据操作失败' + data.msg);
-								}// close loading
-
-								el.$jsLoading.modal('close');
-							},
-							error : function() {
-								// $('#msg').html('数据操作失败, 请重新登陆再试...!');
-								// $('#my-alert').modal('open');
-								swal('数据操作失败, 请重新登陆再试...!');
-								el.$jsLoading.modal('close');
-							}
-						});
-
-						return false;
-					} else {
-						// $('#msg').html('验证失败');
-						// $('#my-alert').modal('open');
-						swal('验证失败');
-						return false;
-					}
-				}
-			});
-		},
-		/**
-		 * 修改方法
-		 */
-		editRow : function() {
-			var _this = this;
-			el.$jsForm1.validator({
-				submit : function() {
-					var formValidity = this.isFormValid();
-					if (formValidity) {
-						el.$jsLoading.modal('toggle'); // show loading
-						var data = el.$jsForm1.serialize(); // get form data
-						// data
-						$.ajax({
-							url : _this.config.editUrl,
-							data : data,
-							method : 'POST',
-							success : function(data) {
-								if (data.success) {
-									el.$modal1.modal('close'); // close modal
-									// $('#msg').html(data.msg);
-									// $('#my-alert').modal('open');
-									swal(data.msg);
-								} else {
-									// $('#msg').html('后台错误: 数据操作失败' + data.msg);
-									// $('#my-alert').modal('open');
-									swal('后台错误: 数据操作失败' + data.msg);
-
 								}
-								_this.tableEx.ajax.reload(); // reload table
-								// data
-								el.$jsLoading.modal('close'); // close loading
-
+								el.$jsLoading.modal('close');
 							},
 							error : function() {
-								// $('#msg').html('数据操作失败, 请重新登陆再试...!');
-								// $('#my-alert').modal('open');
 								swal('数据操作失败, 请重新登陆再试...!');
 								el.$jsLoading.modal('close');
 							}
 						});
-
 						return false;
 					} else {
-						// $('#msg').html('验证失败,请注意格式！');
-						// $('#my-alert').modal('open');
-						swal('验证失败,请注意格式！');
+						swal('验证失败');
 						return false;
 					}
 				}
@@ -655,15 +487,11 @@ $(function() {
 			el.$jsSearch.on('click', function(e) {
 				e.preventDefault();
 				$('#bj').val('1');
-				// $('#searchform1').resetForm();
-				// $('#xfid1').find('option[value="0"]').attr('selected', true);
 				_this.tableEx.ajax.reload();
 			});
 			el.$jsSearch1.on('click', function(e) {
 				e.preventDefault();
 				$('#bj').val('2');
-				// $('#tip').find('option[value=0]').attr('selected', true);
-				// $('#searchform').resetForm();
 				_this.tableEx.ajax.reload();
 			});
 		},
@@ -711,7 +539,6 @@ $(function() {
 			_this.checkAllAc();
 			_this.delAllAc();
 			_this.saveRow();
-			_this.editRow();
 		}
 	};
 	action.init();
