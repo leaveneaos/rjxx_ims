@@ -25,7 +25,7 @@ import java.util.Map;
  * 插入归档记录表定时器
  */
 @Component
-public class InsertGdjlScheduled {
+public class InsertGdjlForMonthScheduled {
 
     @Autowired
     private GdjlJpaDao gdjlJpaDao;
@@ -36,18 +36,14 @@ public class InsertGdjlScheduled {
 
     @Value("${gd_file_path}")
     private String gdFilePath;
-    @Value("${gd_file_path_day}")
-    private String gdFilePathDay;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Scheduled(cron = "0 0 14 1 * ?")
+    @Scheduled(cron = "0 0 2 1 * ?")
     public void start(){
-        logger.info("--------insert t_gdjl start------------");
+        logger.info("[insert t_gdjl for month] start");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH,-1);
-//        String lastMonth = calendar.getTime().toString();
         String lastMonth = new SimpleDateFormat("yyyyMM").format(calendar.getTime());
         BufferedReader r = IOhelper.readString(gdFilePath);
         try {
@@ -73,62 +69,18 @@ public class InsertGdjlScheduled {
                         gdjl.setGsdm(oneByXfsh.getGsdm());
                         gdjlJpaDao.save(gdjl);
                     }else{
-                        logger.warn("----------["+line+"]pdfcount is 0 or error----------");
+                        logger.warn("[insert t_gdjl for month] ["+line+"]pdfcount is 0 or error");
                         continue;
                     }
                 } catch(Exception e){
                     e.printStackTrace();
-                    logger.error("--------["+line+"]save t_gdjl fail----------");
+                    logger.error("[insert t_gdjl for month] ["+line+"]save t_gdjl error");
                 }
             }
-            logger.info("--------read over--------");
+            logger.info("[insert t_gdjl for month] read over");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("-------read fail -------");
-        }
-
-
-        Calendar calendar_day = Calendar.getInstance();
-        calendar_day.setTime(new Date());
-        calendar_day.add(Calendar.DAY_OF_MONTH,-1);
-//        String yesterday = calendar_day.getTime().toString();
-        String yesterday = new SimpleDateFormat("yyyyMMdd").format(calendar_day.getTime());
-        BufferedReader re = IOhelper.readString(gdFilePathDay);
-        try {
-            String line_day="";
-            while((line_day=re.readLine())!=null){
-                if("".equals(line_day)){
-                    continue;
-                }
-                try {
-                    Map result = invoiceArchiveService.getPDFPath_Day(yesterday, line_day);
-                    if(result!=null){
-                        Integer count = (Integer) result.get("count");
-                        String pdfPath = (String) result.get("path");
-                        Gdjl gdjl = new Gdjl();
-                        gdjl.setYxbz("1");
-                        gdjl.setLrsj(new Date());
-                        gdjl.setZzrq(yesterday);
-                        gdjl.setWjsl(count);
-                        gdjl.setXzlj(pdfPath);
-                        Xf oneByXfsh = xfJpaDao.findOneByXfsh(line_day).get(0);
-                        Integer xfid = oneByXfsh.getId();
-                        gdjl.setXfid(xfid);
-                        gdjl.setGsdm(oneByXfsh.getGsdm());
-                        gdjlJpaDao.save(gdjl);
-                    }else{
-                        logger.warn("=========["+line_day+"]pdfcount is 0 or error========");
-                        continue;
-                    }
-                } catch(Exception e){
-                    e.printStackTrace();
-                    logger.error("===========["+line_day+"]save t_gdjl fail============");
-                }
-            }
-            logger.info("==========read over============");
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error("======read fail ======");
+            logger.error("[insert t_gdjl for month] read error");
         }
     }
 }

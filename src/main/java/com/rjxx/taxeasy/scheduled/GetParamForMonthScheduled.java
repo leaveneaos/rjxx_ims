@@ -17,39 +17,25 @@ import java.util.List;
  * 获取参数写入文件定时器
  */
 @Component
-public class GetParamScheduled {
+public class GetParamForMonthScheduled {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private CsUserService csUserService;
     @Value("${gd_file_path}")
-    private String gdFilePath;
-    @Value("${gd_file_path_day}")
-    private String gdFilePathDay;
+    private String month_path;
 
-    @Scheduled(cron = "0 0 13 1 * ?")
+    @Scheduled(cron = "0 30 1 1 * ?")
     public void getSfgd(){
-    logger.info("--------get param start---------");
+        logger.info("[get param sfgd for month] start");
         List<Xf> xfs = csUserService.getXfsByCsm("sfgd", "月");
         if(xfs!=null){
-            IOhelper.clearInfoForFile(gdFilePath);
+            IOhelper.clearInfoForFile(month_path);
             for(Xf xf:xfs){
-                IOhelper.wirteString(gdFilePath,xf.getXfsh());
+                IOhelper.wirteString(month_path,xf.getXfsh());
             }
-            logger.info("----------over-----------");
+            logger.info("[get param sfgd for month] over");
         }else{
-            logger.error("------get xf list faild------");
+            logger.error("[get param sfgd for month] failure");
         }
-
-        List<Xf> xfs_day = csUserService.getXfsByCsm("sfgd", "日");
-        if(xfs_day!=null){
-            IOhelper.clearInfoForFile(gdFilePathDay);
-            for(Xf xf_day:xfs_day){
-                IOhelper.wirteString(gdFilePathDay,xf_day.getXfsh());
-            }
-            logger.info("===========over============");
-        }else{
-            logger.error("===========get xf list faild===========");
-        }
-
     }
 }

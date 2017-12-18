@@ -26,7 +26,7 @@ public class InvoiceArchiveService {
             if(count==null||count==0){
                 return null;
             }
-            String pdfPath = path + taxNo + "/" + taxNo + "-" + date + "-" + count;
+            String pdfPath = path + taxNo + "/" + taxNo + "-" + date + "-" + count+".zip";
             Map<String,Object> map = new HashMap();
             map.put("path", pdfPath);
             map.put("count", count);
@@ -43,7 +43,7 @@ public class InvoiceArchiveService {
             if(count==null||count==0){
                 return null;
             }
-            String pdfPath = path +"day/"+ taxNo + "/" + taxNo + "-" + date + "-" + count;
+            String pdfPath = path +"day/"+ taxNo + "/" + taxNo + "-" + date + "-" + count+".zip";
             Map<String,Object> map = new HashMap();
             map.put("path", pdfPath);
             map.put("count", count);
