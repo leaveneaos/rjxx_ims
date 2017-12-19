@@ -28,7 +28,7 @@ public class GetParamForDayScheduled {
     public void getSfgd() {
         logger.info("[get param sfgd for day] start");
         List<Xf> xfs_day = csUserService.getXfsByCsm("sfgd", "日");
-        if (xfs_day != null) {
+        if (xfs_day != null && xfs_day.size() > 0) {
             IOhelper.clearInfoForFile(day_path);
             for (Xf xf_day : xfs_day) {
                 IOhelper.wirteString(day_path, xf_day.getXfsh());

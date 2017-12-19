@@ -20,35 +20,35 @@ public class InvoiceArchiveService {
     @Autowired
     private KplsJpaDao kplsJpaDao;
 
-    public Map getPDFPath(String date, String taxNo){
+    public Map getPDFPath(String date, String taxNo) {
         try {
             Integer count = kplsJpaDao.countByLrsj(date, taxNo);
-            if(count==null||count==0){
+            if (count == null || count == 0) {
                 return null;
             }
-            String pdfPath = path + taxNo + "/" + taxNo + "-" + date + "-" + count+".zip";
-            Map<String,Object> map = new HashMap();
+            String pdfPath = path + "taxno/" + taxNo + "/" + taxNo + "-" + date + "-" + count + ".zip";
+            Map<String, Object> map = new HashMap();
             map.put("path", pdfPath);
             map.put("count", count);
             return map;
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public Map getPDFPath_Day(String date, String taxNo){
+    public Map getPDFPath_Day(String date, String taxNo) {
         try {
             Integer count = kplsJpaDao.countByLrsjDay(date, taxNo);
-            if(count==null||count==0){
+            if (count == null || count == 0) {
                 return null;
             }
-            String pdfPath = path +"day/"+ taxNo + "/" + taxNo + "-" + date + "-" + count+".zip";
-            Map<String,Object> map = new HashMap();
+            String pdfPath = path + "taxno/day/" + taxNo + "/" + taxNo + "-" + date + "-" + count + ".zip";
+            Map<String, Object> map = new HashMap();
             map.put("path", pdfPath);
             map.put("count", count);
             return map;
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -25,16 +25,16 @@ public class GetParamForMonthScheduled {
     private String month_path;
 
     @Scheduled(cron = "0 30 1 1 * ?")
-    public void getSfgd(){
+    public void getSfgd() {
         logger.info("[get param sfgd for month] start");
         List<Xf> xfs = csUserService.getXfsByCsm("sfgd", "月");
-        if(xfs!=null){
+        if (xfs != null && xfs.size() > 0) {
             IOhelper.clearInfoForFile(month_path);
-            for(Xf xf:xfs){
-                IOhelper.wirteString(month_path,xf.getXfsh());
+            for (Xf xf : xfs) {
+                IOhelper.wirteString(month_path, xf.getXfsh());
             }
             logger.info("[get param sfgd for month] over");
-        }else{
+        } else {
             logger.error("[get param sfgd for month] failure");
         }
     }
