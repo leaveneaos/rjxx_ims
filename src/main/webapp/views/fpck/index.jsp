@@ -236,8 +236,8 @@
 																	class="js-out  am-btn am-btn-primary">自定义导出列</button>--%>
 															<button id="autoColumn" type="button"
 																		class="js-auto  am-btn am-btn-primary">自定义显示列</button>
-															<%--<button id="fpck" type="button"
-																	class="js-fpck  am-btn am-btn-success">重新开具</button>--%>
+															<button id="fpck" type="button"
+																	class="js-fpck  am-btn am-btn-success">重新开具</button>
 														</div>
 													</div>
 												</div>
@@ -332,7 +332,8 @@
 							<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;margin-right: 22%">
 								<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
 								<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
-								<%--<input id="kplshck" name="kplshck" type="hidden" />--%>
+								<input id="fpcklx" name="fpcklx" type="hidden" value="01" />
+								<input id="kplshck" name="kplshck" type="hidden"  />
 							</div>
 						</div>
 						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -382,7 +383,7 @@
 						<div class="am-u-sm-12 am-margin-top-lg">
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
-									<button type="submit" class="am-btn am-btn-default am-btn-secondary">重新开具</button>
+									<button type="button" id="button2" class="am-btn am-btn-default am-btn-secondary">重新开具</button>
 									<button type="button" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
 								</div>
 							</div>

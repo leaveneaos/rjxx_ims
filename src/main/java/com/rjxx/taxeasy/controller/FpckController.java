@@ -207,51 +207,47 @@ public class FpckController extends BaseController {
      */
     @RequestMapping(value = "/fpckSave")
     @ResponseBody
+    @Transactional
     @SystemControllerLog(description = "发票重开",key = "kplshck")
     public Map fpck(String kplshck,String gfmcck,String gfshck,String gfemailck,
-                    String gfdzck,String gfdhck,String gfyhck,String gfyhzhck,String sfbx) throws Exception {
+                    String gfdzck,String gfdhck,String gfyhck,String gfyhzhck,String sfbx,String fpcklx) throws Exception {
         Map<String, Object> result = new HashMap<>();
-        if(null==kplshck){
+        if (null == kplshck) {
             result.put("success", false);
             result.put("msg", "重新开具失败！");
             return result;
         }
-//        String []kpsqh= kplshs.split(",");
-//        for(int i=0;i<kpsqh.length;i++){
-            Kpls kpls=kplsService.findOne(Integer.parseInt(kplshck));
-            if(kpls.getFpztdm().equals("00")){
-                try{
-                    Map paramsMap=new HashMap();
-                    paramsMap.put("kplsh",kplshck);
-                    List<Kpspmx> kpspmxList=  kpspmxService.findMxList(paramsMap);
+        String[] kpsqh = kplshck.split(",");
+        for (int j = 0; j < kpsqh.length; j++) {
+            Kpls kpls = kplsService.findOne(Integer.parseInt(kpsqh[j].toString()));
+            if (kpls.getFpztdm().equals("00")) {
+                try {
+                    Map paramsMap = new HashMap();
+                    paramsMap.put("kplsh", kplshck);
+                    List<Kpspmx> kpspmxList = kpspmxService.findMxList(paramsMap);
 
-                    Map jylsMap=new HashMap();
-                    jylsMap.put("jylsh",kpls.getJylsh());
+                    Map jylsMap = new HashMap();
+                    jylsMap.put("jylsh", kpls.getJylsh());
                     List<Jyls> list = jylsService.findAllByJylsh(jylsMap);
-
-
                     List<Jyxxsq> jyxxsqList = new ArrayList();
                     List<Jymxsq> jymxsqList = new ArrayList();
                     List<Jyzfmx> jyzfmxList = new ArrayList<Jyzfmx>();
-
                     Map jyxxsqMap = new HashMap();
-                    jyxxsqMap.put("jylsh",list.get(0).getJylsh());
-                    jyxxsqMap.put("gsdm",getGsdm());
+                    jyxxsqMap.put("jylsh", list.get(0).getJylsh());
+                    jyxxsqMap.put("gsdm", getGsdm());
                     Jyxxsq jyxxsq = jyxxsqService.findOneByJylsh(jyxxsqMap);
-
-
                     Map jymxsqMap = new HashMap();
-                    jymxsqMap.put("sqlsh",list.get(0).getSqlsh());
-                    jymxsqMap.put("gsdm",getGsdm());
+                    jymxsqMap.put("sqlsh", list.get(0).getSqlsh());
+                    jymxsqMap.put("gsdm", getGsdm());
                     jymxsqList = jymxsqService.findAllBySqlsh(jymxsqMap);
-                    if(jymxsqList.size()<0){
+                    if (jymxsqList.size() < 0) {
                         result.put("success", false);
                         result.put("msg", "重新开具失败！");
                         return result;
                     }
                     Map jyzfsqMap = new HashMap();
-                    jyzfsqMap.put("gsdm",getGsdm());
-                    jyzfsqMap.put("sqlsh" , list.get(0).getSqlsh());
+                    jyzfsqMap.put("gsdm", getGsdm());
+                    jyzfsqMap.put("sqlsh", list.get(0).getSqlsh());
                     jyzfmxList = jyzfmxService.findAllByParams(jyzfsqMap);
 //                    String ss="";
 //                    String hcje="";
@@ -263,85 +259,98 @@ public class FpckController extends BaseController {
                     //先红冲
                     //InvoiceResponse flag = fphcService.hccl(kpls.getKplsh(), getYhid(),
 //                            getGsdm(), hcje, ss,kpls.getHztzdh(),kpls.getJylsh());
-                    Kphc kphc = new Kphc();
-                    kphc.setCNDNCode(kpls.getFpdm());
-                    kphc.setCNDNNo(kpls.getFphm());
-                    kphc.setInvType(kpls.getFpzldm());
-                    kphc.setExtractCode(list.get(0).getTqm());
-                    kphc.setClientNO(jyxxsq.getKpddm());
-                    kphc.setServiceType("1");
-                    kphc.setSerialNumber("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-                    kphc.setOrderNumber(list.get(0).getDdh());
-                    kphc.setCNNoticeNo(kpls.getHztzdh());
-                    BigDecimal big = new BigDecimal(kpls.getJshj().toString());
-                    BigDecimal totalAmount = big.multiply(new BigDecimal("-1"));
-                    kphc.setTotalAmount(Double.valueOf(totalAmount.toString()));
-                    Map hcMap= new HashMap();
-                    hcMap.put("Kphc",kphc);
-                    String resultxml = dealOrder04.execute(getGsdm(), hcMap, "04");
-                    Map<String, Object> resultHCMap = XmlUtil.xml2Map(resultxml);
-                    String returnHCMsg=resultHCMap.get("ReturnMessage").toString();
-                    String returnHCCode=resultHCMap.get("ReturnCode").toString();
-                    if (returnHCCode.equals("0000")) {
-                        if(null!=gfshck && !gfshck.equals("")){
-                            jyxxsq.setGflx("1");
-                        }else {
-                            jyxxsq.setGflx("0");
-                        }
-                        jyxxsq.setGfmc(gfmcck);
-                        jyxxsq.setGfsh(gfshck);
-                        jyxxsq.setGfemail(gfemailck);
-                        jyxxsq.setGfdz(gfdzck);
-                        jyxxsq.setGfdh(gfdhck);
-                        jyxxsq.setGfyh(gfyhck);
-                        jyxxsq.setGfyhzh(gfyhzhck);
-                        if(jymxsqList.get(0).getDdh()==null){
-                            jymxsqList.get(0).setDdh(jyxxsq.getDdh());
-                        }
-                        if(gfemailck!=null && !gfemailck.equals("")){
-                            jyxxsq.setSffsyj("1");
-                        }
-                        jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-                        if(jyxxsq.getHsbz().equals("1")){
-                            for (int i = 0;i<jymxsqList.size();i++){
-                                jymxsqList.get(i).setSpse(null);
-                                jymxsqList.get(i).setSpje(jymxsqList.get(i).getJshj());
+                    if(kpls.getFpzldm().equals("12")){
+                        Kphc kphc = new Kphc();
+                        kphc.setCNDNCode(kpls.getFpdm());
+                        kphc.setCNDNNo(kpls.getFphm());
+                        kphc.setInvType(kpls.getFpzldm());
+                        kphc.setExtractCode(list.get(0).getTqm());
+                        kphc.setClientNO(jyxxsq.getKpddm());
+                        kphc.setServiceType("1");
+                        kphc.setSerialNumber("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+                        kphc.setOrderNumber(list.get(0).getDdh());
+                        kphc.setCNNoticeNo(kpls.getHztzdh());
+                        BigDecimal big = new BigDecimal(kpls.getJshj().toString());
+                        BigDecimal totalAmount = big.multiply(new BigDecimal("-1"));
+                        kphc.setTotalAmount(Double.valueOf(totalAmount.toString()));
+                        Map hcMap = new HashMap();
+                        hcMap.put("Kphc", kphc);
+                        String resultxml = dealOrder04.execute(getGsdm(), hcMap, "04");
+                        Map<String, Object> resultHCMap = XmlUtil.xml2Map(resultxml);
+                        String returnHCMsg = resultHCMap.get("ReturnMessage").toString();
+                        String returnHCCode = resultHCMap.get("ReturnCode").toString();
+                        if (returnHCCode.equals("0000")) {
+                            //修改购方信息--重开
+                            if(fpcklx!=null && fpcklx.equals("01")){
+                                if (null != gfshck && !gfshck.equals("")) {
+                                    jyxxsq.setGflx("1");
+                                } else {
+                                    jyxxsq.setGflx("0");
+                                }
+                                jyxxsq.setGfmc(gfmcck);
+                                jyxxsq.setGfsh(gfshck);
+                                jyxxsq.setGfemail(gfemailck);
+                                jyxxsq.setGfdz(gfdzck);
+                                jyxxsq.setGfdh(gfdhck);
+                                jyxxsq.setGfyh(gfyhck);
+                                jyxxsq.setGfyhzh(gfyhzhck);
+                                if (gfemailck != null && !gfemailck.equals("")) {
+                                    jyxxsq.setSffsyj("1");
+                                }
                             }
-                        }
-                        jyxxsqList.add(jyxxsq);
-                        Map kpMap = new HashMap();
-                        kpMap.put("jyxxsqList",jyxxsqList);
-                        kpMap.put("jymxsqList",jymxsqList);
-                        kpMap.put("jyzfmxList",jyzfmxList);
-                        String returnXml = dealOrder01.execute(getGsdm(), kpMap, "01");
-                        Map<String, Object> resultCKMap = XmlUtil.xml2Map(returnXml);
-                        String returnCKMsg=resultCKMap.get("ReturnMessage").toString();
-                        String returnCKCode=resultCKMap.get("ReturnCode").toString();
-                        if(returnCKCode.equals("0000")){
-                            result.put("success", true);
-                            result.put("msg", "重新开具成功！");
-                        }else {
+                            /*if (jymxsqList.get(0).getDdh() == null) {
+                                jymxsqList.get(0).setDdh(jyxxsq.getDdh());
+                            }*/
+                            jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+                            if (jyxxsq.getHsbz().equals("1")) {
+                                for (int i = 0; i < jymxsqList.size(); i++) {
+                                    jymxsqList.get(i).setSpse(null);
+                                    jymxsqList.get(i).setSpje(jymxsqList.get(i).getJshj());
+                                    jymxsqList.get(i).setDdh(jyxxsq.getDdh());
+                                }
+                            }
+                            jyxxsqList.add(jyxxsq);
+                            Map kpMap = new HashMap();
+                            kpMap.put("jyxxsqList", jyxxsqList);
+                            kpMap.put("jymxsqList", jymxsqList);
+                            kpMap.put("jyzfmxList", jyzfmxList);
+                            String returnXml = dealOrder01.execute(getGsdm(), kpMap, "01");
+                            Map<String, Object> resultCKMap = XmlUtil.xml2Map(returnXml);
+                            String returnCKMsg = resultCKMap.get("ReturnMessage").toString();
+                            String returnCKCode = resultCKMap.get("ReturnCode").toString();
+                            if (returnCKCode.equals("0000")) {
+                                result.put("success", true);
+                                result.put("msg", "重新开具成功！");
+                            } else {
+                                result.put("success", false);
+                                result.put("msg", "重新开具失败！" + returnCKMsg);
+                                return result;
+                            }
+                        } else {
                             result.put("success", false);
-                            result.put("msg", "重新开具失败！"+returnCKMsg);
+                            result.put("msg", "重新开具,红冲失败！" + returnHCMsg);
                             return result;
                         }
-                    }else{
+                    }else if(kpls.getFpzldm().equals("01")){
                         result.put("success", false);
-                        result.put("msg", "重新开具,红冲失败！"+returnHCMsg);
+                        result.put("msg", "暂不支持,增值税专用发票的发票重开！");
+                        return result;
+                    }else if(kpls.getFpzldm().equals("02")){
+                        result.put("success", false);
+                        result.put("msg", "暂不支持,增值税普通发票的发票重开！");
                         return result;
                     }
-
-                }catch (Exception e){
+                } catch (Exception e) {
                     result.put("success", false);
                     result.put("msg", "重新开具失败！");
                     return result;
                 }
-            }else{
+            } else {
                 result.put("success", false);
                 result.put("msg", "该信息不能重新开具!");
                 return result;
             }
+        }
         return result;
     }
-
 }
