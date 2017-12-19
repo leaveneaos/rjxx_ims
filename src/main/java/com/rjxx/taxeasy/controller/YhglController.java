@@ -95,6 +95,7 @@ public class YhglController extends BaseController {
 		pagination.setPageSize(length);
 		pagination.addParam("yhzh", yhzh);
 		pagination.addParam("yhmc", yhmc);
+		pagination.addParam("yhid", this.getYhid());
 		pagination.addParam("gsdm", this.getGsdm());
 		List<Yh> YhLists1 = yhService.findByPage(pagination);
 		List<YhVO> YhLists = new ArrayList<>();
