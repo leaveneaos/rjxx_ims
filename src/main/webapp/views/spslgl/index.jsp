@@ -389,7 +389,7 @@
 									<div class="am-form-group">
 										<div class="am-u-sm-12">
 											<input type="file" class="am-u-sm-12" id="importFile"
-												name="importFile" placeholder="选择要上传的文件" required>
+												name="importFile" placeholder="选择要上传的文件" onchange="fileChange(this);" required>
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<button type="button" id="btnImport"
