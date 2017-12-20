@@ -39,7 +39,7 @@ public class InsertGdjlForDayScheduled {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Scheduled(cron = "0 30 2 * * ?")
+    @Scheduled(cron = "0 30 6 * * ?")
     public void start(){
         logger.info("[insert t_gdjl for day] start");
         Calendar calendar_day = Calendar.getInstance();

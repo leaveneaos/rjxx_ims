@@ -38,7 +38,7 @@ public class InsertGdjlForMonthScheduled {
     private String gdFilePath;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Scheduled(cron = "0 0 2 1 * ?")
+    @Scheduled(cron = "0 0 6 1 * ?")
     public void start(){
         logger.info("[insert t_gdjl for month] start");
         Calendar calendar = Calendar.getInstance();
