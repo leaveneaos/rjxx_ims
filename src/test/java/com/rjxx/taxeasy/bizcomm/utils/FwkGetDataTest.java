@@ -29,11 +29,16 @@ public class FwkGetDataTest {
                 "<soapenv:Body>\n" +
                 "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "<CustomerInvoiceSelectionByElements>\n" +
-                "<SelectionByID>\n" +
+                "<SelectionByDate>\n" +
+                "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                "<LowerBoundaryCustomerInvoiceDate>2017-12-19</LowerBoundaryCustomerInvoiceDate>\n" +
+                "</SelectionByDate>\n" +
+                /*"<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
                 "<LowerBoundaryIdentifier>140022</LowerBoundaryIdentifier>\n" +
-                "</SelectionByID>\n" +
+                "</SelectionByID>\n" +*/
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +
                 "<QueryHitsMaximumNumberValue>1</QueryHitsMaximumNumberValue>\n" +
@@ -42,10 +47,10 @@ public class FwkGetDataTest {
                 "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "</soapenv:Body>\n" +
                 "</soapenv:Envelope>\n";
-       /* String Data= HttpUtils.doPostSoap1_2("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
-        //FwkGetDataJob fwkGetDataJob=new FwkGetDataJob();
-        Map resultMap=fwkGetDataJob.interping(Data);*/
-       String ss=" <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\">\n" +
+        String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
+
+        Map resultMap=fwkGetDataJob.interping(Data);
+       /*String ss=" <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\">\n" +
                "    <soap:Header/>\n" +
                "    <soap:Body>\n" +
                "       <glob:GoldenTaxGoldenTaxCreateRequest_sync>\n" +
@@ -60,7 +65,7 @@ public class FwkGetDataTest {
                "       </glob:GoldenTaxGoldenTaxCreateRequest_sync>\n" +
                "    </soap:Body>\n" +
                " </soap:Envelope>\n";
-        String Data= HttpUtils.doPostSoap1_2("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/yyb40eysay_managegoldentaxinvo?sap-vhost=my337076.sapbydesign.com", ss, null,"Wendy","Welcome9");
+        String Data= HttpUtils.doPostSoap1_2("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/yyb40eysay_managegoldentaxinvo?sap-vhost=my337076.sapbydesign.com", ss, null,"Wendy","Welcome9");*/
 
     }
 

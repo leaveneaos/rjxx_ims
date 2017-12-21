@@ -68,7 +68,7 @@ public class FwkGetDataJob implements Job {
                         "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                     "</soapenv:Body>\n" +
                 "</soapenv:Envelope>";
-        String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
+        String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"Wendy","Welcome9");
         Map jyxxMap=interping(Data);
 
 
@@ -149,7 +149,7 @@ public class FwkGetDataJob implements Job {
                     parms.put("gsdm","fwk");
                     Gsxx gsxx=gsxxService.findOneByParams(parms);
                     String ss=HttpUtils.HttpUrlWebService(xml,gsxx.getAppKey(),gsxx.getSecretKey(),"04");
-            }else if (!InvoiceTypeCI.equals("专票")) {
+            }else if (!("专票").equals(InvoiceTypeCI)) {
 
                 String CISalesPlatform = null;/**销售平台**/
                 if(CustomerInvoiceMap.get("n1:CISalesPlatform")!=null) {
