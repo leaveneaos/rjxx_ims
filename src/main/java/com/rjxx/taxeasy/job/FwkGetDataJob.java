@@ -338,13 +338,13 @@ public class FwkGetDataJob implements Job {
                     if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
                         DistributionChannelCode = DistributionChannelCodeMap.get("DistributionChannelCode").toString();
                     }
-                    /*String MobilePhoneFormattedNumberDescription = null;*//**sap收货人手机  对应平台购方手机号**//*
+                    String MobilePhoneFormattedNumberDescription = null;/**sap收货人手机  对应平台购方手机号**/
                     Map ProductRecipientPartyMap = (Map) ItemMap.get("ProductRecipientParty");
                     Map AddressMap = (Map) ProductRecipientPartyMap.get("Address");
                     if (null != AddressMap.get("MobilePhoneFormattedNumberDescription") && !AddressMap.get("MobilePhoneFormattedNumberDescription").equals("")) {
                         MobilePhoneFormattedNumberDescription = AddressMap.get("MobilePhoneFormattedNumberDescription").toString();
                         gfsjh = MobilePhoneFormattedNumberDescription;
-                    }*/
+                    }
                     String PurchaseOrderReferenceID = null;/** sap 前台订单号/外部参考号**/
                     Map PurchaseOrderReferenceMap = (Map) ItemMap.get("PurchaseOrderReference");
                     if (null != PurchaseOrderReferenceMap.get("ID") && !PurchaseOrderReferenceMap.get("ID").equals("")) {
@@ -485,7 +485,8 @@ public class FwkGetDataJob implements Job {
                 }
                 jyxxsq.setBz(bz);
                 jyxxsq.setDdh(ddh);
-                if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
+                jyxxsq.setGfsjh(gfsjh);
+                /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
                     jyxxsq.setGfsjh(gfsjh);
                 } else if (DistributionChannelCode.equals("SA")) {
                     if (CISalesPlatform.equals("KA客户") || CISalesPlatform.equals("Staff Sales") || CISalesPlatform.equals("Demo Sales") || CISalesPlatform.equals("SA个人")) {
@@ -493,7 +494,7 @@ public class FwkGetDataJob implements Job {
                     }
                 } else if (DistributionChannelCode.equals("服务维修")) {
                     jyxxsq.setGfsjh(gfsjh);
-                }
+                }*/
                 List<Jyzfmx> jyzfmxList=new ArrayList<>();
                 String xml= GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
                 Map parms=new HashMap();
