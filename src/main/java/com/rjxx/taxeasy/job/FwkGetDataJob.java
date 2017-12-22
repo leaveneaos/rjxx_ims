@@ -431,13 +431,13 @@ public class FwkGetDataJob implements Job {
                         if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
                             DistributionChannelCode =DistributionChannelCodeMap.get("DistributionChannelCode").toString();
                         }
-                       /* String MobilePhoneFormattedNumberDescription = null;*//**sap收货人手机  对应平台购方手机号**//*
+                        String MobilePhoneFormattedNumberDescription = null;/**sap收货人手机  对应平台购方手机号**/
                         Map ProductRecipientPartyMap = (Map) ItemMap.get("ProductRecipientParty");
                         Map AddressMap = (Map) ProductRecipientPartyMap.get("Address");
                         if (null != AddressMap.get("MobilePhoneFormattedNumberDescription") && !AddressMap.get("MobilePhoneFormattedNumberDescription").equals("")) {
                             MobilePhoneFormattedNumberDescription = AddressMap.get("MobilePhoneFormattedNumberDescription").toString();
                             gfsjh = MobilePhoneFormattedNumberDescription;
-                        }*/
+                        }
                         String PurchaseOrderReferenceID = null;/** sap 前台订单号/外部参考号**/
                         Map PurchaseOrderReferenceMap = (Map) ItemMap.get("PurchaseOrderReference");
                         if (null != PurchaseOrderReferenceMap.get("ID") && !PurchaseOrderReferenceMap.get("ID").equals("")) {
