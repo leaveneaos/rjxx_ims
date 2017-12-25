@@ -1098,7 +1098,7 @@ public class LrkpdController extends BaseController {
             }
         }
         if (!"".equals(msg)) {
-        	result.put("msg", result);
+        	result.put("msg", msg);
         	result.put("jshj", zjshj);
             return result;
         }
