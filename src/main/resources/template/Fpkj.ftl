@@ -41,7 +41,7 @@
 					<Email>${jyxxsq.gfemail!}</Email>
 					<IsSend>${jyxxsq.sffsyj!}</IsSend>
 					<Recipient>${jyxxsq.gfsjr!}</Recipient>
-					<ReciAddress></ReciAddress>
+					<ReciAddress>${jyxxsq.gfsjrdz!}</ReciAddress>
 					<Zip>${jyxxsq.gfyb!}</Zip>
                     <MobilephoneNo>${jyxxsq.gfsjh!}</MobilephoneNo>
 				</Buyer>

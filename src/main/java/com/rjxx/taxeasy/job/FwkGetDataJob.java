@@ -149,7 +149,7 @@ public class FwkGetDataJob implements Job {
                     parms.put("gsdm","fwk");
                     Gsxx gsxx=gsxxService.findOneByParams(parms);
                     String ss=HttpUtils.HttpUrlWebService(xml,gsxx.getAppKey(),gsxx.getSecretKey(),"04");
-            }else if (!("专票").equals(InvoiceTypeCI)) {
+            }else if (!("专票").equals(InvoiceTypeCI)&&null!=InvoiceTypeCI) {
 
                 String CISalesPlatform = null;/**销售平台**/
                 if(CustomerInvoiceMap.get("n1:CISalesPlatform")!=null) {
@@ -217,16 +217,19 @@ public class FwkGetDataJob implements Job {
                 String BillingContentCI = null;*//**sap 开票内容**//*
                 if (null != CustomerInvoiceMap.get("BillingContentCI") && !CustomerInvoiceMap.get("BillingContentCI").equals("")) {
                     BillingContentCI = CustomerInvoiceMap.get("BillingContentCI").toString();
-                }
-                String BillingAddressCI = null;*//**sap 送票地址**//*
-                if (null != CustomerInvoiceMap.get("BillingAddressCI") && !CustomerInvoiceMap.get("BillingAddressCI").equals("")) {
-                    BillingAddressCI = CustomerInvoiceMap.get("BillingAddressCI").toString();
                 }*/
+                String BillingAddressCI = null;/**sap发票客户送票地址**/
+                if(CustomerInvoiceMap.get("n1:BillingAddressCI")!=null) {
+                    Map BillingAddressCIMap = (Map) CustomerInvoiceMap.get("n1:BillingAddressCI");
+                    if (null != BillingAddressCIMap.get("$") && !BillingAddressCIMap.get("$").equals("")) {
+                        BillingAddressCI = BillingAddressCIMap.get("$").toString();
+                    }
+                }
 
-                Map OrderDateMap = (Map) CustomerInvoiceMap.get("n1:OrderDate");
+                //Map OrderDateMap = (Map) CustomerInvoiceMap.get("Date");
                 String OrderDate = null;/**sap 订单时间**/
-                if (null != OrderDateMap.get("$") && !OrderDateMap.get("$").equals("")) {
-                    OrderDate = (String)OrderDateMap.get("$");
+                if (null != CustomerInvoiceMap.get("Date") && !CustomerInvoiceMap.get("Date").equals("")) {
+                    OrderDate = (String)CustomerInvoiceMap.get("Date");
                 }
                 String PartyID = null;/**sap销方编号，对应平台开票点代码**/
                 Map SellerPartyMap = (Map) CustomerInvoiceMap.get("SellerParty");
@@ -270,9 +273,10 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setXfyh(xf.getXfyh());//销方银行
                 jyxxsq.setXfyhzh(xf.getXfyhzh());//销方银行账号
                 jyxxsq.setGfmc(InvoiceCustomerNameCI);//购方名称
-                //jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
+                jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
                 jyxxsq.setGfdz(InvoiceCustomerAddressTelCI);
                 jyxxsq.setGfyh(CustomerBankAccountCI);
+                jyxxsq.setGfsjrdz(BillingAddressCI);
                 SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     jyxxsq.setDdrq(OrderDate == null ? new Date() : sim.parse(OrderDate));//订单时间
@@ -329,11 +333,20 @@ public class FwkGetDataJob implements Job {
                     }
 
                     String SalesOrderReferenceID = null;/**sap销售订单号**/
-                    Map SalesOrderReferenceMap = (Map) ItemMap.get("SalesOrderReference");
-                    if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
-                        SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
-                        ddh = SalesOrderReferenceID;
+                    if(null!=ItemMap.get("SalesOrderReference")){
+                        Map SalesOrderReferenceMap = (Map) ItemMap.get("SalesOrderReference");
+                        if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
+                            SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
+                            ddh = SalesOrderReferenceID;
+                        }
+                    }else{
+                        Map SalesOrderReferenceMap = (Map) ItemMap.get("ServiceOrderReference");
+                        if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
+                            SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
+                            ddh = SalesOrderReferenceID;
+                        }
                     }
+
                     Map DistributionChannelCodeMap = (Map) ItemMap.get("SalesAndServiceBusinessArea");
                     if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
                         DistributionChannelCode = DistributionChannelCodeMap.get("DistributionChannelCode").toString();
@@ -373,9 +386,10 @@ public class FwkGetDataJob implements Job {
                     spMap.put("gsdm","fwk");
                     spMap.put("spdm",Pitemtype);
                     Spvo spvo=spvoService.findOneSpvo(spMap);
+                    jymxsq.setSpzxbm(Pitemtype);
                     jymxsq.setSpdm(spvo.getSpbm());
-                    jymxsq.setSpmc(spvo.getSpmc());
-                    jymxsq.setSpggxh(Description);
+                    jymxsq.setSpmc(Description);
+                    jymxsq.setSpggxh(null);
                     jymxsq.setFphxz("0");
                     jymxsq.setSps(Double.valueOf(Quantity));
                     jymxsq.setSpdj(Double.valueOf(UnitPrice));
@@ -423,9 +437,18 @@ public class FwkGetDataJob implements Job {
                             UnitPrice = UnitPriceMap.get("$").toString();
                         }
                         String SalesOrderReferenceID = null;/**sap销售订单号**/
-                        Map SalesOrderReferenceMap = (Map) ItemMap.get("SalesOrderReference");
-                        if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
-                            SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
+                        if(null!=ItemMap.get("SalesOrderReference")){
+                            Map SalesOrderReferenceMap = (Map) ItemMap.get("SalesOrderReference");
+                            if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
+                                SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
+                                ddh = SalesOrderReferenceID;
+                            }
+                        }else{
+                            Map SalesOrderReferenceMap = (Map) ItemMap.get("ServiceOrderReference");
+                            if (null != SalesOrderReferenceMap.get("ID") && !SalesOrderReferenceMap.get("ID").equals("")) {
+                                SalesOrderReferenceID = SalesOrderReferenceMap.get("ID").toString();
+                                ddh = SalesOrderReferenceID;
+                            }
                         }
                         Map DistributionChannelCodeMap = (Map) ItemMap.get("SalesAndServiceBusinessArea");
                         if (null != DistributionChannelCodeMap.get("DistributionChannelCode") && !DistributionChannelCodeMap.get("DistributionChannelCode").equals("")) {
@@ -467,8 +490,8 @@ public class FwkGetDataJob implements Job {
                         spMap.put("spdm",Pitemtype);
                         Spvo spvo=spvoService.findOneSpvo(spMap);
                         jymxsq.setSpdm(spvo.getSpbm());
-                        jymxsq.setSpmc(spvo.getSpmc());
-                        jymxsq.setSpggxh(Description);
+                        jymxsq.setSpmc(Description);
+                        jymxsq.setSpggxh(null);
                         jymxsq.setFphxz("0");
                         jymxsq.setSps(Double.valueOf(Quantity));
                         jymxsq.setSpdj(Double.valueOf(UnitPrice));
@@ -480,10 +503,12 @@ public class FwkGetDataJob implements Job {
                         jymxsq.setYhzcmc(spvo.getYhzcmc());
                         jymxsq.setLslbz(spvo.getLslbz());
                         jymxsq.setYhzcbs(spvo.getYhzcbs());
-                        jymxsqList.add(jymxsq);
+                        if(!ItemGrossAmount.equals("0.0")){
+                            jymxsqList.add(jymxsq);
+                        }
                     }
                 }
-                jyxxsq.setBz(bz);
+                jyxxsq.setBz(bz+"  销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
                 jyxxsq.setDdh(ddh);
                 jyxxsq.setGfsjh(gfsjh);
                 /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {

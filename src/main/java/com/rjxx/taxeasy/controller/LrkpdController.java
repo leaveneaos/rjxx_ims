@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DiscountDealUtil;
+import com.rjxx.taxeasy.bizcomm.utils.GetXfxx;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -1186,13 +1187,14 @@ public class LrkpdController extends BaseController {
                 jyxxsq.setXfid(xf.getId());
                 jyxxsq.setXfsh(xf.getXfsh());
                 jyxxsq.setXfmc(xf.getXfmc());
-                jyxxsq.setXfdz(xf.getXfdz());
-                jyxxsq.setXfdh(xf.getXfdh());
-                jyxxsq.setXfyh(xf.getXfyh());
-                jyxxsq.setXfyhzh(xf.getXfyhzh());
-                jyxxsq.setSkr(xf.getSkr());
-                jyxxsq.setKpr(xf.getKpr());
-                jyxxsq.setFhr(xf.getFhr());
+                Map xfxxmap=GetXfxx.getXfxx(xf,skp);
+                jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
+                jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
+                jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
+                jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
+                jyxxsq.setSkr(xfxxmap.get("skr").toString());
+                jyxxsq.setKpr(xfxxmap.get("kpr").toString());
+                jyxxsq.setFhr(xfxxmap.get("fhr").toString());
            /* } else {
                 jyxxsq.setXfid(xf1.getId());
                 jyxxsq.setXfsh(xf1.getXfsh());
@@ -1205,7 +1207,7 @@ public class LrkpdController extends BaseController {
                 jyxxsq.setKpr(getValue("kpr", pzMap, columnIndexMap, row));
                 jyxxsq.setFhr(getValue("fhr", pzMap, columnIndexMap, row));
             }*/
-            if(null !=skp.getKpr() &&!skp.getKpr().equals("")){
+            /*if(null !=skp.getKpr() &&!skp.getKpr().equals("")){
                 jyxxsq.setKpr(skp.getKpr());
             }
             if(null !=skp.getFhr() &&!skp.getFhr().equals("")){
@@ -1213,7 +1215,7 @@ public class LrkpdController extends BaseController {
             }
             if(null !=skp.getSkr() &&!skp.getSkr().equals("")){
                 jyxxsq.setSkr(skp.getSkr());
-            }
+            }*/
 
             jyxxsq.setSkpid(skpid);
             jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
