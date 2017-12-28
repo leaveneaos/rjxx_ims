@@ -335,8 +335,9 @@ public class SksbxxzcControlller extends BaseController {
 			}
 			skp.setSkph(skph);
 			skp.setSbcs(sbcs);
-			skp.setSkpmm(skpmm);
-			skp.setZsmm(zsmm);
+			//20171227不改变原始值
+			//skp.setSkpmm(skpmm);
+			//skp.setZsmm(zsmm);
 			skp.setWrzs("1");//无人值守：默认1
 			skp.setLxdz(lxdz);
 			skp.setLxdh(lxdh);
