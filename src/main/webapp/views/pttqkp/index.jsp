@@ -143,7 +143,7 @@
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 												<label for="gfmc" class="am-u-sm-5 am-form-label data-cte"><span class="star">*</span>购方名称</label>
 												<div class="am-u-sm-7" >
-													<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称">
+													<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称" onkeyup="query()">
 												</div>
 											</div>
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -372,7 +372,33 @@
 <script src="assets/js/format.js"></script>
 <script src="assets/js/sweetalert.min.js"></script>
 <script src="assets/js/pttqkp.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 <script>
+    // 模糊查询
+    function query(){
+        $("#gfmc").autocomplete({
+            autoFocus:true,
+            minLength: 2,
+            source:function(request,response){
+                $.post(
+                    "companyInfo/getNames",
+                    {
+                        "name": $("#gfmc").val()
+                    },function (obj) {
+                        response(eval("("+obj+")"));
+                    });
+            },
+            select: function( event, ui ) {
+                var txt = ui.item.label;
+                var index = txt.indexOf("(");
+                var taxNo = txt.substring(index + 1, txt.length-1);
+                $("#gfsh").val(taxNo);
+            }
+        });
+    }
+
     //选择销方取得税控盘
     function getKpd() {
         var xfid = $('#xf option:selected').val();
