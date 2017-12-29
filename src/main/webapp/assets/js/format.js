@@ -84,7 +84,7 @@ function fileChange(target) {
     var filemaxsize = 1024*2;//2M
     if(filepath){
         var isnext = false;
-        var fileend = filepath.substring(filepath.indexOf("."));
+        var fileend = filepath.substring(filepath.lastIndexOf("."));
         if(filetypes && filetypes.length>0){
             for(var i =0; i<filetypes.length;i++){
                 if(filetypes[i]==fileend){
