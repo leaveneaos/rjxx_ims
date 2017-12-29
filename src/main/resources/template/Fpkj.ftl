@@ -33,7 +33,7 @@
 				<Buyer>
 					<CustomerType>${jyxxsq.gflx!}</CustomerType>
 					<Identifier>${jyxxsq.gfsh!}</Identifier>
-					<Name>${jyxxsq.gfmc!}</Name>
+                    <Name><![CDATA[${jyxxsq.gfmc!}]]></Name>
 					<Address>${jyxxsq.gfdz!}</Address>
 					<TelephoneNo>${jyxxsq.gfdh!}</TelephoneNo>
 					<Bank>${jyxxsq.gfyh!}</Bank>
@@ -51,7 +51,7 @@
 				<ProductItem>
 					<VenderOwnCode></VenderOwnCode>
 					<ProductCode>${jymxsq.spdm!}</ProductCode>
-					<ProductName>${jymxsq.spmc!}</ProductName>
+                    <ProductName><![CDATA[${jymxsq.spmc!}]]></ProductName>
 					<RowType>${jymxsq.fphxz!}</RowType>
 					<Spec>${jymxsq.spggxh!}</Spec>
 					<Unit>${jymxsq.spdw!}</Unit>
