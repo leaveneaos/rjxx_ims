@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    <import resource="applicationContext-sql.xml"/>
+    <!-- 税控的数据库连接 -->
+    <bean id="skDBFactory" class="com.rjxx.taxeasy.db.DBFactory">
+        <property name="driveClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://180.153.192.171:13306/bwskdata?useUnicode=true&amp;characterEncoding=gbk"/>
+        <property name="username" value="root"/>
+        <property name="password" value="rootNISECTC5002#"/>
+    </bean>
+</beans>
