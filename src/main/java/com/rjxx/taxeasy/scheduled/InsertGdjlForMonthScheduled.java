@@ -55,7 +55,8 @@ public class InsertGdjlForMonthScheduled {
                 try {
                     Map result = invoiceArchiveService.getPDFPath(lastMonth, line);
                     if(result!=null){
-                        Integer count = (Integer) result.get("count");
+                        String countString = (String) result.get("count");
+                        Integer count = Integer.valueOf(countString);
                         String pdfPath = (String) result.get("path");
                         Gdjl gdjl = new Gdjl();
                         gdjl.setYxbz("1");
