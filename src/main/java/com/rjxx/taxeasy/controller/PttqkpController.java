@@ -150,6 +150,7 @@ public class PttqkpController extends BaseController {
 			Map map = getDataService.getldyxFirData(ddh,gsdm);
 			String accessToken = map.get("accessToken").toString();
 			if(accessToken==null || "".equals(accessToken)){
+				resultMap.put("msg", "未查询到数据，请重试！");
 				return resultMap;
 			}
 			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
