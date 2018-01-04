@@ -1647,8 +1647,12 @@ public class KpController extends BaseController {
 						kpls.setFpztdm("04");
 						kplsService.save(kpls);
 					}else if(cszb.getCsz().equals("03")){
-                        skService.SkServerKP(Integer.parseInt(kpsqh[i]));
-						//rabbitmqSend.sendMsg("ErrorException_Sk", kpls.getFpzldm(), kpls.getKplsh() + "");
+                        //skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+						if(kpls.getGsdm().equals("afb")){
+							skService.SkServerKPhttps(Integer.parseInt(kpsqh[i]));
+						}else{
+							skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+						}
 					}
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");

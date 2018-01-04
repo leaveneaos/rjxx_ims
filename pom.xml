@@ -236,6 +236,8 @@
                         <option>-keep class com.rjxx.taxeasy.scheduled.** { &lt;methods&gt;; }</option>
                         <option>-keep class com.rjxx.taxeasy.security.** </option>
                         <option>-keep class com.rjxx.taxeasy.configuration.**{ &lt;methods&gt;; } </option>
+                        <option>-keep class com.rjxx.taxeasy.db.**{ &lt;methods&gt;; } </option>
+
                         <!-- com.rjxx.taxeasy.util, util包不混淆的类的属性及方法，实体包  -->
                         <!--<option>-keep class com.rjxx.taxeasy.**{ *; }</option>-->
                     </options>
