@@ -201,7 +201,13 @@
 									</div>
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
-											<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>
+											<%--<label for="s_kprqq" class="am-u-sm-4 am-form-label">开票日期</label>--%>
+											<div class="am-u-sm-4">
+												<select id="time2" name="time2"  data-am-selected="{btnWidth: '100%',btnSize: 'sm'}">
+													<option value="1" selected="selected">录入日期</option>
+													<option value="2">开票日期</option>
+												</select>
+											</div>
 											<div class="am-u-sm-8">
 												<input type="text" id="s_kprqq" name="kprqq"
 													placeholder="点击选择开票起始日" readonly
@@ -283,18 +289,21 @@
 
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
 									<div class="am-form-group">
-										<div class="am-u-md-6 am-u-lg-2">
-											开票日期
+										<div class="am-u-sm-3">
+											<select id="time1" name="time1" data-am-selected="{btnWidth: '95%',btnSize: 'sm'}">
+												<option value="1" selected="selected">录入日期</option>
+												<option value="2">开票日期</option>
+											</select>
 										</div>
-										<div class="am-u-md-6 am-u-lg-3">
+										<div class="am-u-sm-3">
 											<input type="text" id="w_kprqq" name="w_kprqq"
 												   placeholder="开票起始时间"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 										</div>
-										<div class="am-u-md-6 am-u-lg-1">
+										<div class="am-u-sm-1">
 											至
 										</div>
-										<div class="am-u-md-6 am-u-lg-3">
+										<div class="am-u-sm-3  am-u-end">
 											<input type="text" id="w_kprqz" name="w_kprqz"
 												   placeholder="开票截止时间"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />

@@ -175,8 +175,13 @@ $(function() {
 								d.fpdm = txt;
 							}
 							if(txt ==''){
-                                d.kprqq = $('#w_kprqq').val(); // search 开票日期
-                                d.kprqz = $('#w_kprqz').val(); // search 开票日期
+								if($('#time1').val()=='1'){
+                                    d.kprqq = $('#w_kprqq').val(); // search 录入日期
+                                    d.kprqz = $('#w_kprqz').val(); // search 录入日期
+								}else{
+                                    d.kprqq2 = $('#w_kprqq').val(); // search 开票日期
+                                    d.kprqz2 = $('#w_kprqz').val(); // search 开票日期
+								}
 							}
                             d.check ='0';
 						}else if (bj ==  "2") {
@@ -184,8 +189,13 @@ $(function() {
 							d.gfmc = el.$s_gfmc.val(); //购方名称
 							d.fpdm = el.$s_fpdm.val(); //发票代码
 							d.fphm = el.$s_fphm.val(); // search 发票号码
-							d.kprqq = el.$s_kprqq.val(); // search 开票日期
-							d.kprqz = el.$s_kprqz.val(); // search 开票日期
+                            if($('#time2').val()=='1'){
+                                d.kprqq = el.$s_kprqq.val(); // search 开票日期
+                                d.kprqz = el.$s_kprqz.val(); // search 开票日期
+                            }else{
+                                d.kprqq2 = el.$s_kprqq.val(); // search 开票日期
+                                d.kprqz2 = el.$s_kprqz.val(); // search 开票日期
+                            }
 							d.spmc = el.$s_spmc.val(); //商品名称
 							d.fpzt = el.$s_fpzt.val(); //发票状态
 							d.fpczlx = el.$s_fpczlx.val();
