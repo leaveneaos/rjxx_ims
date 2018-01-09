@@ -76,7 +76,7 @@ function BasicFormat(value, mask, action, param) {
 }
 
 //导入文件校验，大小和类型
-var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+//var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
 function fileChange(target) {
     var fileSize = 0;
     var filetypes =[".jpg",".png",".rar",".txt",".zip",".doc",".ppt",".xls",".pdf",".docx",".xlsx"];
