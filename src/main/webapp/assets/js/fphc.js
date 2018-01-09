@@ -51,7 +51,7 @@ $(function () {
             }
         },
         "columns": [
-            {"data": "id"},
+            {"data": "id",'sClass': 'hiddenOl'},
             {"data": "spmxxh"},
             {"data": "spmc"},
             {"data": "spggxh"},
@@ -143,7 +143,7 @@ $(function () {
         "bInfo": false,
         "scrollX": true,
         ajax: {
-            "url": "fphc/getMx",
+            "url": "fphc/getFphccxMx",
             data: function (d) {
                d.kplsh = $("#kplsh").val();
             }

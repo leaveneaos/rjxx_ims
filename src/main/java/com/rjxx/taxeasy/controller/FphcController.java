@@ -450,6 +450,33 @@ public class FphcController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 发票红冲查询商品明细
+	 * @param kplsh
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getFphccxMx")
+	@ResponseBody
+	public Map<String, Object> getFphccxMx(int kplsh) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map params = new HashMap<>();
+		params.put("id", kplsh);
+		List<Kpspmxvo> kpspmxList = mxService.findFphccxByParams(params);
+		// List<Kpspmxvo> mxList = new ArrayList<Kpspmxvo>();
+		if (kpspmxList != null) {
+			for (Kpspmxvo mx : kpspmxList) {
+				if (mx.getKhcje() == null) {
+					mx.setKhcje(mx.getJshj());
+				}
+				if (mx.getYhcje() == null) {
+					mx.setYhcje(0.00);
+				}
+			}
+		}
+		result.put("data", kpspmxList);
+		return result;
+	}
 
 	@RequestMapping(value = "/hc")
 	@ResponseBody

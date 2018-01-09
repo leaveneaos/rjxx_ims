@@ -32,6 +32,9 @@
 	.data-ctr {
 	  text-align: center;
 	}
+	.hiddenOl{
+		display: none;
+	}
 </style>
 </head>
 <body>
