@@ -809,7 +809,7 @@ $(function() {
 			});
 			$("#kp_search1").on('click', function(e) {
 				$("#dxcsz").val("");
-                $("#bj").val('2');
+                $("#bj").val('1');
                 if ((!$("#s_rqq").val() && $("#s_rqz").val())
                     || ($("#s_rqq").val() && !$("#s_rqz").val())) {
                     // $("#alertt").html('Error,请选择开始和结束时间!');
