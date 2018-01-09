@@ -488,9 +488,9 @@ public class FphcController extends BaseController {
 		map.put("kplsh", kplsh);
 		Fpcxvo cxvo = kplsService.selectMonth(map);
 		if (cxvo != null) {
-			if (cxvo.getXcyf() != null && cxvo.getXcyf() > 6) {
+			if (cxvo.getXcyf() != null && cxvo.getXcyf() > 12) {
 				result.put("success", false);
-				result.put("msg", "超过开票日期6个月，不能红冲！");
+				result.put("msg", "超过开票日期一年，不能红冲！");
 				return result;
 			}
 		}
