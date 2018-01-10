@@ -491,8 +491,8 @@ $(function() {
             swal("请选择商品！");
             return;
         }
-        if(bz.length>80){
-            swal("备注过长，只能为80个字符！");
+        if(bz.length>120){
+            swal("备注过长，只能为120个字符！");
             return;
         }
         ps.push("mxcount=" + index);
