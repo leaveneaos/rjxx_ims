@@ -31,10 +31,10 @@ public class FwkGetDataTest {
                 "<CustomerInvoiceSelectionByElements>\n" +
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2017-12-16</LowerBoundaryCustomerInvoiceDate>\n" +
-                 /*"<LowerBoundaryCustomerInvoiceDate>2017-12-04</LowerBoundaryCustomerInvoiceDate>\n"+
-                 "<UpperBoundaryCustomerInvoiceDate>2017-12-25</UpperBoundaryCustomerInvoiceDate>\n"+*/
+                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
+               /* "<LowerBoundaryCustomerInvoiceDate>2017-12-16</LowerBoundaryCustomerInvoiceDate>\n" +*/
+                 "<LowerBoundaryCustomerInvoiceDate>2017-12-01</LowerBoundaryCustomerInvoiceDate>\n"+
+                 "<UpperBoundaryCustomerInvoiceDate>2017-12-31</UpperBoundaryCustomerInvoiceDate>\n"+
                  "</SelectionByDate>\n" +
                 /*"<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
@@ -42,10 +42,6 @@ public class FwkGetDataTest {
                 "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
                 "</SelectionByID>\n" +*/
                 "</CustomerInvoiceSelectionByElements>\n" +
-                "<ProcessingConditions>\n" +
-                "<QueryHitsMaximumNumberValue>300</QueryHitsMaximumNumberValue>\n" +
-                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "</ProcessingConditions>\n" +
                 "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "</soapenv:Body>\n" +
                 "</soapenv:Envelope>\n";
