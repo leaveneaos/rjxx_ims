@@ -106,7 +106,9 @@ $(function() {
                     }
                 }*/,{
                     "data" :"errorReason"
-                } ]
+                },{
+                	"data":"filename"
+				} ]
 			$.ajax({
 				url : 'zdyl/query',
 				type : 'POST', //GET

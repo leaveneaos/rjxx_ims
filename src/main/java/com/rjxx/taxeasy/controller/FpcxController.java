@@ -1,6 +1,5 @@
 package com.rjxx.taxeasy.controller;
 
-import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.domains.Fpzt;
 import com.rjxx.taxeasy.domains.Kpls;
@@ -131,6 +130,10 @@ public class FpcxController extends BaseController {
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
             fpcxvo.setPdfurl(pdfurl);
+            if(pdfurl != null && !"".equals(pdfurl)){
+                String filename = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
+                fpcxvo.setFilename(filename);
+            }
             if(fpcxvo.getSkpid()!=null){
                 Skp skp = skpService.findOne(fpcxvo.getSkpid());
                 fpcxvo.setKpdmc(skp.getKpdmc());
