@@ -1218,6 +1218,7 @@ public class LrkpdController extends BaseController {
             }*/
 
             jyxxsq.setSkpid(skpid);
+            jyxxsq.setKpddm(skp.getKpddm());//解决没有kpddm问题。
             jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
             jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));
             jyxxsq.setGfdz(getValue("gfdz", pzMap, columnIndexMap, row));
