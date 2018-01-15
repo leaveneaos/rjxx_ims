@@ -71,15 +71,16 @@ $(function() {
                                 "xfid" : jyxxsq[i].xfid
                             },
                             success : function(test) {
+                                var option = $("<option>").text('请选择').val(-1);
+                                kpd.append(option);
                                 for (var i = 0; i < test.length; i++) {
-                                    var option = $("<option>").text(test[i].kpdmc).val(
-                                        test[i].skpid);
+                                     option = $("<option>").text(test[i].kpdmc).val(test[i].skpid);
                                     kpd.append(option);
                                 }
                             }
                         });
-                        $("#kpd").val(jyxxsq[i].skpid);
-                        $("#fpzldm").val(jyxxsq[i].fpzldm);
+                        //$("#kpd").val(jyxxsq[i].skpid);
+                        //$("#fpzldm").val(jyxxsq[i].fpzldm);
                         $("#gfmc").val(jyxxsq[i].gfmc);
                         $("#gfsh").val(jyxxsq[i].gfsh);//购方税号
                         $("#gfdz").val(jyxxsq[i].gfdz);//购方地址
@@ -322,6 +323,11 @@ $(function() {
         if(null == kpd || kpd==""){
             $("#kpd").focus();
             swal("开票点不能为空！");
+            return;
+        }
+        if(kpd == -1){
+            $("#kpd").focus();
+            swal("请选择开票点名称！");
             return;
         }
         if(fpzldm==""){

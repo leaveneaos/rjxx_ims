@@ -94,11 +94,12 @@
 												class="star">*</span>开票点名称</label>
 										<div class="am-u-sm-3">
 											<select id="kpd" name="kpd" required>
-												<c:if test="${xfnum==1}">
+												<%--<c:if test="${xfnum==1}">
+													<option value="">选择开票点</option>
 													<c:forEach items="${skpList}" var="item">
 														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
-												</c:if>
+												</c:if>--%>
 											</select>
 										</div>
 									</div>
@@ -410,8 +411,10 @@
                 "xfid" : xfid
             },
             success : function(data) {
+                var option = $("<option>").text('请选择').val(-1);
+                kpd.append(option);
                 for (var i = 0; i < data.length; i++) {
-                    var option = $("<option>").text(data[i].kpdmc).val(
+                     option = $("<option>").text(data[i].kpdmc).val(
                         data[i].skpid);
                     kpd.append(option);
                 }
