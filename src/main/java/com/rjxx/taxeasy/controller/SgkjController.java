@@ -188,27 +188,28 @@ public class SgkjController extends BaseController{
         jyxxsq.setDdrq(TimeUtil.getNowDate());
         jyxxsq.setFpzldm(request.getParameter("fpzldm"));
         jyxxsq.setFpczlxdm("11");
-        jyxxsq.setXfyh(xf.getXfyh());
-        jyxxsq.setXfyhzh(xf.getXfyhzh());
-        jyxxsq.setXfdz(xf.getXfdz());
-        jyxxsq.setXfdh(xf.getXfdh());
-        if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
-            jyxxsq.setSffsyj("1");
-        }
-        jyxxsq.setKpr(xf.getKpr());
-        jyxxsq.setFhr(xf.getFhr());
-        jyxxsq.setSkr(xf.getSkr());
-        jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
-        jyxxsq.setLrry(yhid);
-        jyxxsq.setXgry(yhid);
-        jyxxsq.setYxbz("1");
-        jyxxsq.setGsdm(gsdm);
         String skpid = request.getParameter("kpd");
         if (skpid != null && !"".equals(skpid)) {
             jyxxsq.setSkpid(Integer.parseInt(skpid));
         }
         Skp skp = skpService.findOne(Integer.valueOf(skpid));
         jyxxsq.setKpddm(skp.getKpddm());
+        Map xfxxmap=GetXfxx.getXfxx(xf,skp);
+        jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
+        jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
+        jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
+        jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
+        jyxxsq.setSkr(xfxxmap.get("skr").toString());
+        jyxxsq.setKpr(xfxxmap.get("kpr").toString());
+        jyxxsq.setFhr(xfxxmap.get("fhr").toString());
+        if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
+            jyxxsq.setSffsyj("1");
+        }
+        jyxxsq.setSsyf(new SimpleDateFormat("yyyyMM").format(new Date()));
+        jyxxsq.setLrry(yhid);
+        jyxxsq.setXgry(yhid);
+        jyxxsq.setYxbz("1");
+        jyxxsq.setGsdm(gsdm);
         try {
             Map params = Tools.getParameterMap(request);
             int mxcount = Integer.valueOf(params.get("mxcount").toString());//明细条数

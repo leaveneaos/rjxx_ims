@@ -1,10 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.rjxx.taxeasy.bizcomm.utils.FpclService;
-import com.rjxx.taxeasy.bizcomm.utils.GetDataService;
-import com.rjxx.taxeasy.bizcomm.utils.GetXmlUtil;
-import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
+import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -221,23 +218,23 @@ public class PttqkpController extends BaseController {
 			jyxxsq.setXfid(xf.getId());
 			jyxxsq.setXfsh(xf.getXfsh());
 			jyxxsq.setXfmc(xf.getXfmc());
-			jyxxsq.setXfyh(xf.getXfyh());
-			jyxxsq.setXfyhzh(xf.getXfyhzh());
-			jyxxsq.setXfdz(xf.getXfdz());
-			jyxxsq.setXfdh(xf.getXfdh());
-			jyxxsq.setKpr(xf.getKpr());
-			jyxxsq.setFhr(xf.getFhr());
-			jyxxsq.setSkr(xf.getSkr());
-			//发票种类代码
-			jyxxsq.setFpzldm(request.getParameter("fpzldm"));
-			logger.info("发票种类代码" + jyxxsq.getFpzldm());
 			String skpid = request.getParameter("kpd");
 			if (skpid != null && !"".equals(skpid)) {
 				jyxxsq.setSkpid(Integer.parseInt(skpid));
 			}
 			Skp skp = skpService.findOne(Integer.valueOf(skpid));
 			jyxxsq.setKpddm(skp.getKpddm());
-
+			Map xfxxmap= GetXfxx.getXfxx(xf,skp);
+			jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
+			jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
+			jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
+			jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
+			jyxxsq.setSkr(xfxxmap.get("skr").toString());
+			jyxxsq.setKpr(xfxxmap.get("kpr").toString());
+			jyxxsq.setFhr(xfxxmap.get("fhr").toString());
+			//发票种类代码
+			jyxxsq.setFpzldm(request.getParameter("fpzldm"));
+			logger.info("发票种类代码" + jyxxsq.getFpzldm());
 			jyxxsq.setClztdm("00");
 			jyxxsq.setBz(request.getParameter("bz"));
 			jyxxsq.setGfmc(request.getParameter("gfmc"));
