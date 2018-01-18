@@ -88,6 +88,11 @@ public class FwkGetDataJob implements Job {
         Map Envelope=(Map)dataMap.get("soap-env:Envelope");
         Map Body=(Map)Envelope.get("soap-env:Body");
         Map CustomerInvoiceByElementsResponse_sync=(Map)Body.get("n0:CustomerInvoiceByElementsResponse_sync");
+        Map ProcessingConditions=(Map)CustomerInvoiceByElementsResponse_sync.get("ProcessingConditions");
+        String LastReturnedObjectID=null;
+        if(null!=ProcessingConditions){
+            LastReturnedObjectID=(String)ProcessingConditions.get("LastReturnedObjectID");
+        }
         List<Map> CustomerInvoice=new ArrayList<>();
         if(CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice") instanceof List){
             CustomerInvoice=(List)CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice");

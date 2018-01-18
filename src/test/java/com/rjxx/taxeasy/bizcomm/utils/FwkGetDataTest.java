@@ -24,6 +24,7 @@ public class FwkGetDataTest {
 
     @Test
     public void getdata(){
+        String LastReturnedObjectID=null;
         String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
                 "<soapenv:Header/>\n" +
                 "<soapenv:Body>\n" +
@@ -42,6 +43,12 @@ public class FwkGetDataTest {
                 "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
                 "</SelectionByID>\n" +*/
                 "</CustomerInvoiceSelectionByElements>\n" +
+                "<ProcessingConditions>\n" +
+                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
+                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
+                "</ProcessingConditions>"+
                 "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "</soapenv:Body>\n" +
                 "</soapenv:Envelope>\n";
