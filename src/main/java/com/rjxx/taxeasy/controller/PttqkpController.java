@@ -145,6 +145,10 @@ public class PttqkpController extends BaseController {
 				return resultMap;
 			}
 			Map map = getDataService.getldyxFirData(ddh,gsdm);
+			if(map==null){
+				resultMap.put("msg", "系统出现异常，请重试！");
+				return resultMap;
+			}
 			String accessToken = map.get("accessToken").toString();
 			if(accessToken==null || "".equals(accessToken)){
 				resultMap.put("msg", "未查询到数据，请重试！");
