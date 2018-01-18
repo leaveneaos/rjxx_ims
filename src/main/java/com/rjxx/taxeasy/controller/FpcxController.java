@@ -130,7 +130,9 @@ public class FpcxController extends BaseController {
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
             if(null!=pdfurl){
-                fpcxvo.setPdfurl(URLEncoder.encode(pdfurl,"utf-8"));
+                String pdfname=pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
+                pdfurl=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
+                fpcxvo.setPdfurl(URLEncoder.encode(pdfurl+pdfname,"utf-8"));
             }
             if(pdfurl != null && !"".equals(pdfurl)){
                 String filename = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
@@ -489,6 +491,11 @@ public class FpcxController extends BaseController {
             for (Fpcxvo kpls : kplsList) {
                 String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
                 pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
+                if(null!=pdfurl){
+                    String pdfname=pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
+                    pdfurl=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
+                    kpls.setPdfurl(URLEncoder.encode(pdfurl+pdfname,"utf-8"));
+                }
                 kpls.setPdfurl(pdfurl);
                 kpList.add(kpls);
             }
