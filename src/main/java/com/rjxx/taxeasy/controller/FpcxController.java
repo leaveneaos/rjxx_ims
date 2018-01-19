@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -129,11 +130,17 @@ public class FpcxController extends BaseController {
         String requestDomain = HtmlUtils.getDomainPath(request);
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
-            if(null!=pdfurl){
-                String pdfname=pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
-                pdfurl=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
-                fpcxvo.setPdfurl(pdfurl+URLEncoder.encode(pdfname,"utf-8"));
+            String pdfurlbasepath=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
+            pdfurl = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
+            File pdffile =new File("/usr/local/e-invoice/e-invoice-file/" +pdfurl);
+            if(pdffile.exists()) {
+                logger.info("PDF文件存在");
+                pdfurl=pdfurlbasepath+"1/"+pdfurl;
+            }else {
+                logger.info("PDF文件不存在");
+                pdfurl=pdfurlbasepath+"2/"+pdfurl;
             }
+            fpcxvo.setPdfurl(pdfurl);
             if(pdfurl != null && !"".equals(pdfurl)){
                 String filename = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
                 fpcxvo.setFilename(filename);
@@ -491,10 +498,15 @@ public class FpcxController extends BaseController {
             for (Fpcxvo kpls : kplsList) {
                 String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
                 pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
-                if(null!=pdfurl){
-                    String pdfname=pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
-                    pdfurl=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
-                    kpls.setPdfurl(pdfurl+URLEncoder.encode(pdfname,"utf-8"));
+                String pdfurlbasepath=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
+                pdfurl = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
+                File pdffile =new File("/usr/local/e-invoice/e-invoice-file/" +pdfurl);
+                if(pdffile.exists()) {
+                    logger.info("JPG文件存在");
+                    pdfurl=pdfurlbasepath+"1/"+pdfurl;
+                }else {
+                    logger.info("JPG文件不存在");
+                    pdfurl=pdfurlbasepath+"2/"+pdfurl;
                 }
                 kpls.setPdfurl(pdfurl);
                 kpList.add(kpls);
