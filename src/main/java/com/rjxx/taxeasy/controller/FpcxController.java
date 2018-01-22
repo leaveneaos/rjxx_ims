@@ -1,14 +1,8 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.domains.Fpzt;
-import com.rjxx.taxeasy.domains.Kpls;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.FpztService;
-import com.rjxx.taxeasy.service.KplsService;
-import com.rjxx.taxeasy.service.SkpService;
-import com.rjxx.taxeasy.service.YhDczdylService;
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.utils.UrlUtils;
 import com.rjxx.taxeasy.vo.DczydlVo;
 import com.rjxx.taxeasy.vo.Fpcxvo;
@@ -40,6 +34,8 @@ public class FpcxController extends BaseController {
     private SkpService skpService;
     @Autowired
     private YhDczdylService yhDczdylService;
+    @Autowired
+    private PdfRulesService pdfRulesService;
 
     @RequestMapping
     public String index() throws Exception {
@@ -130,16 +126,17 @@ public class FpcxController extends BaseController {
         String requestDomain = HtmlUtils.getDomainPath(request);
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
-            /*String pdfurlbasepath=pdfurl.substring(0,pdfurl.lastIndexOf("e-invoice")+1);
-            pdfurl = pdfurl.substring(pdfurl.lastIndexOf("e-invoice-file/")+1,pdfurl.length());
-            File pdffile =new File("/usr/local/e-invoice-file/e-invoice-file/" +pdfurl);
-            if(pdffile.exists()) {
-                logger.info("PDF文件存在");
-                pdfurl=pdfurlbasepath+"1/"+pdfurl;
-            }else {
-                logger.info("PDF文件不存在");
-                pdfurl=pdfurlbasepath+"2/"+pdfurl;
-            }*/
+            int i=pdfurl.indexOf("/",10);
+            String pdfurlbasepath=pdfurl.substring(0,i);
+            pdfurl =pdfurl.substring(i);
+            List <PdfRules>pdfrules=pdfRulesService.findAllByParams(new HashMap());
+            for(PdfRules pdfRules:pdfrules){
+                File pdffile =new File(pdfRules.getPdfPath() +pdfurl);
+                if(pdffile.exists()) {
+                    logger.info("PDF文件存在");
+                    pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
+                }
+            }
             fpcxvo.setPdfurl(pdfurl);
             if(pdfurl != null && !"".equals(pdfurl)){
                 String filename = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
