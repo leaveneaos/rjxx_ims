@@ -131,13 +131,13 @@ public class FpcxController extends BaseController {
             String pdfurlbasepath=pdfurl.substring(0,i);
             pdfurl =pdfurl.substring(i);
             List <PdfRules>pdfrules=pdfRulesService.findAllByParams(new HashMap());
-            for(PdfRules pdfRules:pdfrules){
-                File pdffile =new File(pdfRules.getPdfPath() +pdfurl);
-                if(pdffile.exists()) {
-                    logger.info("PDF文件存在");
-                    pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
+                for(PdfRules pdfRules:pdfrules){
+                    File pdffile =new File(pdfRules.getPdfPath() +pdfurl);
+                    if(pdffile.exists()) {
+                        logger.info("PDF文件存在");
+                        pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
+                    }
                 }
-            }
             }
             fpcxvo.setPdfurl(pdfurl);
             if(pdfurl != null && !"".equals(pdfurl)){
@@ -473,6 +473,19 @@ public class FpcxController extends BaseController {
             for (Kpls kpls : kplsList) {
                 String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
                 pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
+                if(pdfurl != null && !"".equals(pdfurl)){
+                    int i=pdfurl.indexOf("/",10);
+                    String pdfurlbasepath=pdfurl.substring(0,i);
+                    pdfurl =pdfurl.substring(i);
+                    List <PdfRules>pdfrules=pdfRulesService.findAllByParams(new HashMap());
+                    for(PdfRules pdfRules:pdfrules){
+                        File pdffile =new File(pdfRules.getPdfPath() +pdfurl);
+                        if(pdffile.exists()) {
+                            logger.info("PDF文件存在");
+                            pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
+                        }
+                    }
+                }
                 kpls.setPdfurl(pdfurl);
                 kpList.add(kpls);
             }
@@ -495,16 +508,19 @@ public class FpcxController extends BaseController {
             for (Fpcxvo kpls : kplsList) {
                 String pdfurl = kpls.getPdfurl().replace(".pdf", ".jpg");
                 pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, pdfurl);
-                /*String pdfurlbasepath=pdfurl.substring(0,pdfurl.lastIndexOf("/")+1);
-                pdfurl = pdfurl.substring(pdfurl.lastIndexOf("/")+1,pdfurl.length());
-                File pdffile =new File("/usr/local/e-invoice/e-invoice-file/" +pdfurl);
-                if(pdffile.exists()) {
-                    logger.info("JPG文件存在");
-                    pdfurl=pdfurlbasepath+"1/"+pdfurl;
-                }else {
-                    logger.info("JPG文件不存在");
-                    pdfurl=pdfurlbasepath+"2/"+pdfurl;
-                }*/
+                if(pdfurl != null && !"".equals(pdfurl)){
+                    int i=pdfurl.indexOf("/",10);
+                    String pdfurlbasepath=pdfurl.substring(0,i);
+                    pdfurl =pdfurl.substring(i);
+                    List <PdfRules>pdfrules=pdfRulesService.findAllByParams(new HashMap());
+                    for(PdfRules pdfRules:pdfrules){
+                        File pdffile =new File(pdfRules.getPdfPath() +pdfurl);
+                        if(pdffile.exists()) {
+                            logger.info("PDF文件存在");
+                            pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
+                        }
+                    }
+                }
                 kpls.setPdfurl(pdfurl);
                 kpList.add(kpls);
             }
