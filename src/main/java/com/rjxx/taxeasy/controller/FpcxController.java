@@ -126,6 +126,7 @@ public class FpcxController extends BaseController {
         String requestDomain = HtmlUtils.getDomainPath(request);
         for (Fpcxvo fpcxvo : ykfpList) {
             String pdfurl = UrlUtils.convertPdfUrlDomain(requestDomain, fpcxvo.getPdfurl());
+            if(pdfurl != null && !"".equals(pdfurl)){
             int i=pdfurl.indexOf("/",10);
             String pdfurlbasepath=pdfurl.substring(0,i);
             pdfurl =pdfurl.substring(i);
@@ -136,6 +137,7 @@ public class FpcxController extends BaseController {
                     logger.info("PDF文件存在");
                     pdfurl=pdfRules.getNginxPdfurl()+pdfurl;
                 }
+            }
             }
             fpcxvo.setPdfurl(pdfurl);
             if(pdfurl != null && !"".equals(pdfurl)){
