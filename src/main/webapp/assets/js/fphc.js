@@ -255,7 +255,7 @@ $(function () {
                                  }else if("fphm"==csm){
                                        d.fphm = $('#dxcsz').val();//发票号码
                                    }
-                                if(csm ==null || csm ==""){
+                                if($('#dxcsz').val() ==null || $('#dxcsz').val() ==""){
                                     d.kprqq = $('#w_kprqq').val(); // search 开票日期
                                     d.kprqz =  $('#w_kprqz').val(); // search 开票日期
                                 }
@@ -366,7 +366,7 @@ $(function () {
                              }else if("fphm" ==csm){
                                  d.fphm = $('#dxcsz1').val();   // search 发票号码
                              }
-                            if(csm ==null || csm ==""){
+                            if($('#dxcsz1').val() ==null || $('#dxcsz1').val() ==""){
                                 d.kprqq = $('#w_kprqq1').val(); // search 开票日期
                                 d.kprqz =  $('#w_kprqz1').val(); // search 开票日期
                             }
