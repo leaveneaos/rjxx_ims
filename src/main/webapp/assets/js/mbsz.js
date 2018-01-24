@@ -241,6 +241,7 @@ $(function() {
                 var gfmc = $('#config_gfmc').val();
                 var spje = $('#config_spje').val();
                 var fpzldm = $('#config_fpzldm').val();
+                var spdm = $('#config_spdm').val();
                 if (mbmc == null || mbmc == '') {
                     swal("请输入模板名称");
                     return;
@@ -257,6 +258,11 @@ $(function() {
                     swal("发票种类不能为空");
                     return;
                 }
+                alert(spdm.length);
+                if(spdm.length>20){
+                    swal("商品分类编码不能大于20个字符");
+                    return;
+				}
                 $.ajax({
                     url : ur,
                     data : data,
