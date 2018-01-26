@@ -30,7 +30,6 @@ import java.util.*;
 /**
  * Created by xlm on 2017/8/2.
  */
-@Service
 public class FwkGetDataJob implements Job {
 
     private static Logger logger = LoggerFactory.getLogger(FwkGetDataJob.class);
@@ -45,33 +44,40 @@ public class FwkGetDataJob implements Job {
     private KplsService kplsService;
     @Autowired
     private GsxxService gsxxService;
-
+    private String  LastReturnedObjectID;
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
         String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
                 "<soapenv:Header/>\n" +
-                    "<soapenv:Body>\n" +
-                        "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                            "<CustomerInvoiceSelectionByElements>\n" +
-                                "<SelectionByDate>\n" +
-                                    "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                                    "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                                    "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2017-11-01T00:00:00.00000Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
-                                    "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2017-11-30T00:00:00.00000Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>"+
-                                "</SelectionByDate>\n" +
-                            "</CustomerInvoiceSelectionByElements>\n" +
-                            "<ProcessingConditions>\n" +
-                                    "<QueryHitsMaximumNumberValue>10</QueryHitsMaximumNumberValue>\n" +
-                                    "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                            "</ProcessingConditions>\n" +
-                        "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                    "</soapenv:Body>\n" +
-                "</soapenv:Envelope>";
-        String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"Wendy","Welcome9");
-        Map jyxxMap=interping(Data);
-
-
+                "<soapenv:Body>\n" +
+                "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                "<CustomerInvoiceSelectionByElements>\n" +
+                "<SelectionByDate>\n" +
+                "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
+                "<LowerBoundaryCustomerInvoiceDate>2018-01-01</LowerBoundaryCustomerInvoiceDate>\n"+
+                "<UpperBoundaryCustomerInvoiceDate>2018-01-25</UpperBoundaryCustomerInvoiceDate>\n"+
+                "</SelectionByDate>\n" +
+                /*"<SelectionByID>\n" +
+                "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
+                "</SelectionByID>\n" +*/
+                "</CustomerInvoiceSelectionByElements>\n" +
+                "<ProcessingConditions>\n" +
+                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
+                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
+                "</ProcessingConditions>"+
+                "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                "</soapenv:Body>\n" +
+                "</soapenv:Envelope>\n";
+        logger.info("---------sap请求报文-------------"+invoiceBack);
+        String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
+        Map resultMap=this.interping(Data);
+        LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
     }
 
     /**
@@ -81,7 +87,7 @@ public class FwkGetDataJob implements Job {
      */
     public Map interping(String data) {
 
-
+        Map resultMap =new HashMap();
         String jsonString= XmltoJson.xml2json(data);
         logger.info("---json---"+jsonString);
         Map dataMap=XmltoJson.strJson2Map(jsonString);
@@ -93,6 +99,7 @@ public class FwkGetDataJob implements Job {
         if(null!=ProcessingConditions){
             LastReturnedObjectID=(String)ProcessingConditions.get("LastReturnedObjectID");
         }
+        resultMap.put("LastReturnedObjectID",LastReturnedObjectID);
         List<Map> CustomerInvoice=new ArrayList<>();
         if(CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice") instanceof List){
             CustomerInvoice=(List)CustomerInvoiceByElementsResponse_sync.get("CustomerInvoice");
@@ -533,7 +540,7 @@ public class FwkGetDataJob implements Job {
                 String resultxml=HttpUtils.HttpUrlPost(xml,gsxx.getAppKey(),gsxx.getSecretKey());
             }
         }
-        return null;
+        return resultMap;
     }
 
     public static void main(String[] args) {
