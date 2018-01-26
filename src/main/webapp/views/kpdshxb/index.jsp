@@ -1347,9 +1347,12 @@ table thead th {
             }
             $("#btnImport").attr("disabled", true);
             $('.js-modal-loading').modal('open');
-            var options = {
+            $("#importExcelForm").ajaxSubmit({
+                type: "post",
+                //dataType: "script",  // 'xml', 'script', or 'json' (expected server response type)
+                url: "<%=request.getContextPath()%>/lrkpd/importExcel",
                 success: function (res) {
-                    if (res["success"]) {
+                    if(res["success"]){
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
                         var count = res["count"];
@@ -1363,19 +1366,24 @@ table thead th {
                             window.location.reload();
                         });
                         if (res["yes"]) {
-                			$('#mrmb').empty();
-                			var txt = $('#mb').find("option:selected").text();
-        					var option = $("<option>").text(txt).val(mbid);
-                        	$('#mrmb').append(option);
-						}
-                    } else {
+                            $('#mrmb').empty();
+                            var txt = $('#mb').find("option:selected").text();
+                            var option = $("<option>").text(txt).val(mbid);
+                            $('#mrmb').append(option);
+                        }
+                        location.reload();
+                    }else {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
                         swal(res["message"]);
                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown) {
+                    $("#btnImport").attr("disabled", false);
+                    $('.js-modal-loading').modal('close');
+                    swal("保存失败，检查excel数据！");
                 }
-            };
-            $("#importExcelForm").ajaxSubmit(options);
+            });
         });
         //导入选择销方模板
         $("#mb_xfsh").change(function () {
