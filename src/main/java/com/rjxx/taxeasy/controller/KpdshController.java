@@ -365,11 +365,15 @@ public class KpdshController extends BaseController {
 	public Map<String, Object> sc(String ddhs) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sqlshs = ddhs.split(",");
+		List<Integer> sqlshList = new ArrayList<Integer>();
 		for (String sqlsh : sqlshs) {
-			Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
-			jyxxsq.setYxbz("0");
-			jyxxsqService.save(jyxxsq);
+			//20180126开票流水处理删除改为物理删除。
+			//Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
+			//jyxxsq.setYxbz("0");
+			//jyxxsqService.save(jyxxsq);
+			sqlshList.add(Integer.valueOf(sqlsh));
 		}
+		jyxxsqService.delBySqlshList2(sqlshList);
 		result.put("msg", "删除成功");
 		return result;
 	}

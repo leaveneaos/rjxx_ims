@@ -8,6 +8,7 @@ import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JymxsqVo;
 import com.rjxx.taxeasy.vo.JyxxsqVO;
+import com.rjxx.taxeasy.vo.Spbm;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
@@ -73,6 +74,9 @@ public class LrkpdController extends BaseController {
 
     @Autowired
     private CszbService cszbService;
+
+    @Autowired
+    private  SpbmService spbmService;
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
     public String index() {
@@ -1505,6 +1509,14 @@ public class LrkpdController extends BaseController {
             if (spdm != null && spdm.length() > 20) {
                 msgg = "第" + (i + 2) + "行商品代码超过20个字符，请重新填写！\r\n";
                 msg += msgg;
+            }
+            if(spdm != null && spdm.length() == 19){
+                Map params2 = new HashMap();
+                params2.put("spbm", spdm);
+                List<Spbm> spbmList = spbmService.findAllByParam(params2);
+                if(spbmList.isEmpty()){
+                    msgg += "第"+ (i+1) + "行的商品税收分类编码(ProductCode)"+spdm+"不是最明细列!\r\n";
+                }
             }
             String spmc = mxsq.getSpmc();
             if (spmc == null || "".equals(spmc)) {
