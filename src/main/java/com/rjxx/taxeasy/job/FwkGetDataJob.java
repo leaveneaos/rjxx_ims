@@ -44,7 +44,7 @@ public class FwkGetDataJob implements Job {
     private KplsService kplsService;
     @Autowired
     private GsxxService gsxxService;
-    private String  LastReturnedObjectID;
+    private String  LastReturnedObjectID="";
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
@@ -56,7 +56,7 @@ public class FwkGetDataJob implements Job {
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2018-01-01</LowerBoundaryCustomerInvoiceDate>\n"+
+                "<LowerBoundaryCustomerInvoiceDate>2018-01-19</LowerBoundaryCustomerInvoiceDate>\n"+
                 "<UpperBoundaryCustomerInvoiceDate>2018-01-25</UpperBoundaryCustomerInvoiceDate>\n"+
                 "</SelectionByDate>\n" +
                 /*"<SelectionByID>\n" +
