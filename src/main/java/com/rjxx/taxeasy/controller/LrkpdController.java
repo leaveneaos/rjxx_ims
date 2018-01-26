@@ -1161,7 +1161,7 @@ public class LrkpdController extends BaseController {
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
         List<Jymxsq> mxList = new ArrayList<>();
         Integer num = 1;
-     
+        Map<String ,Integer> ddhmap =new HashMap();
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
             Jyxxsq jyxxsq = new Jyxxsq();
@@ -1262,20 +1262,26 @@ public class LrkpdController extends BaseController {
                     if (jy.getDdh() != null && jy.getDdh().equals(jyxxsq.getDdh())) {
                         jy.setJshj(jy.getJshj() + jyxxsq.getJshj());
                         tmp = true;
+                            for (Map.Entry<String, Integer> entry : ddhmap.entrySet()) {
+                                     if(entry.getKey().equals(jyxxsq.getDdh())){
+                                         num= ddhmap.get(jyxxsq.getDdh());
+                                     }
+                              }
                         num++;
+                        ddhmap.put(jy.getDdh(),num);
                         break;
                     }
                 }
                 if (!tmp) {
                     num = 1;
                     jyxxsqList.add(jyxxsq);
+                    ddhmap.put(jyxxsq.getDdh(),num);
                 }
             } else {
                 jyxxsqList.add(jyxxsq);
+                ddhmap.put(jyxxsq.getDdh(),num);
             }
-            // int djh = jyls.getDjh();
             Jymxsq jymxsq = new Jymxsq();
-            // jyspmx.setDjh(djh);
             jymxsq.setDdh(jyxxsq.getDdh());
             jymxsq.setSpmxxh(num);
             jymxsq.setGsdm(gsdm);
