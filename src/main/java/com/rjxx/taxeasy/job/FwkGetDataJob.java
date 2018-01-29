@@ -89,7 +89,7 @@ public class FwkGetDataJob implements Job {
 
         Map resultMap =new HashMap();
         String jsonString= XmltoJson.xml2json(data);
-        logger.info("---json---"+jsonString);
+        //logger.info("---json---"+jsonString);
         Map dataMap=XmltoJson.strJson2Map(jsonString);
         Map Envelope=(Map)dataMap.get("soap-env:Envelope");
         Map Body=(Map)Envelope.get("soap-env:Body");
