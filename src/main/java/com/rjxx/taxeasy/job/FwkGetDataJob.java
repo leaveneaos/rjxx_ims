@@ -48,36 +48,48 @@ public class FwkGetDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-        String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
-                "<soapenv:Header/>\n" +
-                "<soapenv:Body>\n" +
-                "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "<CustomerInvoiceSelectionByElements>\n" +
-                "<SelectionByDate>\n" +
-                "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2018-01-19</LowerBoundaryCustomerInvoiceDate>\n"+
-                "<UpperBoundaryCustomerInvoiceDate>2018-01-25</UpperBoundaryCustomerInvoiceDate>\n"+
-                "</SelectionByDate>\n" +
+        while (true) {
+            try {
+                String invoiceBack = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
+                        "<soapenv:Header/>\n" +
+                        "<soapenv:Body>\n" +
+                        "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                        "<CustomerInvoiceSelectionByElements>\n" +
+                        "<SelectionByDate>\n" +
+                        "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
+                        "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
+                        "<LowerBoundaryCustomerInvoiceDate>2018-01-19</LowerBoundaryCustomerInvoiceDate>\n" +
+                        "<UpperBoundaryCustomerInvoiceDate>2018-01-25</UpperBoundaryCustomerInvoiceDate>\n" +
+                        "</SelectionByDate>\n" +
                 /*"<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
                 "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
                 "</SelectionByID>\n" +*/
-                "</CustomerInvoiceSelectionByElements>\n" +
-                "<ProcessingConditions>\n" +
-                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
-                "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
-                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
-                "</ProcessingConditions>"+
-                "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "</soapenv:Body>\n" +
-                "</soapenv:Envelope>\n";
-        logger.info("---------sap请求报文-------------"+invoiceBack);
-        String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
-        Map resultMap=this.interping(Data);
-        LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
+                        "</CustomerInvoiceSelectionByElements>\n" +
+                        "<ProcessingConditions>\n" +
+                        "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                        "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                        "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
+                        "<LastReturnedObjectID>" + LastReturnedObjectID + "</LastReturnedObjectID>\n" +
+                        "</ProcessingConditions>" +
+                        "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
+                        "</soapenv:Body>\n" +
+                        "</soapenv:Envelope>\n";
+                logger.info("---------sap请求报文-------------" + invoiceBack);
+                String Data = HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null, "_BW", "Welcome9");
+                Map resultMap = this.interping(Data);
+                LastReturnedObjectID = resultMap.get("LastReturnedObjectID").toString();
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                try {
+                    Thread.sleep(30000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
