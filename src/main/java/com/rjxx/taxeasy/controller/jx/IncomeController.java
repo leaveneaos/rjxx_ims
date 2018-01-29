@@ -1,4 +1,4 @@
-package com.rjxx.taxeasy.controller;
+package com.rjxx.taxeasy.controller.jx;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -7,15 +7,11 @@ import com.rjxx.taxeasy.dao.leshui.FpcyJpaDao;
 import com.rjxx.taxeasy.dao.leshui.FpcyMapper;
 import com.rjxx.taxeasy.dao.leshui.FpcyjlJpaDao;
 import com.rjxx.taxeasy.dao.leshui.FpcymxJpaDao;
-import com.rjxx.taxeasy.domains.Cszb;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.leshui.Fpcy;
 import com.rjxx.taxeasy.domains.leshui.Fpcyjl;
 import com.rjxx.taxeasy.domains.leshui.Fpcymx;
 import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.vo.FpcyVo;
-import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.leshui.LeShuiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +47,7 @@ public class IncomeController extends BaseController {
 
     @RequestMapping
     public String index() throws Exception {
-        return "fpcy/index";
+        return "jx/fpcy/index";
     }
 
 
