@@ -10,7 +10,9 @@ import com.rjxx.taxeasy.dao.leshui.FpcymxJpaDao;
 import com.rjxx.taxeasy.domains.leshui.Fpcy;
 import com.rjxx.taxeasy.domains.leshui.Fpcyjl;
 import com.rjxx.taxeasy.domains.leshui.Fpcymx;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.CszbService;
+import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.vo.FpcyVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.leshui.LeShuiUtil;
@@ -34,7 +36,7 @@ import java.util.Map;
 public class IncomeController extends BaseController {
 
     @Autowired
-    private CszbService cszbService;
+    private LeshuiService leshuiService;
     @Autowired
     private FpcyJpaDao fpcyJpaDao;
     @Autowired
@@ -159,25 +161,18 @@ public class IncomeController extends BaseController {
                     List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
                     List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
                     session.setAttribute("fpcy",fpcy);
-                    session.setAttribute("fpcyjlList",fpcyjlList);
-                    session.setAttribute("fpcymxList",fpcymxList);
-                    result.put("data", fpcy);
+                    if(fpcyjlList.size()>0){
+                        session.setAttribute("fpcyjlList",fpcyjlList);
+                    }
+                    if(fpcymxList.size()>0){
+                        session.setAttribute("fpcymxList",fpcymxList);
+                    }
+                    result.put("status", true);
                     //result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"，查验日期："+fpcyjl.getCyrq()+"；此次查验状态为："+fpcy.getFpzt());
                     return result;
                 }
            // }
-            LeShuiUtil leShuiUtil = new LeShuiUtil();
-            String res = leShuiUtil.invoiceInfoForCom(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je);
-            JSONObject resjson = JSON.parseObject(res);
-            String rtnCode = resjson.getString("RtnCode");
-            String resultMsg = resjson.getString("resultMsg");
-            String invoiceName = resjson.getString("invoiceName");
-            String resultCode = resjson.getString("resultCode");
-            if(rtnCode!=null &&rtnCode.equals("00")){
-                JSONObject invoiceResult = resjson.getJSONObject("invoiceResult");
-            }else {
-                String invoicefalseCode = resjson.getString("invoicefalseCode");
-            }
+            String res = leshuiService.fpcyAndSave(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
             result.put("status", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,8 +182,49 @@ public class IncomeController extends BaseController {
         return result;
     }
 
+    /**
+     * 发票查验删除
+     * @param fpcyIds
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/sc")
+    public Map<String, Object> sc(String fpcyIds) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        String[] ids = fpcyIds.split(",");
+        for (String id : ids) {
+            Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+            fpcy.setYxbz("0");
+            fpcyJpaDao.save(fpcy);
+        }
+        result.put("msg", "删除成功");
+        return result;
+    }
 
-
-
-
+    /**
+     * 发票查验预览
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/fpcyyl")
+    public String kpyl(String id) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        /*Jyspmx jyspmx = new Jyspmx();
+        jyspmx.setDjh(Integer.valueOf(kpsqh));
+        List<Jyspmx> mxcl = jyspmxService.findAllByParams(jyspmx);
+        Jyls jyls = jylsService.findOne(Integer.valueOf(kpsqh));
+        List dxlist = new ArrayList();
+        ChinaNumber cn = new ChinaNumber();
+        Double aa = 0.00;
+        for (int x = 0; x < mxcl.size(); x++) {
+            aa = aa + mxcl.get(x).getJshj();
+        }
+        String jshjstr = new DecimalFormat("0.00").format(aa);
+        dxlist.add(cn.getCHSNumber(jshjstr));*/
+        //session.setAttribute("cffplList", mxcl);
+        //session.setAttribute("jyls", jyls);
+        //session.setAttribute("zwlist", dxlist);
+        return "jx/fpcy/fapiao";
+    }
 }

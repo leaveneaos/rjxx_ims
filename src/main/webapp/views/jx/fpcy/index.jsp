@@ -357,6 +357,31 @@ table thead th {
 			</div>
 		</div>
 	</div>
+
+	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+		<div class="am-modal-hd">
+			<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+			<div class="am-modal-bd" >
+				<div id="">
+					<div style="float: left">
+						<label for="bxr">报销人:</label>
+						<input type="text" id="bxr" name="bxr" value="">
+					</div>
+					<div style="float: left">
+						<label for="bxr" class="align_left">发票标签:</label>
+						<input type="text" id="fpbq">
+					</div>
+					<div>
+						<button type="button" id="cysave"
+								class="am-btn am-btn-danger am-btn-xs">保存</button>
+					</div>
+					<%@ include file="fapiao.jsp" %>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1"
 		id="bulk-import-div">
 		<div class="am-modal-dialog">
