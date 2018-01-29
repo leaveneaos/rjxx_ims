@@ -48,7 +48,7 @@ public class FwkGetDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-        while (true) {
+        //while (true) {
             try {
                 String invoiceBack = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
                         "<soapenv:Header/>\n" +
@@ -89,7 +89,7 @@ public class FwkGetDataJob implements Job {
                     e.printStackTrace();
                 }
             }
-        }
+        //}
     }
 
     /**
