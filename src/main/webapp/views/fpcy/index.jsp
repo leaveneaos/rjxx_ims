@@ -63,11 +63,11 @@ table thead th {
 												<form id="ycform">
 													<div class="am-offcanvas-content">
 														<div class="am-form-group">
-															<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
+															<label for="s_xfsh" class="am-u-sm-4 am-form-label">选择购方</label>
 															<div class="am-u-sm-8">
 																<select data-am-selected="{btnSize: 'sm'}" id="s_xfsh"
 																	name="xfsh">
-																	<option id="xzxfq" value="">选择销方</option>
+																	<option id="xzxfq" value="">选择购方</option>
 																	<c:forEach items="${xfList}" var="item">
 																		<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
 																	</c:forEach>
@@ -77,17 +77,17 @@ table thead th {
 													</div>
 													<div class="am-offcanvas-content" style="margin-top: 5px;">
 														<div class="am-form-group">
-															<label for="s_gfmc" class="am-u-sm-4 am-form-label">发票代码</label>
+															<label for="s_fpdm" class="am-u-sm-4 am-form-label">发票代码</label>
 															<div class="am-u-sm-8">
-																<input id="s_gfmc" type="text" placeholder="发票代码">
+																<input id="s_fpdm" type="text" placeholder="发票代码">
 															</div>
 														</div>
 													</div>
 													<div class="am-offcanvas-content" style="margin-top: 5px;">
 														<div class="am-form-group">
-															<label for="s_ddh" class="am-u-sm-4 am-form-label">发票号码</label>
+															<label for="s_fphm" class="am-u-sm-4 am-form-label">发票号码</label>
 															<div class="am-u-sm-8">
-																<input id="s_ddh" type="text" placeholder="发票号码">
+																<input id="s_fphm" type="text" placeholder="发票号码">
 															</div>
 														</div>
 													</div>
@@ -96,7 +96,7 @@ table thead th {
 															<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
 															<div class="am-u-sm-8">
 																<select data-am-selected="{btnSize: 'sm'}" id="s_fplx"
-																	name="xfsh">
+																	name="s_fplx">
 																	<option id="xzlxq" value="">选择类型</option>
 																	<option value="01">增值税专用发票</option>
 																	<option value="02">增值税普通发票</option>
@@ -106,7 +106,7 @@ table thead th {
 													</div>
 													<div class="am-offcanvas-content" style="margin-top: 8px;">
 														<div class="am-form-group">
-															<label for="s_ddh" class="am-u-sm-4 am-form-label">开票日期</label>
+															<label for="s_rqq" class="am-u-sm-4 am-form-label">开票日期</label>
 															<div class="am-input-group am-datepicker-date am-u-sm-8"
 																data-am-datepicker="{format: 'yyyy-mm-dd'}">
 																<input type="text" id="s_rqq" class="am-form-field"
@@ -177,8 +177,8 @@ table thead th {
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-														<option value="ddh">发票代码</option>
-														<option value="gfmc">发票号码</option>
+														<option value="fpdm">发票代码</option>
+														<option value="fphm">发票号码</option>
 													</select>
 												</div>
 											</div>
@@ -193,26 +193,6 @@ table thead th {
 													</span>
 												</div>
 											</div>
-											<%--<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-												<div class="am-form-group">
-													<div class="am-u-md-6 am-u-lg-2">
-														订单日期
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqq" name="w_kprqq"
-															   placeholder="订单起始时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-													</div>
-													<div class="am-u-md-6 am-u-lg-1">
-														至
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqz" name="w_kprqz"
-															   placeholder="订单截止时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-													</div>
-												</div>
-											</div>--%>
 										</form>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
@@ -285,21 +265,21 @@ table thead th {
 								<input type="hidden" id="formid">
 
 								<div class="am-form-group">
-									<label for="sglr_fpzl" class="am-u-sm-2 am-form-label"><span
-										style="color: red;">*</span>发票种类</label>
+									<label  class="am-u-sm-2 am-form-label"><span
+										style="color: red;">*</span>发票类型</label>
 
 									<div class="am-u-sm-4 am-u-end">
-										<select id="sglr_fpzl" name="sglr_fpzl">
+										<input type="radio" name="sglr_fpzl" checked="checked" id="sglr_zp" onclick="CheckAll(this);"  value="01"  />
+											<label for="sglr_zp">专用发票</label>
+										<input type="radio" name="sglr_fpzl"  id="sglr_pp" onclick="CheckAll(this);"  value="02"  />
+											<label for="sglr_pp">普通发票</label>
+										<%--<select id="sglr_fpzl" name="sglr_fpzl">
 											<option value="">选择开票类型</option>
 											<option value="01">专用发票</option>
 											<option value="02">普通发票</option>
-										</select>
+										</select>--%>
 									</div>
-									<label for="sglr_jym" class="am-u-sm-2 am-form-label">校验码</label>
-									<div class="am-u-sm-4">
-											<input type="text" id="sglr_jym" name="sglr_jym"
-											placeholder="输入校验码后6位" >
-									</div>
+
 								</div>
 								<div class="am-form-group">
 									<label for="sglr_fpdm" class="am-u-sm-2 am-form-label"><span
@@ -331,9 +311,13 @@ table thead th {
 																</span>
 									</div>
 									<label for="sglr_je" class="am-u-sm-2 am-form-label"
-										   style="padding-left: 0px">金额</label>
+									id="je_lable" style="padding-left: 0px"><span style="color: red;" >*</span>金额</label>
+									<label for="sglr_jym" id="jym_lable" style="display: none"
+										   class="am-u-sm-2 am-form-label"><span style="color: red;" >*</span>校验码</label>
 									<div class="am-u-sm-4">
-										<input type="text" id="sglr_je" name="sglr_je"  placeholder="输入金额(不含税)">
+										<input type="text" id="sglr_je" name="sglr_je"  required placeholder="输入金额(不含税)">
+											<input type="text" id="sglr_jym" name="sglr_jym" style="display: none"
+												   required	   placeholder="输入校验码后6位" >
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -890,34 +874,19 @@ table thead th {
 
 			});
 		};
-		function hidespan(){
-			var fpzldm = $("#lrfpzl_edit").val();
-				if(fpzldm=='01'){
-					//$("#span_gfsh").style.display="";
-					document.getElementById("lrspan_gfsh").style.display="";
-					//document.getElementById("span_gfdz").style.display="";
-					//document.getElementById("span_gfdh").style.display="";
-					document.getElementById("lrspan_gfyh").style.display="";
-					document.getElementById("lrspan_gfyhzh").style.display="";
-					//document.getElementById("gfmc_edit").setAttribute("required",true);
-					$("#lrgfsh_edit").attr("required",true);
-					//$("#gfdz_edit").attr("required",true);
-					//$("#gfdh_edit").attr("required",true);
-					$("#lrgfyh_edit").attr("required",true);
-					$("#lrgfzh_edit").attr("required",true);
-				 }else{
-					document.getElementById("lrspan_gfsh").style.display="none";
-					//document.getElementById("span_gfdz").style.display="none";
-					//document.getElementById("span_gfdh").style.display="none";
-					document.getElementById("lrspan_gfyh").style.display="none";
-					document.getElementById("lrspan_gfyhzh").style.display="none";
-					$("#lrgfsh_edit").attr("required",false);
-					//$("#gfdz_edit").attr("required",false);
-					//$("#gfdh_edit").attr("required",false);
-					$("#lrgfyh_edit").attr("required",false);
-					$("#lrgfzh_edit").attr("required",false);
-				 }
-			}
+		function CheckAll(){
+            if ($("#sglr_zp").prop("checked")) {
+                $("#sglr_jym").hide();
+                $("#jym_lable").hide();
+				$("#sglr_je").show();
+				$("#je_lable").show();
+            } else if($("#sglr_pp").prop("checked")) {
+                $("#sglr_jym").show();
+                $("#jym_lable").show();
+                $("#sglr_je").hide();
+                $("#je_lable").hide();
+            }
+		}
 	</script>
 
 </body>

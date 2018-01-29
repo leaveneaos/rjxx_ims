@@ -2,8 +2,20 @@ package com.rjxx.taxeasy.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.dao.leshui.FpcyJpaDao;
+import com.rjxx.taxeasy.dao.leshui.FpcyMapper;
+import com.rjxx.taxeasy.dao.leshui.FpcyjlJpaDao;
+import com.rjxx.taxeasy.dao.leshui.FpcymxJpaDao;
 import com.rjxx.taxeasy.domains.Cszb;
+import com.rjxx.taxeasy.domains.Skp;
+import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.domains.leshui.Fpcy;
+import com.rjxx.taxeasy.domains.leshui.Fpcyjl;
+import com.rjxx.taxeasy.domains.leshui.Fpcymx;
 import com.rjxx.taxeasy.service.CszbService;
+import com.rjxx.taxeasy.vo.FpcyVo;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.leshui.LeShuiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +39,14 @@ public class IncomeController extends BaseController {
 
     @Autowired
     private CszbService cszbService;
+    @Autowired
+    private FpcyJpaDao fpcyJpaDao;
+    @Autowired
+    private FpcyjlJpaDao fpcyjlJpaDao;
+    @Autowired
+    private FpcyMapper fpcyMapper;
+    @Autowired
+    private FpcymxJpaDao fpcymxJpaDao;
 
 
     @RequestMapping
@@ -32,8 +54,92 @@ public class IncomeController extends BaseController {
         return "fpcy/index";
     }
 
+
     /**
-     * 发票查验详情
+     * 查询列表
+     * @param length
+     * @param start
+     * @param draw
+     * @param fpdm
+     * @param fphm
+     * @param kprqq
+     * @param xfsh
+     * @param fpzldm
+     * @param loaddata
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/getFpcyList")
+    public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
+                                         String xfsh, String fpzldm,boolean loaddata) throws Exception {
+        Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+//        Map map = new HashMap();
+        if(loaddata){
+            pagination.setPageNo(start / length + 1);
+            pagination.setPageSize(length);
+            //map.put("start",start);
+           // map.put("length",length);
+            String gsdm = getGsdm();
+            if ("".equals(fpzldm) || fpzldm == null) {
+                pagination.addParam("fpzldm",null);
+            } else {
+                pagination.addParam("fpzldm",fpzldm);
+            }
+            pagination.addParam("fpdm",fpdm);
+            pagination.addParam("fphm",fphm);
+            //pagination.addParam("xfs",getXfList());
+            pagination.addParam("kprqq",kprqq);
+            pagination.addParam("gsdm",gsdm);
+            if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
+                pagination.addParam("xfsh", xfsh);
+            }
+            List<FpcyVo> dataList = new ArrayList();
+            List<Fpcy> fpcyList = fpcyMapper.findByPage(pagination);
+            for (Fpcy fpcy : fpcyList) {
+                Fpcyjl fpcyjl = fpcyjlJpaDao.findOneByFpcyIdAndGsdm(fpcy.getId(), getGsdm());
+                Integer cycsTotal = fpcyjlJpaDao.findCountByFpcyId(fpcyjl.getFpcyid());
+                FpcyVo fpcyVo = new FpcyVo();
+                fpcyVo.setId(fpcy.getId());
+                fpcyVo.setFpdm(fpcy.getFpdm());
+                fpcyVo.setFphm(fpcy.getFphm());
+                fpcyVo.setXfmc(fpcy.getXfmc());
+                fpcyVo.setBxry(fpcyjl.getBxry());
+                fpcyVo.setKprq(fpcy.getKprq());
+                fpcyVo.setFpzldm(fpcy.getFpzldm());
+                fpcyVo.setCycs(fpcy.getCycs());
+                fpcyVo.setCycsTotal(cycsTotal);
+                fpcyVo.setSjly(fpcy.getSjly());
+                fpcyVo.setFpzt(fpcy.getFpzt());
+                dataList.add(fpcyVo);
+            }
+            logger.info("查询结果"+JSON.toJSONString(dataList));
+            int total;
+            if(0 == start){
+                //total = fpcyMapper.findtotal(map);
+                 total = pagination.getTotalRecord();
+                request.getSession().setAttribute("total",total);
+            }else{
+                total =  (Integer)request.getSession().getAttribute("total");
+                //request.getSession().getAttribute("total");
+            }
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", dataList);
+        }else{
+            int total = 0;
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", new ArrayList<>());
+        }
+        return result;
+    }
+
+    /**
+     * 发票查验
      * @param sglr_fpzl
      * @param sglr_jym
      * @param sglr_fpdm
@@ -50,10 +156,20 @@ public class IncomeController extends BaseController {
         try {
             //校验是否报销
             String gsdm = getGsdm();
-            Cszb sfyybx = cszbService.getSpbmbbh(gsdm, null, null, "sfyybx");
-            if(sfyybx.equals("是")){
-                logger.info("用于报销！");
-            }
+            //Cszb sfyybx = cszbService.getSpbmbbh(gsdm, null, null, "sfyybx");
+            //if(sfyybx.getCsz().equals("是")){
+            Fpcy fpcy = fpcyJpaDao.findOneByFpdmAndFphm(sglr_fpdm, sglr_fphm);
+                if(fpcy !=null){
+                    List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
+                    List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+                    session.setAttribute("fpcy",fpcy);
+                    session.setAttribute("fpcyjlList",fpcyjlList);
+                    session.setAttribute("fpcymxList",fpcymxList);
+                    result.put("data", fpcy);
+                    //result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"，查验日期："+fpcyjl.getCyrq()+"；此次查验状态为："+fpcy.getFpzt());
+                    return result;
+                }
+           // }
             LeShuiUtil leShuiUtil = new LeShuiUtil();
             String res = leShuiUtil.invoiceInfoForCom(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je);
             JSONObject resjson = JSON.parseObject(res);
@@ -66,7 +182,6 @@ public class IncomeController extends BaseController {
             }else {
                 String invoicefalseCode = resjson.getString("invoicefalseCode");
             }
-            logger.info(res);
             result.put("status", true);
         } catch (Exception e) {
             e.printStackTrace();
