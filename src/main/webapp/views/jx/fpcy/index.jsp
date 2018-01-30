@@ -357,20 +357,25 @@ table thead th {
 			</div>
 		</div>
 	</div>
-
+	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
+		<div id="doc-modal-cyjll" style="background-color: white;"class="am-modal-dialog">
+			<div class="am-modal-bd"  >
+				<div id="cyjl" style="border: 1px solid #ddd;"></div>
+			</div>
+		</div>
+	</div>
 	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
 		<div class="am-modal-hd">
 			<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
 		</div>
 		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
 			<div class="am-modal-bd" >
-				<div id="">
+				<div style="padding-left: 13px;">
 					<div style="float: left">
 						<label for="save_bxr">报销人:</label>
 						<input type="text" id="save_bxr" name="save_bxr" value="">
-						<input type="text" id="save_fpcyId" name="save_fpcyId" style="display:none;">
 					</div>
-					<div style="float: left">
+					<div style="float: left;padding-left: 60px;">
 						<label for="save_fpbq" class="align_left">发票标签:</label>
 						<input type="text" id="save_fpbq" name="save_fpbq">
 					</div>
@@ -378,8 +383,9 @@ table thead th {
 						<button type="button" id="cysave"
 								class="am-btn am-btn-danger am-btn-xs">保存</button>
 					</div>
-					<%@ include file="fapiao.jsp" %>
 				</div>
+					<%@ include file="fapiao.jsp" %>
+
 			</div>
 		</div>
 	</div>
@@ -529,96 +535,6 @@ table thead th {
     });
 
 	$(function() {
-		$("#select_xfid").change(
-				function() {
-		            $('#select_skpid').empty();
-				    var xfsh = $(this).val();
-				    if (xfsh == null || xfsh == '' || xfsh == "") {
-						return;
-					}
-				    var url = "<%=request.getContextPath()%>/kp/getSkpList";
-								$
-										.post(
-												url,
-												{
-													xfsh : xfsh
-												},
-												function(data) {
-													if (data) {
-														var option = $(
-																"<option>")
-																.text('请选择')
-																.val(-1);
-														$('#select_skpid')
-																.append(option);
-														for (var i = 0; i < data.skps.length; i++) {
-															option = $(
-																	"<option>")
-																	.text(
-																			data.skps[i].kpdmc)
-																	.val(
-																			data.skps[i].id);
-															$('#select_skpid')
-																	.append(
-																			option);
-														}
-													}
-												});
-							});
-		
-		 //录入订单时选择商品
-        $("#lrselect_sp").change(function () {
-            var je = $('#lrje_edit');
-            var sl = $('#lrsltaxrate_edit');
-            var se = $('#lrse_edit');
-            var hsje = $('#lrhsje_edit');
-            var jshj = $('#lrjshj_edit');
-            var dj = $('#lrdj_edit');
-            var sps = $('#lrsl_edit');
-            var spsl;
-            var spid = $(this).val();
-            var spmc = $("#lrselect_sp option:checked").text();
-            var pos = spmc.indexOf("(");
-            spmc = spmc.substring(0, pos);
-            if (!spid) {
-                $("#lrmx_form input").val("");
-                return;
-            }
-            var ur = "<%=request.getContextPath()%>/lrkpd/getSpxq";
-            $.ajax({
-                url: ur,
-                type: "post",
-                async:false,
-                data: {
-                    spid: spid
-
-                }, 
-                success: function (res) {
-                	 if (res) {
-                         $("#lrmx_form #lrspdm_edit").val(res["spbm"]);
-                         $("#lrmx_form #lrmc_edit").val(res["spmc"]);
-                         $("#lrmx_form #lrggxh_edit").val(res["spggxh"] == null ? "" : res["spggxh"]);
-                         $("#lrmx_form #lrdw_edit").val(res["spdw"] == null ? "" : res["spdw"]);
-                         $("#lrmx_form #lrdj_edit").val(res["spdj"] == null ? "" : res["spdj"]);
-                         $("#lrmx_form #lrsltaxrate_edit").val(res["sl"]);
-                         spsl = res["sl"];
-                     }
-                }
-            })
-            if(null!=je && je.val() !=""){
-            	var temp = (100+sl.val()*100)/100;
-				se.val(FormatFloat(je.val() * spsl, "#####0.00"));
-				var je1 = parseFloat(je.val());
-        		var se1 = parseFloat(se.val());
-				hsje.val(FormatFloat(je1 + se1, "#####0.00"));
-				jshj.val(FormatFloat(je1 + se1, "#####0.00"));
-        		if (dj != null && dj.val() != "") {
-        			sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
-				}else if(sps != null && sps.val() != ""){
-					dj.val(FormatFloat(je.val() / sps.val(), "#####0.00"));
-				}
-            }
-        });
         $("#btnDownloadDefaultTemplate").click(function () {
         	var mbid = $('#mb').val();
         	if(null==mbid||""==mbid||"-1"==mbid){
@@ -733,173 +649,10 @@ table thead th {
 					}
                 }
             });
-
 			});
-		    $("#lrsl_edit").keyup(function(){
-                var spsl = $('#lrsl_edit');//商品数量
-                // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-                // if (!num.test(spsl.val())) {
-                //     if (spsl.val().length > 1) {
-                //         $('#lrsl_edit').val(
-                //             spsl.val().substring(0,
-                //                 spsl.val().length - 1))
-                //     } else {
-                //         $('#lrsl_edit').val("")
-                //     }
-                //     return;
-                // }
-                var sl = $('#lrsltaxrate_edit');
-                var se = $('#lrse_edit');
-                var hsje = $('#lrhsje_edit');
-                var jshj = $('#lrjshj_edit');
-                var dj = $('#lrdj_edit');
-                var je = $('#lrje_edit');
-                var temp = (100 + sl.val() * 100) / 100;
-                if(dj!=""){
-                    jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
-                    hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
-                    var jj=spsl.val() * dj.val();
-                    je.val(FormatFloat(jj/temp, "#####0.00"));
-                    se.val(FormatFloat(je.val() * sl.val(),
-                        "#####0.00"));
-                }
-            });
-            $("#lrdj_edit").keyup(function(){
-                var dj = $('#lrdj_edit');//单价
-                // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-                // if (!num.test(dj.val())) {
-                //     if (dj.val().length > 1) {
-                //         $('#dj_edit').val(
-                //             dj.val().substring(0,
-                //                 dj.val().length - 1))
-                //     } else {
-                //         $('#dj_edit').val("")
-                //     }
-                //     return;
-                // }
-
-
-
-                var sl = $('#lrsltaxrate_edit');
-                var se = $('#lrse_edit');
-                var hsje = $('#lrhsje_edit');
-                var jshj = $('#lrjshj_edit');
-                var spsl = $('#lrsl_edit');
-                var je = $('#lrje_edit');
-                var temp = (100 + sl.val() * 100) / 100;
-                if(spsl!=""){
-                    jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
-                    hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
-
-                    var jj=spsl.val() * dj.val();
-                    je.val(FormatFloat(jj/temp, "#####0.00"));
-                    se.val(FormatFloat(je.val() * sl.val(),
-                        "#####0.00"));
-                }
-            });
-
-			 $("#lrje_edit").keyup(
-			 	function() {
-			 		var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-			 		var je = $('#lrje_edit');
-			 		if (!num.test(je.val())) {
-			 			if (je.val().length > 1) {
-			 				$('#lrje_edit').val(
-			 						je.val().substring(0,
-			 								je.val().length - 1))
-			 			} else {
-			 				$('#lrje_edit').val("")
-			 			}
-			 			return;
-			 		}
-			 		var sl = $('#lrsltaxrate_edit');
-			 		var se = $('#lrse_edit');
-			 		var hsje = $('#lrhsje_edit');
-			 		var jshj = $('#lrjshj_edit');
-			 		var dj = $('#lrdj_edit');
-			 		var sps = $('#lrsl_edit');
-			 		var temp = (100 + sl.val() * 100) / 100;
-			 		se.val(FormatFloat(je.val() * sl.val(),
-			 				"#####0.00"));
-			 		var je1 = parseFloat(je.val());
-			 		var se1 = parseFloat(se.val());
-			 		hsje.val(FormatFloat(je1 + se1, "#####0.00"));
-			 		jshj.val(FormatFloat(je1 + se1, "#####0.00"));
-			 		if (dj != null && dj.val() != "") {
-			 			sps.val(FormatFloat(je.val() / dj.val(),
-			 					"#####0.00"));
-			 		} else if (sps != null && sps.val() != "") {
-			 			dj.val(FormatFloat(je.val() / sps.val(),
-			 					"#####0.00"));
-			 		}
-			 	}
-			 );
-
-
-
-			$("#lrhsje_edit").keyup(
-				function() {
-					// var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
-					var hsje = $('#lrhsje_edit');
-					// if (!num.test(hsje.val())) {
-					// 	if (hsje.val().length > 1) {
-					// 		$('#lrhsje_edit').val(
-					// 				hsje.val().substring(0,
-					// 						hsje.val().length - 1))
-					// 	} else {
-					// 		$('#lrhsje_edit').val("")
-					// 	}
-					// 	return;
-					// }
-					var je = $('#lrje_edit');
-					var sl = $('#lrsltaxrate_edit');
-					var se = $('#lrse_edit');
-					var spsl = $('#lrsl_edit');
-					var jshj = $('#lrjshj_edit');
-					var dj = $('#lrdj_edit');
-					var sps = $('#lrsl_edit');
-					var temp = (100 + sl.val() * 100) / 100;
-					je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
-
-					se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
-
-					jshj.val(FormatFloat(hsje.val(), "#####0.00"));
-
-					// spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
-					if (dj.val()!= "") {
-			            spsl.val(FormatFloat(hsje.val() / dj.val(), "#.00#############"));
-			        }else if(dj.val()==""&&spsl.val()!=""){
-			            dj.val(FormatFloat(hsje.val() / spsl.val(), "#.00#############"));
-			        }
-				}
-			);
 
 		});
 
-
-
-
-		//选择销方取得税控盘
-		function getKpd() {
-			var xfid = $('#lrselect_xfid option:selected').val();
-			//alert(xfid);
-			var skpid = $("#lrselect_skpid");
-			$("#lrselect_skpid").empty();
-			$.ajax({
-				url : "fpkc/getKpd",
-				data : {
-					"xfid" : xfid
-				},
-				success : function(data) {
-					for (var i = 0; i < data.length; i++) {
-						var option = $("<option>").text(data[i].kpdmc).val(
-								data[i].skpid);
-						skpid.append(option);
-					}
-				}
-
-			});
-		};
 		function CheckAll(){
             if ($("#sglr_zp").prop("checked")) {
                 $("#sglr_jym").hide();
@@ -912,7 +665,7 @@ table thead th {
                 $("#sglr_je").hide();
                 $("#je_lable").hide();
             }
-		}
+		};
 	</script>
 
 </body>

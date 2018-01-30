@@ -211,18 +211,21 @@ public class IncomeController extends BaseController {
      */
     @RequestMapping( value= "/fpcyyl")
     @ResponseBody
-    public Map fpcyyl(String id)   {
-        Map<String, Object> result = null;
+    public String fpcyyl(String id)   {
+        //Map<String, Object> result = null;
         try {
-            result = new HashMap<>();
+            //result = new HashMap<>();
             Fpcy fpcy = new Fpcy();
             List<Fpcymx> fpcymxList = new ArrayList<>();
+            List<Fpcyjl> fpcyjlList = new ArrayList<>();
             if(session.getAttribute("fpcy")==null){
-                 fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
-                 fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+                fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+                fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+                fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
             }else {
-                 fpcy = (Fpcy)session.getAttribute("fpcy");
+                fpcy = (Fpcy)session.getAttribute("fpcy");
                 fpcymxList = (List<Fpcymx>)  session.getAttribute("fpcymxList");
+                fpcyjlList = (List<Fpcyjl>) session.getAttribute("fpcyjlList");
             }
             List dxlist = new ArrayList();
             ChinaNumber cn = new ChinaNumber();
@@ -233,18 +236,26 @@ public class IncomeController extends BaseController {
             session.setAttribute("zwlist", dxlist);
             session.setAttribute("fpcy",fpcy);
             session.setAttribute("fpcymxList",fpcymxList);
-            result.put("status",true);
-            result.put("id",id);
-            result.put("fpcy",fpcy);
-            result.put("fpcymxList",fpcymxList);
+            session.setAttribute("fpcyjlList",fpcyjlList);
+            //result.put("status",true);
+            //result.put("id",id);
+            //result.put("fpcy",fpcy);
+            //result.put("fpcymxList",fpcymxList);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            result.put("status",false);
-            result.put("msg","程序出错，请联系开发人员;");
+            //result.put("status",false);
+            //result.put("msg","程序出错，请联系开发人员;");
         }
-        return result;
+        return "jx/fpcy/fapiao";
     }
 
+    /**
+     * 发票查验-保存报销人
+     * @param fpbq
+     * @param bxr
+     * @param id
+     * @return
+     */
     @RequestMapping( value= "/saveBc")
     @ResponseBody
     public Map saveBc(String fpbq,String bxr,String id){
@@ -252,7 +263,6 @@ public class IncomeController extends BaseController {
         try {
             result = new HashMap<>();
             Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
-
             result.put("status",true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -262,4 +272,32 @@ public class IncomeController extends BaseController {
         return result;
     }
 
+    @RequestMapping(value = "cycs")
+    @ResponseBody
+    public Map cycs( String id){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            Fpcy fpcy = new Fpcy();
+            List<Fpcyjl> fpcyjlList = new ArrayList<>();
+            if(session.getAttribute("fpcy") == null){
+                fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+                fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
+                if(fpcyjlList.size()>0){
+                    result.put("fpcyjlList",fpcyjlList);
+                    result.put("status",true);
+                    return result;
+                }
+            }else {
+                fpcy = (Fpcy)session.getAttribute("fpcy");
+                fpcyjlList = (List<Fpcyjl>) session.getAttribute("fpcyjlList");
+                result.put("fpcyjlList",fpcyjlList);
+                result.put("status",true);
+                return result;
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
 }

@@ -5,8 +5,8 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>发票查验</title>
-<meta name="description" content="发票查验">
+<title>发票采集</title>
+<meta name="description" content="发票采集">
 <meta name="keywords" content="user">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -53,7 +53,7 @@ table thead th {
 									<div class="am-cf widget-head">
 										<div class="widget-title am-cf">
 											<strong id="yjcd" class="am-text-primary am-text-lg">发票查验管理</strong>
-											/ <strong id="ejcd">发票查验</strong>
+											/ <strong id="ejcd">发票采集</strong>
 											<button class="am-btn am-btn-success am-fr"
 													data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 										</div>
@@ -154,15 +154,15 @@ table thead th {
 												<div class="am-form-group">
 													<div class="am-btn-toolbar">
 														<div class="am-btn-group am-btn-group-xs">
-															<button type="button" id="kp_add"
+															<button type="button" id="fpcj_zpxz"
 																class="am-btn am-btn-default am-btn-primary">
-																<span></span>单张录入
+																<span></span>专票下载
 															</button>
-															<button type="button" id="kp_dr"
+															<button type="button" id="fpcj_gx"
 																class="am-btn am-btn-default am-btn-default">
-																<span></span>批量录入
+																<span></span>勾选
 															</button>
-															<button type="button" id="kpd_sc"
+															<button type="button" id="fpcj_sc"
 																class="am-btn am-btn-default am-btn-danger">
 																<span></span>删除
 															</button>
@@ -198,20 +198,24 @@ table thead th {
 											<div>
 												<table style="margin-bottom: 0px;"
 													class="js-table am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
-													id="jyls_table">
+													id="fpcj_table">
 													<thead>
 														<tr>
 															<th><input type="checkbox" id="check_all" /></th>
 															<th>序号</th>
+															<th>操作</th>
+															<th>企业名称</th>
 															<th>发票代码</th>
 															<th>发票号码</th>
-															<th>销方</th>
-															<th>报销人</th>
 															<th>开票日期</th>
-															<th>发票类型</th>
-															<th>查验次数</th>
-															<th>数据来源</th>
+															<th>销方名称</th>
+															<th>不含税金额</th>
+															<th>税额</th>
+															<th>价税合计</th>
 															<th>发票状态</th>
+															<th>收票状态</th>
+															<th>发票标签</th>
+															<th>创建日期</th>
 														</tr>
 													</thead>
 												</table>
@@ -223,6 +227,7 @@ table thead th {
 							</div>
 
 	</div>
+
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 		<div class="am-modal-dialog">
 			<div id="conft" class="am-modal-bd">你，确定要删除这条记录吗？</div>
@@ -240,123 +245,49 @@ table thead th {
 			</div>
 		</div>
 	</div>
-
-	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit2">
-		<div class="am-modal-dialog" style="overflow: auto">
-			<div class="am-modal-hd am-modal-footer-hd">
-				单张查验发票录入
-			</div>
-			<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
-				style="display: none">
-				<button type="button" class="am-close">&times</button>
-				<p id="infomessage"></p>
-			</div>
-			<div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}"
-				id="lrmain_tab">
-				<ul class="am-tabs-nav am-nav am-nav-tabs">
-					<li><a href="#tab2" class="ai">扫码录入</a></li>
-					<li class="am-active"><a href="#tab1">手工录入</a></li>
-				</ul>
-
-				<div class="am-tabs-bd">
-					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-						<form class="am-form am-form-horizontal" id="main_form1">
-							<fieldset>
-								<input type="hidden" id="formid">
-
-								<div class="am-form-group">
-									<label  class="am-u-sm-2 am-form-label"><span
-										style="color: red;">*</span>发票类型</label>
-
-									<div class="am-u-sm-4 am-u-end">
-										<input type="radio" name="sglr_fpzl" checked="checked" id="sglr_zp" onclick="CheckAll(this);"  value="01"  />
-											<label for="sglr_zp">专用发票</label>
-										<input type="radio" name="sglr_fpzl"  id="sglr_pp" onclick="CheckAll(this);"  value="02"  />
-											<label for="sglr_pp">普通发票</label>
-										<%--<select id="sglr_fpzl" name="sglr_fpzl">
-											<option value="">选择开票类型</option>
-											<option value="01">专用发票</option>
-											<option value="02">普通发票</option>
-										</select>--%>
-									</div>
-
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit">
+							<div class="am-modal-dialog" style="overflow: auto; height: 268px;">
+								<div class="am-modal-hd am-modal-footer-hd">
+									修改进项发票信息<a href="javascript: void(0)" class="am-close am-close-spin"
+											 data-am-modal-close>&times;</a>
 								</div>
-								<div class="am-form-group">
-									<label for="sglr_fpdm" class="am-u-sm-2 am-form-label"><span
-										style="color: red;" >*</span>发票代码</label>
+								<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
+									 style="display: none">
+									<button type="button" class="am-close">&times</button>
+									<p id="infomessage"></p>
+								</div>
+								<div class="am-tabs am-margin" id="main_tab">
+									<form class="am-form am-form-horizontal" id="main_form">
+										<fieldset>
+											<input type="hidden" name="fplsh" id="formid">
+											<div class="am-form-group">
+												<label for="sfsp_edit" class="am-u-sm-2 am-form-label"><span
+														style="color: red;">*</span>收票状态</label>
+												<div class="am-u-sm-4">
+													<select id="sfsp_edit" name="sfsp">
+														<option value="">请选择</option>
+														<option value="Y">已收票</option>
+														<option value="N">未收票</option>
+													</select>
+												</div>
+												<label for="fpbq_edit" class="am-u-sm-2 am-form-label">发票标签</label>
+												<div class="am-u-sm-4">
+													<input type="text" id="fpbq_edit" name="fpbq"
+														   placeholder="输入发票标签">
+												</div>
+											</div>
+										</fieldset>
+									</form>
 
-									<div class="am-u-sm-4">
-										<input type="text" id="sglr_fpdm" name="sglr_fpdm"
-											  placeholder="输入发票代码" required >
-									</div>
-									<label for="sglr_fphm" class="am-u-sm-2 am-form-label"><span
-										style="color: red;" >*</span>发票号码</label>
-
-									<div class="am-u-sm-4">
-										<input type="text" id="sglr_fphm" name="sglr_fphm"
-											placeholder="输入发票号码" required >
+									<div class="am-margin">
+										<button type="button" id="jxfpxx_xgbc"
+												class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
+										<button type="button" id="close"
+												class="am-btn am-btn-danger am-btn-xs">关闭</button>
 									</div>
 								</div>
-								<div class="am-form-group">
-									<label for="sglr_kprq" class="am-u-sm-2 am-form-label"><span
-											style="color: red;" >*</span>开票日期</label>
-									<div class="am-input-group am-datepicker-date am-u-sm-4"
-										 data-am-datepicker="{format: 'yyyy-mm-dd'}">
-										<input type="text" id="sglr_kprq" class="am-form-field" name="sglr_kprq"
-											   placeholder="开票日期" readonly > <span
-											class="am-input-group-btn am-datepicker-add-on">
-																	<button class="am-btn am-btn-default" type="button">
-																		<span class="am-icon-calendar"></span>
-																	</button>
-																</span>
-									</div>
-									<label for="sglr_je" class="am-u-sm-2 am-form-label"
-									id="je_lable" style="padding-left: 0px"><span style="color: red;" >*</span>金额</label>
-									<label for="sglr_jym" id="jym_lable" style="display: none"
-										   class="am-u-sm-2 am-form-label"><span style="color: red;" >*</span>校验码</label>
-									<div class="am-u-sm-4">
-										<input type="text" id="sglr_je" name="sglr_je"  required placeholder="输入金额(不含税)">
-											<input type="text" id="sglr_jym" name="sglr_jym" style="display: none"
-												   required	   placeholder="输入校验码后6位" >
-									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="sglr_bxr" class="am-u-sm-2 am-form-label"
-										   style="padding-left: 0px">报销人</label>
-									<div class="am-u-sm-4">
-										<input type="text" id="sglr_bxr" name="sglr_bxr"  placeholder="输入报销人">
-									</div>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-					<%--扫码录入--%>
-					<div class="am-tab-panel am-fade am-in am-active" id="tab2">
-						<form class="am-form am-form-horizontal" id="main_form2">
-							<fieldset>
-								<input type="hidden" id="formid2">
-								<div class="am-form-group">
-									<input type="text" id="smlr_info"  name="smlr_info" required>
-								</div>
-								<div class="am-form-group">
-										<input type="text" id="smlr_bxr" name="smlr_bxr"
-											   placeholder="输入报销人"  >
-								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div>
-
-				<div class="am-margin">
-					<button type="button" id="lrsave"
-						class="am-btn am-btn-xs am-btn-secondary">查验</button>
-					<button type="button" id="lrclose"
-						class="am-btn am-btn-danger am-btn-xs">关闭</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
+							</div>
+						</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1"
 		id="bulk-import-div">
 		<div class="am-modal-dialog">
@@ -456,7 +387,7 @@ table thead th {
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script src="assets/js/fpcy.js"></script>
+	<script src="assets/js/fpcj.js"></script>
 	<script src="assets/js/getGfxxInput.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">

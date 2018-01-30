@@ -84,6 +84,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
     }
 %>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;font-size: 12px;">
+                    <input type="text" id="save_fpcyId" name="save_fpcyId" style="display:none;" value=<%=fpcy.getId() %> >
 	                      <%
             double je = 0.00;
             double se = 0.00;
