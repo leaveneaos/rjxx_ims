@@ -197,6 +197,26 @@
 											</span>
 										</div>
 									</div>
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+										<div class="am-form-group">
+											<div class="am-u-md-6 am-u-lg-2">
+												开票日期
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqq" name="w_kprqq"
+													   placeholder="开票起始日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+											<div class="am-u-md-6 am-u-lg-1">
+												至
+											</div>
+											<div class="am-u-md-6 am-u-lg-3">
+												<input type="text" id="w_kprqz" name="w_kprqz"
+													   placeholder="开票截止日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+										</div>
+									</div>
 								</form>
 								<div class="am-u-sm-12 am-padding-top">
 
@@ -342,4 +362,33 @@
 	<script src="assets/js/fpfs.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
 </body>
+<script type="text/javascript">
+    function getCurrentMonthFirst(){
+        var date=new Date();
+        date.setDate(1);
+        return date;
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    $(function() {
+        var startDate = getCurrentMonthFirst();
+        var endDate = new Date();
+        //var $alert = $('#my-alert');
+        $("#w_kprqq").val(formatDate(startDate));
+        $("#w_kprqz").val(formatDate(endDate));
+        $("#s_kprqq").val(formatDate(startDate));
+        $("#s_kprqz").val(formatDate(endDate));
+    });
+</script>
 </html>

@@ -70,6 +70,10 @@ $(function () {
                            }else if (tip == "5") {
                                d.xfmc = txt;
                            }
+                           if(txt ==null || txt ==""){
+                               d.kprqq = $('#w_kprqq').val(); // search 开票日期
+                               d.kprqz = $('#w_kprqz').val(); // search 开票日期
+                           }
                        }else{
                            d.jyrqq = el.$s_jyrqq.val(); // search 交易日期起
                            d.jyrqz = el.$s_jyrqz.val(); // search 交易日期止
@@ -238,12 +242,58 @@ $(function () {
         searchAc: function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
+                var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                if (($("#w_kprqq").val() && $("#w_kprqz").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                // $("#alertt").html('开始日期大于结束日期,Error!');
+                                //               	$("#my-alert").modal('open');
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                            //               	$("#my-alert").modal('open');
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                        //               	$("#my-alert").modal('open');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 e.preventDefault();
                 $('#bj').val('1');
                 loaddata=true;
                 _this.tableEx.ajax.reload();
             });
             el.$button3.on('click', function (e) {
+                var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
+                var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
+                if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                alert('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 e.preventDefault();
                 $('#bj').val('2');
                 loaddata=true;
