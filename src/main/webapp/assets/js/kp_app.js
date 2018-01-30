@@ -178,8 +178,8 @@ $(function() {
                             d.gfmc = el.$s_gfmc.val(); //购方名称
                             d.fpdm = el.$s_fpdm.val(); //发票代码
                             d.fphm = el.$s_fphm.val(); // search 发票号码
-                            d.kprqq = el.$s_kprqq.val(); // search 开票日期
-                            d.kprqz = el.$s_kprqz.val(); // search 开票日期
+                            d.rqq = el.$s_kprqq.val(); // search 开票日期
+                            d.rqz = el.$s_kprqz.val(); // search 开票日期
                             d.spmc = el.$s_spmc.val(); //商品名称
                             d.fpzt = el.$s_fpzt.val(); //发票状态
                             d.fpczlx = el.$s_fpczlx.val();
@@ -275,6 +275,10 @@ $(function() {
                                  d.gfmc = dxcsz;
                             }else if (dxcsm == "ddh"){
                                 d.ddh = dxcsz;
+                            }
+                            if(dxcsz == null || dxcsz ==""){
+                                d.rqq = $('#w_kprqq').val(); // search 开票日期
+                                d.rqz = $('#w_kprqz').val(); // search 开票日期
                             }
                         }else if (bz == "2"){
                             d.xfsh = $('#s_xfsh1').val();   // search 销方
@@ -410,6 +414,32 @@ $(function() {
             });
             $('#kp_search').click(function () {
                 $("#bz123").val("1");
+                var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                if (($("#w_kprqq").val() && $("#w_kprqz").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                // $("#alertt").html('开始日期大于结束日期,Error!');
+                                //               	$("#my-alert").modal('open');
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                            //               	$("#my-alert").modal('open');
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        // $("#alertt").html('Error,请选择同一个年月内的时间!');
+                        //               	$("#my-alert").modal('open');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 $('#xzxfq').attr("selected","selected");
                 $('#xzlxq').attr("selected","selected");
                 loaddata=true;
@@ -417,6 +447,26 @@ $(function() {
             });
             $('#kp_search1').click(function () {
                 $("#bz123").val("2");
+                var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
+                var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
+                if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                alert('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // alert('月份不同,Error!');
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    } else {
+                        // alert('年份不同,Error!');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 loaddata=true;
                 jyls_table.ajax.reload();
             });
