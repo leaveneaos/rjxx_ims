@@ -1,11 +1,11 @@
-<%@page import="com.rjxx.taxeasy.domains.Jyls"%>
 <%@page import="com.rjxx.taxeasy.controller.KpController"%>
-<%@page import="com.rjxx.taxeasy.domains.Jyspmx"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="models.*"%>
+<%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcy" %>
+<%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcymx" %>
 
 <html>
 <head>
@@ -57,21 +57,31 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
 </head>
 <body>
 <%
-    List<Jyspmx> list = (List<Jyspmx>)session.getAttribute("cffplList");
- 	 		if(null==list){list = new ArrayList();}
-    Jyls jyls = (Jyls)session.getAttribute("jyls");
-    if(null==jyls){jyls = new Jyls();}
+    //List<Jyspmx> list = (List<Jyspmx>)session.getAttribute("cffplList");
+ 	 		//if(null==list){list = new ArrayList();}
+    //Jyls jyls = (Jyls)session.getAttribute("jyls");
+    List<Fpcymx> list = (List<Fpcymx>)session.getAttribute("fpcymxList");
+    if(null==list){list = new ArrayList();}
+    Fpcy fpcy = (Fpcy) session.getAttribute("fpcy");
+    if(null==fpcy){fpcy = new Fpcy();}
     List zwlist = (List)session.getAttribute("zwlist");
     if(null==zwlist){zwlist = new ArrayList();}
     String fpzl = "";
-     if(jyls.getFpzldm()!=null&&jyls.getFpzldm().equals("01")){
+     if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("01")){
     	fpzl = "增值税专用发票";
-    }else if(jyls.getFpzldm()!=null&&jyls.getFpzldm().equals("02")){
+    }else if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("04")){
     	fpzl = "增值税普通发票";
-    }
-    else if(jyls.getFpzldm()!=null&&jyls.getFpzldm().equals("12")){
+    }else if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("10")){
     	fpzl = "增值税电子普通发票";
-    } 
+    }else if(fpcy.getFpzldm() !=null && fpcy.getFpzldm().equals("03")){
+        fpzl = "机动统一发票";
+    }else if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("11")){
+        fpzl="卷式普通发票";
+    }else if(fpcy.getFpzldm() !=null && fpcy.getFpzldm().equals("20")){
+         fpzl = "国税";
+    }else if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("30")){
+         fpzl="地税";
+    }
 %>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;font-size: 12px;">
 	                      <%
@@ -98,7 +108,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                   <p>方</p>
                 </td>
                 <td width="85" class="align_left borderNo">名称：</td>
-                <td class="align_left borderNo bgcolorWhite" nowrap=""><span class="content_td_blue" id="gfmc_dzfp"><%=jyls.getGfmc() %></span></td>
+                <td class="align_left borderNo bgcolorWhite" nowrap=""><span class="content_td_blue" id="gfmc_dzfp"><%=fpcy.getGfmc() %></span></td>
                 <td width="20" class="align_center" rowspan="4"> 
                   <p>密</p>
                   <p>码</p>
@@ -108,15 +118,15 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                 </tr>
                 <tr>
                   <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfsbh_dzfp"><%=jyls.getGfsh() %></span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfsbh_dzfp"><%=fpcy.getGfsh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfdzdh_dzfp"><%=jyls.getGfdz() %><%=jyls.getGfdh() %></span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfdzdh_dzfp"><%=fpcy.getGfdzdh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfyhzh_dzfp"><%=jyls.getGfyh() %><%=jyls.getGfyhzh() %></span></td>
+                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfyhzh_dzfp"><%=fpcy.getGfyhyhzh() %></span></td>
                 </tr>
                 
                 <!--表头-->
@@ -135,21 +145,21 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                     </tr>
                           <%
                                             for(int j=0;j<list.size();j++){
-                                            	Jyspmx jyspmx = list.get(j);
+                                            	Fpcymx fpcymx = list.get(j);
                                                 	KpController kp = new KpController();
-                                                   je=kp.add(je, jyspmx.getSpje());
-                                                   se=kp.add(se,jyspmx.getSpse());
+                                                   je=kp.add(je, fpcymx.getSpje());
+                                                   se=kp.add(se,fpcymx.getSpse());
                                                    jshj = kp.add(je,se);
                                         %>
                     <tr>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
-                      <td class="align_center" style="text-align: right;"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=fpcymx.getSpmc()%></span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=fpcymx.getSpggxh()==null?"":fpcymx.getSpggxh()%> </span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue"><%=fpcymx.getSpdw()==null?"":fpcymx.getSpdw()%></span></td>
+                      <td class="align_center borderRight"><span class="content_td_blue">  <%=fpcymx.getSps()==null?"":fpcymx.getSps().toString()%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=fpcymx.getSpdj()==null?"":new DecimalFormat("0.00").format(fpcymx.getSpdj())%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=fpcymx.getSpje()==null?"":new DecimalFormat("0.00").format(fpcymx.getSpje())%></span></td>
+                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue"><%=fpcymx.getSpsl()%></span></td>
+                      <td class="align_center" style="text-align: right;"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(fpcymx.getSpse())%></span></td>
                     </tr>
                       <%
                                             }
@@ -180,24 +190,24 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                     <p>方</p>
                   </td>
                   <td class="align_left borderNo">名称：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfmc_dzfp"><%=jyls.getXfmc() %></span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfmc_dzfp"><%=fpcy.getXfmc() %></span></td>
                   <td width="20" class="align_center" rowspan="4">
                     <p>备</p>
                     <p>注</p>
                   </td>
-                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4"><p><%=jyls.getBz() %></p></td>
+                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4"><p><%=fpcy.getBz() %></p></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfsbh_dzfp"><%=jyls.getXfsh() %></span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfsbh_dzfp"><%=fpcy.getXfsh() %></span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfdzdh_dzfp"><%=jyls.getXfdz() %><%=jyls.getXfdh() %></span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfdzdh_dzfp"><%=fpcy.getXfdzdh() %> </span></td>
                 </tr>
                 <tr>
                   <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfyhzh_dzfp"><%=jyls.getXfyh() %><%=jyls.getXfyhzh() %></span></td>
+                  <td class="align_left borderNo"><span class="content_td_blue" id="xfyhzh_dzfp"><%=fpcy.getXfyhyhzh() %></span></td>
                 </tr>
               </tbody></table>
               

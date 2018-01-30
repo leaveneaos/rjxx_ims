@@ -366,12 +366,13 @@ table thead th {
 			<div class="am-modal-bd" >
 				<div id="">
 					<div style="float: left">
-						<label for="bxr">报销人:</label>
-						<input type="text" id="bxr" name="bxr" value="">
+						<label for="save_bxr">报销人:</label>
+						<input type="text" id="save_bxr" name="save_bxr" value="">
+						<input type="text" id="save_fpcyId" name="save_fpcyId" style="display:none;">
 					</div>
 					<div style="float: left">
-						<label for="bxr" class="align_left">发票标签:</label>
-						<input type="text" id="fpbq">
+						<label for="save_fpbq" class="align_left">发票标签:</label>
+						<input type="text" id="save_fpbq" name="save_fpbq">
 					</div>
 					<div>
 						<button type="button" id="cysave"

@@ -41,26 +41,17 @@ $(function() {
     $("#my-alert-edit2").on("open.modal.amui", function () {
         $("#mx_form").validator("destroy");
         $("#main_form").validator("destroy");
-        jyspmx_edit_table.clear();
-        jyspmx_edit_table.draw();
+        //jyspmx_edit_table.clear();
+        //jyspmx_edit_table.draw();
     });
-    var jyspmx_edit_table = $('#jyspmx_edit_table').DataTable({
-        "searching": false,
-        "bPaginate": false,
-        "bAutoWidth": false,
-        "bSort": false,
-        "scrollY": "100",
-        "scrollCollapse": "true"
-    });
-
 
     $('#kp_add').click(function () {
         mxarr = [];
         $('#lrmx_form').resetForm();
         $('#main_form2').resetForm();
         $modal.modal({"width": 820, "height": 600});
-        jyspmx_edit_table.clear();
-        jyspmx_edit_table.draw();
+        //jyspmx_edit_table.clear();
+        //jyspmx_edit_table.draw();
     });
     $("#lrclose").click(function () {
         $modal.modal("close");
@@ -196,7 +187,7 @@ $(function() {
                             return "";
                         }
                     }},
-                    {"data": "cycs"},
+                    {"data": "cycsTotal"},
                     {"data":function(data){
                         var sjly = data.sjly;
                         switch (sjly) {
@@ -224,21 +215,44 @@ $(function() {
                     cell.innerHTML = page + i + 1;
                 });
             });
+            //查看发票预览
             t.on('click', 'a.view', function () {
                 var data = t.row($(this).parents('tr')).data();
-                alert(data.id);
-                $("#doc-modal-fpyll").load('income/fpcyyl?id='+data.id);
-                $("#doc-modal-fpyl").modal("open");
+                $.ajax({
+                    url: "income/fpcyyl", "type": "POST",  data: {"id":data.id}, success: function (data) {
+                        if (data.status) {
+                            $("#doc-modal-fpyl").modal("open");
+                            $("#save_fpcyId").val(data.id);
+                        } else {
+                            swal(data.msg);
+                            $("#doc-modal-fpyl").modal("close");
+                        }
+                    }
+                });
+            });
+            //发票预览保存
+            $('#cysave').click(function () {
+               var fpbq=  $('#save_fpbq').val();
+                var bxr=  $('#save_fpbq').val();
+                var id=  $('#save_fpcyId').val();
+                $.ajax({
+                    url: "income/saveBc", "type": "POST",  data: {"fpbq":fpbq,"bxr":bxr,"id":id}, success: function (data) {
+                        if (data.status) {
+                            $("#doc-modal-fpyl").modal("close");
+                        } else {
+                            swal(data.msg);
+                        }
+                    }
+                });
+                $("#doc-modal-fpyl").modal("close");
             });
             //删除
             $("#kpd_sc").click(function () {
-
                 var chk_value="" ;
                 $('input[name="dxk"]:checked').each(function(){
                     chk_value+=$(this).val()+",";
                 });
                 var fpcyIds = chk_value.substring(0, chk_value.length-1);
-                alert(fpcyIds);
                 if(chk_value.length==0){
                     swal("请至少选择一条数据");
                 }else{

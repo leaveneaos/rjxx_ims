@@ -15,6 +15,7 @@ import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.vo.FpcyVo;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.utils.ChinaNumber;
 import com.rjxx.utils.leshui.LeShuiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +114,7 @@ public class IncomeController extends BaseController {
                 fpcyVo.setFpzt(fpcy.getFpzt());
                 dataList.add(fpcyVo);
             }
-            logger.info("查询结果"+JSON.toJSONString(dataList));
+            //logger.info("查询结果"+JSON.toJSONString(dataList));
             int total;
             if(0 == start){
                 //total = fpcyMapper.findtotal(map);
@@ -207,24 +209,57 @@ public class IncomeController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/fpcyyl")
-    public String kpyl(String id) throws Exception {
-        Map<String, Object> result = new HashMap<>();
-        /*Jyspmx jyspmx = new Jyspmx();
-        jyspmx.setDjh(Integer.valueOf(kpsqh));
-        List<Jyspmx> mxcl = jyspmxService.findAllByParams(jyspmx);
-        Jyls jyls = jylsService.findOne(Integer.valueOf(kpsqh));
-        List dxlist = new ArrayList();
-        ChinaNumber cn = new ChinaNumber();
-        Double aa = 0.00;
-        for (int x = 0; x < mxcl.size(); x++) {
-            aa = aa + mxcl.get(x).getJshj();
+    @RequestMapping( value= "/fpcyyl")
+    @ResponseBody
+    public Map fpcyyl(String id)   {
+        Map<String, Object> result = null;
+        try {
+            result = new HashMap<>();
+            Fpcy fpcy = new Fpcy();
+            List<Fpcymx> fpcymxList = new ArrayList<>();
+            if(session.getAttribute("fpcy")==null){
+                 fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+                 fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+            }else {
+                 fpcy = (Fpcy)session.getAttribute("fpcy");
+                fpcymxList = (List<Fpcymx>)  session.getAttribute("fpcymxList");
+            }
+            List dxlist = new ArrayList();
+            ChinaNumber cn = new ChinaNumber();
+            if(fpcy.getJshj() !=null && !fpcy.getJshj().equals("")){
+                String jshjstr = fpcy.getJshj().toString();
+                dxlist.add(cn.getCHSNumber(jshjstr));
+            }
+            session.setAttribute("zwlist", dxlist);
+            session.setAttribute("fpcy",fpcy);
+            session.setAttribute("fpcymxList",fpcymxList);
+            result.put("status",true);
+            result.put("id",id);
+            result.put("fpcy",fpcy);
+            result.put("fpcymxList",fpcymxList);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            result.put("status",false);
+            result.put("msg","程序出错，请联系开发人员;");
         }
-        String jshjstr = new DecimalFormat("0.00").format(aa);
-        dxlist.add(cn.getCHSNumber(jshjstr));*/
-        //session.setAttribute("cffplList", mxcl);
-        //session.setAttribute("jyls", jyls);
-        //session.setAttribute("zwlist", dxlist);
-        return "jx/fpcy/fapiao";
+        return result;
     }
+
+    @RequestMapping( value= "/saveBc")
+    @ResponseBody
+    public Map saveBc(String fpbq,String bxr,String id){
+        Map<String, Object> result = null;
+        try {
+            result = new HashMap<>();
+            Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+
+            result.put("status",true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status",false);
+            result.put("msg","程序出错，请联系开发人员;");
+        }
+        return result;
+    }
+
 }
