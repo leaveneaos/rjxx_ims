@@ -189,6 +189,7 @@
 											<div class="am-form-group tpl-table-list-select">
 												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
 													<option value="ddh">订单号</option>
+													<option value="fphm">发票号码</option>
 													<option value="gfmc">购方名称</option>
 												</select>
 											</div>
@@ -202,6 +203,26 @@
 														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 														type="button"></button>
 												</span>
+											</div>
+										</div>
+										<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+											<div class="am-form-group">
+												<div class="am-u-md-6 am-u-lg-2">
+													开票日期
+												</div>
+												<div class="am-u-md-6 am-u-lg-3">
+													<input type="text" id="w_kprqq" name="w_kprqq"
+														   placeholder="开票起始日期"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+												<div class="am-u-md-6 am-u-lg-1">
+													至
+												</div>
+												<div class="am-u-md-6 am-u-lg-3">
+													<input type="text" id="w_kprqz" name="w_kprqz"
+														   placeholder="开票截止日期"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
 											</div>
 										</div>
 									</form>
@@ -391,8 +412,9 @@
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 											<div class="am-form-group tpl-table-list-select">
 												<select id="dxcsm1" data-am-selected="{btnSize: 'sm'}">
-													<option value="gfmc">购方名称</option>
 													<option value="ddh">订单号</option>
+													<option value="fphm">发票号码</option>
+													<option value="gfmc">购方名称</option>
 												</select>
 											</div>
 										</div>
@@ -405,6 +427,26 @@
 														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
 														type="button"></button>
 												</span>
+											</div>
+										</div>
+										<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+											<div class="am-form-group">
+												<div class="am-u-md-6 am-u-lg-2">
+													开票日期
+												</div>
+												<div class="am-u-md-6 am-u-lg-3">
+													<input type="text" id="w_kprqq1" name="w_kprqq"
+														   placeholder="开票起始日期"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+												<div class="am-u-md-6 am-u-lg-1">
+													至
+												</div>
+												<div class="am-u-md-6 am-u-lg-3">
+													<input type="text" id="w_kprqz1" name="w_kprqz"
+														   placeholder="开票截止日期"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
 											</div>
 										</div>
 									</form>
@@ -535,5 +577,38 @@
 	function refresh() {
 		this.location = this.location;
 	}
+</script>
+<script type="text/javascript">
+    function getCurrentMonthFirst(){
+        var date=new Date();
+        date.setDate(1);
+        return date;
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    $(function() {
+        var startDate = getCurrentMonthFirst();
+        var endDate = new Date();
+        //var $alert = $('#my-alert');
+        $("#w_kprqq").val(formatDate(startDate));
+        $("#w_kprqz").val(formatDate(endDate));
+        $("#s_rqq").val(formatDate(startDate));
+        $("#s_rqz").val(formatDate(endDate));
+        $("#w_kprqq1").val(formatDate(startDate));
+        $("#w_kprqz1").val(formatDate(endDate));
+        $("#s_rqq1").val(formatDate(startDate));
+        $("#s_rqz1").val(formatDate(endDate));
+    });
 </script>
 </html>
