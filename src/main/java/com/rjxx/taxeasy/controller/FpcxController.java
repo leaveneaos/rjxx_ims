@@ -203,10 +203,17 @@ public class FpcxController extends BaseController {
     }
 
     // 文件导出
+    @RequestMapping(value = "/exportExcel1")
+    @ResponseBody
+    public Map<String, Object> exportExcel1(String w_kprqq,String w_kprqz, String tip, String txt,String time1,String kplsh) throws Exception {
+       return exportExcel(null,w_kprqq,w_kprqz,time1,null,null,null,null,null,null,null,tip,txt,kplsh,null,null);
+    }
+
+    // 文件导出
     @RequestMapping(value = "/exportExcel")
     @ResponseBody
-    public Map<String, Object> exportExcel(String ddh, String kprqq, String kprqz, String spmc, String fphm,
-                                           String printflag, String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt,String kplsh1) throws Exception {
+    public Map<String, Object> exportExcel(String ddh, String kprqq, String kprqz, String time2,String spmc, String fphm,
+                                           String printflag,String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt,String kplsh1,String jzjtzt,String check) throws Exception {
         String gsdm = this.getGsdm();
         String xfStr = "";
         List<Xf> xfs = getXfList();
@@ -269,9 +276,19 @@ public class FpcxController extends BaseController {
         params.put("xfid", xfid);
         params.put("skpid", skpid);
         params.put("ddh", ddh);
+        if(null!= check && check.equals("1")){
+            params.put("lrry", getYhid());
+        }
+        params.put("jzjtzt",jzjtzt);
         params.put("fphm", fphm);
-        params.put("kprqq", kprqq);
-        params.put("kprqz", kprqz);
+        if(time2.equals("1")){
+            params.put("kprqq", kprqq);
+            params.put("kprqz", kprqz);
+        }else{
+            params.put("kprqq2", kprqq);
+            params.put("kprqz2", kprqz);
+        }
+
         params.put("spmc", spmc);
         params.put("printflag", printflag);
         params.put("gfmc", gfmc);

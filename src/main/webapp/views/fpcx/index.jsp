@@ -51,6 +51,7 @@
 						</div>
 						<div id="doc-oc-demo3" class="am-offcanvas">
 							<form action="<c:url value='fpcx/exportExcel'/>" id="searchform1">
+								<input type="hidden" name="kplsh1" value="" id="kplsh1"/>
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
@@ -237,9 +238,9 @@
 
 						</div>
 						<div class="am-g  am-padding-top">
-							<form action="<c:url value='fpcx/exportExcel'/>" id="searchform"
+							<form action="<c:url value='fpcx/exportExcel1'/>" id="searchform"
 								class="js-search-form  am-form am-form-horizontal">
-								<input type="hidden" name="kplsh1" value="" id="kplsh1"/>
+								<input type="hidden" name="kplsh" value="" id="kplsh"/>
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
@@ -837,6 +838,8 @@
 		$("#w_kprqz").val(formatDate(endDate));
 		$("#s_kprqq").val(formatDate(startDate));
         $("#s_kprqz").val(formatDate(endDate));
+        $("#dc_kprqq").val(formatDate(startDate));
+        $("#dc_kprqz").val(formatDate(endDate));
     });
 
 	function refresh() {

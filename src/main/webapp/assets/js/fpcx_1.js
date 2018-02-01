@@ -297,9 +297,10 @@ $(function() {
                 )
 
                 if(bj == '1'){
-                        $('#kplsh1').val(kplsh11);
+                        $('#kplsh').val(kplsh11);
                         $('#searchform').submit();
                 }else if(bj=='2'){
+                    $('#kplsh1').val(kplsh11);
                     var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
                     var dt2 = new Date(el.$s_kprqz.val().replace(/-/g, "/"));
                     if ((el.$s_kprqq.val() && el.$s_kprqz.val())) {// 都不为空
