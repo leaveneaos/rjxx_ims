@@ -19,8 +19,8 @@ import java.util.Map;
 @WebAppConfiguration
 public class FwkGetDataTest {
 
-    @Autowired
-    private FwkGetDataJob fwkGetDataJob;
+    //@Autowired
+    //private FwkGetDataJob fwkGetDataJob;
 
     @Test
     public void getdata(){
@@ -55,8 +55,8 @@ public class FwkGetDataTest {
         System.out.println(invoiceBack);
         String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
 
-        Map resultMap=fwkGetDataJob.interping(Data);
-        LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
+       // Map resultMap=fwkGetDataJob.interping(Data);
+        //LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
         System.out.println(LastReturnedObjectID);
        /*String ss=" <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\">\n" +
                "    <soap:Header/>\n" +

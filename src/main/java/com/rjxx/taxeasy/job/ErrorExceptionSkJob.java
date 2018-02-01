@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.job;
 
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
+import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.KplsService;
@@ -41,20 +42,58 @@ public class ErrorExceptionSkJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
-            logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
-            do {
+            do{
+                logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
                 String kplshStr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "12");
                 if (StringUtils.isNotBlank(kplshStr)) {
                     int kplsh = Integer.valueOf(kplshStr);
                     Map params = new HashMap();
                     params.put("kplsh", kplsh);
                     Kpls kpls = kplsService.findOneByParams(params);
-                    skService.SkServerKP(kplsh);
-                } else {
+
+                    Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+                    if(cszb.getCsz().equals("01")){
+                        skService.callService(kplsh);
+                    }else if(cszb.getCsz().equals("03")){
+                        if(!kpls.getErrorReason().equals("09D103:发票领购信息已用完")){
+                            skService.SkServerKP(kplsh);
+                        }
+                    }
+                }else{
                     break;
                 }
-                logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
-            } while (true);
+                String kplshzpstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "01");
+                if (StringUtils.isNotBlank(kplshzpstr)) {
+                    int kplshzp = Integer.valueOf(kplshzpstr);
+                    Map params = new HashMap();
+                    params.put("kplsh", kplshzp);
+                    Kpls kpls = kplsService.findOneByParams(params);
+                    Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+                    if(cszb.getCsz().equals("01")){
+                        skService.callService(kplshzp);
+                    }else if(cszb.getCsz().equals("03")){
+                        skService.SkServerKP(kplshzp);
+                    }
+                }else{
+                    break;
+                }
+                String kplshppstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "02");
+                if (StringUtils.isNotBlank(kplshppstr)) {
+                    int kplshpp = Integer.valueOf(kplshppstr);
+                    Map params = new HashMap();
+                    params.put("kplsh", kplshpp);
+                    Kpls kpls = kplsService.findOneByParams(params);
+                    Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+                    if(cszb.getCsz().equals("01")){
+                        skService.callService(kplshpp);
+                    }else if(cszb.getCsz().equals("03")){
+                        skService.SkServerKP(kplshpp);
+                    }
+                }else{
+                    break;
+                }
+                 logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
+            }while (true);
         } catch (Exception e) {
             e.printStackTrace();
         }
