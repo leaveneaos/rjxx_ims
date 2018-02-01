@@ -66,31 +66,33 @@ public class ResultInvoiceJob  implements Job{
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取发票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
         try {
+            do{
             String key="A!9fF&vH";
             byte[] content = (byte[]) rabbitmqUtils.receiveMsg("result", "invoice");
             String invoicedata=new String(content);
-            if (StringUtils.isNotBlank(invoicedata)) {
-                invoicedata = DesUtils.DESDecrypt(invoicedata, key);
-                logger.info("--------数据------------"+invoicedata);
-                if(invoicedata.contains("RESPONSE_COMMON_FPKJ")){
-                    Map<String, String> resultMap = new HashMap<>();
-                    boolean suc = parseDzfpResultXml(resultMap, invoicedata);
-                    String kplshstr=resultMap.get("FPQQLSH").toString();
-                    resultMap.put("KPLSH",kplshstr);
-                    int kplshpp = Integer.valueOf(kplshstr);
-                    Map params = new HashMap();
-                    params.put("kplsh", kplshpp);
-                    Kpls kpls = kplsService.findOneByParams(params);
-                    if(kpls!=null){
-                        if(kpls.getFpzldm().equals("12")){
-                            fpclService.updateKpls(resultMap);
+                if (StringUtils.isNotBlank(invoicedata)) {
+                    invoicedata = DesUtils.DESDecrypt(invoicedata, key);
+                    logger.info("--------数据------------"+invoicedata);
+                    if(invoicedata.contains("RESPONSE_COMMON_FPKJ")){
+                        Map<String, String> resultMap = new HashMap<>();
+                        boolean suc = parseDzfpResultXml(resultMap, invoicedata);
+                        String kplshstr=resultMap.get("FPQQLSH").toString();
+                        resultMap.put("KPLSH",kplshstr);
+                        int kplshpp = Integer.valueOf(kplshstr);
+                        Map params = new HashMap();
+                        params.put("kplsh", kplshpp);
+                        Kpls kpls = kplsService.findOneByParams(params);
+                        if(kpls!=null){
+                            if(kpls.getFpzldm().equals("12")){
+                                fpclService.updateKpls(resultMap);
+                            }
                         }
+                    }else if(invoicedata.contains("Response")){
+                        InvoiceResponse response = XmlJaxbUtils.convertXmlStrToObject(InvoiceResponse.class, invoicedata);
+                        this.updateInvoiceResult(response);
                     }
-                }else if(invoicedata.contains("Response")){
-                    InvoiceResponse response = XmlJaxbUtils.convertXmlStrToObject(InvoiceResponse.class, invoicedata);
-                    this.updateInvoiceResult(response);
                 }
-            }
+            }while (true);
         } catch (Exception e) {
             e.printStackTrace();
         }
