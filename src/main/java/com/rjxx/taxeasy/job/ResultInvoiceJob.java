@@ -86,7 +86,6 @@ public class ResultInvoiceJob  implements Job{
                         Kpls kpls = kplsService.findOneByParams(params);
                         if(kpls!=null){
                             if(kpls.getFpzldm().equals("12")){
-                               // fpclService.updateKpls(resultMap);
                                 this.updateDpresult(kpls,resultMap,suc,invoicedata);
                             }
                         }
@@ -223,37 +222,38 @@ public class ResultInvoiceJob  implements Job{
             updateJyls(kpls.getDjh(), "21");
         }
         //此处开始生成pdf
+        if(kpls.getPdfurl()==null){
+            skService.ReCreatePdf(kpls.getKplsh());
+            Map parms=new HashMap();
+            parms.put("gsdm",kpls.getGsdm());
+            Gsxx gsxx=gsxxService.findOneByParams(parms);
+            //String url="https://vrapi.fvt.tujia.com/Invoice/CallBack";
+            String url=gsxx.getCallbackurl();
+            if(!("").equals(url)&&url!=null){
+                String returnmessage=null;
+                if(!kpls.getGsdm().equals("Family")&&!kpls.getGsdm().equals("fwk")) {
+                    returnmessage = generatePdfService.CreateReturnMessage(kpls.getKplsh());
+                    //输出调用结果
+                    logger.info("回写报文" + returnmessage);
+                    if (returnmessage != null && !"".equals(returnmessage)) {
+                        Map returnMap = generatePdfService.httpPost(returnmessage, kpls);
+                        logger.info("返回报文" + JSON.toJSONString(returnMap));
+                    }
+                }else if(kpls.getGsdm().equals("fwk")){
+                    returnmessage = generatePdfService.CreateReturnMessage3(kpls.getKplsh());
+                    logger.info("回写报文" + returnmessage);
+                    if (returnmessage != null && !"".equals(returnmessage)) {
+                        String ss= HttpUtils.netWebService(url,"CallBack",returnmessage,gsxx.getAppKey(),gsxx.getSecretKey());
+                        String fwkReturnMessageStr=fwkReturnMessage(kpls);
+                        logger.info("----------sap回写报文----------" + fwkReturnMessageStr);
+                        String Data= HttpUtils.doPostSoap1_2(gsxx.getSapcallbackurl(), fwkReturnMessageStr, null,"Wendy","Welcome9");
+                        logger.info("----------fwk平台回写返回报文--------" + ss);
+                        logger.info("----------sap回写返回报文----------" + Data);
 
-        skService.ReCreatePdf(kpls.getKplsh());
-        Map parms=new HashMap();
-        parms.put("gsdm",kpls.getGsdm());
-        Gsxx gsxx=gsxxService.findOneByParams(parms);
-        //String url="https://vrapi.fvt.tujia.com/Invoice/CallBack";
-        String url=gsxx.getCallbackurl();
-        if(!("").equals(url)&&url!=null){
-            String returnmessage=null;
-            if(!kpls.getGsdm().equals("Family")&&!kpls.getGsdm().equals("fwk")) {
-                returnmessage = generatePdfService.CreateReturnMessage(kpls.getKplsh());
-                //输出调用结果
-                logger.info("回写报文" + returnmessage);
-                if (returnmessage != null && !"".equals(returnmessage)) {
-                    Map returnMap = generatePdfService.httpPost(returnmessage, kpls);
-                    logger.info("返回报文" + JSON.toJSONString(returnMap));
+                    }
                 }
-            }else if(kpls.getGsdm().equals("fwk")){
-                returnmessage = generatePdfService.CreateReturnMessage3(kpls.getKplsh());
-                logger.info("回写报文" + returnmessage);
-                if (returnmessage != null && !"".equals(returnmessage)) {
-                    String ss= HttpUtils.netWebService(url,"CallBack",returnmessage,gsxx.getAppKey(),gsxx.getSecretKey());
-                    String fwkReturnMessageStr=fwkReturnMessage(kpls);
-                    logger.info("----------sap回写报文----------" + fwkReturnMessageStr);
-                    String Data= HttpUtils.doPostSoap1_2(gsxx.getSapcallbackurl(), fwkReturnMessageStr, null,"Wendy","Welcome9");
-                    logger.info("----------fwk平台回写返回报文--------" + ss);
-                    logger.info("----------sap回写返回报文----------" + Data);
-
-                }
-            }
-        }
+              }
+         }
     }
     public String   fwkReturnMessage(Kpls kpls) {
         SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
