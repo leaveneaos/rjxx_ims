@@ -71,6 +71,7 @@ public class ResultInvoiceJob  implements Job{
             do{
             String key="A!9fF&vH";
             byte[] content = (byte[]) rabbitmqUtils.receiveMsg("result", "invoice");
+            if(content!=null){
             String invoicedata=new String(content);
                 if (StringUtils.isNotBlank(invoicedata)) {
                     invoicedata = DesUtils.DESDecrypt(invoicedata, key);
@@ -94,6 +95,10 @@ public class ResultInvoiceJob  implements Job{
                         this.updateInvoiceResult(response);
                     }
                 }
+
+               }else{
+                break;
+              }
             }while (true);
         } catch (Exception e) {
             e.printStackTrace();
