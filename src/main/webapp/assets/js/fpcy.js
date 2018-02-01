@@ -85,6 +85,7 @@ $(function() {
             $.ajax({
                 url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
                     if (data.status) {
+                        swal(data.msg);
                         $modal.modal("close");
                         $("#bj").val('3');
                         loaddata=true;
@@ -123,7 +124,7 @@ $(function() {
                         if($("#bj").val()=='1'){
                             d.kprqq = $("#s_rqq").val(); // search 开票日期
                             //d.kprqz = $("#s_rqz").val(); // search 开票日期
-                            d.xfsh = $('#s_xfsh').val();   // search 销方
+                            d.gfsh = $('#s_xfsh').val();   // search 销方
                             d.fpdm = $('#s_fpdm').val();	// search 发票代码
                             d.fphm = $('#s_fphm').val();   // search 发票号码
                             d.fpzldm = $('#s_fplx').val();   // search
@@ -258,8 +259,9 @@ $(function() {
             //查看发票预览
             t.on('click', 'a.view', function () {
                 var data = t.row($(this).parents('tr')).data();
-                $.ajax({
-                    url: "income/fpcyyl", "type": "POST", data: {"id": data.id}, success: function (data) {
+                $("#doc-modal-fpyll").load('income/fpcyyl?id='+data.id);
+                //$.ajax({
+                //    url: "income/fpcyyl", "type": "POST", data: {"id": data.id}, success: function (data) {
                         //if (data.status) {
                         $("#doc-modal-fpyl").modal("open");
                         // $("#save_fpcyId").val(data.id);
@@ -267,8 +269,8 @@ $(function() {
                         //swal(data.msg);
                         // $("#doc-modal-fpyl").modal("close");
                         // }
-                    }
-                });
+                 //   }
+                //});
             });
             //发票预览保存
             $('#cysave').click(function () {

@@ -27,7 +27,6 @@
 .am-table {
 	margin-bottom: 0rem;
 }
-
 table thead th {
 	text-align: center;
 }
@@ -177,6 +176,7 @@ table thead th {
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+														<option value="xfsh">税号</option>
 														<option value="fpdm">发票代码</option>
 														<option value="fphm">发票号码</option>
 													</select>
@@ -227,7 +227,63 @@ table thead th {
 							</div>
 
 	</div>
+	<%--<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit2">
+		<div class="am-modal-dialog"  >
+			<div class="am-modal-hd ">
+				专票下载录入<a href="javascript: void(0)" class="am-close am-close-spin"
+						 data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-tabs-bd">
+				<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+					<form class="am-form am-form-horizontal" id="main_form1">
+						<fieldset>
+							<input type="hidden" id="formid2">
 
+							<div class="am-form-group">
+								<label for="zplr_startDate" class="am-u-sm-2 am-form-label">开始时间</label>
+								<div class="am-input-group am-datepicker-date am-u-sm-4"
+									 data-am-datepicker="{format: 'yyyy-mm-dd'}">
+									<input type="text" id="zplr_startDate" class="am-form-field"
+										   placeholder="开始时间" readonly> <span
+										class="am-input-group-btn am-datepicker-add-on">
+																	<button class="am-btn am-btn-default" type="button">
+																		<span class="am-icon-calendar"></span>
+																	</button>
+																</span>
+								</div>
+								<label for="zplr_endDate" class="am-u-sm-2 am-form-label">截止时间</label>
+								<div class="am-input-group am-datepicker-date am-u-sm-4"
+									 data-am-datepicker="{format: 'yyyy-mm-dd'}">
+									<input type="text" id="zplr_endDate" class="am-form-field"
+										   placeholder="截止时间" readonly> <span
+										class="am-input-group-btn am-datepicker-add-on">
+																	<button class="am-btn am-btn-default" type="button">
+																		<span class="am-icon-calendar"></span>
+																	</button>
+																</span>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="zplr_sh" class="am-u-sm-2 am-form-label"
+									   style="padding-left: 0px">税号</label>
+								<div class="am-u-sm-4">
+									<input type="text" id="zplr_sh" name="zplr_sh" required placeholder="输入税号">
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+
+				<div class="am-margin">
+					<button type="button" id="lrsave"
+							class="am-btn am-btn-xs am-btn-secondary">专票下载</button>
+					<button type="button" id="lrclose"
+							class="am-btn am-btn-danger am-btn-xs">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>--%>
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
 		<div class="am-modal-dialog">
 			<div id="conft" class="am-modal-bd">你，确定要删除这条记录吗？</div>
@@ -245,49 +301,60 @@ table thead th {
 			</div>
 		</div>
 	</div>
-						<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit">
-							<div class="am-modal-dialog" style="overflow: auto; height: 268px;">
-								<div class="am-modal-hd am-modal-footer-hd">
-									修改进项发票信息<a href="javascript: void(0)" class="am-close am-close-spin"
-											 data-am-modal-close>&times;</a>
-								</div>
-								<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
-									 style="display: none">
-									<button type="button" class="am-close">&times</button>
-									<p id="infomessage"></p>
-								</div>
-								<div class="am-tabs am-margin" id="main_tab">
-									<form class="am-form am-form-horizontal" id="main_form">
-										<fieldset>
-											<input type="hidden" name="fplsh" id="formid">
-											<div class="am-form-group">
-												<label for="sfsp_edit" class="am-u-sm-2 am-form-label"><span
-														style="color: red;">*</span>收票状态</label>
-												<div class="am-u-sm-4">
-													<select id="sfsp_edit" name="sfsp">
-														<option value="">请选择</option>
-														<option value="Y">已收票</option>
-														<option value="N">未收票</option>
-													</select>
-												</div>
-												<label for="fpbq_edit" class="am-u-sm-2 am-form-label">发票标签</label>
-												<div class="am-u-sm-4">
-													<input type="text" id="fpbq_edit" name="fpbq"
-														   placeholder="输入发票标签">
-												</div>
-											</div>
-										</fieldset>
-									</form>
-
-									<div class="am-margin">
-										<button type="button" id="jxfpxx_xgbc"
-												class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
-										<button type="button" id="close"
-												class="am-btn am-btn-danger am-btn-xs">关闭</button>
-									</div>
-								</div>
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit">
+		<div class="am-modal-dialog" style="overflow: auto; height: 268px;">
+			<div class="am-modal-hd am-modal-footer-hd">
+				修改进项发票信息<a href="javascript: void(0)" class="am-close am-close-spin"
+						 data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
+				 style="display: none">
+				<button type="button" class="am-close">&times</button>
+				<p id="infomessage"></p>
+			</div>
+			<div class="am-tabs am-margin" id="main_tab">
+				<form class="am-form am-form-horizontal" id="main_form">
+					<fieldset>
+						<input type="hidden" name="fplsh" id="formid">
+						<div class="am-form-group">
+							<label for="sfsp_edit" class="am-u-sm-2 am-form-label"><span
+									style="color: red;">*</span>收票状态</label>
+							<div class="am-u-sm-4">
+								<select id="sfsp_edit" name="sfsp">
+									<option value="">请选择</option>
+									<option value="Y">已收票</option>
+									<option value="N">未收票</option>
+								</select>
+							</div>
+							<label for="fpbq_edit" class="am-u-sm-2 am-form-label">发票标签</label>
+							<div class="am-u-sm-4">
+								<input type="text" id="fpbq_edit" name="fpbq"
+									   placeholder="输入发票标签">
 							</div>
 						</div>
+					</fieldset>
+				</form>
+
+				<div class="am-margin">
+					<button type="button" id="jxfpxx_xgbc"
+							class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
+					<button type="button" id="close"
+							class="am-btn am-btn-danger am-btn-xs">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+		<div class="am-modal-hd">
+			<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+			<div class="am-modal-bd" >
+				<%@ include file="fapiao.jsp" %>
+			</div>
+		</div>
+	</div>
 	<div class="am-modal am-modal-no-btn" tabindex="-1"
 		id="bulk-import-div">
 		<div class="am-modal-dialog">

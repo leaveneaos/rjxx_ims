@@ -370,20 +370,6 @@ table thead th {
 		</div>
 		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
 			<div class="am-modal-bd" >
-				<div style="padding-left: 13px;">
-					<div style="float: left">
-						<label for="save_bxr">报销人:</label>
-						<input type="text" id="save_bxr" name="save_bxr" value="">
-					</div>
-					<div style="float: left;padding-left: 60px;">
-						<label for="save_fpbq" class="align_left">发票标签:</label>
-						<input type="text" id="save_fpbq" name="save_fpbq">
-					</div>
-					<div>
-						<button type="button" id="cysave"
-								class="am-btn am-btn-danger am-btn-xs">保存</button>
-					</div>
-				</div>
 					<%@ include file="fapiao.jsp" %>
 
 			</div>

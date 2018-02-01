@@ -10,20 +10,15 @@ import com.rjxx.taxeasy.dao.leshui.FpcymxJpaDao;
 import com.rjxx.taxeasy.domains.leshui.Fpcy;
 import com.rjxx.taxeasy.domains.leshui.Fpcyjl;
 import com.rjxx.taxeasy.domains.leshui.Fpcymx;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.vo.FpcyVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.ChinaNumber;
-import com.rjxx.utils.leshui.LeShuiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +58,7 @@ public class IncomeController extends BaseController {
      * @param fpdm
      * @param fphm
      * @param kprqq
-     * @param xfsh
+     * @param gfsh
      * @param fpzldm
      * @param loaddata
      * @return
@@ -72,7 +67,7 @@ public class IncomeController extends BaseController {
     @ResponseBody
     @RequestMapping("/getFpcyList")
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
-                                         String xfsh, String fpzldm,boolean loaddata) throws Exception {
+                                         String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 //        Map map = new HashMap();
@@ -92,8 +87,8 @@ public class IncomeController extends BaseController {
             //pagination.addParam("xfs",getXfList());
             pagination.addParam("kprqq",kprqq);
             pagination.addParam("gsdm",gsdm);
-            if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
-                pagination.addParam("xfsh", xfsh);
+            if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {
+                pagination.addParam("xfsh", gfsh);
             }
             List<FpcyVo> dataList = new ArrayList();
             List<Fpcy> fpcyList = fpcyMapper.findByPage(pagination);
@@ -170,11 +165,16 @@ public class IncomeController extends BaseController {
                         session.setAttribute("fpcymxList",fpcymxList);
                     }
                     result.put("status", true);
+                    result.put("msg","查验成功");
                     //result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"，查验日期："+fpcyjl.getCyrq()+"；此次查验状态为："+fpcy.getFpzt());
                     return result;
                 }
            // }
-            String res = leshuiService.fpcyAndSave(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
+            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
+            logger.info(JSON.toJSONString(res));
+            JSONObject resultJson = JSON.parseObject(res);
+            String resultMsg_r = resultJson.getString("resultMsg");//查验结果
+            result.put("msg",resultMsg_r);
             result.put("status", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,7 +210,6 @@ public class IncomeController extends BaseController {
      * @throws Exception
      */
     @RequestMapping( value= "/fpcyyl")
-    @ResponseBody
     public String fpcyyl(String id)   {
         //Map<String, Object> result = null;
         try {
@@ -218,15 +217,9 @@ public class IncomeController extends BaseController {
             Fpcy fpcy = new Fpcy();
             List<Fpcymx> fpcymxList = new ArrayList<>();
             List<Fpcyjl> fpcyjlList = new ArrayList<>();
-            if(session.getAttribute("fpcy")==null){
-                fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
-                fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
-                fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
-            }else {
-                fpcy = (Fpcy)session.getAttribute("fpcy");
-                fpcymxList = (List<Fpcymx>)  session.getAttribute("fpcymxList");
-                fpcyjlList = (List<Fpcyjl>) session.getAttribute("fpcyjlList");
-            }
+            fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+            fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+            fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
             List dxlist = new ArrayList();
             ChinaNumber cn = new ChinaNumber();
             if(fpcy.getJshj() !=null && !fpcy.getJshj().equals("")){

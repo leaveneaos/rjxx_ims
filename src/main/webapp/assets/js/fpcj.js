@@ -41,30 +41,22 @@ $(function() {
     var mxarr = [];
     var $modal = $("#my-alert-edit2");
     var $tab = $('#doc-tab-demo-1');
-    //开票商品明细table
-
     $("#my-alert-edit2").on("open.modal.amui", function () {
-        $("#mx_form").validator("destroy");
         $("#main_form").validator("destroy");
-        //jyspmx_edit_table.clear();
-        //jyspmx_edit_table.draw();
     });
 
-    $('#kp_add').click(function () {
+   /* $('#fpcj_zpxz').click(function () {
         mxarr = [];
-        $('#lrmx_form').resetForm();
         $('#main_form2').resetForm();
-        $modal.modal({"width": 820, "height": 600});
-        //jyspmx_edit_table.clear();
-        //jyspmx_edit_table.draw();
-    });
+        $modal.modal({"width": 820, "height": 388});
+    });*/
     $("#lrclose").click(function () {
         $modal.modal("close");
     });
     var index = 1;
-    $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
+    /*$('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
         jyspmx_edit_table.draw();
-    });
+    });*/
 
 
     var t;
@@ -96,14 +88,15 @@ $(function() {
                             d.fphm = $('#s_fphm').val();   // search 发票号码
                             d.fpzldm = $('#s_fplx').val();   // search
                         } else if ($("#bj").val() == '3') {
-                            d.fpdm = $('#sglr_fpdm').val();	// search 发票代码
-                            d.fphm = $('#sglr_fphm').val();   // search 发票号码
+                            d.xfsh = $('#zplr_sh').val();   // search 发票号码
                         } else {
                             var csm = $('#dxcsm').val();
                             if ("fpdm" == csm) {
                                 d.fpdm = $('#dxcsz').val();
                             } else if ("fphm" == csm) {
                                 d.fphm = $('#dxcsz').val()
+                            }else if("xfsh" == csm){
+                                d.xfsh = $('#dxcsz').val()
                             }
                             // d.kprqq =$("#w_kprqq").val();
                             // d.kprqz = $("#w_kprqz").val(); // search 开票日期
@@ -184,7 +177,65 @@ $(function() {
                     cell.innerHTML = page + i + 1;
                 });
             });
-
+            //查看发票预览
+            t.on('click', 'a.view', function () {
+                var data = t.row($(this).parents('tr')).data();
+                $("#doc-modal-fpyll").load('fpcj/fpcjyl?fplsh='+data.fplsh);
+                $("#doc-modal-fpyl").modal("open");
+            });
+            //勾选
+            $('#fpcj_gx').click(function () {
+                var chk_value = "";
+                $('input[name="dxk"]:checked').each(function () {
+                    chk_value += $(this).val() + ",";
+                });
+                if (chk_value.length == 0) {
+                    swal("请至少选择一条数据");
+                } else if(chk_value.length>2){
+                    swal("只能勾选一条数据");
+                }else {
+                    var data = t.row($('input[name="dxk"]:checked').parents('tr')).data();
+                   if(data.fpzt != "0"){
+                       swal("勾选认证的发票状态只能为正常状态！请重新勾选。");
+                   }else {
+                       alert(data.fplsh);
+                       //修改勾选标志为1：已勾选
+                       $.ajax({
+                           type : "POST",
+                           url : "fpcj/jxfpxxGx",
+                           data : {"fplsh":data.fplsh},
+                           success : function(data) {
+                               if(data.status){
+                                   //页面跳转
+                                   var url ="/kpdshxb";
+                                   $.ajax({
+                                       url:'mainjsp/getName',
+                                       data:{'url':url},
+                                       method:'POST',
+                                       success:function(data){
+                                           var id = data.name;
+                                           $("#"+id,parent.document).css('display','block');
+                                       }
+                                   })
+                                   var v_id = '/kpdshxb';
+                                   $(".ejcd",parent.document).css('background','none');
+                                   var divs = $('.ejcd',parent.document);
+                                   for(var i=0;i<divs.length;i++){
+                                       if($(divs[i]).attr('data')==v_id){
+                                           $(divs[i]).css("background-color","#f2f6f9");
+                                           $("#cd1",parent.document).val($(divs[i]).attr("dele"));
+                                           $("#cd2",parent.document).val($(divs[i]).attr("parname"));
+                                       }
+                                   }
+                                   $("#mainFrame",parent.document).attr("src",v_id);
+                               }else {
+                                   swal("勾选失败，请联系开发人员");
+                               }
+                           }
+                       });
+                   }
+                }
+            });
             //删除
             $("#fpcj_sc").click(function () {
                 var chk_value = "";
@@ -224,8 +275,43 @@ $(function() {
                 $('#main_form').find('[name="fplsh"]').val(row.fplsh);
                 $('#main_form').find('[name="sfsp"]').val(row.sfsp);
                 $('#main_form').find('[name="fpbq"]').val(row.fpdm);
-                $('#my-alert-edit').modal({"width": 800, "height": 450});
+                $('#my-alert-edit').modal({"width": 800, "height": 250});
             });
+            //专票下载
+            $("#fpcj_zpxz").click(function () {
+                //var r = $("#main_form1").validator("isFormValid");
+                //var startDate = $("#zplr_startDate").val();
+                //var endDate = $("#zplr_endDate").val();
+                //var sh = $("#zplr_sh").val();
+                //if(startDate == ""){
+                //    $("#zplr_startDate").focus();
+                //    swal('开始日期不能为空!');
+                //    return false;
+                //}
+                //if(endDate == ""){
+                //    $("#zplr_endDate").focus();
+                //    swal('截止日期不能为空!');
+                //    return false;
+               // }
+               // if (r) {
+                   // var frmData = $("#main_form1").serialize();
+                    $.ajax({
+                        url: "fpcj/zpxz", "type": "POST",  data: {}, success: function (data) {
+                            if (data.status) {
+                                $modal.modal("close");
+                                $("#bj").val('3');
+                                loaddata=true;
+                                t.ajax.reload();
+                            } else {
+                                swal(data.msg);
+                            }
+                        }
+                    });
+                //} else {
+                //    swal('校验不通过!');
+                //}
+            });
+
             $('#check_all').change(function () {
                 if ($('#check_all').prop('checked')) {
                     splsh.splice(0, splsh.length);
