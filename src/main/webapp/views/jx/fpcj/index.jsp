@@ -62,10 +62,10 @@ table thead th {
 												<form id="ycform">
 													<div class="am-offcanvas-content">
 														<div class="am-form-group">
-															<label for="s_xfsh" class="am-u-sm-4 am-form-label">选择购方</label>
+															<label for="s_gfsh" class="am-u-sm-4 am-form-label">选择购方</label>
 															<div class="am-u-sm-8">
-																<select data-am-selected="{btnSize: 'sm'}" id="s_xfsh"
-																	name="xfsh">
+																<select data-am-selected="{btnSize: 'sm'}" id="s_gfsh"
+																	name="s_gfsh">
 																	<option id="xzxfq" value="">选择购方</option>
 																	<c:forEach items="${xfList}" var="item">
 																		<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
@@ -176,7 +176,7 @@ table thead th {
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-														<option value="xfsh">税号</option>
+														<option value="gfsh">购方税号</option>
 														<option value="fpdm">发票代码</option>
 														<option value="fphm">发票号码</option>
 													</select>

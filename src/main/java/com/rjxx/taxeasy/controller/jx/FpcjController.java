@@ -42,6 +42,7 @@ public class FpcjController extends BaseController {
 
     @RequestMapping
     public String index() throws Exception {
+        request.setAttribute("xfList", getXfList());
         return "jx/fpcj/index";
     }
 
@@ -53,7 +54,7 @@ public class FpcjController extends BaseController {
      * @param fpdm
      * @param fphm
      * @param kprqq
-     * @param xfsh
+     * @param gfsh
      * @param fpzldm
      * @param loaddata
      * @return
@@ -62,7 +63,7 @@ public class FpcjController extends BaseController {
     @ResponseBody
     @RequestMapping("/getJxfpxxList")
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
-                                           String xfsh,String gfsh, String fpzldm,boolean loaddata) throws Exception {
+                                           String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Pagination pagination = new Pagination();
 //        Map map = new HashMap();
@@ -82,8 +83,8 @@ public class FpcjController extends BaseController {
             pagination.addParam("xfs",getXfList());
             pagination.addParam("kprqq",kprqq);
             pagination.addParam("gsdm",gsdm);
-            if (null != xfsh && !"".equals(xfsh) && !"-1".equals(xfsh)) {
-                pagination.addParam("xfsh", xfsh);
+            if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {
+                pagination.addParam("gfsh", gfsh);
             }
             //List dataList = new ArrayList();
             List<Jxfpxx> jxfpxxList = jxfpxxMapper.findByPage(pagination);
@@ -220,18 +221,25 @@ public class FpcjController extends BaseController {
 
     /**
      * 修改进项发票信息勾选标志
-     * @param fplsh
+     * @param fplshs
      * @return
      */
     @ResponseBody
     @RequestMapping("/jxfpxxGx")
-    @SystemControllerLog(description = "勾选", key = "fplsh")
-    public Map<String, Object> jxfpxxGx(String fplsh) {
+    @SystemControllerLog(description = "勾选", key = "fplshs")
+    public Map<String, Object> jxfpxxGx(String fplshs) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
-            Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(fplsh));
-            jxfpxx.setGxbz("1");
-            jxfpxxJpaDao.save(jxfpxx);
+            String[] ids = fplshs.split(",");
+            for (String id : ids) {
+                Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
+                jxfpxx.setGxbz("1");
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                jxfpxx.setXgsj(sdf.format(d));
+                jxfpxx.setGxsj(sdf.format(d));
+                jxfpxxJpaDao.save(jxfpxx);
+            }
             result.put("status", true);
         } catch (NumberFormatException e) {
             e.printStackTrace();
