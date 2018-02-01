@@ -185,63 +185,62 @@ $(function() {
             //勾选
             $('#fpcj_gx').click(function () {
                 var chk_value = "";
+                var flag = true;
                 $('input[name="dxk"]:checked').each(function () {
                     chk_value += $(this).val() + ",";
                 });
+                if (chk_value.length == 0) {
+                    swal("请至少选择一条数据");
+                    flag = false;
+                    return false;
+                }
+                //检验勾选状态为正常
                 $(":checkbox:checked","#fpcj_table").each(function(){
                     var tr = $(this).parents("tr");
                     var data = t.row(tr).data();
                     if(data.fpzt !="0"){
                         swal("请选择发票状态为正常的进行勾选操作！");
-                        return;
+                        flag = false;
+                        return false;
                     }
                 });
-                if (chk_value.length == 0) {
-                    swal("请至少选择一条数据");
-                    return false;
-                }else {
-                    //var data = t.row($('input[name="dxk"]:checked').parents('tr')).data();
-                    //alert(data.fplsh);
-                   //if(data.fpzt != "0"){
-                    //   swal("勾选认证的发票状态只能为正常状态！请重新勾选！");
-                    //   return;
-                   //}else {
-                       //修改勾选标志为1：已勾选
-                       $.ajax({
-                           type : "POST",
-                           url : "fpcj/jxfpxxGx",
-                           data : {"fplshs":chk_value},
-                           success : function(data) {
-                               if(data.status){
-                                   //页面跳转
-                                   var url ="/qrgx";
-                                   $.ajax({
-                                       url:'mainjsp/getName',
-                                       data:{'url':url},
-                                       method:'POST',
-                                       success:function(data){
-                                           var id = data.name;
-                                           $("#"+id,parent.document).css('display','block');
-                                       }
-                                   })
-                                   var v_id = '/qrgx';
-                                   $(".ejcd",parent.document).css('background','none');
-                                   var divs = $('.ejcd',parent.document);
-                                   for(var i=0;i<divs.length;i++){
-                                       if($(divs[i]).attr('data')==v_id){
-                                           $(divs[i]).css("background-color","#f2f6f9");
-                                           $("#cd1",parent.document).val($(divs[i]).attr("dele"));
-                                           $("#cd2",parent.document).val($(divs[i]).attr("parname"));
-                                       }
-                                   }
-                                   $("#mainFrame",parent.document).attr("src",v_id);
-                               }else {
-                                   swal("勾选失败，请联系开发人员");
-                               }
-                           }
-                       });
-                   //}
+                if(flag){
+                    //修改勾选状态 为1：已勾选
+                    $.ajax({
+                        type : "POST",
+                        url : "fpcj/jxfpxxGx",
+                        data : {"fplshs":chk_value},
+                        success : function(data) {
+                            if(data.status){
+                                //页面跳转
+                                var url ="/qrgx";
+                                $.ajax({
+                                    url:'mainjsp/getName',
+                                    data:{'url':url},
+                                    method:'POST',
+                                    success:function(data){
+                                        var id = data.name;
+                                        $("#"+id,parent.document).css('display','block');
+                                    }
+                                })
+                                var v_id = '/qrgx';
+                                $(".ejcd",parent.document).css('background','none');
+                                var divs = $('.ejcd',parent.document);
+                                for(var i=0;i<divs.length;i++){
+                                    if($(divs[i]).attr('data')==v_id){
+                                        $(divs[i]).css("background-color","#f2f6f9");
+                                        $("#cd1",parent.document).val($(divs[i]).attr("dele"));
+                                        $("#cd2",parent.document).val($(divs[i]).attr("parname"));
+                                    }
+                                }
+                                $("#mainFrame",parent.document).attr("src",v_id);
+                            }else {
+                                swal("勾选失败，请联系开发人员");
+                            }
+                        }
+                    });
                 }
+
             });
             //删除
             $("#fpcj_sc").click(function () {

@@ -141,70 +141,63 @@ $(function() {
                 $("#doc-modal-fpyll").load('fpcj/fpcjyl?fplsh='+data.fplsh);
                 $("#doc-modal-fpyl").modal("open");
             });
-            //勾选
-            $('#fpcj_gx').click(function () {
+            //勾选认证
+            $('#gxrz_qr').click(function () {
                 var chk_value = "";
                 $('input[name="dxk"]:checked').each(function () {
                     chk_value += $(this).val() + ",";
                 });
                 if (chk_value.length == 0) {
                     swal("请至少选择一条数据");
-                } else if(chk_value.length>2){
-                    swal("只能勾选一条数据");
-                }else {
-                    var data = t.row($('input[name="dxk"]:checked').parents('tr')).data();
-                   if(data.fpzt != "0"){
-                       swal("勾选认证的发票状态只能为正常状态！请重新勾选。");
-                   }else {
-                       //修改勾选标志为1：已勾选
-                       $.ajax({
-                           type : "POST",
-                           url : "fpcj/jxfpxxGx",
-                           data : {"fplsh":data.fplsh},
-                           success : function(data) {
-                               if(data.status){
-                                   //页面跳转
-                                   var url ="/qrgx";
-                                   $.ajax({
-                                       url:'mainjsp/getName',
-                                       data:{'url':url},
-                                       method:'POST',
-                                       success:function(data){
-                                           var id = data.name;
-                                           $("#"+id,parent.document).css('display','block');
-                                       }
-                                   })
-                                   var v_id = '/qrgx';
-                                   $(".ejcd",parent.document).css('background','none');
-                                   var divs = $('.ejcd',parent.document);
-                                   for(var i=0;i<divs.length;i++){
-                                       if($(divs[i]).attr('data')==v_id){
-                                           $(divs[i]).css("background-color","#f2f6f9");
-                                           $("#cd1",parent.document).val($(divs[i]).attr("dele"));
-                                           $("#cd2",parent.document).val($(divs[i]).attr("parname"));
-                                       }
-                                   }
-                                   $("#mainFrame",parent.document).attr("src",v_id);
-                               }else {
-                                   swal("勾选失败，请联系开发人员");
-                               }
-                           }
-                       });
-                   }
+                    return false;
                 }
+                //修改勾选状态 为1：已勾选
+                /*$.ajax({
+                    type : "POST",
+                    url : "fpcj/jxfpxxGx",
+                    data : {"fplshs":chk_value},
+                    success : function(data) {
+                        if(data.status){
+                            //页面跳转
+                            var url ="/qrgx";
+                            $.ajax({
+                                url:'mainjsp/getName',
+                                data:{'url':url},
+                                method:'POST',
+                                success:function(data){
+                                    var id = data.name;
+                                    $("#"+id,parent.document).css('display','block');
+                                }
+                            })
+                            var v_id = '/qrgx';
+                            $(".ejcd",parent.document).css('background','none');
+                            var divs = $('.ejcd',parent.document);
+                            for(var i=0;i<divs.length;i++){
+                                if($(divs[i]).attr('data')==v_id){
+                                    $(divs[i]).css("background-color","#f2f6f9");
+                                    $("#cd1",parent.document).val($(divs[i]).attr("dele"));
+                                    $("#cd2",parent.document).val($(divs[i]).attr("parname"));
+                                }
+                            }
+                            $("#mainFrame",parent.document).attr("src",v_id);
+                        }else {
+                            swal("勾选失败，请联系开发人员");
+                        }
+                    }
+                });*/
             });
-            /*//删除
-            $("#fpcj_sc").click(function () {
+            //取消勾选
+            $("#gxrz_qx").click(function () {
                 var chk_value = "";
                 $('input[name="dxk"]:checked').each(function () {
                     chk_value += $(this).val() + ",";
                 });
                 var fplshs = chk_value.substring(0, chk_value.length - 1);
                 if (chk_value.length == 0) {
-                    swal("请至少选择一条数据");
+                    swal("请至少选择一条数据！");
                 } else {
                     swal({
-                        title: "您确认删除？",
+                        title: "您确认取消勾选吗？",
                         type: "warning",
                         showCancelButton: true,
                         closeOnConfirm: false,
@@ -214,7 +207,7 @@ $(function() {
                         $('.confirm').attr('disabled', "disabled");
                         $.ajax({
                             type: "POST",
-                            url: "fpcj/sc",
+                            url: "qrgx/qx",
                             data: {"fplshs": fplshs},
                         }).done(function (data) {
                             $('.confirm').removeAttr('disabled');
@@ -224,17 +217,7 @@ $(function() {
                     });
 
                 }
-            });*/
-            //修改
-           /* t.on('click', 'a.modify', function () {
-                var row = t.row($(this).parents('tr')).data();
-                //alert(row.fplsh);
-                $('#main_form').find('[name="fplsh"]').val(row.fplsh);
-                $('#main_form').find('[name="sfsp"]').val(row.sfsp);
-                $('#main_form').find('[name="fpbq"]').val(row.fpdm);
-                $('#my-alert-edit').modal({"width": 800, "height": 250});
             });
-*/
             $('#check_all').change(function () {
                 if ($('#check_all').prop('checked')) {
                     splsh.splice(0, splsh.length);
