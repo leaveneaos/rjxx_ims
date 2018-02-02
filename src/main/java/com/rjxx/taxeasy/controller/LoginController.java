@@ -89,7 +89,7 @@ public class LoginController extends BaseController {
 				String ip= IpUtils.getIpAddr(request);
 				logger.info("------IP地址-------"+ip);
 				Cszb cszb = cszbService.getSpbmbbh(getGsdm(), null, null, "ipwhilte");
-				if(cszb.getCsz()!=null){
+				if(cszb.getCsz()!=null&&!"".equals(cszb.getCsz())){
 					boolean isInRange = IpUtils.ipIsInRange(ip, cszb.getCsz());
 					if(!isInRange){
 						modelMap.put("errors", "该IP被限制登录");
