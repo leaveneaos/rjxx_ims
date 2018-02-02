@@ -87,6 +87,7 @@ public class LoginController extends BaseController {
 				session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 						SecurityContextHolder.getContext());
 				String ip= IpUtils.getIpAddr(request);
+				logger.info("------IP地址-------"+ip);
 				Cszb cszb = cszbService.getSpbmbbh(getGsdm(), null, null, "ipwhilte");
 				if(cszb.getCsz()!=null){
 					boolean isInRange = IpUtils.ipIsInRange(ip, cszb.getCsz());
