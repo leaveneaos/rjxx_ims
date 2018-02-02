@@ -10,6 +10,7 @@ import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.leshui.InvoiceAuth;
 import com.rjxx.taxeasy.domains.leshui.Jxfpxx;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class QrgxController extends BaseController{
     private JxfpmxJpaDao jxfpmxJpaDao;
     @Autowired
     private LeshuiService leshuiService;
+    @Autowired
+    private XfService xfService;
 
     @RequestMapping
     public String index() throws Exception {
@@ -126,8 +129,8 @@ public class QrgxController extends BaseController{
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 jxfpxx.setGxbz("0");
                 Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                jxfpxx.setXgsj(sdf.format(d));
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                //jxfpxx.setXgsj(sdf.format(d));
                 jxfpxxJpaDao.save(jxfpxx);
             }
             result.put("status", true);
@@ -160,7 +163,11 @@ public class QrgxController extends BaseController{
                 invoiceAuth.setFpdm(jxfpxx.getFpdm());
                 invoiceAuth.setFphm(jxfpxx.getFphm());
                 list.add(invoiceAuth);
-                String fprz = leshuiService.fprz(jxfpxx.getGfsh(), list);
+                Xf xf = new Xf();
+                xf.setGsdm(jxfpxx.getGsdm());
+                xf.setXfsh(jxfpxx.getGfsh());
+                Xf xf1 = xfService.findOneByParams(xf);
+                String fprz = leshuiService.fprz(jxfpxx.getGfsh(), list,xf1.getId(),gsdm);
                 JSONObject resultJson = JSON.parseObject(fprz);
                 JSONObject head = resultJson.getJSONObject("head");
                 JSONObject body_r = resultJson.getJSONObject("body");

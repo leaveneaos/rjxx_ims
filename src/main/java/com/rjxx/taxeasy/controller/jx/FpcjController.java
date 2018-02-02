@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2018-01-29.
@@ -130,12 +132,12 @@ public class FpcjController extends BaseController {
                 compare_date(nowDate,"");
                 for (Xf xf : xfList) {
                     xfNsrsbh = xf.getXfsh();
-                    String res = leshuiService.fpcxBatch(startDate,endDate,xfNsrsbh,1,gsdm);
-                    logger.info(JSON.toJSONString(res));
-                    JSONObject resultJson = JSON.parseObject(res);
-                    JSONObject head = resultJson.getJSONObject("head");
-                    String rtnMsg = head.getString("rtnMsg");
-                    result.put("msg",rtnMsg);
+                    //String res = leshuiService.fpcxBatch(startDate,endDate,xfNsrsbh,1,gsdm);
+                    //logger.info(JSON.toJSONString(res));
+                    //JSONObject resultJson = JSON.parseObject(res);
+                    //JSONObject head = resultJson.getJSONObject("head");
+                    //String rtnMsg = head.getString("rtnMsg");
+                    //result.put("msg",rtnMsg);
                     result.put("status", true);
                 }
             }else {
@@ -234,10 +236,10 @@ public class FpcjController extends BaseController {
             for (String id : ids) {
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 jxfpxx.setGxbz("1");
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                jxfpxx.setXgsj(sdf.format(d));
-                jxfpxx.setGxsj(sdf.format(d));
+                //Date d = new Date();
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                //jxfpxx.setXgsj(new java.sql.Date());
+                //jxfpxx.setGxsj(new java.sql.Date());
                 jxfpxxJpaDao.save(jxfpxx);
             }
             result.put("status", true);
