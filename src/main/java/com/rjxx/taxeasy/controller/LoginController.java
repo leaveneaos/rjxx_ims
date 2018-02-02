@@ -1,6 +1,8 @@
 package com.rjxx.taxeasy.controller;
 
+import com.rjxx.taxeasy.bizcomm.utils.IpUtils;
 import com.rjxx.taxeasy.bizcomm.utils.XfUtils;
+import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Rabbitmq;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
@@ -48,6 +50,9 @@ public class LoginController extends BaseController {
 	private RabbitmqService rabbitmqService;
 
 	@Autowired
+	private CszbService cszbService;
+
+	@Autowired
 	protected AuthenticationManager authenticationManager;
 
 	@RequestMapping
@@ -81,11 +86,19 @@ public class LoginController extends BaseController {
 				SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 				session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 						SecurityContextHolder.getContext());
+				String ip= IpUtils.getIpAddr(request);
+				Cszb cszb = cszbService.getSpbmbbh(getGsdm(), null, null, "ipwhilte");
+				if(cszb.getCsz()!=null){
+					boolean isInRange = IpUtils.ipIsInRange(ip, cszb.getCsz());
+					if(!isInRange){
+						modelMap.put("errors", "该IP被限制登录");
+						return "login/login";
+					}
+				}
 				List<Xf> xfList = getXfList();
 				if (!xfList.isEmpty()) {
 					return "redirect:/main";
 				}
-				
 				return "redirect:/qymp";
 			} else {
 				modelMap.put("errors", "用户名或密码不正确");
