@@ -304,6 +304,7 @@ $(function() {
                     $.ajax({
                         url: "fpcj/zpxz", "type": "POST",  data: {}, success: function (data) {
                             if (data.status) {
+                                swal(data.msg);
                                 $modal.modal("close");
                                 $("#bj").val('3');
                                 loaddata=true;

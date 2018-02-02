@@ -6,12 +6,16 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.dao.leshui.JxfpmxJpaDao;
 import com.rjxx.taxeasy.dao.leshui.JxfpxxJpaDao;
 import com.rjxx.taxeasy.dao.leshui.JxfpxxMapper;
+import com.rjxx.taxeasy.dao.leshui.JxywjlJpaDao;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.leshui.Jxfpmx;
 import com.rjxx.taxeasy.domains.leshui.Jxfpxx;
+import com.rjxx.taxeasy.domains.leshui.Jxywjl;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.XfService;
 import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ChinaNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +45,10 @@ public class FpcjController extends BaseController {
     private JxfpmxJpaDao jxfpmxJpaDao;
     @Autowired
     private LeshuiService leshuiService;
+    @Autowired
+    private JxywjlJpaDao jxywjlJpaDao;
+    @Autowired
+    private XfService xfService;
 
     @RequestMapping
     public String index() throws Exception {
@@ -121,25 +129,60 @@ public class FpcjController extends BaseController {
         try {
             //校验是否报销
             String gsdm = getGsdm();
-            String startDate ="";
-            String endDate ="";
-            String xfNsrsbh ="";
+            String startDateStr ="";
+            String endDateStr ="";
+            String msg="";
             List<Xf> xfList = getXfList();
             if(xfList.size()>0){
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowDate = sdf.format(d);
-                compare_date(nowDate,"");
                 for (Xf xf : xfList) {
-                    xfNsrsbh = xf.getXfsh();
-                    //String res = leshuiService.fpcxBatch(startDate,endDate,xfNsrsbh,1,gsdm);
-                    //logger.info(JSON.toJSONString(res));
-                    //JSONObject resultJson = JSON.parseObject(res);
-                    //JSONObject head = resultJson.getJSONObject("head");
-                    //String rtnMsg = head.getString("rtnMsg");
-                    //result.put("msg",rtnMsg);
-                    result.put("status", true);
+                    Jxywjl jxywjl = jxywjlJpaDao.findOneByGfId(xf.getId(), gsdm);
+                    if(jxywjl !=null){
+                        //比较现在时间跟上次下载时间
+                        Date d = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String nowDate = sdf.format(d);
+                        startDateStr=nowDate;//现在时间
+                        endDateStr = jxywjl.getJssj().toString();//上次下载时间
+                        int i = compare_date(startDateStr, endDateStr);
+                        if(i == -1 || i==0){
+                            logger.info("现在时间小于等于上次下载时间");
+                            msg = "专票下载部分成功，税号为"+xf.getXfsh()+"的专票下载出错";
+                        }else if(i == 1){
+                            String res = leshuiService.fpcxBatch(jxywjl.getJssj(),new Date(),xf.getXfsh(),gsdm,xf.getId());
+                            logger.info(JSON.toJSONString(res));
+                            if(res!=null && res.equals("0000")){
+                                msg = "专票下载成功！";
+                            }else if (res.equals("5555")){
+                                msg = "专票下载部分成功！";
+                            }else if(res.equals("9999")){
+                                msg = "专票下载失败！";
+                            }
+                        }else {
+                            result.put("msg","专票下载出错，请联系开发人员");
+                            result.put("status", false);
+                            return result;
+                        }
+                    }else {
+                        logger.info("根据税号没有查到业务记录");
+                        Date now = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        String jssj = TimeUtil.getBeforeDays(sdf.format(now),1);
+                        String kssj = TimeUtil.getBeforeDays(jssj, 365);
+                        String ress = leshuiService.fpcxBatch(sdf.parse(kssj),sdf.parse(kssj), xf.getXfsh(), gsdm, xf.getId());
+                        logger.info(JSON.toJSONString(ress));
+                        if(ress!=null && ress.equals("0000")){
+                            msg = "专票下载成功！";
+                        }else if (ress.equals("5555")){
+                            msg = "专票下载部分成功！";
+                        }else if(ress.equals("9999")){
+                            msg = "专票下载失败！";
+                        }
+
+                    }
                 }
+                result.put("status", true);
+                result.put("msg",msg);
+                return result;
             }else {
                 result.put("msg","进项购方信息没有维护，请先维护购方信息！");
                 result.put("status", false);
@@ -187,6 +230,7 @@ public class FpcjController extends BaseController {
             for (String id : ids) {
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 jxfpxx.setYxbz("0");
+                jxfpxx.setXgsj(new Date());
                 jxfpxxJpaDao.save(jxfpxx);
             }
             result.put("msg", "删除成功");
@@ -212,6 +256,7 @@ public class FpcjController extends BaseController {
         try {
             Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
             jxfpxx.setSfsp(sfsp);
+            jxfpxx.setXgsj(new Date());
             jxfpxxJpaDao.save(jxfpxx);
             result.put("msg", true);
         } catch (NumberFormatException e) {
@@ -236,10 +281,8 @@ public class FpcjController extends BaseController {
             for (String id : ids) {
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 jxfpxx.setGxbz("1");
-                //Date d = new Date();
-                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                //jxfpxx.setXgsj(new java.sql.Date());
-                //jxfpxx.setGxsj(new java.sql.Date());
+                jxfpxx.setXgsj(new Date());
+                jxfpxx.setGxsj(new Date());
                 jxfpxxJpaDao.save(jxfpxx);
             }
             result.put("status", true);

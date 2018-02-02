@@ -602,11 +602,11 @@ $(function() {
                     if(skpid==""){
                         skpid =  data.skpid;
                     }else{
-                        if(skpid!=data.skpid){
+                       /* if(skpid!=data.skpid){
                             swal("批量勾选的开票点不一致,请重新勾选");
                             flag = false;
                             return false;
-                        }
+                        }*/
                     }
                     if(fpzldm==""){
                         fpzldm =  data.fpzldm;
@@ -759,11 +759,11 @@ $(function() {
                     if(skpid==""){
                         skpid =  data.skpid;
                     }else{
-                        if(skpid!=data.skpid){
+                        /*if(skpid!=data.skpid){
                             swal("批量勾选的开票点不一致,请重新勾选");
                             flag = false;
                             return false;
-                        }
+                        }*/
                     }
                     if(fpzldm==""){
                         fpzldm =  data.fpzldm;

@@ -19,10 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018-01-22.
@@ -197,6 +196,9 @@ public class IncomeController extends BaseController {
         for (String id : ids) {
             Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
             fpcy.setYxbz("0");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date d = new Date();
+            fpcy.setXgsj(sdf.format(d));
             fpcyJpaDao.save(fpcy);
         }
         result.put("msg", "删除成功");
