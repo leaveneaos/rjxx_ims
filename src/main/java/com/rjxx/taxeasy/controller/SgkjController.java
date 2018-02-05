@@ -9,6 +9,7 @@ import com.rjxx.taxeasy.vo.*;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.BeanConvertUtils;
+import com.rjxx.utils.CheckOrderUtil;
 import com.rjxx.utils.StringUtils;
 import com.rjxx.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,9 @@ public class SgkjController extends BaseController{
     private SkService skService;
     @Autowired
     private InvoiceSplitParamsUtil invoiceSplitParamsUtil;
+    @Autowired
+    private  CheckOrderUtil checkOrderUtil;
+
     @RequestMapping
     public  String index()throws Exception{
 
@@ -300,7 +304,10 @@ public class SgkjController extends BaseController{
             }
             jyxxsq.setJshj(jshj);
             String sfbx=request.getParameter("sfbx");
-            String errormessage=this.checkall(jyxxsq,jymxsqList,sfbx);
+            //String errormessage=this.checkall(jyxxsq,jymxsqList,sfbx);
+            List<Jyxxsq> jyxxsqList = new ArrayList<>();
+            jyxxsqList.add(jyxxsq);
+            String errormessage = checkOrderUtil.checkOrders(jyxxsqList,jymxsqList,null,getGsdm(),null);
             if(("").equals(errormessage)||errormessage==null){
 
                 //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
