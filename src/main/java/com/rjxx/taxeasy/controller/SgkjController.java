@@ -235,6 +235,7 @@ public class SgkjController extends BaseController{
             for (int c = 0; c < mxcount; c++) {
                 Jymxsq jymxsq = new Jymxsq();
                 int xxh = c + 1;
+                jymxsq.setDdh(request.getParameter("ddh"));
                 jymxsq.setSpmxxh(xxh);
                 jymxsq.setFphxz("0");
                 jymxsq.setSpdm(spbms[c]);
