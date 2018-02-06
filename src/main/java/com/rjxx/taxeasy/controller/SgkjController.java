@@ -240,7 +240,9 @@ public class SgkjController extends BaseController{
                 jymxsq.setFphxz("0");
                 jymxsq.setSpdm(spbms[c]);
                 jymxsq.setSpmc(spmcs[c]);
-                jymxsq.setSpje(Double.valueOf(spjes[c])-Double.valueOf(spses[c]));
+                //jymxsq.setSpje(Double.valueOf(spjes[c])-Double.valueOf(spses[c]));
+                //修改商品明细商品金额为含税金额
+                jymxsq.setSpje(Double.valueOf(spjes[c]));
                 if (taxrates.length != 0) {
                     jymxsq.setSpsl(Double.valueOf(taxrates[c]));//商品税率
                 }
