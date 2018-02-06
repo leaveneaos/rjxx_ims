@@ -258,7 +258,6 @@ $(function() {
                     swal("发票种类不能为空");
                     return;
                 }
-                alert(spdm.length);
                 if(spdm.length>20){
                     swal("商品分类编码不能大于20个字符");
                     return;
