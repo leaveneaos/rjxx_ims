@@ -203,6 +203,16 @@ $(function() {
                         flag = false;
                         return false;
                     }
+                    if(data.rzbz=="Y"){
+                        swal("请勾选未认证的专用发票！");
+                        flag = false;
+                        return false;
+                    }
+                    if(data.rzzt == "0"){
+                        swal("不能勾选认证成功状态！");
+                        flag = false;
+                        return false;
+                    }
                 });
                 if(flag){
                     //修改勾选状态 为1：已勾选

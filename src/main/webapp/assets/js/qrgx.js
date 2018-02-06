@@ -144,6 +144,7 @@ $(function() {
             //勾选认证
             $('#gxrz_qr').click(function () {
                 var chk_value = "";
+                var flag = true;
                 $('input[name="dxk"]:checked').each(function () {
                     chk_value += $(this).val() + ",";
                 });
@@ -151,40 +152,42 @@ $(function() {
                     swal("请至少选择一条数据");
                     return false;
                 }
-                //修改勾选状态 为1：已勾选
-                /*$.ajax({
-                    type : "POST",
-                    url : "fpcj/jxfpxxGx",
-                    data : {"fplshs":chk_value},
-                    success : function(data) {
-                        if(data.status){
-                            //页面跳转
-                            var url ="/qrgx";
-                            $.ajax({
-                                url:'mainjsp/getName',
-                                data:{'url':url},
-                                method:'POST',
-                                success:function(data){
-                                    var id = data.name;
-                                    $("#"+id,parent.document).css('display','block');
-                                }
-                            })
-                            var v_id = '/qrgx';
-                            $(".ejcd",parent.document).css('background','none');
-                            var divs = $('.ejcd',parent.document);
-                            for(var i=0;i<divs.length;i++){
-                                if($(divs[i]).attr('data')==v_id){
-                                    $(divs[i]).css("background-color","#f2f6f9");
-                                    $("#cd1",parent.document).val($(divs[i]).attr("dele"));
-                                    $("#cd2",parent.document).val($(divs[i]).attr("parname"));
-                                }
-                            }
-                            $("#mainFrame",parent.document).attr("src",v_id);
-                        }else {
-                            swal("勾选失败，请联系开发人员");
-                        }
+                //检验认证状态为未认证
+                $(":checkbox:checked","#fpcj_table").each(function(){
+                    var tr = $(this).parents("tr");
+                    var data = t.row(tr).data();
+                    if(data.rzbz =="Y"){
+                        swal("请勾选认证标志为未认证的专用发票！");
+                        flag = false;
+                        return false;
                     }
-                });*/
+                    if(data.rzzt == "2"){
+                        swal("不能勾选认证中状态！");
+                        flag = false;
+                        return false;
+                    }
+                    if(data.rzzt == "0"){
+                        swal("不能勾选认证成功状态！");
+                        flag = false;
+                        return false;
+                    }
+                });
+                //认证
+                if(flag){
+                    $.ajax({
+                        type : "POST",
+                        url : "qrgx/gxrz",
+                        data : {"fplshs":chk_value},
+                        success : function(data) {
+                            if(data.status){
+                                swal(data.msg);
+                            }else {
+                                swal("勾选认证失败，请联系开发人员");
+                            }
+                        }
+                    });
+                }
+
             });
             //取消勾选
             $("#gxrz_qx").click(function () {

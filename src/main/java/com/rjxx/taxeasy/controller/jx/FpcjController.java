@@ -166,9 +166,11 @@ public class FpcjController extends BaseController {
                         logger.info("根据税号没有查到业务记录");
                         Date now = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat y = new SimpleDateFormat("yyyy");
                         String jssj = TimeUtil.getBeforeDays(sdf.format(now),1);
+                        String year = y.format(now)+"-01-01";
                         String kssj = TimeUtil.getBeforeDays(jssj, 365);
-                        String ress = leshuiService.fpcxBatch(sdf.parse(kssj),sdf.parse(kssj), xf.getXfsh(), gsdm, xf.getId());
+                        String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
                         logger.info(JSON.toJSONString(ress));
                         if(ress!=null && ress.equals("0000")){
                             msg = "专票下载成功！";

@@ -148,7 +148,7 @@ public class QrgxController extends BaseController{
      * @param fplshs
      * @return
      */
-    @RequestMapping(value = "/zpxz" , method = RequestMethod.POST)
+    @RequestMapping(value = "/gxrz" , method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object>  gxrz(String fplshs){
         Map<String, Object>  result = new HashMap();
@@ -168,11 +168,11 @@ public class QrgxController extends BaseController{
                 xf.setXfsh(jxfpxx.getGfsh());
                 Xf xf1 = xfService.findOneByParams(xf);
                 String fprz = leshuiService.fprz(jxfpxx.getGfsh(), list,xf1.getId(),gsdm);
-                JSONObject resultJson = JSON.parseObject(fprz);
-                JSONObject head = resultJson.getJSONObject("head");
-                JSONObject body_r = resultJson.getJSONObject("body");
-                String rtnMsg = head.getString("rtnMsg");
-                result.put("msg",rtnMsg);
+                if(fprz!=null && fprz.equals("0000")){
+                    result.put("msg","已开始认证，请耐心等待！");
+                }else{
+                    result.put("msg","勾选认证出现异常，请联系开发人员！");
+                }
                 result.put("status",true);
                 return result;
             }
