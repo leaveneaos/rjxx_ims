@@ -1489,7 +1489,7 @@ public class LrkpdController extends BaseController {
             }
             String gfEmailstr = jyxxsq.getGfemail();// 购方email校验
             if(gfEmailstr!=null&&!"".equals(gfEmailstr.trim())){
-                 String []gfEmailArray=gfEmailstr.split("，");
+                 String []gfEmailArray=gfEmailstr.split(",");
                  for(String gfEmail:gfEmailArray){
                      if (gfEmail != null && !"".equals(gfEmail.trim()) && !gfEmail.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")) {
                          msgg = "第" + (i + 2) + "行购方email格式不正确，请重新填写！\r\n";
