@@ -243,7 +243,17 @@ table thead th {
 		</div>
 	</div>
 
+	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+		<div class="am-modal-hd">
+			<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
+			<div class="am-modal-bd" >
+				<%@ include file="fapiao.jsp" %>
 
+			</div>
+		</div>
+	</div>
 
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.form.js"></script>

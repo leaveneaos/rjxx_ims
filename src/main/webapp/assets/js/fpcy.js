@@ -49,7 +49,7 @@ $(function() {
         mxarr = [];
         $('#lrmx_form').resetForm();
         $('#main_form2').resetForm();
-        $modal.modal({"width": 820, "height": 600});
+        $modal.modal({"width": 820, "height": 520});
         //jyspmx_edit_table.clear();
         //jyspmx_edit_table.draw();
     });
