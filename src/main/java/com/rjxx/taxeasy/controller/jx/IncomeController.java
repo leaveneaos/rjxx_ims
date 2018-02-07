@@ -14,12 +14,14 @@ import com.rjxx.taxeasy.service.leshui.LeshuiService;
 import com.rjxx.taxeasy.vo.FpcyVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.ChinaNumber;
+import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -66,7 +68,7 @@ public class IncomeController extends BaseController {
     @ResponseBody
     @RequestMapping("/getFpcyList")
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
-                                         String gfsh, String fpzldm,boolean loaddata) throws Exception {
+                                         String gfsh, String fpzldm,boolean loaddata,String queryType) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 //        Map map = new HashMap();
@@ -91,6 +93,7 @@ public class IncomeController extends BaseController {
             }
             List<FpcyVo> dataList = new ArrayList();
             List<Fpcy> fpcyList = fpcyMapper.findByPage(pagination);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             for (Fpcy fpcy : fpcyList) {
                 Fpcyjl fpcyjl = fpcyjlJpaDao.findOneByFpcyIdAndGsdm(fpcy.getId(), getGsdm());
                 Integer cycsTotal = fpcyjlJpaDao.findCountByFpcyId(fpcyjl.getFpcyid());
@@ -100,7 +103,7 @@ public class IncomeController extends BaseController {
                 fpcyVo.setFphm(fpcy.getFphm());
                 fpcyVo.setXfmc(fpcy.getXfmc());
                 fpcyVo.setBxry(fpcyjl.getBxry());
-                fpcyVo.setKprq(fpcy.getKprq());
+                fpcyVo.setKprq(sdf.format(fpcy.getKprq()));
                 fpcyVo.setFpzldm(fpcy.getFpzldm());
                 fpcyVo.setCycs(fpcy.getCycs());
                 fpcyVo.setCycsTotal(cycsTotal);
@@ -145,7 +148,7 @@ public class IncomeController extends BaseController {
     @RequestMapping(value = "/invoiceCheck" , method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> invoiceCheck(String sglr_fpzl,String sglr_jym ,String sglr_fpdm,
-                                    String sglr_fphm,String sglr_kprq,String sglr_je) {
+                                    String sglr_fphm,String sglr_kprq,String sglr_je ,String sglr_bxr) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             //校验是否报销
@@ -163,18 +166,33 @@ public class IncomeController extends BaseController {
                     if(fpcymxList.size()>0){
                         session.setAttribute("fpcymxList",fpcymxList);
                     }
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String fpzt ="";
+                    if(fpcyjl.getReturncode().equals("00")){
+                        if(fpcyjl.getResultcode().equals("1000")){
+                            if(fpcy.getFpzt()!=null && fpcy.getFpzt().equals("0")){
+                                fpzt = "正常";
+                            }else if(fpcy.getFpzt()!=null && fpcy.getFpzt().equals("1")){
+                                fpzt = "作废";
+                            }
+                        }else {
+                            fpzt = fpcyjl.getResultmsg();
+                        }
+                    }else{
+                        fpzt = fpcyjl.getResultmsg();
+                    }
+
                     result.put("status", true);
-//                    result.put("msg","查验成功");
                     if(fpcyjl.getBxry() == null){
-                        result.put("msg","该发票已存在"+"，上次查验日期："+fpcy.getCyrq()+"\r\n查验状态为："+fpcy.getFpzt());
+                        result.put("msg","该发票已存在"+"，上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
                     }else {
-                        result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+fpcy.getCyrq()+"\r\n查验状态为："+fpcy.getFpzt());
+                        result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
                     }
                     result.put("requery","1");
                     return result;
                 }
-           // }
-            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm,sdf1.parse(sglr_kprq) , sglr_jym, sglr_je,"01",getGsdm(),sglr_bxr);
             logger.info(JSON.toJSONString(res));
             JSONObject resultJson = JSON.parseObject(res);
             String resultMsg_r = resultJson.getString("resultMsg");//查验结果
@@ -193,12 +211,12 @@ public class IncomeController extends BaseController {
     @RequestMapping(value = "/requery" , method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> requery(String sglr_fpzl,String sglr_jym ,String sglr_fpdm,
-                                            String sglr_fphm,String sglr_kprq,String sglr_je) {
+                                            String sglr_fphm,String sglr_kprq,String sglr_je,String sglr_bxr) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
-            //校验是否报销
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             String gsdm = getGsdm();
-            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
+            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm,sdf1.parse(sglr_kprq), sglr_jym, sglr_je,"01",getGsdm(),sglr_bxr);
             logger.info(JSON.toJSONString(res));
             JSONObject resultJson = JSON.parseObject(res);
             String resultMsg_r = resultJson.getString("resultMsg");//查验结果
@@ -226,9 +244,7 @@ public class IncomeController extends BaseController {
         for (String id : ids) {
             Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
             fpcy.setYxbz("0");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date d = new Date();
-            fpcy.setXgsj(sdf.format(d));
+            fpcy.setXgsj(new Date());
             fpcyJpaDao.save(fpcy);
         }
         result.put("msg", "删除成功");
@@ -243,15 +259,10 @@ public class IncomeController extends BaseController {
      */
     @RequestMapping( value= "/fpcyyl")
     public String fpcyyl(String id)   {
-        //Map<String, Object> result = null;
         try {
-            //result = new HashMap<>();
-            Fpcy fpcy = new Fpcy();
-            List<Fpcymx> fpcymxList = new ArrayList<>();
-            List<Fpcyjl> fpcyjlList = new ArrayList<>();
-            fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
-            fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
-            fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
+            Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+            List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
+            List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findByFpcyId(fpcy.getId());
             List dxlist = new ArrayList();
             ChinaNumber cn = new ChinaNumber();
             if(fpcy.getJshj() !=null && !fpcy.getJshj().equals("")){
@@ -262,13 +273,8 @@ public class IncomeController extends BaseController {
             session.setAttribute("fpcy",fpcy);
             session.setAttribute("fpcymxList",fpcymxList);
             session.setAttribute("fpcyjlList",fpcyjlList);
-            //result.put("status",true);
-            //result.put("id",id);
-            //result.put("fpcy",fpcy);
-            //result.put("fpcymxList",fpcymxList);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            //result.put("status",false);
             //result.put("msg","程序出错，请联系开发人员;");
         }
         return "jx/fpcy/fapiao";
@@ -288,6 +294,11 @@ public class IncomeController extends BaseController {
         try {
             result = new HashMap<>();
             Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+                if(StringUtils.isNotBlank(bxr)){
+                    Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(Integer.valueOf(fpcy.getId()));
+                    fpcyjl.setBxry(bxr);
+                    fpcyjlJpaDao.save(fpcyjl);
+                }
             result.put("status",true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,25 +310,45 @@ public class IncomeController extends BaseController {
 
     @RequestMapping(value = "cycs")
     @ResponseBody
-    public Map cycs( String id){
+    public Map<String,Object> cycs(int length, int start, int draw,String id,boolean loaddata){
         Map<String, Object> result = new HashMap<String, Object>();
+        List<FpcyVo> resultList = new ArrayList<>();
         try {
-            Fpcy fpcy = new Fpcy();
-            List<Fpcyjl> fpcyjlList = new ArrayList<>();
-            if(session.getAttribute("fpcy") == null){
-                fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
-                fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
-                if(fpcyjlList.size()>0){
-                    result.put("fpcyjlList",fpcyjlList);
-                    result.put("status",true);
-                    return result;
+            if(loaddata){
+                Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
+                List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findByFpcyId(fpcy.getId());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    for (Fpcyjl fpcyjl : fpcyjlList) {
+                        FpcyVo fpcyVo = new FpcyVo();
+                        if(fpcyjl.getFpzt().equals("0")){
+                            fpcyVo.setFpzt("正常");
+                        }else if(fpcyjl.getFpzt().equals("1")){
+                            fpcyVo.setFpzt("作废");
+                        }
+                        String format = sdf.format(fpcyjl.getCyrq());
+                        fpcyVo.setCyrq(format);
+                        fpcyVo.setCycs(fpcyjl.getCycs());
+                        resultList.add(fpcyVo);
+                    }
+                int total;
+                if(0 == start){
+                    total = fpcyjlJpaDao.findCountByFpcyId(Integer.valueOf(id));
+                    //total = pagination.getTotalRecord();
+                    request.getSession().setAttribute("total",total);
+                }else{
+                    total =  (Integer)request.getSession().getAttribute("total");
+                    //request.getSession().getAttribute("total");
                 }
-            }else {
-                fpcy = (Fpcy)session.getAttribute("fpcy");
-                fpcyjlList = (List<Fpcyjl>) session.getAttribute("fpcyjlList");
-                result.put("fpcyjlList",fpcyjlList);
-                result.put("status",true);
-                return result;
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
+                result.put("draw", draw);
+                result.put("data", resultList);
+            }else{
+                int total = 0;
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
+                result.put("draw", draw);
+                result.put("data", new ArrayList<>());
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();

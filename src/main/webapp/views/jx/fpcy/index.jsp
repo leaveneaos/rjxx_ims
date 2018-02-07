@@ -357,13 +357,52 @@ table thead th {
 			</div>
 		</div>
 	</div>
-	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
+	<%--<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
 		<div id="doc-modal-cyjll" style="background-color: white;"class="am-modal-dialog">
 			<div class="am-modal-bd"  >
-				<div id="cyjl" style="border: 1px solid #ddd;"></div>
+				<div id="cyjl" style="border: 1px solid #ddd;">
+							<table style="margin-bottom: 0px;"
+								   class="js-table2 am-table am-table-bordered am-table-striped am-table-hover"
+								   id="cycs_table">
+								<thead>
+								<tr>
+									<th>序号</th>
+									<th>查验日期</th>
+									<th>发票状态</th>
+								</tr>
+								</thead>
+							</table>
+				</div>
 			</div>
 		</div>
-	</div>
+	</div>--%>
+						<input type="" id="cycsid">
+						<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
+							<div class="am-modal-dialog">
+								<div class="am-modal-hd">
+									发票查验次数信息 <!-- <a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
+								</div>
+								<div class="am-modal-bd">
+									<hr />
+									<div class="am-u-sm-12 am-padding-top">
+										<div>
+											<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+												   id="detail_table">
+												<thead>
+												<tr>
+													<th style="text-align:center">序号</th>
+													<th style="text-align:center">查验次数</th>
+													<th style="text-align:center">查验日期</th>
+													<th style="text-align:center">发票状态</th>
+												</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 	<div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
 		<div class="am-modal-hd">
 			<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>

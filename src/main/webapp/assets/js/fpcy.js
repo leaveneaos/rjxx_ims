@@ -21,7 +21,8 @@ $(function() {
         $jsExport : $('.js-export'),
         $jsLoading : $('.js-modal-loading'),
         $jsPrint : $('.js-print'),
-        $checkAll : $('#select_all')
+        $checkAll : $('#select_all'),
+        $xiugai: $('#doc-modal-cyjl'),
     };
     //批量导入
     var $importModal = $("#bulk-import-div");
@@ -29,20 +30,15 @@ $(function() {
         $('#importExcelForm').resetForm();
         $importModal.modal({"width": 600, "height": 350});
     });
-
-
-
+    var queryType="1";
     $(this).removeData('amui.modal');
     var mxarr = [];
     var $modal = $("#my-alert-edit2");
     var $tab = $('#doc-tab-demo-1');
-    //开票商品明细table
 
     $("#my-alert-edit2").on("open.modal.amui", function () {
         $("#mx_form").validator("destroy");
         $("#main_form").validator("destroy");
-        //jyspmx_edit_table.clear();
-        //jyspmx_edit_table.draw();
     });
 
     $('#kp_add').click(function () {
@@ -50,8 +46,6 @@ $(function() {
         $('#lrmx_form').resetForm();
         $('#main_form2').resetForm();
         $modal.modal({"width": 820, "height": 520});
-        //jyspmx_edit_table.clear();
-        //jyspmx_edit_table.draw();
     });
     $("#lrclose").click(function () {
         $modal.modal("close");
@@ -70,11 +64,6 @@ $(function() {
     //发票查验
     $("#lrsave").click(function () {
         var r = $("#main_form1").validator("isFormValid");
-        var bhsje = $("#sglr_je").val();
-        var jym = $("#sglr_jym").val();
-        var fpdm = $("#sglr_fpdm").val();
-        var fphm = $("#sglr_fphm").val();
-        var kprq = $("#sglr_kprq").val();
         if(kprq == ""){
             $("#sglr_kprq").focus();
             swal('开票日期不能为空!');
@@ -101,7 +90,7 @@ $(function() {
                                 }).done(function (data) {
                                     $('.confirm').removeAttr('disabled');
                                     swal(data.msg);
-                                    //_this.tableEx.ajax.reload();
+                                    t.ajax.reload();
                                 })
                             });
                             $modal.modal("close");
@@ -115,7 +104,6 @@ $(function() {
                             t.ajax.reload();
                         }
                         //swal(data.msg);
-
                     } else {
                         swal(data.msg);
                     }
@@ -148,6 +136,7 @@ $(function() {
                     type : 'POST',
                     data : function(d) {
                         if($("#bj").val()=='1'){
+                            d.queryType=queryType;
                             d.kprqq = $("#s_rqq").val(); // search 开票日期
                             //d.kprqz = $("#s_rqz").val(); // search 开票日期
                             d.gfsh = $('#s_xfsh').val();   // search 销方
@@ -157,7 +146,9 @@ $(function() {
                         } else if ($("#bj").val() == '3') {
                             d.fpdm = $('#sglr_fpdm').val();	// search 发票代码
                             d.fphm = $('#sglr_fphm').val();   // search 发票号码
+                            d.queryType=queryType;
                         } else {
+                            d.queryType=queryType;
                             var csm = $('#dxcsm').val();
                             if ("fpdm" == csm) {
                                 d.fpdm = $('#dxcsz').val();
@@ -220,7 +211,7 @@ $(function() {
                     {
                         "data": null,
                         "render": function (data) {
-                            return '<a class="showCycs" >' + data.cycsTotal + '</a>';
+                            return '<a class="showCycs"   >' + data.cycsTotal + '</a>';
                         }
                         },
                     {
@@ -252,17 +243,25 @@ $(function() {
                     cell.innerHTML = page + i + 1;
                 });
             });
+
+
+            /**
+             * 查验次数
+             */
             t.on('click', '.showCycs', function () {
                 var data = t.row($(this).parents('tr')).data();
-                $.ajax({
+                $("#cycsid").val(data.id);
+                //$("#doc-modal-cyjl").modal("open");
+                t1.ajax.reload();
+                el.$xiugai.modal({"width": 600, "height": 500});
+                /*$.ajax({
                     url: "income/cycs", "type": "POST", data: {"id": data.id}, success: function (data) {
                         if (data.status) {
-                            var fpcyjlList = data.fpcyjlList;
+                            var fpcyjlList = data.resultList;
                             if(fpcyjlList !=null){
                                 var cytitle ;
                                 var html='';
                                 for(var i=0;i<fpcyjlList.length;i++) {
-                                    //alert(i);
                                     html+='<div style="border-bottom: 1px solid #ddd"><ul><li style="float: left">查验日期</li><li class="fr omit" >'+fpcyjlList[i].cyrq+'</li></ul><ul><li style="float: left">查验次数</li><li class="fr omit">'+fpcyjlList[i].cycs+'</li></ul> <ul><li style="float: left">发票状态</li><li class="fr omit">'+fpcyjlList[i].fpzt+'</li></ul></div>';
                                     //cytitle= "查验日期"+fpcyjlList[i].cyrq+",查验次数"+fpcyjlList[i].cycs+",查验状态"+fpcyjlList[i].fpzt;
                                     //$('.showCycs').attr("title", "查验日期"+fpcyjlList[i].cyrq+",查验次数"+fpcyjlList[i].cycs+",查验状态"+fpcyjlList[i].fpzt)
@@ -275,14 +274,50 @@ $(function() {
                         swal(data.msg);
                         }
                     }
-                });
+                });*/
 
             });
-           /* t.on('mouseout', '.showCycs', function () {
-                var data = t.row($(this).parents('tr')).data();
+            /**
+             * 发票查验次数table
+             * @type {jQuery}
+             */
+            var t1 = $('#detail_table').DataTable({
+                "searching": false,
+                "serverSide": true,
+                "sServerMethod": "POST",
+                "processing": true,
+                "scrollX": true,
+                ordering: false,
+                "ajax": {
+                    url: "income/cycs",
+                    type: 'POST',
+                    data: function (d) {
+                        d.id =$("#cycsid").val();  // search
+                        d.loaddata = loaddata;
+                    }
+                },
+                "columns": [
+                    {
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ""
+                    },
+                    {"data": "lxr"},
+                    {"data": "yjdz"},
+                    {"data": "email"},
+                ],
 
-            });*/
-            //查看发票预览
+            });
+            t1.on('draw.dt', function (e, settings, json) {
+                var x = t,
+                    page = x.page.info().start; // 设置第几页
+                t1.column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = page + i + 1;
+                });
+            });
+            /**
+             * 发票预览
+             */
             t.on('click', 'a.view', function () {
                 var data = t.row($(this).parents('tr')).data();
                 $("#doc-modal-fpyll").load('income/fpcyyl?id='+data.id);
@@ -298,12 +333,14 @@ $(function() {
                  //   }
                 //});
             });
-            //发票预览保存
+
+            /**
+             * 发票预览-保存
+             */
             $('#cysave').click(function () {
                 var fpbq = $('#save_fpbq').val();
                 var bxr = $('#save_fpbq').val();
                 var id = $('#save_fpcyId').val();
-                //alert(fpbq +","+bxr+","+id);
                 $.ajax({
                     url: "income/saveBc",
                     "type": "POST",
@@ -318,7 +355,10 @@ $(function() {
                 });
                 $("#doc-modal-fpyl").modal("close");
             });
-            //删除
+
+            /**
+             * 删除
+             */
             $("#kpd_sc").click(function () {
                 var chk_value = "";
                 $('input[name="dxk"]:checked').each(function () {
@@ -369,7 +409,6 @@ $(function() {
                 //$("#kplsh").val(splsh.join(","));
                 //kpspmx_table.ajax.reload();
             });
-
             //选中列查询明细
             $('#jyls_table tbody').on('click', 'tr', function () {
                 var data = t.row($(this)).data();
