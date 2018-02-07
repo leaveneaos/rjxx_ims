@@ -83,7 +83,7 @@ public class IncomeController extends BaseController {
             }
             pagination.addParam("fpdm",fpdm);
             pagination.addParam("fphm",fphm);
-            //pagination.addParam("xfs",getXfList());
+            pagination.addParam("gfs",getXfList());
             pagination.addParam("kprqq",kprqq);
             pagination.addParam("gsdm",gsdm);
             if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {
@@ -154,18 +154,23 @@ public class IncomeController extends BaseController {
             //if(sfyybx.getCsz().equals("是")){
             Fpcy fpcy = fpcyJpaDao.findOneByFpdmAndFphm(sglr_fpdm, sglr_fphm);
                 if(fpcy !=null){
-                    List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findOneByFpcyId(fpcy.getId());
+                    Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(fpcy.getId());
                     List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
                     session.setAttribute("fpcy",fpcy);
-                    if(fpcyjlList.size()>0){
-                        session.setAttribute("fpcyjlList",fpcyjlList);
+                    if(fpcyjl != null){
+                        session.setAttribute("fpcyjlList",fpcyjl);
                     }
                     if(fpcymxList.size()>0){
                         session.setAttribute("fpcymxList",fpcymxList);
                     }
                     result.put("status", true);
-                    result.put("msg","查验成功");
-                    //result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"，查验日期："+fpcyjl.getCyrq()+"；此次查验状态为："+fpcy.getFpzt());
+//                    result.put("msg","查验成功");
+                    if(fpcyjl.getBxry() == null){
+                        result.put("msg","该发票已存在"+"，上次查验日期："+fpcy.getCyrq()+"\r\n查验状态为："+fpcy.getFpzt());
+                    }else {
+                        result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+fpcy.getCyrq()+"\r\n查验状态为："+fpcy.getFpzt());
+                    }
+                    result.put("requery","1");
                     return result;
                 }
            // }
@@ -182,6 +187,31 @@ public class IncomeController extends BaseController {
         }
         return result;
     }
+
+
+
+    @RequestMapping(value = "/requery" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> requery(String sglr_fpzl,String sglr_jym ,String sglr_fpdm,
+                                            String sglr_fphm,String sglr_kprq,String sglr_je) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            //校验是否报销
+            String gsdm = getGsdm();
+            String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm, sglr_kprq, sglr_jym, sglr_je,"01",getGsdm());
+            logger.info(JSON.toJSONString(res));
+            JSONObject resultJson = JSON.parseObject(res);
+            String resultMsg_r = resultJson.getString("resultMsg");//查验结果
+            result.put("msg",resultMsg_r);
+            result.put("status", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", false);
+            result.put("msg", "发票查验出现错误: " + e.getMessage());
+        }
+        return result;
+    }
+
 
     /**
      * 发票查验删除

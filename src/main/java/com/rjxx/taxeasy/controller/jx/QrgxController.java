@@ -81,7 +81,7 @@ public class QrgxController extends BaseController{
             }
             pagination.addParam("fpdm",fpdm);
             pagination.addParam("fphm",fphm);
-            pagination.addParam("xfs",getXfList());
+            pagination.addParam("gfs",getXfList());
             pagination.addParam("kprqq",kprqq);
             pagination.addParam("gsdm",gsdm);
             if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {

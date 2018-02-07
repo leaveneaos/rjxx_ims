@@ -85,11 +85,37 @@ $(function() {
             $.ajax({
                 url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
                     if (data.status) {
-                        swal(data.msg);
-                        $modal.modal("close");
-                        $("#bj").val('3');
-                        loaddata=true;
-                        t.ajax.reload();
+                        if(data.requery !=null && data.requery == "1"){
+                            swal({
+                                title: "提示",
+                                text:data.msg,
+                                //type: "warning",
+                                showCancelButton: true,
+                                closeOnConfirm: false,
+                                confirmButtonText: "重新查询",
+                                confirmButtonColor: "#ec6c62"
+                            }, function () {
+                                $('.confirm').attr('disabled', "disabled");
+                                $.ajax({
+                                    url: "income/requery", "type": "POST",  data: frmData,
+                                }).done(function (data) {
+                                    $('.confirm').removeAttr('disabled');
+                                    swal(data.msg);
+                                    //_this.tableEx.ajax.reload();
+                                })
+                            });
+                            $modal.modal("close");
+                            $("#bj").val('3');
+                            loaddata=true;
+                            t.ajax.reload();
+                        }else {
+                            $modal.modal("close");
+                            $("#bj").val('3');
+                            loaddata=true;
+                            t.ajax.reload();
+                        }
+                        //swal(data.msg);
+
                     } else {
                         swal(data.msg);
                     }
