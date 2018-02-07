@@ -3,14 +3,17 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="models.*"%>
+
 <%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcy" %>
 <%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcymx" %>
 
 <html>
 <head>
+    <%--<script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.form.js"></script>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  	<style type="text/css" rel="stylesheet">
+
 /* 通用表格样式--------------------------------------------------------------------*/
 .comm_table{ text-align:center;}
 .comm_table,.comm_table td,.comm_table th{ border:1px solid #b8b7b7;padding:10px;}
@@ -227,5 +230,27 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
               </tbody></table>
               
             </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('#cysave').click(function () {
+            var fpbq = $('#save_fpbq').val();
+            var bxr = $('#save_fpbq').val();
+            var id = $('#save_fpcyId').val();
+            $.ajax({
+                url: "income/saveBc",
+                "type": "POST",
+                data: {"fpbq": fpbq, "bxr": bxr, "id": id},
+                success: function (data) {
+                    if (data.status) {
+                        $("#doc-modal-fpyl").modal("close");
+                    } else {
+                        swal(data.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

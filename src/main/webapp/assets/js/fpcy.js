@@ -251,9 +251,8 @@ $(function() {
             t.on('click', '.showCycs', function () {
                 var data = t.row($(this).parents('tr')).data();
                 $("#cycsid").val(data.id);
-                //$("#doc-modal-cyjl").modal("open");
                 t1.ajax.reload();
-                el.$xiugai.modal({"width": 600, "height": 500});
+                el.$xiugai.modal({"width": 550, "height": 500});
                 /*$.ajax({
                     url: "income/cycs", "type": "POST", data: {"id": data.id}, success: function (data) {
                         if (data.status) {
@@ -275,12 +274,7 @@ $(function() {
                         }
                     }
                 });*/
-
             });
-            /**
-             * 发票查验次数table
-             * @type {jQuery}
-             */
             var t1 = $('#detail_table').DataTable({
                 "searching": false,
                 "serverSide": true,
@@ -302,9 +296,9 @@ $(function() {
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "lxr"},
-                    {"data": "yjdz"},
-                    {"data": "email"},
+                    {"data": "cycs"},
+                    {"data": "cyrq"},
+                    {"data": "fpzt"},
                 ],
 
             });
@@ -321,39 +315,7 @@ $(function() {
             t.on('click', 'a.view', function () {
                 var data = t.row($(this).parents('tr')).data();
                 $("#doc-modal-fpyll").load('income/fpcyyl?id='+data.id);
-                //$.ajax({
-                //    url: "income/fpcyyl", "type": "POST", data: {"id": data.id}, success: function (data) {
-                        //if (data.status) {
-                        $("#doc-modal-fpyl").modal("open");
-                        // $("#save_fpcyId").val(data.id);
-                        // } else {
-                        //swal(data.msg);
-                        // $("#doc-modal-fpyl").modal("close");
-                        // }
-                 //   }
-                //});
-            });
-
-            /**
-             * 发票预览-保存
-             */
-            $('#cysave').click(function () {
-                var fpbq = $('#save_fpbq').val();
-                var bxr = $('#save_fpbq').val();
-                var id = $('#save_fpcyId').val();
-                $.ajax({
-                    url: "income/saveBc",
-                    "type": "POST",
-                    data: {"fpbq": fpbq, "bxr": bxr, "id": id},
-                    success: function (data) {
-                        if (data.status) {
-                            $("#doc-modal-fpyl").modal("close");
-                        } else {
-                            swal(data.msg);
-                        }
-                    }
-                });
-                $("#doc-modal-fpyl").modal("close");
+                $("#doc-modal-fpyl").modal({"width": 890, "height": 530});
             });
 
             /**
@@ -521,115 +483,17 @@ $(function() {
             })
         },
 
-        /**
-         * 修改保存
-         */
-        xgbc: function () {
-            var _this = this;
 
-            $("#kpd_xgbc").on('click', function (e) {
-                $('.confirm').attr('disabled', "disabled");
-                var r = $("#main_form").validator("isFormValid");
-                if (r) {
-                    $.ajax({
-                        type: "POST",
-                        url: "kpdsh/xgbckpd",
-                        data: $('#main_form').serialize(),
-                        success: function (data) {
-                            if (data.msg) {
-                                $('.confirm').removeAttr('disabled');
-                                swal("修改成功");
-                                $('#my-alert-edit').modal('close')
-                                _this.tableEx.ajax.reload();
-                            }
-                        }
-                    });
-                } else {
-                }
-            });
-
-        },
-        /**
-         * 修改保存mx
-         */
-        xgbcmx: function () {
-            var _this = this;
-            $("#kpdmx_xgbc").on('click', function (e) {
-                $('.confirm').attr('disabled', "disabled");
-                var r = $("#main_form1").validator("isFormValid");
-                if (r) {
-                    $('#mx_spse1').val($('#mx_spse').val());
-                    $.ajax({
-                        type: "POST",
-                        url: "kpdsh/xgbcmx",
-                        data: $('#main_form1').serialize(),
-                        success: function (data) {
-                            if (data.msg) {
-                                $('.confirm').removeAttr('disabled');
-                                swal("修改成功");
-                                $('#my-alert-edit1').modal('close');
-                                _this.tableEx.ajax.reload();
-                                kpspmx_table.ajax.reload();
-                            }
-                        }
-                    });
-                } else {
-
-                }
-            });
-
-        },
-        modalAction: function () {
-            $("#close").on('click', function () {
-                $('#my-alert-edit').modal('close');
-            });
-            $("#mxclose").on('click', function () {
-                $('#my-alert-edit1').modal('close');
-            });
-            $("#kp_hbkp").on('click', function () {
-                var chk_value = "";
-                $('input[name="dxk"]:checked').each(function () {
-                    chk_value += $(this).val() + ",";
-                });
-                var ddhs = chk_value.substring(0, chk_value.length - 1);
-                if (chk_value.length < 2) {
-                    swal("请至少选择2条数据!")
-                } else {
-
-                }
-            });
-        },
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.search_ac();
-            _this.xgbc();
-            _this.xgbcmx();
-            _this.modalAction(); // hidden action
+
         }
     };
     action.init();
 
 });
 
-function yzje(je){
-    var zdje = $(je).attr("max");
-    var zhi= $(je).val();
-    if(zdje==0){
-        swal("最大金额为0 ,请维护开票限额");
-        return;
-    }
-    if(zhi*1>zdje*1){
-        var msg = "不能超过分票金额"+zdje*1;
-        swal(msg);
-        $(je).val(zdje);
-    }
-}
-function delcommafy(num){
-    if((num+"").trim()==""){
-        return "";
-    }
-    num=num.replace(/,/gi,'');
-    return num;
-}
+
 
