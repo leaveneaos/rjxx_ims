@@ -64,6 +64,7 @@ $(function() {
     //发票查验
     $("#lrsave").click(function () {
         var r = $("#main_form1").validator("isFormValid");
+        var kprq = $("#sglr_kprq").val();
         if(kprq == ""){
             $("#sglr_kprq").focus();
             swal('开票日期不能为空!');

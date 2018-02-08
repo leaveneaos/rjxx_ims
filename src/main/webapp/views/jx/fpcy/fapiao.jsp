@@ -101,7 +101,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                                     class="am-btn am-btn-danger am-btn-xs">保存</button>
                         </div>
                     </div>
-                    <input type="text" id="save_fpcyId" name="save_fpcyId" style="display:none;" value=<%=fpcy.getId() %> >
+                    <input type="hidden" id="save_fpcyId" name="save_fpcyId" style="display:none;" value=<%=fpcy.getId() %> >
 	                      <%
             double je = 0.00;
             double se = 0.00;

@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="assets/css/admin.css" />
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
-<link rel="stylesheet" href="css/main.css" />s
+<link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
@@ -361,7 +361,7 @@ table thead th {
 			</div>
 		</div>
 	</div>
-	<input type="" id="cycsid">
+	<input type="hidden" id="cycsid">
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">
