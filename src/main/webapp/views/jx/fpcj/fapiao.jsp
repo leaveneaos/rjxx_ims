@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="models.*"%>
 <%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcy" %>
 <%@ page import="com.rjxx.taxeasy.domains.leshui.Fpcymx" %>
 <%@ page import="com.rjxx.taxeasy.domains.leshui.Jxfpmx" %>
@@ -65,7 +64,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
     if(null==jxfpxx){jxfpxx = new Jxfpxx();}
     List zwlist = (List)session.getAttribute("zwlist");
     if(null==zwlist){zwlist = new ArrayList();}
-    String fpzl = "";
+    /*String fpzl = "";
      if(jxfpxx.getFpzldm()!=null&&jxfpxx.getFpzldm().equals("01")){
     	fpzl = "增值税专用发票";
     }else if(jxfpxx.getFpzldm()!=null&&jxfpxx.getFpzldm().equals("04")){
@@ -80,7 +79,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
          fpzl = "国税";
     }else if(jxfpxx.getFpzldm()!=null&&jxfpxx.getFpzldm().equals("30")){
          fpzl="地税";
-    }
+    }*/
 %>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;font-size: 12px;margin-top: 10px;">
 	                      <%
@@ -88,7 +87,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
             double se = 0.00;
             double jshj = 0.00;
     %>
-              <h1 id="fpcc_dzfp" style="padding: 5px 0px;margin-top: 2px; text-align: center; color: rgb(87, 75, 157);"><%=fpzl%></h1>
+              <h1 id="fpcc_dzfp" style="padding: 5px 0px;margin-top: 2px; text-align: center; color: rgb(87, 75, 157);"><%=jxfpxx.getFpzldm() %></h1>
        <!--        <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
                 <tbody><tr height="30">                  
                   <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp"></span></td>

@@ -139,17 +139,16 @@ public class FpcjController extends BaseController {
                     if(jxywjl !=null){
                         //比较现在时间跟上次下载时间
                         Date d = new Date();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         String nowDate = sdf.format(d);
                         startDateStr=nowDate;//现在时间
                         endDateStr = jxywjl.getJssj().toString();//上次下载时间
                         int i = compare_date(startDateStr, endDateStr);
                         if(i == -1 || i==0){
                             logger.info("现在时间小于等于上次下载时间");
-                            msg = "专票下载部分成功，税号为"+xf.getXfsh()+"的专票下载出错";
+                            msg = xf.getXfsh()+"的专票已下载成功！";
                         }else if(i == 1){
                             String res = leshuiService.fpcxBatch(jxywjl.getJssj(),new Date(),xf.getXfsh(),gsdm,xf.getId());
-                            logger.info(JSON.toJSONString(res));
                             if(res!=null && res.equals("0000")){
                                 msg = "专票下载成功！";
                             }else if (res.equals("5555")){
@@ -170,8 +169,8 @@ public class FpcjController extends BaseController {
                         String jssj = TimeUtil.getBeforeDays(sdf.format(now),1);
                         String year = y.format(now)+"-01-01";
                         String kssj = TimeUtil.getBeforeDays(jssj, 365);
-                        String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
-                        logger.info(JSON.toJSONString(ress));
+                        //String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
+                        String ress = leshuiService.fpcxBatch(sdf.parse("2018-01-01"),sdf.parse("2018-02-07"), "91310112312480621D", getGsdm(), xfList.get(0).getId());
                         if(ress!=null && ress.equals("0000")){
                             msg = "专票下载成功！";
                         }else if (ress.equals("5555")){
@@ -200,7 +199,7 @@ public class FpcjController extends BaseController {
     }
     public static int compare_date(String DATE1, String DATE2) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dt1 = df.parse(DATE1);
             Date dt2 = df.parse(DATE2);
             if (dt1.getTime() > dt2.getTime()) {
