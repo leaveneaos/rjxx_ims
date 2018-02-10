@@ -44,21 +44,10 @@ $(function() {
     $("#my-alert-edit2").on("open.modal.amui", function () {
         $("#main_form").validator("destroy");
     });
-
-   /* $('#fpcj_zpxz').click(function () {
-        mxarr = [];
-        $('#main_form2').resetForm();
-        $modal.modal({"width": 820, "height": 388});
-    });*/
     $("#lrclose").click(function () {
         $modal.modal("close");
     });
     var index = 1;
-    /*$('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
-        jyspmx_edit_table.draw();
-    });*/
-
-
     var t;
     var splsh=[];
     var loaddata=false;
@@ -287,7 +276,6 @@ $(function() {
             //修改
             t.on('click', 'a.modify', function () {
                 var row = t.row($(this).parents('tr')).data();
-                //alert(row.fplsh);
                 $('#main_form').find('[name="fplsh"]').val(row.fplsh);
                 $('#main_form').find('[name="sfsp"]').val(row.sfsp);
                 $('#main_form').find('[name="fpbq"]').val(row.fpdm);
@@ -295,22 +283,6 @@ $(function() {
             });
             //专票下载
             $("#fpcj_zpxz").click(function () {
-                //var r = $("#main_form1").validator("isFormValid");
-                //var startDate = $("#zplr_startDate").val();
-                //var endDate = $("#zplr_endDate").val();
-                //var sh = $("#zplr_sh").val();
-                //if(startDate == ""){
-                //    $("#zplr_startDate").focus();
-                //    swal('开始日期不能为空!');
-                //    return false;
-                //}
-                //if(endDate == ""){
-                //    $("#zplr_endDate").focus();
-                //    swal('截止日期不能为空!');
-                //    return false;
-               // }
-               // if (r) {
-                   // var frmData = $("#main_form1").serialize();
                     $.ajax({
                         url: "fpcj/zpxz", "type": "POST",  data: {}, success: function (data) {
                             if (data.status) {
@@ -324,9 +296,6 @@ $(function() {
                             }
                         }
                     });
-                //} else {
-                //    swal('校验不通过!');
-                //}
             });
 
             $('#check_all').change(function () {

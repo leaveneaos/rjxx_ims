@@ -266,27 +266,6 @@ $(function() {
                 $("#cycsid").val(data.id);
                 t1.ajax.reload();
                 el.$xiugai.modal({"width": 550, "height": 500});
-                /*$.ajax({
-                    url: "income/cycs", "type": "POST", data: {"id": data.id}, success: function (data) {
-                        if (data.status) {
-                            var fpcyjlList = data.resultList;
-                            if(fpcyjlList !=null){
-                                var cytitle ;
-                                var html='';
-                                for(var i=0;i<fpcyjlList.length;i++) {
-                                    html+='<div style="border-bottom: 1px solid #ddd"><ul><li style="float: left">查验日期</li><li class="fr omit" >'+fpcyjlList[i].cyrq+'</li></ul><ul><li style="float: left">查验次数</li><li class="fr omit">'+fpcyjlList[i].cycs+'</li></ul> <ul><li style="float: left">发票状态</li><li class="fr omit">'+fpcyjlList[i].fpzt+'</li></ul></div>';
-                                    //cytitle= "查验日期"+fpcyjlList[i].cyrq+",查验次数"+fpcyjlList[i].cycs+",查验状态"+fpcyjlList[i].fpzt;
-                                    //$('.showCycs').attr("title", "查验日期"+fpcyjlList[i].cyrq+",查验次数"+fpcyjlList[i].cycs+",查验状态"+fpcyjlList[i].fpzt)
-                                }
-                                $("#cyjl").html(html);
-                                //$('.showCycs').attr("title", cytitle);
-                                $("#doc-modal-cyjl").modal("open");
-                            }
-                        } else {
-                        swal(data.msg);
-                        }
-                    }
-                });*/
             });
             var t1 = $('#detail_table').DataTable({
                 "searching": false,
