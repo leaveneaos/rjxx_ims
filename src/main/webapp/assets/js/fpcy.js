@@ -235,7 +235,19 @@ $(function() {
                             return sjly;
                         }
                     },
-                    {"data": "fpzt"},
+                    {
+                        "data": function (data) {
+                            if ("0" == data.fpzt) {
+                                return "正常";
+                            } else if ("1" == data.fpzt) {
+                                return "作废";
+                            } else if ("9" == data.fpzt) {
+                                return "失败";
+                            } else {
+                                return "";
+                            }
+                        }
+                    }
                 ]
             });
             t.on('draw.dt', function (e, settings, json) {

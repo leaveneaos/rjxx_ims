@@ -183,7 +183,7 @@ public class IncomeController extends BaseController {
                     }
 
                     result.put("status", true);
-                    if(fpcyjl.getBxry() == null){
+                    if(StringUtils.isBlank(fpcyjl.getBxry())){
                         result.put("msg","该发票已存在"+"，上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
                     }else {
                         result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
@@ -318,17 +318,25 @@ public class IncomeController extends BaseController {
                 Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
                 List<Fpcyjl> fpcyjlList = fpcyjlJpaDao.findByFpcyId(fpcy.getId());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                int i=1;
                     for (Fpcyjl fpcyjl : fpcyjlList) {
                         FpcyVo fpcyVo = new FpcyVo();
-                        if(fpcyjl.getFpzt().equals("0")){
+                        if(fpcyjl.getFpzt()!=null && fpcyjl.getFpzt().equals("0")){
                             fpcyVo.setFpzt("正常");
-                        }else if(fpcyjl.getFpzt().equals("1")){
+                        }else if(fpcyjl.getFpzt()!=null && fpcyjl.getFpzt().equals("1")){
                             fpcyVo.setFpzt("作废");
+                        }else if(fpcyjl.getFpzt()!=null && fpcyjl.getFpzt().equals("9")){
+                            fpcyVo.setFpzt("失败");
                         }
-                        String format = sdf.format(fpcyjl.getCyrq());
-                        fpcyVo.setCyrq(format);
-                        fpcyVo.setCycs(fpcyjl.getCycs());
+                        if(fpcyjl.getCyrq()!=null&&!fpcyjl.getCyrq().equals("")){
+                            String format = sdf.format(fpcyjl.getCyrq());
+                            fpcyVo.setCyrq(format);
+                        }else {
+                            fpcyVo.setCyrq("");
+                        }
+                        fpcyVo.setCycs(i);
                         resultList.add(fpcyVo);
+                        i++;
                     }
                 int total;
                 if(0 == start){
