@@ -104,7 +104,7 @@ public class IncomeController extends BaseController {
                 fpcyVo.setFpdm(fpcy.getFpdm());
                 fpcyVo.setFphm(fpcy.getFphm());
                 fpcyVo.setXfmc(fpcy.getXfmc());
-                fpcyVo.setBxry(fpcyjl.getBxry());
+                fpcyVo.setBxry(fpcy.getBxry());
                 fpcyVo.setKprq(sdf.format(fpcy.getKprq()));
                 fpcyVo.setFpzldm(fpcy.getFpzldm());
                 fpcyVo.setCycs(fpcy.getCycs());
@@ -159,22 +159,6 @@ public class IncomeController extends BaseController {
             String msg="";
             Fpcy fpcy = fpcyJpaDao.findOneByFpdmAndFphm(sglr_fpdm, sglr_fphm);
                 if(fpcy !=null){
-                    /*if(StringUtils.isNotBlank(sglr_jym)){
-                        if(!fpcy.getJym().equals(sglr_jym)){
-                           msg +="校验码错误！";
-                        }
-                        if(StringUtils.isNotBlank(sglr_je)){
-                            if(!fpcy.getJshj().equals(sglr_je)){
-
-                            }
-                        }
-                        if(StringUtils.isNotBlank(sglr_kprq)){
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            if(!sdf.format(fpcy.getKprq()).equals(sglr_kprq)){
-
-                            }
-                        }
-                    }*/
                     Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(fpcy.getId());
                     List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
                     session.setAttribute("fpcy",fpcy);
@@ -313,9 +297,11 @@ public class IncomeController extends BaseController {
             result = new HashMap<>();
             Fpcy fpcy = fpcyJpaDao.findOne(Integer.valueOf(id));
                 if(StringUtils.isNotBlank(bxr)){
-                    Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(Integer.valueOf(fpcy.getId()));
-                    fpcyjl.setBxry(bxr);
-                    fpcyjlJpaDao.save(fpcyjl);
+                    //Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(Integer.valueOf(fpcy.getId()));
+                    //fpcyjl.setBxry(bxr);
+                    //fpcyjlJpaDao.save(fpcyjl);
+                    fpcy.setBxry(bxr);
+                    fpcyJpaDao.save(fpcy);
                 }
             result.put("status",true);
         } catch (Exception e) {

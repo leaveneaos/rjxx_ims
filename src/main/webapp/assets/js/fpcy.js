@@ -52,7 +52,7 @@ $(function() {
     });
     var index = 1;
     $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
-        jyspmx_edit_table.draw();
+        //jyspmx_edit_table.draw();
     });
     $('#jyspmx_edit_table tbody').on('click', 'a', function () {
         jyspmx_edit_table.row($(this).parents("tr")).remove().draw(false);

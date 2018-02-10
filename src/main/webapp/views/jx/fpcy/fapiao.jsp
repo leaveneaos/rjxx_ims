@@ -85,12 +85,16 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
     }else if(fpcy.getFpzldm()!=null&&fpcy.getFpzldm().equals("30")){
          fpzl="地税";
     }
+    String bxry = "";
+    if(fpcy.getBxry()!=null){
+        bxry = fpcy.getBxry();
+    }
 %>
 	            <div class="tab-page" id="tabPage-dzfp" style="display: block;font-size: 12px;margin-top: 10px;">
                     <div style="padding-left: 13px;">
                         <div style="float: left">
                             <label for="save_bxr">报销人:</label>
-                            <input type="text" id="save_bxr" name="save_bxr" value="">
+                            <input type="text" id="save_bxr" name="save_bxr" value=<%=bxry%> >
                         </div>
                         <div style="float: left;padding-left: 60px;">
                             <label for="save_fpbq" class="align_left">发票标签:</label>
@@ -235,7 +239,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
     $(function() {
         $('#cysave').click(function () {
             var fpbq = $('#save_fpbq').val();
-            var bxr = $('#save_fpbq').val();
+            var bxr = $('#save_bxr').val();
             var id = $('#save_fpcyId').val();
             $.ajax({
                 url: "income/saveBc",
@@ -243,6 +247,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
                 data: {"fpbq": fpbq, "bxr": bxr, "id": id},
                 success: function (data) {
                     if (data.status) {
+                        swal("保存成功！");
                         $("#doc-modal-fpyl").modal("close");
                     } else {
                         swal(data.msg);
