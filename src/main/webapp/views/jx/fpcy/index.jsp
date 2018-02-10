@@ -31,7 +31,9 @@
 .am-table {
 	margin-bottom: 0rem;
 }
-
+.s_left{
+	text-align: left;
+}
 table thead th {
 	text-align: center;
 }
@@ -216,6 +218,7 @@ table thead th {
 															<th>查验次数</th>
 															<th>数据来源</th>
 															<th>发票状态</th>
+															<th>最近查验成功时间</th>
 														</tr>
 													</thead>
 												</table>
@@ -365,7 +368,7 @@ table thead th {
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-cyjl">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">
-				发票查验次数信息
+				发票查验记录
 			</div>
 			<div class="am-modal-bd">
 				<hr />
@@ -375,10 +378,10 @@ table thead th {
 							   id="detail_table">
 							<thead>
 							<tr>
-								<th style="text-align:center">序号</th>
 								<th style="text-align:center">查验次数</th>
 								<th style="text-align:center">查验日期</th>
 								<th style="text-align:center">发票状态</th>
+								<th style="text-align:center">查验结果</th>
 							</tr>
 							</thead>
 						</table>

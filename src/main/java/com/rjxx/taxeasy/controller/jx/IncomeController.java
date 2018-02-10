@@ -93,9 +93,11 @@ public class IncomeController extends BaseController {
             }
             List<FpcyVo> dataList = new ArrayList();
             List<Fpcy> fpcyList = fpcyMapper.findByPage(pagination);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             for (Fpcy fpcy : fpcyList) {
                 Fpcyjl fpcyjl = fpcyjlJpaDao.findOneByFpcyIdAndGsdm(fpcy.getId(), getGsdm());
+                Fpcyjl fpcyjlsj = fpcyjlJpaDao.findLastSuccessLrsj(fpcy.getId(), getGsdm());
                 Integer cycsTotal = fpcyjlJpaDao.findCountByFpcyId(fpcyjl.getFpcyid());
                 FpcyVo fpcyVo = new FpcyVo();
                 fpcyVo.setId(fpcy.getId());
@@ -109,6 +111,7 @@ public class IncomeController extends BaseController {
                 fpcyVo.setCycsTotal(cycsTotal);
                 fpcyVo.setSjly(fpcy.getSjly());
                 fpcyVo.setFpzt(fpcy.getFpzt());
+                fpcyVo.setLrsj(sdf1.format(fpcyjlsj.getLrsj()));
                 dataList.add(fpcyVo);
             }
             //logger.info("查询结果"+JSON.toJSONString(dataList));
@@ -153,10 +156,25 @@ public class IncomeController extends BaseController {
         try {
             //校验是否报销
             String gsdm = getGsdm();
-            //Cszb sfyybx = cszbService.getSpbmbbh(gsdm, null, null, "sfyybx");
-            //if(sfyybx.getCsz().equals("是")){
+            String msg="";
             Fpcy fpcy = fpcyJpaDao.findOneByFpdmAndFphm(sglr_fpdm, sglr_fphm);
                 if(fpcy !=null){
+                    /*if(StringUtils.isNotBlank(sglr_jym)){
+                        if(!fpcy.getJym().equals(sglr_jym)){
+                           msg +="校验码错误！";
+                        }
+                        if(StringUtils.isNotBlank(sglr_je)){
+                            if(!fpcy.getJshj().equals(sglr_je)){
+
+                            }
+                        }
+                        if(StringUtils.isNotBlank(sglr_kprq)){
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            if(!sdf.format(fpcy.getKprq()).equals(sglr_kprq)){
+
+                            }
+                        }
+                    }*/
                     Fpcyjl fpcyjl = fpcyjlJpaDao.findOneBy1FpcyId(fpcy.getId());
                     List<Fpcymx> fpcymxList = fpcymxJpaDao.findOneByFpcyId(fpcy.getId());
                     session.setAttribute("fpcy",fpcy);
@@ -326,14 +344,15 @@ public class IncomeController extends BaseController {
                         }else if(fpcyjl.getFpzt()!=null && fpcyjl.getFpzt().equals("1")){
                             fpcyVo.setFpzt("作废");
                         }else if(fpcyjl.getFpzt()!=null && fpcyjl.getFpzt().equals("9")){
-                            fpcyVo.setFpzt("失败");
+                            fpcyVo.setFpzt("--");
                         }
-                        if(fpcyjl.getCyrq()!=null&&!fpcyjl.getCyrq().equals("")){
-                            String format = sdf.format(fpcyjl.getCyrq());
+                        if(fpcyjl.getLrsj()!=null&&!fpcyjl.getLrsj().equals("")){
+                            String format = sdf.format(fpcyjl.getLrsj());
                             fpcyVo.setCyrq(format);
                         }else {
                             fpcyVo.setCyrq("");
                         }
+                        fpcyVo.setResultMsg(fpcyjl.getResultmsg());
                         fpcyVo.setCycs(i);
                         resultList.add(fpcyVo);
                         i++;

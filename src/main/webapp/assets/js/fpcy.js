@@ -242,12 +242,13 @@ $(function() {
                             } else if ("1" == data.fpzt) {
                                 return "作废";
                             } else if ("9" == data.fpzt) {
-                                return "失败";
+                                return "--";
                             } else {
                                 return "";
                             }
                         }
-                    }
+                    },
+                    {"data": "lrsj"},
                 ]
             });
             t.on('draw.dt', function (e, settings, json) {
@@ -265,11 +266,12 @@ $(function() {
                 var data = t.row($(this).parents('tr')).data();
                 $("#cycsid").val(data.id);
                 t1.ajax.reload();
-                el.$xiugai.modal({"width": 550, "height": 500});
+                el.$xiugai.modal({"width": 650, "height": 500});
             });
             var t1 = $('#detail_table').DataTable({
                 "searching": false,
                 "serverSide": true,
+                "bLengthChange": false, //改变每页显示数据数量
                 "sServerMethod": "POST",
                 "processing": true,
                 "scrollX": true,
@@ -283,14 +285,10 @@ $(function() {
                     }
                 },
                 "columns": [
-                    {
-                        "orderable": false,
-                        "data": null,
-                        "defaultContent": ""
-                    },
                     {"data": "cycs"},
                     {"data": "cyrq"},
                     {"data": "fpzt"},
+                    {"data": "resultMsg","sClass" : "s_left"},
                 ],
 
             });
