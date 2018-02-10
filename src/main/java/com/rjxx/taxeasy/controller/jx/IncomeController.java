@@ -68,7 +68,7 @@ public class IncomeController extends BaseController {
     @ResponseBody
     @RequestMapping("/getFpcyList")
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
-                                         String gfsh, String fpzldm,boolean loaddata,String queryType) throws Exception {
+                                         String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 //        Map map = new HashMap();

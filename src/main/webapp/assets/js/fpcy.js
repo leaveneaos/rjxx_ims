@@ -30,7 +30,6 @@ $(function() {
         $('#importExcelForm').resetForm();
         $importModal.modal({"width": 600, "height": 350});
     });
-    var queryType="1";
     $(this).removeData('amui.modal');
     var mxarr = [];
     var $modal = $("#my-alert-edit2");
@@ -137,7 +136,6 @@ $(function() {
                     type : 'POST',
                     data : function(d) {
                         if($("#bj").val()=='1'){
-                            d.queryType=queryType;
                             d.kprqq = $("#s_rqq").val(); // search 开票日期
                             //d.kprqz = $("#s_rqz").val(); // search 开票日期
                             d.gfsh = $('#s_xfsh').val();   // search 销方
@@ -147,9 +145,7 @@ $(function() {
                         } else if ($("#bj").val() == '3') {
                             d.fpdm = $('#sglr_fpdm').val();	// search 发票代码
                             d.fphm = $('#sglr_fphm').val();   // search 发票号码
-                            d.queryType=queryType;
                         } else {
-                            d.queryType=queryType;
                             var csm = $('#dxcsm').val();
                             if ("fpdm" == csm) {
                                 d.fpdm = $('#dxcsz').val();
@@ -186,7 +182,7 @@ $(function() {
                     },
                     {"data": "fphm"},
                     {"data": "xfmc"},
-                    {"data": "bxry"},
+                    {"data": "bxry","sClass":"x_bxry"},
                     {"data": "kprq"},
                     {
                         "data": function (data) {

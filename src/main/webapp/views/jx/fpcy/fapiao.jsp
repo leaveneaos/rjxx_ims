@@ -236,6 +236,7 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
             </div>
 
 <script type="text/javascript">
+
     $(function() {
         $('#cysave').click(function () {
             var fpbq = $('#save_fpbq').val();
