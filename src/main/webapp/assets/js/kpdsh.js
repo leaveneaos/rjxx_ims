@@ -26,8 +26,13 @@ $(function() {
     	$('#importExcelForm').resetForm();
         $importModal.modal({"width": 600, "height": 350});
     });
-	
-	
+
+    //西外批量导入
+    var $importModal2 = $("#bulk-xwimport-div");
+    $("#xwkp_dr").click(function () {
+        $('#xwimportExcelForm').resetForm();
+        $importModal2.modal({"width": 600, "height": 350});
+    });
 	
     $(this).removeData('amui.modal');
 	 var mxarr = [];
@@ -982,6 +987,9 @@ $(function() {
 			$("#close").on('click', function() {
 				$('#my-alert-edit').modal('close');
 			});
+            $("#xwclose1").on('click', function() {
+                $('#bulk-xwimport-div').modal('close');
+            });
 			$("#mxclose").on('click', function() {
 				$('#my-alert-edit1').modal('close');
 			});

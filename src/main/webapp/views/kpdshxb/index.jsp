@@ -169,6 +169,12 @@ table thead th {
 																class="am-btn am-btn-default am-btn-default">
 																<span></span>导入
 															</button>
+															<c:if test="${gsdm == 'xwxx' }">
+															<button type="button" id="xwkp_dr"
+																	class="am-btn am-btn-default am-btn-success">
+																<span></span>西外导入
+															</button>
+															</c:if>
 															<button type="button" id="kpd_kp"
 																class="am-btn am-btn-default am-btn-secondary">
 																<span></span> 处理
@@ -1104,7 +1110,7 @@ table thead th {
 										</c:forEach>
 									</c:if>
 									<c:if test="${skpSum > 1 || xfSum > 1}">
-										<option value="">请选择</option>
+										<option value="-1">请选择</option>
 										<c:forEach items="${skps}" var="item">
 											<option value="${item.id}">${item.kpdmc}</option>
 										</c:forEach>
@@ -1139,6 +1145,75 @@ table thead th {
 						<div class="am-u-sm-12" style="margin-top: 10px;">
 							<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"
 								style="text-decoration: underline;">下载模板</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="am-modal am-modal-no-btn" tabindex="-1"
+		 id="bulk-xwimport-div">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd am-modal-footer-hd">
+				批量导入
+				<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
+								data-am-modal-close>&times;</a> -->
+			</div>
+
+			<div class="am-tab-panel am-fade am-in am-active">
+				<form class="am-form am-form-horizontal" id="xwimportExcelForm"
+					  method="post"
+					  action="<%=request.getContextPath()%>/xwImport/xwImportExcel"
+					  enctype="multipart/form-data">
+					<div class="am-form-group">
+						<div class="am-u-sm-12">
+							<input type="file" class="am-u-sm-12" id="xwimportFile"
+								   name="xwimportFile" placeholder="选择要上传的文件" onchange="fileChange(this);"
+								   accept="application/vnd.ms-excel" required>
+						</div>
+						<div class="am-u-sm-12">
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择销方</label>
+							<div class="am-u-sm-8">
+								<select id="xw_xfsh" name="xw_xfsh" class="am-u-sm-12">
+									<c:if test="${xfSum > 1}">
+										<option value="">请选择</option>
+										<c:forEach items="${xfList}" var="item">
+											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+										</c:forEach>
+									</c:if>
+									<c:if test="${xfSum == 1}">
+										<c:forEach items="${xfList}" var="item">
+											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
+										</c:forEach>
+									</c:if>
+								</select>
+							</div>
+						</div>
+						<div class="am-u-sm-12">
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择开票点</label>
+							<div class="am-u-sm-8">
+								<select id="xw_skp" name="xw_skp" class="am-u-sm-12">
+									<c:if test="${skpSum == 1 && xfSum == 1 }">
+										<c:forEach items="${skps}" var="item">
+											<option value="${item.id}">${item.kpdmc}</option>
+										</c:forEach>
+									</c:if>
+									<c:if test="${skpSum > 1 || xfSum > 1}">
+										<option value="">请选择</option>
+										<c:forEach items="${skps}" var="item">
+											<option value="${item.id}">${item.kpdmc}</option>
+										</c:forEach>
+									</c:if>
+								</select>
+							</div>
+						</div>
+						<div class="am-u-sm-12" style="margin-top: 30px;">
+							<button type="button" id="xwbtnImport"
+									class="am-btn am-btn-xs am-btn-primary">导入</button>
+							<button type="button" id="xwclose1"
+									class="am-btn am-btn-danger am-btn-xs">关闭</button>
 						</div>
 					</div>
 				</form>
@@ -1457,6 +1532,132 @@ table thead th {
                         "#####0.00"));
                 }
             });
+
+
+
+        //西外学校导入选择销方模板
+        $("#xw_xfsh").change(function () {
+            var xfsh = $(this).val();
+            $('#xw_skp').empty();
+            //$('#mrmb').empty();
+            if (xfsh == null || xfsh == '' || xfsh == "") {
+                return;
+            }
+            var url = "<%=request.getContextPath()%>/lrkpd/getSkpList";
+            $.post(url, {xfsh: xfsh}, function (data) {
+                if (data) {
+                    var option = $("<option>").text('请选择').val(-1);
+                    $('#xw_skp').append(option);
+                    for (var i = 0; i < data.skps.length; i++) {
+                        option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
+                        $('#xw_skp').append(option);
+                    }
+                }
+            });
+        });
+        $("#lrsl_edit").keyup(function(){
+            var spsl = $('#lrsl_edit');//商品数量
+            // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+            // if (!num.test(spsl.val())) {
+            //     if (spsl.val().length > 1) {
+            //         $('#lrsl_edit').val(
+            //             spsl.val().substring(0,
+            //                 spsl.val().length - 1))
+            //     } else {
+            //         $('#lrsl_edit').val("")
+            //     }
+            //     return;
+            // }
+            var sl = $('#lrsltaxrate_edit');
+            var se = $('#lrse_edit');
+            var hsje = $('#lrhsje_edit');
+            var jshj = $('#lrjshj_edit');
+            var dj = $('#lrdj_edit');
+            var je = $('#lrje_edit');
+            var temp = (100 + sl.val() * 100) / 100;
+            if(dj!=""){
+                jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
+                hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
+                var jj=spsl.val() * dj.val();
+                je.val(FormatFloat(jj/temp, "#####0.00"));
+                se.val(FormatFloat(je.val() * sl.val(),
+                    "#####0.00"));
+            }
+        });
+
+
+        //西外导入excel
+        $("#xwbtnImport").click(function () {
+            var filename = $("#xwimportFile").val();
+            var xfsh = $("#xw_xfsh").val();
+            var skpid = $("#xw_skp").val();
+            if (!xfsh) {
+                swal("请选择要导入的销方");
+                return;
+            }
+            if (skpid==-1 || skpid =='-1' || skpid== '') {
+                swal("请选择要导入的开票点");
+                return;
+            }
+            /*if (mb==-1) {
+                swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
+                return;
+            }*/
+            if (!filename) {
+                swal("请选择要导入的文件");
+                return;
+            }
+            var pos = filename.lastIndexOf(".");
+            if (pos == -1) {
+                swal("导入的文件必须是excel文件");
+                return;
+            }
+            var extName = filename.substring(pos + 1);
+            if ("xls" != extName && "xlsx" != extName) {
+                swal("导入的文件必须是excel文件");
+                return;
+            }
+            $("#xwbtnImport").attr("disabled", true);
+            $('.js-modal-loading').modal('open');
+            $("#xwimportExcelForm").ajaxSubmit({
+                type: "post",
+                //dataType: "script",  // 'xml', 'script', or 'json' (expected server response type)
+                url: "<%=request.getContextPath()%>/xwImport/xwImportExcel",
+                success: function (res) {
+                    if(res["success"]){
+                        $("#xwbtnImport").attr("disabled", false);
+                        $('.js-modal-loading').modal('close');
+                        var count = res["count"];
+                        swal({
+                            title: "导入成功，共导入" + count + "条数据",
+                            showCancelButton: false,
+                            closeOnConfirm: false,
+                            confirmButtonText: "确 定",
+                            confirmButtonColor: "#ec6c62"
+                        }, function() {
+                            window.location.reload();
+                        });
+                        /*if (res["yes"]) {
+                            $('#mrmb').empty();
+                            var txt = $('#mb').find("option:selected").text();
+                            var option = $("<option>").text(txt).val(mbid);
+                            $('#mrmb').append(option);
+                        }*/
+                        location.reload();
+                    }else {
+                        $("#xwbtnImport").attr("disabled", false);
+                        $('.js-modal-loading').modal('close');
+                        swal(res["message"]);
+                    }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown) {
+                    $("#xwbtnImport").attr("disabled", false);
+                    $('.js-modal-loading').modal('close');
+                    swal("保存失败，检查excel数据！");
+                }
+            });
+        });
+
             $("#lrdj_edit").keyup(function(){
                 var dj = $('#lrdj_edit');//单价
                 // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;

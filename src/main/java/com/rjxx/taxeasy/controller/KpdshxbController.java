@@ -46,6 +46,7 @@ public class KpdshxbController extends BaseController{
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
 		String gsdm = this.getGsdm();
+		request.setAttribute("gsdm", gsdm);
 		List<Object> argList = new ArrayList<>();
 		argList.add(gsdm);
 		Cszb cszb = cszbService.getSpbmbbh(gsdm, getXfid(), null, "sfqyspz");

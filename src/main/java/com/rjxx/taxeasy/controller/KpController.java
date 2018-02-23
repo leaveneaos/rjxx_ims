@@ -1354,42 +1354,42 @@ public class KpController extends BaseController {
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		List<Xf> xfs = getXfList();
-		List<Skp> skps = getSkpList();
-		if (xfs != null && xfs.size() > 0) {
-			pagination.addParam("xfs", xfs);
-		}
-		if (skps != null && skps.size() > 0) {
-			pagination.addParam("skps", skps);
-		}
-		pagination.addParam("xfsh", xfsh);
-		pagination.addParam("gfmc", gfmc);
-		pagination.addParam("ddh", ddh);
-
-		if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
-			pagination.addParam("rqq", rqq);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
-		} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
-			pagination.addParam("rqq", rqz);
-			pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
-		}
-		pagination.addParam("clztdm", "00");
-		if ("".equals(fpzldm)) {
-			pagination.addParam("fpzldm", null);
-		}else{
-			pagination.addParam("fpzldm", fpzldm);
-		}
-		pagination.addParam("fpczlxdm", "11");
-		pagination.addParam("gsdm", this.getGsdm());
-		pagination.addParam("orderBy", "lrsj desc");
-
-		List<Jyls> jylsList = jylsService.findByPage(pagination);
-		int total = pagination.getTotalRecord();
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(loaddata){
+			List<Xf> xfs = getXfList();
+			List<Skp> skps = getSkpList();
+			if (xfs != null && xfs.size() > 0) {
+				pagination.addParam("xfs", xfs);
+			}
+			if (skps != null && skps.size() > 0) {
+				pagination.addParam("skps", skps);
+			}
+			pagination.addParam("xfsh", xfsh);
+			pagination.addParam("gfmc", gfmc);
+			pagination.addParam("ddh", ddh);
+
+			if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
+				pagination.addParam("rqq", rqq);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+			} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
+				pagination.addParam("rqq", rqq);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqq, 1));
+			} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
+				pagination.addParam("rqq", rqz);
+				pagination.addParam("rqz", TimeUtil.getAfterDays(rqz, 1));
+			}
+			pagination.addParam("clztdm", "00");
+			if ("".equals(fpzldm)) {
+				pagination.addParam("fpzldm", null);
+			}else{
+				pagination.addParam("fpzldm", fpzldm);
+			}
+			pagination.addParam("fpczlxdm", "11");
+			pagination.addParam("gsdm", this.getGsdm());
+			pagination.addParam("orderBy", "lrsj desc");
+
+			List<Jyls> jylsList = jylsService.findByPage(pagination);
+			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
