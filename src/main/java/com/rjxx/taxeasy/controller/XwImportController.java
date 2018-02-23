@@ -395,7 +395,7 @@ public class XwImportController extends BaseController {
                     jymxsq.setFphxz("0");
                     jymxsq.setLrsj(allTime);
                     jymxsq.setXgsj(allTime);
-                    jymxsq.setSpdm(spvo.getSpdm());
+                    jymxsq.setSpdm(spvo.getSpbm());
                     jymxsq.setSpmc(spvo.getSpmc());
                     jymxsq.setSpggxh(spvo.getSpggxh());
                     jymxsq.setSpdw(spvo.getSpdw());
