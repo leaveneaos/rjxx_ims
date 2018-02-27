@@ -323,8 +323,8 @@ public class XwImportController extends BaseController {
             jyxxsq.setSkpid(skpid);
             jyxxsq.setKpddm(skp.getKpddm());//解决没有kpddm问题。
             jyxxsq.setGfsh(getValue("购方税号", pzMap, columnIndexMap, row));
-            jyxxsq.setGfmc(getValue("年级", pzMap, columnIndexMap, row)
-                    + getValue("班级", pzMap, columnIndexMap, row) + getValue("姓名", pzMap, columnIndexMap, row));
+            jyxxsq.setGfmc(getValue("姓名", pzMap, columnIndexMap, row)+"    "+getValue("年级", pzMap, columnIndexMap, row)
+                    + getValue("班级", pzMap, columnIndexMap, row));
 
             jyxxsq.setZtbz("6");
             jyxxsq.setSjly("2");
