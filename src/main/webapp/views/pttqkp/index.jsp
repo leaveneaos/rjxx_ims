@@ -378,13 +378,35 @@
 <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 <script>
     // 模糊查询
+//    function query(){
+//        $("#gfmc").autocomplete({
+//            autoFocus:true,
+//            minLength: 2,
+//            source:function(request,response){
+//                $.post(
+//                    "companyInfo/getNames",
+//                    {
+//                        "name": $("#gfmc").val()
+//                    },function (obj) {
+//                        response(eval("("+obj+")"));
+//                    });
+//            },
+//            select: function( event, ui ) {
+//                var txt = ui.item.label;
+//                var index = txt.indexOf("(");
+//                var taxNo = txt.substring(index + 1, txt.length-1);
+//                $("#gfsh").val(taxNo);
+//            }
+//        });
+//    }
+
     function query(){
         $("#gfmc").autocomplete({
             autoFocus:true,
             minLength: 2,
             source:function(request,response){
                 $.post(
-                    "companyInfo/getNames",
+                    "companyInfo/list",
                     {
                         "name": $("#gfmc").val()
                     },function (obj) {
@@ -392,10 +414,17 @@
                     });
             },
             select: function( event, ui ) {
-                var txt = ui.item.label;
-                var index = txt.indexOf("(");
-                var taxNo = txt.substring(index + 1, txt.length-1);
-                $("#gfsh").val(taxNo);
+                var name = ui.item.value;
+                $.ajax({
+                    url : "companyInfo/single",
+					type:"post",
+                    data : {
+                        "name" : name
+                    },
+                    success : function(obj) {
+						$("#gfsh").val(obj);
+                    }
+                });
             }
         });
     }

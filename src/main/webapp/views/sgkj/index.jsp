@@ -383,34 +383,63 @@
 	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 	<script>
         // 模糊查询
+//        function query(){
+//            $("#gfmc").autocomplete({
+//                autoFocus:true,
+//                minLength: 2,
+//                source:function(request,response){
+//                    $.post(
+//                        "companyInfo/getNames",
+//                        {
+//                            "name": $("#gfmc").val()
+//                        },function (obj) {
+//                            response(eval("("+obj+")"));
+//                        });
+//                },
+////            source:[{
+////                "label":"asd",
+////                "value":"大帅比"
+////            },{
+////                "label":"asdf",
+////                "value":"帅哭"
+////            },{
+////                "label":"asdfg",
+////                "value":"男默女泪"
+////            }],
+//                select: function( event, ui ) {
+//                    var txt = ui.item.label;
+//                    var index = txt.indexOf("(");
+//                    var taxNo = txt.substring(index + 1, txt.length-1);
+//                    $("#gfsh").val(taxNo);
+//                }
+//            });
+//        }
+
         function query(){
             $("#gfmc").autocomplete({
                 autoFocus:true,
                 minLength: 2,
                 source:function(request,response){
                     $.post(
-                        "companyInfo/getNames",
+                        "companyInfo/list",
                         {
                             "name": $("#gfmc").val()
                         },function (obj) {
                             response(eval("("+obj+")"));
                         });
                 },
-//            source:[{
-//                "label":"asd",
-//                "value":"大帅比"
-//            },{
-//                "label":"asdf",
-//                "value":"帅哭"
-//            },{
-//                "label":"asdfg",
-//                "value":"男默女泪"
-//            }],
                 select: function( event, ui ) {
-                    var txt = ui.item.label;
-                    var index = txt.indexOf("(");
-                    var taxNo = txt.substring(index + 1, txt.length-1);
-                    $("#gfsh").val(taxNo);
+                    var name = ui.item.value;
+                    $.ajax({
+                        url : "companyInfo/single",
+                        type:"post",
+                        data : {
+                            "name" : name
+                        },
+                        success : function(obj) {
+                            $("#gfsh").val(obj);
+                        }
+                    });
                 }
             });
         }
