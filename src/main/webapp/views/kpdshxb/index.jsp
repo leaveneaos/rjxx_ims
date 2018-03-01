@@ -169,7 +169,7 @@ table thead th {
 																class="am-btn am-btn-default am-btn-default">
 																<span></span>导入
 															</button>
-															<c:if test="${gsdm == 'xwxx' }">
+															<c:if test="${gsdm == 'xwdx' }">
 															<button type="button" id="xwkp_dr"
 																	class="am-btn am-btn-default am-btn-success">
 																<span></span>西外导入
