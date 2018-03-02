@@ -62,6 +62,8 @@ public class ErrorExceptionSkJob implements Job {
                 }else{
                     break;
                 }
+            }while (true);
+            do{
                 String kplshzpstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "01");
                 if (StringUtils.isNotBlank(kplshzpstr)) {
                     int kplshzp = Integer.valueOf(kplshzpstr);
@@ -77,23 +79,25 @@ public class ErrorExceptionSkJob implements Job {
                 }else{
                     break;
                 }
-                String kplshppstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "02");
-                if (StringUtils.isNotBlank(kplshppstr)) {
-                    int kplshpp = Integer.valueOf(kplshppstr);
-                    Map params = new HashMap();
-                    params.put("kplsh", kplshpp);
-                    Kpls kpls = kplsService.findOneByParams(params);
-                    Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
-                    if(cszb.getCsz().equals("01")){
-                        skService.callService(kplshpp);
-                    }else if(cszb.getCsz().equals("03")){
-                        skService.SkServerKP(kplshpp);
+              }while(true);
+              do {
+                    String kplshppstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "02");
+                    if (StringUtils.isNotBlank(kplshppstr)) {
+                        int kplshpp = Integer.valueOf(kplshppstr);
+                        Map params = new HashMap();
+                        params.put("kplsh", kplshpp);
+                        Kpls kpls = kplsService.findOneByParams(params);
+                        Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+                        if(cszb.getCsz().equals("01")){
+                            skService.callService(kplshpp);
+                        }else if(cszb.getCsz().equals("03")){
+                            skService.SkServerKP(kplshpp);
+                        }
+                    }else{
+                        break;
                     }
-                }else{
-                    break;
-                }
+               }while (true);
                  logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
-            }while (true);
         } catch (Exception e) {
             e.printStackTrace();
         }
