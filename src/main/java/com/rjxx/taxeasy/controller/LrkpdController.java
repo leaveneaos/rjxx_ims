@@ -1349,6 +1349,10 @@ public class LrkpdController extends BaseController {
             if (StringUtils.isNotBlank(jyxxsq.getTqm())) {
                 tqmList.add(jyxxsq.getTqm());
             }
+            if(!skp.getKplx().contains(jyxxsq.getFpzldm())){
+                    msgg = "开票类型与开票点设置不符,请重新选择开票点！\r\n";
+                    msg += msgg;
+            }
             String jylsh = jyxxsq.getJylsh();
             if (jylsh == null || "".equals(jylsh)) { // 交易流水号的判断
                 msgg = "第" + (i + 2) + "行交易流水号没有填写，请重新填写！\r\n";
