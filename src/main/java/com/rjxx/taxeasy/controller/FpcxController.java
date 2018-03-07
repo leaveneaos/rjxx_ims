@@ -249,7 +249,10 @@ public class FpcxController extends BaseController {
         }
 
         String []  kplsh ;
-        kplsh1 = request.getParameter("kplsh1");
+        if(null ==kplsh1 || kplsh1.equals("")){
+
+            kplsh1 = request.getParameter("kplsh1");
+        }
         //ids = ids.substring(0, ids.length() - 1);
         if(kplsh1!=null&&!kplsh1.equals("")){
             kplsh1 = kplsh1.substring(0,kplsh1.length() - 1);
