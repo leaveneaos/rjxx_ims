@@ -217,6 +217,22 @@ public class YjfsController extends BaseController {
 			if (xfid2.length == 0) {
 				xfid2 = null;
 			}
+			String skpStr = "";
+			List<Skp> skpList = getSkpList();
+			if (skpList != null) {
+				for (int j = 0; j < skpList.size(); j++) {
+					int skpid = skpList.get(j).getId();
+					if (j == skpList.size() - 1) {
+						skpStr += skpid + "";
+					} else {
+						skpStr += skpid + ",";
+					}
+				}
+			}
+			String[] skpid = skpStr.split(",");
+			if (skpid.length == 0) {
+				skpid = null;
+			}
 			maps.put("gsdm", getGsdm());
 			maps.put("gfmc", gfmc);
 			maps.put("ddh", ddh);
@@ -224,6 +240,7 @@ public class YjfsController extends BaseController {
 			maps.put("fpdm", fpdm);
 			maps.put("xfmc", xfmc);
 			maps.put("xfid", xfid2);
+			maps.put("skpid", skpid);
 			maps.put("fpzldm", "12");
 			maps.put("fpzt","00");
 			// pagination.addParam("jyrqq", jyrqq);
