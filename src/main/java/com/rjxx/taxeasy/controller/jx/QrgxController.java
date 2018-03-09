@@ -144,8 +144,8 @@ public class QrgxController extends BaseController{
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 List<InvoiceAuth> list = new ArrayList<>();
                 InvoiceAuth invoiceAuth = new InvoiceAuth();
-                invoiceAuth.setFpdm(jxfpxx.getFpdm());
-                invoiceAuth.setFphm(jxfpxx.getFphm());
+                invoiceAuth.setInvoiceCode(jxfpxx.getFpdm());
+                invoiceAuth.setInvoiceNo(jxfpxx.getFphm());
                 list.add(invoiceAuth);
                 Xf xf = new Xf();
                 xf.setGsdm(jxfpxx.getGsdm());
