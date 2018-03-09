@@ -1,7 +1,5 @@
 package com.rjxx.taxeasy.controller.jx;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.dao.leshui.JxfpmxJpaDao;
 import com.rjxx.taxeasy.dao.leshui.JxfpxxJpaDao;
@@ -66,13 +64,10 @@ public class QrgxController extends BaseController{
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
                                             String gfsh, String fpzldm, boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
-        Pagination pagination = new Pagination();
-//        Map map = new HashMap();
         if(loaddata){
+            Pagination pagination = new Pagination();
             pagination.setPageNo(start / length + 1);
             pagination.setPageSize(length);
-            // map.put("start",start);
-            // map.put("length",length);
             String gsdm = getGsdm();
             if ("".equals(fpzldm) || fpzldm == null) {
                 pagination.addParam("fpzldm",null);
@@ -87,18 +82,9 @@ public class QrgxController extends BaseController{
             if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {
                 pagination.addParam("gfsh", gfsh);
             }
-            //List dataList = new ArrayList();
             List<Jxfpxx> jxfpxxList = jxfpxxMapper.findQrgxByPage(pagination);
-            logger.info("查询结果"+ JSON.toJSONString(jxfpxxList));
-            int total = 0;
-            if(0 == start){
-                //total = fpcyMapper.findtotal(map);
-                total = pagination.getTotalRecord();
-                request.getSession().setAttribute("total",total);
-            }else{
-                //  total =  (Integer)request.getSession().getAttribute("total");
-                request.getSession().getAttribute("total");
-            }
+//            logger.info("查询结果"+ JSON.toJSONString(jxfpxxList));
+            int total = pagination.getTotalRecord();
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
             result.put("draw", draw);
@@ -128,9 +114,7 @@ public class QrgxController extends BaseController{
             for (String id : ids) {
                 Jxfpxx jxfpxx = jxfpxxJpaDao.findOne(Integer.valueOf(id));
                 jxfpxx.setGxbz("0");
-                Date d = new Date();
-                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                //jxfpxx.setXgsj(sdf.format(d));
+                jxfpxx.setXgsj(new Date());
                 jxfpxxJpaDao.save(jxfpxx);
             }
             result.put("status", true);

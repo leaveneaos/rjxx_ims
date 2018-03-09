@@ -70,13 +70,10 @@ public class IncomeController extends BaseController {
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
                                          String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
-		Pagination pagination = new Pagination();
-//        Map map = new HashMap();
         if(loaddata){
+            Pagination pagination = new Pagination();
             pagination.setPageNo(start / length + 1);
             pagination.setPageSize(length);
-            //map.put("start",start);
-           // map.put("length",length);
             String gsdm = getGsdm();
             if ("".equals(fpzldm) || fpzldm == null) {
                 pagination.addParam("fpzldm",null);
@@ -115,15 +112,7 @@ public class IncomeController extends BaseController {
                 dataList.add(fpcyVo);
             }
             //logger.info("查询结果"+JSON.toJSONString(dataList));
-            int total;
-            if(0 == start){
-                //total = fpcyMapper.findtotal(map);
-                 total = pagination.getTotalRecord();
-                request.getSession().setAttribute("total",total);
-            }else{
-                total =  (Integer)request.getSession().getAttribute("total");
-                //request.getSession().getAttribute("total");
-            }
+            int total = pagination.getTotalRecord();
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
             result.put("draw", draw);
@@ -219,7 +208,7 @@ public class IncomeController extends BaseController {
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             String gsdm = getGsdm();
             String res = leshuiService.fpcy(sglr_fpdm, sglr_fphm,sdf1.parse(sglr_kprq), sglr_jym, sglr_je,"01",getGsdm(),sglr_bxr);
-            logger.info(JSON.toJSONString(res));
+//            logger.info(JSON.toJSONString(res));
             JSONObject resultJson = JSON.parseObject(res);
             String resultMsg_r = resultJson.getString("resultMsg");//查验结果
             result.put("msg",resultMsg_r);
@@ -301,6 +290,7 @@ public class IncomeController extends BaseController {
                     //fpcyjl.setBxry(bxr);
                     //fpcyjlJpaDao.save(fpcyjl);
                     fpcy.setBxry(bxr);
+                    fpcy.setXgsj(new Date());
                     fpcyJpaDao.save(fpcy);
                 }
             result.put("status",true);

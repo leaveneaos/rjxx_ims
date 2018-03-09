@@ -56,7 +56,6 @@ public class PpController  extends BaseController {
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
-
         pagination.addParam("gsdm", getGsdm());
         pagination.addParam("ppmc", ppmc);
         pagination.addParam("orderBy", "lrsj");

@@ -75,13 +75,10 @@ public class FpcjController extends BaseController {
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
                                            String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
-        Pagination pagination = new Pagination();
-//        Map map = new HashMap();
         if(loaddata){
+            Pagination pagination = new Pagination();
             pagination.setPageNo(start / length + 1);
             pagination.setPageSize(length);
-           // map.put("start",start);
-            // map.put("length",length);
             String gsdm = getGsdm();
             if ("".equals(fpzldm) || fpzldm == null) {
                 pagination.addParam("fpzldm",null);
@@ -96,18 +93,9 @@ public class FpcjController extends BaseController {
             if (null != gfsh && !"".equals(gfsh) && !"-1".equals(gfsh)) {
                 pagination.addParam("gfsh", gfsh);
             }
-            //List dataList = new ArrayList();
             List<Jxfpxx> jxfpxxList = jxfpxxMapper.findByPage(pagination);
-            logger.info("查询结果"+ JSON.toJSONString(jxfpxxList));
-            int total = 0;
-            if(0 == start){
-                //total = fpcyMapper.findtotal(map);
-               total = pagination.getTotalRecord();
-                request.getSession().setAttribute("total",total);
-            }else{
-              //  total =  (Integer)request.getSession().getAttribute("total");
-                request.getSession().getAttribute("total");
-            }
+//            logger.info("查询结果"+ JSON.toJSONString(jxfpxxList));
+            int total = pagination.getTotalRecord();
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
             result.put("draw", draw);
@@ -145,7 +133,7 @@ public class FpcjController extends BaseController {
                         endDateStr = jxywjl.getJssj().toString();//上次下载时间
                         int i = compare_date(startDateStr, endDateStr);
                         if(i == -1 || i==0){
-                            logger.info("现在时间小于等于上次下载时间");
+//                            logger.info("现在时间小于等于上次下载时间");
                             msg = xf.getXfsh()+"的专票已下载成功！";
                         }else if(i == 1){
                             String res = leshuiService.fpcxBatch(jxywjl.getJssj(),new Date(),xf.getXfsh(),gsdm,xf.getId());
@@ -162,15 +150,16 @@ public class FpcjController extends BaseController {
                             return result;
                         }
                     }else {
-                        logger.info("根据税号没有查到业务记录");
+//                        logger.info("根据税号没有查到业务记录");
                         Date now = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         SimpleDateFormat y = new SimpleDateFormat("yyyy");
                         String jssj = TimeUtil.getBeforeDays(sdf.format(now),1);
-                        String year = y.format(now)+"-01-01";
-                        String kssj = TimeUtil.getBeforeDays(jssj, 365);
-                        //String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
-                        String ress = leshuiService.fpcxBatch(sdf.parse("2018-01-01"),sdf.parse("2018-03-07"), "91310112312480621D", getGsdm(), xfList.get(0).getId());
+//                        String year = y.format(now)+"-01-01";
+//                        String kssj = TimeUtil.getBeforeDays(jssj, 365);
+                        String year = "1970-01-01";
+                        String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
+//                        String ress = leshuiService.fpcxBatch(sdf.parse("2018-01-01"),sdf.parse("2018-03-07"), "91310112312480621D", getGsdm(), xfList.get(0).getId());
                         if(ress!=null && ress.equals("0000")){
                             msg = "专票下载成功！";
                         }else if (ress.equals("5555")){
