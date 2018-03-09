@@ -170,7 +170,7 @@ public class FpcjController extends BaseController {
                         String year = y.format(now)+"-01-01";
                         String kssj = TimeUtil.getBeforeDays(jssj, 365);
                         //String ress = leshuiService.fpcxBatch(sdf.parse(year),sdf.parse(jssj), xf.getXfsh(), gsdm, xf.getId());
-                        String ress = leshuiService.fpcxBatch(sdf.parse("2018-01-01"),sdf.parse("2018-02-07"), "91310112312480621D", getGsdm(), xfList.get(0).getId());
+                        String ress = leshuiService.fpcxBatch(sdf.parse("2018-01-01"),sdf.parse("2018-03-07"), "91310112312480621D", getGsdm(), xfList.get(0).getId());
                         if(ress!=null && ress.equals("0000")){
                             msg = "专票下载成功！";
                         }else if (ress.equals("5555")){

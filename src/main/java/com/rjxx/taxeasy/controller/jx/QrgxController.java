@@ -167,7 +167,11 @@ public class QrgxController extends BaseController{
                 xf.setGsdm(jxfpxx.getGsdm());
                 xf.setXfsh(jxfpxx.getGfsh());
                 Xf xf1 = xfService.findOneByParams(xf);
-                String fprz = leshuiService.fprz(jxfpxx.getGfsh(), list,xf1.getId(),gsdm);
+//                String period ="";
+//                Date kprq = jxfpxx.getKprq();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+                String period = sdf.format(new Date());
+                String fprz = leshuiService.fprz(jxfpxx.getGfsh(),period, list,xf1.getId(),gsdm);
                 if(fprz!=null && fprz.equals("0000")){
                     result.put("msg","已开始认证，请耐心等待！");
                 }else{

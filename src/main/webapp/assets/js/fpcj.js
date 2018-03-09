@@ -437,7 +437,7 @@ $(function() {
             $("#jxfpxx_xgbc").on('click', function(e) {
                 $('.confirm').attr('disabled',"disabled");
                 var r = $("#main_form").validator("isFormValid");
-                alert($('#main_form').serialize());
+                // alert($('#main_form').serialize());
                 if (r) {
                     $.ajax({
                         type : "POST",
