@@ -88,7 +88,7 @@ public class LoginController extends BaseController {
 						SecurityContextHolder.getContext());
 				String ip= IpUtils.getIpAddr(request);
 				logger.info("------IP地址-------"+ip);
-				Cszb cszb = cszbService.getSpbmbbh(getGsdm(), null, null, "ipwhilte");
+				Cszb cszb = cszbService.getSpbmbbh(getGsdm(), null, null, "ipwhite");
 				if(cszb.getCsz()!=null&&!"".equals(cszb.getCsz())){
 					boolean isInRange = IpUtils.ipIsInRange(ip, cszb.getCsz());
 					if(!isInRange){
