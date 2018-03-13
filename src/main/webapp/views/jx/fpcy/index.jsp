@@ -251,7 +251,7 @@ table thead th {
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit2">
 		<div class="am-modal-dialog" style="overflow: auto">
 			<div class="am-modal-hd am-modal-footer-hd">
-				单张查验发票录入
+				单张录入
 			</div>
 			<div class="am-alert am-alert-success" data-am-alert id="myinfoalert"
 				style="display: none">
@@ -260,13 +260,14 @@ table thead th {
 			</div>
 			<div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}"
 				id="lrmain_tab">
-				<ul class="am-tabs-nav am-nav am-nav-tabs">
+				<%--<ul class="am-tabs-nav am-nav am-nav-tabs">
 					<li><a href="#tab2" class="ai">扫码录入</a></li>
 					<li class="am-active"><a href="#tab1">手工录入</a></li>
 				</ul>
-
-				<div class="am-tabs-bd">
-					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+--%>
+				<div class="am-tabs-bd" style="border-top:1px solid #ddd;">
+					<div class="" id="tab1">
+						<span class="">手工录入</span>
 						<form class="am-form am-form-horizontal" id="main_form1">
 							<fieldset>
 								<input type="hidden" id="formid">
@@ -274,7 +275,6 @@ table thead th {
 								<div class="am-form-group">
 									<label  class="am-u-sm-2 am-form-label"><span
 										style="color: red;">*</span>发票类型</label>
-
 									<div class="am-u-sm-4 am-u-end">
 										<input type="radio" name="sglr_fpzl" checked="checked" id="sglr_zp" onclick="CheckAll(this);"  value="01"  />
 											<label for="sglr_zp">专用发票</label>
@@ -338,17 +338,18 @@ table thead th {
 						</form>
 					</div>
 					<%--扫码录入--%>
-					<div class="am-tab-panel am-fade am-in am-active" id="tab2">
+					<div class="" id="tab2">
+						<span class="">扫码录入</span>
 						<form class="am-form am-form-horizontal" id="main_form2">
 							<fieldset>
 								<input type="hidden" id="formid2">
 								<div class="am-form-group">
-									<input type="text" id="smlr_info"  name="smlr_info" required>
+									<input type="text" id="smlr_info"  name="smlr_info" onchange="smlr()">
 								</div>
-								<div class="am-form-group">
-										<input type="text" id="smlr_bxr" name="smlr_bxr"
-											   placeholder="输入报销人"  >
-								</div>
+								<%--<div class="am-form-group">
+									<input type="text" id="smlr_bxr" name="smlr_bxr"
+										   placeholder="输入报销人"  >
+								</div>--%>
 							</fieldset>
 						</form>
 					</div>
@@ -665,18 +666,57 @@ table thead th {
 		});
 
 		function CheckAll(){
+		    //专票选中时
             if ($("#sglr_zp").prop("checked")) {
                 $("#sglr_jym").hide();
                 $("#jym_lable").hide();
 				$("#sglr_je").show();
 				$("#je_lable").show();
-            } else if($("#sglr_pp").prop("checked")) {
+            }
+            //普票选中时
+            else if($("#sglr_pp").prop("checked")) {
                 $("#sglr_jym").show();
                 $("#jym_lable").show();
                 $("#sglr_je").hide();
                 $("#je_lable").hide();
             }
 		};
+		function smlr() {
+            var info = $("#smlr_info").val();
+            if(info!=null && info!=""){
+				var s = info.split(",");
+				var fpzl = s[0]+s[1];
+//				alert(fpzl);
+				if(fpzl!=null&&(fpzl=="0104"|| fpzl=="0110")){
+                    $("#sglr_zp").prop("checked",false);
+                    $("#sglr_pp").prop("checked",true);
+                    CheckAll();
+					$("#sglr_fpdm").val(s[2]);
+					$("#sglr_fphm").val(s[3]);
+					var jym = s[6];
+                    $("#sglr_jym").val(jym.substring(jym.length-6,jym.length));
+                    $("#sglr_kprq").val(formatDate1(s[5]));
+//                    alert(formatDate1(s[5]));
+				}
+				else if(fpzl!=null&&fpzl=="0101"){
+                    $("#sglr_pp").prop("checked",false);
+                    $("#sglr_zp").prop("checked",true);
+                    CheckAll();
+                    $("#sglr_fpdm").val(s[2]);
+                    $("#sglr_fphm").val(s[3]);
+                    $("#sglr_je").val(s[4]);
+                    $("#sglr_kprq").val(formatDate1(s[5]));
+//                    alert(formatDate1(s[5]));
+				}
+			}
+        };
+		function formatDate1(str) {
+            var yy = str.substring(0,4);
+            var mm = str.substring(4,6);
+            var dd = str.substring(6,str.length);
+            var date = yy+"-"+mm+"-"+dd;
+            return date;
+        }
 	</script>
 
 </body>
