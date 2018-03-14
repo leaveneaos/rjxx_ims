@@ -143,10 +143,13 @@ public class SgkjController extends BaseController{
                 Xf xf = xfJpaDao.findOneById(xfid);
                 String ybnsrqssj = xf.getYbnsrqssj();//一般纳税人起始时间
                 String ybnsrjyzs = xf.getYbnsrjyzs();//一般纳税人简易征收
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-                Date ybnsrqssjDate = sdf.parse(ybnsrqssj);
+                Date ybnsrqssjDate = null;
+                if(org.apache.commons.lang.StringUtils.isNotBlank(ybnsrqssj)){
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+                    ybnsrqssjDate = sdf.parse(ybnsrqssj);
+                }
                 //如果是小规模纳税人
-                if(!ybnsrqssjDate.before(new Date())){
+                if(!ybnsrqssjDate.before(new Date()) || ybnsrqssjDate==null ){
                     sylx = Arrays.asList(XGM_NSR);
                 }else{
                     switch (ybnsrjyzs){
