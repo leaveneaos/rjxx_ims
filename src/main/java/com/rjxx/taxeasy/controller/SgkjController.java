@@ -2,10 +2,13 @@ package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.*;
+import com.rjxx.taxeasy.dao.XfJpaDao;
 import com.rjxx.taxeasy.domains.*;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.vo.*;
+import com.rjxx.taxeasy.vo.Fpkcvo;
+import com.rjxx.taxeasy.vo.JyspmxDecimal2;
+import com.rjxx.taxeasy.vo.Jyzfmxvo;
+import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.BeanConvertUtils;
@@ -22,6 +25,8 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.rjxx.taxeasy.config.NsrConstans.*;
 
 /**
  * Created by xlm on 2017/5/31.
@@ -64,6 +69,8 @@ public class SgkjController extends BaseController{
     private InvoiceSplitParamsUtil invoiceSplitParamsUtil;
     @Autowired
     private  CheckOrderUtil checkOrderUtil;
+    @Autowired
+    private XfJpaDao xfJpaDao;
 
     @RequestMapping
     public  String index()throws Exception{
@@ -114,7 +121,7 @@ public class SgkjController extends BaseController{
     // 查询方法
     @RequestMapping(value = "/getItems")
     @ResponseBody
-    public Map<String, Object> getItems(int length, int start, int draw) throws Exception {
+    public Map<String, Object> getItems(int length, int start, int draw,Integer xfid) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
@@ -127,8 +134,37 @@ public class SgkjController extends BaseController{
             pMap.put("xfs", getXfList());
             list2 = spzService.findAllByParams(pMap);
         }
+
         pagination.addParam("gsdm",gsdm);
         if (list2.size()==0) {
+            if(xfid !=null){
+                //根据纳税人类型判断适用配型
+                List sylx = null;
+                Xf xf = xfJpaDao.findOneById(xfid);
+                String ybnsrqssj = xf.getYbnsrqssj();//一般纳税人起始时间
+                String ybnsrjyzs = xf.getYbnsrjyzs();//一般纳税人简易征收
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+                Date ybnsrqssjDate = sdf.parse(ybnsrqssj);
+                //如果是小规模纳税人
+                if(!ybnsrqssjDate.before(new Date())){
+                    sylx = Arrays.asList(XGM_NSR);
+                }else{
+                    switch (ybnsrjyzs){
+                        case "2":
+                            sylx = Arrays.asList(YB_NSR);
+                            break;
+                        case "3":
+                            sylx = Arrays.asList(JYZS_NSR);
+                            break;
+                        case "4":
+                            sylx = Arrays.asList(BFJYZS_NSR);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                pagination.addParam("sylxList",sylx);
+            }
             list2 = spvoService.findAllOnPage(pagination);
         }
         int total = pagination.getTotalRecord();
@@ -138,6 +174,7 @@ public class SgkjController extends BaseController{
         result.put("data", list2);
         return result;
     }
+
     /**
      * 保存手工开具数据
      * @param
