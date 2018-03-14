@@ -19,12 +19,14 @@ import java.util.Map;
 @WebAppConfiguration
 public class FwkGetDataTest {
 
-    //@Autowired
-    //private FwkGetDataJob fwkGetDataJob;
+    @Autowired
+    private FwkGetDataJob fwkGetDataJob;
+
+    private String LastReturnedObjectID="";
 
     @Test
     public void getdata(){
-        String LastReturnedObjectID="";
+        do{
         String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
                 "<soapenv:Header/>\n" +
                 "<soapenv:Body>\n" +
@@ -32,10 +34,10 @@ public class FwkGetDataTest {
                 "<CustomerInvoiceSelectionByElements>\n" +
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
-               /* "<LowerBoundaryCustomerInvoiceDate>2017-12-16</LowerBoundaryCustomerInvoiceDate>\n" +*/
-                 "<LowerBoundaryCustomerInvoiceDate>2018-01-01</LowerBoundaryCustomerInvoiceDate>\n"+
-                 "<UpperBoundaryCustomerInvoiceDate>2018-01-25</UpperBoundaryCustomerInvoiceDate>\n"+
+                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                "<LowerBoundaryCustomerInvoiceDate>2018-03-04</LowerBoundaryCustomerInvoiceDate>\n" +
+                 /*"<LowerBoundaryCustomerInvoiceDate>2018-01-10</LowerBoundaryCustomerInvoiceDate>\n"+
+                 "<UpperBoundaryCustomerInvoiceDate>2018-01-10</UpperBoundaryCustomerInvoiceDate>\n"+*/
                  "</SelectionByDate>\n" +
                 /*"<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
@@ -55,9 +57,18 @@ public class FwkGetDataTest {
         System.out.println(invoiceBack);
         String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
 
-       // Map resultMap=fwkGetDataJob.interping(Data);
-        //LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
-        System.out.println(LastReturnedObjectID);
+        Map resultMap=fwkGetDataJob.interping(Data);
+
+        if(null==resultMap){
+            break;
+        }else{
+            if(null==resultMap.get("LastReturnedObjectID")||"".equals(resultMap.get("LastReturnedObjectID"))) {
+                break;
+            }else{
+                LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
+                System.out.println(LastReturnedObjectID);
+            }
+        }
        /*String ss=" <soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\">\n" +
                "    <soap:Header/>\n" +
                "    <soap:Body>\n" +
@@ -74,7 +85,7 @@ public class FwkGetDataTest {
                "    </soap:Body>\n" +
                " </soap:Envelope>\n";
         String Data= HttpUtils.doPostSoap1_2("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/yyb40eysay_managegoldentaxinvo?sap-vhost=my337076.sapbydesign.com", ss, null,"Wendy","Welcome9");*/
-
+        }while (true);
     }
 
 }

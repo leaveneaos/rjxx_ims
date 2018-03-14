@@ -49,10 +49,10 @@ public class FphxTest {
     @Test
     public void fphx(){
         Map parms=new HashMap();
-        parms.put("gsdm","Family");
-        parms.put("returnCode","9004");
-        parms.put("rqq","2017-10-17");
-        parms.put("rqz","2017-11-09");
+        parms.put("gsdm","fwk");
+        parms.put("returnCode","0003");
+        parms.put("rqq","2018-01-31");
+        parms.put("rqz","2018-01-31");
         List<Fphxwsjl> fphxwsjlList=fphxwsjlService.findAllByParams(parms);
         for(Fphxwsjl fphxwsjl:fphxwsjlList){
             try {
