@@ -500,28 +500,34 @@ $(function() {
 							swal('请输入开票人');
 							return false;
 						}
-                        if(!ybnsrkssj) {
-                            swal('请输入一般纳税人开始时间');
-                            return false;
-                        }
-                        if(!ybnsrjyzslx) {
-                            swal('请选择一般纳税人简易征收类型');
-                            return false;
-                        }
-                        var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
-                            regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
-
-                        if(regEn.test(ybnsrkssj) || regCn.test(ybnsrkssj)) {
-                            swal('起始时间请不要输入特殊字符');
-                            return false;
-                        }else{
-                            var ybnsr_month = parseInt(ybnsrkssj.substring(4, 6));
-                            if(ybnsrkssj.length!=6 || ybnsr_month<1 || ybnsr_month>12){
-                                swal('请输入正确的月份');
+						if(ybnsrkssj){
+							if(ybnsrjyzslx=="0"){
+                                swal('一般纳税人起始时间与简易征收类型必须同时存在');
+                                return false;
+							}
+						}
+                        if(ybnsrjyzslx!="0"){
+                            if(!ybnsrkssj){
+                                swal('一般纳税人起始时间与简易征收类型必须同时存在');
                                 return false;
                             }
-						}
+                        }
 
+                        if(ybnsrkssj){
+                            var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+                                regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+
+                            if(regEn.test(ybnsrkssj) || regCn.test(ybnsrkssj)) {
+                                swal('起始时间请不要输入特殊字符');
+                                return false;
+                            }else{
+                                var ybnsr_month = parseInt(ybnsrkssj.substring(4, 6));
+                                if(ybnsrkssj.length!=6 || ybnsr_month<1 || ybnsr_month>12){
+                                    swal('请输入正确的月份');
+                                    return false;
+                                }
+                            }
+						}
 
                         if (parseFloat(zpmax) < parseFloat(zpfz)) {
         	             //    $('#msg').html('普通发票分票金额大于开票限额！');
