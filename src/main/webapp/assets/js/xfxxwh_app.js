@@ -468,14 +468,14 @@ $(function() {
 						}
 
 
-
-
-						var xfmc = $('#xfmc').val(),
-							khyh = $('#khyh').val(),
-							yhzh = $('#yhzh').val(),
-							dz = $('#dz').val(),
-							xfdh = $('#xfdh').val(),
-							kpr = $('#kpr').val();
+                        var xfmc = $('#xfmc').val(),
+                            khyh = $('#khyh').val(),
+                            yhzh = $('#yhzh').val(),
+                            dz = $('#dz').val(),
+                            xfdh = $('#xfdh').val(),
+                            kpr = $('#kpr').val(),
+                            ybnsrkssj = $("#ybnsrkssj").val(),
+                            ybnsrjyzslx = $("#ybnsrjyzslx").val();
 						if(!xfmc) {
 							swal('请输入销方名称');
 							return false;
@@ -499,6 +499,27 @@ $(function() {
 						if(!kpr) {
 							swal('请输入开票人');
 							return false;
+						}
+                        if(!ybnsrkssj) {
+                            swal('请输入一般纳税人开始时间');
+                            return false;
+                        }
+                        if(!ybnsrjyzslx) {
+                            swal('请选择一般纳税人简易征收类型');
+                            return false;
+                        }
+                        var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+                            regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+
+                        if(regEn.test(ybnsrkssj) || regCn.test(ybnsrkssj)) {
+                            swal('起始时间请不要输入特殊字符');
+                            return false;
+                        }else{
+                            var ybnsr_month = parseInt(ybnsrkssj.substring(4, 6));
+                            if(ybnsrkssj.length!=6 || ybnsr_month<1 || ybnsr_month>12){
+                                swal('请输入正确的月份');
+                                return false;
+                            }
 						}
 
 

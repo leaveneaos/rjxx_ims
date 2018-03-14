@@ -1,14 +1,13 @@
 package com.rjxx.taxeasy.controller;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.XfVo;
+import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.ExcelUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.domains.DrPz;
-import com.rjxx.taxeasy.domains.Group;
-import com.rjxx.taxeasy.domains.Gsxx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.DmFpbcService;
-import com.rjxx.taxeasy.service.GroupService;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.SkpService;
-import com.rjxx.taxeasy.service.XfService;
-import com.rjxx.taxeasy.vo.Spbm;
-import com.rjxx.taxeasy.vo.XfVo;
-import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.ExcelUtil;
+import javax.servlet.ServletOutputStream;
+import java.io.InputStream;
+import java.util.*;
 
 @Controller
 @RequestMapping("/xfxxwh")
@@ -86,9 +71,26 @@ public class XfxxwhController extends BaseController {
 	public String index() {
 		request.setAttribute("xfs", getXfList());
 		request.setAttribute("bc", dfs.findAllByParams(null));
+		request.setAttribute("jyzslxs",setJyzslxProperty());
 		return "xfxxwh/index";
 	}
 
+	private List setJyzslxProperty(){
+		List<Map> jyzslxs = new ArrayList<>();
+		Map one = new HashMap();
+		one.put("lxid", "2");
+		one.put("lxmc", "不适用");
+		Map two = new HashMap();
+		two.put("lxid", "3");
+		two.put("lxmc", "适用");
+		Map three = new HashMap();
+		three.put("lxid", "4");
+		three.put("lxmc", "部分适用");
+		jyzslxs.add(one);
+		jyzslxs.add(two);
+		jyzslxs.add(three);
+		return jyzslxs;
+	}
 	/**
 	 * 分页查询销方信息
 	 * 
@@ -171,8 +173,6 @@ public class XfxxwhController extends BaseController {
 	 * @param skr
 	 * @param fhr
 	 * @param zfr
-	 * @param kpzdje
-	 * @param sqyhs
 	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -181,7 +181,7 @@ public class XfxxwhController extends BaseController {
 	@SystemControllerLog(description = "新增销方",key = "xfsh")  
 	public Map save(String sjxf, String xfsh, String xfmc, String dz, String xfdh, String xflxr, String xfyb,
 			String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje, Double dzpfpje,
-			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
+			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -200,6 +200,8 @@ public class XfxxwhController extends BaseController {
 				return result;
 			}
 			if (xfService.findOneByParams(xf) == null) {
+				xf.setYbnsrqssj(ybnsrkssj);
+				xf.setYbnsrjyzs(ybnsrjyzslx);
 				xf.setXfmc(xfmc);
 				xf.setSjjgbm("0".equals(sjxf) ? null : sjxf);
 				xf.setXfdh(xfdh);
@@ -263,8 +265,6 @@ public class XfxxwhController extends BaseController {
 	 * @param skr
 	 * @param fhr
 	 * @param zfr
-	 * @param kpzdje
-	 * @param sqyhs
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)

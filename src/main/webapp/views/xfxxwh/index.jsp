@@ -286,6 +286,25 @@
 										</div>
 										
 									</div>
+
+									<div class="am-form-group">
+										<label for="ybnsrkssj" class="am-u-sm-2 am-form-label" style="font-size: 13.5px"><font
+												color="red">*</font>一般纳税人开始时间</label>
+										<div class="am-u-sm-4">
+											<input type="text" id="ybnsrkssj" name="ybnsrkssj" placeholder="年月（6位，如201803）" />
+										</div>
+										<label for="ybnsrjyzslx" class="am-u-sm-2 am-form-label"><font
+												color="red">*</font>简易征收</label>
+										<div class="am-u-sm-4">
+											<select id="ybnsrjyzslx" name="ybnsrjyzslx">
+												<option value="0">请选择</option>
+												<c:forEach items="${jyzslxs }" var="x">
+													<option value="${x.lxid }">${x.lxmc }</option>
+												</c:forEach>
+											</select>
+										</div>
+
+									</div>
 			
 									
 									<div class="am-form-group">
