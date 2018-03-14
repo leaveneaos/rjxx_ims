@@ -272,7 +272,7 @@ public class XfxxwhController extends BaseController {
 	@SystemControllerLog(description = "修改销方",key = "xfid")  
 	public Map update(String sjxf, Integer xfid, String xfsh, String xfmc, String dz, String xfdh, String xflxr,
 			String xfyb, String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje,
-			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje) {
+			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			if (!"0".equals(sjxf) && !"".equals(sjxf) && sjxf != null) {
@@ -319,6 +319,8 @@ public class XfxxwhController extends BaseController {
 			xf.setId(xfid);
 			xf.setGsdm(getGsdm());
 			if (xfService.findOneByParams(xf) == null || xfid.equals(xfService.findOneByParams(xf).getId())) {
+				xf.setYbnsrqssj(ybnsrkssj);
+				xf.setYbnsrjyzs(ybnsrjyzslx);
 				xf.setXfmc(xfmc);
 				xf.setSjjgbm("0".equals(sjxf) ? null : sjxf);
 				xf.setXfdh(xfdh);

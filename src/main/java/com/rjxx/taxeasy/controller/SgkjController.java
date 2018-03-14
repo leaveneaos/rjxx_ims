@@ -149,7 +149,7 @@ public class SgkjController extends BaseController{
                     ybnsrqssjDate = sdf.parse(ybnsrqssj);
                 }
                 //如果是小规模纳税人
-                if(!ybnsrqssjDate.before(new Date()) || ybnsrqssjDate==null ){
+                if(ybnsrqssjDate==null || !ybnsrqssjDate.before(new Date())){
                     sylx = Arrays.asList(XGM_NSR);
                 }else{
                     switch (ybnsrjyzs){
