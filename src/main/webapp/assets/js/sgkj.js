@@ -29,9 +29,7 @@ $(function() {
             url: 'sgkj/getItems',
             type: 'POST',
             data: function (d) {
-                alert("1");
                 d.xfid = $("#xf").val();
-                alert(d.xfid);
             }
         },
         "columns": [
