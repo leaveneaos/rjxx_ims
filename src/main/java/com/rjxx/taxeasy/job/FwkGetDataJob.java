@@ -85,10 +85,11 @@ public class FwkGetDataJob implements Job {
                                     break;
                                 }else{
                                     LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
-                                    System.out.println("福维克分页抽取ID"+LastReturnedObjectID);
+                                    System.out.println("--------福维克分页抽取ID------------"+LastReturnedObjectID);
                                     for (Map.Entry<String, String> entry : LastReturnedObjectIDMap.entrySet()) {
                                         if(entry.getKey().equals(LastReturnedObjectID)){
                                             LastReturnedObjectIDMap.clear();
+                                            System.out.println("--------重复福维克分页抽取ID，跳出循环------------"+LastReturnedObjectID);
                                             break;
                                         }else{
                                             LastReturnedObjectIDMap.put(LastReturnedObjectID,LastReturnedObjectID);
@@ -97,6 +98,7 @@ public class FwkGetDataJob implements Job {
                                 }
                             }
                 }while (true);
+                LastReturnedObjectIDMap.clear();
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
