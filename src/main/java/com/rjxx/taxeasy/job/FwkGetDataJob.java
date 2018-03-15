@@ -52,7 +52,10 @@ public class FwkGetDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
-        //while (true) {
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,-1);
+        Date time=cal.getTime();
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(time));
             try {
                 do{
                     String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
@@ -63,7 +66,7 @@ public class FwkGetDataJob implements Job {
                             "<SelectionByDate>\n" +
                             "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                             "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                            "<LowerBoundaryCustomerInvoiceDate>2018-03-14</LowerBoundaryCustomerInvoiceDate>\n" +
+                            "<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +
                             "</SelectionByDate>\n" +
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
