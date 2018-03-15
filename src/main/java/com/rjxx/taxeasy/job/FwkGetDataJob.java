@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by xlm on 2017/8/2.
@@ -46,6 +47,8 @@ public class FwkGetDataJob implements Job {
     @Autowired
     private GsxxService gsxxService;
     private String  LastReturnedObjectID="";
+    private Map<String, String> LastReturnedObjectIDMap = new HashMap<>();
+
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         logger.info("获取福维克开票数据任务执行开始,nextFireTime:{},"+context.getNextFireTime());
@@ -61,14 +64,7 @@ public class FwkGetDataJob implements Job {
                             "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                             "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
                             "<LowerBoundaryCustomerInvoiceDate>2018-03-14</LowerBoundaryCustomerInvoiceDate>\n" +
-                             /*"<LowerBoundaryCustomerInvoiceDate>2018-01-10</LowerBoundaryCustomerInvoiceDate>\n"+
-                             "<UpperBoundaryCustomerInvoiceDate>2018-01-10</UpperBoundaryCustomerInvoiceDate>\n"+*/
                             "</SelectionByDate>\n" +
-                            /*"<SelectionByID>\n" +
-                            "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                            "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                            "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
-                            "</SelectionByID>\n" +*/
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
                             "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
@@ -89,7 +85,15 @@ public class FwkGetDataJob implements Job {
                                     break;
                                 }else{
                                     LastReturnedObjectID=resultMap.get("LastReturnedObjectID").toString();
-                                    System.out.println(LastReturnedObjectID);
+                                    System.out.println("福维克分页抽取ID"+LastReturnedObjectID);
+                                    for (Map.Entry<String, String> entry : LastReturnedObjectIDMap.entrySet()) {
+                                        if(entry.getKey().equals(LastReturnedObjectID)){
+                                            LastReturnedObjectIDMap.clear();
+                                            break;
+                                        }else{
+                                            LastReturnedObjectIDMap.put(LastReturnedObjectID,LastReturnedObjectID);
+                                        }
+                                    }
                                 }
                             }
                 }while (true);
@@ -569,7 +573,7 @@ public class FwkGetDataJob implements Job {
                         }
                     }
                 }
-                jyxxsq.setBz(bz+"  销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
+                jyxxsq.setBz(bz+"|销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
                 jyxxsq.setDdh(ddh);
                 jyxxsq.setGfsjh(gfsjh);
                 /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
