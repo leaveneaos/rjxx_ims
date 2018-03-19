@@ -578,7 +578,8 @@ public class FwkGetDataJob implements Job {
                         }
                     }
                 }
-                jyxxsq.setBz(bz+"|销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
+                jyxxsq.setBz(bz);
+                jyxxsq.setXsqd("销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
                 jyxxsq.setDdh(ddh);
                 jyxxsq.setGfsjh(gfsjh);
                 /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
