@@ -66,7 +66,10 @@ public class FwkGetDataJob implements Job {
                             "<SelectionByDate>\n" +
                             "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                             "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                            "<LowerBoundaryCustomerInvoiceDate>2018-03-06</LowerBoundaryCustomerInvoiceDate>\n" +
+/*
                             "<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +
+*/
                             "</SelectionByDate>\n" +
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
