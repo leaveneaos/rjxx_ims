@@ -260,7 +260,9 @@
         <div style="width:60%;float: right;">
         	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">技术咨询热线: 021-5571833</div>
         	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">公司网址：<a href="http://www.datarj.com/index.php">http://www.datarj.com/index.php</a></div>
+<%--
         	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
+--%>
         </div>
         <div style="width:20%;float: right;">
         	<img src="<%=request.getContextPath()%>/img/fw.jpg" alt="" style="width:120px;height:120px;"/>
