@@ -40,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
+                <a href="javascript:;" style="font-weight:900">开票通V2.0</a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
