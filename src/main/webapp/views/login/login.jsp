@@ -5,7 +5,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>泰易电子发票云服务平台</title>
+    <title>电子发票云服务平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -38,7 +38,9 @@
     <div class="am-container">
         <div class="am-g am-padding-top am-padding-bottom">
             <div class="am-u-sm-4  am-padding-0">
+<%--
                 <img src="<%=request.getContextPath()%>/img/logo.png" alt="TaxEasy"/>
+--%>
             </div>
             <div class="am-u-sm-8 menu  am-padding-0">
                 <div class="am-btn-group am-btn-group-justify">
@@ -60,7 +62,7 @@
     <div class="am-container  ">
         <div class="am-g">
             <div class="am-u-sm-12  description am-padding">
-                <h1>欢迎来到 TaxEasy</h1>
+                <h1>欢迎来到电票平台</h1>
                 <p>专注税务服务, 深谙电子发票应用</p>
                 <p>成长路上, 感谢您的支持陪伴</p>
                 <div class="dl  ">
