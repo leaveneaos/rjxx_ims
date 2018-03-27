@@ -94,7 +94,7 @@ function toggleFullScreen() {
         }  
         document.getElementById('data-fullscreen').innerHTML = ('退出全屏');
     } else {  
-        if (document.cancelFullScreen) {  
+        if (document.cancelFullScreen) {
             document.cancelFullScreen();  
         } else if (document.mozCancelFullScreen) {  
             document.mozCancelFullScreen();  

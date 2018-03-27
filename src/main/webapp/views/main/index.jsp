@@ -468,9 +468,9 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/sweetalert.min.js"></script>
     <script language="javascript" type="text/javascript"> 
-    $(function(){
-    	$("#业务处理").css('display','block'); 
-    })
+//    $(function(){
+//    	$("#业务处理").css('display','block');
+//    })
     function zhxx(){
 		$.ajax({
 			url : "nyhgl/getGsxx",

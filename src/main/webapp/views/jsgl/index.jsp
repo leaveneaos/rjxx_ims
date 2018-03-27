@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!doctype html>
+<%--<!doctype html>--%>
 <html class="no-js">
 <head>
 <meta charset="utf-8">
@@ -30,7 +30,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<%@ include file="../../pages/top.jsp"%>
+	<%--<%@ include file="../../pages/top.jsp"%>--%>
 	<div class="am-cf admin-main">
 		<!-- sidebar start -->
 		<%@ include file="../../pages/menus.jsp"%>
