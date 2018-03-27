@@ -1,16 +1,13 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.dao.JkmbbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbzbJpaDao;
-import com.rjxx.taxeasy.domains.Jkmbb;
-import com.rjxx.taxeasy.domains.Jkmbzb;
-import com.rjxx.taxeasy.domains.Jkpzdmb;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.JkmbbService;
-import com.rjxx.taxeasy.service.JkmbzbService;
-import com.rjxx.taxeasy.service.JkpzdmbService;
-import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.JkpzVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.StringUtils;
@@ -20,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/jkpz")
@@ -31,6 +25,10 @@ public class JkpzController extends BaseController {
 
     @Autowired
     private XfService xfService;
+    @Autowired
+    private GsxxService gsxxService;
+    @Autowired
+    private SkpService skpService;
     @Autowired
     private JkmbbService jkmbbService;
     @Autowired
@@ -44,12 +42,15 @@ public class JkpzController extends BaseController {
 
     @RequestMapping
     public String index() {
-        request.setAttribute("jkpzdmb", getjkpzdmb(null));
+        request.setAttribute("jkpzdmb", getjkpzdmb());
         request.setAttribute("gsdm", getGsdm());
         Xf xf = new Xf();
-        xf.setGsdm(getGsdm());
+        Skp skp = new Skp();
+        Map map = new HashMap();
+        List<Gsxx> gsxxList = gsxxService.findAllByParams(map);
+        List<Skp> skpList = skpService.findAllByParams(skp);
         List<Xf> xfList = xfService.findAllByParams(xf);
-        request.setAttribute("xfList", xfList);
+
         return "jkpz/index";
     }
 
@@ -104,9 +105,8 @@ public class JkpzController extends BaseController {
         return  result;
     }
 
-    public List<Jkpzdmb> getjkpzdmb(Integer pzbid) {
+    public List<Jkpzdmb> getjkpzdmb() {
         Map params = new HashMap<>();
-        params.put("pzbid",pzbid);
         List<Jkpzdmb> list = jkpzdmbService.findAllByParams(params);
         return list;
     }
@@ -122,23 +122,22 @@ public class JkpzController extends BaseController {
     public Map delete(String ids) {
         Map<String, Object> result = new HashMap<String, Object>();
         if (StringUtils.isNotBlank(ids)) {
-            String[] idls = ids.split(",");
-            for (int i = 0; i < idls.length; i++) {
-                String id = idls[i].split(":")[0];
-                try {
-                    Jkmbb jkmbb = jkmbbService.findOne(Integer.valueOf(id));
-                    List<Jkmbzb> list = jkmbzbJpaDao.findListByMbid(jkmbb.getId());
-                    for (Jkmbzb jkmbzb : list) {
-                        jkmbbJpaDao.delete(jkmbzb.getId());
-                    }
-                    jkmbbJpaDao.delete(Integer.valueOf(id));
-                    result.put("success", true);
-                    result.put("msg", "删除成功");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    result.put("failure", true);
-                    result.put("msg", "删除出现错误: " + e);
+            try {
+                String[] idl = ids.split(",");
+                for (String id : idl) {
+                        Jkmbb jkmbb = jkmbbService.findOne(Integer.valueOf(id));
+                        List<Jkmbzb> list = jkmbzbJpaDao.findListByMbid(jkmbb.getId());
+                        for (Jkmbzb jkmbzb : list) {
+                            jkmbbJpaDao.delete(jkmbzb.getId());
+                        }
+                        jkmbbJpaDao.delete(Integer.valueOf(id));
+                        result.put("success", true);
+                        result.put("msg", "删除成功");
                 }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                result.put("success", false);
+                result.put("msg", "删除失败");
             }
         }
         return result;
@@ -146,9 +145,41 @@ public class JkpzController extends BaseController {
 
     @RequestMapping(value = "/save")
     @ResponseBody
-    public Map xgcsb(String mbmc, String mbms,String ids) {
+    public Map xgcsb(String mbmc, String mbms,String str3) {
         Map<String, Object> result = new HashMap<String, Object>();
-        
+        if(StringUtils.isBlank(str3)){
+            result.put("msg", "保存失败，请检查数据!");
+            result.put("success", false);
+        }
+        try {
+            Jkmbb jkmbb = new Jkmbb();
+            Date date = new Date();
+            jkmbb.setGsdm(getGsdm());
+            jkmbb.setMbmc(mbmc);
+            jkmbb.setMbms(mbms);
+            jkmbb.setYxbz("1");
+            jkmbb.setLrsj(date);
+            jkmbb.setLrry(getYhid());
+            Jkmbb jkmbb1 = jkmbbJpaDao.save(jkmbb);
+            JSONArray objects = JSON.parseArray(str3);
+            for (Object o : objects) {
+                Jkmbzb jkmbzb = new Jkmbzb();
+                jkmbzb.setMbid(jkmbb1.getId());
+                JSONObject j = (JSONObject) o;
+                String pzbid = j.getString("pzbid");
+                String cszffid = j.getString("cszffid");
+                jkmbzb.setPzbid(Integer.valueOf(pzbid));
+                jkmbzb.setCszffid(Integer.valueOf(cszffid));
+                jkmbzb.setLrry(getYhid());
+                jkmbzb.setLrsj(date);
+                jkmbzbJpaDao.save(jkmbzb);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("msg", "保存失败!");
+            result.put("success", false);
+            return result;
+        }
         result.put("msg", "保存成功!");
         result.put("success", true);
         return result;
