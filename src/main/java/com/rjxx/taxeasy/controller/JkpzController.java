@@ -50,7 +50,7 @@ public class JkpzController extends BaseController {
         List<Gsxx> gsxxList = gsxxService.findAllByParams(map);
         List<Skp> skpList = skpService.findAllByParams(skp);
         List<Xf> xfList = xfService.findAllByParams(xf);
-
+        request.setAttribute("gsxx",gsxxList);
         return "jkpz/index";
     }
 
@@ -60,20 +60,20 @@ public class JkpzController extends BaseController {
      * @param start
      * @param draw
      * @param mbmc
-     * @param txt
      * @return
      */
     @RequestMapping(value = "/getjkmbList")
     @ResponseBody
-    public Map getJkmb(int length, int start, int draw, String mbmc,  String txt) {
+    public Map getJkmb(int length, int start, int draw, String mbmc,  String mbms,String gsdm) {
         Pagination pagination = new Pagination();
         List<Jkmbb> list = null;
         try {
             pagination.setPageNo(start / length + 1);
             pagination.setPageSize(length);
-            pagination.addParam("gsdm", getGsdm());
+            pagination.addParam("gsdm", gsdm);
             pagination.addParam("orderBy", "lrsj");
-            pagination.addParam("xfs", getXfList());
+            pagination.addParam("mbmc",mbmc);
+            pagination.addParam("mbms",mbms);
             list = jkmbbService.findByPage(pagination);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,17 +90,28 @@ public class JkpzController extends BaseController {
     /**
      * 查看详情
      * @param mbid
-     * @return
+     * @return 成功返回list  失败list为空
      */
     @RequestMapping(value = "/getjkmbzb")
     @ResponseBody
-    public List getjkmbzb(Integer mbid){
-        List result=new ArrayList();
+    public Map getjkmbzb(Integer mbid){
+        Map result=new HashMap();
         try {
+            if(mbid==null){
+                result.put("success", false);
+                result.put("data",new ArrayList<>());
+            }
             List<JkpzVo> list = jkmbzbService.findByMbId(mbid);
-            result=list;
+            if(list.isEmpty()){
+                result.put("success", false);
+                result.put("data",new ArrayList<>());
+            }
+            result.put("success", true);
+            result.put("data",list);
         } catch (Exception e) {
             e.printStackTrace();
+            result.put("success", false);
+            result.put("data",new ArrayList<>());
         }
         return  result;
     }
