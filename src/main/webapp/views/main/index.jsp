@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>泰易（TaxEasy）开票通V2.0</title>
+    <title>开票通V2.0</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
+                <a href="javascript:;" style="font-weight:900">开票通V2.0</a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -231,7 +231,9 @@
             <iframe id="mainFrame" src="<%=request.getContextPath()%>/mainjsp" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
         </div>
         <footer>
+<%--
                 <p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
+--%>
         </footer>
     </div>
     </div>
