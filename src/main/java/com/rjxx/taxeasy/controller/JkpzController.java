@@ -8,6 +8,7 @@ import com.rjxx.taxeasy.dao.JkmbbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbzbJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.JkmbbVo;
 import com.rjxx.taxeasy.vo.JkpzVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.StringUtils;
@@ -59,27 +60,34 @@ public class JkpzController extends BaseController {
      * @param length
      * @param start
      * @param draw
-     * @param mbmc
      * @return
      */
     @RequestMapping(value = "/getjkmbList")
     @ResponseBody
-    public Map getJkmb(int length, int start, int draw, String mbmc,  String mbms,String gsdm) {
+    public Map getJkmb(int length, int start, int draw,String gsdm,boolean loaddata) {
+        Map<String, Object> result = new HashMap();
         Pagination pagination = new Pagination();
-        List<Jkmbb> list = null;
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
         pagination.addParam("gsdm", gsdm);
         pagination.addParam("orderBy", "lrsj");
-        pagination.addParam("mbmc",mbmc);
-        pagination.addParam("mbms",mbms);
-        list = jkmbbService.findByPage(pagination);
+        List<JkmbbVo> list = jkmbbService.findByPage(pagination);
         int total = pagination.getTotalRecord();
-        Map<String, Object> result = new HashMap();
-        result.put("recordsTotal", total);
-        result.put("recordsFiltered", total);
-        result.put("draw", draw);
-        result.put("data", list);
+        if(loaddata){
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", list);
+        }else {
+            result.put("recordsTotal", 0);
+            result.put("recordsFiltered", 0);
+            result.put("draw", draw);
+            result.put("data", new ArrayList<>());
+        }
+//        result.put("recordsTotal", total);
+//        result.put("recordsFiltered", total);
+//        result.put("draw", draw);
+//        result.put("data", list);
         return result;
     }
 
