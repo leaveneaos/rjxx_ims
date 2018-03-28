@@ -67,17 +67,13 @@ public class JkpzController extends BaseController {
     public Map getJkmb(int length, int start, int draw, String mbmc,  String mbms,String gsdm) {
         Pagination pagination = new Pagination();
         List<Jkmbb> list = null;
-        try {
-            pagination.setPageNo(start / length + 1);
-            pagination.setPageSize(length);
-            pagination.addParam("gsdm", gsdm);
-            pagination.addParam("orderBy", "lrsj");
-            pagination.addParam("mbmc",mbmc);
-            pagination.addParam("mbms",mbms);
-            list = jkmbbService.findByPage(pagination);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        pagination.setPageNo(start / length + 1);
+        pagination.setPageSize(length);
+        pagination.addParam("gsdm", gsdm);
+        pagination.addParam("orderBy", "lrsj");
+        pagination.addParam("mbmc",mbmc);
+        pagination.addParam("mbms",mbms);
+        list = jkmbbService.findByPage(pagination);
         int total = pagination.getTotalRecord();
         Map<String, Object> result = new HashMap();
         result.put("recordsTotal", total);
