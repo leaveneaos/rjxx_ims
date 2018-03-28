@@ -12,6 +12,7 @@ import com.rjxx.taxeasy.vo.JkmbbVo;
 import com.rjxx.taxeasy.vo.JkpzVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.StringUtils;
+import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class JkpzController extends BaseController {
     @Autowired
     private XfService xfService;
     @Autowired
-    private GsxxService gsxxService;
+    private CszbService cszbService;
     @Autowired
     private SkpService skpService;
     @Autowired
@@ -45,13 +46,15 @@ public class JkpzController extends BaseController {
     public String index() {
         request.setAttribute("jkpzdmb", getjkpzdmb());
         request.setAttribute("gsdm", getGsdm());
-        Xf xf = new Xf();
-        Skp skp = new Skp();
-        Map map = new HashMap();
-        List<Gsxx> gsxxList = gsxxService.findAllByParams(map);
-        List<Skp> skpList = skpService.findAllByParams(skp);
-        List<Xf> xfList = xfService.findAllByParams(xf);
-        request.setAttribute("gsxx",gsxxList);
+//        Xf xf = new Xf();
+//        Skp skp = new Skp();
+//        Map map = new HashMap();
+//        List<Gsxx> gsxxList = gsxxService.findAllByParams(map);
+//        List<Skp> skpList = skpService.findAllByParams(skp);
+//        List<Xf> xfList = xfService.findAllByParams(xf);
+//        request.setAttribute("gsxx",gsxxList);
+//        request.setAttribute("skp",skpList);
+//        request.setAttribute("xf",xfList);
         return "jkpz/index";
     }
 
@@ -198,5 +201,71 @@ public class JkpzController extends BaseController {
         result.put("msg", "保存成功!");
         result.put("success", true);
         return result;
+    }
+
+    /**
+     * 获取销方列表
+     * @param gsdm
+     * @return
+     */
+    @RequestMapping(value = "/getxfxxList")
+    @ResponseBody
+    public Map getXfxxList(String gsdm){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            if(StringUtils.isBlank(gsdm)){
+                result.put("success", false);
+                result.put("data",new ArrayList<>());
+            }
+            Xf xf = new Xf();
+            xf.setGsdm(gsdm);
+            List<Xf> xfList = xfService.findAllByParams(xf);
+            result.put("success", true);
+            result.put("data",xfList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("data",new ArrayList<>());
+        }
+        return result;
+    }
+
+    /**
+     * 获取税控盘列表
+     * @param xfid
+     * @param gsdm
+     * @return
+     */
+    @RequestMapping(value = "/getskpxxList")
+    @ResponseBody
+    public Map getSkpxxList(String xfid,String gsdm){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            if(StringUtils.isBlank(xfid)){
+                result.put("success", false);
+                result.put("data",new ArrayList<>());
+            }
+            Skp skp = new Skp();
+            skp.setGsdm(gsdm);
+            skp.setXfid(Integer.valueOf(xfid));
+            List<Skp> skpList = skpService.findAllByParams(skp);
+            result.put("success", true);
+            result.put("data",skpList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("data",new ArrayList<>());
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/getsfsq")
+    @ResponseBody
+    public Boolean getcsb(String gsdm,String xfid ,String kpdid){
+        Cszb cszb = cszbService.getSpbmbbh(gsdm, Integer.valueOf(xfid), Integer.valueOf(kpdid), "jkpzmbid");
+        if(cszb !=null){
+            return true;
+        }
+        return false;
     }
 }
