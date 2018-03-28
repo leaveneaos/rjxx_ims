@@ -52,8 +52,8 @@
 									<select id="csid" name="csid">
 										<option value="">请选择</option>
 										<c:forEach items="${csbs}" var="item">
-											<option value="${item.id}">${item.csmc}(${item.csm})</option>
-										</c:forEach>
+										<option value="${item.id}">${item.csmc}(${item.csm})</option>
+									</c:forEach>
 									</select>
 								</div>
 							</div>
