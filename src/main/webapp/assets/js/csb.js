@@ -44,10 +44,9 @@ $(function() {
 					url : _this.config.getUrl,
 					type : 'POST',
 					data : function(d) {
-
 						d.csid = el.$s_yhzh.val(); // search 用户账号
 						d.csjb = el.$s_yhmc.val(); // search 用户名称
-
+						debugger
 					}
 				},
 				"columns" : [ {
@@ -211,15 +210,15 @@ $(function() {
 		},
 	
 		/**
-		 * search action
-		 */
-		search_ac : function() {
-			var _this = this;
-			el.$jsSearch.on('click', function(e) {
-				e.preventDefault();
-				_this.tableEx.ajax.reload();
-			});
-		},
+         * search action
+         */
+        search_ac : function() {
+            var _this = this;
+            el.$jsSearch.on('click', function(e) {
+                e.preventDefault();
+                _this.tableEx.ajax.reload();
+            });
+        },
 		/**
 		 * 新增保存
 		 */

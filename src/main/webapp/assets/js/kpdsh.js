@@ -178,7 +178,8 @@ $(function() {
             $("#lrmain_tab").tabs('open', 0);
         }
     });
-	  //开票商品明细table
+
+    //开票商品明细table
     var kpspmx_table = $('#mxTable1').DataTable({
         "paging": true,
         "lengthChange": true,

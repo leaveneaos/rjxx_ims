@@ -366,11 +366,11 @@
 			$('#xzxzcsz').hide();
 		});
 		function xzcs(obj) {
-			$.ajax({
-				url : 'csb/hqcszlx',
-				data : {
-					csid : obj.value
-				},
+                $.ajax({
+                    url : 'csb/hqcszlx',
+                    data : {
+                        csid : obj.value
+                    },
 				type : 'post',
 				success : function(data) {
 					if (null == data.csb) {

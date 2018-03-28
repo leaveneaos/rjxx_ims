@@ -190,13 +190,12 @@ Tree.prototype = {
     var selected = {}; // object for selected elements
     selected.$elements = this.$element.find('.' + this.classes.selected);
     selected.dataForEvent = [];
-
     // determine clicked element and it's icon
     if (nodeType === 'folder') {
       // make the clicked.$element the container branch
       clicked.$element = clicked.$element.closest('.' + this.classes.branch);
       clicked.$icon = clicked.$element.find('.' + this.classes.iconFolder);
-      clicked.$folderIcon = clicked.$element.find('.' + this.classes.iconItem);
+      clicked.$folderIcon = clicked.$element.find( '.am-tree-branch-header ' + '.' + this.classes.iconItem);
     } else {
       clicked.$icon = clicked.$element.find('.' + this.classes.iconItem);
     }

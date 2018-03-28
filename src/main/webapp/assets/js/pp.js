@@ -82,12 +82,12 @@ $(function() {
                     },]
             });
 
-            /*t.on('draw.dt', function(e, settings, json) {
+            t.on('draw.dt', function(e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(1).nodes().each(function(cell, i) {// 序号
                     cell.innerHTML = page + i + 1;
                 });
-            });*/
+            });
             //修改
             t.on('click', 'a.modify', function() {
                 var data = t.row($(this).parents('tr')).data();

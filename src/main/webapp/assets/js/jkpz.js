@@ -2,7 +2,7 @@ $(function () {
     "use strict";
     var ur;
     var el = {
-        $jsTable: $('#gfxx_table'),
+        $jsTable: $('#jkpz_table'),
         $modalHongchong: $('#hongchong'),
         $jsClose: $('#close1'),
         $jsForm0: $('.js-form-0'),     // 红冲 form
@@ -10,17 +10,26 @@ $(function () {
         $jsExport: $('.js-export'),
         $jsLoading: $('.js-modal-loading'),
         $jsSave: $('#save'),
-        $xiugai: $('#xiugai'),
+        $xiugai: $('#modify'),
         $jsUpdate: $('#update'),
+        $jsCheck: $('#jkpz_ck'),
+        $s_gsdm : $('#jkpz_gsmc'), // search
+        $jsSearch : $('#companySearch') // 查询公司
     };
+
+    var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
             getUrl: 'jkpz/getjkmbList',
-            addUrl: 'gfqymp/saveGfxx',
-            scUrl: 'gfqymp/delete',
-            updateUrl: 'gfqymp/update'
+            getInfoUrl:"jkpz/getjkmbzb", // 查看模板详情
+            addUrl: 'jkpz/save',
+            scUrl: 'jkpz/delete',
+            updateUrl: 'gfqymp/update',
+            checkUrl: 'jkpz/getjkmbzb'
         },
+
+
         dataTable: function () {
             var _this = this;
             var t = el.$jsTable.DataTable({
@@ -32,15 +41,12 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-//
+                            d.gsdm = el.$s_gsdm.val(); // search 公司代码
+                            d.loaddata=loaddata;
                         }
                     },
                     "columns": [
-                        //     {
-                        //     "orderable" : false,
-                        //     "data" : null,
-                        //     "defaultContent" : ""
-                        //     },
+
                         {
                             "orderable": false,
                             "data": null,
@@ -50,43 +56,53 @@ $(function () {
                             }
                         },
                         {
+                            "orderable" : false,
+                            "data" : null,
+                            "defaultContent" : ""
+                        },
+                        {
                             "orderable": false,
                             data: null,
                             render: function (data, type, row, meta) {
-                                // console.log(id);
-                                debugger
                                 var arr = []
-                                arr.push('<button class="am-btn am-btn-success am-radius am-btn-xs"  data-id="' +row.id + '">查看</button>')
-                                arr.push('<button class="am-btn am-btn-warning am-radius am-btn-xs" data-id="' + row.id + '" >修改</button>')
-                                arr.push('<button class="am-btn am-btn-danger am-radius am-btn-xs" data-am-offcanvas="{target: \'#doc-oc-demo3\'}" data-id="' + row.id + '">授权</button>')
-                                return arr.join('')
+                                arr.push('<button class="am-btn am-btn-success am-radius am-btn-xs lookfor" data-id="' +row.id + '">查看</button>');
+                                arr.push('<button class="am-btn am-btn-warning am-radius am-btn-xs modify" data-id="' + row.id + '" >修改</button>');
+                                arr.push('<button class="am-btn am-btn-danger am-radius am-btn-xs" data-am-offcanvas="{target: \'#doc-oc-demo3\'}" data-id="' + row.id + '">授权</button>');
+                                return arr.join('');
                             }
+                        },
+                        {
+                            "data": "gsmc"
                         },
                         {
                             "data": "mbmc"
                         },
                         {
-                            render: function (id, type, row) {
-                                return 123
-                            }
+                            "data": "mbms"
                         },
                         {
-                            render: function (data, type, row) {
-                                return 234
-                            }
+                            "data": "lrry"
+                        },
+                        {
+                            "data": "lrsj"
                         }
                     ]
                 }
             );
 
+            t.on('draw.dt', function (e, settings, json) {
+                var x = t, page = x.page.info().start; // 设置第几页
+                t.column(1).nodes().each(function (cell, i) {// 序号
+                    cell.innerHTML = page + i + 1;
+                });
+            });
 
-            // t.on('draw.dt', function (e, settings, json) {
-            //     var x = t, page = x.page.info().start; // 设置第几页
-            //     t.column(1).nodes().each(function (cell, i) {// 序号
-            //         cell.innerHTML = page + i + 1;
-            //     });
-            // });
+            t.on('click','button.lookfor',function () {
+                var da = t.row($(this).parents('tr')).data();
 
+                // 查看详情信息
+                _this.ck(da);
+            });
 
             $('#check_all').change(function () {
                 if ($('#check_all').prop('checked')) {
@@ -99,14 +115,7 @@ $(function () {
                     });
                 }
             });
-            t.on('draw.dt', function (e, settings, json) {
-                var x = t,
-                    page = x.page.info().start; // 设置第几页
-                /*    t.column(0).nodes().each(function (cell, i) {
-                        cell.innerHTML = page + i + 1;
-                    });*/
 
-            });
             // 删除
             t.on('click', 'a.del', function () {
                 var da = t.row($(this).parents('tr')).data();
@@ -118,7 +127,7 @@ $(function () {
             });
 
             //删除
-            $("#gf_del").click(function () {
+            $("#jkpz_del").click(function () {
                 var djhArr = [];
                 $("input[type='checkbox']:checked").each(function (i, o) {
                     if ($(o).attr("data") != null) {
@@ -144,7 +153,7 @@ $(function () {
 
 
             //xiugai
-            $("#gf_xg").click(function () {
+            $("#jkpz_xg").click(function () {
                 var djhArr = [];
                 $("input[type='checkbox']:checked").each(function (i, o) {
                     if ($(o).attr("data") != null) {
@@ -166,7 +175,7 @@ $(function () {
             });
 
             // xiugai
-            t.on('click', 'a.xiugai', function () {
+            t.on('click', 'button.modify', function () {
                 var data = t.row($(this).parents('tr')).data();
                 // todo
                 _this.setForm0(data);
@@ -284,6 +293,50 @@ $(function () {
         },
 
         /**
+         * 查看
+         */
+        ck: function (da) {
+            var _this = this;
+            $.ajax({
+                url: _this.config.getInfoUrl,
+                data: {
+                    "id": da.id
+                },
+                method: 'POST',
+                success: function (data) {
+                    if (data.success) {
+                        // modal
+                        swal(data.msg);
+
+                        // 动态创建 授权信息详情表
+
+
+                    } else {
+
+                        swal('查看失败: ' + data.msg);
+
+                    }
+                },
+                error: function () {
+                    swal('查询信息失败, 请重新查看...!');
+                }
+            });
+
+        },
+
+        /**
+         * search action
+         */
+        search_ac : function() {
+            var _this = this;
+            el.$jsSearch.on('click', function(e) {
+                loaddata = true;
+                e.preventDefault();
+                _this.tableEx.ajax.reload();
+            });
+        },
+
+        /**
          * 新增保存
          */
         xz: function () {
@@ -384,6 +437,7 @@ $(function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
             _this.xz();
+            _this.search_ac();
             //_this.exportAc();
             _this.modalAction(); // hidden action
         }
