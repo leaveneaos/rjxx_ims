@@ -45,6 +45,7 @@
                         <div class="widget-title am-cf">
                             <strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>接口配置</strong>
                         </div>
+
                             <!--公司搜索结果-->
                         <div class="am-u-sm-9 am-padding-top" >
                             <div class="am-form-group tpl-table-list-select">
@@ -52,6 +53,7 @@
                                 <select id="jkpz_gsmc" name="jkpz_gsmc" data-am-selected="{maxHeight: '300px',btnWidth: '60%'}">
                                     <option value="">请选择</option>
                                     <c:forEach items="${gsxx}" var="item">
+                                        debugger;
                                         <option value="${item.gsdm}">${item.gsmc}</option>
                                     </c:forEach>
                                 </select>
@@ -113,8 +115,40 @@
                                     </tr>
                                     </thead>
                                 </table>
+                                <legend>模板明细</legend>
                             </div>
                         </div>
+
+                            <div style="margin-top: 0px; margin-left: 0px;"
+                                 class="am-u-sm-12 am-scrollable-horizontal">
+                                <table style="margin-bottom: 0px;"
+                                       class="jkpz-js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
+                                       id="jkpz-mxTable1">
+                                    <thead>
+                                    <tr>
+                                        <th>交易流水号</th>
+                                        <th>订单号</th>
+                                        <th>订单日期</th>
+                                        <th>开票点代码</th>
+                                        <th>发票种类</th>
+                                        <th>打印清单</th>
+                                        <th>自动拆分</th>
+                                        <th>立即打印</th>
+                                        <th>征税方式</th>
+                                        <th>含税标志</th>
+                                        <th>备注</th>
+                                        <th>商品编码版本</th>
+                                        <th>落款人</th>
+                                        <th>销方全信息</th>
+                                        <th>商品全信息</th>
+                                        <th>商品优惠信息</th>
+                                        <th>支付信息</th>
+                                        <th>购方信息</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
 
 
                         <!-- model -->
@@ -962,6 +996,7 @@
                 }
             }
         ];
+
         var $tree2 = $('#menuTree2');
         $tree2.tree({
             dataSource: function(options, callback) {
@@ -987,9 +1022,6 @@
             $el.text('unselected').css('color', '#000');
             console.log(data.selected);
         });
-
-
-
 
          // 发票种类
         var $selected = $('#js-selected');

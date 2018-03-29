@@ -3,6 +3,7 @@ $(function () {
     var ur;
     var el = {
         $jsTable: $('#jkpz_table'),
+        $jsDetailTable:$('#jkpz_table_detail'),
         $modalHongchong: $('#hongchong'),
         $jsClose: $('#close1'),
         $jsForm0: $('.js-form-0'),     // 红冲 form
@@ -18,20 +19,41 @@ $(function () {
     };
 
     var loaddata=false;
+    var detaildataload = false;
+
     var action = {
         tableEx: null, // cache dataTable
+        tableDetail:null, // 模板详情
         config: {
             getUrl: 'jkpz/getjkmbList',
             getInfoUrl:"jkpz/getjkmbzb", // 查看模板详情
             addUrl: 'jkpz/save',
             scUrl: 'jkpz/delete',
             updateUrl: 'gfqymp/update',
-            checkUrl: 'jkpz/getjkmbzb'
+            empowerUrl: 'jkpz/getxxList'
         },
-
 
         dataTable: function () {
             var _this = this;
+
+            // 模板详情
+            var t_detail = el.$jsDetailTable.DataTable({
+                "processing": true,
+                "serverSide": true,
+                ordering: false,
+                searching: false,
+                "ajax": {
+                    url: _this.config.getInfoUrl,
+                    type: 'POST',
+                    data: function (d) {
+                        d.gsdm = el.$s_gsdm.val(); // search 公司代码
+                        d.loaddata=loaddata;
+                    }
+                },
+            });
+
+
+            // 公司-模板
             var t = el.$jsTable.DataTable({
                     "processing": true,
                     "serverSide": true,
@@ -67,7 +89,7 @@ $(function () {
                                 var arr = []
                                 arr.push('<button class="am-btn am-btn-success am-radius am-btn-xs lookfor" data-id="' +row.id + '">查看</button>');
                                 arr.push('<button class="am-btn am-btn-warning am-radius am-btn-xs modify" data-id="' + row.id + '" >修改</button>');
-                                arr.push('<button class="am-btn am-btn-danger am-radius am-btn-xs" data-am-offcanvas="{target: \'#doc-oc-demo3\'}" data-id="' + row.id + '">授权</button>');
+                                arr.push('<button class="am-btn am-btn-danger am-radius am-btn-xs empower" data-am-offcanvas="{target: \'#doc-oc-demo3\'}" data-id="' + row.id + '">授权</button>');
                                 return arr.join('');
                             }
                         },
@@ -90,6 +112,8 @@ $(function () {
                 }
             );
 
+
+
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(1).nodes().each(function (cell, i) {// 序号
@@ -103,6 +127,23 @@ $(function () {
                 // 查看详情信息
                 _this.ck(da);
             });
+
+            t.on('click','button.empower',function () {
+                var da = t.row($(this).parents('tr')).data();
+                // 授权---数据
+                _this.sq(da);
+            });
+
+            $('#jkpz_table_detail').on( 'draw.dt', function () {
+                if($("input[name='chk']:checked").length>1){
+                    var ycl = $("input[name='bckpje']");
+                    for (var i = 0; i < ycl.length; i++) {
+                        $(ycl).attr("readonly","readonly");
+                    }
+                }
+            });
+
+
 
             $('#check_all').change(function () {
                 if ($('#check_all').prop('checked')) {
@@ -279,7 +320,6 @@ $(function () {
                     } else {
 
                         swal('删除购方信息失败: ' + data.msg);
-
                     }
                     _this.tableEx.ajax.reload(); // reload table
                     // data
@@ -297,6 +337,7 @@ $(function () {
          */
         ck: function (da) {
             var _this = this;
+
             $.ajax({
                 url: _this.config.getInfoUrl,
                 data: {
@@ -307,21 +348,45 @@ $(function () {
                     if (data.success) {
                         // modal
                         swal(data.msg);
-
-                        // 动态创建 授权信息详情表
-
+                        // 创建 授权信息详情表
 
                     } else {
-
                         swal('查看失败: ' + data.msg);
-
                     }
                 },
                 error: function () {
                     swal('查询信息失败, 请重新查看...!');
                 }
             });
+        },
 
+        /**
+         * 授权
+         */
+        sq: function (da) {
+            var _this = this;
+
+            $.ajax({
+                url: _this.config.empowerUrl,
+                data: {
+                    "id": da.id
+                },
+                method: 'POST',
+                success: function (data) {
+                    if (data.success) {
+                        // modal
+                        swal(data.msg);
+                        debugger
+                        // 授权信息传递
+
+                    } else {
+                        swal('查看失败: ' + data.msg);
+                    }
+                },
+                error: function () {
+                    swal('查询信息失败, 请重新查看...!');
+                }
+            });
         },
 
         /**
