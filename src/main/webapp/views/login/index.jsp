@@ -45,7 +45,7 @@
 
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
             <!--<li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span-->
-                    <!--class="am-badge am-badge-warning">5</span></a></li>-->
+            <!--class="am-badge am-badge-warning">5</span></a></li>-->
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                     <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
@@ -186,9 +186,7 @@
 
 <footer>
     <hr>
-<%--
     <p class="am-padding-left">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</p>
---%>
 </footer>
 
 <!--[if lt IE 9]>
@@ -209,18 +207,18 @@
 <script>
 
     (function ($) {
-   /*      $.ajax({
-            url: "yhgl/getUserTree", context: document.body, success: function (data) {
-                $('#firstTree').tree({
-                    dataSource: function (options, callback) {
-                        callback({data: data});
-                    },
-                    multiSelect: false,
-                    cacheItems: true,
-                    folderSelect: false
-                });
-            }
-        }); */
+        /*      $.ajax({
+         url: "yhgl/getUserTree", context: document.body, success: function (data) {
+         $('#firstTree').tree({
+         dataSource: function (options, callback) {
+         callback({data: data});
+         },
+         multiSelect: false,
+         cacheItems: true,
+         folderSelect: false
+         });
+         }
+         }); */
         $('#firstTree').on('selected.tree.amui', function (event, data) {
             // do something with data: { selected: [array], target: [object] }
             $("#xm").val(data.selected[0].title);

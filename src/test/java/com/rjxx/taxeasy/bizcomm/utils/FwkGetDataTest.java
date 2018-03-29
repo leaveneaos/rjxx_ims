@@ -35,7 +35,7 @@ public class FwkGetDataTest {
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2018-03-04</LowerBoundaryCustomerInvoiceDate>\n" +
+                "<LowerBoundaryCustomerInvoiceDate>2018-03-06</LowerBoundaryCustomerInvoiceDate>\n" +
                  /*"<LowerBoundaryCustomerInvoiceDate>2018-01-10</LowerBoundaryCustomerInvoiceDate>\n"+
                  "<UpperBoundaryCustomerInvoiceDate>2018-01-10</UpperBoundaryCustomerInvoiceDate>\n"+*/
                  "</SelectionByDate>\n" +
@@ -47,7 +47,7 @@ public class FwkGetDataTest {
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +
                 "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                "<QueryHitsMaximumNumberValue>420</QueryHitsMaximumNumberValue>\n" +
                 "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
                 "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
                 "</ProcessingConditions>"+

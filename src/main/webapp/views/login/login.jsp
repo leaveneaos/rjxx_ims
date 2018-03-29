@@ -5,7 +5,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>电子发票云服务平台</title>
+    <title>泰易电子发票云服务平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -38,9 +38,7 @@
     <div class="am-container">
         <div class="am-g am-padding-top am-padding-bottom">
             <div class="am-u-sm-4  am-padding-0">
-<%--
                 <img src="<%=request.getContextPath()%>/img/logo.png" alt="TaxEasy"/>
---%>
             </div>
             <div class="am-u-sm-8 menu  am-padding-0">
                 <div class="am-btn-group am-btn-group-justify">
@@ -62,7 +60,7 @@
     <div class="am-container  ">
         <div class="am-g">
             <div class="am-u-sm-12  description am-padding">
-                <h1>欢迎来到电票平台</h1>
+                <h1>欢迎来到 TaxEasy</h1>
                 <p>专注税务服务, 深谙电子发票应用</p>
                 <p>成长路上, 感谢您的支持陪伴</p>
                 <div class="dl  ">
@@ -258,23 +256,21 @@
 <footer class="footer">
     <div class="am-container">
         <div class="am-g">
-        
-        <div style="width:60%;float: right;">
-        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">技术咨询热线: 021-5571833</div>
-        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">公司网址：<a href="http://www.datarj.com/index.php">http://www.datarj.com/index.php</a></div>
-<%--
-        	<div style="width:100%;height:50px;line-height: 60px;text-align: left;">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
---%>
-        </div>
-        <div style="width:20%;float: right;">
-        	<img src="<%=request.getContextPath()%>/img/fw.jpg" alt="" style="width:120px;height:120px;"/>
-        	<p>服务号</p>
-        	
-        </div>
-        <div style="width:20%;float: right;">
-        	<img src="<%=request.getContextPath()%>/img/dy.jpg" alt="" style="width:120px;height:120px;"/>
-        	<p>订阅号</p>
-        </div>
+
+            <div style="width:60%;float: right;">
+                <div style="width:100%;height:50px;line-height: 60px;text-align: left;">技术咨询热线: 021-5571833</div>
+                <div style="width:100%;height:50px;line-height: 60px;text-align: left;">公司网址：<a href="http://www.datarj.com/index.php">http://www.datarj.com/index.php</a></div>
+                <div style="width:100%;height:50px;line-height: 60px;text-align: left;">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
+            </div>
+            <div style="width:20%;float: right;">
+                <img src="<%=request.getContextPath()%>/img/fw.jpg" alt="" style="width:120px;height:120px;"/>
+                <p>服务号</p>
+
+            </div>
+            <div style="width:20%;float: right;">
+                <img src="<%=request.getContextPath()%>/img/dy.jpg" alt="" style="width:120px;height:120px;"/>
+                <p>订阅号</p>
+            </div>
             <!-- <div class="am-u-sm-3">
                 <h1><span class="am-icon-phone-square"> </span></h1>
             </div>
