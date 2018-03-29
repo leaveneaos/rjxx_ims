@@ -98,6 +98,7 @@ $(function() {
                             loaddata=true;
                             t.ajax.reload();
                         }else {
+                            swal(data.msg);
                             $modal.modal("close");
                             $("#bj").val('3');
                             loaddata=true;
@@ -111,6 +112,64 @@ $(function() {
             });
         } else {
             swal('校验不通过!');
+        }
+    });
+
+    $('#smlr_info').bind('keyup', function(event) {
+        if (event.keyCode == "13") {
+            alert($("#smlr_info").val());
+            var r = $("#main_form1").validator("isFormValid");
+            var kprq = $("#sglr_kprq").val();
+            if(kprq == ""){
+                $("#sglr_kprq").focus();
+                swal('开票日期不能为空!');
+                return false;
+            }
+            if (r) {
+                var frmData = $("#main_form1").serialize();
+                $.ajax({
+                    url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
+                        if (data.status) {
+                            if(data.requery !=null && data.requery == "1"){
+                                swal({
+                                    title: "提示",
+                                    text:data.msg,
+                                    //type: "warning",
+                                    showCancelButton: true,
+                                    closeOnConfirm: false,
+                                    confirmButtonText: "重新查询",
+                                    confirmButtonColor: "#ec6c62"
+                                }, function () {
+                                    $('.confirm').attr('disabled', "disabled");
+                                    $.ajax({
+                                        url: "income/requery", "type": "POST",  data: frmData,
+                                    }).done(function (data) {
+                                        $('.confirm').removeAttr('disabled');
+                                        swal(data.msg);
+                                        t.ajax.reload();
+                                    })
+                                });
+                                swal(data.msg);
+                                $modal.modal("close");
+                                $("#bj").val('3');
+                                loaddata=true;
+                                t.ajax.reload();
+                            }else {
+                                swal(data.msg);
+                                $modal.modal("close");
+                                $("#bj").val('3');
+                                loaddata=true;
+                                t.ajax.reload();
+                            }
+                            //swal(data.msg);
+                        } else {
+                            swal(data.msg);
+                        }
+                    }
+                });
+            } else {
+                swal('校验不通过!');
+            }
         }
     });
 
