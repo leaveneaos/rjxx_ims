@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.dao.CszbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbzbJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.vo.JkmbbVo;
-import com.rjxx.taxeasy.vo.JkpzVo;
+import com.rjxx.taxeasy.vo.*;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.StringUtils;
 import org.springframework.beans.NullValueInNestedPathException;
@@ -41,6 +41,8 @@ public class JkpzController extends BaseController {
     private JkmbzbService jkmbzbService;
     @Autowired
     private JkmbzbJpaDao jkmbzbJpaDao;
+    @Autowired
+    private CszbJpaDao cszbJpaDao;
 
     @RequestMapping
     public String index() {
@@ -87,10 +89,6 @@ public class JkpzController extends BaseController {
             result.put("draw", draw);
             result.put("data", new ArrayList<>());
         }
-//        result.put("recordsTotal", total);
-//        result.put("recordsFiltered", total);
-//        result.put("draw", draw);
-//        result.put("data", list);
         return result;
     }
 
@@ -130,7 +128,7 @@ public class JkpzController extends BaseController {
     }
 
     /**
-     * 删除
+     * 删除模板
      * @param ids
      * @return
      */
@@ -204,24 +202,65 @@ public class JkpzController extends BaseController {
     }
 
     /**
-     * 获取销方列表
+     * 获取列表
      * @param gsdm
      * @return
      */
-    @RequestMapping(value = "/getxfxxList")
+    @RequestMapping(value = "/getxxList")
     @ResponseBody
-    public Map getXfxxList(String gsdm){
+    public Map getxxList(String gsdm,String mbid){
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             if(StringUtils.isBlank(gsdm)){
                 result.put("success", false);
                 result.put("data",new ArrayList<>());
             }
+            List list = new ArrayList();
             Xf xf = new Xf();
             xf.setGsdm(gsdm);
             List<Xf> xfList = xfService.findAllByParams(xf);
+            for (Xf xf1 : xfList) {
+                JkpzTreeXFVo jkpzTreeXFVo = new JkpzTreeXFVo();
+                jkpzTreeXFVo.setTitle(xf1.getXfmc());
+                Skp skp = new Skp();
+                skp.setGsdm(gsdm);
+                skp.setXfid(xf1.getId());
+                List<Skp> skpList = skpService.findAllByParams(skp);
+                if(skpList.isEmpty()){
+                    jkpzTreeXFVo.setType("item");
+                }else {
+                    jkpzTreeXFVo.setType("folder");
+                    for (Skp skp1 : skpList) {
+                        JkpzTreeSkpVo jkpzTreeSkpVo = new JkpzTreeSkpVo();
+                        jkpzTreeSkpVo.setTitle(skp1.getKpdmc());
+                        jkpzTreeSkpVo.setType("item");
+                        Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(46, gsdm, xf1.getId(), skp1.getId(), mbid);
+                        JkpzTreeAttr jkpzTreeAttr = new JkpzTreeAttr();
+                        if(cszb!=null){
+                            jkpzTreeSkpVo.setSelectedStatus("selected");
+                            jkpzTreeAttr.setOriginValue(cszb.getId());
+                        }else {
+                            jkpzTreeSkpVo.setSelectedStatus("deselected");
+                        }
+                        jkpzTreeAttr.setId(skp1.getId());
+                        jkpzTreeSkpVo.setAttr(jkpzTreeAttr);
+                        jkpzTreeXFVo.setProducts(jkpzTreeSkpVo);
+                    }
+                }
+                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(46, gsdm, xf1.getId(), mbid);
+                JkpzTreeAttr jkpzTreeAttr = new JkpzTreeAttr();
+                if(cszb!=null&&cszb.getKpdid()==null){
+                    jkpzTreeXFVo.setSelectedStatus("selected");
+                    jkpzTreeAttr.setOriginValue(cszb.getId());
+                }else {
+                    jkpzTreeXFVo.setSelectedStatus("deselected");
+                }
+                jkpzTreeAttr.setId(xf1.getId());
+                jkpzTreeXFVo.setAttr(jkpzTreeAttr);
+                list.add(jkpzTreeXFVo);
+            }
             result.put("success", true);
-            result.put("data",xfList);
+            result.put("data",JSON.toJSONString(list));
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success", false);
@@ -231,41 +270,96 @@ public class JkpzController extends BaseController {
     }
 
     /**
-     * 获取税控盘列表
-     * @param xfid
+     * 新增授权
+     * @param mbid
      * @param gsdm
+     * @param xfid
+     * @param kpdid
      * @return
      */
-    @RequestMapping(value = "/getskpxxList")
+    @RequestMapping(value = "/savembsq")
     @ResponseBody
-    public Map getSkpxxList(String xfid,String gsdm){
+    public Map savembsq(String mbid ,String gsdm,String xfid , String kpdid){
         Map<String, Object> result = new HashMap<String, Object>();
+        if(StringUtils.isBlank(mbid)){
+            result.put("success", false);
+            result.put("msg","授权失败");
+        }
         try {
-            if(StringUtils.isBlank(xfid)){
-                result.put("success", false);
-                result.put("data",new ArrayList<>());
-            }
-            Skp skp = new Skp();
-            skp.setGsdm(gsdm);
-            skp.setXfid(Integer.valueOf(xfid));
-            List<Skp> skpList = skpService.findAllByParams(skp);
+            Cszb cszb = new Cszb();
+            cszb.setGsdm(gsdm);
+            cszb.setXfid(Integer.valueOf(xfid));
+            cszb.setKpdid(Integer.valueOf(kpdid));
+            cszb.setCsid(46);
+            cszb.setCsz(mbid);
+            cszb.setLrsj(new Date());
+            cszb.setLrry(getYhid());
+            cszbService.save(cszb);
             result.put("success", true);
-            result.put("data",skpList);
+            result.put("msg","授权成功");
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success", false);
-            result.put("data",new ArrayList<>());
+            result.put("msg","授权失败");
         }
         return result;
     }
 
-    @RequestMapping(value = "/getsfsq")
+    /**
+     * 删除授权
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/scCsb")
     @ResponseBody
-    public Boolean getcsb(String gsdm,String xfid ,String kpdid){
-        Cszb cszb = cszbService.getSpbmbbh(gsdm, Integer.valueOf(xfid), Integer.valueOf(kpdid), "jkpzmbid");
-        if(cszb !=null){
-            return true;
+    public Map<String, Object> scCsb(String id){
+        Map<String, Object> result = new HashMap<String, Object>();
+        if(StringUtils.isBlank(id)){
+            result.put("success", false);
+            return result;
         }
-        return false;
+        Cszb cszb = cszbJpaDao.finfOneById(Integer.valueOf(id));
+        cszb.setYxbz("0");
+        cszbService.save(cszb);
+        result.put("success", true);
+        return result;
     }
+
+    /**
+     * 修改授权
+     * @param id
+     * @param mbid
+     * @param gsdm
+     * @param xfid
+     * @param kpdid
+     * @return
+     */
+    @RequestMapping(value = "/updatembsq")
+    @ResponseBody
+    public Map updatembsq(String id,String mbid ,String gsdm,String xfid , String kpdid){
+        Map<String, Object> result = new HashMap<String, Object>();
+        if(StringUtils.isBlank(id)){
+            result.put("success", false);
+            result.put("msg","授权失败");
+        }
+        try {
+            Cszb cszb = cszbJpaDao.finfOneById(Integer.valueOf(id));
+            cszb.setGsdm(gsdm);
+            cszb.setXfid(Integer.valueOf(xfid));
+            cszb.setKpdid(Integer.valueOf(kpdid));
+            cszb.setCsid(46);
+            cszb.setCsz(mbid);
+            cszb.setXgry(getYhid());
+            cszb.setXgsj(new Date());
+            cszbService.save(cszb);
+            result.put("success", true);
+            result.put("msg","授权成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("msg","授权失败");
+        }
+        return result;
+    }
+
 }
