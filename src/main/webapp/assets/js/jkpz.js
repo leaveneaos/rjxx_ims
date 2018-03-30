@@ -134,6 +134,7 @@ $(function () {
 
             t.on('click','button.empower',function () {
                 var da = t.row($(this).parents('tr')).data();
+                // alert("授权");
                 // 授权---数据
                 _this.sq(da);
             });
@@ -279,26 +280,27 @@ $(function () {
          */
         sq: function (da) {
             var _this = this;
-
+            // alert(da.gsdm);
+            // alert(da.id);
             $.ajax({
                 url: _this.config.empowerUrl,
                 data: {
-                    "id": da.id
+                    "gsdm": da.gsdm,
+                    "mbid": da.id
                 },
                 method: 'POST',
                 success: function (data) {
                     if (data.success) {
-                        // modal
-                        swal(data.msg);
-                        debugger
+                        var list =data.data;
+                        tree(list);
+                        // swal(data.msg);
                         // 授权信息传递
-
                     } else {
                         swal('查看失败: ' + data.msg);
                     }
                 },
                 error: function () {
-                    swal('查询信息失败, 请重新查看...!');
+                    swal('授权失败!');
                 }
             });
         },
@@ -390,6 +392,106 @@ $(function () {
     action.init();
 });
 
+function tree(data) {
+    alert(11);
+    /*var data = [
+        {
+            title: '销方名称',
+            type: 'folder',
+            selectedStatus: 'selected',
+            attr: {
+                id: '销方id',
+                originValue:'初始模板id'
+            },
+            products: [
+                {
+                    title: '开票点名称名称',
+                    type: 'item',
+                    selectedStatus: 'selected',
+                    attr: {
+                        id: '开票点id',
+                        originValue: '初始模板id'
+                    }
+                },
+                {
+                    title: '开票点名称名称',
+                    type: 'item',
+                    selectedStatus: 'selected',
+                    attr: {
+                        id: '开票点id',
+                        originValue: '初始模板id'
+                    }
+                }]
+        },
+
+        {
+            title: '销方名称',
+            type: 'item',
+            selectedStatus: 'selected',
+            attr: {
+                id: '销方id',
+                originValue:'原始模板'
+            }
+        }
+    ];*/
+
+    var $tree2 = $('#menuTree2');
+    $tree2.tree({
+        dataSource: function(options, callback) {
+            // 模拟异步加载
+            setTimeout(function() {
+                callback({data: options.products || data});
+            }, 400);
+        },
+        multiSelect: true,
+        cacheItems: true,
+        folderSelect: true
+    }) .on('selected.tree.amui', function (event, data) {
+        data.target.selectedStatus = 'selected';
+        $el = $('#' + data.target.attr.id + ' .am-tree-status');
+        $el.text('selected').css('color', 'red');
+
+    }) .on('deselected.tree.amui', function (event, data) {
+        data.target.selectedStatus = 'unselected';
+        $el = $('#' + data.target.attr.id  + ' .am-tree-status');
+        $el.text('unselected').css('color', '#000');
+        console.log(data.selected);
+    });
+
+    // 发票种类
+    var $selected = $('#js-selected');
+    var i = 0;
+    $('[data-selected]').on('click', function() {
+        var action = $(this).data('selected');
+
+        if (action === 'add') {
+            $selected.append('<option value="o' + i +'">动态插入的选项 ' + i + '</option>');
+            i++;
+        }
+
+        if (action === 'toggle') {
+            $o.attr('selected', !$o.get(0).selected);
+        }
+
+        if (action === 'disable') {
+            $m[0].disabled = !$m[0].disabled;
+        }
+        // 不支持 MutationObserver 的浏览器使用 JS 操作 select 以后需要手动触发 `changed.selected.amui` 事件
+        if (!$.AMUI.support.mutationobserver) {
+            $selected.trigger('changed.selected.amui');
+        }
+    });
+
+    $selected.on('change', function() {
+        $('#js-selected-info').html([
+            '选中项：<strong class="am-text-danger">',
+            [$(this).find('option').eq(this.selectedIndex).text()],
+            '</strong> 值：<strong class="am-text-warning">',
+            $(this).val(),
+            '</strong>'
+        ].join(''));
+    });
+}
 
 function dateFormat(str) {
     var pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;

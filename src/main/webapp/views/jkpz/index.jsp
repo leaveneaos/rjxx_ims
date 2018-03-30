@@ -514,12 +514,11 @@
 <script src="assets/js/amazeui.tree.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/format.js"></script>
-<%--<script src="assets/js/gfqymp.js"></script>--%>
 <script src="assets/js/sweetalert.min.js"></script>
 <script src="assets/js/jkpz.js"></script>
 <script>
     $(function() {
-        var data = [
+        /*var data = [
             {
                 title: '销方名称',
                 type: 'folder',
@@ -622,7 +621,7 @@
                 $(this).val(),
                 '</strong>'
             ].join(''));
-        });
+        });*/
     });
 </script>
 </body>

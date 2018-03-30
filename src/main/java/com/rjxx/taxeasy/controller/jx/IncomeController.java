@@ -175,9 +175,18 @@ public class IncomeController extends BaseController {
 
                     result.put("status", true);
                     if(StringUtils.isBlank(fpcyjl.getBxry())){
-                        result.put("msg","该发票已存在"+"，上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
+                        if(fpcy.getCyrq()==null){
+                            result.put("msg","该发票已存在"+"\r\n查验状态为："+fpzt);
+                        }else {
+                            result.put("msg","该发票已存在"+"，上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
+                        }
                     }else {
-                        result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
+                        if(fpcy.getCyrq()==null){
+                            result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n查验状态为："+fpzt);
+                        }else {
+                            result.put("msg","该发票已存在，报销人："+fpcyjl.getBxry()+"\r\n上次查验日期："+sdf.format(fpcy.getCyrq())+"\r\n查验状态为："+fpzt);
+
+                        }
                     }
                     result.put("requery","1");
                     return result;
@@ -192,7 +201,7 @@ public class IncomeController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             result.put("status", false);
-            result.put("msg", "发票查验出现错误: " + e.getMessage());
+            result.put("msg", "发票查验出现错误");
         }
         return result;
     }
@@ -216,7 +225,7 @@ public class IncomeController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             result.put("status", false);
-            result.put("msg", "发票查验出现错误: " + e.getMessage());
+            result.put("msg", "发票查验出现错误");
         }
         return result;
     }

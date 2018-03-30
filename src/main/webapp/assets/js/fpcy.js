@@ -90,21 +90,17 @@ $(function() {
                                 }).done(function (data) {
                                     $('.confirm').removeAttr('disabled');
                                     swal(data.msg);
-                                    t.ajax.reload();
                                 })
                             });
                             $modal.modal("close");
                             $("#bj").val('3');
                             loaddata=true;
-                            t.ajax.reload();
                         }else {
                             swal(data.msg);
                             $modal.modal("close");
                             $("#bj").val('3');
                             loaddata=true;
-                            t.ajax.reload();
                         }
-                        //swal(data.msg);
                     } else {
                         swal(data.msg);
                     }
@@ -146,22 +142,19 @@ $(function() {
                                     }).done(function (data) {
                                         $('.confirm').removeAttr('disabled');
                                         swal(data.msg);
-                                        t.ajax.reload();
                                     })
                                 });
                                 swal(data.msg);
                                 $modal.modal("close");
                                 $("#bj").val('3');
                                 loaddata=true;
-                                t.ajax.reload();
                             }else {
+                                alert(11);
                                 swal(data.msg);
                                 $modal.modal("close");
                                 $("#bj").val('3');
                                 loaddata=true;
-                                t.ajax.reload();
                             }
-                            //swal(data.msg);
                         } else {
                             swal(data.msg);
                         }

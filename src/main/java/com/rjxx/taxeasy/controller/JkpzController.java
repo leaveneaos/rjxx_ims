@@ -12,7 +12,6 @@ import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.*;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.StringUtils;
-import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -399,6 +398,7 @@ public class JkpzController extends BaseController {
                 jkpzTreeXFVo.setAttr(jkpzTreeAttr);
                 list.add(jkpzTreeXFVo);
             }
+            System.out.println(JSON.toJSONString(list));
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
         } catch (Exception e) {
