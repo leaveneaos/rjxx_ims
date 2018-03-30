@@ -53,7 +53,6 @@
                                 <select id="jkpz_gsmc" name="jkpz_gsmc" data-am-selected="{maxHeight: '300px',btnWidth: '60%'}">
                                     <option value="">请选择</option>
                                     <c:forEach items="${gsxx}" var="item">
-                                        debugger;
                                         <option value="${item.gsdm}">${item.gsmc}</option>
                                     </c:forEach>
                                 </select>
@@ -62,17 +61,6 @@
                                         class="am-btn am-btn-default am-btn-success am-btn-sm">查询</button>
                             </div>
                         </div>
-
-                            <%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-padding-top">--%>
-                                <%--<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">--%>
-                                    <%--<input id="dxcsz" type="text" class="am-form-field "> <span--%>
-                                        <%--class="am-input-group-btn">--%>
-											<%--<button id="search"--%>
-                                                    <%--class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"--%>
-                                                    <%--type="button"></button>--%>
-										<%--</span>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
                         <div class="am-g  am-padding-top">
                             <form action="#" class="js-search-form  am-form">
                                 <div class="am-u-sm-3">
@@ -87,10 +75,10 @@
                                                         class="am-btn am-btn-default am-btn-danger">
                                                     删除
                                                 </button>
-                                                <button type="button" id="jkpz_xg"
+                                               <%-- <button type="button" id="jkpz_xg"
                                                         class="am-btn am-btn-default am-btn-warning">
                                                     修改
-                                                </button>
+                                                </button>--%>
                                                 <%--<button type="button"  id="addtionSelect"class="am-btn am-btn-default am-btn-warning" data-am-offcanvas="{target: '#doc-oc-demo3'}">授权</button>--%>
                                             </div>
                                         </div>
@@ -118,179 +106,95 @@
                                 <legend>模板明细</legend>
                             </div>
                         </div>
-
+                            <input type="hidden" id="mbid">
                             <div style="margin-top: 0px; margin-left: 0px;"
                                  class="am-u-sm-12 am-scrollable-horizontal">
                                 <table style="margin-bottom: 0px;"
                                        class="jkpz-js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
-                                       id="jkpz-mxTable1">
+                                       id="jkpz_table_detail">
                                     <thead>
                                     <tr>
-                                        <th>交易流水号</th>
-                                        <th>订单号</th>
-                                        <th>订单日期</th>
-                                        <th>开票点代码</th>
-                                        <th>发票种类</th>
-                                        <th>打印清单</th>
-                                        <th>自动拆分</th>
-                                        <th>立即打印</th>
-                                        <th>征税方式</th>
-                                        <th>含税标志</th>
-                                        <th>备注</th>
-                                        <th>商品编码版本</th>
-                                        <th>落款人</th>
-                                        <th>销方全信息</th>
-                                        <th>商品全信息</th>
-                                        <th>商品优惠信息</th>
-                                        <th>支付信息</th>
-                                        <th>购方信息</th>
+                                        <th>序号</th>
+                                        <th>模板id</th>
+                                        <th>参数值方法</th>
+                                        <th>参数名称</th>
+                                        <th>配置参数</th>
+                                        <th>配置参数名称</th>
                                     </tr>
                                     </thead>
                                 </table>
                             </div>
 
-
-
                         <!-- model -->
-                        <!--xiugai model -->
                         <div class="am-modal am-modal-no-btn" tabindex="-1" id="modify">
-                            <%--<div class="am-modal-dialog">
-                                <div class="am-modal-hd">
-                                    购方信息修改 <!-- <a href="javascript: void(0)"
-								class="am-close am-close-spin" data-am-modal-close>&times;</a> -->
-                                </div>
-                                <div class="am-modal-bd">
-                                    <hr />
-                                    <form action="#" class="js-form-0  am-form am-form-horizontal">
-                                        <div class="am-g">
-                                            <div class="am-u-sm-12">
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfmc" class="am-u-sm-4 am-form-label"><span
-                                                            style="color: red;">*</span>企业名称</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfmc" name="xg_gfmc" placeholder=""  required/>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfsh" class="am-u-sm-4 am-form-label">购方税号</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfsh" name="xg_gfsh" class ="js-pattern-Taxid" placeholder="购方税号(15,18,20位数)" onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfdz" class="am-u-sm-4 am-form-label">地址</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfdz" name="xg_gfdz" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfdh" class="am-u-sm-4 am-form-label ">电话</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfdh" name="xg_gfdh" placeholder="" class="js-pattern-Telephone"/>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfyh" class="am-u-sm-4 am-form-label">开户银行</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfyh" name="xg_gfyh" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_gfyhzh" class="am-u-sm-4 am-form-label">开户账号</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_gfyhzh" name="xg_gfyhzh"
-                                                               placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_lxr" class="am-u-sm-4 am-form-label">联系人</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_lxr" name="xq_lxr"
-                                                               placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_lxdh" class="am-u-sm-4 am-form-label">联系电话</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_lxdh" name="xg_lxdh"  class="js-pattern-Telephone"
-                                                               placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_yjdz" class="am-u-sm-4 am-form-label">邮寄地址</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_yjdz" name="xg_yjdz"
-                                                               placeholder="" />
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="xg_email" class="am-u-sm-4 am-form-label">Email</label>
-                                                    <div class="am-u-sm-8">
-                                                        <input type="text" id="xg_email" name="xg_email"
-                                                               placeholder="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="am-u-sm-12">
-                                                <div class="am-form-group">
-                                                    <div class="am-u-sm-12  am-text-center">
-                                                        <button type="button" id="update"
-                                                                class="am-btn am-btn-default am-btn-success">保存</button>
-                                                        <button type="button" id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>--%>
                             <div class="am-modal-dialog"  style="overflow: auto">
                                 <div class="am-modal-hd">
-                                    接口配置信息修改 <!-- <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a> -->
+                                    接口配置信息
                                 </div>
                                 <div class="am-modal-bd">
                                     <hr />
-                                    <form action="#" class="js-form-0  am-form am-form-horizontal am-u-sm-12">
+                                    <form  class="js-form-0  am-form am-form-horizontal am-u-sm-12">
+                                        <input type="hidden" name="mbxxid" id="mbxxid" />
+                                        <div class="am-form-group">
+                                            <label for="jkpz_gsdm" class="am-u-sm-3 am-form-label"><span
+                                                    style="color: red;">*</span>公司</label>
+                                            <div class="am-u-sm-9">
+                                                <select id="jkpz_gsdm" name="jkpz_gsdm" required>
+                                                    <option value="">请选择</option>
+                                                    <c:forEach items="${gsxx}" var="item">
+                                                        <option value="${item.gsdm}">${item.gsmc}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <label for="jkpz_mbmc" class="am-u-sm-3 am-form-label"><span
+                                                    style="color: red;">*</span>模板名称</label>
+                                            <div class="am-u-sm-9">
+                                                <input id="jkpz_mbmc"  name="jkpz_mbmc" type="text" required>
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <label for="jkpz_mbms" class="am-u-sm-3 am-form-label"><span
+                                                    style="color: red;">*</span>模板描述</label>
+                                            <div class="am-u-sm-9">
+                                                <input type="text" id="jkpz_mbms" name="jkpz_mbms" required>
+                                            </div>
+                                        </div>
                                         <div class="am-u-sm-12">
                                             <label for="jkpz_jylsh" class="am-u-sm-3 am-form-label"><span
                                                     style="color: red;">*</span>交易流水号</label>
                                             <div class="am-u-sm-9">
-                                                <input type="hidden" id="lsh_pzbid" value="1">
-                                                <select id="jkpz_jylsh" data-am-selected="{btnWidth: '100%'}" required>
-                                                    <c:forEach items="${jkpzdmb}" var="item">
-                                                        <c:if test="${item.pzbid == 1}">
-                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                        </c:if>
+                                                <input type="hidden" id="lsh_pzbid" name="lsh_pzbid"  value="1">
+                                                <select id="jkpz_jylsh"  name="jkpz_jylsh"  required>
+                                                    <option value="">请选择</option>
+                                                    <c:forEach items="${jylsh}" var="item">
+                                                        <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
-                                            <%--<div class="am-form-group">--%>
-                                            <%----%>
-                                            <%--</div>--%>
                                             <div class="am-form-group">
                                                 <label for="jkpz_ddh" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>订单号</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="ddh_pzbid" value="2">
-                                                    <select id="jkpz_ddh"  data-am-selected="{btnWidth: '100%'}" required>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 2}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                    <input type="hidden" id="ddh_pzbid" name="ddh_pzbid" value="2">
+                                                    <select id="jkpz_ddh" name="jkpz_ddh" required>
+                                                        <option value="">请选择</option>
+                                                        <c:forEach items="${ddh}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="am-form-group">
-                                                <label for="jkpz_ddrq" class="am-u-sm-3 am-form-label">订单日期</label>
+                                                <label for="jkpz_ddrq" class="am-u-sm-3 am-form-label">
+                                                    <span style="color: red;">*</span>订单日期</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="ddrq_pzbid" value="3">
-                                                    <select id="jkpz_ddrq" data-am-selected="{btnWidth: '100%'}" required>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 3}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                    <input type="hidden" id="ddrq_pzbid" name="ddrq_pzbid" value="3">
+                                                    <select id="jkpz_ddrq" name="jkpz_ddrq" required>
+                                                        <option value="">请选择</option>
+                                                        <c:forEach items="${ddrq}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -298,14 +202,12 @@
                                             <div class="am-form-group">
                                                 <label for="jkpz_kpddm" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>开票点代码</label>
-                                                <input type="hidden" id="kpddm_pzbid" value="4">
+                                                <input type="hidden" id="kpddm_pzbid" name="kpddm_pzbid" value="4">
                                                 <div class="am-u-sm-9">
-                                                    <select id="jkpz_kpddm" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <select id="jkpz_kpddm" name="jkpz_kpddm" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 4}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${kpddm}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -315,13 +217,11 @@
                                                 <label for="jkpz_fpzl" class="am-u-sm-3 am-form-label" id="jkpz_invType" name="jkpz_invType"><span
                                                         style="color: red;">*</span>发票种类</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="fpzl_pzbid" value="5">
-                                                    <select id="jkpz_fpzl" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="fpzl_pzbid" name="fpzl_pzbid" value="5">
+                                                    <select id="jkpz_fpzl" name="jkpz_fpzl" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 5}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${fpzl}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -331,13 +231,11 @@
                                                 <label for="jkpz_dyqd" class="am-u-sm-3 am-form-label"id="jkpz_invoiceList" name="jkpz_invoiceList"><span
                                                         style="color: red;">*</span>打印清单</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="dyqd_pzbid" value="6">
-                                                    <select id="jkpz_dyqd" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="dyqd_pzbid" name="dyqd_pzbid" value="6">
+                                                    <select id="jkpz_dyqd" name="jkpz_dyqd" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 6}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${dyqd}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -346,13 +244,11 @@
                                                 <label for="jkpz_zdcf" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>自动拆分</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="zdcf_pzbid" value="7">
-                                                    <select id="jkpz_zdcf" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="zdcf_pzbid" name="zdcf_pzbid" value="7">
+                                                    <select id="jkpz_zdcf"  name="jkpz_zdcf" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 7}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${zdcf}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -361,13 +257,11 @@
                                                 <label for="jkpz_ljdy" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>立即打印</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="ljdy_pzbid" value="8">
-                                                    <select id="jkpz_ljdy" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="ljdy_pzbid" name="ljdy_pzbid" value="8">
+                                                    <select id="jkpz_ljdy" name="jkpz_ljdy" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 8}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${ljdy}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -377,13 +271,11 @@
                                                 <label for="jkpz_zsfs" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>征税方式</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="zsfs_pzbid" value="9">
-                                                    <select id="jkpz_zsfs" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="zsfs_pzbid" name="zsfs_pzbid" value="9">
+                                                    <select id="jkpz_zsfs" name="jkpz_zsfs" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 9}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${zffs}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -393,27 +285,24 @@
                                                 <label for="jkpz_hsbz" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>含税标志</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="hsbz_pzbid" value="10">
-                                                    <select id="jkpz_hsbz" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="hsbz_pzbid" name="hsbz_pzbid" value="10">
+                                                    <select id="jkpz_hsbz" name="jkpz_hsbz" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 10}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${hsbz}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="am-form-group">
-                                                <label for="jkpz_bz" class="am-u-sm-3 am-form-label">备注</label>
+                                                <label for="jkpz_bz" class="am-u-sm-3 am-form-label"><span
+                                                        style="color: red;">*</span>备注</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="bzjkpz" value="11">
-                                                    <select id="jkpz_bz" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="bzjkpz" name="bzjkpz" value="11">
+                                                    <select id="jkpz_bz" name="jkpz_bz" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 11}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${bz}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -423,13 +312,11 @@
                                                 <label for="jkpz_spbmbb" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>商品编码版本</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="spbmbb_pzbid" value="12">
-                                                    <select id="jkpz_spbmbb" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="spbmbb_pzbid" name="spbmbb_pzbid" value="12">
+                                                    <select id="jkpz_spbmbb" name="jkpz_spbmbb" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 12}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${spbbh}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -438,13 +325,11 @@
                                                 <label for="jkpz_lkr" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>落款人</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="lkr_pzbid" value="13">
-                                                    <select id="jkpz_lkr" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="lkr_pzbid" name="lkr_pzbid" value="13">
+                                                    <select id="jkpz_lkr"  name="jkpz_lkr"  required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 13}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${lkr}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -454,13 +339,11 @@
                                                 <label for="jkpz_xfqxx" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>销方全信息</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="xfqxx_pzbid" value="14">
-                                                    <select id="jkpz_xfqxx" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="xfqxx_pzbid" name="xfqxx_pzbid" value="14">
+                                                    <select id="jkpz_xfqxx"  name="jkpz_xfqxx"  required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 14}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${xf}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -470,13 +353,11 @@
                                                 <label for="jkpz_spqxx" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>商品全信息</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="spqxx_pzbid" value="15">
-                                                    <select id="jkpz_spqxx" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="spqxx_pzbid" name="spqxx_pzbid" value="15">
+                                                    <select id="jkpz_spqxx" name="jkpz_spqxx" required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 15}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${sp}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -487,13 +368,11 @@
                                                 <label for="jkpz_spyhxx" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>商品优惠信息</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="spyhxx_pzbid" value="16">
-                                                    <select id="jkpz_spyhxx" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="spyhxx_pzbid" name="spyhxx_pzbid" value="16">
+                                                    <select id="jkpz_spyhxx"  name="jkpz_spyhxx"  required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 16}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${spyh}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -503,13 +382,11 @@
                                                 <label for="jkpz_zfxx" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>支付信息</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="zfxx_pzbid" value="17">
-                                                    <select id="jkpz_zfxx" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="zfxx_pzbid" name="zfxx_pzbid" value="17">
+                                                    <select id="jkpz_zfxx"  name="jkpz_zfxx"  required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 17}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${zf}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -519,26 +396,21 @@
                                                 <label for="jkpz_gfxx" class="am-u-sm-3 am-form-label"><span
                                                         style="color: red;">*</span>购方信息</label>
                                                 <div class="am-u-sm-9">
-                                                    <input type="hidden" id="gfxx_pzbid" value="18">
-                                                    <select id="jkpz_gfxx" data-am-selected="{btnWidth: '100%'}" required>
+                                                    <input type="hidden" id="gfxx_pzbid" name="gfxx_pzbid" value="18">
+                                                    <select id="jkpz_gfxx"  name="jkpz_gfxx"  required>
                                                         <option value="">请选择</option>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 18}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
+                                                        <c:forEach items="${gf}" var="item">
+                                                            <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                        </div>
-                                    </form>
-                                    <div class="am-u-sm-12">
+                                    <div class="am-u-sm-12 am-margin-top-lg">
                                         <div class="am-form-group">
-                                            <div class="am-u-sm-12  am-text-center am-margin-bottom am-margin-top">
-                                                <button type="submit" id="save"
-                                                        class="am-btn am-btn-default am-btn-success">保存</button>
-                                                <button type="button"  id="close1" class="am-btn am-btn-default am-btn-danger">关闭</button>
+                                            <div class="am-u-sm-12  am-text-center">
+                                                <button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
+                                                <button type="button" id="close1" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
                                             </div>
                                         </div>
                                     </div>
@@ -550,7 +422,6 @@
 
                         <!-- 侧边栏内容 -->
                         <%--此处动态创建菜单栏--%>
-
                         <div id="doc-oc-demo3" class="am-offcanvas">
                             <div class="am-offcanvas-bar am-offcanvas-bar-flip">
                                 <div class="am-offcanvas-content" style="margin-top: 5px;">
@@ -584,8 +455,8 @@
                                                 class="am-btn am-btn-default am-btn-success data-back">
                                             <span></span> 保存
                                         </button>
-                                        <button type="button" id="search1"
-                                                class="am-btn am-btn-default am-btn-success data-back">
+                                        <button type="button" id=""
+                                                class=" am-btn am-btn-default am-btn-success data-back">
                                             <span></span> 关闭
                                         </button>
                                     </div>
@@ -593,314 +464,6 @@
                             </div>
                         </div>
                     </div>
-
-                        <div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
-                            <div class="am-modal-dialog"  style="overflow: auto">
-                                <div class="am-modal-hd">
-                                    接口配置信息 <!-- <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a> -->
-                                </div>
-                                <div class="am-modal-bd">
-                                    <hr />
-                                    <form action="#" class="js-form-0  am-form am-form-horizontal am-u-sm-12">
-                                            <div class="am-u-sm-12">
-                                                <label for="jkpz_jylsh" class="am-u-sm-3 am-form-label"><span
-                                                        style="color: red;">*</span>交易流水号</label>
-                                                <div class="am-u-sm-9">
-                                                    <input type="hidden" id="lsh_pzbid" value="1">
-                                                    <select id="jkpz_jylsh" data-am-selected="{btnWidth: '100%'}" required>
-                                                        <c:forEach items="${jkpzdmb}" var="item">
-                                                            <c:if test="${item.pzbid == 1}">
-                                                                <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                                <%--<div class="am-form-group">--%>
- <%----%>
-                                                <%--</div>--%>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_ddh" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>订单号</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="ddh_pzbid" value="2">
-                                                        <select id="jkpz_ddh"  data-am-selected="{btnWidth: '100%'}" required>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 2}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_ddrq" class="am-u-sm-3 am-form-label">订单日期</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="ddrq_pzbid" value="3">
-                                                        <select id="jkpz_ddrq" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 3}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_kpddm" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>开票点代码</label>
-                                                    <input type="hidden" id="kpddm_pzbid" value="4">
-                                                    <div class="am-u-sm-9">
-                                                        <select id="jkpz_kpddm" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 4}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_fpzl" class="am-u-sm-3 am-form-label" id="jkpz_invType" name="jkpz_invType"><span
-                                                            style="color: red;">*</span>发票种类</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="fpzl_pzbid" value="5">
-                                                        <select id="jkpz_fpzl" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 5}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_dyqd" class="am-u-sm-3 am-form-label"id="jkpz_invoiceList" name="jkpz_invoiceList"><span
-                                                            style="color: red;">*</span>打印清单</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="dyqd_pzbid" value="6">
-                                                        <select id="jkpz_dyqd" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 6}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_zdcf" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>自动拆分</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="zdcf_pzbid" value="7">
-                                                        <select id="jkpz_zdcf" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 7}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_ljdy" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>立即打印</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="ljdy_pzbid" value="8">
-                                                        <select id="jkpz_ljdy" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 8}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_zsfs" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>征税方式</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="zsfs_pzbid" value="9">
-                                                        <select id="jkpz_zsfs" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 9}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_hsbz" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>含税标志</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="hsbz_pzbid" value="10">
-                                                        <select id="jkpz_hsbz" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 10}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_bz" class="am-u-sm-3 am-form-label">备注</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="bzjkpz" value="11">
-                                                        <select id="jkpz_bz" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 11}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_spbmbb" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>商品编码版本</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="spbmbb_pzbid" value="12">
-                                                        <select id="jkpz_spbmbb" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 12}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_lkr" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>落款人</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="lkr_pzbid" value="13">
-                                                        <select id="jkpz_lkr" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 13}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_xfqxx" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>销方全信息</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="xfqxx_pzbid" value="14">
-                                                        <select id="jkpz_xfqxx" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 14}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_spqxx" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>商品全信息</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="spqxx_pzbid" value="15">
-                                                        <select id="jkpz_spqxx" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 15}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_spyhxx" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>商品优惠信息</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="spyhxx_pzbid" value="16">
-                                                        <select id="jkpz_spyhxx" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 16}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_zfxx" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>支付信息</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="zfxx_pzbid" value="17">
-                                                        <select id="jkpz_zfxx" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 17}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="am-form-group">
-                                                    <label for="jkpz_gfxx" class="am-u-sm-3 am-form-label"><span
-                                                            style="color: red;">*</span>购方信息</label>
-                                                    <div class="am-u-sm-9">
-                                                        <input type="hidden" id="gfxx_pzbid" value="18">
-                                                        <select id="jkpz_gfxx" data-am-selected="{btnWidth: '100%'}" required>
-                                                            <option value="">请选择</option>
-                                                            <c:forEach items="${jkpzdmb}" var="item">
-                                                                <c:if test="${item.pzbid == 18}">
-                                                                    <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                    </form>
-                                            <div class="am-u-sm-12">
-                                                <div class="am-form-group">
-                                                    <div class="am-u-sm-12  am-text-center am-margin-bottom am-margin-top">
-                                                        <button type="submit" id="save"
-                                                                class="am-btn am-btn-default am-btn-success">保存</button>
-                                                        <button type="button"  id="close1" class="am-btn am-btn-default am-btn-danger">关闭</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                            <br><br>
-
                     </div>
                 </div>
             </div>

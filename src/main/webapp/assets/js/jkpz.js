@@ -6,7 +6,9 @@ $(function () {
         $jsDetailTable:$('#jkpz_table_detail'),
         $modalHongchong: $('#hongchong'),
         $jsClose: $('#close1'),
-        $jsForm0: $('.js-form-0'),     // 红冲 form
+        $jsClose1: $('#close2'),
+        $jssq: $('#doc-oc-demo3'),
+        $jsForm0: $('.js-form-0'),     //
         $jsAdd: $('#jkpz_add'),
         $jsExport: $('.js-export'),
         $jsLoading: $('.js-modal-loading'),
@@ -19,40 +21,23 @@ $(function () {
     };
 
     var loaddata=false;
-    var detaildataload = false;
-
     var action = {
         tableEx: null, // cache dataTable
         tableDetail:null, // 模板详情
         config: {
-            getUrl: 'jkpz/getjkmbList',
+            getUrl: 'jkpz/getjkmbList',//模板列表
             getInfoUrl:"jkpz/getjkmbzb", // 查看模板详情
-            addUrl: 'jkpz/save',
-            scUrl: 'jkpz/delete',
-            updateUrl: 'gfqymp/update',
-            empowerUrl: 'jkpz/getxxList'
+            addSqUrl: 'jkpz/savembsq',//新增授权
+            scSqUrl: 'jkpz/scCsb',//删除授权
+            updateSqUrl: 'jkpz/updatembsq',//修改授权
+            empowerUrl: 'jkpz/getxxList',//授权列表
+            addUrl: 'jkpz/save',//新增模板
+            updateUrl:'jkpz/update',//修改模板
+            deleteUrl : 'jkpz/delete'//删除模板
         },
 
         dataTable: function () {
             var _this = this;
-
-            // 模板详情
-            var t_detail = el.$jsDetailTable.DataTable({
-                "processing": true,
-                "serverSide": true,
-                ordering: false,
-                searching: false,
-                "ajax": {
-                    url: _this.config.getInfoUrl,
-                    type: 'POST',
-                    data: function (d) {
-                        d.gsdm = el.$s_gsdm.val(); // search 公司代码
-                        d.loaddata=loaddata;
-                    }
-                },
-            });
-
-
             // 公司-模板
             var t = el.$jsTable.DataTable({
                     "processing": true,
@@ -68,12 +53,11 @@ $(function () {
                         }
                     },
                     "columns": [
-
                         {
                             "orderable": false,
                             "data": null,
                             render: function (data, type, full, meta) {
-                                return '<input type="checkbox" name= "chk" data="'
+                                return '<input type="checkbox" name= "chk" value="'
                                     + data.id + '" />';
                             }
                         },
@@ -111,21 +95,41 @@ $(function () {
                     ]
                 }
             );
-
-
-
+            //模板详情
+            var t_detail = el.$jsDetailTable.DataTable({
+                "processing": true,
+                "serverSide": true,
+                ordering: false,
+                searching: false,
+                "ajax": {
+                    url: _this.config.getInfoUrl,
+                    type: 'POST',
+                    data: function (d) {
+                        d.mbid = $("#mbid").val();
+                        d.loaddata=loaddata;
+                    }
+                },
+                "columns": [
+                    {"data": "id"},
+                    {"data": "mbid"},
+                    {"data": "cszff"},
+                    {"data":"csm"},
+                    {"data":"pzcsm"},
+                    {"data":"pzcsmc"}
+                ]
+            });
+            //分页
             t.on('draw.dt', function (e, settings, json) {
                 var x = t, page = x.page.info().start; // 设置第几页
                 t.column(1).nodes().each(function (cell, i) {// 序号
                     cell.innerHTML = page + i + 1;
                 });
             });
-
+            //查看详情
             t.on('click','button.lookfor',function () {
                 var da = t.row($(this).parents('tr')).data();
-
-                // 查看详情信息
-                _this.ck(da);
+                $("#mbid").val(da.id);
+                t_detail.ajax.reload();
             });
 
             t.on('click','button.empower',function () {
@@ -143,8 +147,6 @@ $(function () {
                 }
             });
 
-
-
             $('#check_all').change(function () {
                 if ($('#check_all').prop('checked')) {
                     t.column(0).nodes().each(function (cell, i) {
@@ -157,90 +159,109 @@ $(function () {
                 }
             });
 
-            // 删除
-            t.on('click', 'a.del', function () {
-                var da = t.row($(this).parents('tr')).data();
-                if (confirm("确定要删除该条信息吗")) {
-                    _this.sc(da);
-                    //alert(da.id);
-                }
-                _this.resetForm();
-            });
-
             //删除
             $("#jkpz_del").click(function () {
-                var djhArr = [];
-                $("input[type='checkbox']:checked").each(function (i, o) {
-                    if ($(o).attr("data") != null) {
-                        djhArr.push($(o).attr("data"));
-                    }
+                var chk_value="" ;
+                $('input[name="chk"]:checked').each(function(){
+                    chk_value+=$(this).val()+",";
                 });
-                if (djhArr.length == 0) {
-                    swal("请选择需要删除的购方信息...");
-                    return;
-                }
-                //alert(djhArr);
-                if (confirm("您确认删除？")) {
-                    $.post("gfqymp/doDel",
-                        "djhArr=" + djhArr.join(","),
-                        function (res) {
-                            if (res) {
-                                swal("删除成功");
-                                window.location.reload(true);
-                            }
-                        });
+                var ids = chk_value.substring(0, chk_value.length-1);
+                if(chk_value.length==0){
+                    swal("请至少选择一条数据");
+                }else{
+                    swal({
+                        title: "您确认删除？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确 定",
+                        confirmButtonColor: "#ec6c62"
+                    }, function() {
+                        $('.confirm').attr('disabled',"disabled");
+                        $.ajax({
+                            type : "POST",
+                            url :_this.config.deleteUrl,
+                            data : {"ids":ids},
+                        }).done(function(data) {
+                            $('.confirm').removeAttr('disabled');
+                            swal(data.msg);
+                            _this.tableEx.ajax.reload();
+                        })
+                    });
+
                 }
             });
 
-
-            //xiugai
-            $("#jkpz_xg").click(function () {
-                var djhArr = [];
-                $("input[type='checkbox']:checked").each(function (i, o) {
-                    if ($(o).attr("data") != null) {
-                        djhArr.push($(o).attr("data"));
-                    }
-                });
-                if (djhArr.length == 0) {
-                    swal("请选择需要xiugai的购方信息...");
-                    return;
-                } else if (djhArr.length >= 2) {
-                    swal("每次只能xiugai一条数据...");
-                    return;
-                }
-                //alert(djhArr);
-                var ipts = t.row($("input[type='checkbox']:checked").parents("tr")).data();
-                _this.setForm0(ipts);
-                el.$xiugai.modal({"width": 600, "height": 500});
-                el.$xiugai.modal('open');
-            });
-
-            // xiugai
+            // 修改
             t.on('click', 'button.modify', function () {
-                var data = t.row($(this).parents('tr')).data();
-                // todo
-                _this.setForm0(data);
-                el.$xiugai.modal({"width": 600, "height": 500});
+                $('div').removeClass('am-form-error');
+                $('input').removeClass('am-field-error');
+                $('div').removeClass('am-form-success');
+                $('input').removeClass('am-field-success');
+                var row = t.row($(this).parents('tr')).data();
+                $('#mbxxid').val(row.id);
+                $.ajax({
+                    url:"jkpz/getmbzb",
+                    async:false,
+                    data:{
+                        "mbid" : row.id
+                    }, success:function(data) {
+                        if (data) {
+                             var list =data.data;
+                            for (var i = 0; i < list.length; i++) {
+                                if(list[i].pzcsm=="serialNumber"){
+                                    el.$jsForm0.find('select[name="jkpz_jylsh"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="orderNo"){
+                                    el.$jsForm0.find('select[name="jkpz_ddh"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="orderDate"){
+                                    el.$jsForm0.find('select[name="jkpz_ddrq"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="clientNo"){
+                                    el.$jsForm0.find('select[name="jkpz_kpddm"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="invType"){
+                                    el.$jsForm0.find('select[name="jkpz_fpzl"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="invoiceList"){
+                                    el.$jsForm0.find('select[name="jkpz_dyqd"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="invoiceSplit"){
+                                    el.$jsForm0.find('select[name="jkpz_zdcf"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="invoicePrint"){
+                                    el.$jsForm0.find('select[name="jkpz_ljdy"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="chargeTaxWay"){
+                                    el.$jsForm0.find('select[name="jkpz_zsfs"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="taxMark"){
+                                    el.$jsForm0.find('select[name="jkpz_hsbz"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="remark"){
+                                    el.$jsForm0.find('select[name="jkpz_bz"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="version"){
+                                    el.$jsForm0.find('select[name="jkpz_spbmbb"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="person"){
+                                    el.$jsForm0.find('select[name="jkpz_lkr"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="seller"){
+                                    el.$jsForm0.find('select[name="jkpz_xfqxx"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="items"){
+                                    el.$jsForm0.find('select[name="jkpz_spqxx"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="policyMsg"){
+                                    el.$jsForm0.find('select[name="jkpz_spyhxx"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="payments"){
+                                    el.$jsForm0.find('select[name="jkpz_zfxx"]').val(list[i].cszffid);
+                                }else if (list[i].pzcsm=="buyer"){
+                                    el.$jsForm0.find('select[name="jkpz_gfxx"]').val(list[i].cszffid);
+                                }
+                            }
+                        }
+                    }});
+                _this.setForm0(row);
+                el.$xiugai.modal({"width": 800, "height": 500});
                 el.$xiugai.modal('open');
+                ur = _this.config.updateUrl;
             });
 
             // 界面新增按钮
             el.$jsAdd.on('click', el.$jsAdd, function () {
                 _this.resetForm();
                 ur = _this.config.addUrl;
-                //alert("新增");
-                el.$modalHongchong.modal({"width": 600, "height": 500});
+                el.$xiugai.modal({"width": 800, "height": 500});
             });
 
-            // xiugai数据保存按钮
-            el.$jsUpdate.on('click', el.$jsUpdate, function () {
-                ur = _this.config.updateUrl;
-                var t = _this.update();
-                /*if(t==true){
-                    _this.resetForm();
-                }*/
-
-            });
             $('#search').click(function () {
                 $("#ycform").resetForm();
                 t.ajax.reload();
@@ -252,113 +273,6 @@ $(function () {
             return t;
         },
 
-        /**
-         * 更新
-         */
-        update: function () {
-            $('.confirm').attr('disabled', "disabled");
-            var _this = this;
-            if (null == $('#xg_gfmc').val() || $('#xg_gfmc').val() == '') {
-                swal('企业名称不能为空！');
-                //el.$jsLoading.modal('close');
-                return false;
-            }
-            $.ajax({
-                url: ur,
-                data: {
-                    gfid: $('#gfid').val(),
-                    gfmc: $('#xg_gfmc').val(),   // 购方名称
-                    gfsh: $('#xg_gfsh').val(),   // 购方税号
-                    gfdz: $('#xg_gfdz').val(), // 购方地址
-                    gfdh: $('#xg_gfdh').val(), // 购方电话
-                    gfyh: $('#xg_gfyh').val(), // 购方银行
-                    gfyhzh: $('#xg_gfyhzh').val(), // 购方银行账号
-                    lxr: $('#xg_lxr').val(), // 联系人
-                    lxdh: $('#xg_lxdh').val(), // 联系电话
-                    yjdz: $('#xg_yjdz').val(), // 邮寄地址
-                    email: $('#xg_email').val()  //email
-                },
-                method: 'POST',
-                success: function (data) {
-                    if (data.success) {
-                        $('.confirm').removeAttr('disabled');
-                        // modal
-                        swal(data.msg);
-                        el.$xiugai.modal('close');
-                    } else {
-
-                        swal('更新购方信息失败: ' + data.msg);
-
-                    }
-                    _this.tableEx.ajax.reload(); // reload table
-                    // data
-
-                },
-                error: function () {
-                    swal('更新购方信息失败, 请重新登陆再试...!');
-                }
-            });
-            return true;
-        },
-
-        /**
-         * 删除
-         */
-        sc: function (da) {
-            var _this = this;
-            $.ajax({
-                url: _this.config.scUrl,
-                data: {
-                    "id": da.id
-                },
-                method: 'POST',
-                success: function (data) {
-                    if (data.success) {
-
-                        // modal
-                        swal(data.msg);
-                    } else {
-
-                        swal('删除购方信息失败: ' + data.msg);
-                    }
-                    _this.tableEx.ajax.reload(); // reload table
-                    // data
-
-                },
-                error: function () {
-                    swal('删除购方信息失败, 请重新登陆再试...!');
-                }
-            });
-
-        },
-
-        /**
-         * 查看
-         */
-        ck: function (da) {
-            var _this = this;
-
-            $.ajax({
-                url: _this.config.getInfoUrl,
-                data: {
-                    "id": da.id
-                },
-                method: 'POST',
-                success: function (data) {
-                    if (data.success) {
-                        // modal
-                        swal(data.msg);
-                        // 创建 授权信息详情表
-
-                    } else {
-                        swal('查看失败: ' + data.msg);
-                    }
-                },
-                error: function () {
-                    swal('查询信息失败, 请重新查看...!');
-                }
-            });
-        },
 
         /**
          * 授权
@@ -406,49 +320,33 @@ $(function () {
          */
         xz: function () {
             var _this = this;
-            //alert("12345");
             el.$jsForm0.validator({
-                submit: function () {
+                submit : function() {
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                         el.$jsLoading.modal('toggle'); // show loading
-                        if (null == $('#xz_gfmc').val() || $('#xz_gfmc').val() == '') {
-                            swal('企业名称不能为空！');
-                            el.$jsLoading.modal('close');
-                            return false;
-                        }
-                        //var data = el.$jsForm0.serialize(); // get form data
-                        //alert($('#xz_gfmc').val());
+                        var data = el.$jsForm0.serialize(); // get form data
                         $.ajax({
-                            url: ur,
-                            data: {
-                                gfmc: $('#xz_gfmc').val(),   // 购方名称
-                                gfsh: $('#xz_gfsh').val(),   // 购方税号
-                                gfdz: $('#xz_gfdz').val(), // 购方地址
-                                gfdh: $('#xz_gfdh').val(), // 购方电话
-                                gfyh: $('#xz_gfyh').val(), // 购方银行
-                                gfyhzh: $('#xz_gfyhzh').val(), // 购方银行账号
-                                lxr: $('#xz_lxr').val(), // 联系人
-                                lxdh: $('#xz_lxdh').val(), // 联系电话
-                                yjdz: $('#xz_yjdz').val(), // 邮寄地址
-                                email: $('#xz_email').val() // email
-                            },
-                            method: 'POST',
-                            success: function (data) {
+                            url : ur,
+                            data : data,
+                            method : 'POST',
+                            success : function(data) {
                                 if (data.success) {
-                                    // loading
-                                    el.$modalHongchong.modal('close'); // close
-                                    swal(data.msg);
+                                    el.$xiugai.modal('close'); // close
+                                    swal({
+                                        title: "修改成功",
+                                        timer: 1500,
+                                        type: "success",
+                                        showConfirmButton: false
+                                    });
                                     _this.tableEx.ajax.reload(); // reload table
-                                } else if (data.repeat) {
-                                    swal(data.msg);
-                                } else {
+                                }else{
                                     swal(data.msg);
                                 }
                                 el.$jsLoading.modal('close'); // close
 
                             },
-                            error: function () {
+                            error : function() {
                                 el.$jsLoading.modal('close'); // close loading
                                 swal('保存失败, 请重新登陆再试...!');
                             }
@@ -462,40 +360,22 @@ $(function () {
             });
         },
         setForm0: function (data) {
-            //var _this = this, i;
             // todo set data
-            // debugger
-            el.$jsForm0.find('input[id="xg_gfmc"]').val(data.gfmc);
-            el.$jsForm0.find('input[id="xg_gfsh"]').val(data.gfsh);
-            el.$jsForm0.find('input[id="xg_gfdz"]').val(data.gfdz);
-            el.$jsForm0.find('input[id="xg_gfdh"]').val(data.gfdh);
-            el.$jsForm0.find('input[id="xg_gfyh"]').val(data.gfyh);
-            el.$jsForm0.find('input[id="xg_gfyhzh"]').val(data.gfyhzh);
-            el.$jsForm0.find('input[id="xg_lxr"]').val(data.lxr);
-            el.$jsForm0.find('input[id="xg_lxdh"]').val(data.lxdh);
-            el.$jsForm0.find('input[id="xg_yjdz"]').val(data.yjdz);
-            el.$jsForm0.find('input[id="xg_email"]').val(data.email);
-            $('#gfid').val(data.id);
+            el.$jsForm0.find('input[id="jkpz_mbmc"]').val(data.mbmc);
+            el.$jsForm0.find('input[id="jkpz_mbms"]').val(data.mbms);
+            el.$jsForm0.find('select[name="jkpz_gsdm"]').val(data.gsdm);
         },
         resetForm: function () {
             el.$jsForm0[0].reset();
         },
         modalAction: function () {
             var _this = this;
-            el.$modalHongchong.on('closed.modal.amui', function () {
-                el.$jsForm0[0].reset();
-            });
             // close modal
-            $("#close2").on('click', function () {
+            $("#close1").on('click', function () {
                 el.$xiugai.modal('close');
             });
-
-            $("#close1").on('click', function () {
-                el.$modalHongchong.modal('close');
-            });
-
-            $("#addtionSelect").on('click', function () {
-                // el.$modalHongchong.modal('close');
+            $("#close2").on('click', function () {
+                el.$jssq.modal('close');
             });
         },
         init: function () {
@@ -507,8 +387,6 @@ $(function () {
             _this.modalAction(); // hidden action
         }
     };
-
-
     action.init();
 });
 
