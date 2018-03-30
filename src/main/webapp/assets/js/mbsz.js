@@ -242,6 +242,9 @@ $(function() {
                 var spje = $('#config_spje').val();
                 var fpzldm = $('#config_fpzldm').val();
                 var spdm = $('#config_spdm').val();
+                var zsfs = $('#config_zsfs').val();
+                var kce = $('#config_kce').val();//扣除额
+				var hsbz = $('#config_hsbz').val();
                 if (mbmc == null || mbmc == '') {
                     swal("请输入模板名称");
                     return;
@@ -260,6 +263,10 @@ $(function() {
                 }
                 if(spdm.length>20){
                     swal("商品分类编码不能大于20个字符");
+                    return;
+				}
+				if(zsfs =='2' &&(hsbz=='0' || kce ==null ||kce =='') ){
+                    swal("征收方式为差额征收时，扣除额不能为空，含税标志必须为含税（是）");
                     return;
 				}
                 $.ajax({

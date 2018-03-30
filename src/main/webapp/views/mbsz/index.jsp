@@ -601,6 +601,39 @@
 										   placeholder="" required>
 								</div>
 							</div>
+
+							<div class="am-form-group">
+								<label for="config_zsfs" class="am-u-sm-2 am-form-label">征收方式</label>
+								<div class="am-u-sm-4">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="config_zsfs_radio" name="config_zsfs_radio" >
+											<option value="auto">默认</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-6">
+									<div class="am-form-group tpl-table-list-select" >
+										<select id="config_zsfs" name="config_zsfs"  >
+											<option value="0" >普通征税</option>
+											<option value="2">差额征税</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="config_kce" class="am-u-sm-2 am-form-label">扣除额</label>
+								<div class="am-u-sm-4">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="config_kce_radio" name="config_kce_radio" >
+											<option value="config">导入文件表头</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-6">
+									<input type="text" id="config_kce" name="config_kce"
+										   placeholder="" required>
+								</div>
+							</div>
 						</div>
 						<div class="am-u-sm-12">
 							<button type="button" id="btnImportConfigSave"
