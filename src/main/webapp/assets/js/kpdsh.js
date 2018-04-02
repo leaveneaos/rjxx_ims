@@ -109,12 +109,36 @@ $(function() {
 
             var dj = $("#lrdj_edit").val();
             var je = $("#lrje_edit").val();
+            var kce = $("#lrkce_edit").val();
             var sltaxrate = $("#lrsltaxrate_edit").val();//税率
             var se = $("#lrse_edit").val();
             var jshj = $("#lrjshj_edit").val();
+            var zsfs =  $("#lrzsfs_edit").val();
+            var d = jyspmx_edit_table.rows().data();
+            var result ="";//判断差额征收时有几条明细
+            d.each(function (data, index) {
+                $(data).each(function (i, c) {
+                    if (i == 7) {
+                       if( zsfs=='2' &&(c !=null || c!='')){
+                           result ="差额征收只能有一条商品明细！";
+                           return;
+                       }
+                    }
+                    if(i == 8){
+                        if(zsfs=='0' &&(c !=null || c!='')){
+                            result ="差额征收只能有一条商品明细！";
+                            return;
+                        }
+                    }
+                });
+            });
+            if(result !=""){
+                swal(result);
+                return;
+            }
             index = mxarr.length + 1;
             jyspmx_edit_table.row.add([
-                "<span class='index'>" + index + "</span>", spdm, mc, ggxh, dw, sl, dj, je, sltaxrate, se, jshj, "<a href='#'>删除</a>"
+                "<span class='index'>" + index + "</span>", spdm, mc, ggxh, dw, sl, dj, je,kce, sltaxrate, se, jshj, "<a href='#'>删除</a>"
             ]).draw();
             mxarr.push(index);
         }
@@ -152,11 +176,13 @@ $(function() {
                         ps.push("dj=" + c);
                     } else if (i == 7) {
                         ps.push("je=" + c);
-                    } else if (i == 8) {
+                    }else if (i == 8) {
+                        ps.push("kce=" + c);
+                    }else if (i == 9) {
                         ps.push("rate=" + c);
-                    } else if (i == 9) {
-                        ps.push("se=" + c);
                     } else if (i == 10) {
+                        ps.push("se=" + c);
+                    } else if (i == 11) {
                         ps.push("jshj=" + c);
                     }
                 });
@@ -270,6 +296,17 @@ $(function() {
                      }
                  },
                  'sClass': 'right'
+            },
+            {
+                "data": function (data) {
+                    if (data.kce) {
+                        return FormatFloat(data.kce,
+                            "###,###.00");
+                    }else{
+                        return null;
+                    }
+                },
+                'sClass': 'right'
             },
             { 
             	"data": function (data) {
@@ -581,6 +618,16 @@ $(function() {
 		                 },
 		                 'sClass': 'right'
 		            },
+                    {"data": function (data) {
+                            if (data.kce) {
+                                return FormatFloat(data.kce,
+                                    "###,###.00");
+                            }else{
+                                return null;
+                            }
+                        },
+                        'sClass': 'right'
+                    },
 		            {"data": function (data) {
 		                if (data.spsl) {
 		                    return FormatFloat(data.spsl,

@@ -970,6 +970,8 @@ public class LrkpdController extends BaseController {
             put("gfsjh", "购方手机号");
             put("fpzldm", "发票种类");
             put("gfsjrdz", "收件地址");
+            put("zsfs", "征收方式");
+            put("kce", "扣除额");
         }
     };
 
@@ -1247,6 +1249,7 @@ public class LrkpdController extends BaseController {
             if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
                 jyxxsq.setSffsyj("1");
             }
+            jyxxsq.setZsfs(getValue("zsfs", pzMap, columnIndexMap, row) == null ? "0" : getValue("zsfs", pzMap, columnIndexMap, row));
             jyxxsq.setHsbz(getValue("hsbz", pzMap, columnIndexMap, row));
             Double spsl = getValue("spsl", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("spsl", pzMap, columnIndexMap, row));
             Double spje = getValue("spje", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("spje", pzMap, columnIndexMap, row));
@@ -1319,6 +1322,8 @@ public class LrkpdController extends BaseController {
                 String je = new DecimalFormat("0.00").format(temp);
                 jymxsq.setSpse(Double.valueOf(new DecimalFormat("0.00").format(jymxsq.getJshj() - Double.valueOf(je))));
             }
+            Double kce = getValue("kce", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("kce", pzMap, columnIndexMap, row));
+            jymxsq.setKce(kce);
             mxList.add(jymxsq);
         }
         //是否自动附码 @zsq
@@ -1346,6 +1351,23 @@ public class LrkpdController extends BaseController {
         // 开始数据校验
         for (int i = 0; i < jyxxsqList.size(); i++) {
             Jyxxsq jyxxsq = jyxxsqList.get(i);
+            if(jyxxsq.getZsfs().equals("2")){
+                int count=0;
+                for(int m=0;m<mxList.size();m++){
+                    Jymxsq jymxsq =mxList.get(m);
+                    if(jyxxsq.getDdh().equals(jymxsq.getDdh())){
+                        count++;
+                    }
+                    if(null == jymxsq.getKce() || jymxsq.getKce()<=0d){
+                        msgg = "第" + (i + 2) + "行征收方式为差额征收时，扣除额不能为空\r\n";
+                        msg += msgg;
+                    }
+                }
+                if(count>1){
+                    msgg = "第" + (i + 2) + "行征收方式为差额征收时，该笔订单只能有一行数据\r\n";
+                    msg += msgg;
+                }
+            }
             if (StringUtils.isNotBlank(jyxxsq.getTqm())) {
                 tqmList.add(jyxxsq.getTqm());
             }
@@ -1582,6 +1604,15 @@ public class LrkpdController extends BaseController {
                     msg += msgg;
                 }
             }
+
+            if(mxsq.getKce() !=null && !mxsq.getKce().equals("")){
+                double kce = mxsq.getKce();
+                double jshj = mxsq.getJshj();
+                if(kce>=jshj){
+                    msgg = "第" + (i + 2) + "行扣除额必须小于等于含税销售额（含税金额+税额），请检查！\r\n";
+                    msg += msgg;
+                }
+            }
             if (mxsq.getSpdj() != null && mxsq.getSps() != null && mxsq.getSpje() != null) {
                 double res = mxsq.getSpdj() * mxsq.getSps();
                 BigDecimal big1 = new BigDecimal(res);
@@ -1643,8 +1674,8 @@ public class LrkpdController extends BaseController {
         }
         // 没有异常，保存
         if ("".equals(msg)) {
-        	System.out.println("校验处理结束时间："+new Date());
-        	System.out.println("保存数据开始时间："+new Date());
+        	/*System.out.println("校验处理结束时间："+new Date());
+        	System.out.println("保存数据开始时间："+new Date());*/
         	//处理折扣行数据
             List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
             //复制一个新的list用于生成处理表
@@ -1838,9 +1869,10 @@ public class LrkpdController extends BaseController {
             String[] spdws = ((String) params.get("dw")).split(",");
             String[] spdjs = ((String) params.get("dj")).split(",");
             String[] spses = ((String) params.get("se")).split(",");
-
+            String[] kces = ((String) params.get("kce")).split(",");
             double jshj = 0.00;
             List<Jymxsq> jymxsqList = new ArrayList<>();
+            String zsfs = "2";
             for (int c = 0; c < mxcount; c++) {
                 Jymxsq jymxsq = new Jymxsq();
                 int xxh = c + 1;
@@ -1855,6 +1887,14 @@ public class LrkpdController extends BaseController {
                 jymxsq.setJshj(Double.valueOf(jshjs[c]));
                 jymxsq.setKkjje(Double.valueOf(jshjs[c]));
                 jymxsq.setYkjje(0d);
+                if (kces.length != 0) {
+                    try {
+                        jymxsq.setKce(Double.valueOf(kces[c]));
+                    } catch (Exception e) {
+                        jymxsq.setKce(null);
+                        zsfs ="0";
+                    }
+                }
                 if (spges.length != 0) {
                     try {
                         jymxsq.setSpggxh(spges[c]);
@@ -1898,6 +1938,7 @@ public class LrkpdController extends BaseController {
                 jshj += jymxsq.getJshj();
                 jymxsqList.add(jymxsq);
             }
+            jyxxsq.setZsfs(zsfs);
             jyxxsq.setJshj(jshj);
             //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
             //处理折扣行数据

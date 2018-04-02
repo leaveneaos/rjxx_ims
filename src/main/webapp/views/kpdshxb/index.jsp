@@ -280,6 +280,7 @@ table thead th {
 														<th>数量</th>
 														<th>单价</th>
 														<th>金额</th>
+                                                        <th>扣除额</th>
 														<th>税率</th>
 														<th>税额</th>
 														<th>价税合计</th>
@@ -308,6 +309,7 @@ table thead th {
 											<th>商品数</th>
 											<th>商品单价</th>
 											<th>商品金额</th>
+											<th>扣除额</th>
 											<th>税率</th>
 											<th>商品税额</th>
 											<th>价税合计</th>
@@ -959,44 +961,66 @@ table thead th {
 										<input type="text" id="lrmc_edit" placeholder="输入名称..."
 											required>
 									</div>
+									<%--<label for="lrggxh_edit" class="am-u-sm-2 am-form-label">规格型号</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="lrggxh_edit" placeholder="输入规格型号...">
+									</div>--%>
+									<label for="lrzsfs_edit" class="am-u-sm-2 am-form-label">征收方式</label>
+									<div class="am-u-sm-4">
+										<select id="lrzsfs_edit" name="lrzsfs_edit"
+												onchange="hidespankce()" required>
+											<option value="0">普通征收</option>
+											<option value="2">差额征收</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-form-group">
 									<label for="lrggxh_edit" class="am-u-sm-2 am-form-label">规格型号</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrggxh_edit" placeholder="输入规格型号...">
 									</div>
-								</div>
-								<div class="am-form-group">
 									<label for="lrdw_edit"   class="am-u-sm-2 am-form-label">单位</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrdw_edit" placeholder="输入单位...">
 									</div>
+								</div>
+								<div class="am-form-group">
 									<label for="lrsl_edit" class="am-u-sm-2 am-form-label">数量</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrsl_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入数量...">
 									</div>
-								</div>
-								<div class="am-form-group">
 									<label for="lrdj_edit" class="am-u-sm-2 am-form-label">单价(含税)</label>
 
 									<div class="am-u-sm-4">
 										<input type="text" id="lrdj_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入单价...">
 									</div>
-									<label for="lrje_edit" class="am-u-sm-2 am-form-label"
-										style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
+								</div>
+								<div class="am-form-group">
+									<label for="lrhsje_edit" class="am-u-sm-2 am-form-label"><span
+											style="color: red;">*</span>金额(含税)</label>
 
 									<div class="am-u-sm-4">
-										<input type="text" id="lrje_edit" readonly="readonly" placeholder="输入金额(不含税)..."
-											required>
+										<input type="text" id="lrhsje_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入金额(含税)..."
+											   required>
+									</div>
+									<label for="lrkce_edit" class="am-u-sm-2 am-form-label"
+										   style="padding-left: 0px"><span style="color: red;display: none" id ="lrspankce_edit">*</span>扣除额</label>
+
+									<div class="am-u-sm-4">
+										<input type="text" id="lrkce_edit" readonly="readonly" placeholder="输入扣除额...">
 									</div>
 								</div>
-								<label for="lrhsje_edit" class="am-u-sm-2 am-form-label"><span
-									style="color: red;">*</span>金额(含税)</label>
+
+								<label for="lrje_edit" class="am-u-sm-2 am-form-label"
+									   style="padding-left: 0px"><span style="color: red;">*</span>金额(不含税)</label>
 
 								<div class="am-u-sm-4">
-									<input type="text" id="lrhsje_edit" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" placeholder="输入金额(含税)..."
-										required>
+									<input type="text" id="lrje_edit" readonly="readonly" placeholder="输入金额(不含税)..."
+										   required>
 								</div>
 								<div class="am-form-group">
 									<label for="lrjshj_edit" class="am-u-sm-2 am-form-label"><span
@@ -1042,6 +1066,7 @@ table thead th {
 									<th>数量</th>
 									<th>单价</th>
 									<th>金额</th>
+									<th>扣除额</th>
 									<th>税率</th>
 									<th>税额</th>
 									<th>价税合计</th>
@@ -1232,8 +1257,8 @@ table thead th {
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/kpdsh.js"></script>
 	<script src="assets/js/kpdys.js"></script>
-	<script src="assets/js/autocomplete.js"></script>
-	<script src="assets/js/getGfxxInput.js"></script>
+	<%--<script src="assets/js/autocomplete.js"></script>--%>
+	<%--<script src="assets/js/getGfxxInput.js"></script>--%>
 	<script src="assets/js/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
@@ -1328,6 +1353,7 @@ table thead th {
             var spsl;
             var spid = $(this).val();
             var spmc = $("#lrselect_sp option:checked").text();
+            var kce = $('#lrkce_edit');
             var pos = spmc.indexOf("(");
             spmc = spmc.substring(0, pos);
             if (!spid) {
@@ -1357,11 +1383,16 @@ table thead th {
             })
             if(null!=je && je.val() !=""){
             	var temp = (100+sl.val()*100)/100;
-				se.val(FormatFloat(je.val() * spsl, "#####0.00"));
-				var je1 = parseFloat(je.val());
-        		var se1 = parseFloat(se.val());
-				hsje.val(FormatFloat(je1 + se1, "#####0.00"));
-				jshj.val(FormatFloat(je1 + se1, "#####0.00"));
+            	if(null !=kce && kce.val()!=""){
+                    se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                    je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+				}else{
+                    se.val(FormatFloat(je.val() * spsl, "#####0.00"));
+                    var je1 = parseFloat(je.val());
+                    var se1 = parseFloat(se.val());
+                    hsje.val(FormatFloat(je1 + se1, "#####0.00"));
+                    jshj.val(FormatFloat(je1 + se1, "#####0.00"));
+				}
         		if (dj != null && dj.val() != "") {
         			sps.val(FormatFloat(je.val() / dj.val(), "#####0.00"));
 				}else if(sps != null && sps.val() != ""){
@@ -1522,14 +1553,20 @@ table thead th {
                 var jshj = $('#lrjshj_edit');
                 var dj = $('#lrdj_edit');
                 var je = $('#lrje_edit');
+                var kce = $('#lrkce_edit');
                 var temp = (100 + sl.val() * 100) / 100;
                 if(dj!=""){
                     jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
                     hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
                     var jj=spsl.val() * dj.val();
-                    je.val(FormatFloat(jj/temp, "#####0.00"));
-                    se.val(FormatFloat(je.val() * sl.val(),
-                        "#####0.00"));
+                    if(null != kce && kce.val() !=""){
+                        se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                        je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+					}else{
+                        je.val(FormatFloat(jj/temp, "#####0.00"));
+                        se.val(FormatFloat(je.val() * sl.val(),
+                            "#####0.00"));
+					}
                 }
             });
 
@@ -1555,7 +1592,7 @@ table thead th {
                 }
             });
         });
-        $("#lrsl_edit").keyup(function(){
+        /*$("#lrsl_edit").keyup(function(){
             var spsl = $('#lrsl_edit');//商品数量
             // var num = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
             // if (!num.test(spsl.val())) {
@@ -1574,16 +1611,22 @@ table thead th {
             var jshj = $('#lrjshj_edit');
             var dj = $('#lrdj_edit');
             var je = $('#lrje_edit');
+            var kce = $('#lrkce_edit');
             var temp = (100 + sl.val() * 100) / 100;
             if(dj!=""){
                 jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
                 hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
                 var jj=spsl.val() * dj.val();
-                je.val(FormatFloat(jj/temp, "#####0.00"));
-                se.val(FormatFloat(je.val() * sl.val(),
-                    "#####0.00"));
+                if(null != kce && kce !=""){
+                    se.val(FormatFloat((jshj-kce)/temp*sl.val(), "#####0.00"));
+                    je.val(FormatFloat(hsje-(jshj-kce)/temp*sl.val(), "#####0.00"));
+                }else{
+                    je.val(FormatFloat(jj/temp, "#####0.00"));
+                    se.val(FormatFloat(je.val() * sl.val(),
+                        "#####0.00"));
+                }
             }
-        });
+        });*/
 
 
         //西外导入excel
@@ -1680,15 +1723,21 @@ table thead th {
                 var jshj = $('#lrjshj_edit');
                 var spsl = $('#lrsl_edit');
                 var je = $('#lrje_edit');
+                var kce = $('#lrkce_edit');
                 var temp = (100 + sl.val() * 100) / 100;
                 if(spsl!=""){
                     jshj.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
                     hsje.val(FormatFloat(spsl.val() * dj.val(), "#####0.00"));
 
                     var jj=spsl.val() * dj.val();
-                    je.val(FormatFloat(jj/temp, "#####0.00"));
-                    se.val(FormatFloat(je.val() * sl.val(),
-                        "#####0.00"));
+                    if(null != kce && kce.val() !=""){
+                        se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                        je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                    }else{
+                        je.val(FormatFloat(jj/temp, "#####0.00"));
+                        se.val(FormatFloat(je.val() * sl.val(),
+                            "#####0.00"));
+                    }
                 }
             });
 
@@ -1731,6 +1780,50 @@ table thead th {
 
 
 
+        $("#lrkce_edit").keyup(
+            function() {
+                // var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+                var hsje = $('#lrhsje_edit');
+                // if (!num.test(hsje.val())) {
+                // 	if (hsje.val().length > 1) {
+                // 		$('#lrhsje_edit').val(
+                // 				hsje.val().substring(0,
+                // 						hsje.val().length - 1))
+                // 	} else {
+                // 		$('#lrhsje_edit').val("")
+                // 	}
+                // 	return;
+                // }
+                var je = $('#lrje_edit');
+                var sl = $('#lrsltaxrate_edit');
+                var se = $('#lrse_edit');
+                var spsl = $('#lrsl_edit');
+                var jshj = $('#lrjshj_edit');
+                var dj = $('#lrdj_edit');
+                var sps = $('#lrsl_edit');
+                var kce = $('#lrkce_edit');
+                var temp = (100 + sl.val() * 100) / 100;
+                jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+                if(null!=kce && kce.val() !=""){
+                    se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                    je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                }else{
+                    je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+
+                    se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+                }
+
+                // spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
+                if (dj.val()!= "") {
+                    spsl.val(FormatFloat(hsje.val() / dj.val(), "#.00#############"));
+                }else if(dj.val()==""&&spsl.val()!=""){
+                    dj.val(FormatFloat(hsje.val() / spsl.val(), "#.00#############"));
+                }
+            }
+        );
+
+
+
 			$("#lrhsje_edit").keyup(
 				function() {
 					// var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
@@ -1752,12 +1845,17 @@ table thead th {
 					var jshj = $('#lrjshj_edit');
 					var dj = $('#lrdj_edit');
 					var sps = $('#lrsl_edit');
+                    var kce = $('#lrkce_edit');
 					var temp = (100 + sl.val() * 100) / 100;
-					je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+                    jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+					if(null!=kce && kce.val() !=""){
+                        se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+                        je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+					}else{
+                        je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
 
-					se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
-
-					jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+                        se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+					}
 
 					// spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
 					if (dj.val()!= "") {
@@ -1769,6 +1867,10 @@ table thead th {
 			);
 
 		});
+
+
+
+
 
 		//je
 		function jsje2() {
@@ -1943,6 +2045,21 @@ table thead th {
 					$("#lrgfzh_edit").attr("required",false);
 				 }
 			}
+
+
+    function hidespankce(){
+        var zsfs = $("#lrzsfs_edit").val();
+        if(zsfs=='2'){
+            document.getElementById("lrspankce_edit").style.display="";
+            document.getElementById("lrkce_edit").readOnly="";
+            $("#lrkce_edit").attr("required",true);
+        }else{
+            document.getElementById("lrspankce_edit").style.display="none";
+            document.getElementById("lrkce_edit").readOnly="readOnly";
+            $("#lrkce_edit").attr("required",false);
+            $("#lrkce_edit").val("");
+        }
+    }
 	</script>
 
 </body>

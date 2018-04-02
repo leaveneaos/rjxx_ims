@@ -584,7 +584,7 @@ public class KpdshController extends BaseController {
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs2, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP),jyxxsq.getZsfs(), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
 				}
 			} else {
 				if (null != fpjehsbzs[i] && "1".equals(fpjehsbzs[i])) {
@@ -595,7 +595,7 @@ public class KpdshController extends BaseController {
 				} else {
 					/*jyspmxs = SeperateInvoiceUtils.splitInvoices2(jyspmxs, new BigDecimal(Double.valueOf(zdje)),
 							new BigDecimal(Double.valueOf(fpxels[i])), fphs1, qzfp,spzsfp);*/
-					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
+					InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)).setScale(2, BigDecimal.ROUND_HALF_UP),jyxxsq.getZsfs(), new BigDecimal(Double.valueOf(fpxels[i])).setScale(2, BigDecimal.ROUND_HALF_UP), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
 
 				}
 			}
@@ -632,7 +632,7 @@ public class KpdshController extends BaseController {
 						Integer.valueOf(jysmx.getFpnum()), long1, jysmx.getFphxz(), jyxxsq.getKpddm(), jyxxsq.getGfsh(),
 						jyxxsq.getGfmc(), jyxxsq.getGfdz(), String.valueOf(long1), String.valueOf(jyxxsq.getSqlsh()),
 						Integer.valueOf(jysmx.getSpmxxh()), jyxxsq.getXfid(), jyxxsq.getFpzldm(), "1",
-						Integer.valueOf(1), jysmx.getGsdm());
+						Integer.valueOf(1), jysmx.getGsdm(),jysmx.getKce() == null ? null : jysmx.getKce().doubleValue());
 				fpcljlVo.setSjts(i + 1);
 				if (fpcljlVo.getJshj() > 0) {
 					listfpcl.add(fpcljlVo);
@@ -792,6 +792,7 @@ public class KpdshController extends BaseController {
 		jyls1.setYfphm(null);
 		jyls1.setSffsyj(jyxxsq.getSffsyj());
 		jyls1.setHsbz(jyxxsq.getHsbz());
+		jyls1.setZsfs(jyxxsq.getZsfs());
 		double hjje = 0;
 		double hjse = 0;
 		for (JyspmxDecimal2 jyspmx : jyspmxList) {
@@ -838,6 +839,7 @@ public class KpdshController extends BaseController {
 			jymx.setLrry(getYhid());
 			jymx.setXgsj(TimeUtil.getNowDate());
 			jymx.setXgry(getYhid());
+			jymx.setKce(mxItem.getKce() == null ? null : mxItem.getKce().doubleValue());
 			jymx.setFphxz("0");
 			jyspmxService.save(jymx);
 			i++;

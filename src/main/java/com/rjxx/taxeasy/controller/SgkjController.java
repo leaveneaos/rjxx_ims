@@ -254,6 +254,7 @@ public class SgkjController extends BaseController{
         jyxxsq.setXgry(yhid);
         jyxxsq.setYxbz("1");
         jyxxsq.setGsdm(gsdm);
+        jyxxsq.setZsfs("0");
         try {
             Map params = Tools.getParameterMap(request);
             int mxcount = Integer.valueOf(params.get("mxcount").toString());//明细条数
@@ -566,9 +567,9 @@ public class SgkjController extends BaseController{
                 }
             } else {
                 if (jyxxsq.getFpzldm().equals("12")) {
-                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), jyxxsq.getZsfs(), new BigDecimal(fpje), fphs2, sfqzfp, spzsfp, 0, splitKpspmxs);
                 } else {
-                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), new BigDecimal(fpje), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
+                    InvoiceSplitUtils.splitInvoices((List)mapResult.get("jymxsqs"), (Map)mapResult.get("zkAndbzk"), new BigDecimal(Double.valueOf(zdje)), jyxxsq.getZsfs(), new BigDecimal(fpje), fphs1, sfqzfp, spzsfp, 0, splitKpspmxs);
                 }
             }
 

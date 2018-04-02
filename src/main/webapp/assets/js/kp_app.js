@@ -383,6 +383,13 @@ $(function() {
                         }
                     }, 'sClass': 'right'},
                     {"data": function (data) {
+                            if (data.kce) {
+                                return FormatFloat(data.kce, "###,###.00");
+                            } else {
+                                return null;
+                            }
+                        }, 'sClass': 'right'},
+                    {"data": function (data) {
                         if (data.spsl) {
                             return FormatFloat(data.spsl, "###,###.00");
                         } else {
