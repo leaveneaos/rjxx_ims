@@ -133,6 +133,8 @@ $(function () {
             });
 
             t.on('click','button.empower',function () {
+                // $('#menuTree2').tree('destroy');
+                // $('#menuTree2').data('jstree', false).empty();
                 var da = t.row($(this).parents('tr')).data();
                 // alert("授权");
                 // 授权---数据
@@ -288,11 +290,12 @@ $(function () {
                     "gsdm": da.gsdm,
                     "mbid": da.id
                 },
+                cache:false,
                 method: 'POST',
                 success: function (data) {
                     if (data.success) {
                         var list =data.data;
-                        tree(list);
+                        treess(list);
                         // swal(data.msg);
                         // 授权信息传递
                     } else {
@@ -346,7 +349,6 @@ $(function () {
                                     swal(data.msg);
                                 }
                                 el.$jsLoading.modal('close'); // close
-
                             },
                             error : function() {
                                 el.$jsLoading.modal('close'); // close loading
@@ -385,77 +387,36 @@ $(function () {
             _this.tableEx = _this.dataTable(); // cache variable
             _this.xz();
             _this.search_ac();
-            //_this.exportAc();
             _this.modalAction(); // hidden action
         }
     };
     action.init();
 });
 
-function tree(data) {
-    alert(11);
-    /*var data = [
-        {
-            title: '销方名称',
-            type: 'folder',
-            selectedStatus: 'selected',
-            attr: {
-                id: '销方id',
-                originValue:'初始模板id'
-            },
-            products: [
-                {
-                    title: '开票点名称名称',
-                    type: 'item',
-                    selectedStatus: 'selected',
-                    attr: {
-                        id: '开票点id',
-                        originValue: '初始模板id'
-                    }
-                },
-                {
-                    title: '开票点名称名称',
-                    type: 'item',
-                    selectedStatus: 'selected',
-                    attr: {
-                        id: '开票点id',
-                        originValue: '初始模板id'
-                    }
-                }]
-        },
-
-        {
-            title: '销方名称',
-            type: 'item',
-            selectedStatus: 'selected',
-            attr: {
-                id: '销方id',
-                originValue:'原始模板'
-            }
-        }
-    ];*/
-
+function treess(data) {
+    var datas = eval("("+data+")");
+    // alert(datas[0].title);
     var $tree2 = $('#menuTree2');
     $tree2.tree({
         dataSource: function(options, callback) {
             // 模拟异步加载
             setTimeout(function() {
-                callback({data: options.products || data});
+                callback({data: options.products || datas});
             }, 400);
         },
-        multiSelect: true,
-        cacheItems: true,
-        folderSelect: true
-    }) .on('selected.tree.amui', function (event, data) {
-        data.target.selectedStatus = 'selected';
-        $el = $('#' + data.target.attr.id + ' .am-tree-status');
+        multiSelect: false,
+        cacheItems: false,
+        folderSelect: false
+    }) .on('selected.tree.amui', function (event, datas) {
+        datas.target.selectedStatus = '授权';
+        $el = $('#' + datas.target.attr.id + ' .am-tree-status');
         $el.text('selected').css('color', 'red');
 
-    }) .on('deselected.tree.amui', function (event, data) {
-        data.target.selectedStatus = 'unselected';
-        $el = $('#' + data.target.attr.id  + ' .am-tree-status');
+    }) .on('deselected.tree.amui', function (event, datas) {
+        datas.target.selectedStatus = '取消授权';
+        $el = $('#' + datas.target.attr.id  + ' .am-tree-status');
         $el.text('unselected').css('color', '#000');
-        console.log(data.selected);
+        console.log(datas.selected);
     });
 
     // 发票种类

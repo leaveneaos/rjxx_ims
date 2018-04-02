@@ -4,6 +4,9 @@
 <html class="no-js">
 <head>
     <meta charset="utf-8">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>接口配置</title>
     <meta name="description" content="接口配置">
@@ -517,47 +520,8 @@
 <script src="assets/js/sweetalert.min.js"></script>
 <script src="assets/js/jkpz.js"></script>
 <script>
-    $(function() {
-        /*var data = [
-            {
-                title: '销方名称',
-                type: 'folder',
-                selectedStatus: 'selected',
-                attr: {
-                    id: '销方id',
-                    originValue:'初始模板id'
-                },
-                products: [
-                    {
-                        title: '开票点名称名称',
-                        type: 'item',
-                        selectedStatus: 'selected',
-                        attr: {
-                            id: '开票点id',
-                            originValue: '初始模板id'
-                        }
-                    },
-                    {
-                        title: '开票点名称名称',
-                        type: 'item',
-                        selectedStatus: 'selected',
-                        attr: {
-                            id: '开票点id',
-                            originValue: '初始模板id'
-                        }
-                    }]
-            },
-
-            {
-                title: '销方名称',
-                type: 'item',
-                selectedStatus: 'selected',
-                attr: {
-                    id: '销方id',
-                    originValue:'原始模板'
-                }
-            }
-        ];
+    /*$(function() {
+        var data = [{"attr":{"id":681,"originValue":357},"products":[{"attr":{"id":1080},"selectedStatus":"deselected","title":"腾讯计算机","type":"item"},{"attr":{"id":1085},"selectedStatus":"deselected","title":"我的开票点02","type":"item"}],"selectedStatus":"selected","title":"升级版测试用户3697","type":"folder"},{"attr":{"id":683},"products":[{"attr":{"id":1124},"selectedStatus":"deselected","title":"rrrr","type":"item"}],"selectedStatus":"deselected","title":"上海百旺测试3643","type":"folder"}];
 
         var $tree2 = $('#menuTree2');
         $tree2.tree({
@@ -621,8 +585,8 @@
                 $(this).val(),
                 '</strong>'
             ].join(''));
-        });*/
-    });
+        });
+    });*/
 </script>
 </body>
 </html>

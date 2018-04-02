@@ -149,7 +149,6 @@ $(function() {
                                 $("#bj").val('3');
                                 loaddata=true;
                             }else {
-                                alert(11);
                                 swal(data.msg);
                                 $modal.modal("close");
                                 $("#bj").val('3');

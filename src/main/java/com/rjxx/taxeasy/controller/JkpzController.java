@@ -365,6 +365,7 @@ public class JkpzController extends BaseController {
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
                 List<Skp> skpList = skpService.findAllByParams(skp);
+                List list1 = new ArrayList();
                 if(skpList.isEmpty()){
                     jkpzTreeXFVo.setType("item");
                 }else {
@@ -383,7 +384,8 @@ public class JkpzController extends BaseController {
                         }
                         jkpzTreeAttr.setId(skp1.getId());
                         jkpzTreeSkpVo.setAttr(jkpzTreeAttr);
-                        jkpzTreeXFVo.setProducts(jkpzTreeSkpVo);
+                        list1.add(jkpzTreeSkpVo);
+                        jkpzTreeXFVo.setProducts(list1);
                     }
                 }
                 Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(46, gsdm, xf1.getId(), mbid);
