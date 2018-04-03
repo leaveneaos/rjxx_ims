@@ -44,6 +44,8 @@ public class JkpzController extends BaseController {
     private CszbJpaDao cszbJpaDao;
     @Autowired
     private GsxxService gsxxService;
+    @Autowired
+    private CsbService csbService;
 
     @RequestMapping
     public String index() {
@@ -155,7 +157,6 @@ public class JkpzController extends BaseController {
             Map map = new HashMap();
             map.put("mbid",Integer.valueOf(mbid));
                 List<JkpzVo> list = jkmbzbService.findByMbId(map);
-//            List<JkpzVo> list1 = jkmbzbJpaDao.findListVoByMbid(Integer.valueOf(mbid));
             System.out.println(JSON.toJSONString(list));
             result.put("data",list);
         } catch (Exception e) {
@@ -194,8 +195,18 @@ public class JkpzController extends BaseController {
                             jkmbzbJpaDao.delete(jkmbzb.getId());
                         }
                         jkmbbJpaDao.delete(Integer.valueOf(id));
-                        result.put("success", true);
-                        result.put("msg", "删除成功");
+                        Map map = new HashMap();
+                        map.put("csm","jkpzmbid");
+                        Csb csb = csbService.findOneByParams(map);
+                        Cszb cszb = cszbService.getSpbmbbh(jkmbb.getGsdm(), null, null, "jkpzmbid");
+                        if(csb!=null&&cszb!=null){
+                            List<Cszb> cszbList = cszbJpaDao.findByGsdmAndCszAndCsid(csb.getId(), jkmbb.getGsdm(), cszb.getCsz());
+                            for (Cszb cszb1 : cszbList) {
+                                cszbJpaDao.delete(cszb1.getId());
+                            }
+                        }
+                    result.put("success", true);
+                    result.put("msg", "删除成功");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -360,6 +371,41 @@ public class JkpzController extends BaseController {
             List<Xf> xfList = xfService.findAllByParams(xf);
             for (Xf xf1 : xfList) {
                 JkpzTreeXFVo jkpzTreeXFVo = new JkpzTreeXFVo();
+                jkpzTreeXFVo.setId(xf1.getId().toString());
+                jkpzTreeXFVo.setText(xf1.getXfmc());
+                jkpzTreeXFVo.setParent("#");
+                Skp skp = new Skp();
+                skp.setGsdm(gsdm);
+                skp.setXfid(xf1.getId());
+                List<Skp> skpList = skpService.findAllByParams(skp);
+                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(46, gsdm, xf1.getId(), mbid);
+                if(cszb!=null&&cszb.getKpdid()==null){
+                    Map ma = new HashMap();
+                    ma.put("selected",true);
+//                    List ls = new ArrayList();
+//                    ls.add(ma);
+                    jkpzTreeXFVo.setState(ma);
+                }
+                for (Skp skp1 : skpList) {
+                    JkpzTreeXFVo jkpzTreeXFVo1 = new JkpzTreeXFVo();
+                    jkpzTreeXFVo1.setId(skp1.getId().toString());
+                    jkpzTreeXFVo1.setText(skp1.getKpdmc());
+                    jkpzTreeXFVo1.setParent(xf1.getId().toString());
+                    Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(46, gsdm, xf1.getId(), skp1.getId(), mbid);
+                    if(cszbs!=null){
+                        Map ma1 = new HashMap();
+                        ma1.put("selected",true);
+//                        List ls = new ArrayList();
+//                        ls.add(ma);
+                        jkpzTreeXFVo1.setState(ma1);
+                    }
+                    list.add(jkpzTreeXFVo1);
+                }
+                list.add(jkpzTreeXFVo);
+            }
+            System.out.println(JSON.toJSONString(list));
+            /*for (Xf xf1 : xfList) {
+                JkpzTreeXFVo jkpzTreeXFVo = new JkpzTreeXFVo();
                 jkpzTreeXFVo.setTitle(xf1.getXfmc());
                 Skp skp = new Skp();
                 skp.setGsdm(gsdm);
@@ -399,8 +445,7 @@ public class JkpzController extends BaseController {
                 jkpzTreeAttr.setId(xf1.getId());
                 jkpzTreeXFVo.setAttr(jkpzTreeAttr);
                 list.add(jkpzTreeXFVo);
-            }
-            System.out.println(JSON.toJSONString(list));
+            }*/
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
         } catch (Exception e) {

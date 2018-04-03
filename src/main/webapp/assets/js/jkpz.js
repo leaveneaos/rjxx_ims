@@ -132,12 +132,9 @@ $(function () {
                 t_detail.ajax.reload();
             });
 
-            t.on('click','button.empower',function () {
-                // $('#menuTree2').tree('destroy');
-                // $('#menuTree2').data('jstree', false).empty();
+           t.on('click','button.empower',function () {
                 var da = t.row($(this).parents('tr')).data();
-                // alert("授权");
-                // 授权---数据
+               //tre(da);
                 _this.sq(da);
             });
 
@@ -282,8 +279,6 @@ $(function () {
          */
         sq: function (da) {
             var _this = this;
-            // alert(da.gsdm);
-            // alert(da.id);
             $.ajax({
                 url: _this.config.empowerUrl,
                 data: {
@@ -295,9 +290,7 @@ $(function () {
                 success: function (data) {
                     if (data.success) {
                         var list =data.data;
-                        treess(list);
-                        // swal(data.msg);
-                        // 授权信息传递
+                        tre(JSON.parse(list));
                     } else {
                         swal('查看失败: ' + data.msg);
                     }
@@ -373,7 +366,6 @@ $(function () {
             el.$jsForm0[0].reset();
         },
         modalAction: function () {
-            var _this = this;
             // close modal
             $("#close1").on('click', function () {
                 el.$xiugai.modal('close');
@@ -393,34 +385,72 @@ $(function () {
     action.init();
 });
 
-function treess(data) {
-    var datas = eval("("+data+")");
-    // alert(datas[0].title);
-    var $tree2 = $('#menuTree2');
-    $tree2.tree({
+function tre(json) {
+    // var json = JSON.parse(data);
+    // alert(json);
+    $('#menuTree2').jstree(
+        {'core':{data:null, "check_callback" : true},
+            plugins: ['state', "sort",'wholerow', 'contextmenu', 'types','checkbox'],
+            checkbox: {
+                "keep_selected_style": true,//是否默认选中
+                "three_state": false,//父子级别级联选择
+                "tie_selection": false
+            },
+            state:{
+                "key" : "demo2"
+            },
+            types: {
+                'default': {
+                    'icon': false //设置图标
+                },
+                'file' : {
+                    'icon' : 'fa fa-file-text-o'//可放置css样式
+                }
+            }
+        });
+    $('#menuTree2').jstree(true).settings.core.data=json;
+    $('#menuTree2').jstree(true).refresh();
+
+    // $('#menuTree2').jstree({
+    //     core: {
+    //         data:null
+    //         /*multiple: false,
+    //         check_callback: true,
+    //         data: json    //全局数组*/
+    //     },
+    //     plugins: ['wholerow', 'contextmenu', 'types','checkbox'],
+    //     types: {
+    //         'default': {
+    //             'icon': false //设置图标
+    //         },
+    //         'file' : {
+    //             'icon' : 'fa fa-file-text-o'//可放置css样式
+    //         }
+    //     }
+    // });
+    /*var datas = eval("("+data+")");
+    $('#menuTree2').tree({
         dataSource: function(options, callback) {
             // 模拟异步加载
             setTimeout(function() {
                 callback({data: options.products || datas});
             }, 400);
         },
-        multiSelect: false,
+        multiSelect: true,
         cacheItems: false,
         folderSelect: false
-    }) .on('selected.tree.amui', function (event, datas) {
+    }).on('selected.tree.amui', function (event, datas) {
         datas.target.selectedStatus = '授权';
         $el = $('#' + datas.target.attr.id + ' .am-tree-status');
         $el.text('selected').css('color', 'red');
-
-    }) .on('deselected.tree.amui', function (event, datas) {
+    }).on('deselected.tree.amui', function (event, datas) {
         datas.target.selectedStatus = '取消授权';
         $el = $('#' + datas.target.attr.id  + ' .am-tree-status');
         $el.text('unselected').css('color', '#000');
         console.log(datas.selected);
-    });
+    });*/
 
-    // 发票种类
-    var $selected = $('#js-selected');
+   /* var $selected = $('#js-selected');
     var i = 0;
     $('[data-selected]').on('click', function() {
         var action = $(this).data('selected');
@@ -441,9 +471,9 @@ function treess(data) {
         if (!$.AMUI.support.mutationobserver) {
             $selected.trigger('changed.selected.amui');
         }
-    });
+    });*/
 
-    $selected.on('change', function() {
+    /*$selected.on('change', function() {
         $('#js-selected-info').html([
             '选中项：<strong class="am-text-danger">',
             [$(this).find('option').eq(this.selectedIndex).text()],
@@ -451,7 +481,7 @@ function treess(data) {
             $(this).val(),
             '</strong>'
         ].join(''));
-    });
+    });*/
 }
 
 function dateFormat(str) {

@@ -25,9 +25,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
     <script src="assets/js/loading.js"></script>
-
     <link rel="stylesheet" href="assets/css/amazeui.tree.min.css"/>
-
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -428,7 +426,8 @@
                         <div id="doc-oc-demo3" class="am-offcanvas">
                             <div class="am-offcanvas-bar am-offcanvas-bar-flip">
                                 <div class="am-offcanvas-content" style="margin-top: 5px;">
-                                    <ul class="am-tree am-tree-folder-select" role="tree"
+                                    <div id="menuTree2" style=""></div>
+                                <%--<ul class="am-tree am-tree-folder-select" role="tree"
                                         id="menuTree2">
                                         <li class="am-tree-branch am-hide" data-template="treebranch"
                                             role="treeitem" aria-expanded="false">
@@ -452,7 +451,7 @@
                                                 <span class="am-tree-status"></span>
                                             </button>
                                         </li>
-                                    </ul>
+                                    </ul>--%>
                                     <div style="padding: 32px;">
                                         <button type="button" id="search1"
                                                 class="am-btn am-btn-default am-btn-success data-back">
@@ -502,7 +501,7 @@
 
 <!--[if lt IE 9]>
 
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
@@ -519,10 +518,36 @@
 <script src="assets/js/format.js"></script>
 <script src="assets/js/sweetalert.min.js"></script>
 <script src="assets/js/jkpz.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<%--<script src="dist/jstree.min.js"></script>--%>
+<link rel="stylesheet" href="dist/themes/default/style.min.css" />
 <script>
-    /*$(function() {
-        var data = [{"attr":{"id":681,"originValue":357},"products":[{"attr":{"id":1080},"selectedStatus":"deselected","title":"腾讯计算机","type":"item"},{"attr":{"id":1085},"selectedStatus":"deselected","title":"我的开票点02","type":"item"}],"selectedStatus":"selected","title":"升级版测试用户3697","type":"folder"},{"attr":{"id":683},"products":[{"attr":{"id":1124},"selectedStatus":"deselected","title":"rrrr","type":"item"}],"selectedStatus":"deselected","title":"上海百旺测试3643","type":"folder"}];
+    $(function() {
+//        var json=[{"id":"1075","parent":"677","state":{"selected":true},"text":"升级版测试用户3699_01"},{"id":"677","parent":"#","text":"升级版测试用户3699"},{"id":"1077","parent":"679","text":"alipay_02"},{"id":"679","parent":"#","state":{"selected":true},"text":"上海百旺测试3643"},{"id":"680","parent":"#","text":"升级版测试用户3697"}];
+//        $('#menuTree2').jstree(
+//            {'core':{data:null, "check_callback" : true},
+//                plugins: ['state', "sort",'wholerow', 'contextmenu', 'types','checkbox'],
+//                checkbox: {
+//                    "keep_selected_style": true,//是否默认选中
+//                    "three_state": false,//父子级别级联选择
+//                    "tie_selection": false
+//                },
+//                state:{
+//                    "key" : "demo2"
+//                },
+//                types: {
+//                    'default': {
+//                        'icon': false //设置图标
+//                    },
+//                    'file' : {
+//                        'icon' : 'fa fa-file-text-o'//可放置css样式
+//                    }
+//                }
+//            });
+//        $('#menuTree2').jstree(true).settings.core.data=json;
+//        $('#menuTree2').jstree(true).refresh();
 
+        /*var data = [{"attr":{"id":681,"originValue":357},"products":[{"attr":{"id":1080},"selectedStatus":"deselected","title":"腾讯计算机","type":"item"},{"attr":{"id":1085},"selectedStatus":"deselected","title":"我的开票点02","type":"item"}],"selectedStatus":"selected","title":"升级版测试用户3697","type":"folder"},{"attr":{"id":683},"products":[{"attr":{"id":1124},"selectedStatus":"deselected","title":"rrrr","type":"item"}],"selectedStatus":"deselected","title":"上海百旺测试3643","type":"folder"}];
         var $tree2 = $('#menuTree2');
         $tree2.tree({
             dataSource: function(options, callback) {
@@ -585,8 +610,8 @@
                 $(this).val(),
                 '</strong>'
             ].join(''));
-        });
-    });*/
+        });*/
+    });
 </script>
 </body>
 </html>
