@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.rjxx.Application;
 import com.rjxx.taxeasy.domains.Fphxwsjl;
 import com.rjxx.taxeasy.domains.Gsxx;
+import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.service.FphxwsjlService;
+import com.rjxx.taxeasy.service.KplsService;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -45,10 +47,16 @@ public class FphxTest {
     private FphxwsjlService fphxwsjlService;
 
 
+    @Autowired
+    private KplsService kplsService;
+
+
 
     @Test
     public void fphx(){
-        Map parms=new HashMap();
+        String message=generatePdfService.CreateReturnMessage3(1325);
+        System.out.println(message);
+      /*  Map parms=new HashMap();
         parms.put("gsdm","fwk");
         parms.put("returnCode","0003");
         parms.put("rqq","2018-01-31");
@@ -65,7 +73,7 @@ public class FphxTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
     public  Map httpPost(String sendMes,String url,String sign) throws Exception {
         HttpPost httpPost = new HttpPost(url);
