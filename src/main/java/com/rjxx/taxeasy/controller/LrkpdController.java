@@ -1317,13 +1317,20 @@ public class LrkpdController extends BaseController {
             jymxsq.setKkjje(jshj);
             jymxsq.setYkjje(0d);
             jymxsq.setSpse(Double.valueOf(getValue("spse", pzMap, columnIndexMap, row)));
-            if (jymxsq.getSpje() != null && jymxsq.getSpse() == 0) {
-                Double temp = div(jymxsq.getJshj(), (1 + jymxsq.getSpsl()), 100);
-                String je = new DecimalFormat("0.00").format(temp);
-                jymxsq.setSpse(Double.valueOf(new DecimalFormat("0.00").format(jymxsq.getJshj() - Double.valueOf(je))));
+
+            if(null !=jyxxsq.getZsfs() && jyxxsq.getZsfs().equals("2")){
+                Double kce = getValue("kce", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("kce", pzMap, columnIndexMap, row));
+                jymxsq.setKce(kce);
+                Double temp = div(sub(jymxsq.getJshj(),jymxsq.getKce()), (1 + jymxsq.getSpsl()), 100);
+                jymxsq.setSpse(mul(temp,jymxsq.getSpsl()));
+            }else {
+                if (jymxsq.getSpje() != null && jymxsq.getSpse() == 0) {
+                    Double temp = div(jymxsq.getJshj(), (1 + jymxsq.getSpsl()), 100);
+                    String je = new DecimalFormat("0.00").format(temp);
+                    jymxsq.setSpse(Double.valueOf(new DecimalFormat("0.00").format(jymxsq.getJshj() - Double.valueOf(je))));
+                }
             }
-            Double kce = getValue("kce", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("kce", pzMap, columnIndexMap, row));
-            jymxsq.setKce(kce);
+
             mxList.add(jymxsq);
         }
         //是否自动附码 @zsq
@@ -1597,7 +1604,7 @@ public class LrkpdController extends BaseController {
                     msg += msgg;
                 }
             }
-            if (spje != null && spsl != null && spse != null && "1".equals(hsbz)) {
+            if (!jyxxsq.getZsfs().equals("2") && spje != null && spsl != null && spse != null && "1".equals(hsbz)) {
                 boolean code = checkWC(spje, spsl, spse);
                 if (!code) {
                     msgg = "第" + (i + 2) + "行商品金额，商品税率，商品税额之间的计算校验不通过，请检查！\r\n";
