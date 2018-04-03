@@ -354,6 +354,7 @@ $(function () {
                                         type: "success",
                                         showConfirmButton: false
                                     });
+                                    loaddata = true;
                                     _this.tableEx.ajax.reload(); // reload table
                                 }else{
                                     swal(data.msg);
