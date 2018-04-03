@@ -101,6 +101,8 @@ $(function () {
                 "serverSide": true,
                 ordering: false,
                 searching: false,
+                "iDisplayStart" : 0,
+                "iDisplayLength" : 25,//每页显示25条记录
                 "ajax": {
                     url: _this.config.getInfoUrl,
                     type: 'POST',
@@ -110,7 +112,11 @@ $(function () {
                     }
                 },
                 "columns": [
-                    {"data": "id"},
+                    {
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ""
+                    },
                     {"data": "mbid"},
                     {"data": "cszff"},
                     {"data":"csm"},
@@ -125,6 +131,12 @@ $(function () {
                     cell.innerHTML = page + i + 1;
                 });
             });
+            t_detail.on('draw.dt', function(e, settings, json) {
+                var x = t_detail, page = x.page.info().start; // 设置第几页
+                t_detail.column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML = page + i + 1;
+                });
+            });
             //查看详情
             t.on('click','button.lookfor',function () {
                 var da = t.row($(this).parents('tr')).data();
@@ -134,7 +146,6 @@ $(function () {
 
            t.on('click','button.empower',function () {
                 var da = t.row($(this).parents('tr')).data();
-               //tre(da);
                 _this.sq(da);
             });
 
@@ -262,13 +273,14 @@ $(function () {
                 el.$xiugai.modal({"width": 800, "height": 500});
             });
 
+
             $('#search').click(function () {
                 $("#ycform").resetForm();
                 t.ajax.reload();
             });
-            $('#search1').click(function () {
-                $("#dxcsz").val("");
-                t.ajax.reload();
+            $('#sqbutton').click(function () {
+                //
+                swal("保存成功");
             });
             return t;
         },
@@ -290,7 +302,7 @@ $(function () {
                 success: function (data) {
                     if (data.success) {
                         var list =data.data;
-                        tre(JSON.parse(list));
+                        tre(JSON.parse(list),da.gsdm,da.id);
                     } else {
                         swal('查看失败: ' + data.msg);
                     }
@@ -307,6 +319,11 @@ $(function () {
         search_ac : function() {
             var _this = this;
             el.$jsSearch.on('click', function(e) {
+                var gsdm=  $('#jkpz_gsmc').val();
+                /*if(gsdm==null|| gsdm==""){
+                    swal('请选择公司!');
+                    return false;
+                }*/
                 loaddata = true;
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
@@ -385,20 +402,10 @@ $(function () {
     action.init();
 });
 
-function tre(json) {
-    // var json = JSON.parse(data);
-    // alert(json);
+function tre(data,gsdm,mbid) {
     $('#menuTree2').jstree(
         {'core':{data:null, "check_callback" : true},
             plugins: ['state', "sort",'wholerow', 'contextmenu', 'types','checkbox'],
-            checkbox: {
-                "keep_selected_style": true,//是否默认选中
-                "three_state": false,//父子级别级联选择
-                "tie_selection": false
-            },
-            state:{
-                "key" : "demo2"
-            },
             types: {
                 'default': {
                     'icon': false //设置图标
@@ -408,9 +415,54 @@ function tre(json) {
                 }
             }
         });
-    $('#menuTree2').jstree(true).settings.core.data=json;
+    console.log(data);
+    // for(var i=0; i<data.length; i++)
+    // {
+    //     if(data[i].state!=null){
+    //         console.log(data[i].state);
+    //         eval(data[i].state);
+    //     }
+    // }
+    $('#menuTree2').jstree(true).settings.core.data=data;
     $('#menuTree2').jstree(true).refresh();
-
+    $('#menuTree2').on('activate_node.jstree',function(e,data){
+        var currentNode = data.node;
+        var xfid;
+        var kpdid;
+        console.log(currentNode.state);
+        // for(var i in currentNode.state){
+        //     if(i=='selected'){
+        //         alert(11);
+        //     }
+        // }
+        if(currentNode.parent!=null &&currentNode.parent =='#'){
+            xfid=currentNode.id;
+            kpdid="";
+        }else {
+            xfid = currentNode.parent;
+            kpdid=currentNode.id;
+        }
+        swal("保存成功");
+        /*$.ajax({
+            url:"jkpz/savembsq",
+            async:false,
+            data:{
+                "mbid" : mbid,
+                "gsdm" : gsdm,
+                "xfid" : xfid,
+                "kpdid": kpdid
+            }, success:function(data) {
+                if (data) {
+                    swal(data.msg);
+                }else {
+                    swal(data.msg);
+                }
+            },
+            error : function() {
+                swal('授权失败, 请重新再试...!');
+            }
+        });*/
+    });
     // $('#menuTree2').jstree({
     //     core: {
     //         data:null

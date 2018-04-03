@@ -239,7 +239,9 @@ public class JkpzController extends BaseController {
             jkmbb.setMbms(jkpz_mbms);
             jkmbb.setYxbz("1");
             jkmbb.setLrsj(date);
-            jkmbb.setLrry(getYhid());
+            jkmbb.setXgry(1);
+            jkmbb.setXgsj(date);
+            jkmbb.setLrry(1);
             Jkmbb jkmbb1 = jkmbbJpaDao.save(jkmbb);
             bc(jkmbb1.getId(),Integer.valueOf(lsh_pzbid),Integer.valueOf(jkpz_jylsh));
             bc(jkmbb1.getId(), Integer.valueOf(ddh_pzbid), Integer.valueOf(jkpz_ddh));
@@ -272,11 +274,14 @@ public class JkpzController extends BaseController {
 
     public  boolean bc(Integer mbid,Integer pzbid,Integer cszffid){
         try {
+            Date date = new Date();
             Jkmbzb jkmbzb = new Jkmbzb();
             jkmbzb.setMbid(mbid);
             jkmbzb.setPzbid(pzbid);
-            jkmbzb.setLrsj(new Date());
-            jkmbzb.setLrry(getYhid());
+            jkmbzb.setLrsj(date);
+            jkmbzb.setLrry(1);
+            jkmbzb.setXgry(1);
+            jkmbzb.setXgsj(date);
             jkmbzb.setCszffid(cszffid);
             jkmbzbJpaDao.save(jkmbzb);
         } catch (Exception e) {
@@ -365,6 +370,9 @@ public class JkpzController extends BaseController {
                 result.put("success", false);
                 result.put("data",new ArrayList<>());
             }
+            Map map = new HashMap();
+            map.put("csm","jkpzmbid");
+            Csb csb = csbService.findOneByParams(map);
             List list = new ArrayList();
             Xf xf = new Xf();
             xf.setGsdm(gsdm);
@@ -378,12 +386,12 @@ public class JkpzController extends BaseController {
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
                 List<Skp> skpList = skpService.findAllByParams(skp);
-                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(46, gsdm, xf1.getId(), mbid);
+                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(), gsdm, xf1.getId(), mbid);
                 if(cszb!=null&&cszb.getKpdid()==null){
+                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
                     Map ma = new HashMap();
                     ma.put("selected",true);
-//                    List ls = new ArrayList();
-//                    ls.add(ma);
+                    jkpzTreeXFVo.setText(xf1.getXfmc()+"("+jkmbb.getMbmc()+")");
                     jkpzTreeXFVo.setState(ma);
                 }
                 for (Skp skp1 : skpList) {
@@ -391,61 +399,19 @@ public class JkpzController extends BaseController {
                     jkpzTreeXFVo1.setId(skp1.getId().toString());
                     jkpzTreeXFVo1.setText(skp1.getKpdmc());
                     jkpzTreeXFVo1.setParent(xf1.getId().toString());
-                    Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(46, gsdm, xf1.getId(), skp1.getId(), mbid);
+                    Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(), gsdm, xf1.getId(), skp1.getId(), mbid);
                     if(cszbs!=null){
+                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
                         Map ma1 = new HashMap();
                         ma1.put("selected",true);
-//                        List ls = new ArrayList();
-//                        ls.add(ma);
                         jkpzTreeXFVo1.setState(ma1);
+                        jkpzTreeXFVo1.setText(xf1.getXfmc()+"("+jkmbb.getMbmc()+")");
                     }
                     list.add(jkpzTreeXFVo1);
                 }
                 list.add(jkpzTreeXFVo);
             }
             System.out.println(JSON.toJSONString(list));
-            /*for (Xf xf1 : xfList) {
-                JkpzTreeXFVo jkpzTreeXFVo = new JkpzTreeXFVo();
-                jkpzTreeXFVo.setTitle(xf1.getXfmc());
-                Skp skp = new Skp();
-                skp.setGsdm(gsdm);
-                skp.setXfid(xf1.getId());
-                List<Skp> skpList = skpService.findAllByParams(skp);
-                List list1 = new ArrayList();
-                if(skpList.isEmpty()){
-                    jkpzTreeXFVo.setType("item");
-                }else {
-                    jkpzTreeXFVo.setType("folder");
-                    for (Skp skp1 : skpList) {
-                        JkpzTreeSkpVo jkpzTreeSkpVo = new JkpzTreeSkpVo();
-                        jkpzTreeSkpVo.setTitle(skp1.getKpdmc());
-                        jkpzTreeSkpVo.setType("item");
-                        Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(46, gsdm, xf1.getId(), skp1.getId(), mbid);
-                        JkpzTreeAttr jkpzTreeAttr = new JkpzTreeAttr();
-                        if(cszb!=null){
-                            jkpzTreeSkpVo.setSelectedStatus("selected");
-                            jkpzTreeAttr.setOriginValue(cszb.getId());
-                        }else {
-                            jkpzTreeSkpVo.setSelectedStatus("deselected");
-                        }
-                        jkpzTreeAttr.setId(skp1.getId());
-                        jkpzTreeSkpVo.setAttr(jkpzTreeAttr);
-                        list1.add(jkpzTreeSkpVo);
-                        jkpzTreeXFVo.setProducts(list1);
-                    }
-                }
-                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(46, gsdm, xf1.getId(), mbid);
-                JkpzTreeAttr jkpzTreeAttr = new JkpzTreeAttr();
-                if(cszb!=null&&cszb.getKpdid()==null){
-                    jkpzTreeXFVo.setSelectedStatus("selected");
-                    jkpzTreeAttr.setOriginValue(cszb.getId());
-                }else {
-                    jkpzTreeXFVo.setSelectedStatus("deselected");
-                }
-                jkpzTreeAttr.setId(xf1.getId());
-                jkpzTreeXFVo.setAttr(jkpzTreeAttr);
-                list.add(jkpzTreeXFVo);
-            }*/
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
         } catch (Exception e) {
@@ -457,7 +423,6 @@ public class JkpzController extends BaseController {
     }
 
     /**
-     * 新增授权
      * @param mbid
      * @param gsdm
      * @param xfid
@@ -473,15 +438,31 @@ public class JkpzController extends BaseController {
             result.put("msg","授权失败");
         }
         try {
-            Cszb cszb = new Cszb();
-            cszb.setGsdm(gsdm);
-            cszb.setXfid(Integer.valueOf(xfid));
-            cszb.setKpdid(Integer.valueOf(kpdid));
-            cszb.setCsid(46);
-            cszb.setCsz(mbid);
-            cszb.setLrsj(new Date());
-            cszb.setLrry(getYhid());
-            cszbService.save(cszb);
+            Map map = new HashMap();
+            map.put("csm","jkpzmbid");
+            Csb csb1 = csbService.findOneByParams(map);
+            if(StringUtils.isBlank(kpdid)){
+                //销方
+                Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb1.getId(), gsdm,Integer.valueOf(xfid),mbid);
+                if(xfcszb!=null&&xfcszb.getKpdid()==null){
+                    // 销方授权      删除
+                    cszbJpaDao.delete(xfcszb);
+                }else {
+                    //新增 销方授权
+                    Cszb cszb = new Cszb();
+                    cszb.setGsdm(gsdm);
+                    cszb.setXfid(Integer.valueOf(xfid));
+                    cszb.setCsid(csb1.getId());
+                    cszb.setCsz(mbid);
+                    cszb.setYxbz("1");
+                    cszb.setLrsj(new Date());
+                    cszb.setLrry(getYhid());
+                    cszb.setXgry(getYhid());
+                    cszb.setXgsj(new Date());
+                    cszbService.save(cszb);
+                }
+            }
+
             result.put("success", true);
             result.put("msg","授权成功");
         } catch (Exception e) {

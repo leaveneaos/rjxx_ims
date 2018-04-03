@@ -168,7 +168,6 @@
                                             <div class="am-u-sm-9">
                                                 <input type="hidden" id="lsh_pzbid" name="lsh_pzbid"  value="1">
                                                 <select id="jkpz_jylsh"  name="jkpz_jylsh"  required>
-                                                    <option value="">请选择</option>
                                                     <c:forEach items="${jylsh}" var="item">
                                                         <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                     </c:forEach>
@@ -180,7 +179,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="ddh_pzbid" name="ddh_pzbid" value="2">
                                                     <select id="jkpz_ddh" name="jkpz_ddh" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${ddh}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -193,7 +191,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="ddrq_pzbid" name="ddrq_pzbid" value="3">
                                                     <select id="jkpz_ddrq" name="jkpz_ddrq" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${ddrq}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -206,7 +203,6 @@
                                                 <input type="hidden" id="kpddm_pzbid" name="kpddm_pzbid" value="4">
                                                 <div class="am-u-sm-9">
                                                     <select id="jkpz_kpddm" name="jkpz_kpddm" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${kpddm}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -220,7 +216,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="fpzl_pzbid" name="fpzl_pzbid" value="5">
                                                     <select id="jkpz_fpzl" name="jkpz_fpzl" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${fpzl}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -234,7 +229,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="dyqd_pzbid" name="dyqd_pzbid" value="6">
                                                     <select id="jkpz_dyqd" name="jkpz_dyqd" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${dyqd}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -247,7 +241,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="zdcf_pzbid" name="zdcf_pzbid" value="7">
                                                     <select id="jkpz_zdcf"  name="jkpz_zdcf" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${zdcf}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -260,7 +253,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="ljdy_pzbid" name="ljdy_pzbid" value="8">
                                                     <select id="jkpz_ljdy" name="jkpz_ljdy" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${ljdy}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -274,7 +266,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="zsfs_pzbid" name="zsfs_pzbid" value="9">
                                                     <select id="jkpz_zsfs" name="jkpz_zsfs" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${zffs}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -288,7 +279,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="hsbz_pzbid" name="hsbz_pzbid" value="10">
                                                     <select id="jkpz_hsbz" name="jkpz_hsbz" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${hsbz}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -301,7 +291,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="bzjkpz" name="bzjkpz" value="11">
                                                     <select id="jkpz_bz" name="jkpz_bz" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${bz}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -315,7 +304,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="spbmbb_pzbid" name="spbmbb_pzbid" value="12">
                                                     <select id="jkpz_spbmbb" name="jkpz_spbmbb" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${spbbh}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -328,7 +316,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="lkr_pzbid" name="lkr_pzbid" value="13">
                                                     <select id="jkpz_lkr"  name="jkpz_lkr"  required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${lkr}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -342,7 +329,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="xfqxx_pzbid" name="xfqxx_pzbid" value="14">
                                                     <select id="jkpz_xfqxx"  name="jkpz_xfqxx"  required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${xf}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -356,7 +342,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="spqxx_pzbid" name="spqxx_pzbid" value="15">
                                                     <select id="jkpz_spqxx" name="jkpz_spqxx" required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${sp}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -371,7 +356,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="spyhxx_pzbid" name="spyhxx_pzbid" value="16">
                                                     <select id="jkpz_spyhxx"  name="jkpz_spyhxx"  required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${spyh}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -385,7 +369,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="zfxx_pzbid" name="zfxx_pzbid" value="17">
                                                     <select id="jkpz_zfxx"  name="jkpz_zfxx"  required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${zf}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -399,7 +382,6 @@
                                                 <div class="am-u-sm-9">
                                                     <input type="hidden" id="gfxx_pzbid" name="gfxx_pzbid" value="18">
                                                     <select id="jkpz_gfxx"  name="jkpz_gfxx"  required>
-                                                        <option value="">请选择</option>
                                                         <c:forEach items="${gf}" var="item">
                                                             <option value="${item.id}">${item.cszff}(${item.confDesc})</option>
                                                         </c:forEach>
@@ -453,7 +435,7 @@
                                         </li>
                                     </ul>--%>
                                     <div style="padding: 32px;">
-                                        <button type="button" id="search1"
+                                        <button type="button" id="sqbutton"
                                                 class="am-btn am-btn-default am-btn-success data-back">
                                             <span></span> 保存
                                         </button>
@@ -523,6 +505,7 @@
 <link rel="stylesheet" href="dist/themes/default/style.min.css" />
 <script>
     $(function() {
+
 //        var json=[{"id":"1075","parent":"677","state":{"selected":true},"text":"升级版测试用户3699_01"},{"id":"677","parent":"#","text":"升级版测试用户3699"},{"id":"1077","parent":"679","text":"alipay_02"},{"id":"679","parent":"#","state":{"selected":true},"text":"上海百旺测试3643"},{"id":"680","parent":"#","text":"升级版测试用户3697"}];
 //        $('#menuTree2').jstree(
 //            {'core':{data:null, "check_callback" : true},
