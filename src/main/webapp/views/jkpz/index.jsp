@@ -96,9 +96,10 @@
                                         <th><input type="checkbox" id="check_all" /></th>
                                         <th>序号</th>
                                         <th>操作</th>
-                                        <th>公司代码</th>
+                                        <th>模板id</th>
                                         <th>模板名称</th>
                                         <th>模板描述</th>
+                                        <th>公司名称</th>
                                         <th>录入人员</th>
                                         <th>录入时间</th>
                                     </tr>
@@ -116,11 +117,12 @@
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>模板id</th>
+                                        <%--<th>模板id</th>--%>
                                         <th>参数值方法</th>
-                                        <th>参数名称</th>
                                         <th>配置参数</th>
                                         <th>配置参数名称</th>
+                                        <th>参数名称</th>
+
                                     </tr>
                                     </thead>
                                 </table>

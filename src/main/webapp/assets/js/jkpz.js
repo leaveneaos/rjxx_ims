@@ -62,9 +62,9 @@ $(function () {
                             }
                         },
                         {
-                            "orderable" : false,
-                            "data" : null,
-                            "defaultContent" : ""
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
                         },
                         {
                             "orderable": false,
@@ -77,14 +77,15 @@ $(function () {
                                 return arr.join('');
                             }
                         },
-                        {
-                            "data": "gsmc"
-                        },
+                        {"data": "mbid"},
                         {
                             "data": "mbmc"
                         },
                         {
                             "data": "mbms"
+                        },
+                        {
+                            "data": "gsmc"
                         },
                         {
                             "data": "lrry"
@@ -117,11 +118,11 @@ $(function () {
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "mbid"},
+                    /*{"data": "mbid"},*/
                     {"data": "cszff"},
-                    {"data":"csm"},
                     {"data":"pzcsm"},
-                    {"data":"pzcsmc"}
+                    {"data":"pzcsmc"},
+                    {"data":"csm"}
                 ]
             });
             //分页
