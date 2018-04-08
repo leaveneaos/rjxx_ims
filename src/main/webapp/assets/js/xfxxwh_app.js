@@ -662,10 +662,19 @@ $(function() {
 			el.$jsForm0.find('input[name="zpfpje"]').val(data.zpfpje);
 			el.$jsForm0.find('select[name="ppzdje"]').val(data.ppzdje);
 			el.$jsForm0.find('input[name="ppfpje"]').val(data.ppfpje);
+            el.$jsForm0.find('input[name="ybnsrkssj"]').val(data.ybnsrqssj);
+            // el.$jsForm0.find('input[name="ybnsrjyzslx"]').val(data.ybnsrjyzs);
+            el.$jsForm0.find('select[id="ybnsrjyzslx"]').val(data.ybnsrjyzs == null ? "0" : data.ybnsrjyzs);
+            $('#sjxf').val(data.ybnsrjyzs == null ? 0 : data.ybnsrjyzs);
+            if (data.ybnsrjyzs != null) {
+                $("#ybnsrjyzslx").find('option[value=' + data.ybnsrjyzs + ']').attr('selected',
+                    true);
+            }else{
+                $("#ybnsrjyzslx").find('option[value=0]').attr('selected',
+                    true);
+            }
 
-
-			
-			el.$jsForm0.find('select[id="sjxf"]').val(data.sjjgbm == null ? "0" : data.sjjgbm);
+            el.$jsForm0.find('select[id="sjxf"]').val(data.sjjgbm == null ? "0" : data.sjjgbm);
 			$('#sjxf').val(data.sjjgbm == null ? 0 : data.sjjgbm);
 			if (data.sjjgbm != null) {
 				$("#sjxf").find('option[value=' + data.sjjgbm + ']').attr('selected',
