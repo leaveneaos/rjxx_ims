@@ -1,20 +1,13 @@
 package com.rjxx.taxeasy.job;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.rjxx.taxeasy.bizcomm.utils.GetXmlUtil;
+
+import com.rjxx.taxeasy.bizcomm.utils.GetXfxx;
 import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
-import com.rjxx.taxeasy.bizcomm.utils.XmlMapUtils;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.invoice.KpService;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Spvo;
-import com.rjxx.utils.XmlJaxbUtils;
 import com.rjxx.utils.XmltoJson;
-import org.apache.axiom.om.OMElement;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -26,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by xlm on 2017/8/2.
@@ -43,11 +35,13 @@ public class FwkGetDataJob implements Job {
     @Autowired
     private SpvoService spvoService;
     @Autowired
-    private KplsService kplsService;
+    private KpService kpService;
     @Autowired
-    private GsxxService gsxxService;
+    private YhService yhservice;
+
     private String  LastReturnedObjectID="";
     private Map<String, String> LastReturnedObjectIDMap = new HashMap<>();
+
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -66,10 +60,10 @@ public class FwkGetDataJob implements Job {
                             "<SelectionByDate>\n" +
                             "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                             "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                            "<LowerBoundaryCustomerInvoiceDate>2018-03-06</LowerBoundaryCustomerInvoiceDate>\n" +
 /*
-                            "<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +
+                            "<LowerBoundaryCustomerInvoiceDate>2018-03-20</LowerBoundaryCustomerInvoiceDate>\n" +
 */
+                            "<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +
                             "</SelectionByDate>\n" +
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
@@ -178,7 +172,7 @@ public class FwkGetDataJob implements Job {
                 CancellationInvoiceIndicator =(boolean) CustomerInvoiceMap.get("CancellationInvoiceIndicator");
             }
             if(CancellationInvoiceIndicator){
-                    Map paramsMap=new HashMap();
+                    /*Map paramsMap=new HashMap();
                     paramsMap.put("jylsh",ReferenceBusinessTransactionDocumentID);
                     paramsMap.put("gsdm","fwk");
                     Kpls kpls=kplsService.findOneByParams(paramsMap);
@@ -198,7 +192,7 @@ public class FwkGetDataJob implements Job {
                         parms.put("gsdm","fwk");
                         Gsxx gsxx=gsxxService.findOneByParams(parms);
                         String ss=HttpUtils.HttpUrlWebService(xml,gsxx.getAppKey(),gsxx.getSecretKey(),"04");
-                    }
+                    }*/
             }else if (!("专票").equals(InvoiceTypeCI)&&null!=InvoiceTypeCI) {
 
                 String CISalesPlatform = null;/**销售平台**/
@@ -312,16 +306,21 @@ public class FwkGetDataJob implements Job {
                 params.put("kpddm", PartyID);
                 Skp skp = skpService.findOneByParams(params);
                 Xf xf = xfService.findOne(skp.getXfid());
-                jyxxsq.setKpr(xf.getKpr());//开票人
-                jyxxsq.setSkr(xf.getSkr());//收款人
-                jyxxsq.setFhr(xf.getFhr());//复核人
+                Map params1 = new HashMap();
+                params1.put("gsdm", "fwk");
+                Yh yh = yhservice.findOneByParams(params1);
+                Map xfMap= GetXfxx.getXfxx(xf,skp);
+                int lrry = yh.getId();
+                jyxxsq.setKpr(xfMap.get("kpr").toString());//开票人
+                jyxxsq.setSkr(xfMap.get("skr").toString());//收款人
+                jyxxsq.setFhr(xfMap.get("fhr").toString());//复核人
                 jyxxsq.setSjly("1");//数据来源
                 jyxxsq.setXfsh(xf.getXfsh());//销方税号
                 jyxxsq.setXfmc(xf.getXfmc());//销方名称
-                jyxxsq.setXfdz(xf.getXfdz());//销方地址
-                jyxxsq.setXfdh(xf.getXfdh());//销方电话
-                jyxxsq.setXfyh(xf.getXfyh());//销方银行
-                jyxxsq.setXfyhzh(xf.getXfyhzh());//销方银行账号
+                jyxxsq.setXfdz(xfMap.get("xfdz").toString());//销方地址
+                jyxxsq.setXfdh(xfMap.get("xfdh").toString());//销方电话
+                jyxxsq.setXfyh(xfMap.get("xfyh").toString());//销方银行
+                jyxxsq.setXfyhzh(xfMap.get("xfyhzh").toString());//销方银行账号
                 jyxxsq.setGfmc(InvoiceCustomerNameCI);//购方名称
                 jyxxsq.setGfsh(InvoiceCustomerTaxNumberCI);
                 jyxxsq.setGfdz(InvoiceCustomerAddressTelCI);
@@ -339,7 +338,17 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setSfdy("0");//是否打印
                 jyxxsq.setZsfs("0");//征收方式
                 jyxxsq.setJshj(Double.valueOf(GrossAmount));//价税合计
+                jyxxsq.setFpczlxdm("11");
+                jyxxsq.setYxbz("1");
+                jyxxsq.setLrsj(new Date());
+                jyxxsq.setLrry(lrry);
+                jyxxsq.setXgry(lrry);
+                jyxxsq.setXgsj(new Date());
                 jyxxsq.setHsbz("1");
+                jyxxsq.setYkpjshj(Double.valueOf(GrossAmount));
+                jyxxsq.setGsdm("fwk");
+                jyxxsq.setClztdm("00");
+                jyxxsq.setSjly("1");
                 jyxxsq.setTqm(InvoiceID);
                 // jyxxsq.setBz();
                 String ddh = "";//订单号
@@ -443,6 +452,7 @@ public class FwkGetDataJob implements Job {
                     spMap.put("spdm",Pitemtype);
                     jymxsq.setSpzxbm(Pitemtype);
                     jymxsq.setSpmc(Description);
+                    jymxsq.setSpmxxh(1);
                     jymxsq.setSpggxh(null);
                     jymxsq.setFphxz("0");
                     jymxsq.setSps(Double.valueOf(Quantity));
@@ -453,6 +463,16 @@ public class FwkGetDataJob implements Job {
                     jymxsq.setSpje(Double.valueOf(ItemGrossAmount));
                     jymxsq.setSpse(Double.valueOf(ItemTaxAmount));
                     jymxsq.setJshj(Double.valueOf(ItemGrossAmount));
+                    jymxsq.setDdh(ddh);
+                    jymxsq.setHsbz(jyxxsq.getHsbz());
+                    jymxsq.setKkjje(Double.valueOf(ItemGrossAmount));
+                    jymxsq.setYkjje(0d);
+                    jymxsq.setGsdm("fwk");
+                    jymxsq.setLrry(lrry);
+                    jymxsq.setLrsj(new Date());
+                    jymxsq.setXgry(lrry);
+                    jymxsq.setXgsj(new Date());
+                    jymxsq.setYxbz("1");
                     if(null!=Pitemtype&&!"".equals(Pitemtype)){
                         Spvo spvo=spvoService.findOneSpvo(spMap);
                         jymxsq.setSpdm(spvo.getSpbm());
@@ -560,6 +580,7 @@ public class FwkGetDataJob implements Job {
                         jymxsq.setSpmc(Description);
                         jymxsq.setSpggxh(null);
                         jymxsq.setFphxz("0");
+                        jymxsq.setSpmxxh(j+1);
                         jymxsq.setSps(Double.valueOf(Quantity));
                         if(UnitPrice!=null){
                             jymxsq.setSpdj(Double.valueOf(UnitPrice));
@@ -568,6 +589,16 @@ public class FwkGetDataJob implements Job {
                         jymxsq.setSpje(Double.valueOf(ItemGrossAmount));
                         jymxsq.setSpse(Double.valueOf(ItemTaxAmount));
                         jymxsq.setJshj(Double.valueOf(ItemGrossAmount));
+                        jymxsq.setDdh(ddh);
+                        jymxsq.setHsbz(jyxxsq.getHsbz());
+                        jymxsq.setKkjje(Double.valueOf(ItemGrossAmount));
+                        jymxsq.setYkjje(0d);
+                        jymxsq.setGsdm("fwk");
+                        jymxsq.setLrry(lrry);
+                        jymxsq.setLrsj(new Date());
+                        jymxsq.setXgry(lrry);
+                        jymxsq.setXgsj(new Date());
+                        jymxsq.setYxbz("1");
                         if(null!=Pitemtype&&!"".equals(Pitemtype)){
                             Spvo spvo=spvoService.findOneSpvo(spMap);
                             jymxsq.setSpdm(spvo.getSpbm());
@@ -595,11 +626,19 @@ public class FwkGetDataJob implements Job {
                     jyxxsq.setGfsjh(gfsjh);
                 }*/
                 List<Jyzfmx> jyzfmxList=new ArrayList<>();
-                String xml= GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
+                /*String xml= GetXmlUtil.getFpkjXml(jyxxsq,jymxsqList,jyzfmxList);
                 Map parms=new HashMap();
                 parms.put("gsdm","fwk");
                 Gsxx gsxx=gsxxService.findOneByParams(parms);
-                String resultxml=HttpUtils.HttpUrlPost(xml,gsxx.getAppKey(),gsxx.getSecretKey());
+                String resultxml=HttpUtils.HttpUrlPost(xml,gsxx.getAppKey(),gsxx.getSecretKey());*/
+                List<Jyxxsq> jyxxsqList=new ArrayList<>();
+                jyxxsqList.add(jyxxsq);
+                Map parmsMap=new HashMap();
+                parmsMap.put("jyxxsqList",jyxxsqList);
+                parmsMap.put("jyzfmxList",jyzfmxList);
+                parmsMap.put("jymxsqList",jymxsqList);
+                String resultxml=kpService.uploadOrderData("fwk",parmsMap,"01");
+                System.out.println(resultxml);
             }
         }
         return resultMap;

@@ -63,7 +63,7 @@ public class ErrorExceptionSkJob implements Job {
                     break;
                 }
             }while (true);
-            do{
+            /*do{
                 String kplshzpstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "01");
                 if (StringUtils.isNotBlank(kplshzpstr)) {
                     int kplshzp = Integer.valueOf(kplshzpstr);
@@ -96,7 +96,7 @@ public class ErrorExceptionSkJob implements Job {
                     }else{
                         break;
                     }
-               }while (true);
+               }while (true);*/
                  logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
         } catch (Exception e) {
             e.printStackTrace();
