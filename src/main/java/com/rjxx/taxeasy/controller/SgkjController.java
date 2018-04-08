@@ -688,6 +688,7 @@ public class SgkjController extends BaseController{
         kpls.setFpzldm(jyls.getFpzldm());
         kpls.setGfdh(jyls.getGfdh());
         kpls.setGfdz(jyls.getGfdz());
+        kpls.setZsfs(jyls.getZsfs());
         if (dybz != null && dybz.equals("1")) {
             kpls.setPrintflag("2");
         } else {
@@ -799,6 +800,7 @@ public class SgkjController extends BaseController{
         jyls1.setXgsj(TimeUtil.getNowDate());
         jyls1.setSkpid(jyxxsq.getSkpid());
         jyls1.setSqlsh(jyxxsq.getSqlsh());
+        jyls1.setZsfs(jyxxsq.getZsfs());
         jylsService.save(jyls1);
         return jyls1;
     }
