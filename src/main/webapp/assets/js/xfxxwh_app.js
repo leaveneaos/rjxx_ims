@@ -665,7 +665,7 @@ $(function() {
             el.$jsForm0.find('input[name="ybnsrkssj"]').val(data.ybnsrqssj);
             // el.$jsForm0.find('input[name="ybnsrjyzslx"]').val(data.ybnsrjyzs);
             el.$jsForm0.find('select[id="ybnsrjyzslx"]').val(data.ybnsrjyzs == null ? "0" : data.ybnsrjyzs);
-            $('#sjxf').val(data.ybnsrjyzs == null ? 0 : data.ybnsrjyzs);
+            $('#ybnsrjyzslx').val(data.ybnsrjyzs == null ? 0 : data.ybnsrjyzs);
             if (data.ybnsrjyzs != null) {
                 $("#ybnsrjyzslx").find('option[value=' + data.ybnsrjyzs + ']').attr('selected',
                     true);
