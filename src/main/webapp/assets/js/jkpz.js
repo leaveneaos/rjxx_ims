@@ -19,7 +19,7 @@ $(function () {
         $s_gsdm : $('#jkpz_gsmc'), // search
         $jsSearch : $('#companySearch') // 查询公司
     };
-    var jsTreeFunction={
+		var jsTreeFunction={
 			subtemplateSlogger:function(){
 				var _this=$(this);
 				_this.find("i").toggleClass("fa-caret-right fa-caret-down");
@@ -28,21 +28,28 @@ $(function () {
 			clickCheck:function(){
 				var _this=$(this);
 				_this.find(".tree-check").toggleClass("fa-check");
+				if(_this.find(".tree-check").hasClass("fa-check")){
+					_this.attr("data-nowtemplate","good");
+				}else{
+					_this.attr("data-nowtemplate","good");
+				}
 			}
 		}
 		$(document).on("click",".tree-slogger",jsTreeFunction.subtemplateSlogger);
 		$(document).on("click",".click-check",jsTreeFunction.clickCheck);
 		$.fn.jstree=function(option){
-			var data=option.data;
+			var data=option.data.length>0? option.data:0;
 			var opTemplataId=option.templataId;
 			var allHtml='';
 			for (var i=0;i<data.length;i++) {
 				var firstText=data[i].text;
 				var firstId=data[i].id;
 				var firstTemplateId=data[i].templateId;
-				var firstCheckHtml='<span class="tree-check fa"></span>';
+				var firstCheckHtml='';
 				    if(firstTemplateId==opTemplataId){
 				    	firstCheckHtml='<span class="tree-check fa fa-check"></span>';
+				    }else{
+				    	firstCheckHtml='<span class="tree-check fa"></span>';
 				    }
 				var second=data[i].children;
 				var treeSloger='<span class="tree-slogger"></span>';
@@ -58,15 +65,14 @@ $(function () {
 				    if(secondTemplateId==opTemplataId){
 				    	secondCheckHtml='<span class="tree-check fa fa-check"></span>';
 				    }
-					firstHtml+='<li class="jstree-second"><p class="click-check" data-template="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i></p></li>';
+					firstHtml+='<li class="jstree-second"><p class="click-check" data-id="'+secondId+'" data-type="2" data-oldtemplate="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i></p></li>';
 				}				
-				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-template="'+firstTemplateId+'">'+secondCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
+				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+secondCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
 			}
-			$(this).html($(allHtml));
-						
+			$(this).html($(allHtml));						
 		}
     
-
+//action.config.scSqUrl
     var loaddata=false;
     var action = {
         tableEx: null, // cache dataTable
@@ -195,6 +201,8 @@ $(function () {
            t.on('click','button.empower',function () {
                 var da = t.row($(this).parents('tr')).data();
                 _this.sq(da);
+                $("#menuTree2").attr({"data-mbid":da.mbid,"data-gsdm":da.gsdm,"data-id":da.id})
+                
             });
 
             $('#jkpz_table_detail').on( 'draw.dt', function () {
@@ -326,7 +334,7 @@ $(function () {
                 $("#ycform").resetForm();
                 t.ajax.reload();
             });
-            $('#sqbutton').click(function () {
+  /*          $('#sqbutton').click(function () {
             	var allcheck=$("#menuTree2").find(".click-check");
             	all.each(function(){
             		var _this=$(this);
@@ -335,7 +343,96 @@ $(function () {
             	
                 //
                 swal("保存成功");
-            });
+            });*/
+            $('#sqbutton').click(function () {
+            	var allcheck=$("#menuTree2").find(".click-check[data-nowtemplate='good']");
+            	var topid=$("#menuTree2").attr("data-id");
+            	var mbid=$("#menuTree2").attr("data-mbid");
+            	var gsdm=$("#menuTree2").attr("data-gsdm");
+            	var addData={
+            		"mbid":mbid,            		
+            		"gsdm":gsdm,
+            		"data":[],
+            	},
+            	delectData={
+            		"mbid":mbid,
+            		"gsdm":gsdm,
+            		"data":[],
+            	};
+            	var addId=[],deleId=[];
+            	allcheck.each(function(){
+            		var _this=$(this);
+            		var oldTemplate=_this.attr("data-oldtemplate");
+            		var nowTemplate=_this.attr("data-nowtemplate");            		            		
+            		if(_this.find(".tree-check ").hasClass("fa-check")){
+            			if(oldTemplate != topid){
+            				var dataType=_this.attr("data-type");
+            				var dataId=_this.attr("data-id");
+            				var templateId=oldTemplate != undefined? oldTemplate:"";
+            				var xfid;
+            				var a={};
+            				if(dataType=="1"){
+            					a={
+            						"xfid": dataId,
+            						"templateId":templateId,
+		                            "skpid": ""
+            					}
+            				}else{  
+            					xfid=_this.closest(".jstree-first-box").siblings("p").attr("data-id");
+            					a={
+            						"xfid":xfid,
+            						"templateId":templateId,
+		                            "skpid": dataId
+            					}            					           				           				
+            			    }
+            				addId.push(a);
+            		     }
+            			}else{
+            			if(oldTemplate==topid){
+            				var dataType=_this.attr("data-type");
+            				var dataId=_this.attr("data-id");
+            				var xfid;
+            				var a={};
+            				if(dataType=="1"){
+            					a={
+            						"xfid": dataId,
+		                            "skpid": ""
+            					}
+            				}else{        
+            					xfid=_this.closest(".jstree-first-box").siblings("p").attr("data-id");
+            					a={
+            						"xfid":xfid,
+		                            "skpid": dataId
+            					}            					            				           				
+            			}
+            				deleId.push(a);
+            		}
+            	}	
+            	})
+            	addData.data=addId;
+            	delectData.data=deleId;             	
+            	$.ajax({
+            		type:"post",
+            		url:action.config.addSqUrl,
+            		async:true,
+            		data:{"str":addData},
+            		success:function(data){
+            			if(data.success){
+            				$.ajax({
+            					type:"post",
+            					url:action.config.scSqUrl,
+            					async:true,
+            					data:{"str":delectData},
+            					success:function(data){
+            						if(data.success){
+            							swal("保存成功");
+            						}
+            					}
+            				});
+            			}
+            		}
+            	});
+            	})
             return t;
         },
 
