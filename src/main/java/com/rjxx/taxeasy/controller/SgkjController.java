@@ -142,7 +142,7 @@ public class SgkjController extends BaseController{
                 List sylx = null;
                 Xf xf = xfJpaDao.findOneById(xfid);
                 String ybnsrqssj = xf.getYbnsrqssj();//一般纳税人起始时间
-                String ybnsrjyzs = xf.getYbnsrjyzs();//一般纳税人简易征收
+                String ybnsrjyzs = xf.getYbnsrjyzs() ==null ?"2":xf.getYbnsrjyzs();//一般纳税人简易征收
                 Date ybnsrqssjDate = null;
                 if(org.apache.commons.lang.StringUtils.isNotBlank(ybnsrqssj)){
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
