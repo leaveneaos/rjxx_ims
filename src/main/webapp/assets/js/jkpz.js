@@ -19,6 +19,53 @@ $(function () {
         $s_gsdm : $('#jkpz_gsmc'), // search
         $jsSearch : $('#companySearch') // 查询公司
     };
+    var jsTreeFunction={
+			subtemplateSlogger:function(){
+				var _this=$(this);
+				_this.find("i").toggleClass("fa-caret-right fa-caret-down");
+				_this.siblings(".jstree-first-box").slideToggle();
+			},
+			clickCheck:function(){
+				var _this=$(this);
+				_this.find(".tree-check").toggleClass("fa-check");
+			}
+		}
+		$(document).on("click",".tree-slogger",jsTreeFunction.subtemplateSlogger);
+		$(document).on("click",".click-check",jsTreeFunction.clickCheck);
+		$.fn.jstree=function(option){
+			var data=option.data;
+			var opTemplataId=option.templataId;
+			var allHtml='';
+			for (var i=0;i<data.length;i++) {
+				var firstText=data[i].text;
+				var firstId=data[i].id;
+				var firstTemplateId=data[i].templateId;
+				var firstCheckHtml='<span class="tree-check fa"></span>';
+				    if(firstTemplateId==opTemplataId){
+				    	firstCheckHtml='<span class="tree-check fa fa-check"></span>';
+				    }
+				var second=data[i].children;
+				var treeSloger='<span class="tree-slogger"></span>';
+				if(second.length>0){
+					treeSloger='<span class="tree-slogger"><i class="fa fa-caret-down"></i></span>';
+				}
+				var firstHtml="";
+				for (var j=0;j<second.length;j++) {				
+					var secondText=second[j].text;
+				    var secondId=second[j].id;
+				    var secondTemplateId=second[j].templateId;
+				    var secondCheckHtml='<span class="tree-check fa"></span>';
+				    if(secondTemplateId==opTemplataId){
+				    	secondCheckHtml='<span class="tree-check fa fa-check"></span>';
+				    }
+					firstHtml+='<li class="jstree-second"><p class="click-check" data-template="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i></p></li>';
+				}				
+				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-template="'+firstTemplateId+'">'+secondCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
+			}
+			$(this).html($(allHtml));
+						
+		}
+    
 
     var loaddata=false;
     var action = {
@@ -280,6 +327,12 @@ $(function () {
                 t.ajax.reload();
             });
             $('#sqbutton').click(function () {
+            	var allcheck=$("#menuTree2").find(".click-check");
+            	all.each(function(){
+            		var _this=$(this);
+            		
+            	})
+            	
                 //
                 swal("保存成功");
             });
@@ -321,10 +374,10 @@ $(function () {
             var _this = this;
             el.$jsSearch.on('click', function(e) {
                 var gsdm=  $('#jkpz_gsmc').val();
-                /*if(gsdm==null|| gsdm==""){
+                if(gsdm==null|| gsdm==""){
                     swal('请选择公司!');
                     return false;
-                }*/
+                }
                 loaddata = true;
                 e.preventDefault();
                 _this.tableEx.ajax.reload();
@@ -405,7 +458,8 @@ $(function () {
 });
 
 function tre(data,gsdm,mbid) {
-    $('#menuTree2').jstree(
+	$("#menuTree2").jstree({data:data,templataId:mbid})
+   /* $('#menuTree2').jstree(
         {'core':{data:null, "check_callback" : true},
             plugins: ['state', "sort",'wholerow', 'contextmenu', 'types','checkbox'],
             types: {
@@ -416,7 +470,7 @@ function tre(data,gsdm,mbid) {
                     'icon' : 'fa fa-file-text-o'//可放置css样式
                 }
             }
-        });
+        });*/
     console.log(data);
     // for(var i=0; i<data.length; i++)
     // {

@@ -26,6 +26,41 @@
     <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
     <script src="assets/js/loading.js"></script>
     <link rel="stylesheet" href="assets/css/amazeui.tree.min.css"/>
+    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css"/>
+    <style type="text/css">
+    		ul,li{
+				list-style: none;
+				margin: 0px;
+				padding: 0px;
+			}
+			.tree-check{
+				width: 12px;
+				height: 12px;
+				border: 1px solid #ccc;
+				color: black;
+				font-size: 12px;
+			}
+			.jstree-first>p{
+				display:inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+			.jstree-second>p{
+				display:inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+			.jstree-first-box{
+				margin-left: 25px;
+			}		
+			.tree-slogger{
+				display: inline-block;
+				width: 10px;
+			}	
+			.click-check{
+				cursor: pointer;
+			}
+    </style>
 </head>
 <body>
 <!--[if lte IE 9]>
