@@ -410,26 +410,29 @@ $(function () {
             	}	
             	})
             	addData.data=addId;
-            	delectData.data=deleId;             	
+            	delectData.data=deleId;
             	$.ajax({
-            		type:"post",
+                    method: 'POST',
             		url:action.config.addSqUrl,
-            		async:true,
-            		data:{"str":addData},
+            		data:{"str":JSON.stringify(addData)},
             		success:function(data){
             			if(data.success){
             				$.ajax({
             					type:"post",
             					url:action.config.scSqUrl,
             					async:true,
-            					data:{"str":delectData},
+            					data:{"str":JSON.stringify(delectData)},
             					success:function(data){
             						if(data.success){
-            							swal("保存成功");
-            						}
+            							swal(data.msg);
+            						}else {
+            						    swal(data.msg);
+                                    }
             					}
             				});
-            			}
+            			}else {
+                            swal(data.msg);
+                        }
             		}
             	});
             	})
