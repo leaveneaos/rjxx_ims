@@ -5,6 +5,7 @@ import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.vo.Jyzfmxvo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -343,6 +344,41 @@ public class PttqkpController extends BaseController {
 			return result;
 		}
 		return result;
+	}
+
+
+
+
+	@RequestMapping(value = "/getFpzldm")
+	@ResponseBody
+	public List<Fpkcvo> getKpd(int skpid) throws Exception {
+		List<Fpkcvo> list = new ArrayList();
+
+		String gsdm = getGsdm();
+		Map map = new HashMap();
+		map.put("gsdm",gsdm);
+		map.put("kpdid",skpid);
+		Skp skp = skpService.findOneByParams(map);
+		String kplx = skp.getKplx();
+		String[] strs=kplx.split(",");
+		for(int i=0,len=strs.length;i<len;i++){
+			Fpkcvo fpkcvo = new Fpkcvo();
+			if(strs[i].toString().equals("01")){
+				fpkcvo.setFpzlmc("专用发票");
+				fpkcvo.setFpzldm("01");
+			}
+			if(strs[i].toString().equals("02")){
+				fpkcvo.setFpzlmc("普通发票");
+				fpkcvo.setFpzldm("02");
+			}
+			if(strs[i].toString().equals("12")){
+				fpkcvo.setFpzlmc("电子发票");
+				fpkcvo.setFpzldm("12");
+			}
+			list.add(fpkcvo);
+		}
+
+		return list;
 	}
 
 }

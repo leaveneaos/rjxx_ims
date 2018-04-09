@@ -93,7 +93,7 @@
 										<label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 												class="star">*</span>开票点名称</label>
 										<div class="am-u-sm-3">
-											<select id="kpd" name="kpd" required>
+											<select id="kpd" name="kpd" onchange="getFplx();" required>
 												<%--<c:if test="${xfnum==1}">
 													<option value="">选择开票点</option>
 													<c:forEach items="${skpList}" var="item">
@@ -108,10 +108,10 @@
 												class="star">*</span>发票种类</label>
 										<div class="am-u-sm-3 am-u-end">
 											<select id="fpzldm" name="fpzldm"  required>
-												<option value="">选择开票类型</option>
+												<%--<option value="">选择开票类型</option>
                                                 <option value="01">专用发票</option>
                                                 <option value="02">普通发票</option>
-												<option value="12">电子发票</option>
+												<option value="12">电子发票</option>--%>
 											</select>
 										</div>
 										<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
@@ -432,24 +432,50 @@
     //选择销方取得税控盘
     function getKpd() {
         var xfid = $('#xf option:selected').val();
-        var kpd = $("#kpd");
-        $("#kpd").empty();
-        $.ajax({
-            url : "fpkc/getKpd",
-            data : {
-                "xfid" : xfid
-            },
-            success : function(data) {
-                var option = $("<option>").text('请选择').val(-1);
-                kpd.append(option);
-                for (var i = 0; i < data.length; i++) {
-                     option = $("<option>").text(data[i].kpdmc).val(
-                        data[i].skpid);
+        if(xfid !=null && xfid !=""){
+            var kpd = $("#kpd");
+            $("#kpd").empty();
+            $.ajax({
+                url : "fpkc/getKpd",
+                data : {
+                    "xfid" : xfid
+                },
+                success : function(data) {
+                    var option = $("<option>").text('请选择').val(-1);
                     kpd.append(option);
+                    for (var i = 0; i < data.length; i++) {
+                        option = $("<option>").text(data[i].kpdmc).val(
+                            data[i].skpid);
+                        kpd.append(option);
+                    }
                 }
-            }
-        });
+            });
+		}
     }
+	//选取税控盘获取发票类型
+    function getFplx() {
+        var skpid = $('#kpd option:selected').val();
+        if(skpid !=null && skpid !=""){
+            var fpzldm = $("#fpzldm");
+            $("#fpzldm").empty();
+            $.ajax({
+                url : "pttqkp/getFpzldm",
+                data : {
+                    "skpid" : skpid
+                },
+                success : function(data) {
+                    var option = $("<option>").text('请选择').val(-1);
+                    kpd.append(option);
+                    for (var i = 0; i < data.length; i++) {
+                        option = $("<option>").text(data[i].fpzlmc).val(
+                            data[i].fpzldm);
+                        fpzldm.append(option);
+                    }
+                }
+            });
+        }
+    }
+
     function sf(){
         if ($("#sfbx").is(':checked')) {
             $("#show").html("*");

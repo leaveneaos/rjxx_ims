@@ -436,14 +436,15 @@ public class JkpzController extends BaseController {
         }
         try {
             Date date = new Date();
-            JSONArray object = JSON.parseArray(str);
-            for (Object o : object) {
-                JSONObject j = (JSONObject) o;
-                String mbid = j.getString("mbid");
-                String templateId = j.getString("templateId");
-                String gsdm = j.getString("gsdm");
-                String xfid = j.getString("xfid");
-                String skpid = j.getString("skpid");
+            JSONObject object = JSON.parseObject(str);
+            String mbid = object.getString("mbid");
+            String gsdm = object.getString("gsdm");
+            JSONArray data = object.getJSONArray("data");
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject jo = data.getJSONObject(i);
+                String xfid = jo.getString("xfid");
+                String skpid = jo.getString("skpid");
+                String templateId = jo.getString("templateId");
                 Map map = new HashMap();
                 map.put("csm","jkpzmbid");
                 Csb csb = csbService.findOneByParams(map);
@@ -463,8 +464,8 @@ public class JkpzController extends BaseController {
                             cszb.setCsz(mbid);//新增mbid
                             cszb.setYxbz("1");
                             cszb.setLrsj(date);
-                            cszb.setLrry(getYhid());
-                            cszb.setXgry(getYhid());
+                            cszb.setLrry(1);
+                            cszb.setXgry(1);
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }else {
@@ -478,8 +479,8 @@ public class JkpzController extends BaseController {
                                 cszb.setCsz(mbid);//新增mbid
                                 cszb.setYxbz("1");
                                 cszb.setLrsj(date);
-                                cszb.setLrry(getYhid());
-                                cszb.setXgry(getYhid());
+                                cszb.setLrry(1);
+                                cszb.setXgry(1);
                                 cszb.setXgsj(date);
                                 cszbService.save(cszb);
                             }
@@ -493,16 +494,17 @@ public class JkpzController extends BaseController {
                             Cszb cszb = new Cszb();
                             cszb.setGsdm(gsdm);
                             cszb.setXfid(Integer.valueOf(xfid));
+                            cszb.setKpdid(Integer.valueOf(skpid));
                             cszb.setCsid(csb.getId());
                             cszb.setCsz(mbid);//新增mbid
                             cszb.setYxbz("1");
                             cszb.setLrsj(date);
-                            cszb.setLrry(getYhid());
-                            cszb.setXgry(getYhid());
+                            cszb.setLrry(1);
+                            cszb.setXgry(1);
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }else {
-                            Cszb skpcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                            Cszb skpcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
                             if(skpcszb2 == null){
                                 //新增
                                 Cszb cszb = new Cszb();
@@ -513,8 +515,8 @@ public class JkpzController extends BaseController {
                                 cszb.setCsz(mbid);//新增mbid
                                 cszb.setYxbz("1");
                                 cszb.setLrsj(date);
-                                cszb.setLrry(getYhid());
-                                cszb.setXgry(getYhid());
+                                cszb.setLrry(1);
+                                cszb.setXgry(1);
                                 cszb.setXgsj(date);
                                 cszbService.save(cszb);
                             }
@@ -532,13 +534,13 @@ public class JkpzController extends BaseController {
                             cszb.setCsz(mbid);//新增mbid
                             cszb.setYxbz("1");
                             cszb.setLrsj(date);
-                            cszb.setLrry(getYhid());
-                            cszb.setXgry(getYhid());
+                            cszb.setLrry(1);
+                            cszb.setXgry(1);
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }
                     }else {
-                        Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                        Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
                         if(skpcszb3 == null){
                             //新增
                             Cszb cszb = new Cszb();
@@ -549,8 +551,8 @@ public class JkpzController extends BaseController {
                             cszb.setCsz(mbid);//新增mbid
                             cszb.setYxbz("1");
                             cszb.setLrsj(date);
-                            cszb.setLrry(getYhid());
-                            cszb.setXgry(getYhid());
+                            cszb.setLrry(1);
+                            cszb.setXgry(1);
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }
@@ -580,13 +582,14 @@ public class JkpzController extends BaseController {
             return result;
         }
         try {
-            JSONArray object = JSON.parseArray(str);
-            for (Object o : object) {
-                JSONObject j = (JSONObject) o;
-                String mbid = j.getString("mbid");
-                String gsdm = j.getString("gsdm");
-                String xfid = j.getString("xfid");
-                String skpid = j.getString("skpid");
+            JSONObject object = JSON.parseObject(str);
+            String mbid = object.getString("mbid");
+            String gsdm = object.getString("gsdm");
+            JSONArray data = object.getJSONArray("data");
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject jo = data.getJSONObject(i);
+                String xfid = jo.getString("xfid");
+                String skpid = jo.getString("skpid");
                 Map map = new HashMap();
                 map.put("csm","jkpzmbid");
                 Csb csb = csbService.findOneByParams(map);
