@@ -2,6 +2,8 @@ package com.rjxx.taxeasy.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.rjxx.taxeasy.bizcomm.utils.*;
+import com.rjxx.taxeasy.dao.JylsJpaDao;
+import com.rjxx.taxeasy.dao.KplsJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -48,6 +50,10 @@ public class PttqkpController extends BaseController {
 	private XfService xfService;
 	@Autowired
 	private SkpService skpService;
+	@Autowired
+	private JylsJpaDao jylsJpaDao;
+	@Autowired
+	private KplsJpaDao kplsJpaDao;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
@@ -158,6 +164,30 @@ public class PttqkpController extends BaseController {
 			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
 		}else if(null != gsdm && gsdm.equals("Family")){
 			resMap=getDataService.getData(ddh,gsdm);
+		}else {
+			Map<String, Object> params = new HashMap<>();
+			params.put("ddh",ddh);
+			params.put("gsdm",gsdm);
+			//富士 查询交易信息申请
+			List<Jyls> jylsList = jylsJpaDao.findByGsdmAndDdh(gsdm, ddh);
+			if(!jylsList.isEmpty()){
+				for (Jyls jyls : jylsList) {
+					Kpls kpls = kplsJpaDao.findOneByDjh(jyls.getDjh());
+					if(kpls!=null){
+						if("00".equals(kpls.getFpztdm())&&StringUtils.isNotBlank(kpls.getPdfurl())&&StringUtils.isNotBlank(kpls.getFphm())){
+							resultMap.put("msg", "该发票已开具成功！");
+							return  resultMap;
+						}else {
+							resultMap.put("msg", "该发票正在开具！");
+							return  resultMap;
+						}
+					}else {
+						resultMap.put("msg", "该发票正在开具！");
+						return  resultMap;
+					}
+				}
+			}
+
 		}
 		List<Jyxxsq> jyxxsqList = null;
 		List<Jymxsq>jymxsqList=null;
@@ -292,25 +322,8 @@ public class PttqkpController extends BaseController {
 					}
 				}
 				//获取分票规则信息
-				/*Map fpgzMap = new HashMap();
-				fpgzMap.put("gsdm", gsdm);
-				Fpgz fpgz = fpgzService.findOneByParams(fpgzMap);
-				String xfids = fpgz.getXfids();
-				String[] strs = xfids.split(",");
-				List<String> xfList = Arrays.asList(strs);
-				boolean b = xfList.contains(xfid.toString());
-				if(b){
-					logger.info("-----打印清单");
-					jyxxsq.setSfdyqd(fpgz.getQdbz());
-				}else {
-					logger.info("-----不打印清单");*/
-					jyxxsq.setSfdyqd("0");
-				//}
-				//if ("01".equals(jyxxsq.getFpzldm()) || "02".equals(jyxxsq.getFpzldm())) {
-				//	jyxxsq.setSfdy("1");
-				//} else {
-					jyxxsq.setSfdy("0");
-				//}
+				jyxxsq.setSfdyqd("0");
+				jyxxsq.setSfdy("0");
 				String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
 				String resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
 				logger.info("-------返回值---------" + resultxml);
@@ -359,25 +372,26 @@ public class PttqkpController extends BaseController {
 		map.put("gsdm",gsdm);
 		map.put("kpdid",skpid);
 		Skp skp = skpService.findOneByParams(map);
-		String kplx = skp.getKplx();
-		String[] strs=kplx.split(",");
-		for(int i=0,len=strs.length;i<len;i++){
-			Fpkcvo fpkcvo = new Fpkcvo();
-			if(strs[i].toString().equals("01")){
-				fpkcvo.setFpzlmc("专用发票");
-				fpkcvo.setFpzldm("01");
+		if(skp.getKplx()!=null){
+			String kplx = skp.getKplx();
+			String[] strs=kplx.split(",");
+			for(int i=0,len=strs.length;i<len;i++){
+				Fpkcvo fpkcvo = new Fpkcvo();
+				if(strs[i].toString().equals("01")){
+					fpkcvo.setFpzlmc("专用发票");
+					fpkcvo.setFpzldm("01");
+				}
+				if(strs[i].toString().equals("02")){
+					fpkcvo.setFpzlmc("普通发票");
+					fpkcvo.setFpzldm("02");
+				}
+				if(strs[i].toString().equals("12")){
+					fpkcvo.setFpzlmc("电子发票");
+					fpkcvo.setFpzldm("12");
+				}
+				list.add(fpkcvo);
 			}
-			if(strs[i].toString().equals("02")){
-				fpkcvo.setFpzlmc("普通发票");
-				fpkcvo.setFpzldm("02");
-			}
-			if(strs[i].toString().equals("12")){
-				fpkcvo.setFpzlmc("电子发票");
-				fpkcvo.setFpzldm("12");
-			}
-			list.add(fpkcvo);
 		}
-
 		return list;
 	}
 

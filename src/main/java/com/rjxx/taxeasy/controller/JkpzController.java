@@ -435,6 +435,7 @@ public class JkpzController extends BaseController {
             result.put("msg","授权失败");
         }
         try {
+            logger.debug(JSON.toJSONString(str));
             Date date = new Date();
             JSONObject object = JSON.parseObject(str);
             String mbid = object.getString("mbid");
