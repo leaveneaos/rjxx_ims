@@ -378,38 +378,38 @@ public class JkpzController extends BaseController {
             xf.setGsdm(gsdm);
             List<Xf> xfList = xfService.findAllByParams(xf);
             for (Xf xf1 : xfList) {
-                JkpzTreeXFVo jkpzTreeXFVo = new JkpzTreeXFVo();
-                jkpzTreeXFVo.setId(xf1.getId().toString());
-                jkpzTreeXFVo.setText(xf1.getXfmc());
-                jkpzTreeXFVo.setParent("#");
+                JkpzTree jkpzTree = new JkpzTree();
+                jkpzTree.setId(xf1.getId().toString());
+                jkpzTree.setText(xf1.getXfmc());
                 Skp skp = new Skp();
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
-                List<Skp> skpList = skpService.findAllByParams(skp);
                 Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(), gsdm, xf1.getId(), mbid);
                 if(cszb!=null&&cszb.getKpdid()==null){
                     Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
-                    Map ma = new HashMap();
-                    ma.put("selected",true);
-                    jkpzTreeXFVo.setText(xf1.getXfmc()+"("+jkmbb.getMbmc()+")");
-                    jkpzTreeXFVo.setState(ma);
+                    jkpzTree.setTemplateId(jkmbb.getId().toString());
+                }else {
+                    jkpzTree.setTemplateId("");
                 }
-                for (Skp skp1 : skpList) {
-                    JkpzTreeXFVo jkpzTreeXFVo1 = new JkpzTreeXFVo();
-                    jkpzTreeXFVo1.setId(skp1.getId().toString());
-                    jkpzTreeXFVo1.setText(skp1.getKpdmc());
-                    jkpzTreeXFVo1.setParent(xf1.getId().toString());
-                    Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(), gsdm, xf1.getId(), skp1.getId(), mbid);
-                    if(cszbs!=null){
-                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
-                        Map ma1 = new HashMap();
-                        ma1.put("selected",true);
-                        jkpzTreeXFVo1.setState(ma1);
-                        jkpzTreeXFVo1.setText(xf1.getXfmc()+"("+jkmbb.getMbmc()+")");
+                List<Skp> skpList = skpService.findAllByParams(skp);
+                List listSkp = new ArrayList();
+                if(!skpList.isEmpty()){
+                    for (Skp skp1 : skpList) {
+                        JkpzTree jkpzTreeSkp = new JkpzTree();
+                        jkpzTreeSkp.setId(skp1.getId().toString());
+                        jkpzTreeSkp.setText(skp1.getKpdmc());
+                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(), gsdm, xf1.getId(), skp1.getId(), mbid);
+                        if(cszbs!=null){
+                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
+                            jkpzTreeSkp.setTemplateId(jkmbb.getId().toString());
+                        }else {
+                            jkpzTreeSkp.setTemplateId("");
+                        }
+                        listSkp.add(jkpzTreeSkp);
                     }
-                    list.add(jkpzTreeXFVo1);
                 }
-                list.add(jkpzTreeXFVo);
+                jkpzTree.setChildren(listSkp);
+                list.add(jkpzTree);
             }
             System.out.println(JSON.toJSONString(list));
             result.put("success", true);
@@ -423,46 +423,140 @@ public class JkpzController extends BaseController {
     }
 
     /**
-     * @param mbid
-     * @param gsdm
-     * @param xfid
-     * @param kpdid
+     * 修改或新增
      * @return
      */
     @RequestMapping(value = "/savembsq")
     @ResponseBody
-    public Map savembsq(String mbid ,String gsdm,String xfid , String kpdid){
+    public Map savembsq(String str){
         Map<String, Object> result = new HashMap<String, Object>();
-        if(StringUtils.isBlank(mbid)){
+        if(StringUtils.isBlank(str)){
             result.put("success", false);
             result.put("msg","授权失败");
         }
         try {
-            Map map = new HashMap();
-            map.put("csm","jkpzmbid");
-            Csb csb1 = csbService.findOneByParams(map);
-            if(StringUtils.isBlank(kpdid)){
-                //销方
-                Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb1.getId(), gsdm,Integer.valueOf(xfid),mbid);
-                if(xfcszb!=null&&xfcszb.getKpdid()==null){
-                    // 销方授权      删除
-                    cszbJpaDao.delete(xfcszb);
+            Date date = new Date();
+            JSONArray object = JSON.parseArray(str);
+            for (Object o : object) {
+                JSONObject j = (JSONObject) o;
+                String mbid = j.getString("mbid");
+                String templateId = j.getString("templateId");
+                String gsdm = j.getString("gsdm");
+                String xfid = j.getString("xfid");
+                String skpid = j.getString("skpid");
+                Map map = new HashMap();
+                map.put("csm","jkpzmbid");
+                Csb csb = csbService.findOneByParams(map);
+                //原模板id(templateId)不为空先删除，后插入
+                if(StringUtils.isNotBlank(templateId)){
+                    //销方不为空
+                    if(StringUtils.isBlank(skpid)){
+                        //查询
+                        Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),templateId);
+                        if(xfcszb!=null&&xfcszb.getKpdid()==null){
+                            //删除原模板id(templateId)
+                            cszbJpaDao.delete(xfcszb);
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(Integer.valueOf(xfid));
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }else {
+                            Cszb xfcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                            if(xfcszb2 == null){
+                                //新增
+                                Cszb cszb = new Cszb();
+                                cszb.setGsdm(gsdm);
+                                cszb.setXfid(Integer.valueOf(xfid));
+                                cszb.setCsid(csb.getId());
+                                cszb.setCsz(mbid);//新增mbid
+                                cszb.setYxbz("1");
+                                cszb.setLrsj(date);
+                                cszb.setLrry(getYhid());
+                                cszb.setXgry(getYhid());
+                                cszb.setXgsj(date);
+                                cszbService.save(cszb);
+                            }
+                        }
+                    }else{
+                        //税控盘
+                        Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                        if(skpcszb!=null){
+                            //删除原模板id(templateId)
+                            cszbJpaDao.delete(skpcszb);
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(Integer.valueOf(xfid));
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }else {
+                            Cszb skpcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                            if(skpcszb2 == null){
+                                //新增
+                                Cszb cszb = new Cszb();
+                                cszb.setGsdm(gsdm);
+                                cszb.setXfid(Integer.valueOf(xfid));
+                                cszb.setKpdid(Integer.valueOf(skpid));
+                                cszb.setCsid(csb.getId());
+                                cszb.setCsz(mbid);//新增mbid
+                                cszb.setYxbz("1");
+                                cszb.setLrsj(date);
+                                cszb.setLrry(getYhid());
+                                cszb.setXgry(getYhid());
+                                cszb.setXgsj(date);
+                                cszbService.save(cszb);
+                            }
+                        }
+                    }
                 }else {
-                    //新增 销方授权
-                    Cszb cszb = new Cszb();
-                    cszb.setGsdm(gsdm);
-                    cszb.setXfid(Integer.valueOf(xfid));
-                    cszb.setCsid(csb1.getId());
-                    cszb.setCsz(mbid);
-                    cszb.setYxbz("1");
-                    cszb.setLrsj(new Date());
-                    cszb.setLrry(getYhid());
-                    cszb.setXgry(getYhid());
-                    cszb.setXgsj(new Date());
-                    cszbService.save(cszb);
+                    if(StringUtils.isBlank(skpid)){
+                        Cszb xfcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                        if(xfcszb3 ==null){
+                            //新增
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(Integer.valueOf(xfid));
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }
+                    }else {
+                        Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                        if(skpcszb3 == null){
+                            //新增
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(Integer.valueOf(xfid));
+                            cszb.setKpdid(Integer.valueOf(skpid));
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }
+                    }
                 }
             }
-
             result.put("success", true);
             result.put("msg","授权成功");
         } catch (Exception e) {
@@ -472,54 +566,42 @@ public class JkpzController extends BaseController {
         }
         return result;
     }
-
     /**
      * 删除授权
-     * @param id
+     * @param str
      * @return
      */
     @RequestMapping(value = "/scCsb")
     @ResponseBody
-    public Map<String, Object> scCsb(String id){
+    public Map scCsb(String str){
         Map<String, Object> result = new HashMap<String, Object>();
-        if(StringUtils.isBlank(id)){
+        if(StringUtils.isBlank(str)){
             result.put("success", false);
             return result;
         }
-        Cszb cszb = cszbJpaDao.finfOneById(Integer.valueOf(id));
-        cszb.setYxbz("0");
-        cszbService.save(cszb);
-        result.put("success", true);
-        return result;
-    }
-
-    /**
-     * 修改授权
-     * @param id
-     * @param mbid
-     * @param gsdm
-     * @param xfid
-     * @param kpdid
-     * @return
-     */
-    @RequestMapping(value = "/updatembsq")
-    @ResponseBody
-    public Map updatembsq(String id,String mbid ,String gsdm,String xfid , String kpdid){
-        Map<String, Object> result = new HashMap<String, Object>();
-        if(StringUtils.isBlank(id)){
-            result.put("success", false);
-            result.put("msg","授权失败");
-        }
         try {
-            Cszb cszb = cszbJpaDao.finfOneById(Integer.valueOf(id));
-            cszb.setGsdm(gsdm);
-            cszb.setXfid(Integer.valueOf(xfid));
-            cszb.setKpdid(Integer.valueOf(kpdid));
-            cszb.setCsid(46);
-            cszb.setCsz(mbid);
-            cszb.setXgry(getYhid());
-            cszb.setXgsj(new Date());
-            cszbService.save(cszb);
+            JSONArray object = JSON.parseArray(str);
+            for (Object o : object) {
+                JSONObject j = (JSONObject) o;
+                String mbid = j.getString("mbid");
+                String gsdm = j.getString("gsdm");
+                String xfid = j.getString("xfid");
+                String skpid = j.getString("skpid");
+                Map map = new HashMap();
+                map.put("csm","jkpzmbid");
+                Csb csb = csbService.findOneByParams(map);
+                if(StringUtils.isBlank(skpid)){
+                    Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                    if(xfcszb!=null&&xfcszb.getKpdid()==null){
+                        cszbJpaDao.delete(xfcszb);
+                    }
+                }else {
+                    Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
+                    if(skpcszb !=null){
+                        cszbJpaDao.delete(skpcszb);
+                    }
+                }
+            }
             result.put("success", true);
             result.put("msg","授权成功");
         } catch (Exception e) {
