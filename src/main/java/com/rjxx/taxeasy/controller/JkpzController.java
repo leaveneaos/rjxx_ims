@@ -384,12 +384,14 @@ public class JkpzController extends BaseController {
                 Skp skp = new Skp();
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
-                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(), gsdm, xf1.getId(), mbid);
+                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
                 if(cszb!=null&&cszb.getKpdid()==null){
                     Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
                     jkpzTree.setTemplateId(jkmbb.getId().toString());
+                    jkpzTree.setTemplateName(jkmbb.getMbmc());
                 }else {
                     jkpzTree.setTemplateId("");
+                    jkpzTree.setTemplateName("");
                 }
                 List<Skp> skpList = skpService.findAllByParams(skp);
                 List listSkp = new ArrayList();
@@ -398,12 +400,14 @@ public class JkpzController extends BaseController {
                         JkpzTree jkpzTreeSkp = new JkpzTree();
                         jkpzTreeSkp.setId(skp1.getId().toString());
                         jkpzTreeSkp.setText(skp1.getKpdmc());
-                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(), gsdm, xf1.getId(), skp1.getId(), mbid);
+                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
                         if(cszbs!=null){
-                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
+                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
                             jkpzTreeSkp.setTemplateId(jkmbb.getId().toString());
+                            jkpzTree.setTemplateName(jkmbb.getMbmc());
                         }else {
                             jkpzTreeSkp.setTemplateId("");
+                            jkpzTreeSkp.setTemplateName("");
                         }
                         listSkp.add(jkpzTreeSkp);
                     }
@@ -454,7 +458,7 @@ public class JkpzController extends BaseController {
                     //销方不为空
                     if(StringUtils.isBlank(skpid)){
                         //查询
-                        Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),templateId);
+                        Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb!=null&&xfcszb.getKpdid()==null){
                             //删除原模板id(templateId)
                             cszbJpaDao.delete(xfcszb);
@@ -470,7 +474,7 @@ public class JkpzController extends BaseController {
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }else {
-                            Cszb xfcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                            Cszb xfcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                             if(xfcszb2 == null){
                                 //新增
                                 Cszb cszb = new Cszb();
@@ -488,7 +492,7 @@ public class JkpzController extends BaseController {
                         }
                     }else{
                         //税控盘
-                        Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),templateId);
+                        Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                         if(skpcszb!=null){
                             //删除原模板id(templateId)
                             cszbJpaDao.delete(skpcszb);
@@ -505,7 +509,7 @@ public class JkpzController extends BaseController {
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }else {
-                            Cszb skpcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
+                            Cszb skpcszb2 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                             if(skpcszb2 == null){
                                 //新增
                                 Cszb cszb = new Cszb();
@@ -525,7 +529,7 @@ public class JkpzController extends BaseController {
                     }
                 }else {
                     if(StringUtils.isBlank(skpid)){
-                        Cszb xfcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                        Cszb xfcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb3 ==null){
                             //新增
                             Cszb cszb = new Cszb();
@@ -541,7 +545,7 @@ public class JkpzController extends BaseController {
                             cszbService.save(cszb);
                         }
                     }else {
-                        Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
+                        Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                         if(skpcszb3 == null){
                             //新增
                             Cszb cszb = new Cszb();
@@ -595,12 +599,12 @@ public class JkpzController extends BaseController {
                 map.put("csm","jkpzmbid");
                 Csb csb = csbService.findOneByParams(map);
                 if(StringUtils.isBlank(skpid)){
-                    Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),mbid);
+                    Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                     if(xfcszb!=null&&xfcszb.getKpdid()==null){
                         cszbJpaDao.delete(xfcszb);
                     }
                 }else {
-                    Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkpAndCsz(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid),mbid);
+                    Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                     if(skpcszb !=null){
                         cszbJpaDao.delete(skpcszb);
                     }
