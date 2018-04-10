@@ -139,9 +139,14 @@ function autoLeftNav() {
 
 //侧边菜单
 $('.sidebar-nav-sub-title').on('click', function () {
-    $(this).siblings('.sidebar-nav-sub').slideToggle(80)
+	var _this=$(this);
+    _this.siblings('.sidebar-nav-sub').slideToggle(80)
         .end()
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
+        if(_this.css("display")=="block"){
+        	_this.closest("li").siblings("li").find('.sidebar-nav-sub').hide().end()
+        .find('.sidebar-nav-sub-ico').addClass('sidebar-nav-sub-ico-rotate');
+        }
 })
 
 
