@@ -1778,8 +1778,6 @@ table thead th {
 			 	}
 			 );
 
-
-
         $("#lrkce_edit").keyup(
             function() {
                 // var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
@@ -2047,17 +2045,59 @@ table thead th {
 			}
 
 
+    function kcechange() {
+        // var num = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+        var hsje = $('#lrhsje_edit');
+        // if (!num.test(hsje.val())) {
+        // 	if (hsje.val().length > 1) {
+        // 		$('#lrhsje_edit').val(
+        // 				hsje.val().substring(0,
+        // 						hsje.val().length - 1))
+        // 	} else {
+        // 		$('#lrhsje_edit').val("")
+        // 	}
+        // 	return;
+        // }
+        var je = $('#lrje_edit');
+        var sl = $('#lrsltaxrate_edit');
+        var se = $('#lrse_edit');
+        var spsl = $('#lrsl_edit');
+        var jshj = $('#lrjshj_edit');
+        var dj = $('#lrdj_edit');
+        var sps = $('#lrsl_edit');
+        var kce = $('#lrkce_edit');
+        var temp = (100 + sl.val() * 100) / 100;
+        jshj.val(FormatFloat(hsje.val(), "#####0.00"));
+        if(null!=kce && kce.val() !=""){
+            se.val(FormatFloat((jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+            je.val(FormatFloat(jshj.val()-(jshj.val()-kce.val())/temp*sl.val(), "#####0.00"));
+        }else{
+            je.val(FormatFloat(hsje.val() / (temp),"#####0.00"));
+
+            se.val(FormatFloat(hsje.val() - je.val(),"#####0.00"));
+        }
+
+        // spsl.val(FormatFloat(hsje.val() / dj.val(),"#####0.00"))
+        if (dj.val()!= "") {
+            spsl.val(FormatFloat(hsje.val() / dj.val(), "#.00#############"));
+        }else if(dj.val()==""&&spsl.val()!=""){
+            dj.val(FormatFloat(hsje.val() / spsl.val(), "#.00#############"));
+        }
+    }
+
     function hidespankce(){
         var zsfs = $("#lrzsfs_edit").val();
         if(zsfs=='2'){
             document.getElementById("lrspankce_edit").style.display="";
             document.getElementById("lrkce_edit").readOnly="";
             $("#lrkce_edit").attr("required",true);
+            kcechange();
         }else{
             document.getElementById("lrspankce_edit").style.display="none";
             document.getElementById("lrkce_edit").readOnly="readOnly";
             $("#lrkce_edit").attr("required",false);
             $("#lrkce_edit").val("");
+            kcechange();
         }
     }
 	</script>
