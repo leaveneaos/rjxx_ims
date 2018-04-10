@@ -54,6 +54,8 @@ public class PttqkpController extends BaseController {
 	private JylsJpaDao jylsJpaDao;
 	@Autowired
 	private KplsJpaDao kplsJpaDao;
+	@Autowired
+	private JymxsqService jymxsqService;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
@@ -109,7 +111,7 @@ public class PttqkpController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getItems")
 	public Map<String, Object> getItems(int length, int start, int draw, String jylsh, String jyrqq, String jyrqz,
-			String xfsh, boolean loaddata) throws Exception {
+										String xfsh, boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (loaddata) {
 			String gsdm = getGsdm();
@@ -161,13 +163,10 @@ public class PttqkpController extends BaseController {
 				resultMap.put("msg", "未查询到数据，请重试！");
 				return resultMap;
 			}
-			 resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
+			resMap = getDataService.getldyxSecData(ddh,gsdm,accessToken);
 		}else if(null != gsdm && gsdm.equals("Family")){
 			resMap=getDataService.getData(ddh,gsdm);
 		}else {
-			Map<String, Object> params = new HashMap<>();
-			params.put("ddh",ddh);
-			params.put("gsdm",gsdm);
 			//富士 查询交易信息申请
 			List<Jyls> jylsList = jylsJpaDao.findByGsdmAndDdh(gsdm, ddh);
 			if(!jylsList.isEmpty()){
@@ -187,12 +186,34 @@ public class PttqkpController extends BaseController {
 					}
 				}
 			}
-
+			Map<String, Object> params = new HashMap<>();
+			params.put("ddh",ddh);
+			params.put("gsdm",gsdm);
+			Jyxxsq jyxxsq= jyxxsqService.findOneByParams(params);
+			if(jyxxsq == null){
+				resultMap.put("msg", "未查询到数据，请重试！");
+				return  resultMap;
+			}
+			Integer sqlsh= jyxxsq.getSqlsh();
+			Map paramss=new HashMap();
+			paramss.put("sqlsh",sqlsh);
+			Jymxsq jymxsq=jymxsqService.findOneByParams(paramss);
+			List<Jyxxsq> jyxxsqList = new ArrayList<>();
+			jyxxsqList.add(jyxxsq);
+			List<Jymxsq>jymxsqList=new ArrayList<>();
+			jymxsqList.add(jymxsq);
+			List<Jyzfmx>jyzfmxList=new ArrayList<>();
+			resultMap.put("jyxxsqList", jyxxsqList);
+			resultMap.put("jymxsqList", jymxsqList);
+			resultMap.put("jyzfmxList", jyzfmxList);
+			request.getSession().setAttribute("jyxxsq",jyxxsqList);
+			request.getSession().setAttribute("jymxsq",jymxsqList);
+			request.getSession().setAttribute("jyzfmx",jyzfmxList);
+			return resultMap;
 		}
 		List<Jyxxsq> jyxxsqList = null;
 		List<Jymxsq>jymxsqList=null;
 		List<Jyzfmx>jyzfmxList=null;
-        //logger.info("全家拉取数据之后的map"+JSON.toJSONString(resMap));
 		List list = new ArrayList();
 		if(resMap!=null){
 			jyxxsqList = (List<Jyxxsq>) resMap.get("jyxxsqList");
@@ -204,14 +225,14 @@ public class PttqkpController extends BaseController {
 		}
 		if(jyzfmxList.size() > 0){
 			for (Jyzfmx jyzfmx : jyzfmxList){
-					Map parmMap = new HashMap();
-					parmMap.put("zffsDm",jyzfmx.getZffsDm());
-					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
-					Jyzfmxvo jyzfmxVo = new Jyzfmxvo();
-					jyzfmxVo.setZfmc(zffsss.get(0).getZffsMc());
-					jyzfmxVo.setZffsDm(zffsss.get(0).getZffsDm());
-					jyzfmxVo.setZfje(jyzfmx.getZfje());
-					list.add(jyzfmxVo);
+				Map parmMap = new HashMap();
+				parmMap.put("zffsDm",jyzfmx.getZffsDm());
+				List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+				Jyzfmxvo jyzfmxVo = new Jyzfmxvo();
+				jyzfmxVo.setZfmc(zffsss.get(0).getZffsMc());
+				jyzfmxVo.setZffsDm(zffsss.get(0).getZffsDm());
+				jyzfmxVo.setZfje(jyzfmx.getZfje());
+				list.add(jyzfmxVo);
 			}
 		}
 		//logger.info("---"+JSON.toJSONString(list));
@@ -224,7 +245,7 @@ public class PttqkpController extends BaseController {
 			request.getSession().setAttribute("jyzfmx",jyzfmxList);
 		}else {
 			if(null!=resMap.get("msg")|| !"".equals(resultMap.get("msg"))){
-					resultMap.put("msg", resMap.get("msg"));
+				resultMap.put("msg", resMap.get("msg"));
 			}
 			if(null!=resultMap.get("tmp")|| !"".equals(resultMap.get("tmp"))){
 				resultMap.put("temp", resMap.get("tmp"));
