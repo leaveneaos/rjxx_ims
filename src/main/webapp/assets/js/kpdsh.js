@@ -119,13 +119,13 @@ $(function() {
             d.each(function (data, index) {
                 $(data).each(function (i, c) {
                     if (i == 7) {
-                       if( zsfs=='2' &&(c !=null || c!='')){
+                       if( zsfs=='2' &&(c !=null && c!='')){
                            result ="差额征收只能有一条商品明细！";
                            return;
                        }
                     }
                     if(i == 8){
-                        if(zsfs=='0' &&(c !=null || c!='')){
+                        if(zsfs=='0' &&(c !=null && c!='')){
                             result ="差额征收只能有一条商品明细！";
                             return;
                         }
