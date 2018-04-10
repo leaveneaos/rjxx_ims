@@ -38,7 +38,10 @@ $(function () {
 		$(document).on("click",".tree-slogger",jsTreeFunction.subtemplateSlogger);
 		$(document).on("click",".click-check",jsTreeFunction.clickCheck);
 		$.fn.jstree=function(option){
-			var data=option.data.length>0? option.data:0;
+			if(option===true){
+				return;
+			}
+			var data=option.data.length ==undefined? 0:option.data;
 			var opTemplataId=option.templataId;
 			var allHtml='';
 			for (var i=0;i<data.length;i++) {
@@ -67,7 +70,7 @@ $(function () {
 				    }
 					firstHtml+='<li class="jstree-second"><p class="click-check" data-id="'+secondId+'" data-type="2" data-oldtemplate="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i></p></li>';
 				}				
-				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+secondCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
+				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+firstCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
 			}
 			$(this).html($(allHtml));						
 		}
@@ -579,46 +582,7 @@ function tre(data,gsdm,mbid) {
     //         eval(data[i].state);
     //     }
     // }
-    $('#menuTree2').jstree(true).settings.core.data=data;
-    $('#menuTree2').jstree(true).refresh();
-    $('#menuTree2').on('activate_node.jstree',function(e,data){
-        var currentNode = data.node;
-        var xfid;
-        var kpdid;
-        console.log(currentNode.state);
-        // for(var i in currentNode.state){
-        //     if(i=='selected'){
-        //         alert(11);
-        //     }
-        // }
-        if(currentNode.parent!=null &&currentNode.parent =='#'){
-            xfid=currentNode.id;
-            kpdid="";
-        }else {
-            xfid = currentNode.parent;
-            kpdid=currentNode.id;
-        }
-        swal("保存成功");
-        /*$.ajax({
-            url:"jkpz/savembsq",
-            async:false,
-            data:{
-                "mbid" : mbid,
-                "gsdm" : gsdm,
-                "xfid" : xfid,
-                "kpdid": kpdid
-            }, success:function(data) {
-                if (data) {
-                    swal(data.msg);
-                }else {
-                    swal(data.msg);
-                }
-            },
-            error : function() {
-                swal('授权失败, 请重新再试...!');
-            }
-        });*/
-    });
+
     // $('#menuTree2').jstree({
     //     core: {
     //         data:null
