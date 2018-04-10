@@ -30,8 +30,10 @@ $(function () {
 				_this.find(".tree-check").toggleClass("fa-check");
 				if(_this.find(".tree-check").hasClass("fa-check")){
 					_this.attr("data-nowtemplate","good");
+					_this.find(".tree-templatename").hide();
 				}else{
 					_this.attr("data-nowtemplate","good");
+					_this.find(".tree-templatename").show();
 				}
 			}
 		}
@@ -47,8 +49,10 @@ $(function () {
 			for (var i=0;i<data.length;i++) {
 				var firstText=data[i].text;
 				var firstId=data[i].id;
-				var firstTemplateId=data[i].templateId;
+				var firstTemplateName=data[i].templateName;
+				var firstTemplateId=data[i].templateId;	
 				var firstCheckHtml='';
+				var firstTemplateText="";
 				    if(firstTemplateId==opTemplataId){
 				    	firstCheckHtml='<span class="tree-check fa fa-check"></span>';
 				    }else{
@@ -59,18 +63,31 @@ $(function () {
 				if(second.length>0){
 					treeSloger='<span class="tree-slogger"><i class="fa fa-caret-down"></i></span>';
 				}
+				if(firstTemplateName != ""&& firstTemplateName != undefined){
+				    	firstTemplateText='<span class="tree-templatename">('+firstTemplateName+')</span>';
+				    }else{
+				    	firstTemplateText='';
+				    }
+				
 				var firstHtml="";
 				for (var j=0;j<second.length;j++) {				
 					var secondText=second[j].text;
 				    var secondId=second[j].id;
 				    var secondTemplateId=second[j].templateId;
+				    var secondTemplateName=second[j].templateName;
 				    var secondCheckHtml='<span class="tree-check fa"></span>';
+				    var secondTemplateText='';
+				    if(secondTemplateName != "" && secondTemplateName != undefined){
+				    	secondTemplateText='<span class="tree-templatename">('+secondTemplateName+')</span>';
+				    }else{
+				    	secondTemplateText='';
+				    }
 				    if(secondTemplateId==opTemplataId){
 				    	secondCheckHtml='<span class="tree-check fa fa-check"></span>';
 				    }
-					firstHtml+='<li class="jstree-second"><p class="click-check" data-id="'+secondId+'" data-type="2" data-oldtemplate="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i></p></li>';
+					firstHtml+='<li class="jstree-second"><p class="click-check" data-id="'+secondId+'" data-type="2" data-oldtemplate="'+secondTemplateId+'">'+secondCheckHtml+'<i>'+secondText+'</i>'+secondTemplateText+'</p></li>';
 				}				
-				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+firstCheckHtml+'<i>'+firstText+'</i></p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
+				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+firstCheckHtml+'<i>'+firstText+'</i>'+firstTemplateText+'</p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
 			}
 			$(this).html($(allHtml));						
 		}

@@ -60,6 +60,9 @@
 			.click-check{
 				cursor: pointer;
 			}
+			.tree-templatename{
+				color: dodgerblue;
+			}
     </style>
 </head>
 <body>
