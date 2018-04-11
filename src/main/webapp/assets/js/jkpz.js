@@ -45,10 +45,43 @@ $(function () {
 			if(option===true){
 				return;
 			}
-			var data=option.data.length ==undefined? 0:option.data;
-			var opTemplataId=option.templataId;
-			var nowtemplateName=option.templateMbmc;
-			var allHtml='';
+			var alldata=option.data.length ==undefined? 0:option.data;
+            var opTemplataId=option.templataId;
+            var nowtemplateName=option.templateMbmc;
+            var allHtml='';
+
+
+			//top
+            var topId=alldata[0].id;
+            var topText=alldata[0].text;
+            var topTemplateId=alldata[0].templateId;
+            var topTemplateName=alldata[0].templateName;
+            var topSloger='';
+            var data=alldata[0].children;
+			if(data.length>0){
+                topSloger='<span class="tree-slogger"><i class="fa fa-caret-down"></i></span>';
+            }else{
+                topSloger='<span class="tree-slogger"></span>'
+            }
+            var topCheckHtml='';
+			var topTemplateText;
+            if(topTemplateId==opTemplataId){
+                topCheckHtml='<span class="tree-check fa fa-check"></span>';
+            }else{
+                topCheckHtml='<span class="tree-check fa"></span>';
+            }
+            if(topTemplateName != ""&& topTemplateName != undefined){
+                if(topTemplateId !=opTemplataId){
+                    topTemplateText='<span class="tree-templatename">('+topTemplateName+')</span><span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
+                }else{
+                    topTemplateText='<span class="tree-nowtemplatename">('+nowtemplateName+')</span>';
+                }
+            }else{
+                topTemplateText='<span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
+            }
+
+
+
 			for (var i=0;i<data.length;i++) {
 				var firstText=data[i].text;
 				var firstId=data[i].id;
@@ -99,8 +132,9 @@ $(function () {
 				}				
 				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+firstCheckHtml+'<i>'+firstText+'</i>'+firstTemplateText+'</p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
 			}
+            var topHtml='<li class="jstree-top">'+topSloger+'<p class="click-check" data-id="'+topId+'" data-type="0" data-oldtemplate="'+topTemplateId+'">'+topCheckHtml+'<i>'+topText+'</i>'+topTemplateText+'</p><ul class="jstree-first-box">'+allHtml+'</ul></li>';
 
-			$(this).html($(allHtml));						
+            $(this).html($(topHtml));
 		}
     
 //action.config.scSqUrl
@@ -408,16 +442,25 @@ $(function () {
             					a={
             						"xfid": dataId,
             						"templateId":templateId,
-		                            "skpid": ""
+		                            "skpid": "",
+                                    "gsid":""
             					}
-            				}else{  
+            				}else if(dataType=="2"){
             					xfid=_this.closest(".jstree-first-box").siblings("p").attr("data-id");
             					a={
             						"xfid":xfid,
             						"templateId":templateId,
-		                            "skpid": dataId
+		                            "skpid": dataId,
+                                    "gsid":""
             					}            					           				           				
-            			    }
+            			    }else{
+                                a={
+                                    "xfid":"",
+                                    "templateId":templateId,
+                                    "skpid": "",
+                                    "gsid":gsdm
+                                }
+                            }
             				addId.push(a);
             		     }
             			}else{
@@ -431,13 +474,19 @@ $(function () {
             						"xfid": dataId,
 		                            "skpid": ""
             					}
-            				}else{        
+            				}else if(dataType=="2"){
             					xfid=_this.closest(".jstree-first-box").siblings("p").attr("data-id");
             					a={
             						"xfid":xfid,
 		                            "skpid": dataId
             					}            					            				           				
-            			}
+            			}else{
+                                a={
+                                    "xfid":"",
+                                    "skpid": "",
+                                    "gsid":gsdm
+                                }
+                            }
             				deleId.push(a);
             		}
             	}	

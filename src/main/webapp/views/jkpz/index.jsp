@@ -33,6 +33,9 @@
 				margin: 0px;
 				padding: 0px;
 			}
+            ul>li>ul{
+                margin: 0px;
+            }
 			.tree-check{
 				width: 12px;
 				height: 12px;
@@ -40,6 +43,11 @@
 				color: black;
 				font-size: 12px;
 			}
+            .jstree-top>p{
+                display:inline-block;
+                margin: 0px;
+                padding: 0px;
+            }
 			.jstree-first>p{
 				display:inline-block;
 				margin: 0px;
@@ -64,7 +72,7 @@
 				color: dodgerblue;
 			}
             .tree-nowtemplatename{
-                color: dodgerblue;
+                color: red;
             }
             .tree-loading{
                 cursor1: wait;
