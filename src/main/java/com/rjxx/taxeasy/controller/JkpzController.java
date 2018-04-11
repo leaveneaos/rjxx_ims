@@ -509,7 +509,7 @@ public class JkpzController extends BaseController {
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }
-                    }else if(StringUtils.isBlank(skpid)){
+                    }else if(StringUtils.isNotBlank(xfid)){
                         //销方一级
                         Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb!=null&&xfcszb.getKpdid()==null){
@@ -543,7 +543,7 @@ public class JkpzController extends BaseController {
                                 cszbService.save(cszb);
                             }
                         }
-                    }else{
+                    }else if(StringUtils.isNotBlank(skpid)){
                         //税控盘
                         Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                         if(skpcszb!=null){
@@ -597,7 +597,7 @@ public class JkpzController extends BaseController {
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }
-                    }else if(StringUtils.isBlank(skpid)){
+                    }else if(StringUtils.isNotBlank(xfid)){
                         Cszb xfcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb3 ==null){
                             //新增
@@ -613,7 +613,7 @@ public class JkpzController extends BaseController {
                             cszb.setXgsj(date);
                             cszbService.save(cszb);
                         }
-                    }else {
+                    }else if(StringUtils.isNotBlank(skpid)){
                         Cszb skpcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                         if(skpcszb3 == null){
                             //新增
