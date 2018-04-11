@@ -188,26 +188,29 @@ public class JkpzController extends BaseController {
         if (StringUtils.isNotBlank(ids)) {
             try {
                 String[] idl = ids.split(",");
+                Map map = new HashMap();
+                map.put("csm","jkpzmbid");
+                Csb csb = csbService.findOneByParams(map);
                 for (String id : idl) {
-                        Jkmbb jkmbb = jkmbbService.findOne(Integer.valueOf(id));
+                    List<Cszb> list1 = cszbJpaDao.findByCsidAndCsz(csb.getId(), id);
+                    if(!list1.isEmpty()){
+                        result.put("success", false);
+                        result.put("msg", "该模板正在使用，请重新选择！");
+                        return result;
+                    }
+                    Jkmbb jkmbb = jkmbbService.findOne(Integer.valueOf(id));
                         List<Jkmbzb> list = jkmbzbJpaDao.findListByMbid(jkmbb.getId());
                         for (Jkmbzb jkmbzb : list) {
-                            jkmbzbJpaDao.delete(jkmbzb.getId());
+                            jkmbzbJpaDao.delete(jkmbzb);
                         }
-                        jkmbbJpaDao.delete(Integer.valueOf(id));
-                        Map map = new HashMap();
-                        map.put("csm","jkpzmbid");
-                        Csb csb = csbService.findOneByParams(map);
-                        Cszb cszb = cszbService.getSpbmbbh(jkmbb.getGsdm(), null, null, "jkpzmbid");
-                        if(csb!=null&&cszb!=null){
-                            List<Cszb> cszbList = cszbJpaDao.findByGsdmAndCszAndCsid(csb.getId(), jkmbb.getGsdm(), cszb.getCsz());
-                            for (Cszb cszb1 : cszbList) {
-                                cszbJpaDao.delete(cszb1.getId());
-                            }
+                        List<Cszb> cszbList = cszbJpaDao.findByGsdmAndCszAndCsid(csb.getId(), jkmbb.getGsdm(),id);
+                        for (Cszb cszb1 : cszbList) {
+                            cszbJpaDao.delete(cszb1);
                         }
-                    result.put("success", true);
-                    result.put("msg", "删除成功");
+                    jkmbbJpaDao.delete(jkmbb);
                 }
+                result.put("success", true);
+                result.put("msg", "删除成功");
             } catch (Exception e) {
                 e.printStackTrace();
                 result.put("success", false);
