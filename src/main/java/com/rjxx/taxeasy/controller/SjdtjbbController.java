@@ -58,6 +58,14 @@ public class SjdtjbbController extends BaseController {
 		}*/
 		tjList = (List<Cxtjvo>) yplResult.get("list");
 		if(null !=tjList && !tjList.isEmpty()){
+			for(int i=0;i<tjList.size();i++){
+				Cxtjvo cxtjvo = tjList.get(i);
+				if(null ==cxtjvo.getSkpid() ||cxtjvo.getSkpid().equals("")){
+					cxtjvo.setKpny("月汇总");
+					cxtjvo.setFpzldm("99");
+					cxtjvo.setFpzlmc("月合计");
+				}
+			}
 			Cxtjvo tmp = tjList.get(tjList.size()-1);
 			tmp.setKpny("汇总");
 			tmp.setFpzldm("99");
