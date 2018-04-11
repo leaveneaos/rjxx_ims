@@ -404,7 +404,7 @@ public class JkpzController extends BaseController {
                         if(cszbs!=null){
                             Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
                             jkpzTreeSkp.setTemplateId(jkmbb.getId().toString());
-                            jkpzTree.setTemplateName(jkmbb.getMbmc());
+                            jkpzTreeSkp.setTemplateName(jkmbb.getMbmc());
                         }else {
                             jkpzTreeSkp.setTemplateId("");
                             jkpzTreeSkp.setTemplateName("");
