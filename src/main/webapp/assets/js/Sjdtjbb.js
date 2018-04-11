@@ -55,6 +55,7 @@ $(function () {
                     return data.fpzlmc;
                 }
             },},
+            {"data": "kpdmc"},
             {"data": "fpsl"},
             {"data": "jshj"}
             ]

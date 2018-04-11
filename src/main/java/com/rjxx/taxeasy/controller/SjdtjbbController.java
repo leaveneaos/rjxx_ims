@@ -64,6 +64,7 @@ public class SjdtjbbController extends BaseController {
 					cxtjvo.setKpny("月汇总");
 					cxtjvo.setFpzldm("99");
 					cxtjvo.setFpzlmc("月合计");
+					cxtjvo.setKpdmc("");
 				}
 			}
 			Cxtjvo tmp = tjList.get(tjList.size()-1);
