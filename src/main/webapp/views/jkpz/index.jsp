@@ -28,6 +28,13 @@
     <link rel="stylesheet" href="assets/css/amazeui.tree.min.css"/>
     <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
     <style type="text/css">
+            #menuTree2{
+                font-family: "Microsoft yahei", Arial;
+                font-style:normal;
+            }
+            #menuTree2 i{
+                font-style:normal;
+            }
     		ul,li{
 				list-style: none;
 				margin: 0px;
