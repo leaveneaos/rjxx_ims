@@ -373,51 +373,70 @@ public class JkpzController extends BaseController {
                 result.put("success", false);
                 result.put("data",new ArrayList<>());
             }
+            List list = new ArrayList();
             Map map = new HashMap();
             map.put("csm","jkpzmbid");
             Csb csb = csbService.findOneByParams(map);
-            List list = new ArrayList();
+            Map map1 = new HashMap();
+            map1.put("gsdm" ,gsdm);
+            Gsxx gsxx = gsxxService.findOneByParams(map1);
+
+            JkpzTree jkpzGsTree = new JkpzTree();
+            jkpzGsTree.setId(gsxx.getGsdm());
+            jkpzGsTree.setText(gsxx.getGsmc());
+            Cszb cszb1 = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsxx.getGsdm());
+            if(cszb1!=null){
+                Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb1.getCsz()));
+                jkpzGsTree.setTemplateId(cszb1.getCsz());
+                jkpzGsTree.setTemplateName(jkmbb.getMbmc());
+            }else {
+                jkpzGsTree.setTemplateId("");
+                jkpzGsTree.setTemplateName("");
+            }
             Xf xf = new Xf();
             xf.setGsdm(gsdm);
             List<Xf> xfList = xfService.findAllByParams(xf);
+            List Xflist = new ArrayList();
             for (Xf xf1 : xfList) {
-                JkpzTree jkpzTree = new JkpzTree();
-                jkpzTree.setId(xf1.getId().toString());
-                jkpzTree.setText(xf1.getXfmc());
+                JkpzTree jkpzXfTree = new JkpzTree();
+                jkpzXfTree.setId(xf1.getId().toString());
+                jkpzXfTree.setText(xf1.getXfmc());
                 Skp skp = new Skp();
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
                 Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
                 if(cszb!=null&&cszb.getKpdid()==null){
                     Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
-                    jkpzTree.setTemplateId(jkmbb.getId().toString());
-                    jkpzTree.setTemplateName(jkmbb.getMbmc());
+                    jkpzXfTree.setTemplateId(jkmbb.getId().toString());
+                    jkpzXfTree.setTemplateName(jkmbb.getMbmc());
                 }else {
-                    jkpzTree.setTemplateId("");
-                    jkpzTree.setTemplateName("");
+                    jkpzXfTree.setTemplateId("");
+                    jkpzXfTree.setTemplateName("");
                 }
                 List<Skp> skpList = skpService.findAllByParams(skp);
                 List listSkp = new ArrayList();
                 if(!skpList.isEmpty()){
                     for (Skp skp1 : skpList) {
-                        JkpzTree jkpzTreeSkp = new JkpzTree();
-                        jkpzTreeSkp.setId(skp1.getId().toString());
-                        jkpzTreeSkp.setText(skp1.getKpdmc());
+                        JkpzTree jkpzSkpTree = new JkpzTree();
+                        jkpzSkpTree.setId(skp1.getId().toString());
+                        jkpzSkpTree.setText(skp1.getKpdmc());
                         Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
                         if(cszbs!=null){
                             Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
-                            jkpzTreeSkp.setTemplateId(jkmbb.getId().toString());
-                            jkpzTreeSkp.setTemplateName(jkmbb.getMbmc());
+                            jkpzSkpTree.setTemplateId(jkmbb.getId().toString());
+                            jkpzSkpTree.setTemplateName(jkmbb.getMbmc());
                         }else {
-                            jkpzTreeSkp.setTemplateId("");
-                            jkpzTreeSkp.setTemplateName("");
+                            jkpzSkpTree.setTemplateId("");
+                            jkpzSkpTree.setTemplateName("");
                         }
-                        listSkp.add(jkpzTreeSkp);
+                        listSkp.add(jkpzSkpTree);
                     }
                 }
-                jkpzTree.setChildren(listSkp);
-                list.add(jkpzTree);
+                jkpzXfTree.setChildren(listSkp);
+                Xflist.add(jkpzXfTree);
             }
+            jkpzGsTree.setChildren(Xflist);
+            list.add(jkpzGsTree);
             System.out.println(JSON.toJSONString(list));
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
@@ -450,6 +469,7 @@ public class JkpzController extends BaseController {
             JSONArray data = object.getJSONArray("data");
             for (int i = 0; i < data.size(); i++) {
                 JSONObject jo = data.getJSONObject(i);
+                String gsid = jo.getString("gsid");
                 String xfid = jo.getString("xfid");
                 String skpid = jo.getString("skpid");
                 String templateId = jo.getString("templateId");
@@ -458,9 +478,39 @@ public class JkpzController extends BaseController {
                 Csb csb = csbService.findOneByParams(map);
                 //原模板id(templateId)不为空先删除，后插入
                 if(StringUtils.isNotBlank(templateId)){
-                    //销方不为空
-                    if(StringUtils.isBlank(skpid)){
-                        //查询
+                    if(StringUtils.isNotBlank(gsid)){
+                        //公司
+                        Cszb cszbGs = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsdm);
+                        if(cszbGs!=null&& cszbGs.getXfid()==null && cszbGs.getKpdid()==null){
+                            cszbJpaDao.delete(cszbGs);
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(null);
+                            cszb.setKpdid(null);
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }else {
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(null);
+                            cszb.setKpdid(null);
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }
+                    }else if(StringUtils.isBlank(skpid)){
+                        //销方一级
                         Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb!=null&&xfcszb.getKpdid()==null){
                             //删除原模板id(templateId)
@@ -531,7 +581,23 @@ public class JkpzController extends BaseController {
                         }
                     }
                 }else {
-                    if(StringUtils.isBlank(skpid)){
+                    if(StringUtils.isNotBlank(gsid)){
+                        Cszb cszbGs = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsdm);
+                        if(cszbGs ==null){
+                            Cszb cszb = new Cszb();
+                            cszb.setGsdm(gsdm);
+                            cszb.setXfid(null);
+                            cszb.setKpdid(null);
+                            cszb.setCsid(csb.getId());
+                            cszb.setCsz(mbid);//新增mbid
+                            cszb.setYxbz("1");
+                            cszb.setLrsj(date);
+                            cszb.setLrry(getYhid());
+                            cszb.setXgry(getYhid());
+                            cszb.setXgsj(date);
+                            cszbService.save(cszb);
+                        }
+                    }else if(StringUtils.isBlank(skpid)){
                         Cszb xfcszb3 = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                         if(xfcszb3 ==null){
                             //新增
