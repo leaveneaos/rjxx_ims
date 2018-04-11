@@ -663,16 +663,22 @@ public class JkpzController extends BaseController {
             for (int i = 0; i < data.size(); i++) {
                 JSONObject jo = data.getJSONObject(i);
                 String xfid = jo.getString("xfid");
+                String gsid = jo.getString("gsid");
                 String skpid = jo.getString("skpid");
                 Map map = new HashMap();
                 map.put("csm","jkpzmbid");
                 Csb csb = csbService.findOneByParams(map);
-                if(StringUtils.isBlank(skpid)){
+                if(StringUtils.isNotBlank(gsid)){
+                    Cszb gscszb = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsid);
+                    if(gscszb!=null && gscszb.getXfid()==null&&gscszb.getKpdid()==null){
+                        cszbJpaDao.delete(gscszb);
+                    }
+                }else if(StringUtils.isNotBlank(xfid)){
                     Cszb xfcszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(),gsdm,Integer.valueOf(xfid));
                     if(xfcszb!=null&&xfcszb.getKpdid()==null){
                         cszbJpaDao.delete(xfcszb);
                     }
-                }else {
+                }else if(StringUtils.isNotBlank(skpid)){
                     Cszb skpcszb = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(),gsdm,Integer.valueOf(xfid),Integer.valueOf(skpid));
                     if(skpcszb !=null){
                         cszbJpaDao.delete(skpcszb);
