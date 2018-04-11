@@ -31,12 +31,14 @@ $(function () {
 				if(_this.find(".tree-check").hasClass("fa-check")){
 					_this.attr("data-nowtemplate","good");
 					_this.find(".tree-templatename").hide();
+                    _this.find(".tree-nowtemplatename").show();
 				}else{
 					_this.attr("data-nowtemplate","good");
 					_this.find(".tree-templatename").show();
+                    _this.find(".tree-nowtemplatename").hide();
 				}
 			}
-		}
+		};
 		$(document).on("click",".tree-slogger",jsTreeFunction.subtemplateSlogger);
 		$(document).on("click",".click-check",jsTreeFunction.clickCheck);
 		$.fn.jstree=function(option){
@@ -45,6 +47,7 @@ $(function () {
 			}
 			var data=option.data.length ==undefined? 0:option.data;
 			var opTemplataId=option.templataId;
+			var nowtemplateName=option.templateMbmc;
 			var allHtml='';
 			for (var i=0;i<data.length;i++) {
 				var firstText=data[i].text;
@@ -64,11 +67,14 @@ $(function () {
 					treeSloger='<span class="tree-slogger"><i class="fa fa-caret-down"></i></span>';
 				}
 				if(firstTemplateName != ""&& firstTemplateName != undefined){
-				    	firstTemplateText='<span class="tree-templatename">('+firstTemplateName+')</span>';
+                    if(firstTemplateId !=opTemplataId){
+                        firstTemplateText='<span class="tree-templatename">('+firstTemplateName+')</span><span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
+                    }else{
+                        firstTemplateText='<span class="tree-nowtemplatename">('+nowtemplateName+')</span>';
+                    }
 				    }else{
-				    	firstTemplateText='';
+				    	firstTemplateText='<span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
 				    }
-				
 				var firstHtml="";
 				for (var j=0;j<second.length;j++) {				
 					var secondText=second[j].text;
@@ -78,9 +84,13 @@ $(function () {
 				    var secondCheckHtml='<span class="tree-check fa"></span>';
 				    var secondTemplateText='';
 				    if(secondTemplateName != "" && secondTemplateName != undefined){
-				    	secondTemplateText='<span class="tree-templatename">('+secondTemplateName+')</span>';
+				        if(secondTemplateId !=opTemplataId){
+                            secondTemplateText='<span class="tree-templatename">('+secondTemplateName+')</span><span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
+                        }else{
+                            secondTemplateText='<span class="tree-nowtemplatename">('+nowtemplateName+')</span>';
+                        }
 				    }else{
-				    	secondTemplateText='';
+                        secondTemplateText='<span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
 				    }
 				    if(secondTemplateId==opTemplataId){
 				    	secondCheckHtml='<span class="tree-check fa fa-check"></span>';
@@ -89,6 +99,7 @@ $(function () {
 				}				
 				allHtml+='<li class="jstree-first">'+treeSloger+'<p class="click-check" data-id="'+firstId+'" data-type="1" data-oldtemplate="'+firstTemplateId+'">'+firstCheckHtml+'<i>'+firstText+'</i>'+firstTemplateText+'</p><ul class="jstree-first-box">'+firstHtml+'</ul></li>';				
 			}
+
 			$(this).html($(allHtml));						
 		}
     
@@ -220,8 +231,10 @@ $(function () {
 
            t.on('click','button.empower',function () {
                 var da = t.row($(this).parents('tr')).data();
+                var treeLoad='<div class="tree-loading">加载中...</div>'
                 _this.sq(da);
-                $("#menuTree2").attr({"data-mbid":da.mbid,"data-gsdm":da.gsdm,"data-id":da.id})
+               $("#menuTree2").html($(treeLoad));
+                $("#menuTree2").attr({"data-mbid":da.mbid,"data-gsdm":da.gsdm,"data-id":da.id,"data-mbmc":da.mbmc});
                 
             });
 
@@ -476,7 +489,7 @@ $(function () {
                 success: function (data) {
                     if (data.success) {
                         var list =data.data;
-                        tre(JSON.parse(list),da.gsdm,da.id);
+                        tre(JSON.parse(list),da.gsdm,da.id,da.mbmc);
                     } else {
                         swal('查看失败: ' + data.msg);
                     }
@@ -577,8 +590,9 @@ $(function () {
     action.init();
 });
 
-function tre(data,gsdm,mbid) {
-	$("#menuTree2").jstree({data:data,templataId:mbid})
+function tre(data,gsdm,mbid,mbmc) {
+    $(this).html("");
+	$("#menuTree2").jstree({data:data,templataId:mbid,templateMbmc:mbmc});
    /* $('#menuTree2').jstree(
         {'core':{data:null, "check_callback" : true},
             plugins: ['state', "sort",'wholerow', 'contextmenu', 'types','checkbox'],

@@ -49,46 +49,64 @@ table thead th {
 						<ul id="btbq" class="am-tabs-nav am-nav am-nav-tabs">
 							<li class="am-active"><a href="#tabs1">待处理</a></li>
 							<li id="cljgbt"><a href="#cljg">处理结果</a></li>
-							<li style="display: none"><a href="#tabs3">已处理</a></li>
-						</ul>
 
+						</ul>
 						<div id="nrbq" class="am-tabs-bd">
+
 							<div id="tabs1" class="am-tab-panel am-active">
-								<div class="admin-content">
+								<div class="">
 									<div class="am-cf widget-head">														
 							           <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 								         <form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">
-									       <div class="am-form-group">
-										     <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-												class="star">*</span>销方名称</label>
-										   <div class="am-u-sm-3">
-											<select id="xf" name="xf" onchange="getKpd();" required>
-												<c:if test="${xfnum>1}">
-													<option value="">选择销方</option>
-													<c:forEach items="${xfList}" var="item">
-														<option value="${item.id}">${item.xfmc}</option>
-													</c:forEach>
-												</c:if>
-												<c:if test="${xfnum==1}">
-													<c:forEach items="${xfList}" var="item">
-														<option value="${item.id}">${item.xfmc}</option>
-													</c:forEach>
-												</c:if>
-											</select>
-										</div>
-										<label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-												class="star">*</span>开票点名称</label>
-										<div class="am-u-sm-3">
-											<select id="kpd" name="kpd" onchange="getFplx();" required>
-												<%--<c:if test="${xfnum==1}">
-													<option value="">选择开票点</option>
-													<c:forEach items="${skpList}" var="item">
-														<option value="${item.id}">${item.kpdmc}</option>
-													</c:forEach>
-												</c:if>--%>
-											</select>
-										</div>
-									</div>
+											 <div class="am-form-group">
+												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
+														 class="star">*</span>订单日期</label>
+												 <div class="am-u-sm-3">
+													 <input type="text" id="w_kprqq" name="w_kprqq"
+															placeholder="订单起始时间"
+															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												 </div>
+												 <label for="xf" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span
+														 class="star"></span>至</label>
+												 <div class="am-u-sm-3">
+													 <input type="text" id="w_kprqz" name="w_kprqz"
+															placeholder="订单截止时间"
+															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												 </div>
+											 </div>
+											 <div class="am-form-group">
+												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
+														 class="star">*</span>销方名称</label>
+												 <div class="am-u-sm-3">
+													 <select id="xf" name="xf" onchange="getKpd();" required>
+														 <c:if test="${xfnum>1}">
+															 <option value="">选择销方</option>
+															 <c:forEach items="${xfList}" var="item">
+																 <option value="${item.id}">${item.xfmc}</option>
+															 </c:forEach>
+														 </c:if>
+														 <c:if test="${xfnum==1}">
+															 <c:forEach items="${xfList}" var="item">
+																 <option value="${item.id}">${item.xfmc}</option>
+															 </c:forEach>
+														 </c:if>
+													 </select>
+												 </div>
+												 <label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
+														 class="star">*</span>开票点名称</label>
+												 <div class="am-u-sm-3">
+													 <select id="kpd" name="kpd" onchange="getFplx();" required>
+														 <%--<c:if test="${xfnum==1}">
+                                                             <option value="">选择开票点</option>
+                                                             <c:forEach items="${skpList}" var="item">
+                                                                 <option value="${item.id}">${item.kpdmc}</option>
+                                                             </c:forEach>
+                                                         </c:if>--%>
+													 </select>
+												 </div>
+											 </div>
+
+
 									<div class="am-form-group">
 										<label for="fpzldm" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 												class="star">*</span>发票种类</label>
@@ -174,42 +192,9 @@ table thead th {
 									</div>
 
 									<div class="am-g  am-padding-top">
-										<form action="#"
+<%--										<form action="#"
 											class="js-search-form  am-form am-form-horizontal">
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<div class="am-form-group">
-													<div class="am-btn-toolbar">
-														<div class="am-btn-group am-btn-group-xs">
-															<button type="button" id="kp_add"
-																class="am-btn am-btn-default am-btn-primary">
-																<span></span>录入
-															</button>
-															<button type="button" id="kp_dr"
-																class="am-btn am-btn-default am-btn-default">
-																<span></span>导入
-															</button>
-															<c:if test="${gsdm == 'xwdx' }">
-															<button type="button" id="xwkp_dr"
-																	class="am-btn am-btn-default am-btn-success">
-																<span></span>西外导入
-															</button>
-															</c:if>
-															<button type="button" id="kpd_kp"
-																class="am-btn am-btn-default am-btn-secondary">
-																<span></span> 处理
-															</button>
-															<!-- 	<button type="button" id="kpd_th"
-																class="am-btn am-btn-default am-btn-warning">
-																<span></span> 退回
-															</button> -->
-															<button type="button" id="kpd_sc"
-																class="am-btn am-btn-default am-btn-danger">
-																<span></span> 删除
-															</button>
-														</div>
-													</div>
-												</div>
-											</div>
+
 											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 												<div class="am-form-group tpl-table-list-select">
 													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
@@ -229,7 +214,7 @@ table thead th {
 													</span>
 												</div>
 											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+											&lt;%&ndash;<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
 												<div class="am-form-group">
 													<div class="am-u-md-6 am-u-lg-2">
 														订单日期
@@ -248,8 +233,8 @@ table thead th {
 															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 													</div>
 												</div>
-											</div>
-										</form>
+											</div>&ndash;%&gt;
+										</form>--%>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table style="margin-bottom: 0px;"
@@ -278,13 +263,15 @@ table thead th {
 														</tr>
 													</thead>
 												</table>
-												<legend>商品明细列表</legend>
+												<%--<legend>商品明细列表</legend>--%>
 											</div>
 										</div>
-										
+										<div class="am-u-sm-12 botm">
+											<button id="kpd_kp" type="button" class="am-btn am-btn-secondary">合并</button>
+											<button id="cz" type="button" class="am-btn am-btn-danger">重 置</button>
+										</div>
 									</div>
 								</div>
-							</div>
 							<div id="cljg" class="am-tab-panel">
 								<legend>处理结果展示列表</legend>
 								<table style="margin-bottom: 0px;"
@@ -315,186 +302,8 @@ table thead th {
 								<button id="yhqx" type="button"
 									class="am-btn am-btn-primary js-append-tab">取消</button>
 							</div>
-							<div id="tabs3" class="am-tab-panel">
-								<div class="am-cf widget-head">
-									<div class="widget-title am-cf">
-										<strong class="am-text-primary am-text-lg">业务处理</strong> /<strong>开票单审核</strong>
-										<button class="am-btn am-btn-success am-fr"
-											data-am-offcanvas="{target: '#doc-oc-demo4'}">更多查询</button>
-									</div>
-
-									<!-- 侧边栏内容 begin-->
-									<div id="doc-oc-demo4" class="am-offcanvas">
-										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
-											<form id="ycform2">
-												<div class="am-offcanvas-content">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">选择销方</label>
-														<div class="am-u-sm-8">
-															<select data-am-selected="{btnSize: 'sm'}" id="xfsh2"
-																name="xfsh">
-																<option id="xzxfq2" value="">选择销方</option>
-																<c:forEach items="${xfList}" var="item">
-																	<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 5px;">
-													<div class="am-form-group">
-														<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
-														<div class="am-u-sm-8">
-															<input id="gfmc2" type="text" placeholder="购方名称">
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 5px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
-														<div class="am-u-sm-8">
-															<input id="ddh2" type="text" placeholder="订单号">
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_fplx" class="am-u-sm-4 am-form-label">发票类型</label>
-														<div class="am-u-sm-8">
-															<select data-am-selected="{btnSize: 'sm'}" id="fplxdm2"
-																name="xfsh">
-																<option id="xzlxq2" value="">选择类型</option>
-																<option value="12">电子发票(增普)</option>
-																<option value="01">增值税专用发票</option>
-																<option value="02">增值税普通发票</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">开始时间</label>
-														<div class="am-input-group am-datepicker-date am-u-sm-8"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}">
-															<input type="text" id="kssj2" class="am-form-field"
-																placeholder="开始时间" readonly> <span
-																class="am-input-group-btn am-datepicker-add-on">
-																<button class="am-btn am-btn-default" type="button">
-																	<span class="am-icon-calendar"></span>
-																</button>
-															</span>
-														</div>
-													</div>
-												</div>
-
-												<div class="am-offcanvas-content" style="margin-top: 8px;">
-													<div class="am-form-group">
-														<label for="s_ddh" class="am-u-sm-4 am-form-label">截止时间</label>
-														<div class="am-input-group am-datepicker-date am-u-sm-8"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}">
-															<input type="text" id="jssj2" class="am-form-field"
-																placeholder="截止时间" readonly> <span
-																class="am-input-group-btn am-datepicker-add-on">
-																<button class="am-btn am-btn-default" type="button">
-																	<span class="am-icon-calendar"></span>
-																</button>
-															</span>
-														</div>
-
-													</div>
-												</div>
-												<div style="padding: 32px;">
-													<button type="button" id="kp_search3"
-														class="am-btn am-btn-default am-btn-success data-back">
-														<span class="am-icon-search-plus"></span> 查询
-													</button>
-												</div>
-											</form>
-										</div>
-									</div>
-									<!-- 侧边内容end -->
-								</div>
-								<div class="am-g am-padding-top">
-									<form class=" am-form am-form-horizontal">
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-											<div class="am-form-group">
-												<div class="am-btn-toolbar">
-													<div class="am-btn-group am-btn-group-xs">
-
-														<button type="button" id="kpd_th"
-                                                            class="am-btn am-btn-default am-btn-warning">
-                                                            <span></span> 退回
-                                                        </button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-											<div class="am-form-group tpl-table-list-select">
-												<select id="dxcsm2" data-am-selected="{btnSize: 'sm'}">
-													<option value="gfmc2">购方名称</option>
-													<option value="ddh2">订单号</option>
-												</select>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-u-end">
-											<div
-												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-												<input id="dxcsz2" type="text" class="am-form-field ">
-												<span class="am-input-group-btn">
-													<button id="kp_search2"
-														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-														type="button"></button>
-												</span>
-											</div>
-										</div>
-									</form>
-									<div class="am-u-sm-12 am-padding-top">
-										<table style="margin-bottom: 0px;"
-											class="am-table am-table-bordered am-text-nowrap am-table-hover am-table-striped am-scrollable-horizontal"
-											id="jyls_table2">
-											<thead>
-												<tr>
-													<th><input type="checkbox" id="check_all2" /></th>
-													<th>交易流水号</th>
-													<th>订单号</th>
-													<th>订单日期</th>
-													<th>发票类型</th>
-													<th>购方名称</th>
-													<th>购方税号</th>
-													<th>地址</th>
-													<th>电话</th>
-													<th>开户行</th>
-													<th>开户账号</th>
-													<th>价税合计</th>
-													<th>已开票价税合计</th>
-												</tr>
-											</thead>
-										</table>
-									</div>
-										<legend>商品明细列表</legend>
-										<table style="margin-bottom: 0px;"
-											class=" am-table am-table-bordered am-table-striped am-text-nowrap"
-											id="jyspmx_table2">
-											<thead>
-												<tr>
-													<th>序号</th>
-													<th>名称</th>
-													<th>规格型号</th>
-													<th>单位</th>
-													<th>数量</th>
-													<th>单价</th>
-													<th>金额</th>
-													<th>税率</th>
-													<th>税额</th>
-													<th>价税合计</th>
-												</tr>
-											</thead>
-										</table>
-								</div>
-							</div>
 						</div>
+					</div>
 
 					</div>
 				</div>
@@ -1248,7 +1057,7 @@ table thead th {
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
-	<script src="assets/js/kpdsh.js"></script>
+	<script src="assets/js/fphbcl.js"></script>
 	<script src="assets/js/kpdys.js"></script>
 	<%--<script src="assets/js/autocomplete.js"></script>--%>
 	<%--<script src="assets/js/getGfxxInput.js"></script>--%>
@@ -1279,10 +1088,8 @@ table thead th {
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
             year = d.getFullYear();
-
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
-
         return [year, month, day].join('-');
     }
 

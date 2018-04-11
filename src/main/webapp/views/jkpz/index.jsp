@@ -63,6 +63,22 @@
 			.tree-templatename{
 				color: dodgerblue;
 			}
+            .tree-nowtemplatename{
+                color: dodgerblue;
+            }
+            .tree-loading{
+                cursor1: wait;
+                margin: 0 auto;
+                width: auto;
+                height: 57px;
+                line-height: 57px;
+                padding-left: 50px;
+                padding-right: 5px;
+                background: #fff url(../img/loading.gif) no-repeat scroll 5px 10px;
+                border: 1px solid #ccc;
+                color: #696969;
+                font-family: 'Microsoft YaHei';
+            }
     </style>
 </head>
 <body>
