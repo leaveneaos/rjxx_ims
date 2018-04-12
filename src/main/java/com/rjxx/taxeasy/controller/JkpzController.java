@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.GetCszService;
 import com.rjxx.taxeasy.dao.CszbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbzbJpaDao;
@@ -46,6 +47,8 @@ public class JkpzController extends BaseController {
     private GsxxService gsxxService;
     @Autowired
     private CsbService csbService;
+    @Autowired
+    private GetCszService getCszService;
 
     @RequestMapping
     public String index() {
@@ -374,69 +377,105 @@ public class JkpzController extends BaseController {
                 result.put("data",new ArrayList<>());
             }
             List list = new ArrayList();
-            Map map = new HashMap();
-            map.put("csm","jkpzmbid");
-            Csb csb = csbService.findOneByParams(map);
+            //Map map = new HashMap();
+            //map.put("csm","jkpzmbid");
+            //Csb csb = csbService.findOneByParams(map);
             Map map1 = new HashMap();
             map1.put("gsdm" ,gsdm);
             Gsxx gsxx = gsxxService.findOneByParams(map1);
-
-            JkpzTree jkpzGsTree = new JkpzTree();
-            jkpzGsTree.setId(gsxx.getGsdm());
-            jkpzGsTree.setText(gsxx.getGsmc());
-            Cszb cszb1 = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsxx.getGsdm());
-            if(cszb1!=null){
-                Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb1.getCsz()));
-                jkpzGsTree.setTemplateId(cszb1.getCsz());
-                jkpzGsTree.setTemplateName(jkmbb.getMbmc());
-            }else {
-                jkpzGsTree.setTemplateId("");
-                jkpzGsTree.setTemplateName("");
+            List<CsbVo> list1 = getCszService.getCsz(gsdm, "jkpzmbid");
+            JkpzTree gsTree = new JkpzTree();
+            gsTree.setId(gsxx.getGsdm());
+            gsTree.setText(gsxx.getGsmc());
+            //Cszb cszb1 = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsxx.getGsdm());
+            for (CsbVo csbVo : list1) {
+                if(csbVo.getGsdm()!=null && csbVo.getXfid()==null && csbVo.getKpdid()==null&&csbVo.getGsdm().equals(gsdm)){
+                    if(csbVo.getCsz()!=null){
+                        gsTree.setTemplateId(csbVo.getCsz());
+                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+                        gsTree.setTemplateName(jkmbb.getMbmc());
+                    }else {
+                        gsTree.setTemplateId("");
+                        gsTree.setTemplateName("");
+                    }
+                }
             }
+//            if(cszb1!=null){
+//                Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb1.getCsz()));
+//                jkpzGsTree.setTemplateId(cszb1.getCsz());
+//                jkpzGsTree.setTemplateName(jkmbb.getMbmc());
+//            }else {
+//                jkpzGsTree.setTemplateId("");
+//                jkpzGsTree.setTemplateName("");
+//            }
             Xf xf = new Xf();
             xf.setGsdm(gsdm);
             List<Xf> xfList = xfService.findAllByParams(xf);
             List Xflist = new ArrayList();
             for (Xf xf1 : xfList) {
-                JkpzTree jkpzXfTree = new JkpzTree();
-                jkpzXfTree.setId(xf1.getId().toString());
-                jkpzXfTree.setText(xf1.getXfmc());
+                JkpzTree XfTree = new JkpzTree();
+                XfTree.setId(xf1.getId().toString());
+                XfTree.setText(xf1.getXfmc());
                 Skp skp = new Skp();
                 skp.setGsdm(gsdm);
                 skp.setXfid(xf1.getId());
-                Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
-                if(cszb!=null&&cszb.getKpdid()==null){
-                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
-                    jkpzXfTree.setTemplateId(jkmbb.getId().toString());
-                    jkpzXfTree.setTemplateName(jkmbb.getMbmc());
-                }else {
-                    jkpzXfTree.setTemplateId("");
-                    jkpzXfTree.setTemplateName("");
+                for (CsbVo csbVo : list1) {
+                    if(csbVo.getXfid()!=null && csbVo.getKpdid()==null && csbVo.getXfid().toString().equals(xf1.getId().toString())){
+                        if(csbVo.getCsz()!=null){
+                            XfTree.setTemplateId(csbVo.getCsz());
+                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+                            XfTree.setTemplateName(jkmbb.getMbmc());
+                        }else {
+                            XfTree.setTemplateId("");
+                            XfTree.setTemplateName("");
+                        }
+                    }
                 }
+                //Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
+//                if(cszb!=null&&cszb.getKpdid()==null){
+//                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
+//                    jkpzXfTree.setTemplateId(jkmbb.getId().toString());
+//                    jkpzXfTree.setTemplateName(jkmbb.getMbmc());
+//                }else {
+//                    jkpzXfTree.setTemplateId("");
+//                    jkpzXfTree.setTemplateName("");
+//                }
                 List<Skp> skpList = skpService.findAllByParams(skp);
                 List listSkp = new ArrayList();
                 if(!skpList.isEmpty()){
                     for (Skp skp1 : skpList) {
-                        JkpzTree jkpzSkpTree = new JkpzTree();
-                        jkpzSkpTree.setId(skp1.getId().toString());
-                        jkpzSkpTree.setText(skp1.getKpdmc());
-                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
-                        if(cszbs!=null){
-                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
-                            jkpzSkpTree.setTemplateId(jkmbb.getId().toString());
-                            jkpzSkpTree.setTemplateName(jkmbb.getMbmc());
-                        }else {
-                            jkpzSkpTree.setTemplateId("");
-                            jkpzSkpTree.setTemplateName("");
+                        JkpzTree SkpTree = new JkpzTree();
+                        SkpTree.setId(skp1.getId().toString());
+                        SkpTree.setText(skp1.getKpdmc());
+                        for (CsbVo csbVo : list1) {
+                            if(csbVo.getKpdid()!=null && csbVo.getKpdid().toString().equals(skp1.getId().toString())){
+                                if (csbVo.getCsz() != null) {
+                                    SkpTree.setTemplateId(csbVo.getCsz());
+                                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+                                    SkpTree.setTemplateName(jkmbb.getMbmc());
+                                } else {
+                                    SkpTree.setTemplateId("");
+                                    SkpTree.setTemplateName("");
+                                }
+                            }
                         }
-                        listSkp.add(jkpzSkpTree);
+//                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
+//                        if(cszbs!=null){
+//                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
+//                            jkpzSkpTree.setTemplateId(jkmbb.getId().toString());
+//                            jkpzSkpTree.setTemplateName(jkmbb.getMbmc());
+//                        }else {
+//                            jkpzSkpTree.setTemplateId("");
+//                            jkpzSkpTree.setTemplateName("");
+//                        }
+                        listSkp.add(SkpTree);
                     }
                 }
-                jkpzXfTree.setChildren(listSkp);
-                Xflist.add(jkpzXfTree);
+                XfTree.setChildren(listSkp);
+                Xflist.add(XfTree);
             }
-            jkpzGsTree.setChildren(Xflist);
-            list.add(jkpzGsTree);
+            gsTree.setChildren(Xflist);
+            list.add(gsTree);
             System.out.println(JSON.toJSONString(list));
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
