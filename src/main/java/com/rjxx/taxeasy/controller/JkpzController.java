@@ -377,108 +377,168 @@ public class JkpzController extends BaseController {
                 result.put("data",new ArrayList<>());
             }
             List list = new ArrayList();
-            //Map map = new HashMap();
-            //map.put("csm","jkpzmbid");
-            //Csb csb = csbService.findOneByParams(map);
-            Map map1 = new HashMap();
-            map1.put("gsdm" ,gsdm);
-            Gsxx gsxx = gsxxService.findOneByParams(map1);
-            List<CsbVo> list1 = getCszService.getCsz(gsdm, "jkpzmbid");
-            JkpzTree gsTree = new JkpzTree();
-            gsTree.setId(gsxx.getGsdm());
-            gsTree.setText(gsxx.getGsmc());
-            //Cszb cszb1 = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsxx.getGsdm());
-            for (CsbVo csbVo : list1) {
-                if(csbVo.getGsdm()!=null && csbVo.getXfid()==null && csbVo.getKpdid()==null&&csbVo.getGsdm().equals(gsdm)){
-                    if(csbVo.getCsz()!=null){
-                        gsTree.setTemplateId(csbVo.getCsz());
-                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
-                        gsTree.setTemplateName(jkmbb.getMbmc());
-                    }else {
-                        gsTree.setTemplateId("");
-                        gsTree.setTemplateName("");
-                    }
-                }
-            }
-//            if(cszb1!=null){
-//                Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb1.getCsz()));
-//                jkpzGsTree.setTemplateId(cszb1.getCsz());
-//                jkpzGsTree.setTemplateName(jkmbb.getMbmc());
-//            }else {
-//                jkpzGsTree.setTemplateId("");
-//                jkpzGsTree.setTemplateName("");
-//            }
-            Xf xf = new Xf();
-            xf.setGsdm(gsdm);
-            List<Xf> xfList = xfService.findAllByParams(xf);
             List Xflist = new ArrayList();
-            for (Xf xf1 : xfList) {
-                JkpzTree XfTree = new JkpzTree();
-                XfTree.setId(xf1.getId().toString());
-                XfTree.setText(xf1.getXfmc());
-                Skp skp = new Skp();
-                skp.setGsdm(gsdm);
-                skp.setXfid(xf1.getId());
-                for (CsbVo csbVo : list1) {
-                    if(csbVo.getXfid()!=null && csbVo.getKpdid()==null && csbVo.getXfid().toString().equals(xf1.getId().toString())){
-                        if(csbVo.getCsz()!=null){
+            List<CsbVo> list1 = getCszService.getCsz(gsdm, "jkpzmbid");
+            JkpzTree jkpzGsTree = new JkpzTree();
+            for (int i =0;i<list1.size();i++) {
+                CsbVo csbVo = list1.get(i);
+                if (csbVo.getGsdm() != null && csbVo.getXfid() == null && csbVo.getKpdid() == null) {
+                    jkpzGsTree.setId(csbVo.getGsdm());
+                    Map map = new HashMap();
+                    map.put("gsdm", gsdm);
+                    Gsxx gsxx = gsxxService.findOneByParams(map);
+                    jkpzGsTree.setText(gsxx.getGsmc());
+                    if (csbVo.getCsz() != null) {
+                        jkpzGsTree.setTemplateId(csbVo.getCsz());
+                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+                        jkpzGsTree.setTemplateName(jkmbb.getMbmc());
+                    } else {
+                        jkpzGsTree.setTemplateId("");
+                        jkpzGsTree.setTemplateName("");
+                    }
+                } else {
+                    if (csbVo.getGsdm() != null && csbVo.getXfid() != null && csbVo.getKpdid() == null) {
+                        List Skplist = new ArrayList();
+                        JkpzTree XfTree = new JkpzTree();
+                        XfTree.setId(csbVo.getXfid().toString());
+                        XfTree.setText(csbVo.getXfmc());
+                        if (csbVo.getCsz() != null) {
                             XfTree.setTemplateId(csbVo.getCsz());
                             Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
                             XfTree.setTemplateName(jkmbb.getMbmc());
-                        }else {
+                        } else {
                             XfTree.setTemplateId("");
                             XfTree.setTemplateName("");
                         }
-                    }
-                }
-                //Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
-//                if(cszb!=null&&cszb.getKpdid()==null){
-//                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
-//                    jkpzXfTree.setTemplateId(jkmbb.getId().toString());
-//                    jkpzXfTree.setTemplateName(jkmbb.getMbmc());
-//                }else {
-//                    jkpzXfTree.setTemplateId("");
-//                    jkpzXfTree.setTemplateName("");
-//                }
-                List<Skp> skpList = skpService.findAllByParams(skp);
-                List listSkp = new ArrayList();
-                if(!skpList.isEmpty()){
-                    for (Skp skp1 : skpList) {
-                        JkpzTree SkpTree = new JkpzTree();
-                        SkpTree.setId(skp1.getId().toString());
-                        SkpTree.setText(skp1.getKpdmc());
-                        for (CsbVo csbVo : list1) {
-                            if(csbVo.getKpdid()!=null && csbVo.getKpdid().toString().equals(skp1.getId().toString())){
-                                if (csbVo.getCsz() != null) {
-                                    SkpTree.setTemplateId(csbVo.getCsz());
-                                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
-                                    SkpTree.setTemplateName(jkmbb.getMbmc());
+                        for (int j = 1; j < list1.size(); j++) {
+                            CsbVo csbVo2 = list1.get(j);
+                            if (csbVo2.getXfid().compareTo(csbVo.getXfid())==0 && null !=csbVo2.getKpdid()) {
+                                JkpzTree XfTree3 = new JkpzTree();
+                                XfTree3.setId(csbVo2.getKpdid().toString());
+                                XfTree3.setText(csbVo2.getKpdmc());
+                                if (csbVo2.getCsz() != null) {
+                                    XfTree3.setTemplateId(csbVo2.getCsz());
+                                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo2.getCsz()));
+                                    XfTree3.setTemplateName(jkmbb.getMbmc());
                                 } else {
-                                    SkpTree.setTemplateId("");
-                                    SkpTree.setTemplateName("");
+                                    XfTree3.setTemplateId("");
+                                    XfTree3.setTemplateName("");
                                 }
+                                Skplist.add(XfTree3);
                             }
                         }
-//                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
-//                        if(cszbs!=null){
-//                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
-//                            jkpzSkpTree.setTemplateId(jkmbb.getId().toString());
-//                            jkpzSkpTree.setTemplateName(jkmbb.getMbmc());
-//                        }else {
-//                            jkpzSkpTree.setTemplateId("");
-//                            jkpzSkpTree.setTemplateName("");
-//                        }
-                        listSkp.add(SkpTree);
+                        if(!Skplist.isEmpty())
+                            XfTree.setChildren(Skplist);
+                        Xflist.add(XfTree);
+
                     }
+                    jkpzGsTree.setChildren(Xflist);
                 }
-                XfTree.setChildren(listSkp);
-                Xflist.add(XfTree);
             }
-            gsTree.setChildren(Xflist);
-            list.add(gsTree);
+            list.add(jkpzGsTree);
             System.out.println(JSON.toJSONString(list));
             result.put("success", true);
             result.put("data",JSON.toJSONString(list));
+//            List list = new ArrayList();
+//            //Map map = new HashMap();
+//            //map.put("csm","jkpzmbid");
+//            //Csb csb = csbService.findOneByParams(map);
+//            Map map1 = new HashMap();
+//            map1.put("gsdm" ,gsdm);
+//            Gsxx gsxx = gsxxService.findOneByParams(map1);
+//            List<CsbVo> list1 = getCszService.getCsz(gsdm, "jkpzmbid");
+//            JkpzTree gsTree = new JkpzTree();
+//            gsTree.setId(gsxx.getGsdm());
+//            gsTree.setText(gsxx.getGsmc());
+//            //Cszb cszb1 = cszbJpaDao.findOneByCsidAndGsdm(csb.getId(), gsxx.getGsdm());
+//            for (CsbVo csbVo : list1) {
+//                if(csbVo.getGsdm()!=null && csbVo.getXfid()==null && csbVo.getKpdid()==null&&csbVo.getGsdm().equals(gsdm)){
+//                    if(csbVo.getCsz()!=null){
+//                        gsTree.setTemplateId(csbVo.getCsz());
+//                        Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+//                        gsTree.setTemplateName(jkmbb.getMbmc());
+//                    }else {
+//                        gsTree.setTemplateId("");
+//                        gsTree.setTemplateName("");
+//                    }
+//                }
+//            }
+////            if(cszb1!=null){
+////                Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb1.getCsz()));
+////                jkpzGsTree.setTemplateId(cszb1.getCsz());
+////                jkpzGsTree.setTemplateName(jkmbb.getMbmc());
+////            }else {
+////                jkpzGsTree.setTemplateId("");
+////                jkpzGsTree.setTemplateName("");
+////            }
+//            Xf xf = new Xf();
+//            xf.setGsdm(gsdm);
+//            List<Xf> xfList = xfService.findAllByParams(xf);
+//            List Xflist = new ArrayList();
+//            for (Xf xf1 : xfList) {
+//                JkpzTree XfTree = new JkpzTree();
+//                XfTree.setId(xf1.getId().toString());
+//                XfTree.setText(xf1.getXfmc());
+//                Skp skp = new Skp();
+//                skp.setGsdm(gsdm);
+//                skp.setXfid(xf1.getId());
+//                for (CsbVo csbVo : list1) {
+//                    if(csbVo.getXfid()!=null && csbVo.getKpdid()==null && csbVo.getXfid().toString().equals(xf1.getId().toString())){
+//                        if(csbVo.getCsz()!=null){
+//                            XfTree.setTemplateId(csbVo.getCsz());
+//                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+//                            XfTree.setTemplateName(jkmbb.getMbmc());
+//                        }else {
+//                            XfTree.setTemplateId("");
+//                            XfTree.setTemplateName("");
+//                        }
+//                    }
+//                }
+//                //Cszb cszb = cszbJpaDao.findOneByCsidAndGsdmAndXf(csb.getId(), gsdm, xf1.getId());
+////                if(cszb!=null&&cszb.getKpdid()==null){
+////                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszb.getCsz()));
+////                    jkpzXfTree.setTemplateId(jkmbb.getId().toString());
+////                    jkpzXfTree.setTemplateName(jkmbb.getMbmc());
+////                }else {
+////                    jkpzXfTree.setTemplateId("");
+////                    jkpzXfTree.setTemplateName("");
+////                }
+//                List<Skp> skpList = skpService.findAllByParams(skp);
+//                List listSkp = new ArrayList();
+//                if(!skpList.isEmpty()){
+//                    for (Skp skp1 : skpList) {
+//                        JkpzTree SkpTree = new JkpzTree();
+//                        SkpTree.setId(skp1.getId().toString());
+//                        SkpTree.setText(skp1.getKpdmc());
+//                        for (CsbVo csbVo : list1) {
+//                            if(csbVo.getKpdid()!=null && csbVo.getKpdid().toString().equals(skp1.getId().toString())){
+//                                if (csbVo.getCsz() != null) {
+//                                    SkpTree.setTemplateId(csbVo.getCsz());
+//                                    Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(csbVo.getCsz()));
+//                                    SkpTree.setTemplateName(jkmbb.getMbmc());
+//                                } else {
+//                                    SkpTree.setTemplateId("");
+//                                    SkpTree.setTemplateName("");
+//                                }
+//                            }
+//                        }
+////                        Cszb cszbs = cszbJpaDao.findOneByCsidAndGsdmAndXfAndSkp(csb.getId(), gsdm, xf1.getId(), skp1.getId());
+////                        if(cszbs!=null){
+////                            Jkmbb jkmbb = jkmbbJpaDao.findByid(Integer.valueOf(cszbs.getCsz()));
+////                            jkpzSkpTree.setTemplateId(jkmbb.getId().toString());
+////                            jkpzSkpTree.setTemplateName(jkmbb.getMbmc());
+////                        }else {
+////                            jkpzSkpTree.setTemplateId("");
+////                            jkpzSkpTree.setTemplateName("");
+////                        }
+//                        listSkp.add(SkpTree);
+//                    }
+//                }
+//                XfTree.setChildren(listSkp);
+//                Xflist.add(XfTree);
+//            }
+//            gsTree.setChildren(Xflist);
+//            list.add(gsTree);
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success", false);
