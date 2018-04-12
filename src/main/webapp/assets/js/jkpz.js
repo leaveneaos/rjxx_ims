@@ -96,7 +96,7 @@ $(function () {
 				    }
 				var second=data[i].children;
 				var treeSloger='<span class="tree-slogger"></span>';
-				if(second.length>0){
+				if(second !=null && second.length>0){
 					treeSloger='<span class="tree-slogger"><i class="fa fa-caret-down"></i></span>';
 				}
 				if(firstTemplateName != ""&& firstTemplateName != undefined){
@@ -109,6 +109,9 @@ $(function () {
 				    	firstTemplateText='<span class="tree-nowtemplatename" style="display: none">('+nowtemplateName+')</span>';
 				    }
 				var firstHtml="";
+				if(second==null){
+				    continue
+                }
 				for (var j=0;j<second.length;j++) {				
 					var secondText=second[j].text;
 				    var secondId=second[j].id;
