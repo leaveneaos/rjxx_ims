@@ -141,6 +141,11 @@
       <version>4.4.4</version>
     </dependency>
     <dependency>
+        <groupId>com.rjxx.taxeasy</groupId>
+        <artifactId>dubboService</artifactId>
+        <version>1.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpmime</artifactId>
       <version>4.3.5</version>
