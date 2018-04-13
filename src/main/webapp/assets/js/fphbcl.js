@@ -433,7 +433,7 @@ $(function() {
 	                        		"data" : null,
 	                        		render : function(data, type, full, meta) {
 	                        			return '<input type="checkbox" name= "dxk" value="'
-	                        				+ data.sqlsh + '" />';
+	                        				+ data.sqlshs + '" />';
 	                        		}
 	                        	},
 	                        {
@@ -466,27 +466,26 @@ $(function() {
 		            async:false,
 		            data: function (d) {
 		        		var gfmc=$("#gfmc").val();
-						var fpxes = $("#gfsh").val();
-						var hsbzs = $("#gfdz").val();
-						var qdbzs = $("#gfdh").val();
+						var gfsh = $("#gfsh").val();
+						var gfdz = $("#gfdz").val();
+						var gfdh = $("#gfdh").val();
                         var gfyh = $("#gfyh").val();
                         var yhzh = $("#yhzh").val();
-						d.fpjshsbz= hsbzs;
-						d.qdbzs= qdbzs;
+						d.gfdz= gfdz;
+						d.yhzh = yhzh;
 						d.gfmc= gfmc;
-						d.fpxes=fpxes;
-                        d.gfyh= gfyh;
-                        d.yhzh=yhzh;
-						var bckpje = [];
-						if($("input[name='dxk']:checked").length==1){
-						
-				            var els1 =document.getElementsByName("bckpje");
-							for(var i=0;i<els1.length;i++){
-								var fpp = els1[i].value.replace(/,/g,'');
-								bckpje.push(fpp); 
-							}
-						}
-						d.bckpje=bckpje.join(",");
+						d.gfsh=gfsh;
+                        d.gfdh= gfdh;
+                        d.gfyh=gfyh;
+                        var sqlshs ="";
+                        var sqkp=[];
+                         $('input[name="dxk"]:checked').each(function(cell,i){
+                            var row3 = $(this).parents('tr').find('input[name="dxk"]');
+                             sqkp.push(row3.val());
+                         });
+                        sqlshs=sqkp.join(",");
+                        d.sqlshs=sqlshs;
+                        alert(""+sqlshs)
 		            }
 		        },
 		        "columns": [
@@ -497,27 +496,6 @@ $(function() {
 		            {"data": "gfdh"},
 		            {"data": "gfyh"},
 		            {"data": "yhzh"}
-		            /*{"data": function (data) {
-		                    if (data.sps) {
-		                        return FormatFloat(data.sps,
-		                            "###,###.000000");
-		                    }else{
-		                        return null;
-		                    }
-		                },
-		                'sClass': 'right'
-
-		            }，
-		            {"data": function (data) {
-		                if (data.jshj) {
-		                    return FormatFloat(data.jshj,
-		                        "###,###.00");
-		                }else{
-		                    return null;
-		                }
-		            },
-		            'sClass': 'right'
-		            }*/
 		        ]
 		    });
 			t.on('draw.dt', function(e, settings, json) {
@@ -578,23 +556,7 @@ $(function() {
 				});
             	$('#my-alert-edit').modal({"width": 800, "height": 450});
             });
-            /*t.on('click', 'a.kpdth', function () {
-            	var ddhstha=t.row($(this).parents('tr')).data().sqlsh;
-                if (!confirm("您确认退回么？")) {
-    				return;
-    			}
-					$.ajax({
-					type : "POST",
-					url : "kpdsh/th",
-					data : {"ddhs":ddhstha},
-					success : function(data) {
-						$("#alertt").html(data.msg);
-                    	$("#my-alert").modal('open');
-						_this.tableEx.ajax.reload();	
-					}
-				});
 
-            });*/
             //删除
             $("#kpd_sc").click(function () {
                

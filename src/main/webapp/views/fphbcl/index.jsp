@@ -1027,7 +1027,13 @@ table thead th {
 	function refresh() {
 		this.location = this.location;
 	}
-
+    function sf(){
+        if ($("#sfbx").is(':checked')) {
+            $("#show").html("*");
+        }else{
+            $("#show").html("");
+        }
+    }
     function getCurrentMonthFirst(){
         var date=new Date();
         date.setDate(1);
