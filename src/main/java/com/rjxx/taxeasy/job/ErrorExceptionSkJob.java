@@ -55,7 +55,7 @@ public class ErrorExceptionSkJob implements Job {
                     if(cszb.getCsz().equals("01")){
                         skService.callService(kplsh);
                     }else if(cszb.getCsz().equals("03")){
-                        if(!kpls.getErrorReason().equals("09D103:发票领购信息已用完")){
+                        if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
                             skService.SkServerKP(kplsh);
                         }
                     }
