@@ -138,7 +138,7 @@ public class FphbclController extends BaseController {
                 result.put("data",new ArrayList<>());
                 result.put("recordsTotal", total);
                 result.put("recordsFiltered", total);
-                result.put("msg","合并失败");
+                result.put("msg","合并失败，合并数据为空");
                 return result;
             }
             if(StringUtils.isBlank(gfmc)){
@@ -157,7 +157,7 @@ public class FphbclController extends BaseController {
                 result.put("data",new ArrayList<>());
                 result.put("recordsTotal", total);
                 result.put("recordsFiltered", total);
-                result.put("msg","合并失败");
+                result.put("msg","合并数据失败");
                 return result;
             }
             FphbData data = new FphbData();
@@ -173,7 +173,7 @@ public class FphbclController extends BaseController {
                 result.put("data",new ArrayList<>());
                 result.put("recordsTotal", total);
                 result.put("recordsFiltered", total);
-                result.put("msg","合并失败");
+                result.put("msg","合并数据失败");
                 return result;
             }
             result.put("data",list);
@@ -185,7 +185,7 @@ public class FphbclController extends BaseController {
             result.put("data",new ArrayList<>());
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
-            result.put("msg","合并失败");
+            result.put("msg","合并失败，系统错误");
             return result;
         }
         return  result;
@@ -199,7 +199,7 @@ public class FphbclController extends BaseController {
         try {
             if(StringUtils.isBlank(sqlshs)){
                 result.put("success",false);
-                result.put("msg","撤销失败");
+                result.put("msg","撤销失败，撤销数据为空");
                 return result;
             }
             List sqlshList = new ArrayList();
@@ -210,15 +210,15 @@ public class FphbclController extends BaseController {
             boolean b = fphbService.fphbCancle(sqlshList, getGsdm(), getYhid());
             if(b){
                 result.put("success",true);
-                result.put("msg","撤销成功");
+                result.put("msg","撤销数据成功");
             }else {
                 result.put("success",false);
-                result.put("msg","撤销失败");
+                result.put("msg","撤销数据失败");
             }
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success",false);
-            result.put("msg","撤销失败");
+            result.put("msg","撤销失败，系统异常");
             return result;
         }
         return result;
@@ -232,7 +232,7 @@ public class FphbclController extends BaseController {
         try {
             if(StringUtils.isBlank(sqlshs)){
                 result.put("success",false);
-                result.put("msg","保存失败");
+                result.put("msg","保存失败,保存数据为空");
                 return result;
             }
             List sqlshList = new ArrayList();
@@ -243,15 +243,15 @@ public class FphbclController extends BaseController {
             boolean b = fphbService.fphbsave(sqlshList, getYhid(),getGsdm());
             if(b){
                 result.put("success",true);
-                result.put("msg","保存成功");
+                result.put("msg","保存数据成功");
             }else {
                 result.put("success",false);
-                result.put("msg","保存失败");
+                result.put("msg","保存数据失败");
             }
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success",false);
-            result.put("msg","保存失败");
+            result.put("msg","保存失败,系统错误");
             return result;
         }
         return result;
