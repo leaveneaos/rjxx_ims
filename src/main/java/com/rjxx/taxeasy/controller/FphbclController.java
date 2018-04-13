@@ -168,6 +168,8 @@ public class FphbclController extends BaseController {
     }
 
     //合并撤销
+    @ResponseBody
+    @RequestMapping("/fphbCancle")
     public Map fphbCancle(String sqlshs){
         Map<String, Object> result = new HashMap();
         try {
@@ -199,6 +201,8 @@ public class FphbclController extends BaseController {
     }
 
     //合并保存
+    @ResponseBody
+    @RequestMapping("/fphbSave")
     public Map fphbSave(String sqlshs){
         Map<String, Object> result = new HashMap();
         try {
