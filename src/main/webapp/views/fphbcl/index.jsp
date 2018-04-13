@@ -180,7 +180,6 @@ table thead th {
 									<thead>
 										<tr>
 											<th>序号</th>
-											<th>隐藏列</th>
 											<th>销方税号</th>
 											<th>销方名称</th>
 											<th>购方名称</th>

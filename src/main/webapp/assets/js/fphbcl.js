@@ -176,19 +176,11 @@ $(function() {
 		        },
 		        "columns": [
                     {
-                        "orderable": false,
                         "data": null,
-                        "defaultContent": ""
-                    },
-                    {
+                        "bSortable" : false,
+                        "defaultContent": "",
+                        "targets"    : 0
 
-                        "visible": false,
-                        "searchable": false,
-                        "data" : null,
-                        render : function(data, type, full, meta) {
-                            return '<input type="checkbox" name= "chzhsql" value="'
-                                + data.sqlsh + '" />';
-                        }
                     },
 		            {"data": "xfsh"},
 		            {"data": "xfmc"},
@@ -197,7 +189,12 @@ $(function() {
 		            {"data": "gfdz"},
 		            {"data": "gfdh"},
 		            {"data": "jshj"}
-		        ]
+		        ],
+                "fnDrawCallback"    : function(){
+                    this.api().column(0).nodes().each(function(cell, i) {
+                        cell.innerHTML =  i + 1;
+                    });
+                },
 		    });
 			t.on('draw.dt', function(e, settings, json) {
 				var x = t, page = x.page.info().start; // 设置第几页
