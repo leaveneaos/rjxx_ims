@@ -115,23 +115,28 @@ public class FphbclController extends BaseController {
 
 
     //发票合并
+    @ResponseBody
+    @RequestMapping("/fphb")
     public Map fphbcl(String sqlshs,String gfmc,String gfsh,String gfdz,
                     String gfdh,String gfyh,String yhzh){
         Map<String, Object> result = new HashMap();
-        if(StringUtils.isBlank(sqlshs)){
-            result.put("success",false);
-            result.put("msg","合并失败");
-            return result;
-        }
+        int total =0;
         try {
+            if(StringUtils.isBlank(sqlshs)){
+                result.put("data",new ArrayList<>());
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
+                return result;
+            }
             String[] sqs = sqlshs.split(",");
             List sqlshList = new ArrayList();
             for (String sqlsh : sqs) {
                 sqlshList.add(sqlsh);
             }
             if(sqlshList.isEmpty()){
-                result.put("success",false);
-                result.put("msg","合并失败");
+                result.put("data",new ArrayList<>());
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
                 return result;
             }
             FphbData data = new FphbData();
@@ -144,17 +149,19 @@ public class FphbclController extends BaseController {
             data.setGfyhzh(yhzh);
             List list = fphbService.fphbcl(data);
             if(list.isEmpty()){
-                result.put("success",false);
+                result.put("data",new ArrayList<>());
                 result.put("msg","合并失败");
                 return result;
             }
             result.put("data",list);
-            result.put("success",true);
-            result.put("msg","合并成功");
+            result.put("recordsTotal", list.size());
+            result.put("recordsFiltered", list.size());
+            result.put("msg", "合并成功!");
         } catch (Exception e) {
             e.printStackTrace();
-            result.put("success",false);
-            result.put("msg","合并失败,请联系管理员");
+            result.put("data",new ArrayList<>());
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
             return result;
         }
         return  result;
@@ -163,21 +170,25 @@ public class FphbclController extends BaseController {
     //合并撤销
     public Map fphbCancle(String sqlshs){
         Map<String, Object> result = new HashMap();
-        if(StringUtils.isBlank(sqlshs)){
-            result.put("success",false);
-            result.put("msg","撤销失败");
-            return result;
-        }
         try {
+            if(StringUtils.isBlank(sqlshs)){
+                result.put("success",false);
+                result.put("msg","撤销失败");
+                return result;
+            }
             List sqlshList = new ArrayList();
             String[] sqs = sqlshs.split(",");
             for (String sqlsh : sqs) {
                 sqlshList.add(sqlsh);
             }
             boolean b = fphbService.fphbCancle(sqlshList, getGsdm(), getYhid());
-            if(b);
-            result.put("success",true);
-            result.put("msg","撤销成功");
+            if(b){
+                result.put("success",true);
+                result.put("msg","撤销成功");
+            }else {
+                result.put("success",false);
+                result.put("msg","撤销失败");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success",false);
@@ -188,5 +199,33 @@ public class FphbclController extends BaseController {
     }
 
     //合并保存
-
+    public Map fphbSave(String sqlshs){
+        Map<String, Object> result = new HashMap();
+        try {
+            if(StringUtils.isBlank(sqlshs)){
+                result.put("success",false);
+                result.put("msg","保存失败");
+                return result;
+            }
+            List sqlshList = new ArrayList();
+            String[] sqs = sqlshs.split(",");
+            for (String sqlsh : sqs) {
+                sqlshList.add(sqlsh);
+            }
+            boolean b = fphbService.fphbsave(sqlshList, getYhid(),getGsdm());
+            if(b){
+                result.put("success",true);
+                result.put("msg","保存成功");
+            }else {
+                result.put("success",false);
+                result.put("msg","保存失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success",false);
+            result.put("msg","保存失败");
+            return result;
+        }
+        return result;
+    }
 }
