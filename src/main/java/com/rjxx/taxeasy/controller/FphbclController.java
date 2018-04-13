@@ -95,6 +95,10 @@ public class FphbclController extends BaseController {
             for (JyxxsqVO jyxxsqVO : fpList) {
                sqlshs += jyxxsqVO.getSqlsh()+",";
             }
+            int indx = sqlshs.lastIndexOf(",");
+            if(indx!=-1){
+                sqlshs = sqlshs.substring(0,indx)+sqlshs.substring(indx+1,sqlshs.length());
+            }
             map1.put("sqlshs",sqlshs);
             int total;
             if(0 == start){
