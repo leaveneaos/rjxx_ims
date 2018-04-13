@@ -138,6 +138,14 @@ public class FphbclController extends BaseController {
                 result.put("data",new ArrayList<>());
                 result.put("recordsTotal", total);
                 result.put("recordsFiltered", total);
+                result.put("msg","合并失败");
+                return result;
+            }
+            if(StringUtils.isBlank(gfmc)){
+                result.put("data",new ArrayList<>());
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
+                result.put("msg","购方名称为空");
                 return result;
             }
             String[] sqs = sqlshs.split(",");
@@ -149,6 +157,7 @@ public class FphbclController extends BaseController {
                 result.put("data",new ArrayList<>());
                 result.put("recordsTotal", total);
                 result.put("recordsFiltered", total);
+                result.put("msg","合并失败");
                 return result;
             }
             FphbData data = new FphbData();
@@ -162,6 +171,8 @@ public class FphbclController extends BaseController {
             List list = fphbService.fphbcl(data);
             if(list.isEmpty()){
                 result.put("data",new ArrayList<>());
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
                 result.put("msg","合并失败");
                 return result;
             }
@@ -174,6 +185,7 @@ public class FphbclController extends BaseController {
             result.put("data",new ArrayList<>());
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
+            result.put("msg","合并失败");
             return result;
         }
         return  result;
