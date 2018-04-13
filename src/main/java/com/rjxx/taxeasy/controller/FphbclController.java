@@ -202,10 +202,10 @@ public class FphbclController extends BaseController {
                 result.put("msg","撤销失败，撤销数据为空");
                 return result;
             }
-            List sqlshList = new ArrayList();
+            List<Integer> sqlshList = new ArrayList();
             String[] sqs = sqlshs.split(",");
             for (String sqlsh : sqs) {
-                sqlshList.add(sqlsh);
+                sqlshList.add(Integer.valueOf(sqlsh));
             }
             boolean b = fphbService.fphbCancle(sqlshList, getGsdm(), getYhid());
             if(b){
