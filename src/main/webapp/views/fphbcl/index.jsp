@@ -237,13 +237,15 @@ table thead th {
 									id="mxTable3">
 									<thead>
 										<tr>
-											<th>数据条数</th>
-											<th>发票序号</th>
-											<th>申请流水号</th>
-											<th>客户名称</th>
-											<th>商品名称</th>
-											<th>规格</th>
-											<th>商品单位</th>
+											<th>序号</th>
+											<th>隐藏列</th>
+											<th>销方税号</th>
+											<th>销方名称</th>
+											<th>购方名称</th>
+											<th>购方税号</th>
+											<th>购方地址</th>
+											<th>购方电话</th>
+											<th>银行账号</th>
 										</tr>
 									</thead>
 								</table>

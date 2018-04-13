@@ -57,15 +57,27 @@ $(function() {
      });
     
     $("#yhqrbc").click(function(){
-    	$("#yhqrbc").attr('disabled',"true"); 
+    	$("#yhqrbc").attr('disabled',"true");
+    	var sqlshs;
+        var sqkp=[];
+        //sqlsh
+        var dataTable = $('#mxTable3').DataTable();
+        var info = dataTable.page.info();
+        var dataRows = info.recordsTotal;
+        for(var i=0;i<dataRows;i++){
+            sqkp.push($('#mxTable3').DataTable().rows(i).data()[0].sqlsh)
+        }
+        sqlshs=sqkp.join(",");
+
+
 		$.ajax({
 			type : "POST",
-			url : "kpdsh/yhqrbc",
-			data : {},
+			url : "/fphbcl/fphbSave",
+			data : {"sqlshs":sqlshs},
 			success : function(data) {
 				if(data.msg){
 				$('#yhqrbc').removeAttr("disabled");
-                swal("保存成功");
+                swal(data.msg);
             	$("#cljgbt").hide();
             	$tab.tabs('refresh');
             	$tab.tabs('open', 0);
@@ -79,6 +91,30 @@ $(function() {
 		});
     	});
     $("#yhqx").click(function(){
+        var sqlshs;
+        var sqkp=[];
+        //sqlsh
+        var dataTable = $('#mxTable3').DataTable();
+        var info = dataTable.page.info();
+        var dataRows = info.recordsTotal;
+        for(var i=0;i<dataRows;i++){
+            sqkp.push($('#mxTable3').DataTable().rows(i).data()[0].sqlsh)
+        }
+        sqlshs=sqkp.join(",");
+        $.ajax({
+            type : "POST",
+            url : "/fphbcl/fphbCancle",
+            data : {"sqlshs":sqlshs},
+            success : function(data) {
+                if(data.msg){
+                    swal(data.msg);
+                }else{
+                    swal("无法取消");
+                    $('#yhqx').removeAttr("disabled");
+                }
+            }
+        });
+
     	$("#cljgbt").hide();
     	$tab.tabs('refresh');
     	$tab.tabs('open', 0);
@@ -452,15 +488,11 @@ $(function() {
 	                    ]
 			});
 		    kpspmx_table3 = $('#mxTable3').DataTable({
-		        "searching": false,
-		        "serverSide": true,
-		        "sServerMethod": "POST",
-		        "processing": true,
-		        "bPaginate":false,
-		        "bLengthChange":false,
-		        "bSort":false,
-		        "bInfo": false,
-		        "scrollX": true,
+                "processing" : true,
+                "serverSide" : true,
+                ordering : false,
+                searching : false,
+                "scrollX" : true,
 		        ajax: {
 		            "url": "/fphbcl/fphb",
 		            async:false,
@@ -489,13 +521,28 @@ $(function() {
 		            }
 		        },
 		        "columns": [
-		            {"data": "sqlshs"},
+                    {
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ""
+                    },
+                    {
+
+                        "visible": false,
+                        "searchable": false,
+                        "data" : null,
+                        render : function(data, type, full, meta) {
+                            return '<input type="checkbox" name= "chzhsql" value="'
+                                + data.sqlsh + '" />';
+                        }
+                    },
+		            {"data": "xfsh"},
+		            {"data": "xfmc"},
 		            {"data": "gfmc"},
 		            {"data": "gfsh"},
 		            {"data": "gfdz"},
 		            {"data": "gfdh"},
-		            {"data": "gfyh"},
-		            {"data": "yhzh"}
+		            {"data": "jshj"}
 		        ]
 		    });
 			t.on('draw.dt', function(e, settings, json) {
@@ -642,6 +689,7 @@ $(function() {
 		search_ac : function() {
 			var _this = this;
 			$("#kp_search").on('click', function(e) {
+
 			/*	$("#ycform").resetForm();
 				$("#bj").val('2');
 	        	$('#xzxfq').attr("selected","selected");
@@ -732,6 +780,20 @@ $(function() {
 				var chk_value="" ;
 				var fpxes = "";
 				var fla = true;
+                var gfmc=$("#gfmc").val();
+                var gfsh=$("#gfsh").val();
+                if ($("#sfbx").is(':checked')) {
+                    if(gfsh==""){
+                        $("#gfsh").focus();
+                        swal("公司购方税号不能为空！");
+                        return;
+                    }
+                }
+                if(gfmc==""){
+                    $("#gfsh").focus();
+                    swal("公司购方名称不能为空！");
+                    return;
+                }
 				var els =document.getElementsByName("fpje");
 				for(var i=0;i<els.length;i++){
 					var fpje = els[i].value.replace(/,/g,'');
