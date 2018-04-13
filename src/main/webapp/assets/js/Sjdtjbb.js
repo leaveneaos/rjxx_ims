@@ -22,6 +22,8 @@ $(function () {
         searching: false,
         bInfo:false,
         bPaginate:false,
+        paging: false,
+        scrollY: 500,
         "ajax": {
             url: 'sjdtjbb/getList',
             type: 'POST',

@@ -66,7 +66,7 @@ table thead th {
 															placeholder="订单起始时间"
 															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												 </div>
-												 <label for="xf" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span
+												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;text-align: center;"><span
 														 class="star"></span>至</label>
 												 <div class="am-u-sm-3">
 													 <input type="text" id="w_kprqz" name="w_kprqz"
@@ -74,7 +74,7 @@ table thead th {
 															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												 </div>
 											 </div>
-											 <div class="am-form-group">
+											<%-- <div class="am-form-group">
 												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 														 class="star">*</span>销方名称</label>
 												 <div class="am-u-sm-3">
@@ -96,28 +96,28 @@ table thead th {
 														 class="star">*</span>开票点名称</label>
 												 <div class="am-u-sm-3">
 													 <select id="kpd" name="kpd" onchange="getFplx();" required>
-														 <%--<c:if test="${xfnum==1}">
+														 &lt;%&ndash;<c:if test="${xfnum==1}">
                                                              <option value="">选择开票点</option>
                                                              <c:forEach items="${skpList}" var="item">
                                                                  <option value="${item.id}">${item.kpdmc}</option>
                                                              </c:forEach>
-                                                         </c:if>--%>
+                                                         </c:if>&ndash;%&gt;
 													 </select>
 												 </div>
-											 </div>
+											 </div>--%>
 
 
 									<div class="am-form-group">
-										<label for="fpzldm" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
+										<%--<label for="fpzldm" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 												class="star">*</span>发票种类</label>
 										<div class="am-u-sm-3 am-u-end">
 											<select id="fpzldm" name="fpzldm"  required>
-												<%--<option value="">选择开票类型</option>
+												&lt;%&ndash;<option value="">选择开票类型</option>
                                                 <option value="01">专用发票</option>
                                                 <option value="02">普通发票</option>
-												<option value="12">电子发票</option>--%>
+												<option value="12">电子发票</option>&ndash;%&gt;
 											</select>
-										</div>
+										</div>--%>
 										<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 												class="star">*</span>订单号</label>
 
@@ -125,7 +125,7 @@ table thead th {
                                                                                             <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 											<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>
 											<span class="am-input-group-btn">
-                                                <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
+                                                <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="kp_search" type="button"></button>
                                             </span>
 											</div>
 										</div>
@@ -192,49 +192,7 @@ table thead th {
 									</div>
 
 									<div class="am-g  am-padding-top">
-<%--										<form action="#"
-											class="js-search-form  am-form am-form-horizontal">
 
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-												<div class="am-form-group tpl-table-list-select">
-													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-														<option value="ddh">订单号</option>
-														<option value="gfmc">购方名称</option>
-													</select>
-												</div>
-											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-												<div
-													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-													<input id="dxcsz" type="text" class="am-form-field ">
-													<span class="am-input-group-btn">
-														<button id="kp_search"
-															class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-															type="button"></button>
-													</span>
-												</div>
-											</div>
-											&lt;%&ndash;<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-												<div class="am-form-group">
-													<div class="am-u-md-6 am-u-lg-2">
-														订单日期
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqq" name="w_kprqq"
-															   placeholder="订单起始时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-													</div>
-													<div class="am-u-md-6 am-u-lg-1">
-														至
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqz" name="w_kprqz"
-															   placeholder="订单截止时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-													</div>
-												</div>
-											</div>&ndash;%&gt;
-										</form>--%>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table style="margin-bottom: 0px;"
@@ -245,9 +203,9 @@ table thead th {
 															<th><input type="checkbox" id="check_all" /></th>
 															<th>序号</th>
 															<th>操作</th>
-															<th>订单号</th>
-															<th>订单日期</th>
-															<th>数据来源</th>
+															<th>总条数</th>
+															<th>总金额</th>
+															<%--<th>数据来源</th>
 															<th>分票金额</th>
 															<th>是否含税分票</th>
 															<th>是否打印清单</th>
@@ -259,7 +217,7 @@ table thead th {
 															<th>购方银行</th>
 															<th>购方银行账号</th>
 															<th>备注</th>
-															<th class="data-ctr">价税合计</th>
+															<th class="data-ctr">价税合计</th>--%>
 														</tr>
 													</thead>
 												</table>
@@ -286,13 +244,6 @@ table thead th {
 											<th>商品名称</th>
 											<th>规格</th>
 											<th>商品单位</th>
-											<th>商品数</th>
-											<th>商品单价</th>
-											<th>商品金额</th>
-											<th>扣除额</th>
-											<th>税率</th>
-											<th>商品税额</th>
-											<th>价税合计</th>
 										</tr>
 									</thead>
 								</table>
