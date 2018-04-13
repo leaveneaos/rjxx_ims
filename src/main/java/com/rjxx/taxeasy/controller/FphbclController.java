@@ -81,6 +81,14 @@ public class FphbclController extends BaseController {
             }
             List<JyxxsqVO> fpList = jyxxsqService.findByPage2(map);
             Integer jshjSum = jyxxsqService.findJshjSum(map);
+            if(fpList.isEmpty()){
+                int total = 0;
+                result.put("recordsTotal", total);
+                result.put("recordsFiltered", total);
+                result.put("draw", draw);
+                result.put("data", new ArrayList<>());
+                return result;
+            }
             Map map1 = new HashMap();
             map1.put("jshjSum",jshjSum);
             String sqlshs="";
