@@ -317,10 +317,10 @@
 						<%--	</div>
 						</div>--%>
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal"
-		 title="购方信息">
+		 title="发票信息修改">
 		<div class="am-modal-dialog" style="overflow: auto">
 			<div class="am-modal-hd">
-				购方信息 <a href="javascript: void(0)" class="am-close am-close-spin"
+				发票信息修改 <a href="javascript: void(0)" class="am-close am-close-spin"
 						data-am-modal-close>&times;</a>
 			</div>
 
@@ -329,13 +329,26 @@
 				<div class="am-g">
 					<div class="am-form-group">
 						<div class="am-form-group">
+							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+							<label for="fpzldm_ck" class="am-u-sm-3 am-form-label">发票类型</label>
+							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+								<select id="fpzldm_ck" name="fpzldm_ck">
+									<option value="">----请选择----</option>
+									<option value="01">增值税专用发票</option>
+									<option value="02">增值税普通发票</option>
+									<option value="12">电子发票(增普)</option>
+								</select>
+							</div>
+							</div>
 							<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;margin-right: 22%">
 								<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
 								<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
 								<input id="fpcklx" name="fpcklx" type="hidden" value="01" />
 								<input id="kplshck" name="kplshck" type="hidden"  />
 							</div>
+
 						</div>
+
 						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 							<label for="gfmcck" class="am-u-sm-3 am-form-label data-cte"><span class="star" style="color:red;">*</span>购方名称</label>
 							<div class="am-u-sm-7" >
@@ -378,6 +391,12 @@
 							<label for="gfyhzhck" class="am-u-sm-3 am-form-label data-cte">银行账号</label>
 							<div class="am-u-sm-7">
 								<input id="gfyhzhck" name="gfyhzhck" type="text" placeholder="请输入银行账号">
+							</div>
+						</div>
+						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+							<label for="bzck" class="am-u-sm-3 am-form-label data-cte">备注</label>
+							<div class="am-u-sm-7">
+								<input id="bzck" name="bzck" type="text" placeholder="请输入备注信息">
 							</div>
 						</div>
 						<div class="am-u-sm-12 am-margin-top-lg">

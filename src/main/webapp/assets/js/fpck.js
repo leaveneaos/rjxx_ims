@@ -228,6 +228,8 @@ $(function() {
                 el.$jsForm.find('[name="gfyhzhck"]').val(data.gfyhzh);
                 el.$jsForm.find('[name="gfemailck"]').val(data.gfemail);
                 el.$jsForm.find('[name="kplshck"]').val(data.kplsh);
+                el.$jsForm.find('[name="fpzldm_ck"]').val(data.fpzldm);
+                el.$jsForm.find('[name="bzck"]').val(data.bz);
                 url = _this.config.editUrl + "?kplshck=" + data.kplsh;
                 //alert(url);
                 $('#your-modal').modal({
@@ -288,6 +290,8 @@ $(function() {
                 var gfyhck = $('#gfyhck').val();
                 var gfyhzhck = $('#gfyhzhck').val();
                 var fpcklx = $('#fpcklx').val();
+                var bz = $('#bzck').val();
+                var fpzldm = $('#fpzldm_ck').val();
                 var  sfbx="0";
                 if($('#sfbx').is(':checked')){
                     if(gfshck==""){
@@ -313,8 +317,8 @@ $(function() {
                 }
                 var data="kplshck="+kplshck+"&gfmcck="+gfmcck+"&gfemailck="+gfemailck+"&ggfshck="+gfshck+
                     "&gfdzck="+gfdzck+"&gfdhck="+gfdhck+"&gfyhck="+gfyhck+"&gfyhzhck="
-                    +gfyhzhck+"&sfbx="+sfbx+"&fpcklx="+fpcklx;
-                alert(data);
+                    +gfyhzhck+"&sfbx="+sfbx+"&fpcklx="+fpcklx+"&bz="+bz+"&fpzldm="+fpzldm;
+                // alert(data);
                 swal({
                     title:"提示",
                     text: "确定要重新开票吗？",
@@ -325,11 +329,12 @@ $(function() {
                     confirmButtonColor: "#ec6c62"
                 },function () {
                     $('.confirm').attr('disabled',"disabled");
-                    alert(999);
+                    // alert(999);
                     $.ajax({
                         url: "fpck/fpckSave", "type": "POST", context: document.body, data: data, success: function (data) {
                             if (data.success) {
                                 $('.confirm').removeAttr('disabled');
+                                $('#your-modal').modal("close");
                                 swal("开票申请成功!");
                                 t.ajax.reload();
                             } else {
@@ -650,6 +655,7 @@ $(function() {
                             }).done(function(data) {
                                 if(data.success){
                                     $('.confirm').removeAttr('disabled');
+                                    $('#your-modal').modal("close");
                                     swal(data.msg);
                                     t.ajax.reload();
                                 }else{

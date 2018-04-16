@@ -207,10 +207,10 @@ public class FpckController extends BaseController {
      */
     @RequestMapping(value = "/fpckSave")
     @ResponseBody
-    @Transactional
     @SystemControllerLog(description = "发票重开",key = "kplshck")
     public Map fpck(String kplshck,String gfmcck,String gfshck,String gfemailck,
-                    String gfdzck,String gfdhck,String gfyhck,String gfyhzhck,String sfbx,String fpcklx) throws Exception {
+                    String gfdzck,String gfdhck,String gfyhck,String gfyhzhck,String sfbx,String fpcklx
+                    ,String bz,String fpzldm) throws Exception {
         Map<String, Object> result = new HashMap<>();
         if (null == kplshck) {
             result.put("success", false);
@@ -259,7 +259,7 @@ public class FpckController extends BaseController {
                     //先红冲
                     //InvoiceResponse flag = fphcService.hccl(kpls.getKplsh(), getYhid(),
 //                            getGsdm(), hcje, ss,kpls.getHztzdh(),kpls.getJylsh());
-                    if(kpls.getFpzldm().equals("12")){
+//                    if(kpls.getFpzldm().equals("12")){
                         Kphc kphc = new Kphc();
                         kphc.setCNDNCode(kpls.getFpdm());
                         kphc.setCNDNNo(kpls.getFphm());
@@ -297,6 +297,8 @@ public class FpckController extends BaseController {
                                 if (gfemailck != null && !gfemailck.equals("")) {
                                     jyxxsq.setSffsyj("1");
                                 }
+                                jyxxsq.setFpzldm(fpzldm);
+                                jyxxsq.setBz(bz);
                             }
                             /*if (jymxsqList.get(0).getDdh() == null) {
                                 jymxsqList.get(0).setDdh(jyxxsq.getDdh());
@@ -331,15 +333,15 @@ public class FpckController extends BaseController {
                             result.put("msg", "重新开具,红冲失败！" + returnHCMsg);
                             return result;
                         }
-                    }else if(kpls.getFpzldm().equals("01")){
-                        result.put("success", false);
-                        result.put("msg", "暂不支持,增值税专用发票的发票重开！");
-                        return result;
-                    }else if(kpls.getFpzldm().equals("02")){
-                        result.put("success", false);
-                        result.put("msg", "暂不支持,增值税普通发票的发票重开！");
-                        return result;
-                    }
+//                    }else if(kpls.getFpzldm().equals("01")){
+//                        result.put("success", false);
+//                        result.put("msg", "暂不支持,增值税专用发票的发票重开！");
+//                        return result;
+//                    }else if(kpls.getFpzldm().equals("02")){
+//                        result.put("success", false);
+//                        result.put("msg", "暂不支持,增值税普通发票的发票重开！");
+//                        return result;
+//                    }
                 } catch (Exception e) {
                     result.put("success", false);
                     result.put("msg", "重新开具失败！");
