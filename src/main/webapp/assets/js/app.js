@@ -21,7 +21,6 @@
             $(".am-text-primary").html(cd2);
         }
 
-
     });
     //设置Ajax全局参数
     $.ajaxSetup({
@@ -149,6 +148,12 @@ $('.sidebar-nav-sub-title').on('click', function () {
         }
 })
 
+//侧边栏点击事件
+$(document).on("click",".ejcd",function () {
+    var _this=$(this);
+$(".left-sidebar").find(".ejcd").css({"background":"#2c3b41","color":"#fff"}).removeClass("second-muen");
+    _this.css({"background":"#fff","color":"#000"}).addClass("second-muen");
+});
 
 //提示层封装
 $('#ck').click(function () {

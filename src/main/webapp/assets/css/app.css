@@ -13,7 +13,7 @@ header {
 }
 .tpl-header-logo {
   width: 240px;
-  height: 57px;
+  height: 56px;
   display: table;
   text-align: center;
   position: relative;
@@ -323,9 +323,12 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   list-style-type: none;
   padding: 0;
   margin: 0;
+  height: 100%;
+
 }
 .sidebar-nav-sub {
   display: none;
+  background: #2c3b41;
 }
 .sidebar-nav-sub .sidebar-nav-link {
   font-size: 12px;
@@ -369,9 +372,9 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .sidebar-nav-link a {
   display: block;
-  color: #868E8E;
+  color: #fff;
   padding: 10px 17px;
-  border-left: #282d2f 3px solid;
+ /* border-left: #282d2f 3px solid;*/
   font-size: 14px;
   cursor: pointer;
 }
@@ -1183,16 +1186,17 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   color: #999;
 }
 .theme-white .sidebar-nav-link a {
-  border-left: #fff 3px solid;
+ /* border-left: #fff 3px solid;*/
 }
 .theme-white .sidebar-nav-link a:hover {
-  background: #f2f6f9;
-  color: #868E8E;
+  background: #fff !important;
+  color: #000 !important;
   border-left: #3bb4f2 3px solid;
 }
+
 .theme-white .sidebar-nav-link a.active {
-  background: #f2f6f9;
-  color: #868E8E;
+ /* background: #f2f6f9;*/
+  /*color: #fff;*/
   border-left: #3bb4f2 3px solid;
 }
 .theme-white .sidebar-nav-heading {
@@ -1211,8 +1215,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   /*border-top: 1px solid #eee;*/
 }
 .theme-white .tpl-header-logo {
-  background: #3c8dbc;
-  border-bottom: 1px solid #eee;
+  background: #357ca5;
 }
 .theme-white .tpl-header-switch-button {
   background: #3c8dbc;
@@ -1230,10 +1233,10 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .theme-white .tpl-header-navbar a:hover {
   background: rgba(0,0,0,0.1);
   color: #f6f6f6;
-  
+
 }
 .theme-white .left-sidebar {
-  background: #fff;
+  background: #222d32;
 }
 .theme-white .widget-color-green {
   border: 1px solid #32c5d2;
