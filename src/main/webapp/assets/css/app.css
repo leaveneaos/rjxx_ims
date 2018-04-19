@@ -6,7 +6,10 @@ li {
 }
 header {
   z-index: 1200;
-  position: relative;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
 }
 .tpl-header-logo {
   width: 240px;
@@ -19,6 +22,7 @@ header {
 .tpl-header-logo a {
   display: table-cell;
   vertical-align: middle;
+  color: #fff;
 }
 .tpl-header-logo img {
   width: 170px;
@@ -33,7 +37,7 @@ header {
   margin-top: 0px;
   margin-bottom: 0px;
   float: left;
-  color: #cfcfcf;
+  color: #fff;
   margin-left: -20px;
   margin-right: 0;
   border: 0;
@@ -269,10 +273,14 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
  /* min-height: 100%;*/
   max-height: 1000px;
   padding-top: 57px;
-  position: absolute;
+  position: fixed;
   z-index: 1104;
   top: 0;
   left: 0px;
+  bottom: 0px;
+}
+.all-topWrap-Box{
+  padding-top: 57px;
 }
 .left-sidebar.xs-active {
   left: 0px;
@@ -473,7 +481,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   width: 100%;
 }
 .row-content {
-  padding: 20px;
+  padding: 5px;
 }
 .widget-fluctuation-description-text {
   margin-top: 4px;
@@ -1199,27 +1207,30 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   background: #e9ecf3;
 }
 .theme-white .tpl-header-fluid {
-  background: #fff;
-  border-top: 1px solid #eee;
+  background: #3c8dbc;
+  /*border-top: 1px solid #eee;*/
 }
 .theme-white .tpl-header-logo {
-  background: #fff;
+  background: #3c8dbc;
   border-bottom: 1px solid #eee;
 }
 .theme-white .tpl-header-switch-button {
-  background: #fff;
-  border-right: 1px solid #eee;
-  border-left: 1px solid #eee;
+  background: #3c8dbc;
+ /* border-right: 1px solid #eee;
+  border-left: 1px solid #eee;*/
 }
 .theme-white .tpl-header-switch-button:hover {
-  background: #fff;
-  color: #999;
+  background: #3c8dbc;
+  color: #fff;
+  cursor: pointer;
 }
 .theme-white .tpl-header-navbar a {
-  color: #999;
+  color: #fff;
 }
 .theme-white .tpl-header-navbar a:hover {
-  color: #999;
+  background: rgba(0,0,0,0.1);
+  color: #f6f6f6;
+  padding-bottom:50px;
 }
 .theme-white .left-sidebar {
   background: #fff;
@@ -1254,6 +1265,9 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     padding-top: 111px;
   }
   .left-sidebar {
+    padding-top: 111px;
+  }
+  .all-topWrap-Box{
     padding-top: 111px;
   }
   .tpl-content-wrapper {

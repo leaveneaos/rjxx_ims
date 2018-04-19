@@ -35,7 +35,7 @@
 <script src="assets/js/theme.js"></script>
 <input type="hidden" id="cd1">
 <input type="hidden" id="cd2">
-<div class="am-g tpl-g">
+<div class="am-g tpl-g all-topWrap-Box">
 	<!-- 头部 -->
 	<header>
 		<!-- logo -->
@@ -54,7 +54,7 @@
 			<div class="am-fr tpl-header-navbar">
 
 				<ul>
-					<li><a class="am-text-sm" href="qympk"  target="_blank" style="color:#03A9F4;" ><span class="am-icon-newspaper-o"></span> 企业名片库</a></li>
+					<li><a class="am-text-sm" href="qympk"  target="_blank" style="color:#fff;" ><span class="am-icon-newspaper-o"></span> 企业名片库</a></li>
 					<li><a class="am-text-sm" href="khdxz" target="_blank"><span class="am-icon-download"></span> 客户端下载</a></li>
 					<!-- 欢迎语 -->
 					<%--  <li class="am-text-sm tpl-header-navbar-welcome">

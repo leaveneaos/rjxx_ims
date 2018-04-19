@@ -40,10 +40,10 @@
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 				<div class="am-cf admin-main widget">
 					<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
-						<ul class="am-tabs-nav am-nav am-nav-tabs">
+						<%--<ul class="am-tabs-nav am-nav am-nav-tabs">
 							<li class="am-active"><a href="#tab1">发票开具</a></li>
 							<li style="display: none"><a href="#tab2">发票查询</a></li>
-						</ul>
+						</ul>--%>
 
 						<div class="am-tabs-bd">
 							<div class="am-tab-panel am-fade am-in am-active" id="tab1">

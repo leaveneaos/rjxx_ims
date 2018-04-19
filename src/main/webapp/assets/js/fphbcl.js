@@ -171,7 +171,6 @@ $(function() {
                          });
                         sqlshs=sqkp.join(",");
                         d.sqlshs=sqlshs;
-                        alert(""+sqlshs)
 		            }
 		        },
 		        "columns": [
