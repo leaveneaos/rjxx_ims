@@ -1,19 +1,5 @@
 package com.rjxx.taxeasy.controller;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.alibaba.fastjson.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.FphcService;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.domains.Jyls;
@@ -28,6 +14,16 @@ import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Kpspmxvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.ChinaNumber;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/fphc")
@@ -38,7 +34,7 @@ public class FphcController extends BaseController {
 	@Autowired
 	private KpspmxService mxService;
 	@Autowired
-	private FphcService FphcService;
+	private FphcService fphcService;
 	@Autowired 
 	private JylsService jylsService;
 	@Autowired 
@@ -493,7 +489,7 @@ public class FphcController extends BaseController {
 				return result;
 			}
 		}
-		InvoiceResponse flag = FphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh,jylsh);
+		InvoiceResponse flag = fphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh,jylsh);
 		if (flag.getReturnCode().equals("0000")) {
 			result.put("success", true);
 			result.put("msg", "红冲请求已接受!");
