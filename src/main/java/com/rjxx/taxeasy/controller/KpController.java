@@ -1,22 +1,21 @@
 package com.rjxx.taxeasy.controller;
 
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
+import com.rjxx.taxeasy.bizcomm.utils.FpclService;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.JyspmxVo;
+import com.rjxx.taxeasy.vo.Spvo;
+import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.ChinaNumber;
+import com.rjxx.utils.ExcelUtil;
+import com.rjxx.utils.Tools;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,19 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.bizcomm.utils.FpclService;
-import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
-import com.rjxx.taxeasy.bizcomm.utils.SkService;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.vo.JyspmxVo;
-import com.rjxx.taxeasy.vo.Spvo;
-import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.ChinaNumber;
-import com.rjxx.utils.ExcelUtil;
-import com.rjxx.utils.Tools;
+import javax.servlet.ServletOutputStream;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by lenovo on 2015/12/14.
@@ -1651,7 +1643,8 @@ public class KpController extends BaseController {
 						if(kpls.getGsdm().equals("afb")){
 							skService.SkServerKPhttps(Integer.parseInt(kpsqh[i]));
 						}else{
-							skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+							kpls.setFpztdm("04");
+							kplsService.save(kpls);
 						}
 					}
 					result.put("success", true);
