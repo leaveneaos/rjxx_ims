@@ -814,8 +814,8 @@
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpcx_1.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
-	<script src="assets/js/colResizable-1.6.min.js"></script>
-	<script src="assets/js/ColReorder.min.js"></script>
+	<%--<script src="assets/js/colResizable-1.6.min.js"></script>
+	<script src="assets/js/ColReorder.min.js"></script>--%>
 	<%--<script src="assets/js/dataTables.fixedColumns.js"></script>--%>
 </body>
 <script>

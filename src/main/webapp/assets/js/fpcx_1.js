@@ -219,7 +219,7 @@ $(function() {
 				},
 				"columns" : start
 			});
-			
+
 
             $('.js-table tbody').on('dblclick', 'tr', function () {
                 if ( $(this).find('td:eq(0) input').is(':checked')){
