@@ -69,10 +69,10 @@
 							<!-- <li id="zhxx" class="am-u-sm-12"><a href="javascript:zhxx()"
                                 data-am-modal="{target: '#doc-modal-3', closeViaDimmer: 0, width: 550}"><span
                                     class="am-icon-user"></span> 账户信息</a></li> -->
-							<li class="am-u-sm-12"><a href="#"
+							<li class="am-u-sm-12 navHeader-slogerDpwn"><a href="#"
 													  data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 550}"><span
 									class="am-icon-user"></span> 修改用户资料</a></li>
-							<li class="am-u-sm-12"><a href="#"
+							<li class="am-u-sm-12 navHeader-slogerDpwn"><a href="#"
 													  data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 550}"><span
 									class="am-icon-cog"></span> 修改密码</a></li>
 							<!-- 			<li><a href="javascript:logout()"><span

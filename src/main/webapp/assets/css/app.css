@@ -11,6 +11,9 @@ header {
   left: 0px;
   right: 0px;
 }
+.navHeader-slogerDpwn>a{
+  color: #444444 !important;
+}
 .tpl-header-logo {
   width: 240px;
   height: 56px;

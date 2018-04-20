@@ -27,6 +27,7 @@
 					<div class="widget am-cf">
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
 								<%-- <li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
@@ -65,7 +66,7 @@
 										</div>
 								</a></li></c:if>
 							</ul>
-
+							</div>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 								<div class="widget am-cf">
 									<div class="widget-body  widget-body-lg am-fr">

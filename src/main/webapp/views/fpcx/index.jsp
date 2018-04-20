@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+	<link rel="stylesheet" href="assets/css/fixedColumns.dataTables.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
@@ -241,7 +242,7 @@
 							<form action="<c:url value='fpcx/exportExcel1'/>" id="searchform"
 								class="js-search-form  am-form am-form-horizontal">
 								<input type="hidden" name="kplsh" value="" id="kplsh"/>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+								<div class="am-cf">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
@@ -262,33 +263,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="tip" name="tip" data-am-selected="{btnSize: 'sm'}">
-											<option value="0">请选择</option>
-											<option value="2" selected="selected">订单号</option>
-											<option value="1">购方名称</option>
-											<option value="5">发票号码</option>
-											<%--<option value="6">发票代码</option>--%>
-											<%--<option value="3">商品名称</option>--%>
-											<!-- 														<option value="4">销方名称</option> -->
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input type="text" id="searchtxt" name="txt"
-											class="am-form-field "> <span
-											class="am-input-group-btn" id="button1">
-											<button  id="button4"
-												class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
-										</span>
-									</div>
-								</div>
+								<div class="am-padding-top"></div>
 
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
+								<div class="am-u-sm-6 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-u-sm-3">
 											<select id="time1" name="time1" data-am-selected="{btnWidth: '95%',btnSize: 'sm'}">
@@ -311,6 +288,33 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
+									<div class="am-form-group tpl-table-list-select">
+										<select id="tip" name="tip" data-am-selected="{btnSize: 'sm'}">
+											<option value="0">请选择</option>
+											<option value="2" selected="selected">订单号</option>
+											<option value="1">购方名称</option>
+											<option value="5">发票号码</option>
+											<%--<option value="6">发票代码</option>--%>
+											<%--<option value="3">商品名称</option>--%>
+											<!-- 														<option value="4">销方名称</option> -->
+										</select>
+									</div>
+								</div>
+								<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
+									<div
+										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+										<input type="text" id="searchtxt" name="txt"
+											class="am-form-field "> <span
+											class="am-input-group-btn" id="button1">
+											<button  id="button4"
+												class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+												type="button"></button>
+										</span>
+									</div>
+								</div>
+
 
 							</form>
 							<div class="am-u-sm-12 am-padding-top">
@@ -802,12 +806,16 @@
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
 		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+	<script
+			src="assets/js/dataTables.fixedColumns.js"></script>
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fpcx_1.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
+	<script src="assets/js/colResizable-1.6.min.js"></script>
+	<script src="assets/js/ColReorder.min.js"></script>
 	<%--<script src="assets/js/dataTables.fixedColumns.js"></script>--%>
 </body>
 <script>
