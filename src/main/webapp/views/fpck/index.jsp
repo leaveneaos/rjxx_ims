@@ -328,77 +328,84 @@
 			<form action="fpck/fpckSave"  method="get" autocomplete="off" class="js-form am-form am-form-horizontal">
 				<div class="am-g">
 					<div class="am-form-group">
-						<div class="am-form-group">
-							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="fpzldm_ck" class="am-u-sm-3 am-form-label">发票类型</label>
-							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-								<select id="fpzldm_ck" name="fpzldm_ck">
-									<option value="">----请选择----</option>
-									<option value="01">增值税专用发票</option>
-									<option value="02">增值税普通发票</option>
-									<option value="12">电子发票(增普)</option>
-								</select>
+						<div class="am-g">
+							<div class="am-u-md-6">
+								<label for="fpzldm_ck" class="am-u-sm-3 am-form-label">发票类型</label>
+								<div class="am-u-sm-7">
+									<select id="fpzldm_ck" name="fpzldm_ck">
+										<option value="">----请选择----</option>
+										<option value="01">增值税专用发票</option>
+										<option value="02">增值税普通发票</option>
+										<option value="12">电子发票(增普)</option>
+									</select>
+								</div>
 							</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;margin-right: 22%">
-								<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
-								<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
-								<input id="fpcklx" name="fpcklx" type="hidden" value="01" />
-								<input id="kplshck" name="kplshck" type="hidden"  />
-							</div>
-
-						</div>
-
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfmcck" class="am-u-sm-3 am-form-label data-cte"><span class="star" style="color:red;">*</span>购方名称</label>
-							<div class="am-u-sm-7" >
-								<input id="gfmcck" name="gfmcck" type="text" value="" placeholder="请输入购方名称" required>
+							<div class="am-u-md-6">
+								<label for="sfbx" class="am-u-sm-3 am-form-label data-cte"><span class="star"></span>用于报销</label>
+								<div class="am-u-sm-3" >
+									<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
+									<input id="fpcklx" name="fpcklx" type="hidden" value="01" />
+									<input id="kplshck" name="kplshck" type="hidden"  />
+								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfshck" class="am-u-sm-3 am-form-label data-cte"><span class="star" id="show" style="color:red;">*</span>购方税号</label>
-							<div class="am-u-sm-7">
-								<input id="gfshck" name="gfshck" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+						<div class="am-g">
+							<div class="am-u-md-6">
+								<label for="gfmcck" class="am-u-sm-3 am-form-label data-cte"><span class="star" style="color:red;">*</span>购方名称</label>
+								<div class="am-u-sm-7" >
+									<input id="gfmcck" name="gfmcck" type="text" value="" placeholder="请输入购方名称" required>
+								</div>
+							</div>
+							<div class="am-u-md-6">
+								<label for="gfshck" class="am-u-sm-3 am-form-label data-cte"><span class="star" id="show" style="color:red;">*</span>购方税号</label>
+								<div class="am-u-sm-7">
+									<input id="gfshck" name="gfshck" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfemailck" class="am-u-sm-3 am-form-label data-cte">购方邮箱</label>
-							<div class="am-u-sm-7">
-								<input id="gfemailck" name="gfemailck" type="text" placeholder="请输入邮箱" >
+						<div class="am-g">
+							<div class="am-u-md-6">
+								<label for="gfemailck" class="am-u-sm-3 am-form-label data-cte">购方邮箱</label>
+								<div class="am-u-sm-7">
+									<input id="gfemailck" name="gfemailck" type="text" placeholder="请输入邮箱" >
+								</div>
+							</div>
+							<div class="am-u-md-6">
+								<label for="gfdzck" class="am-u-sm-3 am-form-label data-cte">地址</label>
+								<div class="am-u-sm-7">
+									<input id="gfdzck" name="gfdzck" type="text" placeholder="请输入地址">
+								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfdzck" class="am-u-sm-3 am-form-label data-cte">地址</label>
-							<div class="am-u-sm-7">
-								<input id="gfdzck" name="gfdzck" type="text" placeholder="请输入地址">
+						<div class="am-g">
+							<div class="am-u-md-6">
+								<label for="gfdhck" class="am-u-sm-3 am-form-label data-cte">电话</label>
+								<div class="am-u-sm-7">
+									<input id="gfdhck" name="gfdhck" type="text" placeholder="请输入电话号码">
+								</div>
+							</div>
+							<div class="am-u-md-6">
+								<label for="gfyhck" class="am-u-sm-3 am-form-label data-cte">开户行</label>
+								<div class="am-u-sm-7">
+									<input id="gfyhck" name="gfyhck" type="text" placeholder="请输入开户行">
+								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfdhck" class="am-u-sm-3 am-form-label data-cte">电话</label>
-							<div class="am-u-sm-7">
-								<input id="gfdhck" name="gfdhck" type="text" placeholder="请输入电话号码">
-							</div>
-						</div>
-
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-							<label for="gfyhck" class="am-u-sm-3 am-form-label data-cte">开户行</label>
-							<div class="am-u-sm-7">
-								<input id="gfyhck" name="gfyhck" type="text" placeholder="请输入开户行">
-							</div>
-						</div>
-
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+						<div class="am-g">
+						<div class="am-u-md-6">
 							<label for="gfyhzhck" class="am-u-sm-3 am-form-label data-cte">银行账号</label>
 							<div class="am-u-sm-7">
 								<input id="gfyhzhck" name="gfyhzhck" type="text" placeholder="请输入银行账号">
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+						<div class="am-u-md-6">
 							<label for="bzck" class="am-u-sm-3 am-form-label data-cte">备注</label>
 							<div class="am-u-sm-7">
 								<input id="bzck" name="bzck" type="text" placeholder="请输入备注信息">
 							</div>
 						</div>
+					</div>
+
 						<div class="am-u-sm-12 am-margin-top-lg">
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
