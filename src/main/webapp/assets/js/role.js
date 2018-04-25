@@ -54,8 +54,12 @@ $(function() {
 									// "defaultContent": '<input type="checkbox"
 									// />'
 									render : function(data, type, full, meta) {
-										return '<input type="checkbox" value="'
-												+ data.id + '" />';
+										if(data.sfsmr==1){
+											return '';
+											//return '<input type="checkbox" disabled="true" value="'+ data.id + '" />';
+										}else{
+											return '<input type="checkbox" value="'+ data.id + '" />';
+										}
 									}
 								},
 								{
@@ -66,7 +70,12 @@ $(function() {
 								{
 									"data" : null,
 									"render" : function(data) {
-										return '<a class="xiugai">修改</a> '
+										if(data.sfsmr==1){
+											return "";
+										}else{
+											return '<a class="xiugai">修改</a> '
+										}
+										
 									}
 								// "defaultContent": ' <a class="view" href="' +
 								// data.href+ '" target="_blank">查看</a> <a
@@ -99,6 +108,7 @@ $(function() {
 				// el.$qrmm.show();
 				// el.$lab.show();
 				// el.$lab1.show();
+				$("#roleid").val("");
 				ur = _this.config.xzUrl
 				el.$modalHongchong.modal({
 					"width" : 700,

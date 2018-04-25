@@ -66,6 +66,7 @@ public class YhglController extends BaseController {
 		try {
 			Map params = new HashMap<>();
 			params.put("gsdm", gsdm);
+			params.put("sfsmr", 1);
 			List<Roles> xfs = rolesService.findBySql(params);
 			return xfs;
 		} catch (Exception e) {
@@ -126,6 +127,7 @@ public class YhglController extends BaseController {
 				map.put("gsdm", getGsdm());
 				List<String> roleList = new ArrayList<>(Arrays.asList(yh.getRoleids().split(",")));
 				map.put("roleList", roleList);
+				map.put("yhjscx", 1);
 				List<Roles> list = rolesService.findBySql(map);
 				// String sql = "select * from roles where yxbz = '1' and lrry
 				// in (select id from t_yh where gsdm = ?) and id in
@@ -201,7 +203,7 @@ public class YhglController extends BaseController {
 			result.put("msg", "请选择用户销方");
 			// view.setContentType("text/html;charset=utf-8");
 			return result;
-		} else if (jsids.length < 1) {
+		} else if (jsids==null || jsids.length < 1) {
 			result.put("success", false);
 			result.put("msg", "请选择用户角色");
 			// view.setContentType("text/html;charset=utf-8");
