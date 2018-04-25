@@ -121,7 +121,7 @@
     	var divs = $('.ejcd',parent.document);
     	for(var i=0;i<divs.length;i++){
     		if($(divs[i]).attr('data')==v_id){
-    			$(divs[i]).css("background-color","#f2f6f9");
+    			$(divs[i]).css({"background-color":"#f2f6f9","color":"#000"});
     			$("#cd1",parent.document).val($(divs[i]).attr("dele"));
 				$("#cd2",parent.document).val($(divs[i]).attr("parname"));
     		}

@@ -806,8 +806,8 @@
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
 		src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
-	<script
-			src="assets/js/dataTables.fixedColumns.js"></script>
+	<%--<script
+			src="assets/js/dataTables.fixedColumns.js"></script>--%>
 	<script src="assets/js/amazeui.datatables.js"></script>
 	<script src="assets/js/amazeui.tree.min.js"></script>
 	<script src="assets/js/app.js"></script>
