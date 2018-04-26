@@ -611,9 +611,9 @@ public class SgkjController extends BaseController{
                         skService.SkServerKP(kpls.getKplsh());
                     }
                 }
-               /* KplsVO4 kplsVO4 = new KplsVO4(kpls, jyxxsq);
-                result.add(kplsVO4);*/
-                //i++;
+               if("04".equals(cszb.getCsz())&&cszb != null ){
+                   skService.SkBoxKP(kpls.getKplsh());
+               }
             }
 
         //return result;
