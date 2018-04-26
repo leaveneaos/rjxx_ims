@@ -1646,6 +1646,8 @@ public class KpController extends BaseController {
 							kpls.setFpztdm("04");
 							kplsService.save(kpls);
 						}
+					}else if("04".equals(cszb.getCsz())){
+						skService.SkBoxKP(Integer.parseInt(kpsqh[i]));
 					}
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
