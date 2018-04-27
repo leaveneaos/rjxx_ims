@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  **/
 @Controller
 @RequestMapping("/testSkp")
-public class TestCRESTVSKP extends BaseController {
+public class TestSkp extends BaseController {
 
 
     @Reference(version = "1.0.0",group = "ims",timeout = 12000,retries = '0')
