@@ -2,7 +2,6 @@ package com.rjxx.taxeasy.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.rjxx.taxeasy.dubbo.business.ims.service.DubboSkpService;
-import com.rjxx.taxeasy.dubbo.business.tcs.service.DubboInvoiceService;
 import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/testSkp")
 public class TestCRESTVSKP extends BaseController {
 
-
-    @Reference(version = "1.0.0",group = "tcs",timeout = 12000,retries = '0')
-    private DubboInvoiceService dubboInvoiceService;
 
     @Reference(version = "1.0.0",group = "ims",timeout = 12000,retries = '0')
     private DubboSkpService dubboSkpService;
