@@ -64,9 +64,19 @@ $(function() {
     $("#lrsave").click(function () {
         var r = $("#main_form1").validator("isFormValid");
         var kprq = $("#sglr_kprq").val();
+        var fpdm = $("#sglr_fpdm").val();
+        var fphm = $("#sglr_fphm").val();
         if(kprq == ""){
             $("#sglr_kprq").focus();
             swal('开票日期不能为空!');
+            return false;
+        }
+        if(fpdm ==null || fpdm==""){
+            swal('发票代码不能为空!');
+            return false;
+        }
+        if(fphm ==null || fphm==""){
+            swal('发票号码不能为空!');
             return false;
         }
         if (r) {
@@ -113,12 +123,22 @@ $(function() {
 
     $('#smlr_info').bind('keyup', function(event) {
         if (event.keyCode == "13") {
-            alert($("#smlr_info").val());
+            // alert($("#smlr_info").val());
             var r = $("#main_form1").validator("isFormValid");
             var kprq = $("#sglr_kprq").val();
+            var fpdm = $("#sglr_fpdm").val();
+            var fphm = $("#sglr_fphm").val();
             if(kprq == ""){
                 $("#sglr_kprq").focus();
                 swal('开票日期不能为空!');
+                return false;
+            }
+            if(fpdm ==null || fpdm==""){
+                swal('请重新扫描!');
+                return false;
+            }
+            if(fphm ==null || fphm==""){
+                swal('请重新扫描!');
                 return false;
             }
             if (r) {

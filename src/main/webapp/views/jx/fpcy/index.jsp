@@ -172,10 +172,10 @@ table thead th {
 																class="am-btn am-btn-default am-btn-danger">
 																<span></span>删除
 															</button>
-															<button type="button" id="kpd_kp"
+															<%--<button type="button" id="kpd_kp"
 																	class="am-btn am-btn-default am-btn-secondary">
 																<span></span> 导出
-															</button>
+															</button>--%>
 														</div>
 													</div>
 												</div>
@@ -562,7 +562,10 @@ table thead th {
             if(info!=null && info!=""){
 				var s = info.split(",");
 				var fpzl = s[0]+s[1];
-//				alert(fpzl);
+				if(s.length<6){
+                    swal('请重新扫描!');
+                    return;
+				}
 				if(fpzl!=null&&(fpzl=="0104"|| fpzl=="0110")){
                     $("#sglr_zp").prop("checked",false);
                     $("#sglr_pp").prop("checked",true);
@@ -571,8 +574,7 @@ table thead th {
 					$("#sglr_fphm").val(s[3]);
 					var jym = s[6];
                     $("#sglr_jym").val(jym.substring(jym.length-6,jym.length));
-                    $("#sglr_kprq").val(formatDate1(s[5]));
-//                    alert(formatDate1(s[5]));
+                    $("#sglr_kprq").val(dateFormat(s[5]));
 				}
 				else if(fpzl!=null&&fpzl=="0101"){
                     $("#sglr_pp").prop("checked",false);
@@ -581,18 +583,22 @@ table thead th {
                     $("#sglr_fpdm").val(s[2]);
                     $("#sglr_fphm").val(s[3]);
                     $("#sglr_je").val(s[4]);
-                    $("#sglr_kprq").val(formatDate1(s[5]));
-//                    alert(formatDate1(s[5]));
+                    $("#sglr_kprq").val(dateFormat(s[5]));
+				}else {
+                    swal('请重新扫描!');
+                    return;
 				}
+			}else {
+                swal('请重新扫描!');
+                return;
 			}
         };
-		function formatDate1(str) {
-            var yy = str.substring(0,4);
-            var mm = str.substring(4,6);
-            var dd = str.substring(6,str.length);
-            var date = yy+"-"+mm+"-"+dd;
-            return date;
-        }
+
+    function dateFormat(str) {
+        var pattern = /(\d{4})(\d{2})(\d{2})/;
+        var formatedDate = str.replace(pattern, '$1-$2-$3');
+        return formatedDate;
+    }
 	</script>
 
 </body>
