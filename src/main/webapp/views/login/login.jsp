@@ -124,7 +124,7 @@
                                     &nbsp;
                                 </div>
                                 <div class="am-u-sm-6">
-                                    <a href="<%=request.getContextPath()%>/zc/index.jsp">免费注册</a>
+                                    <a href="<%=request.getContextPath()%>/zc/zcIndex.jsp">免费注册</a>
                                 </div>
                             </div>
 
