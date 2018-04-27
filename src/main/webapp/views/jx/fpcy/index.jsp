@@ -408,74 +408,18 @@ table thead th {
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd am-modal-footer-hd">
 				批量导入
-				<!--  <a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close>&times;</a> -->
 			</div>
 
 			<div class="am-tab-panel am-fade am-in am-active">
-				<form class="am-form am-form-horizontal" id="importExcelForm"
+				<form class="am-form am-form-horizontal"  id="importExcelForm"
 					method="post"
-					action="<%=request.getContextPath()%>/lrkpd/importExcel"
+					action="<%=request.getContextPath()%>/income/importExcel"
 					enctype="multipart/form-data">
 					<div class="am-form-group">
 						<div class="am-u-sm-12">
 							<input type="file" class="am-u-sm-12" id="importFile"
 								name="importFile" placeholder="选择要上传的文件" onchange="fileChange(this);"
 								accept="application/vnd.ms-excel" required>
-						</div>
-						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择销方</label>
-							<div class="am-u-sm-8">
-								<select id="mb_xfsh" name="mb_xfsh" class="am-u-sm-12">
-									<c:if test="${xfSum > 1}">
-										<option value="">请选择</option>
-										<c:forEach items="${xfList}" var="item">
-											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-										</c:forEach>
-									</c:if>
-									<c:if test="${xfSum == 1}">
-										<c:forEach items="${xfList}" var="item">
-											<option value="${item.xfsh}">${item.xfmc}(${item.xfsh})</option>
-										</c:forEach>
-									</c:if>
-								</select>
-							</div>
-						</div>
-						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择开票点</label>
-							<div class="am-u-sm-8">
-								<select id="mb_skp" name="mb_skp" class="am-u-sm-12">
-									<c:if test="${skpSum == 1 && xfSum == 1 }">
-										<c:forEach items="${skps}" var="item">
-											<option value="${item.id}">${item.kpdmc}</option>
-										</c:forEach>
-									</c:if>
-									<c:if test="${skpSum > 1 || xfSum > 1}">
-										<option value="">请选择</option>
-										<c:forEach items="${skps}" var="item">
-											<option value="${item.id}">${item.kpdmc}</option>
-										</c:forEach>
-									</c:if>
-								</select>
-							</div>
-						</div>
-						<div class="am-u-sm-12">
-							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>选择模板</label>
-							<div class="am-u-sm-8">
-								<select id="mb" name="mb" class="am-u-sm-12">
-									<c:if test="${mbSum == 1 && xfSum == 1 }">
-										<c:forEach items="${mbList}" var="item">
-											<option value="${item.id}">${item.mbmc}</option>
-										</c:forEach>
-									</c:if>
-									<c:if test="${mbSum > 1 || xfSum > 1}">
-										<option value="">请选择</option>
-										<c:forEach items="${mbList}" var="item">
-											<option value="${item.id}">${item.mbmc}</option>
-										</c:forEach>
-									</c:if>
-								</select>
-							</div>
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 30px;">
 							<button type="button" id="btnImport"
@@ -547,43 +491,13 @@ table thead th {
     });
 
 	$(function() {
-        $("#btnDownloadDefaultTemplate").click(function () {
-        	var mbid = $('#mb').val();
-        	if(null==mbid||""==mbid||"-1"==mbid){
-            	swal("请选择模板后下载");
-        	}else{
-    			$.ajax({
-    				type : "POST",
-    				url : "kpdsh/bmlj",
-    				data : {"mbid":mbid},
-    				success : function(data) {
-						if(data.drmb.xzlj!=null&&data.drmb.xzlj!=""){
-						  window.location.href='lrkpd/downloadDefaultImportTemplate?xzlj='+data.drmb.xzlj;
-						}else{
-							window.location.href='kpdsh/xzmb?mbid='+mbid;
-						}
-    				}
-    			});
-        	}
-    });
+		//下载默认导入模板
+        $("#btnDownloadDefaultTemplate").click(function() {
+            location.href = "income/downloadDefaultImportTemplate";
+        });
         //导入excel
         $("#btnImport").click(function () {
             var filename = $("#importFile").val();
-            var xfsh = $("#mb_xfsh").val();
-            var mb = $("#mb").val();
-            var skpid = $("#mb_skp").val();
-            if (!xfsh) {
-                swal("请选择要导入的销方");
-                return;
-            }
-            if (skpid==-1 || skpid =='-1') {
-                swal("请选择要导入的开票点");
-                return;
-            }
-            if (mb==-1) {
-                swal("请选择要导入的模板或设置默认模板,如无模板请添加模板后再导入");
-                return;
-            }
             if (!filename) {
                 swal("请选择要导入的文件");
                 return;
@@ -615,12 +529,6 @@ table thead th {
                         }, function() {
                             window.location.reload();
                         });
-                        if (res["yes"]) {
-                			$('#mrmb').empty();
-                			var txt = $('#mb').find("option:selected").text();
-        					var option = $("<option>").text(txt).val(mbid);
-                        	$('#mrmb').append(option);
-						}
                     } else {
                         $("#btnImport").attr("disabled", false);
                         $('.js-modal-loading').modal('close');
@@ -630,38 +538,6 @@ table thead th {
             };
             $("#importExcelForm").ajaxSubmit(options);
         });
-        //导入选择销方模板
-        $("#mb_xfsh").change(function () {
-            var xfsh = $(this).val();
-            $('#mb').empty();
-            $('#mb_skp').empty();
-            //$('#mrmb').empty();
-            if (xfsh == null || xfsh == '' || xfsh == "") {
-				return;
-			}
-            var url = "<%=request.getContextPath()%>/lrkpd/getSkpList";
-            $.post(url, {xfsh: xfsh}, function (data) {
-                if (data) {
-                	var option = $("<option>").text('请选择').val(-1);
-                	$('#mb_skp').append(option);
-                    for (var i = 0; i < data.skps.length; i++) {
-                    	option = $("<option>").text(data.skps[i].kpdmc).val(data.skps[i].id);
-                    	$('#mb_skp').append(option);
-					}
-                }
-            });
-            url = "<%=request.getContextPath()%>/lrkpd/getTemplate";
-            $.post(url, {xfsh: xfsh}, function (data) {
-                if (data) {
-                	var option = $("<option>").text('请选择').val(-1);
-                	$('#mb').append(option);
-                    for (var i = 0; i < data.mbs.length; i++) {
-                    	option = $("<option>").text(data.mbs[i].mbmc).val(data.mbs[i].id);
-                    	$('#mb').append(option);
-					}
-                }
-            });
-			});
 
 		});
 

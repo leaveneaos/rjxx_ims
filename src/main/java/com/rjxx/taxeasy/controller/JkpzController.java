@@ -3,12 +3,15 @@ package com.rjxx.taxeasy.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.domain.OrderDetail;
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.ExportTextUtil;
 import com.rjxx.taxeasy.bizcomm.utils.GetCszService;
 import com.rjxx.taxeasy.dao.CszbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbbJpaDao;
 import com.rjxx.taxeasy.dao.JkmbzbJpaDao;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.dto.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.*;
 import com.rjxx.taxeasy.web.BaseController;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
 @Controller
@@ -794,4 +798,198 @@ public class JkpzController extends BaseController {
         return result;
     }
 
+
+    @RequestMapping(value = "/exportTxt")
+    @ResponseBody
+    //导出txt
+    public Map exportTxt(String mbid){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            if(StringUtils.isBlank(mbid)){
+                result.put("success", false);
+                result.put("msg","导出数据为空");
+                return result;
+            }
+            String msg ="";
+            Map map1 = new HashMap();
+            map1.put("mbid",mbid);
+//            map1.put("mbid","3");
+            List<JkpzVo> jkmbzbList = jkmbzbService.findByMbId(map1);
+            if(jkmbzbList.isEmpty()){
+                result.put("success", false);
+                result.put("msg","导出数据为空");
+                return result;
+            }
+            AdapterPost adapterPost = new AdapterPost();
+            adapterPost.setAppId("RJxxxxxxxx");
+            adapterPost.setTaxNo("310101123456789");
+            adapterPost.setClientNo("KP001");
+            adapterPost.setSign("afafddaf2eweddew");
+            AdapterData adapterData = new AdapterData();
+            adapterPost.setData(adapterData);
+            AdapterDataOrder order =new AdapterDataOrder();
+            order.setTotalAmount(5410.00d);
+            order.setTotalDiscount(910.00d);
+            order.setExtractedCode("1A2B3C4D5F");
+            adapterData.setOrder(order);
+            for (JkpzVo jkpzVo : jkmbzbList) {
+                Map paraMap = new HashMap();
+                paraMap.put("jkpzVo",jkpzVo);
+                paraMap.put("adapterPost", adapterPost);
+                String execute = execute(jkpzVo.getCszff(), paraMap);
+                if(StringUtils.isNotBlank(execute)){
+                    msg += execute;
+                }
+            }
+            if(StringUtils.isNotBlank(msg)){
+                result.put("success", false);
+                result.put("msg",msg);
+                return result;
+            }
+            System.out.println(JSON.toJSONString(adapterPost));
+            //将集合转换成字符串
+            String jsonString = JSON.toJSONString(adapterPost);
+            ExportTextUtil.writeToTxt(response,jsonString);
+            result.put("success", true);
+            result.put("msg","导出成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("msg","系统异常");
+            return result;
+        }
+        return result;
+    }
+
+    public String execute(String methodName,Map map){
+        String result = "";
+        try {
+            Method target = this.getClass().getMethod(methodName,Map.class);
+            result = (String)target.invoke(this,map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    public String param(Map map){
+        String result ="";
+        try {
+            JkpzVo jkpzVo = (JkpzVo) map.get("jkpzVo");
+            AdapterPost adapterPost = (AdapterPost) map.get("adapterPost");
+            if(jkpzVo==null || adapterPost ==null){
+                result="获取数据错误";
+                return result;
+            }
+            String pzcsm = jkpzVo.getPzcsm();
+            switch (pzcsm){
+                case "serialNumber":
+                    adapterPost.getData().setSerialNumber("2016062412444500001");
+                    break;
+                case "orderNo":
+                    adapterPost.getData().getOrder().setOrderNo("ME24156071");
+                    break;
+                case "orderDate":
+                    adapterPost.getData().getOrder().setOrderDate(new Date());
+                    break;
+                case "clientNo":
+                    adapterPost.setClientNo("KP001");
+                    break;
+                case "invType":
+                    adapterPost.getData().setInvType("12");
+                    break;
+                case "invoiceList":
+                    adapterPost.getData().getOrder().setInvoiceList("0");
+                    break;
+                case "invoiceSplit":
+                    adapterPost.getData().getOrder().setInvoiceSplit("1");
+                    break;
+                case "invoicePrint":
+                    adapterPost.getData().getOrder().setInvoiceSfdy("1");
+                    break;
+                case "chargeTaxWay":
+                    adapterPost.getData().getOrder().setChargeTaxWay("0");
+                    break;
+                case "taxMark":
+                    adapterPost.getData().getOrder().setTaxMark("0");
+                    break;
+                case "remark":
+                    adapterPost.getData().getOrder().setRemark("该栏目打印在发票上的备注");
+                    break;
+                case "version":
+                    adapterPost.getData().setVersion("18.0");
+                    break;
+                case "person":
+                    adapterPost.getData().setPayee("收款人");
+                    adapterPost.getData().setDrawer("开票人");
+                    adapterPost.getData().setReviewer("复核人");
+                    break;
+                case "seller":
+                    AdapterDataSeller seller =new AdapterDataSeller();
+                    seller.setIdentifier("310101123456789");
+                    seller.setAddress("某某路10号1203室");
+                    seller.setName("发票开具方名称");
+                    seller.setTelephoneNo("021-55555555");
+                    seller.setBank("中国建设银行打浦桥支行");
+                    seller.setBankAcc("123456789-0");
+                    adapterPost.getData().setSeller(seller);
+                    break;
+                case "items":
+                    List list = new ArrayList();
+                    AdapterDataOrderDetails details =new AdapterDataOrderDetails();
+                    details.setVenderOwnCode("商品自行编码");
+                    details.setProductCode("1000000000000000000");
+                    details.setProductName("商品1");
+                    details.setRowType("0");
+                    details.setSpec("规格型号1");
+                    details.setUtil("单位1");
+                    details.setQuantity(1d);
+                    details.setUnitPrice(1000.00d);
+                    details.setAmount(1000.00d);
+                    details.setDeductAmount(0d);
+                    details.setTaxRate(0.17d);
+                    details.setTaxAmount(170.00d);
+                    details.setMxTotalAmount(1170.00d);
+                    details.setPolicyName("优惠政策名称");
+                    details.setPolicyMark("优惠政策标识");
+                    details.setTaxRateMark("零税率标志");
+                    list.add(details);
+                    adapterPost.getData().getOrder().setOrderDetails(list);
+                    break;
+                case "payments":
+                    List list1 = new ArrayList();
+                    AdapterDataOrderPayments payments1 =new AdapterDataOrderPayments();
+                    AdapterDataOrderPayments payments2 =new AdapterDataOrderPayments();
+                    payments1.setPayCode("01");
+                    payments1.setPayPrice(500d);
+                    payments2.setPayCode("03");
+                    payments2.setPayPrice(410.00d);
+                    list1.add(payments1);
+                    adapterPost.getData().getOrder().setPayments(list1);
+                    break;
+                case "buyer":
+                    AdapterDataOrderBuyer buyer = new AdapterDataOrderBuyer();
+                    buyer.setCustomerType("0");
+                    buyer.setIdentifier("310105987654321");
+                    buyer.setName("购买方名称");
+                    buyer.setAddress("某某路20号203室");
+                    buyer.setTelephoneNo("13912345678");
+                    buyer.setBank("中国建设银行打浦桥支行");
+                    buyer.setBankAcc("123456789-0");
+                    buyer.setEmail("abc@163.com");
+                    buyer.setIsSend("1");
+                    buyer.setRecipient("张三");
+                    buyer.setReciAddress("收件人地址");
+                    buyer.setZip("200000");
+                    adapterPost.getData().getOrder().setBuyer(buyer);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result="获取数据错误";
+            return result;
+        }
+        return null;
+    }
 }
