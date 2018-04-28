@@ -203,12 +203,13 @@ public class YhglController extends BaseController {
 			result.put("msg", "请选择用户销方");
 			// view.setContentType("text/html;charset=utf-8");
 			return result;
-		} else if (jsids==null || jsids.length < 1) {
+		}
+		/*else if (jsids==null || jsids.length < 1) {
 			result.put("success", false);
 			result.put("msg", "请选择用户角色");
 			// view.setContentType("text/html;charset=utf-8");
 			return result;
-		}
+		}*/
 		for (String string1 : dids) {
 			String[] skpids = request.getParameterValues(string1);
 			map.put(string1, skpids);
@@ -222,7 +223,9 @@ public class YhglController extends BaseController {
 		// yh.setYhjg(getXfid());
 		yh.setGsdm(getGsdm());
 		yh.setYhmm(PasswordUtils.encrypt(yhmm));
-		yh.setRoleids(RoleIds);
+		if(jsids!=null && jsids.length >0 ) {
+			yh.setRoleids(RoleIds);
+		}
 		yh.setSjhm(sjhm);
 		yh.setYx(yx);
 		yh.setYxbz("1");
@@ -362,7 +365,7 @@ public class YhglController extends BaseController {
 			group.setYhid(yh.getId());
 			list = groupService.findAllByParams(group);
 			result.put("list", list);
-			result.put("list1", yh.getRoleids().split(","));
+			result.put("list1", yh.getRoleids()==null?"":yh.getRoleids().split(","));
 			result.put("msg", true);
 		} catch (Exception e) {
 			result.put("msg", false);
@@ -412,10 +415,10 @@ public class YhglController extends BaseController {
 		if (dids == null || dids.length < 1) {
 			result.put("success", false);
 			result.put("msg", "请选择用户销方");
-		} else if (jsids.length < 1) {
+		}/* else if (jsids.length < 1) {
 			result.put("success", false);
 			result.put("msg", "请选择用户角色");
-		} else {
+		} */else {
 			yhService.save(update);
 			updateGroup(yh.getId(), dids, map);
 		}
