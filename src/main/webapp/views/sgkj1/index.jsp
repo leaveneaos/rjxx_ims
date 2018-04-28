@@ -348,13 +348,13 @@
 									<input type="text" id="amount" name="amount" readonly />
 								</div>
 							</div>
-							<%--<div class="am-form-group">
+							<div class="am-form-group">
 								<label for="xz_gfdz" class="am-u-sm-3 am-form-label">折扣率</label>
 								<div class="am-u-sm-8">
 									<input type="text" id="xz_gfdz" name="xz_gfdz"
-										   placeholder="" />
+										   placeholder="" readonly />
 								</div>
-							</div>--%>
+							</div>
 							<div class="am-form-group">
 								<label for="disAmount" class="am-u-sm-3 am-form-label">折扣金额</label>
 								<div class="am-u-sm-8">

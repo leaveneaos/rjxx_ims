@@ -147,8 +147,12 @@ $(function() {
         var jshjstr=0;
         var disT= true;
         var j =0;
+        var firstje;
         if(tr.length>2){
             tr.each(function(i,row){
+                if(i==1){
+                    firstje=$(row).children("td").eq(6).find('input[name="spje"]').val()/1;
+                }
                 if(i!=0){
                     if($(row).children("td").eq(6).find('input[name="spje"]').val()/1==0){
                         swal("提示:\r\n"+"第"+i+"行商品金额为0,不能添加折扣");
@@ -165,13 +169,16 @@ $(function() {
                 }
             });
             if(disT){
-                $('#disNum').val(j);
-                $('#amount').val(jshjstr);
+                $('#disNum').val(1);
+                $('#amount').val(firstje);
                 $modal.modal({"width": 600, "height": 280});
             }
 
         }else{
             tr.each(function(i,row){
+                if(i==1){
+                    firstje=$(row).children("td").eq(6).find('input[name="spje"]').val()/1;
+                }
                 if(i!=0){
                     var text=$(row).children("td").eq(0).text();
                     if(text=="表中数据为空"){
@@ -189,8 +196,8 @@ $(function() {
                             return ;
                         }
                         if(disT){
-                            $('#amount').val(jshjstr);
-                            $('#disNum').val(i);
+                            $('#amount').val(firstje);
+                            $('#disNum').val(1);
                             $modal.modal({"width": 600, "height": 280});
                         }
                     }
@@ -737,72 +744,123 @@ $(function() {
         }
     })
     $("#disSave").click(function () {
-        var r ;
-        var arry=[];
-        $("#jyspmx_table").find("tr").each(function(j,row){
-            r=j;
-            $(row).children("td").each(function(i,cell){
-                console.log(cell);
-                if(i==1){
-                    var  spmc=$(cell).find('input[name="spmc"]').val();
-                    var spbm= $(cell).find('input[name="spbm"]').val();
-                    var yhzcbs= $(cell).find('input[name="yhzcbs"]').val();
-                    var yhzcmc= $(cell).find('input[name="yhzcmc"]').val();
-                    var lslbz= $(cell).find('input[name="lslbz"]').val();
-                    var fphxz= $(cell).find('input[name="fphxz"]').val();
-                }else if(i==2){
-                    var ggxh=$(cell).find('input[name="ggxh"]').val();
-                }else if(i==3){
-                    var spdw=$(cell).find('input[name="spdw"]').val();
-                }else if(i==4){
-                    var spsl=$(cell).find('input[name="spsl"]').val();
-                }else if(i==5){
-                    var spdj=$(cell).find('input[name="spdj"]').val();
-                }else if(i==6){
-                    var spje= $(cell).find('input[name="spje"]').val();
-                }else if(i==7){
-                    var taxrate=$(cell).find('input[name="taxrate"]').val();
-                }else if(i==8){
-                    var spse=$(cell).find('input[name="spse"]').val();
-                }
-            });
-            arry.push(row);
-        });
+        var arry=getAllRowDataArry();
         var num= $("#disNum").val();
-        console.log("商品行数"+r);
-        console.log("需要折扣行数"+num);
-        console.log("商品的所有数据"+arry);
-        for(var i=1;i<num;i++){
+        jyspmx_table.clear().draw();
+        var zspje=parseInt($("#amount").val());
+        var zzkje=parseInt($("#disAmount").val());
 
-                // jyspmx_table.row.add([
-                //     "<span class='index' id='xhf'>" + index + "</span>",
-                //     '<input type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+disspbm+'>' +
-                //     '<input type="hidden" id="yhzcbs" value='+disyhzcbs+' name="yhzcbs"><input type="hidden" id="yhzcmc" name="yhzcmc" value='+disyhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+dislslbz+'><input type="hidden" id="fphxz" name="fphxz"  value="1" >',
-                //     '<input type="text" id="ggxh" name="ggxh" >',
-                //     '<input type="text" id="spdw" name="spdw">',
-                //     '<input type="text" id="spsl" name="spsl" value='+disspsl+' oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-                //     '<input type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-                //     '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-                //     '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
-                //     '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
-                // ]).draw();
+        for(var i=0;i<arry.length;i++){
+            var cishu1=2*i+1;
+            var cishu2=2*i+2;
+            var zkje='-'+parseInt(arry[i].spje)/zspje*zzkje;
+                 if(i<num){
+                     jyspmx_table.row.add([
+                         "<span class='index' id='xhf'>" + cishu1 + "</span>",
+                         '<input type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+arry[i].spbm+'>' +
+                         '<input type="hidden" id="yhzcbs"  name="yhzcbs" value='+arry[i].yhzcbs+'><input type="hidden" id="yhzcmc" name="yhzcmc" value='+arry[i].yhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+arry[i].lslbz+' ><input type="hidden" id="fphxz" name="fphxz"  value="1" >',
+                         '<input type="text" id="ggxh" name="ggxh" value='+arry[i].ggxh+' >',
+                         '<input type="text" id="spdw" name="spdw" value='+arry[i].spdw+'>',
+                         '<input type="text" id="spsl" name="spsl"   oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spsl+' >',
+                         '<input type="text" id="spdj" name="spdj"  oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spdj+'>',
+                         '<input type="text" id="spje" name="spje"  oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spje+'>',
+                         '<input type="text" id="taxrate" name="taxrate"  class="selected" readonly style="text-align:right" value='+arry[i].taxrate+'>',
+                         '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly value='+arry[i].spse+' >'
+                     ]).draw();
+                     jyspmx_table.row.add([
+                         "<span class='index' style='color: red;' id='xhf'>" + cishu2 + "</span>",
+                         '<input style="color: red;" type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+arry[i].spbm+'>' +
+                         '<input type="hidden" id="yhzcbs"  name="yhzcbs" value='+arry[i].yhzcbs+'><input type="hidden" id="yhzcmc" name="yhzcmc" value='+arry[i].yhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+arry[i].lslbz+'><input type="hidden" id="fphxz" name="fphxz"  value="2" >',
+                         '<input style="color: red;" type="text" id="ggxh" name="ggxh" value='+arry[i].ggxh+'  >',
+                         '<input style="color: red;" type="text" id="spdw" name="spdw"  value='+arry[i].spdw+'>',
+                         '<input style="color: red;text-align:right" type="text" id="spsl" name="spsl"  oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')">',
+                         '<input style="color: red; text-align:right" type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')"  >',
+                         '<input style="color: red;text-align:right" type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')"  value='+zkje+'>',
+                         '<input style="color: red;text-align:right" type="text" id="taxrate" name="taxrate" class="selected" readonly  value='+arry[i].taxrate+'>',
+                         '<input style="color: red;" type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
+                     ]).draw();
+                 }else{
+                     jyspmx_table.row.add([
+                         "<span class='index' id='xhf'>" + cishu1 + "</span>",
+                         '<input type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+arry[i].spbm+'>' +
+                         '<input type="hidden" id="yhzcbs"  name="yhzcbs" value='+arry[i].yhzcbs+'><input type="hidden" id="yhzcmc" name="yhzcmc" value='+arry[i].yhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+arry[i].lslbz+' ><input type="hidden" id="fphxz" name="fphxz"  value="0" >',
+                         '<input type="text" id="ggxh" name="ggxh" value='+arry[i].ggxh+' >',
+                         '<input type="text" id="spdw" name="spdw" value='+arry[i].spdw+'>',
+                         '<input type="text" id="spsl" name="spsl"   oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spsl+' >',
+                         '<input type="text" id="spdj" name="spdj"  oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spdj+'>',
+                         '<input type="text" id="spje" name="spje"  oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right" value='+arry[i].spje+'>',
+                         '<input type="text" id="taxrate" name="taxrate"  class="selected" readonly style="text-align:right" value='+arry[i].taxrate+'>',
+                         '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly value='+arry[i].spse+' >'
+                     ]).draw();
+                 }
 
-            console.log(arry[i].spmc);
+            $modal.modal("close");
         }
 
 
     });
     $("#disNum").on('change',function () {
         var r ;
+        var je=0;
+        var num=parseInt( $("#disNum").val());
+        var arry=getAllRowDataArry();
+        var ruilv=[];
         $("#jyspmx_table").find("tr").each(function(j,row){
             r=j;
         });
-        var num= $("#disNum").val();
         if(num > r){
-            $("#disNum").val(r);
+            num=r;
         }
-    })
+        for (var x in arry) {
+           ruilv.push(arry[x].taxrate)
+        }
+        if(new Set(ruilv).size === 1){
+            for(var i=0;i<num;i++){
+                je+=parseInt(arry[i].spje);
+            }
+
+        }else{
+            je=arry[0].spje;
+            r=1;
+        }
+        $("#disNum").val(r);
+        $("#amount").val(je)
+
+    });
+
+    $("#disAmount").on('change',function (){
+        var spje=parseInt($("#amount").val());
+        var zkje=parseInt($(this).val());
+        var zkl=zkje/spje;
+        $("#xz_gfdz").val(zkl.toFixed(3)*100+'%')
+    });
     $("#close1").on('click', function () {
         $modal.modal('close');
     });
+
+    function getAllRowDataArry(){
+        var arry=[];
+        var spmc,spbm,yhzcbs,yhzcmc,lslbz,fphxz,ggxh,spdw,spsl,spdj,spje,taxrate,spse;
+        $("#jyspmx_table").find("tr").each(function(i,cell){
+            spmc=$(cell).find('input[name="spmc"]').val();
+            spbm= $(cell).find('input[name="spbm"]').val();
+            yhzcbs= $(cell).find('input[name="yhzcbs"]').val();
+            yhzcmc= $(cell).find('input[name="yhzcmc"]').val();
+            lslbz= $(cell).find('input[name="lslbz"]').val();
+            fphxz= $(cell).find('input[name="fphxz"]').val();
+            ggxh=$(cell).find('input[name="ggxh"]').val();
+            spdw=$(cell).find('input[name="spdw"]').val();
+            spsl=$(cell).find('input[name="spsl"]').val();
+            spdj=$(cell).find('input[name="spdj"]').val();
+            spje= $(cell).find('input[name="spje"]').val();
+            taxrate=$(cell).find('input[name="taxrate"]').val();
+            spse=$(cell).find('input[name="spse"]').val();
+            arry.push({'spmc':spmc,'spbm':spbm,'yhzcbs':yhzcbs,'yhzcmc':yhzcmc,'lslbz':lslbz,'fphxz':fphxz,'ggxh':ggxh,'spdw':spdw,'spsl':spsl,'spdj':spdj,'spje':spje,'taxrate':taxrate,'spse':spse});
+
+        });
+
+        arry.splice(0,1);
+
+        return arry;
+    }
 });
