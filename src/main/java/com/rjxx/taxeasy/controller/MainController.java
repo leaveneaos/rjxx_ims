@@ -73,6 +73,9 @@ public class MainController extends BaseController{
         	if(list.contains("/fpgdcx")){
         		request.setAttribute("fpgd", 1);
         	}
+			if(list.contains("/sgkj")){
+				request.setAttribute("sgkj", 1);
+			}
         }
 		return "mainjsp/index";
 	}

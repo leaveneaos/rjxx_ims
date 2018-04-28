@@ -29,7 +29,7 @@
 						<div class="widget-body  am-fr">
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
-								<%-- <li><a href="#" class="am-text-success">
+								<%--<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
 											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
 											</span>
@@ -37,13 +37,13 @@
 											发票库存查询
 										</div>
 								</a></li> --%>
-								<c:if test="${kplscl==1}">
+								<%--<c:if test="${kplscl==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #03A9F4;">
 											<span class="am-icon-pencil-square am-icon-lg" data="<%=request.getContextPath()%>/kpdshxb" onclick="jump(this,'/kpdshxb')"></span><br>
 											开票流水处理
 										</div>
-								</a></li></c:if>
+								</a></li></c:if>--%>
 								<c:if test="${fpcx==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #00BCD4;">
@@ -51,18 +51,25 @@
 											发票查询
 										</div>
 								</a></li></c:if>
-								<c:if test="${ytjbb==1}">
+								<%--<c:if test="${ytjbb==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #009688;">
 											<span class="am-icon-bar-chart am-icon-lg" data="<%=request.getContextPath()%>/fytjbb" onclick="jump(this,'/fytjbb')"></span><br>
 											月统计报表
 										</div>
-								</a></li></c:if>
-                                <c:if test="${fpgd==1}">
+								</a></li></c:if>--%>
+                                <%--<c:if test="${fpgd==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #259B24">
 											<span class="am-icon-archive am-icon-lg"  data="<%=request.getContextPath()%>/fpgdcx" onclick="jump(this,'/fpgdcx')"></span><br>
 											发票归档
+										</div>
+								</a></li></c:if>--%>
+								 <c:if test="${sgkj==1}">
+								<li><a href="#" class="am-text-success">
+										<div style="font-size: 2.5rem; color: #259B24">
+											<span class="am-icon-archive am-icon-lg"  data="<%=request.getContextPath()%>/sgkj" onclick="jump(this,'/sgkj')"></span><br>
+											手工开具
 										</div>
 								</a></li></c:if>
 							</ul>
