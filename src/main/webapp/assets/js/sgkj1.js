@@ -64,7 +64,7 @@ $(function() {
         ]
     });
     var index = 1;
-    var indexzf = 1;
+    var indexzf =0;
     var mxarr = [];
     var zfarr = [];
     var f=true;
@@ -200,31 +200,7 @@ $(function() {
     });
 
 
-    $("#disSave").click(function () {
-        var nTrs = $('#jyspmx_table').fnGetNodes();
-        alert(nTrs)
-        var data = jyspmx_table.rows('.selected').data();
-        var index = $("#xhf").text();
-        var disspsl = $("#spsl").text();
-        var disspmc = $("#spmc").text();
-        var disspbm = $("#spbm").val();
-        var disyhzcbs = $("#yhzcbs").val();
-        var disyhzcmc = $("#yhzcmc").val();
-        var dislslbz = $("#lslbz").val();
-        $("#fphxz").val("2");
-        jyspmx_table.row.add([
-            "<span class='index' id='xhf'>" + index + "</span>",
-            '<input type="text" id="spmc"  name="spmc" value='+disspmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+disspbm+'>' +
-            '<input type="hidden" id="yhzcbs" value='+disyhzcbs+' name="yhzcbs"><input type="hidden" id="yhzcmc" name="yhzcmc" value='+disyhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+dislslbz+'><input type="hidden" id="fphxz" name="fphxz"  value="1" >',
-            '<input type="text" id="ggxh" name="ggxh" >',
-            '<input type="text" id="spdw" name="spdw">',
-            '<input type="text" id="spsl" name="spsl" value='+disspsl+' oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-            '<input type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-            '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-            '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
-            '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
-        ]).draw();
-    });
+
 
     //删除明细
     $("#del").click(function(){
@@ -760,7 +736,72 @@ $(function() {
             $("#kpd").val('');
         }
     })
+    $("#disSave").click(function () {
+        var r ;
+        var arry=[];
+        $("#jyspmx_table").find("tr").each(function(j,row){
+            r=j;
+            $(row).children("td").each(function(i,cell){
+                console.log(cell);
+                if(i==1){
+                    var  spmc=$(cell).find('input[name="spmc"]').val();
+                    var spbm= $(cell).find('input[name="spbm"]').val();
+                    var yhzcbs= $(cell).find('input[name="yhzcbs"]').val();
+                    var yhzcmc= $(cell).find('input[name="yhzcmc"]').val();
+                    var lslbz= $(cell).find('input[name="lslbz"]').val();
+                    var fphxz= $(cell).find('input[name="fphxz"]').val();
+                }else if(i==2){
+                    var ggxh=$(cell).find('input[name="ggxh"]').val();
+                }else if(i==3){
+                    var spdw=$(cell).find('input[name="spdw"]').val();
+                }else if(i==4){
+                    var spsl=$(cell).find('input[name="spsl"]').val();
+                }else if(i==5){
+                    var spdj=$(cell).find('input[name="spdj"]').val();
+                }else if(i==6){
+                    var spje= $(cell).find('input[name="spje"]').val();
+                }else if(i==7){
+                    var taxrate=$(cell).find('input[name="taxrate"]').val();
+                }else if(i==8){
+                    var spse=$(cell).find('input[name="spse"]').val();
+                }
+            });
+            arry.push(row);
+        });
+        var num= $("#disNum").val();
+        console.log("商品行数"+r);
+        console.log("需要折扣行数"+num);
+        console.log("商品的所有数据"+arry);
+        for(var i=1;i<num;i++){
 
+                // jyspmx_table.row.add([
+                //     "<span class='index' id='xhf'>" + index + "</span>",
+                //     '<input type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+disspbm+'>' +
+                //     '<input type="hidden" id="yhzcbs" value='+disyhzcbs+' name="yhzcbs"><input type="hidden" id="yhzcmc" name="yhzcmc" value='+disyhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+dislslbz+'><input type="hidden" id="fphxz" name="fphxz"  value="1" >',
+                //     '<input type="text" id="ggxh" name="ggxh" >',
+                //     '<input type="text" id="spdw" name="spdw">',
+                //     '<input type="text" id="spsl" name="spsl" value='+disspsl+' oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+                //     '<input type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+                //     '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+                //     '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
+                //     '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
+                // ]).draw();
+
+            console.log(arry[i].spmc);
+        }
+
+
+    });
+    $("#disNum").on('change',function () {
+        var r ;
+        $("#jyspmx_table").find("tr").each(function(j,row){
+            r=j;
+        });
+        var num= $("#disNum").val();
+        if(num > r){
+            $("#disNum").val(r);
+        }
+    })
     $("#close1").on('click', function () {
         $modal.modal('close');
     });

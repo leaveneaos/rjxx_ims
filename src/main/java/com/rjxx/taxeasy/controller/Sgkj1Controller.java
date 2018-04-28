@@ -304,9 +304,6 @@ public class Sgkj1Controller extends BaseController{
             String[] yhzcbs = ((String) params.get("yhzcbs")).split(",",-1);//优惠政策标识
             String[] yhzcmc = ((String) params.get("yhzcmc")).split(",",-1);//优惠政策名称
             String[] lslbz = ((String) params.get("lslbz")).split(",",-1);//零税率
-            String[] zfmcs = ((String) params.get("zfmc")).split(",",-1);//支付名称
-            String[] zfjes = ((String) params.get("zfje")).split(",",-1);//支付金额
-            String[] zffsDm = ((String) params.get("zffsDm")).split(",",-1);//支付方式代码
 
             double jshj = 0.00;
             List<Jymxsq> jymxsqList = new ArrayList<>();
@@ -389,17 +386,22 @@ public class Sgkj1Controller extends BaseController{
             List<Jyxxsq> jyxxsqList = new ArrayList<>();
             jyxxsqList.add(jyxxsq);
             List<Jyzfmx> jyzfmxList = new ArrayList<>();
-            for (int z = 0; z < zfcount; z++) {
-                Jyzfmx jyzfmx = new Jyzfmx();
-                jyzfmx.setZfje(Double.valueOf(zfjes[z]));
-                jyzfmx.setDdh(request.getParameter("ddh"));
-                jyzfmx.setZffsDm(zffsDm[z]);
-                jyzfmx.setLrry(yhid);
-                jyzfmx.setLrsj(TimeUtil.getNowDate());
-                jyzfmx.setXgsj(TimeUtil.getNowDate());
-                jyzfmx.setXgry(yhid);
-                jyzfmx.setGsdm(gsdm);
-                jyzfmxList.add(jyzfmx);
+            if(zfcount>0){
+                String[] zfmcs = ((String) params.get("zfmc")).split(",",-1);//支付名称
+                String[] zfjes = ((String) params.get("zfje")).split(",",-1);//支付金额
+                String[] zffsDm = ((String) params.get("zffsDm")).split(",",-1);//支付方式代码
+                for (int z = 0; z < zfcount; z++) {
+                    Jyzfmx jyzfmx = new Jyzfmx();
+                    jyzfmx.setZfje(Double.valueOf(zfjes[z]));
+                    jyzfmx.setDdh(request.getParameter("ddh"));
+                    jyzfmx.setZffsDm(zffsDm[z]);
+                    jyzfmx.setLrry(yhid);
+                    jyzfmx.setLrsj(TimeUtil.getNowDate());
+                    jyzfmx.setXgsj(TimeUtil.getNowDate());
+                    jyzfmx.setXgry(yhid);
+                    jyzfmx.setGsdm(gsdm);
+                    jyzfmxList.add(jyzfmx);
+                }
             }
             String errormessage = checkOrderUtil.checkOrders(jyxxsqList,jymxsqList,jyzfmxList,getGsdm(),null);
             if(("").equals(errormessage)||errormessage==null){
