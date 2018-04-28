@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	http.headers().frameOptions().sameOrigin().disable();
         http.authorizeRequests()
                 .antMatchers("/extractInvoice/**","/tqm/**", "/login", "/login/**", "/assets/**",
-                        "/css/**", "/img/**", "/js/**","/fonts/**", "/image.jsp", "/zc/**","/*.jsp","/wxdy/wxCallBack","/ding/**","/dinglrkpd/**","/dingqkp/**","/lrkpd/getSpxq","/suiteCallBackController/**","/dingpc/**","/dinggfgl/**","/recreatePdf/**","/Quartz/**").permitAll()
+                        "/css/**", "/img/**", "/js/**","/fonts/**", "/image.jsp", "/zc/**","/*.jsp","/wxdy/wxCallBack","/ding/**","/dinglrkpd/**","/dingqkp/**","/lrkpd/getSpxq","/suiteCallBackController/**","/dingpc/**","/dinggfgl/**","/recreatePdf/**","/Quartz/**","/testSkp/**").permitAll()
                 .anyRequest().hasRole("LOGIN_USER")
                 .and()
                 .formLogin()
