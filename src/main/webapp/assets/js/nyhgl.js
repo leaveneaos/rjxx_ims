@@ -219,6 +219,7 @@ $(function() {
 						$bmbox.find(':checkbox').prop('checked', false);
 						var $bmbox1 = $('#bm-box2');
 						$bmbox1.find(':checkbox').prop('checked', false);
+						$("#tab2").find(':checkbox').prop('checked', false);
 						if (data.msg) {
 							for (i = 0; i < list.length; i++) {
 								rp = list[i];
