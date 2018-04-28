@@ -60,8 +60,9 @@ public class ZcController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<>();
 		params.put("phone", phone);
+		params.put("code", code);
 		Yanzhengma yanzm = yanzhengmaService.findBySql(params);
-		if(yanzm!=null && yanzm.getCode().equals(code)) {
+		if(yanzm!=null) {
 			result.put("success", true);
 			//记录一条数据
 			Zclog zclog = zclogService.findOneBySql(params);
