@@ -21,10 +21,6 @@ import com.rjxx.taxeasy.web.BaseController;
 @RequestMapping("/kcyjsz")
 public class KcyjszController extends BaseController {
 
-	/*@Autowired
-	private FpyjdyService dyService;*/
-	@Autowired
-	private FpkcService kcService;
 	@Autowired
 	private FpzlService fpzlService;
 	@Autowired
@@ -35,6 +31,9 @@ public class KcyjszController extends BaseController {
 
 	@Autowired
 	private YhService yhService;
+
+	@Autowired
+	private FpkcYztzService fpkcYztzService;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -184,35 +183,56 @@ public class KcyjszController extends BaseController {
 
 	@RequestMapping(value = "/addtzfs", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> addtzfs() {
+	public Map<String, Object> addtzfs(String yjids) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
 		result.put("msg", "保存成功！");
-		int yhid = getYhid();
 		String gsdm = getGsdm();
-		Map params = new HashMap<>();
-		params.put("yhid", yhid);
-		params.put("gsdm", gsdm);
-		/*params.put("xfid", xfid);
-		params.put("skpid", skpid);
-		params.put("fpzldm", fpzldm);*/
 		try {
-			FpkcYzsz item = fpkcYzszService.findOneByParams(params);
-			if (item == null) {
-				FpkcYzsz yjdy = new FpkcYzsz();
-				yjdy.setYhid(yhid);
-				yjdy.setGsdm(gsdm);
-				/*yjdy.setXfid(xfid);
-				yjdy.setSkpid(skpid);
-				yjdy.setFpzldm(fpzldm);
-				yjdy.setYjyz(yjkcl);*/
-				yjdy.setYxbz("1");
-				fpkcYzszService.save(yjdy);
-			} else {
-				/*item.setYjyz(yjkcl);*/
-				fpkcYzszService.save(item);
+			String[] yjszids = yjids.split(",");
+			String[] tzfsids = request.getParameterValues("tzfsid");
+			String[] yhids = request.getParameterValues("yhid");
+			//List<FpkcYztz> items = fpkcYztzService.findAllByParams(params);
+			for(int i=0;i<yjszids.length;i++){
+				Integer yjszid = Integer.valueOf(yjszids[i]);
+				for(int j=0;j<yhids.length;j++){
+					Map params = new HashMap<>();
+					params.put("gsdm", gsdm);
+					params.put("yjszid",yjszid);
+					params.put("tzyhid",Integer.valueOf(yhids[j]));
+					FpkcYztz item  = fpkcYztzService.findOneByParams(params);
+					if(item == null){
+						FpkcYztz fpkcYztz = new FpkcYztz();
+						fpkcYztz.setGsdm(gsdm);
+						fpkcYztz.setYjszid(yjszid);
+						if(tzfsids.length>1){
+							fpkcYztz.setTzfs("01");
+						}else{
+							fpkcYztz.setTzfs(tzfsids[0]);
+						}
+						fpkcYztz.setTzyhid(Integer.valueOf(yhids[j]));
+						fpkcYztz.setLrry(getYhid());
+						fpkcYztz.setLrsj(new Date());
+						fpkcYztz.setXgry(getYhid());
+						fpkcYztz.setXgsj(new Date());
+						fpkcYztz.setYxbz("1");
+						fpkcYztzService.save(fpkcYztz);
+					}else{
+						if(tzfsids.length>1){
+							item.setTzfs("01");
+						}else{
+							item.setTzfs(tzfsids[0]);
+						}
+						item.setXgsj(new Date());
+						item.setXgry(getYhid());
+						item.setYxbz("1");
+						fpkcYztzService.save(item);
+					}
+				}
 			}
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.put("success", false);
 			result.put("msg", "保存失败！");
 		}

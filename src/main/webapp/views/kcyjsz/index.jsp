@@ -290,6 +290,7 @@
 						class="am-close am-close-spin" data-am-modal-close>&times;</a>
 			</div>
 			<form id="fomm" class="js-form-0 am-form am-form-horizontal">
+				<input type="hidden" id="yjids"  name="yjids" />
 				<div class="am-tabs" data-am-tabs>
 					<ul class="am-tabs-nav am-nav am-nav-tabs">
 						<li class="am-active"><a href="#tab1">通知方式</a></li>

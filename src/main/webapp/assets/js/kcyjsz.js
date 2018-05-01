@@ -139,6 +139,7 @@ $(function () {
                     swal("请至少选择一条记录！");
                     return;
                 }else{
+                    $("#yjids").val(tableids.substr(0,(tableids.length-1)));
                     ur = _this.config.xzszUrl
                 }
                 //alert(tableids);
@@ -384,10 +385,11 @@ $(function () {
                         swal("请选择通知方式!");
                         return false;
                     }
-                    for(var i = 0; i < tzyhids.length; i++) {
+                    for (var i = 0; i < tzyhids.length; i++) {
                         if (tzyhids[i].checked == true) {
                             ag = true;
                             break;
+                        }
                     }
                     if(ag == false){
                         swal("请选择需要通知的用户!");
@@ -432,7 +434,7 @@ $(function () {
                         return false;
                     }
                 }
-               }
+
             });
         },
 
