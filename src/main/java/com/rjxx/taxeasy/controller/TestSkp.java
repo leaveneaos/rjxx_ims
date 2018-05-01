@@ -23,7 +23,7 @@ public class TestSkp extends BaseController {
     @Autowired
     private SkService skService;
 
-    @RequestMapping("/register")
+    /*@RequestMapping("/register")
     @ResponseBody
     public String register(String skpid) throws Exception {
         return skService.register(Integer.valueOf(skpid));
@@ -33,7 +33,7 @@ public class TestSkp extends BaseController {
     @ResponseBody
     public String inputUDiskPassword(String skpid) throws Exception {
         return skService.inputUDiskPassword(Integer.valueOf(skpid));
-    }
+    }*/
 
 
 
