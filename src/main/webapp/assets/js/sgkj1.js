@@ -873,7 +873,7 @@ $(function() {
 
         }else{
             je=arry[0].spje;
-            r=1;
+            num=1;
         }
         $("#disNum").val(num);
         $("#amount").val(je)
