@@ -789,7 +789,7 @@ $(function() {
         for(var i=0;i<arry.length;i++){
             var cishu1=2*i+1;
             var cishu2=2*i+2;
-            var cishu3=2*i-1;
+            var cishu3=i+parseInt(num)+1;
             var zkje='-'+FormatFloat((arry[i].spje)/zspje*zzkje,"#");
             var temp = (100 + arry[i].taxrate * 100) / 100;//税率计算方式
             var zkse =FormatFloat((zkje / temp) * arry[i].taxrate,"#.00");
