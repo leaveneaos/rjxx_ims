@@ -206,34 +206,30 @@ $(function() {
         }
     });
 
-
-
-
     //删除明细
     $("#del").click(function(){
-        var data = jyspmx_table.row('.selected').data();
+        var nu = jyspmx_table.row('.selected').index()+1;
         var bl = true;
-        var fphxz = $($(data[1])[5]).val();
-         if(fphxz!=null && fphxz =="2"){
+        var fphxz=$("#jyspmx_table").find("tr").eq(nu).children("td").eq(1).find('input[name="fphxz"]').val();
+        if(fphxz!=null && fphxz =="2"){
              bl=false;
          }
         if(!bl){
             swal("提示:请先删除折扣行");
             return;
         }
+        // console.log(fphxz);
+        if(fphxz!=null && fphxz=="1"){
+            var index2 = jyspmx_table.row('.selected').index();
+            $("#jyspmx_table").find("tr").eq(index2).children("td").eq(1).find('input[name="fphxz"]').val("0");
+            jyspmx_table.draw();
+        }
+        jyspmx_table.row('.selected').remove().draw(false);
+        mxarr.pop();
         $('#jyspmx_table tbody').find("span.index").each(function (index, object) {
             $(object).html(index + 1);
         });
         index=index-1;
-        console.log(fphxz);
-        if(fphxz!=null && fphxz=="1"){
-            var num = jyspmx_table.row('.selected')[0][0];
-            /*var data1 = jyspmx_table.row(num).data();
-            $($(data1[1])[5]).attr('value','0');*/
-            $("#jyspmx_table").find("tr").eq(num).children("td").eq(1).find('input[name="fphxz"]').val("0");
-        }
-        jyspmx_table.row('.selected').remove().draw(false);
-        mxarr.pop();
         var jshj=$("#jshj");//价税合计
         var hjje=$("#hjje");//合计金额
         var hjse=$("#hjse");//合计税额
@@ -779,13 +775,21 @@ $(function() {
     $("#disSave").click(function () {
         var arry=getAllRowDataArry();
         var num= $("#disNum").val();
+        var zkl= parseFloat($("#zkl").val());
+        if(zkl>1){
+            swal("折扣率格式有误，请重新输入折扣金额");
+            $('#disAmount').focus();
+            return;
+        }
         jyspmx_table.clear().draw();
         var zspje=FormatFloat($("#amount").val(),"#.00");
         var zzkje=FormatFloat($("#disAmount").val(),"#.00");
+        var fphxz="0";
         index = arry.length+parseInt(num);
         for(var i=0;i<arry.length;i++){
             var cishu1=2*i+1;
             var cishu2=2*i+2;
+            var cishu3=2*i-1;
             var zkje='-'+FormatFloat((arry[i].spje)/zspje*zzkje,"#");
             var temp = (100 + arry[i].taxrate * 100) / 100;//税率计算方式
             var zkse =FormatFloat((zkje / temp) * arry[i].taxrate,"#.00");
@@ -816,7 +820,7 @@ $(function() {
                      ]).draw();
                  }else{
                      jyspmx_table.row.add([
-                         "<span class='index' id='xhf'>" + cishu1 + "</span>",
+                         "<span class='index' id='xhf'>" + cishu3 + "</span>",
                          '<input type="text" id="spmc"  name="spmc" value='+arry[i].spmc+' readonly><input type="hidden" id="spbm" name="spbm" value='+arry[i].spbm+'>' +
                          '<input type="hidden" id="yhzcbs"  name="yhzcbs" value='+arry[i].yhzcbs+'><input type="hidden" id="yhzcmc" name="yhzcmc" value='+arry[i].yhzcmc+'><input type="hidden" id="lslbz" name="lslbz" value='+arry[i].lslbz+' ><input type="hidden" id="fphxz" name="fphxz"  value="0" >',
                          '<input type="text" id="ggxh" name="ggxh" value='+arry[i].ggxh+'>',
@@ -880,7 +884,8 @@ $(function() {
         var spje=parseInt($("#amount").val());
         var zkje=parseInt($(this).val());
         var zkl=zkje/spje;
-        $("#xz_gfdz").val(zkl.toFixed(3)*100+'%')
+        $("#xz_gfdz").val(zkl.toFixed(3)*100+'%');
+        $('#zkl').val(zkl);
     });
     $("#close1").on('click', function () {
         $modal.modal('close');

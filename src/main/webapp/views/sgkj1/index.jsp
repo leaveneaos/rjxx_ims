@@ -353,6 +353,7 @@
 								<div class="am-u-sm-8">
 									<input type="text" id="xz_gfdz" name="xz_gfdz"
 										   placeholder="" readonly />
+									<input type="hidden" id ="zkl" name="zkl">
 								</div>
 							</div>
 							<div class="am-form-group">
