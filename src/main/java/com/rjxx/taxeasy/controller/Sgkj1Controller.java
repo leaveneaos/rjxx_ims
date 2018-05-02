@@ -621,7 +621,7 @@ public class Sgkj1Controller extends BaseController{
 
             List<JyspmxDecimal2> splitKpspmxs  = new ArrayList<JyspmxDecimal2>();
             Map mapResult = new HashMap();
-            mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
+           mapResult = InvoiceSplitUtils.dealDiscountLine(jyspmxs);
             if (hsbz.equals("1")) {
                 // 分票
                 if (jyxxsq.getFpzldm().equals("12")) {
@@ -892,7 +892,11 @@ public class Sgkj1Controller extends BaseController{
             jymx.setLrry(jyls.getLrry());
             jymx.setXgsj(TimeUtil.getNowDate());
             jymx.setXgry(jyls.getXgry());
-            jymx.setFphxz("0");
+            if(mxItem.getFphxz()!=null && mxItem.getFphxz()!=""){
+                jymx.setFphxz(mxItem.getFphxz());
+            }else {
+                jymx.setFphxz("0");
+            }
             if (null == mxItem.getKce()) {
                 jymx.setKce(0d);
             } else {

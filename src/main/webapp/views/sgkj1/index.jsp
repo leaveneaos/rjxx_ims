@@ -93,12 +93,12 @@
 											<label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
 													class="star">*</span>开票点名称</label>
 											<div class="am-u-sm-3">
-												<select id="kpd" name="kpd" required>
-													<c:if test="${xfnum==1}">
+												<select id="kpd" name="kpd" required onchange="getFplx();">
+													<%--<c:if test="${xfnum==1}">
 														<c:forEach items="${skpList}" var="item">
 															<option value="${item.skpid}">${item.kpdmc}</option>
 														</c:forEach>
-													</c:if>
+													</c:if>--%>
 												</select>
 											</div>
 										</div>
@@ -107,10 +107,10 @@
 													class="star">*</span>发票种类</label>
 											<div class="am-u-sm-3 am-u-end">
 												<select id="fpzldm" name="fpzldm"  required>
-													<%--<option value="">选择开票类型</option>
-													<option value="01">专用发票</option>
+													<option value="">选择开票类型</option>
+													<%--<option value="01">专用发票</option>
 													<option value="02">普通发票</option>--%>
-													<option value="12">电子发票</option>
+													<%--<option value="12">电子发票</option>--%>
 												</select>
 											</div>
 											<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
@@ -551,6 +551,8 @@
                     "xfid" : xfid
                 },
                 success : function(data) {
+                    var option = $("<option>").text('请选择').val(-1);
+                    kpd.append(option);
                     for (var i = 0; i < data.length; i++) {
                         var option = $("<option>").text(data[i].kpdmc).val(
                             data[i].skpid);
@@ -559,6 +561,30 @@
                 }
             });
         }
+
+        //选取税控盘获取发票类型
+        function getFplx() {
+            var skpid = $('#kpd option:selected').val();
+            if(skpid !=null && skpid !=""){
+                var fpzldm = $("#fpzldm");
+                $("#fpzldm").empty();
+                $.ajax({
+                    url : "pttqkp/getFpzldm",
+                    data : {
+                        "skpid" : skpid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        fpzldm.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            option = $("<option>").text(data[i].fpzlmc).val(
+                                data[i].fpzldm);
+                            fpzldm.append(option);
+                        }
+                    }
+                });
+            }
+        };
         function sf(){
             if ($("#sfbx").is(':checked')) {
                $("#show").html("*");

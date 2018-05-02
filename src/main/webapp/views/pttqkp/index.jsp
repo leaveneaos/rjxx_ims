@@ -465,7 +465,7 @@
                 },
                 success : function(data) {
                     var option = $("<option>").text('请选择').val(-1);
-                    kpd.append(option);
+                    fpzldm.append(option);
                     for (var i = 0; i < data.length; i++) {
                         option = $("<option>").text(data[i].fpzlmc).val(
                             data[i].fpzldm);

@@ -165,10 +165,10 @@ table thead th {
 																class="am-btn am-btn-default am-btn-danger">
 																<span></span>删除
 															</button>
-															<button type="button" id="kpd_kp"
+															<%--<button type="button" id="kpd_kp"
 																	class="am-btn am-btn-default am-btn-secondary">
 																<span></span> 导出
-															</button>
+															</button>--%>
 														</div>
 													</div>
 												</div>

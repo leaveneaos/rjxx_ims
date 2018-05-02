@@ -49,6 +49,9 @@ $(function() {
     $("#lrclose").click(function () {
         $modal.modal("close");
     });
+    $("#close1").on('click', function () {
+        $importModal.modal('close');
+    });
     var index = 1;
     $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
         //jyspmx_edit_table.draw();
@@ -165,14 +168,14 @@ $(function() {
                                     })
                                 });
                                 swal(data.msg);
-                                $modal.modal("close");
-                                $("#bj").val('3');
-                                loaddata=true;
+                                // $modal.modal("close");
+                                // $("#bj").val('3');
+                                // loaddata=true;
                             }else {
                                 swal(data.msg);
-                                $modal.modal("close");
-                                $("#bj").val('3');
-                                loaddata=true;
+                                // $modal.modal("close");
+                                // $("#bj").val('3');
+                                // loaddata=true;
                             }
                         } else {
                             swal(data.msg);
