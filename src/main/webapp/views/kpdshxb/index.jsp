@@ -161,10 +161,10 @@ table thead th {
 												<div class="am-form-group">
 													<div class="am-btn-toolbar">
 														<div class="am-btn-group am-btn-group-xs">
-															<%--<button type="button" id="kp_add"
+															<button type="button" id="kp_add"
 																class="am-btn am-btn-default am-btn-primary">
 																<span></span>录入
-															</button>--%>
+															</button>
 															<button type="button" id="kp_dr"
 																class="am-btn am-btn-default am-btn-default">
 																<span></span>导入
