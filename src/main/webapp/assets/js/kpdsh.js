@@ -544,6 +544,7 @@ $(function() {
 		        "bSort":false,
 		        "bInfo": false,
 		        "scrollX": true,
+                scrollY:500,
 		        ajax: {
 		            "url": "kpdsh/kpdshkp",
 		            async:false,

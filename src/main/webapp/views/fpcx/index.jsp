@@ -456,18 +456,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="am-modal am-modal-no-btn" tabindex="-1" id="biaoti">
+				<div class="am-modal" tabindex="-1" id="biaoti">
 					<div class="am-modal-dialog">
 						<form id="biao" class="js-form-0 am-form am-form-horizontal">
-							<div class="am-tabs" data-am-tabs>
-								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 									<div class="am-modal-hd">
 										自定义显示列<a href="javascript: void(0)"
 											class="am-close am-close-spin" data-am-modal-close>&times;</a>
 									</div>
 									<div class="am-modal-bd" style="overflow: auto; height: 400px;">
 										<hr />
-										<div class="am-g">
 											<div class="am-u-sm-12">
 												<div class="am-form-group">
 													<label class="am-u-sm-4 am-form-label"><input
@@ -579,22 +576,20 @@
 														name="column" value="gfsjrdz" id="gfsjrdz" type="checkbox" />收件地址</label>
 												</div>
 											</div>
-											<div class="am-u-sm-12">
-												<div class="am-form-group">
-													<div class="am-u-sm-12  am-text-center">
-														<button type="button"
+
+									</div>
+									<div class="am-modal-footer">
+										<div class="am-u-sm-12">
+											<div class="am-form-group">
+												<div class="am-u-sm-12  am-text-center" style="line-height:44px">
+													<button type="button"
 															class="js-submit  am-btn am-btn-primary">确定</button>
-														<button type="button"
+													<button type="button"
 															class="js-close  am-btn am-btn-danger">取消</button>
-													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-								</div>
-
-							</div>
 						</form>
 					</div>
 
@@ -612,18 +607,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="am-modal am-modal-no-btn" tabindex="-1" id="biaoti1">
+				<div class="am-modal" tabindex="-1" id="biaoti1">
 					<div class="am-modal-dialog">
 						<form id="biao1" class="js-form-0 am-form am-form-horizontal">
-							<div class="am-tabs" data-am-tabs>
-								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 									<div class="am-modal-hd">
 										自定义导出列<a href="javascript: void(0)"
 											class="am-close am-close-spin" data-am-modal-close>&times;</a>
 									</div>
-									<div class="am-modal-bd" style="overflow: auto; height: 400px;">
+									<div class="am-modal-bd" style="overflow: auto; max-height: 400px;">
 										<hr />
-										<div class="am-g">
 											<div class="am-u-sm-12">
 												<div class="am-form-group">
 													<label class="am-u-sm-4 am-form-label"><input
@@ -741,22 +733,22 @@
 														name="column" type="checkbox" disabled="disabled" />合计税额</label>
 												</div>
 											</div>
-											<div class="am-u-sm-12">
-												<div class="am-form-group">
-													<div class="am-u-sm-12  am-text-center">
-														<button type="button"
+
+
+
+									</div>
+						            <div class="am-modal-footer">
+										<div class="am-u-sm-12">
+											<div class="am-form-group">
+												<div class="am-u-sm-12  am-text-center" style="line-height:44px">
+													<button type="button"
 															class="js-submit1  am-btn am-btn-primary">确定</button>
-														<button type="button"
+													<button type="button"
 															class="js-close1  am-btn am-btn-danger">取消</button>
-													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-								</div>
-
-							</div>
 						</form>
 					</div>
 

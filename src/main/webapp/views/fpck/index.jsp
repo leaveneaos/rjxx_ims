@@ -437,149 +437,144 @@
 						</div>
 					</div>
 				</div>
-				<div class="am-modal am-modal-no-btn" tabindex="-1" id="biaoti">
+				<div class="am-modal" tabindex="-1" id="biaoti">
 					<div class="am-modal-dialog">
 						<form id="biao" class="js-form-0 am-form am-form-horizontal">
-							<div class="am-tabs" data-am-tabs>
-								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
-									<div class="am-modal-hd">
-										自定义列显示<a href="javascript: void(0)"
-											class="am-close am-close-spin" data-am-modal-close>&times;</a>
+
+							<div class="am-modal-hd">
+								自定义列显示<a href="javascript: void(0)"
+										 class="am-close am-close-spin" data-am-modal-close>&times;</a>
+							</div>
+							<div class="am-modal-bd" style="overflow: auto; max-height: 400px;">
+								<hr />
+								<div class="am-u-sm-12">
+									<div class="am-form-group">
+										<label class="am-u-sm-4 am-form-label"><input
+												disabled="disabled" checked="checked" type="checkbox"
+												value="" />订单号</label> <label class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />操作类型 </label> <label class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />发票代码</label>
 									</div>
-									<div class="am-modal-bd" style="overflow: auto; height: 400px;">
-										<hr />
-										<div class="am-g">
-											<div class="am-u-sm-12">
-												<div class="am-form-group">
-													<label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />订单号</label> <label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />操作类型 </label> <label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />发票代码</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />发票号码 </label> <label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />价税合计 </label> <label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />购方名称</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />开票日期 </label> <label class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />发票状态</label> <label style="display: none;"
-														class="am-u-sm-4 am-form-label"><input
-														disabled="disabled" checked="checked" type="checkbox"
-														value="" />操作</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="jylsh" id="jylsh" />交易流水号
-													</label> <label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="jylssj" id="jylssj" />交易流水时间</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfsh" id="xfsh" />销方税号</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfmc" id="xfmc" />销方名称</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfyh" id="xfyh" />销方银行</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfyhzh" id="xfyhzh" />销方银行账号</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfdz" id="xfdz" />销方地址
-													</label> <label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfdh" id="xfdh" />销方电话</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="xfyb" id="xfyb" />销方邮编</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfsh" id="gfsh" />购方税号
-													</label><label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfyh" id="gfyh" />购方银行</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfsjh" id="gfsjh" />购方手机号</label>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												disabled="disabled" checked="checked" type="checkbox"
+												value="" />发票号码 </label> <label class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />价税合计 </label> <label class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />购方名称</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												disabled="disabled" checked="checked" type="checkbox"
+												value="" />开票日期 </label> <label class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />发票状态</label> <label style="display: none;"
+																		   class="am-u-sm-4 am-form-label"><input
+											disabled="disabled" checked="checked" type="checkbox"
+											value="" />操作</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="jylsh" id="jylsh" />交易流水号
+										</label> <label class="am-u-sm-4 am-form-label"><input
+											name="column" type="checkbox" value="jylssj" id="jylssj" />交易流水时间</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfsh" id="xfsh" />销方税号</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfmc" id="xfmc" />销方名称</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfyh" id="xfyh" />销方银行</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfyhzh" id="xfyhzh" />销方银行账号</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfdz" id="xfdz" />销方地址
+										</label> <label class="am-u-sm-4 am-form-label"><input
+											name="column" type="checkbox" value="xfdh" id="xfdh" />销方电话</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="xfyb" id="xfyb" />销方邮编</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="gfsh" id="gfsh" />购方税号
+										</label><label class="am-u-sm-4 am-form-label"><input
+											name="column" type="checkbox" value="gfyh" id="gfyh" />购方银行</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="gfsjh" id="gfsjh" />购方手机号</label>
 
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfyhzh" id="gfyhzh" />购方银行账号
-													</label> <label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfdz" id="gfdz" />购方地址</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfdh" id="gfdh" />购方电话</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="gfemail" id="gfemail" />购方email</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="bz" id="bz" />备注</label> <label
-														class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="skr" id="skr" />收款人</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="kpr" id="kpr" />开票人</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="fhr" id="fhr" />复核人</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="ssyf" id="ssyf" />所属月份</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="yfpdm" id="yfpdm" />原发票代码</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="yfphm" id="yfphm" />原发票号码</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="ykpjshj" id="ykpjshj" />已开票价税合计</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="tqm" id="tqm" />提取码</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="skpid" id="skpid" />开票点</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="kpddm" id="kpddm" />开票点代码</label>
-												</div>
-												<div class="am-form-group" id="xzxzcsz">
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="hjje" id="hjje" />合计金额</label>
-													<label class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" value="hjse" id="hjse" />合计税额</label>
-													<label style="display: none;"
-														class="am-u-sm-4 am-form-label"><input
-														name="column" type="checkbox" disabled="disabled" />合计税额</label>
-												</div>
-											</div>
-											<div class="am-u-sm-12">
-												<div class="am-form-group">
-													<div class="am-u-sm-12  am-text-center">
-														<button type="button"
-															class="js-submit  am-btn am-btn-primary">确定</button>
-														<button type="button"
-															class="js-close  am-btn am-btn-danger">取消</button>
-													</div>
-												</div>
-											</div>
-										</div>
-
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="gfyhzh" id="gfyhzh" />购方银行账号
+										</label> <label class="am-u-sm-4 am-form-label"><input
+											name="column" type="checkbox" value="gfdz" id="gfdz" />购方地址</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="gfdh" id="gfdh" />购方电话</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="gfemail" id="gfemail" />购方email</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="bz" id="bz" />备注</label> <label
+											class="am-u-sm-4 am-form-label"><input
+											name="column" type="checkbox" value="skr" id="skr" />收款人</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="kpr" id="kpr" />开票人</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="fhr" id="fhr" />复核人</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="ssyf" id="ssyf" />所属月份</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="yfpdm" id="yfpdm" />原发票代码</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="yfphm" id="yfphm" />原发票号码</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="ykpjshj" id="ykpjshj" />已开票价税合计</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="tqm" id="tqm" />提取码</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="skpid" id="skpid" />开票点</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="kpddm" id="kpddm" />开票点代码</label>
+									</div>
+									<div class="am-form-group" id="xzxzcsz">
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="hjje" id="hjje" />合计金额</label>
+										<label class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" value="hjse" id="hjse" />合计税额</label>
+										<label style="display: none;"
+											   class="am-u-sm-4 am-form-label"><input
+												name="column" type="checkbox" disabled="disabled" />合计税额</label>
 									</div>
 								</div>
-
 							</div>
+							<div class="am-modal-footer">
+								<div class="am-u-sm-12">
+									<div class="am-form-group">
+										<div class="am-u-sm-12  am-text-center" style="line-height:44px">
+											<button type="button"
+													class="js-submit  am-btn am-btn-primary">确定</button>
+											<button type="button"
+													class="js-close  am-btn am-btn-danger">取消</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</form>
 					</div>
-
 
 
 					<!-- loading do not delete this -->

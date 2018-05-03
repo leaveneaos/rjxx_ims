@@ -121,7 +121,7 @@ $(function() {
 			el.$jsAdd.on('click', el.$jsAdd, function() {
 				_this.resetForm();
 				ur = _this.config.addUrl;
-				el.$modalHongchong.modal({"width": 700, "height": 650});
+				el.$modalHongchong.modal({"width": 700});
 				$("#btnImportConfigSave").attr("disabled",false);
 			});
 

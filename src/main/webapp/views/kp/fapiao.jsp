@@ -11,48 +11,164 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  	<style type="text/css" rel="stylesheet">
-/* 通用表格样式--------------------------------------------------------------------*/
-.comm_table{ text-align:center;}
-.comm_table,.comm_table td,.comm_table th{ border:1px solid #b8b7b7;padding:10px;}
-.lr_txt{width:100%; background:; border:0px; text-align:center;font-family:"MicroSoft YaHei";}
-.comm_btn_div{margin:20px auto; text-align:center;}
-.comm_table2{ margin:0 auto;}
-.comm_table2 td{padding:10px; text-align:left;}
 
-.tip_common{ background:url(images/pencil.png) no-repeat left center; padding-left:30px; line-height:30px;}
-.tip_error{ background:url(images/cross.png) no-repeat left center;padding-left:30px;line-height:30px;}
-.tip_right{ background:url(images/ico_right2.jpg) no-repeat left center;padding-left:30px;line-height:30px;}
-.font_red{ color:#f00;}
-.chayan_div{background:#fff; padding:30px 0px;box-shadow:0 4px 5px rgba(0,0,0,0.3); border:1px solid #ccc;}
-.chayan_title{ background:#09F; height:40px; line-height:40px;}
-.td_left{ text-align:left;}
-.td_center{ text-align:center; background:#e0f2fe;}
-/*----resule table----*/
-.fppy_table,.fppy_table td{ border:1px solid #aaa; border-collapse:collapse; line-height:25px; background:#fafafa; margin:0 auto;margin-bottom: 15px;}
-.fppy_table td.borderBottomNo{border:0px;}
-.fppy_table td.borderRightNo{border:0px;}
-.fppy_table td.borderNo{border:0px;}
-table.fppy_table_box{border:0px;border-collapse:collapse;}
-table.fppy_table_box td{border:0px solid #ccc; border-collapse:collapse;}
-.fppy_table_box td.borderTop{border-top:1px solid #aaa;}
-.fppy_table_box td.borderRight{ border-right:1px solid #aaa;}
-.align_center{ text-align:center;}
-.align_left{ text-align:left;}
-.content_td_blue{color:#574B9D;}
-button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;font:normal 12px "MicroSoft YaHei","SimSun";z-index:1000; position:relative;}
-.gray_button{border:1px solid #c5c5c5; background:#f7f7f7;box-shadow:0 1px 2px rgba(0,0,0,0.2);}
-.white_button{border:1px solid #888; background:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
-.blue_button{border:1px solid #005bbb; background:#007bd5; color:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
-.red_button{border:1px solid #b23a30; background:#dc3224;color:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
-.green_button{border:1px solid #427e3d; background:#58a952;color:#fff;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
-.black_button{border:1px solid #b8b8b8; background:#e0e0e0; color:#555;box-shadow:0 5px 5px rgba(0,0,0,0.2);}
-.tab-page{display:none;}
-/*打印样式设置*/
 .printdiv
 { 
   width:938px; 
   height:100%;
 }
+.boyder_t3>tbody {
+    display:block;
+    height:80px;
+    overflow-y:auto;
+}
+
+.boyder_t3>tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+@page {
+    /*size: 297mm 210mm;*/
+    size: 240mm ${210+(x-7)*6}mm
+}
+
+@media (max-width: 240mm) {
+    @page {
+        /*size: 297mm 210mm;*/
+        size: 240mm ${210+(x-7)*6}mm;
+    }
+}
+
+.printed{
+    font-family: SimSun;
+}
+.printed span{
+    font-family: SimSun;
+    font-size: 9pt;
+}
+.filled{
+    font-family: SimSun;
+    font-size: 9pt;
+}
+body {
+    margin-left: 1px;
+    margin-right: 1px;
+    /*font-family: Arial Unicode MS;*/
+    font-size: 13px;
+}
+
+span {
+    color: black;
+}
+
+#div {
+    width: 570px;
+    height: 595px;
+}
+
+#bodyer {
+    height: 400px;
+}
+
+h2 {
+    color: #9E520A;
+}
+
+.header_t1 {
+    height: 93px;
+    width: 100%;
+    margin-left: 2px;
+    padding: 0px;
+    margin-top: 5px;
+}
+
+.boyder_t1 {
+    border: 1px #9E520A solid;
+    margin-left: 2px;
+    margin-top: 2px;
+    width: 100%;
+}
+
+.boyder_t2 {
+
+    height: 80px;
+    border-bottom: 1px solid #9E520A;
+    border-collapse: collapse;
+
+}
+
+.boyder_td1 {
+    width: 25px;
+    height: 105px;
+    border-right: 1px solid #da731b;
+    font-size: 10pt;
+    color: #9E520A;
+}
+
+.boyder_td2 {
+    width: 50%;
+    height: 105px;
+    border-right: 1px solid #da731b;
+}
+
+.boyder_tr1 {
+    text-align: center;
+    vertical-align: top;
+    border-top: 0px solid #da731b;
+}
+
+.td {
+    border-right: 1px solid #da731b;
+    font-size: 10pt;
+    color: #9E520A;
+}
+
+.mxtd {
+    border-right: 1px solid #da731b;
+    /*font-size: 10pt;*/
+    padding: 2px;
+}
+
+.boyder_t3 {
+    width: 100%;
+    border-bottom: 1px solid #da731b;
+}
+
+.footer_t1 {
+    margin-left: 2px;
+
+    height: 65px;
+}
+
+.titletd {
+    font-size: 10pt;
+    color: #9E520A;
+    text-align: left;
+}
+
+.notd {
+    font-size: 10pt;
+
+    color: black;
+}
+
+.notdjym {
+    font-size: 10pt;
+    color: black;
+    width: 200px;
+    padding: 5px 5px;
+}
+
+.title {
+    font-size: 18pt;
+
+    color: #9E520A;
+
+}
+
+
 </style>
 </head>
 <body>
@@ -79,128 +195,248 @@ button{box-shadow:0 1px 2px rgba(0,0,0,0.2);line-height:30px; padding:0 20px;-mo
             double se = 0.00;
             double jshj = 0.00;
     %>
-              <h1 id="fpcc_dzfp" style="padding: 5px 0px; text-align: center; color: rgb(87, 75, 157);"><%=fpzl%></h1>
-       <!--        <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
-                <tbody><tr height="30">                  
-                  <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp"></span></td>
-                  <td>&nbsp;</td>
-                  <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp"></span></td>
-                  <td>&nbsp;</td>
-                  <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp"></span></td>
-                  <td>&nbsp;</td>
-                </tr>
-              </tbody></table> -->
-              <table class="fppy_table" style="width: 850px;" border="0" cellspacing="0" cellpadding="0">
-              <tbody><tr>
-                <td width="20" class="align_center" rowspan="4">
-                  <p>购</p>
-                  <p>买</p>
-                  <p>方</p>
-                </td>
-                <td width="85" class="align_left borderNo">名称：</td>
-                <td class="align_left borderNo bgcolorWhite" nowrap=""><span class="content_td_blue" id="gfmc_dzfp"><%=jyls.getGfmc() %></span></td>
-                <td width="20" class="align_center" rowspan="4"> 
-                  <p>密</p>
-                  <p>码</p>
-                  <p>区</p>
-                </td>
-                <td width="350" class="align_left " id="password_dzfp" nowrap="" rowspan="4">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfsbh_dzfp"><%=jyls.getGfsh() %></span></td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfdzdh_dzfp"><%=jyls.getGfdz() %><%=jyls.getGfdh() %></span></td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo" nowrap=""><span class="content_td_blue" id="gfyhzh_dzfp"><%=jyls.getGfyh() %><%=jyls.getGfyhzh() %></span></td>
-                </tr>
-                
-                <!--表头-->
-                <tr>
-                  <td colspan="5"><table class="fppy_table_box" style="width: 100%;" cellspacing="0" cellpadding="0">
-                    <tbody>
-                    <tr id="tab_head_dzfp">
-                      <td width="30%" class="align_center borderRight">货物或应税劳务、服务名称</td>
-                      <td width="10%" class="align_center borderRight">规格型号</td>
-                      <td width="5%" class="align_center borderRight">单位</td>
-                      <td width="10%" class="align_center borderRight">数量</td>
-                      <td width="10%" class="align_center borderRight">单价</td>
-                      <td width="15%" class="align_center borderRight">金额</td>
-                      <td width="5%" class="align_center borderRight">税率</td>
-                      <td width="15%" class="align_center">税额</td>
-                    </tr>
-                          <%
+             <%-- <h1 id="fpcc_dzfp" style="padding: 5px 0px; text-align: center; color: rgb(87, 75, 157);"><%=fpzl%></h1>--%>
+                    <table class="d2" style="width: 800px;table-layout:fixed;">
+                        <tr>
+                            <td>
+                    <div class="header">
+                        <table class="header_t1">
+                            <tr>
+                                <td align="left" valign="bottom" class="titletd" style="width: 210px;">
+                                    <img style="width: 80px;height: 80px;margin-left: 42px;"
+                                         src="data:image/jpg;base64,${base64Image}"/>
+                                </td>
+                                <td width="320px" rowspan="2" align="center" valign="top" class="title printed"
+                                    style="background: url('${imagePath}/${sfmc}.png'); background-position: center; background-repeat: no-repeat;background-size: 120px 80px;">
+                                    <label style="display:inline-block;">
+                                        <nobr><%=fpzl%></nobr>
+                                        <div style="width:100%;margin-top:20px;border-top:1px solid #da731b;border-bottom:1px solid #da731b;height:3px;"></div>
+                                    </label>
+                                </td>
+
+                                <td rowspan="2" align="left" style="width: 270px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td class="titletd printed">发票代码：<span class="filled">${yfpdm}</span>
+                                            </td>
+                                            <td class="notd"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="titletd printed">发票号码：<span class="filled">${yfphm}</span></td>
+                                            <td class="notd"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="titletd printed">开票日期：<span class="filled">${kprq}</span></td>
+                                            <td class="notd"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="titletd printed">校&#160;验&#160;码：<span class="filled">${jym}</span></td>
+                                            <td class="notd"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="left" valign="bottom" class="titletd printed">
+                                    机器编号：<span class="filled">${jqbh}</span>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <!--        <table style="width: 850px;margin:0 auto;" border="0" cellspacing="0" cellpadding="0">
+                             <tbody><tr height="30">
+                               <td class="align_left">发票代码：<span class="content_td_blue" id="fpdm_dzfp"></span></td>
+                               <td>&nbsp;</td>
+                               <td class="align_left">发票号码：<span class="content_td_blue" id="fphm_dzfp"></span></td>
+                               <td>&nbsp;</td>
+                               <td class="align_left">开票日期：<span class="content_td_blue" id="kprq_dzfp"></span></td>
+                               <td>&nbsp;</td>
+                             </tr>
+                           </tbody></table> -->
+                    <div class="boyder">
+                        <table class="boyder_t1"
+                               style="border: solid 1px  #da731b; border-collapse: collapse" cellpadding="0"
+                               cellspacing="0">
+                            <tr>
+                                <td class="boyder_t2">
+                                    <table style="width: 100%;height: 100%;table-layout:fixed;" cellspacing="0"
+                                           cellpadding="0">
+                                        <tr style="height:0;">
+                                            <th style="width:25px"></th>
+                                            <th></th>
+                                            <th style="width:25px"></th>
+                                            <th style="width:310px"></th>
+                                        </tr>
+                                        <tr>
+                                            <td class="boyder_td1 printed" align="center">购<br/>买<br/>方</td>
+                                            <td class="boyder_td2">
+                                                <table cellpadding="2px" style="width: 100%;table-layout:fixed;">
+                                                    <tr>
+                                                        <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span style="font-size: ${gfmcSize}pt"><![CDATA[${gfmc}]]><%=jyls.getGfmc() %></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="titletd printed">纳税人识别号：<span><%=jyls.getGfsh() %></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="titletd printed">地 址、电 话：<span style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %><%=jyls.getGfdh() %></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="titletd printed">
+                                                            开户行及账号：<span style="font-size: ${gfyhzhSize}pt"><%=jyls.getGfyh() %><%=jyls.getGfyhzh() %></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="boyder_td1 printed" style="text-align: center">密<br/><br/> 码<br/><br/>区
+                                            </td>
+                                            <td width="200px" align="center"
+                                                style="font-family: 'SimSun';font-size: 11pt;padding: 5px 5px;line-height: 150%;vertical-align: top;WORD-WRAP: break-word;word-break: break-all;">
+                                                <![CDATA[${fpmw1}]]><br/><![CDATA[${fpmw2}]]><br/><![CDATA[${fpmw3}]]><br/><![CDATA[${fpmw4}]]>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
+                                           cellpadding="0" cellspacing="0">
+                                        <tr class="boyder_tr1 printed">
+                                            <td class="td" width="228x">货物或应税劳务、服务名称</td>
+                                            <td width="102px" class="td">规格型号</td>
+                                            <td width="45px" class="td">单位</td>
+                                            <td width="80px" class="td">数量</td>
+                                            <td width="75px" class="td">单价</td>
+                                            <td width="120px" class="td">金额</td>
+                                            <td width="40px" class="td">税率</td>
+                                            <td class="titletd" width="120px">税额</td>
+                                        </tr>
+
+                                        <%
                                             for(int j=0;j<list.size();j++){
-                                            	Jyspmx jyspmx = list.get(j);
-                                                	KpController kp = new KpController();
-                                                   je=kp.add(je, jyspmx.getSpje());
-                                                   se=kp.add(se,jyspmx.getSpse());
-                                                   jshj = kp.add(je,se);
+                                                Jyspmx jyspmx = list.get(j);
+                                                KpController kp = new KpController();
+                                                je=kp.add(je, jyspmx.getSpje());
+                                                se=kp.add(se,jyspmx.getSpse());
+                                                jshj = kp.add(je,se);
                                         %>
-                    <tr>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
-                      <td class="align_center borderRight"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
-                      <td class="align_center" style="text-align: right;"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
-                    </tr>
-                      <%
+                                        <tr>
+                                            <td class="mxtd filled" width="228x"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
+                                            <td class="mxtd filled" width="102px"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
+                                            <td class="mxtd filled" width="45px"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
+                                            <td class="mxtd filled" width="80px"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
+                                            <td class="mxtd filled" width="75px"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
+                                            <td class="mxtd filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
+                                            <td class="mxtd filled" width="40px" style="text-align:right"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
+                                            <td width="120px" class="filled" style="text-align:right"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
+                                        </tr>
+                                        <%
                                             }
                                         %>
-                    
-                    <tr>
-                      <td class="align_center borderRight">合计</td>
-                      <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center borderRight" style="text-align: right;"><span class="content_td_blue" id="je_dzfp">￥<%=new DecimalFormat("#.00").format(je)%></span></td>
-                      <td class="align_center borderRight">&nbsp;</td>
-                      <td class="align_center" style="text-align: right;"><span class="content_td_blue" id="se_dzfp">￥<%=new DecimalFormat("#.00").format(se)%></span></td>
-                    </tr>
-                    <tr>
-                      <td class="align_center borderRight borderTop">价税合计（大写）</td>
-                      <td class="align_center borderTop" colspan="7"><span class="align_left"><span class="content_td_blue" id="jshjdx_dzfp"> <%=zwlist.size()==0?"":zwlist.get(0)%></span><span style="padding: 0px 20px;">（小写）</span><span class="content_td_blue" id="jshjxx_dzfp">￥<%=new DecimalFormat("#.00").format(jshj)%></span></span></td>
-                    </tr>
-                  </tbody></table>
-                  </td>
-                </tr>
-                <!--表头结束-->
-                <tr>
-                  <td class="align_center" rowspan="4">
-                    <p>销</p>
-                    <p>售</p>
-                    <p>方</p>
-                  </td>
-                  <td class="align_left borderNo">名称：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfmc_dzfp"><%=jyls.getXfmc() %></span></td>
-                  <td width="20" class="align_center" rowspan="4">
-                    <p>备</p>
-                    <p>注</p>
-                  </td>
-                  <td width="350" class="align_left" id="bz_dzfp" rowspan="4"><p><%=jyls.getBz() %></p></td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">纳税人识别号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfsbh_dzfp"><%=jyls.getXfsh() %></span></td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">地址、电话：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfdzdh_dzfp"><%=jyls.getXfdz() %><%=jyls.getXfdh() %></span></td>
-                </tr>
-                <tr>
-                  <td class="align_left borderNo">开户行及账号：</td>
-                  <td class="align_left borderNo"><span class="content_td_blue" id="xfyhzh_dzfp"><%=jyls.getXfyh() %><%=jyls.getXfyhzh() %></span></td>
-                </tr>
-              </tbody></table>
-              
-            </div>
+                            <tr class="boyder_tr1">
+                                <td class="td printed" width="228x"><br/><br/><br/>合&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;计
+                                </td>
+                                <td class="td" width="102px"><br/><br/><br/></td>
+                                <td class="td" width="45px"><br/><br/><br/></td>
+                                <td class="td" width="80px"><br/><br/><br/></td>
+                                <td class="td" width="75px"><br/><br/><br/></td>
+                                <td class="td" width="120px" style="text-align:right">
+                                    <br/><br/><br/>
+                                    <span class="filled">
+                                        ￥<%=new DecimalFormat("#.00").format(je)%>
+                                    </span>
+                                </td>
+                                <td class="td" width="40px"><br/><br/><br/></td>
+                                <td style="text-align:right" class="filled" width="120px">
+                                    <br/><br/><br/>
+                                    ￥<%=new DecimalFormat("#.00").format(se)%>
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+                        <tr height="30px">
+                            <td>
+                                <table class="boyder_t3" cellpadding="2px" cellspacing="0">
+                                    <tr>
+                                        <td width="205px" align="center" class="td printed">价税合计（大写）</td>
+                                        <td align="left" width="245px" valign="center" class="filled">
+                                            <img style="vertical-align:middle;width:12px;height:12px;"
+                                                 src="${imagePath}/jshj.jpg"/>${jshjdx}
+                                        </td>
+                                        <td align="center" width="350px"><span style="color: #9E520A;" class="printed"><%=zwlist.size()==0?"":zwlist.get(0)%>（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <table style="width: 100%;height: 100%" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td class="boyder_td1 printed" style="text-align: center">销<br/>售<br/>方</td>
+                                        <td class="boyder_td2" style="width:430px">
+                                            <table cellpadding="2px" style="width: 100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span style="font-size: ${xfmcSize}pt"><%=jyls.getXfmc() %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="titletd printed">纳税人识别号：<span><%=jyls.getXfsh() %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="titletd printed">地 址、电 话：<span style="font-size: ${xfdzdhSize}pt"><%=jyls.getXfdz() %><%=jyls.getXfdh() %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="titletd printed">
+                                                        开户行及账号：<span style="font-size: ${xfyhzhSize}pt"><%=jyls.getXfyh() %><%=jyls.getXfyhzh() %></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="boyder_td1 printed" style="text-align: center">备<br/><br/><br/>注</td>
+                                        <td valign="top" style="width:320px" class="filled"><%=jyls.getBz() %></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <table class="footer_t1" style="width: 100%;height: 100%">
+                            <tr>
+                                <td class="titletd printed" style="width: 30%;">收款人：<span>${skr}</span>
+
+                                </td>
+                                <td class="titletd printed" style="width: 22%;">复核：<span>${fhr}</span>
+
+                                </td>
+                                <td class="titletd printed" style="width: 23%;">开票人：<span>${kpr}</span>
+
+                                </td>
+                                <td class="titletd printed" style="width: 25%;">
+                                    销货方：（章）
+                                    <img style="position: absolute;bottom: 0px;left: 622px;width: 158px;height:auto;" src="${imagePath}/${xfsh}.png">
+
+                                    </img>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 </body>
 </html>

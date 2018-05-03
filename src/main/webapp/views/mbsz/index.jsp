@@ -172,76 +172,72 @@
 			</div>
 		</div>
 
-		<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong"
+		<div class="am-modal" tabindex="-1" id="hongchong"
 			title="导入配置">
-			<div class="am-modal-dialog" style="overflow: auto">
-				<div class="am-modal-hd">
-					导入配置 <a href="javascript: void(0)" class="am-close am-close-spin"
-						data-am-modal-close>&times;</a>
-				</div>
-
-				<hr />
-				<div class="am-modal-dialog">
-
-			<div class="am-tab-panel am-fade am-in am-active">
+			<div class="am-modal-dialog">
 				<form class="am-form am-form-horizontal" id="importConfigForm">
-					<div class="am-form-group">
+					<div class="am-modal-hd">
+						导入配置 <a href="javascript: void(0)" class="am-close am-close-spin"
+								data-am-modal-close>&times;</a>
+					</div>
+					<hr />
+					<div class="am-modal-bd" style="overflow: auto; max-height: 500px;">
 						<div class="am-u-sm-12">
-							<div class="am-form-group">
-								<label for="config_jylsh" class="am-u-sm-2 am-form-label">模板名称</label>
-								<div class="am-u-sm-10">
-									<input type="text" name="mbmc" id="mbmc" required="required" style="width:519px;">
-									<input type="text" name="mbid" id="mbid" style="display: none">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gs_radio" class="am-u-sm-2 am-form-label">是否共享</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gs_radio" name="config_gs_radio" >
-											<option value="1" >是</option>
-											<option value="0">否</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_jylsh" class="am-u-sm-2 am-form-label">模板名称</label>
+									<div class="am-u-sm-10">
+										<input type="text" name="mbmc" id="mbmc" required="required" style="width:519px;">
+										<input type="text" name="mbid" id="mbid" style="display: none">
 									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_gs_radio" class="am-u-sm-2 am-form-label">是否共享</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gs_radio" name="config_gs_radio" >
+												<option value="1" >是</option>
+												<option value="0">否</option>
+											</select>
+										</div>
 
-								</div>
-								<div class="am-u-sm-6">
-									<input type="hidden" id="pre_zd" name="pre_zd"
-										placeholder="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_jylsh" class="am-u-sm-2 am-form-label">交易流水号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_jylsh_radio" name="config_jylsh_radio" >
-											<option value="auto" >自动</option>
-											<option value="config">导入文件表头</option>
-										</select>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="hidden" id="pre_zd" name="pre_zd"
+											   placeholder="">
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_jylsh" name="config_jylsh"
-										placeholder="" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_ddh" class="am-u-sm-2 am-form-label">订单号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_ddh_radio" name="config_ddh_radio" >
-											<option value="auto" >自动</option>
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_jylsh" class="am-u-sm-2 am-form-label">交易流水号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_jylsh_radio" name="config_jylsh_radio" >
+												<option value="auto" >自动</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_jylsh" name="config_jylsh"
+											   placeholder="" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_ddh" name="config_ddh"
-										placeholder="" required>
+								<div class="am-form-group">
+									<label for="config_ddh" class="am-u-sm-2 am-form-label">订单号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_ddh_radio" name="config_ddh_radio" >
+												<option value="auto" >自动</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_ddh" name="config_ddh"
+											   placeholder="" required>
+									</div>
 								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfsh" class="am-u-sm-2 am-form-label">购方税号</label>
+								<div class="am-form-group">
+									<label for="config_gfsh" class="am-u-sm-2 am-form-label">购方税号</label>
 									<div class="am-u-sm-4">
 										<div class="am-form-group tpl-table-list-select">
 											<select id="config_gfsh_radio" name="config_gfsh_radio" >
@@ -249,402 +245,404 @@
 											</select>
 										</div>
 									</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfsh" name="config_gfsh"
-										placeholder="如无可不填,专票必填" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfmc" class="am-u-sm-2 am-form-label">购方名称</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfmc_radio" name="config_gfmc_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfsh" name="config_gfsh"
+											   placeholder="如无可不填,专票必填" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfmc" name="config_gfmc"
-										placeholder="" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfdz" class="am-u-sm-2 am-form-label">购方地址</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfdz_radio" name="config_gfdz_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfmc" class="am-u-sm-2 am-form-label">购方名称</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfmc_radio" name="config_gfmc_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfmc" name="config_gfmc"
+											   placeholder="" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfdz" name="config_gfdz"
-										placeholder="如无可不填,专票必填">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfdh" class="am-u-sm-2 am-form-label">购方电话</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfdh_radio" name="config_gfdh_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfdz" class="am-u-sm-2 am-form-label">购方地址</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfdz_radio" name="config_gfdz_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfdz" name="config_gfdz"
+											   placeholder="如无可不填,专票必填">
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfdh" name="config_gfdh"
-										placeholder="如无可不填,专票必填" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfyh" class="am-u-sm-2 am-form-label">购方银行</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfyh_radio" name="config_gfyh_radio"  >
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfdh" class="am-u-sm-2 am-form-label">购方电话</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfdh_radio" name="config_gfdh_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfdh" name="config_gfdh"
+											   placeholder="如无可不填,专票必填" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfyh" name="config_gfyh"
-										placeholder="如无可不填,专票必填" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfyhzh" class="am-u-sm-2 am-form-label">购方银行账号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfyhzh_radio" name="config_gfyhzh_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfyh" class="am-u-sm-2 am-form-label">购方银行</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfyh_radio" name="config_gfyh_radio"  >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfyh" name="config_gfyh"
+											   placeholder="如无可不填,专票必填" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfyhzh" name="config_gfyhzh"
-										placeholder="如无可不填,专票必填" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfsjh" class="am-u-sm-2 am-form-label">购方手机号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfsjh_radio" name="config_gfsjh_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfyhzh" class="am-u-sm-2 am-form-label">购方银行账号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfyhzh_radio" name="config_gfyhzh_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfyhzh" name="config_gfyhzh"
+											   placeholder="如无可不填,专票必填" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfsjh" name="config_gfsjh"
-										placeholder="如无可不填" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_fpzldm" class="am-u-sm-2 am-form-label">发票种类</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_fpzldm_radio" name="config_fpzldm_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_gfsjh" class="am-u-sm-2 am-form-label">购方手机号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfsjh_radio" name="config_gfsjh_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfsjh" name="config_gfsjh"
+											   placeholder="如无可不填" required>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group tpl-table-list-select" id="fpzldiv">
-										<select id="config_fpzldm" name="config_fpzldm" >
-											<option value="01" >增值税专票</option>
-											<option value="02">增值税普票</option>
-											<option value="12">电子发票(增普)</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_fpzldm" class="am-u-sm-2 am-form-label">发票种类</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_fpzldm_radio" name="config_fpzldm_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
 									</div>
-									<input type="text" id="config_fpzldm_input" name="config_fpzldm_input"
-										   placeholder="" required  style="display:none">
-								</div>
-							</div>
-							
-							<div class="am-form-group">
-								<label class="am-u-sm-2 am-form-label">选择商品</label>
-								<div class="am-u-sm-10">
-									<div class="am-form-group tpl-table-list-select" >
-										<select id="selectImportConfigSp" data-am-selected="{btnWidth: 524,btnSize: 'sm'}"> >
-											<c:forEach items="${spList}" var="item">
-												<option value="${item.id}">${item.spmc}|${item.sl}</option>
-											</c:forEach>
-										</select>
+									<div class="am-u-sm-6">
+										<div class="am-form-group tpl-table-list-select" id="fpzldiv">
+											<select id="config_fpzldm" name="config_fpzldm" >
+												<option value="01" >增值税专票</option>
+												<option value="02">增值税普票</option>
+												<option value="12">电子发票(增普)</option>
+											</select>
+										</div>
+										<input type="text" id="config_fpzldm_input" name="config_fpzldm_input"
+											   placeholder="" required  style="display:none">
 									</div>
 								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spdm" class="am-u-sm-2 am-form-label">商品分类编码</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spdm_radio" name="config_spdm_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spdm" name="config_spdm"
-										placeholder="" required value="${sp.spbm}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spmc" class="am-u-sm-2 am-form-label">商品名称</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spmc_radio" name="config_spmc_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spmc" name="config_spmc"
-										placeholder="" required value="${sp.spmc}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spggxh" class="am-u-sm-2 am-form-label">规格型号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spggxh_radio" name="config_spggxh_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spggxh" name="config_spggxh"
-										placeholder="" required value="${sp.spggxh}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spdw" class="am-u-sm-2 am-form-label">商品单位</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spdw_radio" name="config_spdw_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spdw" name="config_spdw"
-										placeholder="" required value="${sp.spdw}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_sps" class="am-u-sm-2 am-form-label">商品数量</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_sps_radio" name="config_sps_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_sps" name="config_sps"
-										placeholder="" required value="1">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spdj" class="am-u-sm-2 am-form-label">商品单价</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spdj_radio" name="config_spdj_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spdj" name="config_spdj"
-										placeholder="" required value="${sp.spdj}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spje" class="am-u-sm-2 am-form-label">商品金额</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spje_radio" name="config_spje_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spje" name="config_spje"
-										placeholder="" required value="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_spsl" class="am-u-sm-2 am-form-label">商品税率</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_spsl_radio" name="config_spsl_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_spsl" name="config_spsl"
-										placeholder="" required value="${sp.sl}">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label  class="am-u-sm-2 am-form-label">商品税额</label>
-								<div class="am-u-sm-4">
-									<div class="tpl-table-list-select">
-										<select id="config_spse_radio" name="config_spse_radio" >
-											<option value="auto" >自动</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" readonly id="config_spse" name="config_spse"
-										placeholder="" required value="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label class="am-u-sm-2 am-form-label">含税标志</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_hsbz_radio" name="config_hsbz_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group tpl-table-list-select" >
-										<select id="config_hsbz" name="config_hsbz"  >
-											<option value="1" >是</option>
-											<option value="0">否</option>
-										</select>
-									</div>
-									<input type="text"  id="config_hsbz_input" name="config_hsbz_input"
-										   placeholder="" required   value=""  style="display:none" />
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfemail" class="am-u-sm-2 am-form-label">购方邮箱</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfemail_radio" name="config_gfemail_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfemail" name="config_gfemail"
-										placeholder="" required value="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_bz" class="am-u-sm-2 am-form-label">备注</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_bz_radio" name="config_bz_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_bz" name="config_bz"
-										placeholder="" required value="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_tqm" class="am-u-sm-2 am-form-label">提取码</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_tqm_radio" name="config_tqm_radio" >
-											<option value="auto" >默认</option>
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_tqm" name="config_tqm"
-										placeholder="" required value="">
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_khh" class="am-u-sm-2 am-form-label">客户号</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_khh_radio" name="config_khh_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_khh" name="config_khh"
-										   placeholder="" required>
-								</div>
-							</div>
-							<div class="am-form-group">
-								<label for="config_gfsjrdz" class="am-u-sm-2 am-form-label">收件地址</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_gfsjrdz_radio" name="config_gfsjrdz_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_gfsjrdz" name="config_gfsjrdz"
-										   placeholder="" required>
-								</div>
-							</div>
 
-							<div class="am-form-group">
-								<label for="config_zsfs" class="am-u-sm-2 am-form-label">征收方式</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_zsfs_radio" name="config_zsfs_radio" >
-											<option value="auto">默认</option>
-										</select>
+								<div class="am-form-group">
+									<label class="am-u-sm-2 am-form-label">选择商品</label>
+									<div class="am-u-sm-10">
+										<div class="am-form-group tpl-table-list-select" >
+											<select id="selectImportConfigSp" data-am-selected="{btnWidth: 524,btnSize: 'sm'}"> >
+												<c:forEach items="${spList}" var="item">
+													<option value="${item.id}">${item.spmc}|${item.sl}</option>
+												</c:forEach>
+											</select>
+										</div>
 									</div>
 								</div>
-								<div class="am-u-sm-6">
-									<div class="am-form-group tpl-table-list-select" >
-										<select id="config_zsfs" name="config_zsfs"  >
-											<option value="0" >普通征税</option>
-											<option value="2">差额征税</option>
-										</select>
+								<div class="am-form-group">
+									<label for="config_spdm" class="am-u-sm-2 am-form-label">商品分类编码</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spdm_radio" name="config_spdm_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spdm" name="config_spdm"
+											   placeholder="" required value="${sp.spbm}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spmc" class="am-u-sm-2 am-form-label">商品名称</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spmc_radio" name="config_spmc_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spmc" name="config_spmc"
+											   placeholder="" required value="${sp.spmc}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spggxh" class="am-u-sm-2 am-form-label">规格型号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spggxh_radio" name="config_spggxh_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spggxh" name="config_spggxh"
+											   placeholder="" required value="${sp.spggxh}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spdw" class="am-u-sm-2 am-form-label">商品单位</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spdw_radio" name="config_spdw_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spdw" name="config_spdw"
+											   placeholder="" required value="${sp.spdw}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_sps" class="am-u-sm-2 am-form-label">商品数量</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_sps_radio" name="config_sps_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_sps" name="config_sps"
+											   placeholder="" required value="1">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spdj" class="am-u-sm-2 am-form-label">商品单价</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spdj_radio" name="config_spdj_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spdj" name="config_spdj"
+											   placeholder="" required value="${sp.spdj}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spje" class="am-u-sm-2 am-form-label">商品金额</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spje_radio" name="config_spje_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spje" name="config_spje"
+											   placeholder="" required value="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_spsl" class="am-u-sm-2 am-form-label">商品税率</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_spsl_radio" name="config_spsl_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_spsl" name="config_spsl"
+											   placeholder="" required value="${sp.sl}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label  class="am-u-sm-2 am-form-label">商品税额</label>
+									<div class="am-u-sm-4">
+										<div class="tpl-table-list-select">
+											<select id="config_spse_radio" name="config_spse_radio" >
+												<option value="auto" >自动</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" readonly id="config_spse" name="config_spse"
+											   placeholder="" required value="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-2 am-form-label">含税标志</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_hsbz_radio" name="config_hsbz_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<div class="am-form-group tpl-table-list-select" >
+											<select id="config_hsbz" name="config_hsbz"  >
+												<option value="1" >是</option>
+												<option value="0">否</option>
+											</select>
+										</div>
+										<input type="text"  id="config_hsbz_input" name="config_hsbz_input"
+											   placeholder="" required   value=""  style="display:none" />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_gfemail" class="am-u-sm-2 am-form-label">购方邮箱</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfemail_radio" name="config_gfemail_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfemail" name="config_gfemail"
+											   placeholder="" required value="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_bz" class="am-u-sm-2 am-form-label">备注</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_bz_radio" name="config_bz_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_bz" name="config_bz"
+											   placeholder="" required value="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_tqm" class="am-u-sm-2 am-form-label">提取码</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_tqm_radio" name="config_tqm_radio" >
+												<option value="auto" >默认</option>
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_tqm" name="config_tqm"
+											   placeholder="" required value="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_khh" class="am-u-sm-2 am-form-label">客户号</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_khh_radio" name="config_khh_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_khh" name="config_khh"
+											   placeholder="" required>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_gfsjrdz" class="am-u-sm-2 am-form-label">收件地址</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_gfsjrdz_radio" name="config_gfsjrdz_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_gfsjrdz" name="config_gfsjrdz"
+											   placeholder="" required>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="config_zsfs" class="am-u-sm-2 am-form-label">征收方式</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_zsfs_radio" name="config_zsfs_radio" >
+												<option value="auto">默认</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<div class="am-form-group tpl-table-list-select" >
+											<select id="config_zsfs" name="config_zsfs"  >
+												<option value="0" >普通征税</option>
+												<option value="2">差额征税</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="config_kce" class="am-u-sm-2 am-form-label">扣除额</label>
+									<div class="am-u-sm-4">
+										<div class="am-form-group tpl-table-list-select">
+											<select id="config_kce_radio" name="config_kce_radio" >
+												<option value="config">导入文件表头</option>
+											</select>
+										</div>
+									</div>
+									<div class="am-u-sm-6">
+										<input type="text" id="config_kce" name="config_kce"
+											   placeholder="" required>
 									</div>
 								</div>
 							</div>
-							<div class="am-form-group">
-								<label for="config_kce" class="am-u-sm-2 am-form-label">扣除额</label>
-								<div class="am-u-sm-4">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="config_kce_radio" name="config_kce_radio" >
-											<option value="config">导入文件表头</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-6">
-									<input type="text" id="config_kce" name="config_kce"
-										   placeholder="" required>
-								</div>
-							</div>
-						</div>
-						<div class="am-u-sm-12">
+					</div>
+					<div class="am-modal-footer">
+						<div class="am-u-sm-12 am-text-center" style="line-height:44px">
 							<button type="button" id="btnImportConfigSave"
-								class="am-btn am-btn-xs am-btn-secondary">保存</button>
+									class="am-btn am-btn-xs am-btn-secondary">保存</button>
 							<button type="button" id="close2"
-								class="am-btn am-btn-danger am-btn-xs">关闭</button>
+									class="am-btn am-btn-danger am-btn-xs">关闭</button>
 						</div>
 					</div>
+
 				</form>
-			  </div>
-			</div>
+
 		</div>
 		</div>
 </div>

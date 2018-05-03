@@ -111,8 +111,7 @@ $(function() {
 				$("#roleid").val("");
 				ur = _this.config.xzUrl
 				el.$modalHongchong.modal({
-					"width" : 700,
-					"height" : 450
+					"width" : 700
 				});
 			});
 			// 修改

@@ -198,14 +198,14 @@
                             </div>
 
                         <!-- model -->
-                        <div class="am-modal am-modal-no-btn" tabindex="-1" id="modify">
-                            <div class="am-modal-dialog"  style="overflow: auto">
-                                <div class="am-modal-hd">
+                        <div class="am-modal" tabindex="-1" id="modify">
+                            <div class="am-modal-dialog">
+                                <form class="js-form-0 am-form am-form-horizontal">
+                                   <div class="am-modal-hd">
                                     接口配置信息
                                 </div>
-                                <div class="am-modal-bd">
+                                   <div class="am-modal-bd" style="overflow: auto; max-height: 400px;">
                                     <hr />
-                                    <form  class="js-form-0  am-form am-form-horizontal am-u-sm-12">
                                         <input type="hidden" name="mbxxid" id="mbxxid" />
                                         <div class="am-form-group">
                                             <label for="jkpz_gsdm" class="am-u-sm-3 am-form-label"><span
@@ -460,18 +460,19 @@
                                                 </div>
                                             </div>
 
-                                    <div class="am-u-sm-12 am-margin-top-lg">
-                                        <div class="am-form-group">
-                                            <div class="am-u-sm-12  am-text-center">
-                                                <button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
-                                                <button type="button" id="close1" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
                                 </div>
+
+                            </div>
+                                   <div class="am-modal-footer">
+                                           <div class="am-u-sm-12  am-text-center" style="line-height:44px">
+                                               <button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
+                                               <button type="button" id="close1" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
+                                           </div>
+                               </div>
                                 </form>
                             </div>
-                        </div>
                         </div>
 
                         <!-- 侧边栏内容 -->
