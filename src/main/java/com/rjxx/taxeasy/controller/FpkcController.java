@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.Fpkc;
+import com.rjxx.taxeasy.domains.FpkcMx;
 import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Skp;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.FpkcMxService;
 import com.rjxx.taxeasy.service.FpkcService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.SkpService;
 import com.rjxx.taxeasy.service.XfService;
+import com.rjxx.taxeasy.vo.FpkcYjvo;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.Tools;
@@ -38,6 +41,8 @@ public class FpkcController extends BaseController {
 	private XfService xfService;
 	@Autowired
 	private SkService skService;
+	@Autowired
+	private FpkcMxService fpkcMxService;
 
 	@RequestMapping
 	public String index() throws Exception {
@@ -289,6 +294,73 @@ public class FpkcController extends BaseController {
 				result.put("recordsFiltered", total);
 				result.put("draw", draw);
 				result.put("data", kcjkList);
+			}else {
+				result.put("recordsTotal", 0);
+				result.put("recordsFiltered", 0);
+				result.put("draw", draw);
+				result.put("data", new ArrayList<>());
+			}
+			return result;
+		}
+		//发票库存查询
+		@RequestMapping(value = "/getAllkc")
+		@ResponseBody
+		public Map<String, Object> getAllkc(int length,int start,int draw,Integer xfid,Integer skpid,String fplx,
+				String xfsh,Integer fpsl,boolean loaddata) throws Exception {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Pagination pagination = new Pagination();
+			pagination.setPageNo(start / length + 1);
+			pagination.setPageSize(length);
+			int yhid = getYhid();
+			
+			pagination.addParam("yhid", yhid);
+			pagination.addParam("xfid", xfid);
+			pagination.addParam("skpid", skpid);
+			pagination.addParam("fplx", fplx);
+			pagination.addParam("xfsh", xfsh);
+			pagination.addParam("fpsl", fpsl);
+			if(loaddata){
+				List<FpkcYjvo> kcjkList = fpkcService.findKcYjByPage(pagination);
+				
+				int total = pagination.getTotalRecord();
+				result.put("recordsTotal", total);
+				result.put("recordsFiltered", total);
+				result.put("draw", draw);
+				result.put("data", kcjkList);
+				result.put("recordsTotal", total);
+				result.put("recordsFiltered", total);
+				result.put("draw", draw);
+				result.put("data", kcjkList);
+			}else {
+				result.put("recordsTotal", 0);
+				result.put("recordsFiltered", 0);
+				result.put("draw", draw);
+				result.put("data", new ArrayList<>());
+			}
+			return result;
+		}
+		//发票库存明细查询
+		@RequestMapping(value = "/getKcmx")
+		@ResponseBody
+		public Map<String, Object> getKcmx(int length,int start,int draw,Integer kcid,boolean loaddata) throws Exception {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Pagination pagination = new Pagination();
+			pagination.setPageNo(start / length + 1);
+			pagination.setPageSize(length);
+			pagination.addParam("kcid", kcid);
+			
+			//List<FpkcYjvo> kcmxList = fpkcService.findKcmxByPage(pagination);
+			List<FpkcMx> kcmxList=fpkcMxService.findByPage(pagination);
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", kcmxList);
+			if(loaddata){
+				result.put("recordsTotal", total);
+				result.put("recordsFiltered", total);
+				result.put("draw", draw);
+				result.put("data", kcmxList);
 			}else {
 				result.put("recordsTotal", 0);
 				result.put("recordsFiltered", 0);

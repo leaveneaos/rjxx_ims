@@ -13,7 +13,8 @@ $(function () {
     var action = {
         tableEx: null, // cache dataTable
         config: {
-            getUrl: 'fpkc/getItems2'        
+            getUrl: 'fpkc/getAllkc',
+            getKcmx:'fpkc/getKcmx'
         },
         dataTable: function () {
             var _this = this;
@@ -33,8 +34,7 @@ $(function () {
                         		 d.xfid = $('#s_xfid').val();
                                  d.skpid = $('#s_skpid').val();
                                  d.fplx = $('#s_fplx').val();
-                                 d.fpsl = $('#s_fpsl').val();
-
+                                 //d.fpsl = $('#s_fpsl').val();
                         	}else{
                         		var item = $('#s_mainkey').val();
                         		if(item=='xfsh'){
@@ -54,7 +54,18 @@ $(function () {
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
                         {"data":"fpzlmc"},                   
-                        {"data": "kyl"}
+                        {"data": "fpkcl"},
+                        {"data": "yjyz"},
+                        {
+                        	"data":null,
+                        	"render" : function(data) {
+                        		if(data.fpkcl!=null && data.fpkcl>0){
+                        			return "<a kcid='"+data.id+"' class='chakan'>查看</a>";
+                        		}else{
+                        			return "";
+                        		}
+                        	}
+                        }
                         ]
                 });
             	   
@@ -63,7 +74,45 @@ $(function () {
                 t.column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-            });                                   
+            });         
+            t.on('click','a.chakan', function (e, settings, json) {
+            	var kcid = $(e.currentTarget).attr("kcid");
+            	 var mx = $("#fpkcMxtable") .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    ordering: false,
+                    searching: false,
+                    destroy:true,
+                    "ajax": {
+                        url: _this.config.getKcmx,
+                        type: 'POST',
+                        data: function (d) {
+                            d.loaddata = loaddata;
+                            d.kcid=kcid;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
+                        },                  
+                        {"data": "fpdm"},
+                        {"data": "qshm"},
+                        {"data": "zzhm"},
+                        {"data": "fpfs"},
+                        {"data": "syfs"},
+                        {"data": "lgrq"}
+                        ]
+                });
+                mx.on('draw.dt', function (e, settings, json) {
+                    var x = mx, page = x.page.info().start; // 设置第几页
+                    mx.column(0).nodes().each(function (cell, i) {
+                        cell.innerHTML = page + i + 1;
+                    });
+                });
+                
+            });  
             return t;
         },
         /**

@@ -84,7 +84,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="am-offcanvas-content top-position">
+											<!-- <div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
 													<label for="s_fpsl" class="am-u-sm-4 am-form-label">剩余库存</label>
 													<div class="am-u-sm-8">
@@ -96,7 +96,7 @@
 														</select>
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<div style="padding: 32px;">
 												<button type="button" id="jsSearch"
 													class="am-btn am-btn-default am-btn-success data-back">
@@ -147,6 +147,26 @@
 													<th>开票点名称</th>
 													<th>发票类型</th>
 													<th>剩余库存(张)</th>
+													<th>预警值</th>
+													<th>详情</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+								<div class="am-u-sm-12">
+									<div>
+										<table id="fpkcMxtable"
+											class="am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
+											<thead>
+												<tr>
+													<th>序号</th>
+													<th>发票代码</th>
+													<th>发票起始号码</th>
+													<th>发票终止号码</th>
+													<th>发票份数</th>
+													<th>剩余份数</th>
+													<th>领购日期</th>
 												</tr>
 											</thead>
 										</table>
