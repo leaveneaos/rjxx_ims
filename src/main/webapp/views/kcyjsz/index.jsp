@@ -149,6 +149,9 @@
                                                     <th>开票方式</th>
 													<%--<th>剩余库存(张)</th>--%>
 													<th>库存预警阈值(张)</th>
+													<%--<th style="display: none">xfid</th>
+													<th style="display: none">skpid</th>
+													<th style="display: none">fpzldm</th>--%>
 												</tr>
 											</thead>
 										</table>

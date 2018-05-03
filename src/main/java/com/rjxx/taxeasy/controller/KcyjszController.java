@@ -52,153 +52,7 @@ public class KcyjszController extends BaseController {
 	}
 
 
-
 	@RequestMapping(value = "/getItems")
-	@ResponseBody
-	public Map<String, Object> getItems(int length, int start, int draw, Integer xfid,Integer skpid,String fpzldm,String xfsh,boolean loaddata) throws Exception {
-		Map<String, Object> result = new HashMap<String, Object>();
-		//int yhid = getYhid();
-		if(loaddata){
-			Pagination pagination = new Pagination();
-			pagination.setPageNo(start / length + 1);
-			pagination.setPageSize(length);
-			String gsdm = getGsdm();
-			String xfidstr = "";
-            List<Skp> skpList = getSkpList();
-            List<Skp> showSkpList = null;
-			List<Fpzl> fpzlList = fpzlService.findAllByParams(new HashMap<>());
-			if(null ==xfid && (null ==xfsh || xfsh.equals(""))){
-				List<Xf> xflist = getXfList();
-				for(int i= 0;i<xflist.size();i++){
-					if(xfsh.equals(xflist.get(i).getXfsh())){
-						pagination.addParam("xfid", xflist.get(i).getId());
-					}
-					if (i == xflist.size() - 1) {
-						xfidstr += xflist.get(i).getId() + "";
-					} else {
-						xfidstr += xflist.get(i).getId() + ",";
-					}
-				}
-				String[] xfids = xfidstr.split(",");
-				if (xfids.length == 0) {
-					xfids = null;
-				}
-				pagination.addParam("xfids", xfids);
-			}else{
-				if(null!= xfid){
-					pagination.addParam("xfid", xfid);
-				}else{
-					List<Xf> xflist = getXfList();
-					for(int i= 0;i<xflist.size();i++){
-						if(xfsh.equals(xflist.get(i).getXfsh())) {
-							pagination.addParam("xfid", xflist.get(i).getId());
-							break;
-						}
-					}
-				}
-			}
-			pagination.addParam("gsdm", gsdm);
-			if(null==skpid || skpid.equals("")){
-				String skpStr = "";
-				if (skpList != null) {
-					for (int j = 0; j < skpList.size(); j++) {
-						int skpid2 = skpList.get(j).getId();
-						if (j == skpList.size() - 1) {
-							skpStr += skpid2 + "";
-						} else {
-							skpStr += skpid2 + ",";
-						}
-					}
-				}
-				String[] skpids = skpStr.split(",");
-				if (skpids.length == 0) {
-					skpids = null;
-				}
-				pagination.addParam("skpids", skpids);
-                showSkpList = skpList;
-			}else{
-                for (int j = 0; j < skpList.size(); j++) {
-                    int skpid2 = skpList.get(j).getId();
-                    if(skpid2 ==skpid){
-                        showSkpList.add(skpList.get(j));
-                    }
-                }
-            }
-			pagination.addParam("skpid", skpid);
-			pagination.addParam("fpzldm", fpzldm);
-			List<FpkcYzszVo> kcyjList = fpkcYzszService.findByPage(pagination);
-            List<FpkcYzszVo> kcyjList2 = new ArrayList<>();
-            for(int m=0;m<showSkpList.size();m++){
-                Skp skptmp = showSkpList.get(m);
-                Map params  = new HashMap();
-                params.put("skpid",skptmp.getId());
-                KpfsVo kpfsVo = cszbService.findKpfsBySkpid(params);
-                if(null!=skptmp.getKplx()){
-                    String kplx[] = skptmp.getKplx().split(",");
-                    for(int t =0;t<kplx.length;t++){
-                        FpkcYzszVo FpkcYzszVoTmp = new FpkcYzszVo();
-                        FpkcYzszVoTmp.setGsdm(skptmp.getGsdm());
-                        FpkcYzszVoTmp.setXfid(skptmp.getXfid());
-                        FpkcYzszVoTmp.setSkpid(skptmp.getId());
-                        FpkcYzszVoTmp.setKpfs(kpfsVo.getKpfs());
-                        FpkcYzszVoTmp.setKpdmc(skptmp.getKpdmc());
-                        FpkcYzszVoTmp.setXfmc(kpfsVo.getXfmc());
-                        FpkcYzszVoTmp.setXfsh(kpfsVo.getXfsh());
-						FpkcYzszVoTmp.setSkph(skptmp.getSkph());
-                        //String fplzmc = kplx.equals("12")?
-						for(int aa=0;aa<fpzlList.size();aa++){
-							if(kplx[t].equals(fpzlList.get(aa).getFpzldm()))
-								FpkcYzszVoTmp.setFpzlmc(fpzlList.get(aa).getFpzlmc());
-						}
-						FpkcYzszVoTmp.setFpzldm(kplx[t]);
-                        FpkcYzszVoTmp.setYhid(getYhid());
-                        FpkcYzszVoTmp.setYxbz("1");
-                        FpkcYzszVoTmp.setFpzldm(kplx[t]);
-                        kcyjList2.add(FpkcYzszVoTmp);
-                    }
-                }
-
-            }
-            for(int q=0;q<kcyjList2.size();q++){
-                FpkcYzszVo fpkcYzszVo2 = kcyjList2.get(q);
-                for(int w=0;w<kcyjList.size();w++){
-                    FpkcYzszVo fpkcYzszVo3 = kcyjList.get(w);
-                    if(fpkcYzszVo2.getGsdm().equals(fpkcYzszVo3.getGsdm()) && fpkcYzszVo2.getXfid().equals(fpkcYzszVo3.getXfid())&&
-                            fpkcYzszVo2.getSkpid().equals(fpkcYzszVo3.getSkpid())&&fpkcYzszVo2.getFpzldm().equals(fpkcYzszVo3.getFpzldm())){
-                        fpkcYzszVo2.setYjyz(fpkcYzszVo3.getYjyz());
-                    }
-                }
-            }
-			//int total = pagination.getTotalRecord();
-            int total = kcyjList2.size();
-			result.put("recordsTotal", total);
-			result.put("recordsFiltered", total);
-			result.put("draw", draw);
-			result.put("data", kcyjList2);
-		}else {
-			result.put("recordsTotal", 0);
-			result.put("recordsFiltered", 0);
-			result.put("draw", draw);
-			result.put("data", new ArrayList<>());
-		}
-		return result;
-	}
-
-
-	private String getFpzlmc(String kplx){
-		if(kplx.equals("12")){
-			return "026";
-		}else if(kplx.equals("01")){
-			return "004";
-		}else if(kplx.equals("02")){
-			return "007";
-		}
-		return "000";
-	}
-
-
-
-	@RequestMapping(value = "/getItems1")
 	@ResponseBody
 	public Map<String, Object> getItems1(int length, int start, int draw, Integer xfid,Integer skpid,String fpzldm,String xfsh,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -212,7 +66,7 @@ public class KcyjszController extends BaseController {
 			if(null ==xfid && (null ==xfsh || xfsh.equals(""))){
 				List<Xf> xflist = getXfList();
 				for(int i= 0;i<xflist.size();i++){
-					if(xfsh.equals(xflist.get(i).getXfsh())){
+					if(null!= xfsh &&xfsh.equals(xflist.get(i).getXfsh())){
 						pagination.addParam("xfid", xflist.get(i).getId());
 					}
 					if (i == xflist.size() - 1) {
@@ -240,7 +94,7 @@ public class KcyjszController extends BaseController {
 				}
 			}
 			pagination.addParam("gsdm", gsdm);
-			if(null==skpid || skpid.equals("")){
+			if(null==skpid || skpid.equals("") || skpid.equals("-1")){
 				String skpStr = "";
 				List<Skp> skpList = getSkpList();
 				if (skpList != null) {
@@ -259,9 +113,10 @@ public class KcyjszController extends BaseController {
 				}
 				pagination.addParam("skpids", skpids);
 			}
-			pagination.addParam("skpid", skpid);
+			pagination.addParam("skpid", (null == skpid || skpid.compareTo(-1)==0)?null:skpid);
 			pagination.addParam("fpzldm", fpzldm);
 			List<FpkcYzszVo> kcyjList = fpkcYzszService.findByPage(pagination);
+
 			int total = pagination.getTotalRecord();
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
