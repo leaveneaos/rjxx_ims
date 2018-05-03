@@ -116,7 +116,9 @@
                	alert("请先注册");
                	window.location.href = "zcIndex.jsp";
       		}else{
-      			var url="http://wpa.qq.com/msgrd?v=3&uin=234067123&site=qq&menu=yes";
+      			//var url="http://wpa.qq.com/msgrd?v=3&uin=234067123&site=qq&menu=yes";
+      			var url="tencent://message/?uin=234067123&site=qq&menu=yes";
+      					
               	$("#qq_page").attr('href',url);
               	$("#qq_page").trigger('click'); 
               	$.ajax({
@@ -140,7 +142,7 @@
       	}
       </script>
       
-    <title>页面选择</title>
+    <title>产品选择</title>
 </head>
 <body>
 <div class="zhuti">
@@ -177,7 +179,7 @@
     	<div>
     		<p>套餐三</p>
     		<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=234067123&site=qq&menu=yes"><img onclick="save()" border="0" src="http://wpa.qq.com/pa?p=2:234067123:53" alt="容津信息助力智能电子税务一体化" title="容津信息助力智能电子税务一体化"/></a> -->
-    		<a target="_blank" id="qq_page" href="javascript:void(0);"><img border="0" onclick="save()" border="0" src="http://wpa.qq.com/pa?p=2:234067123:53" alt="容津信息助力智能电子税务一体化" title="容津信息助力智能电子税务一体化"/></a>
+    		<a id="qq_page" href="javascript:void(0);"><img border="0" onclick="save()" border="0" src="http://wpa.qq.com/pa?p=2:234067123:53" alt="容津信息助力智能电子税务一体化" title="容津信息助力智能电子税务一体化"/></a>
     	</div>
     </div>     
             
