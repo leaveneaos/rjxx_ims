@@ -54,7 +54,7 @@ public class GetFpkcJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         String ws_url ="http://datarj.imwork.net:52472/Service.asmx?wsdl";
         try {
-            do{
+            //do{
                 logger.info("-------进入发票库存定时任务开始---------"+context.getNextFireTime());
                 //目前只统计
                 Map map = new HashMap();
@@ -118,9 +118,9 @@ public class GetFpkcJob implements Job {
                         }
                     }
                 }else{
-                    break;
+                    //break;
                 }
-            }while (true);
+           // }while (true);
             logger.info("-------进入发票库存定时任务结束---------"+context.getNextFireTime());
         } catch (Exception e) {
             e.printStackTrace();
