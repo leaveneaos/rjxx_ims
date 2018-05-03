@@ -1639,12 +1639,15 @@ public class KpController extends BaseController {
 						kpls.setFpztdm("04");
 						kplsService.save(kpls);
 					}else if(cszb.getCsz().equals("03")){
-                        //skService.SkServerKP(Integer.parseInt(kpsqh[i]));
 						if(kpls.getGsdm().equals("afb")){
 							skService.SkServerKPhttps(Integer.parseInt(kpsqh[i]));
-						}else{
-							kpls.setFpztdm("04");
-							kplsService.save(kpls);
+						}else if("05".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())) {
+							if("05".equals(kpls.getFpztdm())&&null!=kpls.getErrorReason()&&kpls.getErrorReason().contains("09D103")){
+								skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+							}else{
+								kpls.setFpztdm("04");
+								kplsService.save(kpls);
+							}
 						}
 					}else if("04".equals(cszb.getCsz())){
 						skService.SkBoxKP(Integer.parseInt(kpsqh[i]));
@@ -1652,6 +1655,7 @@ public class KpController extends BaseController {
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
 				}catch (Exception e){
+					e.printStackTrace();
 					result.put("success", false);
 					result.put("msg", "第"+(i+1)+"条流水重新开具失败！");
 				}
