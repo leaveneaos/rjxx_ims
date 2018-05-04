@@ -1,29 +1,28 @@
 package com.rjxx.taxeasy.controller;
 
+import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
+import com.rjxx.taxeasy.domains.Gszc;
+import com.rjxx.taxeasy.domains.Tqlj;
+import com.rjxx.taxeasy.domains.Xxts;
+import com.rjxx.taxeasy.service.GszcService;
+import com.rjxx.taxeasy.service.PpService;
+import com.rjxx.taxeasy.service.TqljService;
+import com.rjxx.taxeasy.service.XxtsService;
+import com.rjxx.taxeasy.web.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
-import com.rjxx.taxeasy.domains.Gszc;
-import com.rjxx.taxeasy.domains.Pp;
-import com.rjxx.taxeasy.domains.Tqlj;
-import com.rjxx.taxeasy.domains.Xxts;
-import com.rjxx.taxeasy.service.GszcService;
-import com.rjxx.taxeasy.service.PpService;
-import com.rjxx.taxeasy.service.TqjlService;
-import com.rjxx.taxeasy.service.TqljService;
-import com.rjxx.taxeasy.service.XxtsService;
-import com.rjxx.taxeasy.web.BaseController;
-
 @Controller
 @RequestMapping("gszc")
+@CrossOrigin
 public class GszcController extends BaseController {
 	@Autowired
 	GszcService gszcService;
