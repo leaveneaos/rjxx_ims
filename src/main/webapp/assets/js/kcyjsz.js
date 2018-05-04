@@ -167,7 +167,13 @@ $(function () {
                 var row = t.row($(this).parents('tr')).data();
                 $("#yjkcl").val(row.yjyz);
                 $("#xg_id").val(row.id);
-                el.$jsdiv.modal('open');
+                if(row.csz =='03' || row.csz =='04'){
+                    el.$jsdiv.modal('open');
+                }else{
+                    swal("目前只支持税控服务器和税空盒子开票方式库存预警！");
+                    return;
+                }
+
                 urls =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm+'&csz='+row.csz;
             });
 
