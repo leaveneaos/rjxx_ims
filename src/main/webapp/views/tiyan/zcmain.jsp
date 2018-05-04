@@ -151,7 +151,7 @@
     </div>
     <div class="z_you">
         <div class="z_kuai">
-            <a href="<%=request.getContextPath()%>/" style="color: #0E90D2;">首页</a><span>&nbsp;&nbsp;&nbsp;&nbsp;/</span>
+            <a href="<%=request.getContextPath()%>/login/login" style="color: #0E90D2;">首页</a><span>&nbsp;&nbsp;&nbsp;&nbsp;/</span>
         </div>
         <div class="z_kuai">
             <a href="<%=request.getContextPath()%>/web_products.jsp" style="color: #000000;">产品</a><span>&nbsp;&nbsp;&nbsp;&nbsp;/</span>

@@ -28,6 +28,8 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
+                        	$("#fpkcMxtable").hide();
+                        	$("#fpkcMxtable_wrapper").hide();
                         	var bz = $('#searchbz').val();
                             d.loaddata = loaddata;
                         	if(bz=='1'){
@@ -54,7 +56,20 @@ $(function () {
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
                         {"data":"fpzlmc"},                   
-                        {"data": "fpkcl"},
+                        {
+                        	//"data": "fpkcl"
+                        	"data": null,
+                        	"render":function(data){
+                        		if(data.yjyz!=null){
+                        			if(data.yjyz>data.fpkcl){
+                        				return "<span style='color:red;'>"+data.fpkcl+"<span>";
+                        			}
+                        		}else{
+                        			return data.fpkcl;
+                        		}
+                        		
+                        	}
+                        },
                         {"data": "yjyz"},
                         {
                         	"data":null,
@@ -77,6 +92,7 @@ $(function () {
             });         
             t.on('click','a.chakan', function (e, settings, json) {
             	var kcid = $(e.currentTarget).attr("kcid");
+            	$("#fpkcMxtable").show();
             	 var mx = $("#fpkcMxtable") .DataTable({
                     "processing": true,
                     "serverSide": true,
