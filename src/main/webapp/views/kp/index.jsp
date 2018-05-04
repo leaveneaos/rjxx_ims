@@ -1028,7 +1028,7 @@
 		</div>
 	</div>
 
-<div style="margin-left: -40%; background-color: white;width:850px;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+<div style="margin-left: -40%; background-color: white;width:870px;padding: 40px;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
      <div class="am-modal-hd">
       <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
     </div>

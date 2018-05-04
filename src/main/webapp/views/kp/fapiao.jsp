@@ -17,17 +17,13 @@
   width:938px; 
   height:100%;
 }
-.boyder_t3>tbody {
+.table-overAuto>tbody {
     display:block;
     height:80px;
     overflow-y:auto;
 }
 
-.boyder_t3>tbody tr {
-    display:table;
-    width:100%;
-    table-layout:fixed;
-}
+
 
 @page {
     /*size: 297mm 210mm;*/
@@ -48,16 +44,16 @@
     font-family: SimSun;
     font-size: 9pt;
 }
-.filled{
+/*.filled{
     font-family: SimSun;
     font-size: 9pt;
-}
-body {
+}*/
+/*body {
     margin-left: 1px;
     margin-right: 1px;
-    /*font-family: Arial Unicode MS;*/
+    !*font-family: Arial Unicode MS;*!
     font-size: 13px;
-}
+}*/
 
 span {
     color: black;
@@ -305,7 +301,7 @@ h2 {
 
                             <tr>
                                 <td>
-                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
+                                    <table class="boyder_t3 table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;"
                                            cellpadding="0" cellspacing="0">
                                         <tr class="boyder_tr1 printed">
                                             <td class="td" width="228x">货物或应税劳务、服务名称</td>
@@ -353,9 +349,11 @@ h2 {
                                     </span>
                                 </td>
                                 <td class="td" width="40px"><br/><br/><br/></td>
-                                <td style="text-align:right" class="filled" width="120px">
+                                <td style="text-align:right"  width="120px">
                                     <br/><br/><br/>
+                                    <span class="filled">
                                     ￥<%=new DecimalFormat("#.00").format(se)%>
+                                        </span>
                                 </td>
                             </tr>
                         </table>
