@@ -84,7 +84,7 @@
 						<div>
 
 							<table id="tbl"
-								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap" style="table-layout:fixed">
 								<thead>
 									<tr>
 										<th>序号</th>
