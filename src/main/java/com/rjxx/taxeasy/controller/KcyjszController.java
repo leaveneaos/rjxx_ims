@@ -195,7 +195,15 @@ public class KcyjszController extends BaseController {
                     fpkcYztz.setGsdm(gsdm);
                     fpkcYztz.setYjszid(yjszid);
                     if (tzfsids.length > 1) {
-                        fpkcYztz.setTzfs("01");
+                        String tzfs ="";
+                        for(int t=0;t<yjszids.length;t++){
+                            if (t == yjszids.length - 1) {
+                                tzfs += yjszids[t] + "";
+                            } else {
+                                tzfs +=  yjszids[t] + ",";
+                            }
+                        }
+                        fpkcYztz.setTzfs(tzfs);
                     } else {
                         fpkcYztz.setTzfs(tzfsids[0]);
                     }
