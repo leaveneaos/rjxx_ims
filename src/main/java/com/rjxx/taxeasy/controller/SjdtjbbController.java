@@ -1,8 +1,11 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rjxx.taxeasy.domains.Fpyltj;
 import com.rjxx.taxeasy.domains.Fpzl;
 import com.rjxx.taxeasy.domains.Xf;
+import com.rjxx.taxeasy.service.FpyltjService;
 import com.rjxx.taxeasy.service.FpzlService;
 import com.rjxx.taxeasy.service.KplsvoService;
 import com.rjxx.taxeasy.vo.Cxtjvo;
@@ -18,7 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+/**
+ * @author: zsq
+ * @date: 2018/5/3 14:05
+ * @describe: 发票用量统计优化--1
+ */
 @Controller
 @RequestMapping("/sjdtjbb")
 public class SjdtjbbController extends BaseController {
@@ -26,6 +33,8 @@ public class SjdtjbbController extends BaseController {
 	private KplsvoService ks;
 	@Autowired
 	private FpzlService fpzlService;
+	@Autowired
+	private FpyltjService fpyltjService;
 
 	@RequestMapping
 	public String index() {
@@ -112,7 +121,9 @@ public class SjdtjbbController extends BaseController {
 	        kprqz = sdf.format(calender.getTime());
 		}*/
 		params.put("kprqz", kprqz);
-		List<Cxtjvo> list = ks.findYypl(params);
+//		List<Cxtjvo> list = ks.findYypl(params);
+		List<Cxtjvo> list = fpyltjService.findYplByParams(params);
+		logger.info(JSON.toJSONString(list));
 		List<Cxtjvo> zplist = new ArrayList<Cxtjvo>();
 		List<Cxtjvo> pplist = new ArrayList<Cxtjvo>();
 		List<Cxtjvo> dplist = new ArrayList<Cxtjvo>();
@@ -189,5 +200,6 @@ public class SjdtjbbController extends BaseController {
 		result.put("list",list);
 		return result;
 	}
+
 
 }

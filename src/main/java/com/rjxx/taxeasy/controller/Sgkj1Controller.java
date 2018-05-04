@@ -283,7 +283,7 @@ public class Sgkj1Controller extends BaseController{
         jyxxsq.setXgry(yhid);
         jyxxsq.setYxbz("1");
         jyxxsq.setGsdm(gsdm);
-        jyxxsq.setZsfs("0");
+        String is = request.getParameter("is");
         try {
             Map params = Tools.getParameterMap(request);
             int zfcount = Integer.valueOf(params.get("zfcount").toString());//支付条数
@@ -305,7 +305,10 @@ public class Sgkj1Controller extends BaseController{
             String[] yhzcmc = ((String) params.get("yhzcmc")).split(",",-1);//优惠政策名称
             String[] lslbz = ((String) params.get("lslbz")).split(",",-1);//零税率
 
+            String[] kces = ((String) params.get("kce")).split(",");
+
             double jshj = 0.00;
+            String zsfs = "2";
             List<Jymxsq> jymxsqList = new ArrayList<>();
             for (int c = 0; c < mxcount; c++) {
                 Jymxsq jymxsq = new Jymxsq();
@@ -317,13 +320,28 @@ public class Sgkj1Controller extends BaseController{
                 jymxsq.setSpmc(spmcs[c]);
                 //jymxsq.setSpje(Double.valueOf(spjes[c])-Double.valueOf(spses[c]));
                 //修改商品明细商品金额为含税金额
-                jymxsq.setSpje(Double.valueOf(spjes[c]));
+
                 if (taxrates.length != 0) {
                     jymxsq.setSpsl(Double.valueOf(taxrates[c]));//商品税率
                 }
-                jymxsq.setJshj(Double.valueOf(spjes[c]));//价税合计
-                jymxsq.setKkjje(Double.valueOf(spjes[c]));
+                if(is!=null && is.equals("1")){
+                    jymxsq.setJshj(Double.valueOf(spjes[c])+Double.valueOf(spses[c]));//价税合计
+                    jymxsq.setKkjje(Double.valueOf(spjes[c])+Double.valueOf(spses[c]));//可开具金额
+                    jymxsq.setSpje(Double.valueOf(spjes[c])+Double.valueOf(spses[c]));//商品金额
+                }else {
+                    jymxsq.setJshj(Double.valueOf(spjes[c]));//价税合计
+                    jymxsq.setKkjje(Double.valueOf(spjes[c]));//可开具金额
+                    jymxsq.setSpje(Double.valueOf(spjes[c]));//商品金额
+                }
                 jymxsq.setYkjje(0d);
+                if (kces.length != 0) {
+                    try {
+                        jymxsq.setKce(Double.valueOf(kces[c]));
+                    } catch (Exception e) {
+                        jymxsq.setKce(null);
+                        zsfs ="0";
+                    }
+                }
                 if (ggxhs.length != 0) {
                     try {
                         jymxsq.setSpggxh(ggxhs[c]);
@@ -353,9 +371,9 @@ public class Sgkj1Controller extends BaseController{
 
                     }
                 }
-//                if (spses.length != 0) {
-//                    jymxsq.setSpse(Double.valueOf(spses[c]));
-//                }
+                if (spses.length != 0) {
+                    jymxsq.setSpse(Double.valueOf(spses[c]));
+                }
                 jymxsq.setLrry(yhid);
                 jymxsq.setYxbz("1");
                 jymxsq.setLrsj(TimeUtil.getNowDate());
@@ -381,6 +399,7 @@ public class Sgkj1Controller extends BaseController{
                 jymxsqList.add(jymxsq);
             }
             jyxxsq.setJshj(jshj);
+            jyxxsq.setZsfs(zsfs);
             String sfbx=request.getParameter("sfbx");
             //String errormessage=this.checkall(jyxxsq,jymxsqList,sfbx);
             List<Jyxxsq> jyxxsqList = new ArrayList<>();

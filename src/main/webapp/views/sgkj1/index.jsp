@@ -67,7 +67,7 @@
 								<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>手工开具</strong>
 							</div>
 						</div>
-
+						<%--<input type="hidden" name="hsbz" id="hsbz" value="1"/>--%>
 						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 							<div class="am-g">
 								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -248,8 +248,8 @@
 												<th>规格型号</th>
 												<th>单位</th>
 												<th>数量</th>
-												<th>单价(含税)</th>
-												<th>金额(含税)</th>
+												<th>单价<a id="yss">(含税)</a><a id="noo" style="display: none;color: red">(不含税)</a></th>
+												<th>金额<a id="yss1">(含税)</a><a id="noo1" style="display: none;color: red">(不含税)</a></th>
 												<th>税率</th>
 												<th>税额</th>
 											</tr>
@@ -370,6 +370,46 @@
 									<button type="button" id="disSave"
 											class="am-btn am-btn-default am-btn-success">确定</button>
 									<button type="button"  id="close1" class="am-btn am-btn-default am-btn-danger">关闭</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="difInfo">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">
+				差额
+			</div>
+			<div class="am-modal-bd">
+				<hr />
+				<form action="#" class="js-form-0  am-form am-form-horizontal">
+					<div class="am-g">
+						<div class="am-u-sm-12">
+							<div class="am-form-group">
+								<label for="disNum" class="am-u-sm-3 am-form-label"><span
+										style="color: red;">*</span>含税销售额</label>
+								<div class="am-u-sm-8">
+									<input type="text" id="hsxse" name="hsxse" required/>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="amount" class="am-u-sm-3 am-form-label"><span
+										style="color: red;">*</span>扣除额</label>
+								<div class="am-u-sm-8">
+									<input type="text" id="kce" name="kce" required />
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-12">
+							<div class="am-form-group">
+								<div class="am-u-sm-12  am-text-center">
+									<button type="button" id="chaSave"
+											class="am-btn am-btn-default am-btn-success">确定</button>
+									<button type="button"  id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
 								</div>
 							</div>
 						</div>

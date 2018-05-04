@@ -126,7 +126,7 @@
 								<div class="am-g">
 									<br>
 									<div class="am-u-sm-12">
-									    <div class="am-u-sm-1">&nbsp;</div>
+									    <div class="am-u-sm-1">&nbsp;选择销方</div>
 										<div class="am-u-sm-3">
 											<select id="m_xfid" name="xfid">
 												<c:forEach items="${xfs}" var="xf">
