@@ -149,9 +149,9 @@
                                                     <th>开票方式</th>
 													<%--<th>剩余库存(张)</th>--%>
 													<th>库存预警阈值(张)</th>
-													<%--<th style="display: none">xfid</th>
-													<th style="display: none">skpid</th>
-													<th style="display: none">fpzldm</th>--%>
+													<th style="display: none">csz</th>
+                                                    <%--<th style="display: none">skpid</th>
+                                                    <th style="display: none">fpzldm</th>--%>
 												</tr>
 											</thead>
 										</table>
@@ -164,7 +164,7 @@
 						<!-- model begin-->
 						<div class="am-modal am-modal-no-btn" tabindex="-1" id="shezhi">
 							<div class="am-modal-dialog" style="height: 240px; width: 400px">
-								<form class="js-form-yjsz am-form">
+								<form id ="xgform" class="js-form-yjsz am-form">
 									<div class="am-tabs" data-am-tabs>
 										<div class="am-tabs-nav am-nav am-nav-tabs">
 											<label>预警值设置</label>

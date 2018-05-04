@@ -4,6 +4,7 @@
 $(function () {
     "use strict";
     var ur ;
+    var urls;
     var el = {
     	$jsTable: $('.js-table'),//查询table
     	$jsForm:$('.js-form-yjsz'),
@@ -109,7 +110,8 @@ $(function () {
                                 }
                                 return kpfs;
                             }},
-                        {"data": "yjyz"},/*
+                        {"data": "yjyz"},
+                        {"data": "csz"},/*
                         {
                             "data": null,
                             "render": function (data) {
@@ -123,27 +125,38 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
+                $('#yjdytable tr').find('td:eq(10)').hide();
             });
 
             // 设置通知方式
             el.$jsTable1.on('click', el.$jsTable1, function() {
-                _this.resetForm();
+                //_this.resetForm();
                 var tableids ="";
+                var count =0;
+                var flag = true;
                 _this.tableEx.column(0).nodes().each(function (cell,i) {
                     var checkbox = $(cell).find('input[type="checkbox"]');
                     if(checkbox.is(':checked')){
+                        count++;
                         tableids+=checkbox.val()+',';
+                        var row = t.row(i).data();
+                        if(null ==row.yjyz || row.yjyz ==''){
+                            flag = false;
+                            return;
+                        }
                     }
                 });
-                if(tableids ==''){
-                    swal("请至少选择一条记录！");
+                if(flag == false){
+                    swal("只能设置已有库存预警值的记录！");
+                    return;
+                }
+                if(tableids =='' ){//|| count>1
+                    swal("请选择一条记录且最多一条数据！");
                     return;
                 }else{
                     $("#yjids").val(tableids.substr(0,(tableids.length-1)));
                     ur = _this.config.xzszUrl
                 }
-                //alert(tableids);
-                //ur = _this.config.xzUrl
                 el.$modalHongchong.modal({
                     "width" : 600,
                     "height" : 450
@@ -155,7 +168,7 @@ $(function () {
                 $("#yjkcl").val(row.yjyz);
                 $("#xg_id").val(row.id);
                 el.$jsdiv.modal('open');
-                ur =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm;
+                urls =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm+'&csz='+row.csz;
             });
 
 
@@ -242,7 +255,7 @@ $(function () {
 
 
             //预警设置新增方法
-            $("#btadd").click(function () {
+            /*$("#btadd").click(function () {
                 var xfid = $("#add_xfid").val();
                 var skpid = $("#add_skp").val();
                 var fpzldm = $("#add_fpzldm").val();
@@ -295,7 +308,7 @@ $(function () {
                         }
                     }
                 });
-            });
+            });*/
 
             // 单个设置
             /*t.on('click', 'a.shezhi', function () {
@@ -367,11 +380,11 @@ $(function () {
          */
 
         xz : function() {
-            //var _this = this;
+            var _this = this;
             $("#fomm").validator({
                 submit : function() {
                     var formValidity = this.isFormValid();
-                    var tzfss = document.getElementsByName("tzfs");
+                    var tzfss = document.getElementsByName("tzfsid");
                     var tzyhids = document.getElementsByName("yhid");
                     var fl = false;
                     var ag = false;
@@ -393,7 +406,7 @@ $(function () {
                     }
                     if(ag == false){
                         swal("请选择需要通知的用户!");
-                        return ;
+                        return false;
                     }
                     if (formValidity) {
                         var data = $("#fomm").serialize(); // get form data
@@ -438,6 +451,56 @@ $(function () {
             });
         },
 
+        /**
+         * 修改预警值
+         */
+
+        xgyjz : function() {
+            var _this = this;
+            $("#xgform").validator({
+                submit : function() {
+                    var formValidity = this.isFormValid();
+                    var yjkcl = document.getElementsByName("yjkcl");
+
+                    if (yjkcl == null || yjkcl =='') {
+                        swal("请填写发票库存预警值!");
+                        return;
+                    }
+                    if (formValidity) {
+                        var data = $("#xgform").serialize(); // get form data
+                        // data
+                        $.ajax({
+                            url : urls,
+                            data : data,
+                            method : 'POST',
+                            success : function(data) {
+                                if (data.success) {
+                                    el.$jsLoading.modal('close'); // close
+                                    el.$jsdiv.modal('close');
+                                    swal(data.msg);
+                                    _this.tableEx.ajax.reload(); // reload
+                                    // table
+                                } else {
+                                    el.$jsLoading.modal('close');
+                                    swal(data.msg);
+
+                                }
+                            },
+                            error : function() {
+                                //el.$modalHongchong.modal('close'); // close
+                                el.$jsLoading.modal('close'); // close loading
+                                swal('操作失败!');
+                            }
+                        });
+                        return false;
+                    } else {
+                        swal('验证失败,请注意红色输入框内格式!');
+                        return false;
+                    }
+                }
+
+            });
+        },
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
@@ -446,6 +509,7 @@ $(function () {
             _this.checkAllAc();
             _this.find_mv();
             _this.xz();
+            _this.xgyjz();
         }
     };
     action.init();
