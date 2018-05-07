@@ -694,7 +694,7 @@ $(function() {
                             }
                         }
                     });
-               
+
             el.$jsForm0.find('select[name="area"]').val(data.areaid);
             el.$jsForm0.find('input[name="address"]').val(data.address);
 
