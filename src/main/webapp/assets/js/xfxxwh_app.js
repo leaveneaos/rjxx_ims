@@ -203,7 +203,7 @@ $(function() {
 				$('div').removeClass('am-form-success');
 				$('input').removeClass('am-field-success');
 				ur = _this.config.addUrl;
-				el.$modalHongchong.modal({"width": 950, "height": 400});
+				el.$modalHongchong.modal({"width": 950, "height": 480});
 			});
 			// 修改
 			t.on('click', 'a.modify', function() {
@@ -213,7 +213,7 @@ $(function() {
 				$('input').removeClass('am-field-success');
 				var row = t.row($(this).parents('tr')).data();
 				_this.setForm0(row);				
-				el.$modalHongchong.modal({"width": 950, "height": 400});
+				el.$modalHongchong.modal({"width": 950, "height": 480});
 				$('#xfid').val(row.id);
 				ur = _this.config.editUrl;
 			});
@@ -475,7 +475,11 @@ $(function() {
                             xfdh = $('#xfdh').val(),
                             kpr = $('#kpr').val(),
                             ybnsrkssj = $("#ybnsrkssj").val(),
-                            ybnsrjyzslx = $("#ybnsrjyzslx").val();
+                            ybnsrjyzslx = $("#ybnsrjyzslx").val(),
+                        	province = $("#province").val(),
+                        	city = $("#city").val(),
+                            area = $("#area").val(),
+                            address = $("#address").val();
 						if(!xfmc) {
 							swal('请输入销方名称');
 							return false;
@@ -648,6 +652,12 @@ $(function() {
 			el.$jsForm0.find('input[name="khyh"]').val(data.xfyh);
 			el.$jsForm0.find('input[name="dz"]').val(data.xfdz);
 			// el.$jsForm0.find('input[name="xflxr"]').val(data.xflxr);
+
+            el.$jsForm0.find('select[name="province"]').val(data.provinceid);
+            el.$jsForm0.find('select[name="city"]').val(data.cityid);
+            el.$jsForm0.find('select[name="area"]').val(data.areaid);
+            el.$jsForm0.find('input[name="address"]').val(data.address);
+
 			el.$jsForm0.find('input[name="kpr"]').val(data.kpr);
 			el.$jsForm0.find('input[name="skr"]').val(data.skr);
 			el.$jsForm0.find('input[name="yhzh"]').val(data.xfyhzh);

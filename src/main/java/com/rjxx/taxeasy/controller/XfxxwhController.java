@@ -1,6 +1,9 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.dao.AreasJpaDao;
+import com.rjxx.taxeasy.dao.CitiesJpaDao;
+import com.rjxx.taxeasy.dao.ProvincesJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
@@ -8,6 +11,7 @@ import com.rjxx.taxeasy.vo.XfVo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ExcelUtil;
+import com.rjxx.utils.StringUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,12 @@ public class XfxxwhController extends BaseController {
 
 	@Autowired
 	private SkpService ss;
+	@Autowired
+	private ProvincesJpaDao provincesJpaDao;
+	@Autowired
+	private CitiesJpaDao citiesJpaDao;
+	@Autowired
+	private AreasJpaDao areasJpaDao;
 
 	/**
 	 * 导入字段映射
@@ -69,6 +79,8 @@ public class XfxxwhController extends BaseController {
 
 	@RequestMapping
 	public String index() {
+		List<Provinces> provincesList = provincesJpaDao.findAll();
+		request.setAttribute("provinces", provincesList);
 		request.setAttribute("xfs", getXfList());
 		request.setAttribute("bc", dfs.findAllByParams(null));
 		request.setAttribute("jyzslxs",setJyzslxProperty());
@@ -181,7 +193,8 @@ public class XfxxwhController extends BaseController {
 	@SystemControllerLog(description = "新增销方",key = "xfsh")  
 	public Map save(String sjxf, String xfsh, String xfmc, String dz, String xfdh, String xflxr, String xfyb,
 			String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje, Double dzpfpje,
-			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx) {
+			Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx,
+					String province,String city,String area,String address) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -226,6 +239,12 @@ public class XfxxwhController extends BaseController {
 				xf.setZpfpje(zpfpje);
 				xf.setPpzdje(ppzdje);
 				xf.setPpfpje(ppfpje);
+				xf.setProvinceid(province);
+				xf.setCityid(city);
+				xf.setAreaid(area);
+				if(StringUtils.isNotBlank(address)){
+					xf.setAddress(address);
+				}
 				xfService.update(xf);
 				xfService.saveNew(xf);
 				getXfList().add(xf);
@@ -272,7 +291,8 @@ public class XfxxwhController extends BaseController {
 	@SystemControllerLog(description = "修改销方",key = "xfid")  
 	public Map update(String sjxf, Integer xfid, String xfsh, String xfmc, String dz, String xfdh, String xflxr,
 			String xfyb, String khyh, String yhzh, String kpr, String skr, String fhr, String zfr, Double dzpzdje,
-			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx) {
+			Double dzpfpje, Double zpzdje, Double zpfpje, Double ppzdje, Double ppfpje,String ybnsrkssj,String ybnsrjyzslx,
+					  String province,String city,String area,String address) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			if (!"0".equals(sjxf) && !"".equals(sjxf) && sjxf != null) {
@@ -346,6 +366,12 @@ public class XfxxwhController extends BaseController {
 				xf.setZpfpje(zpfpje);
 				xf.setPpzdje(ppzdje);
 				xf.setPpfpje(ppfpje);
+				xf.setProvinceid(province);
+				xf.setCityid(city);
+				xf.setAreaid(area);
+				if(StringUtils.isNotBlank(address)){
+					xf.setAddress(address);
+				}
 				xfService.update(xf);
 				List<Xf> xfs3 = new ArrayList<>();
 				for (Xf xf2 : getXfList()) {
@@ -869,5 +895,32 @@ public class XfxxwhController extends BaseController {
 			}
 			return value;
 		}
+	}
+
+
+	@RequestMapping(value = "/getCity")
+	@ResponseBody
+	public List<Cities> getCity(String provinceid) throws Exception {
+		if(StringUtils.isBlank(provinceid)){
+			return new ArrayList<>();
+		}
+		List<Cities> citiesList = citiesJpaDao.findListByProvinceid(provinceid.trim());
+		if(citiesList.isEmpty()){
+			return new ArrayList<>();
+		}
+		return citiesList;
+	}
+
+	@RequestMapping(value = "/getArea")
+	@ResponseBody
+	public List<Areas> getArea(String cityid) throws Exception {
+		if(StringUtils.isBlank(cityid)){
+			return new ArrayList<>();
+		}
+		List<Areas> areasList = areasJpaDao.findListByProvinceid(cityid.trim());
+		if(areasList.isEmpty()){
+			return new ArrayList<>();
+		}
+		return areasList;
 	}
 }

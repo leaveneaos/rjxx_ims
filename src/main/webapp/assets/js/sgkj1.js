@@ -251,10 +251,11 @@ $(function() {
     $("#delzf").click(function(){
         jyzfmx_table.row('.selected').remove().draw(false);
         zfarr.pop();
-        $('#jyzfmx_table tbody').find("span.index").each(function (index, object) {
-            $(object).html(index + 1);
+        $('#jyzfmx_table tbody').find("span.index").each(function (indexzf, object) {
+            $(object).html(indexzf + 1);
         });
-        index=index-1;
+        indexzf=indexzf-1;
+        // indexzf = index;
     });
     //查询获取数据
     $("#searchddh").click(function(){
@@ -584,9 +585,24 @@ $(function() {
         var gfyh=$("#gfyh").val();//购方银行
         var yhzh=$("#yhzh").val();//购方银行账号
 
+        var zfmc=$("#zfmc").val();//支付名称
+        var zfje=$("#zfje").val();//支付名称
+
         var kce =$("#kce").val();//可开额
 
         var filter  = /^[-_a-zA-Z0-9]+$/;
+        if(indexzf !=null && indexzf !=0){
+            if(null == zfmc || zfmc==""){
+                $("#zfmc").focus();
+                swal("支付名称不能为空！");
+                return;
+            }
+            if(null == zfje || zfje==""){
+                $("#zfje").focus();
+                swal("支付金额不能为空！");
+                return;
+            }
+        }
         if(xf==""){
             $("#xf").focus();
             swal("销方名称不能为空！");
