@@ -197,7 +197,47 @@ $(function() {
 				el.$jsForm.find('[name="skr"]').val(data.skr);
 				el.$jsForm.find('[name="fhr"]').val(data.fhr);
 				el.$jsForm.find('[name="kpr"]').val(data.kpr);
-				if (data.kplx != null) {
+                el.$jsForm.find('select[name="province"]').val(data.provinceid);
+                var city = $("#city");
+                $("#city").empty();
+                $.ajax({
+                    url : "xfxxwh/getCity",
+                    async:false,
+                    data : {
+                        "provinceid" : data.provinceid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        city.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            var option = $("<option>").text(data[i].city).val(
+                                data[i].cityid);
+                            city.append(option);
+                        }
+                    }
+                });
+                el.$jsForm.find('select[name="city"]').val(data.cityid);
+                var area = $("#area");
+                $("#area").empty();
+                $.ajax({
+                    url : "xfxxwh/getArea",
+                    async:false,
+                    data : {
+                        "cityid" : data.cityid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        area.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            option = $("<option>").text(data[i].area).val(
+                                data[i].areaid);
+                            area.append(option);
+                        }
+                    }
+                });
+                el.$jsForm.find('select[name="area"]').val(data.areaid);
+                el.$jsForm.find('input[name="address"]').val(data.address);
+                if (data.kplx != null) {
 					var fps = data.kplx.split(",");
 					for (var i = 0; i < fps.length; i++) {
 						var fplx = '#fplx-' + fps[i];

@@ -9,6 +9,9 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
+import com.rjxx.taxeasy.dao.ProvincesJpaDao;
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.utils.StringUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.domains.DrPz;
-import com.rjxx.taxeasy.domains.Group;
-import com.rjxx.taxeasy.domains.Gsxx;
-import com.rjxx.taxeasy.domains.Pp;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.DmFpbcService;
 import com.rjxx.taxeasy.service.FpzlService;
@@ -64,6 +61,9 @@ public class SksbxxzcControlller extends BaseController {
 	@Autowired
 	private DmFpbcService dfs;
 
+	@Autowired
+	private ProvincesJpaDao provincesJpaDao;
+
 	/**
 	 * 导入字段映射
 	 */
@@ -85,6 +85,8 @@ public class SksbxxzcControlller extends BaseController {
 
 	@RequestMapping
 	public String index() {
+		List<Provinces> provincesList = provincesJpaDao.findAll();
+		request.setAttribute("provinces", provincesList);
 		request.setAttribute("xfs", getXfList());
 		request.setAttribute("xf", getXfList().get(0));
 		Map<String, Object> prms = new HashMap<>();
@@ -202,7 +204,8 @@ public class SksbxxzcControlller extends BaseController {
 	@SystemControllerLog(description = "新增开票点",key = "kpddm")  
 	public Map save(int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx, String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
+			Integer bmbb, String fplx, String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3,
+					String province,String city,String area,String address) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> prms = new HashMap<>();
@@ -264,6 +267,12 @@ public class SksbxxzcControlller extends BaseController {
 			old.setYxbz("1");
 			old.setKplx(fplx);
 			old.setWrzs("1");//无人值守 ：默认1
+			old.setProvinceid(province);
+			old.setCityid(city);
+			old.setAreaid(area);
+			if(StringUtils.isNotBlank(address)){
+				old.setAddress(address);
+			}
 			skpService.save(old);
 			Group group = new Group();
 			group.setYhid(getYhid());
@@ -307,7 +316,8 @@ public class SksbxxzcControlller extends BaseController {
 	@SystemControllerLog(description = "修改开票点",key = "id")  
 	public Map  update(int id, int xfid, String kpddm, String kpdmc, String skph, String skpmm, String zsmm, String lxdz,
 			String lxdh, String khyh, String yhzh, String skr, String fhr, String kpr, String sbcs, Integer pid,
-			Integer bmbb, String fplx,String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3) {
+			Integer bmbb, String fplx,String wrzs, Double kpxe1, Double fpje1, Double kpxe2, Double fpje2, Double kpxe3, Double fpje3,
+					   String province,String city,String area,String address) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
@@ -359,6 +369,12 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setXgry(getYhid());
 			skp.setXgsj(new Date());
 			skp.setYxbz("1");
+			skp.setProvinceid(province);
+			skp.setCityid(city);
+			skp.setAreaid(area);
+			if(StringUtils.isNotBlank(address)){
+				skp.setAddress(address);
+			}
 			skpService.save(skp);
 			result.put("success", true);
 			result.put("msg", "修改成功");

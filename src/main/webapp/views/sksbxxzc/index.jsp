@@ -268,6 +268,46 @@
 												</div>
 											</div>
 											<div class="am-form-group">
+												<label for="province" class="am-u-sm-2 am-form-label"><font
+														color="red">*</font>所在省</label>
+												<div class="am-u-sm-4">
+													<select id="province" name="province" onchange="getCity()">
+														<option value="0">请选择</option>
+														<c:forEach items="${provinces }" var="p">
+															<option value="${p.provinceid}">${p.province}</option>
+														</c:forEach>
+													</select>
+												</div>
+												<label for="city" class="am-u-sm-2 am-form-label"><font
+														color="red">*</font>所在市</label>
+												<div class="am-u-sm-4">
+													<select id="city" name="city"  onchange="getArea();">
+													</select>
+												</div>
+											</div>
+											<div class="am-form-group">
+												<label for="area" class="am-u-sm-2 am-form-label"><font
+														color="red">*</font>所在区</label>
+												<div class="am-u-sm-4">
+													<select id="area" name="area">
+													</select>
+												</div>
+												<label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
+												<div class="am-u-sm-4">
+													<select id="pid" name="pid">
+														<option value="0">请选择</option>
+														<c:forEach items="${pps}" var="item">
+															<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
+														</c:forEach>
+													</select>
+												</div>
+												<%--<label for="address" class="am-u-sm-2 am-form-label"><font
+														color="red">*</font>详细地址</label>
+												<div class="am-u-sm-4">
+													<input type="text"  id="address" name="address" placeholder="详细地址">
+												</div>--%>
+											</div>
+											<div class="am-form-group">
 												<label for="lxdz" class="am-u-sm-2 am-form-label"><font
 													color="red">*</font>联系地址</label>
 												<div class="am-u-sm-4">
@@ -323,15 +363,6 @@
 													<input type="text" id="kpr" name="kpr" style="float: left;"
 														placeholder="开票人" value="${xf.kpr }" class="am-form-field"
 														required="required" />
-												</div>
-												<label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
-												<div class="am-u-sm-4">
-													<select id="pid" name="pid">
-														<option value="0">请选择</option>
-														<c:forEach items="${pps}" var="item">
-															<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
-														</c:forEach>
-													</select>
 												</div>
 											</div>
 
@@ -555,6 +586,52 @@
 				$(id).hide();
 			}
 		}
+
+        //选择省获取市
+        function getCity() {
+            var provinceid = $('#province option:selected').val();
+            var city = $("#city");
+            $("#city").empty();
+            $.ajax({
+                url : "xfxxwh/getCity",
+                data : {
+                    "provinceid" : provinceid
+                },
+                success : function(data) {
+                    var option = $("<option>").text('请选择').val(-1);
+                    city.append(option);
+                    for (var i = 0; i < data.length; i++) {
+                        var option = $("<option>").text(data[i].city).val(
+                            data[i].cityid);
+                        city.append(option);
+                    }
+                }
+            });
+        }
+
+        //选择市获取区
+        function getArea() {
+            var cityid = $('#city option:selected').val();
+            if(cityid !=null && cityid !=""){
+                var area = $("#area");
+                $("#area").empty();
+                $.ajax({
+                    url : "xfxxwh/getArea",
+                    data : {
+                        "cityid" : cityid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        area.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            option = $("<option>").text(data[i].area).val(
+                                data[i].areaid);
+                            area.append(option);
+                        }
+                    }
+                });
+            }
+        };
 	</script>
 </body>
 </html>
