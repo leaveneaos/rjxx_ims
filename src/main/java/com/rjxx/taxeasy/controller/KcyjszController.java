@@ -134,7 +134,7 @@ public class KcyjszController extends BaseController {
 
     @RequestMapping(value = "/addyjz", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> saveYjz(Integer xfid, Integer skpid, String fpzldm, Integer yjkcl, String kpfs) {
+    public Map<String, Object> saveYjz(Integer xfid, Integer skpid, String fpzldm, Integer yjkcl, String kpfs, String skph) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("success", true);
         result.put("msg", "保存成功！");
@@ -157,6 +157,7 @@ public class KcyjszController extends BaseController {
                 yjdy.setFpzldm(fpzldm);
                 yjdy.setYjyz(yjkcl);
                 yjdy.setYxbz("1");
+                yjdy.setSkph(skph);
                 fpkcYzszService.save(yjdy);
             } else {
                 item.setYjyz(yjkcl);

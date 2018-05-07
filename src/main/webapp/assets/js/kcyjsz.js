@@ -174,7 +174,7 @@ $(function () {
                     return;
                 }
 
-                urls =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm+'&csz='+row.csz;
+                urls =_this.config.szUrl + '?xfid=' + row.xfid+'&skpid='+row.skpid+'&fpzldm='+row.fpzldm+'&csz='+row.csz+'&skph='+row.skph;
             });
 
 
