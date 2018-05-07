@@ -234,7 +234,7 @@ $(function() {
                 //alert(url);
                 $('#your-modal').modal({
                     "width" : 900,
-                    "height" : 500
+                    "height" : 420
                 });
             });
 
@@ -315,7 +315,7 @@ $(function() {
                         return ;
                     }
                 }
-                var data="kplshck="+kplshck+"&gfmcck="+gfmcck+"&gfemailck="+gfemailck+"&ggfshck="+gfshck+
+                var data="kplshck="+kplshck+"&gfmcck="+gfmcck+"&gfemailck="+gfemailck+"&gfshck="+gfshck+
                     "&gfdzck="+gfdzck+"&gfdhck="+gfdhck+"&gfyhck="+gfyhck+"&gfyhzhck="
                     +gfyhzhck+"&sfbx="+sfbx+"&fpcklx="+fpcklx+"&bz="+bz+"&fpzldm="+fpzldm;
                 // alert(data);

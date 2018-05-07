@@ -318,7 +318,7 @@
 						</div>--%>
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal"
 		 title="发票信息修改">
-		<div class="am-modal-dialog" style="overflow: auto">
+		<div class="am-modal-dialog" style="">
 			<div class="am-modal-hd">
 				发票信息修改 <a href="javascript: void(0)" class="am-close am-close-spin"
 						data-am-modal-close>&times;</a>
@@ -359,7 +359,7 @@
 							<div class="am-u-md-6">
 								<label for="gfshck" class="am-u-sm-3 am-form-label data-cte"><span class="star" id="show" style="color:red;">*</span>购方税号</label>
 								<div class="am-u-sm-7">
-									<input id="gfshck" name="gfshck" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+									<input id="gfshck" name="gfshck" type="text" placeholder="请输入购方税号">
 								</div>
 							</div>
 						</div>

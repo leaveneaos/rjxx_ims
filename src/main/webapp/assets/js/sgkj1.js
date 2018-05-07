@@ -351,13 +351,13 @@ $(function() {
                     $("#hjse").val(sehj);
                 }else {
                     if(null!= data.error){
-                        swal("提示:\r\n"+data.error);
+                        swal(data.error);
                     }
                     if(null!=data.msg){
-                        swal("提示:\r\n"+data.msg);
+                        swal(data.msg);
                     }
                     if(null!=data.temp){
-                        swal("提示:\r\n"+data.temp);
+                        swal(data.temp);
                     }
                 }
             }
@@ -764,7 +764,7 @@ $(function() {
             "&ddh="+ddh+"&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
             "&jshj="+jshj+"&hjje="+hjje+"&hjse="+hjse+"&sfbx="+sfbx+"&"+ps.join("&")+"&"+zf.join("&");
-        alert(data);
+        // alert(data);
         swal({
             title:"提示",
             text: "您确定要申请开票吗？",

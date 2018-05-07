@@ -942,7 +942,10 @@ public class Sgkj1Controller extends BaseController{
         String gsdm = getGsdm();
         Map map = adapterService.getApiMsg(gsdm, ddh);
         if(map==null){
-            resultMap.put("msg","未查询到数据,请重新输入");
+            resultMap.put("msg","未查询到数据");
+            return resultMap;
+        }
+        if(map.get("post")!=null){
             return resultMap;
         }
         Jyxxsq jyxxsq = (Jyxxsq) map.get("jyxxsq");
@@ -959,7 +962,7 @@ public class Sgkj1Controller extends BaseController{
         resultMap.put("jyxxsq",jyxxsqList);
         request.getSession().setAttribute("jyxxsqList",jyxxsqList);
         List zflist = new ArrayList();
-        if(jyzfmxList.size() > 0){
+        if(jyzfmxList!=null && jyzfmxList.size() > 0){
             for (Jyzfmx jyzfmx : jyzfmxList){
                 Map parmMap = new HashMap();
                 parmMap.put("zffsDm",jyzfmx.getZffsDm());
