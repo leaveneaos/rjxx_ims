@@ -47,7 +47,7 @@ $(function() {
 					data : function(d) {
 						d.csid = el.$s_yhzh.val(); // search 用户账号
 						d.csjb = el.$s_yhmc.val(); // search 用户名称
-						debugger
+						// debugger
 					}
 				},
 				"columns" : [ {

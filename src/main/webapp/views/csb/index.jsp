@@ -23,6 +23,13 @@
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
+	<style type="text/css">
+		#tbl th,#tbl td{
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden
+		}
+	</style>
 </head>
 <body>
 	<!--[if lte IE 9]>
@@ -84,7 +91,7 @@
 						<div>
 
 							<table id="tbl"
-								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap" style="table-layout:fixed">
+								class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap" style="table-layout:fixed;">
 								<thead>
 									<tr>
 										<th>序号</th>
