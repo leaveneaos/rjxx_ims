@@ -654,7 +654,47 @@ $(function() {
 			// el.$jsForm0.find('input[name="xflxr"]').val(data.xflxr);
 
             el.$jsForm0.find('select[name="province"]').val(data.provinceid);
+                var city = $("#city");
+                $("#city").empty();
+                $.ajax({
+                    url : "xfxxwh/getCity",
+                    async:false,
+                    data : {
+                        "provinceid" : data.provinceid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        city.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            var option = $("<option>").text(data[i].city).val(
+                                data[i].cityid);
+                            city.append(option);
+                        }
+                    }
+                });
+
+
             el.$jsForm0.find('select[name="city"]').val(data.cityid);
+
+                    var area = $("#area");
+                    $("#area").empty();
+                    $.ajax({
+                        url : "xfxxwh/getArea",
+                        async:false,
+                        data : {
+                            "cityid" : data.cityid
+                        },
+                        success : function(data) {
+                            var option = $("<option>").text('请选择').val(-1);
+                            area.append(option);
+                            for (var i = 0; i < data.length; i++) {
+                                option = $("<option>").text(data[i].area).val(
+                                    data[i].areaid);
+                                area.append(option);
+                            }
+                        }
+                    });
+               
             el.$jsForm0.find('select[name="area"]').val(data.areaid);
             el.$jsForm0.find('input[name="address"]').val(data.address);
 

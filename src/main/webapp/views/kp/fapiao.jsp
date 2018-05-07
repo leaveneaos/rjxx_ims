@@ -19,7 +19,7 @@
 }
 .table-overAuto>tbody {
     display:block;
-    height:80px;
+    max-height:130px;
     overflow-y:auto;
 }
 
@@ -226,7 +226,7 @@ h2 {
                                             <td class="notd"></td>
                                         </tr>
                                         <tr>
-                                            <td class="titletd printed">校&#160;验&#160;码：<span class="filled">${jym}</span></td>
+                                            <td class="titletd printed">校 验 码：<span class="filled">${jym}</span></td>
                                             <td class="notd"></td>
                                         </tr>
                                     </table>
@@ -301,7 +301,7 @@ h2 {
 
                             <tr>
                                 <td>
-                                    <table class="boyder_t3 table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;"
+                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
                                            cellpadding="0" cellspacing="0">
                                         <tr class="boyder_tr1 printed">
                                             <td class="td" width="228x">货物或应税劳务、服务名称</td>
@@ -313,6 +313,9 @@ h2 {
                                             <td width="40px" class="td">税率</td>
                                             <td class="titletd" width="120px">税额</td>
                                         </tr>
+                                    </table>
+                                        <table class="boyder_t3 table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;"
+                                               cellpadding="0" cellspacing="0">
 
                                         <%
                                             for(int j=0;j<list.size();j++){
@@ -322,35 +325,38 @@ h2 {
                                                 se=kp.add(se,jyspmx.getSpse());
                                                 jshj = kp.add(je,se);
                                         %>
+
                                         <tr>
-                                            <td class="mxtd filled" width="228x"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
-                                            <td class="mxtd filled" width="102px"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
-                                            <td class="mxtd filled" width="45px"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
-                                            <td class="mxtd filled" width="80px"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
-                                            <td class="mxtd filled" width="75px"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
-                                            <td class="mxtd filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
-                                            <td class="mxtd filled" width="40px" style="text-align:right"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
+                                            <td class="filled" width="228x"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
+                                            <td class="filled" width="102px"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
+                                            <td class="filled" width="45px"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
+                                            <td class="filled" width="80px"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
+                                            <td class="filled" width="75px"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
+                                            <td class="filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
+                                            <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
                                             <td width="120px" class="filled" style="text-align:right"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
                                         </tr>
                                         <%
                                             }
                                         %>
+
+                                        </table>
+                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
+                                           cellpadding="0" cellspacing="0">
                             <tr class="boyder_tr1">
-                                <td class="td printed" width="228x"><br/><br/><br/>合&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;计
+                                <td class="td printed" width="228x">合&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;计
                                 </td>
-                                <td class="td" width="102px"><br/><br/><br/></td>
-                                <td class="td" width="45px"><br/><br/><br/></td>
-                                <td class="td" width="80px"><br/><br/><br/></td>
-                                <td class="td" width="75px"><br/><br/><br/></td>
+                                <td class="td" width="102px"></td>
+                                <td class="td" width="45px"></td>
+                                <td class="td" width="80px"></td>
+                                <td class="td" width="75px"></td>
                                 <td class="td" width="120px" style="text-align:right">
-                                    <br/><br/><br/>
                                     <span class="filled">
                                         ￥<%=new DecimalFormat("#.00").format(je)%>
                                     </span>
                                 </td>
-                                <td class="td" width="40px"><br/><br/><br/></td>
+                                <td class="td" width="40px"></td>
                                 <td style="text-align:right"  width="120px">
-                                    <br/><br/><br/>
                                     <span class="filled">
                                     ￥<%=new DecimalFormat("#.00").format(se)%>
                                         </span>
