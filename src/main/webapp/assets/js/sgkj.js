@@ -426,6 +426,10 @@ $(function() {
                 swal("纳税人识别号不能为空！");
                 return;
             }
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+                swal("用于报销时，纳税人识别号长度有误！");
+                return;
+            }
             if(gfdz==""){
                 $("#gfdz").focus();
                 swal("购买方地址不能为空！");
@@ -444,6 +448,12 @@ $(function() {
             if(yhzh==""){
                 $("#yhzh").focus();
                 swal("购买方银行账号不能为空！");
+                return;
+            }
+        }
+        if(gfsh!=null && gfsh!=""){
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+                swal("纳税人识别号长度有误！");
                 return;
             }
         }
