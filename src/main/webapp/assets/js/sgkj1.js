@@ -141,6 +141,9 @@ $(function() {
     //折扣处理
     $("#discount").click(function () {
         $('#cha').attr("disabled",true);
+        $('#disAmount').val("");
+        $('#xz_gfdz').val("");
+        $('#zkl').val("");
         var tr=$("#jyspmx_table").find("tr");
         var jshjstr=0;
         var disT= true;
@@ -169,6 +172,7 @@ $(function() {
             if(disT){
                 $('#disNum').val(1);
                 $('#amount').val(firstje);
+
                 $modal.modal({"width": 600, "height": 280});
             }
 
@@ -261,6 +265,10 @@ $(function() {
     $("#searchddh").click(function(){
         var ddh=$("#ddh").val();
         var xfid=$("#xf").val();
+        if(ddh==null|| ddh==""){
+            swal("请输入订单号");
+            return;
+        }
         $.ajax({
             url : "sgkj1/findjyxxsq",
             data : {
@@ -460,12 +468,14 @@ $(function() {
 
     $('#zffs_table tbody').on('click','tr',function(){
         var data = zffs_table.row($(this)).data();
-        $("#jyzfmx_table").find("tr").eq(value).children("td").each(function(i,cell){
-            if(i==1){
-                $(cell).find('input[name="zfmc"]').val(data.zffsMc);
-                $(cell).find('input[name="zffsDm"]').val(data.zffsDm);
-            }
-        });
+        if(data !=null){
+            $("#jyzfmx_table").find("tr").eq(value).children("td").each(function(i,cell){
+                if(i==1){
+                    $(cell).find('input[name="zfmc"]').val(data.zffsMc);
+                    $(cell).find('input[name="zffsDm"]').val(data.zffsDm);
+                }
+            });
+        }
         $("#zffs").modal("close");
     });
 
@@ -669,6 +679,12 @@ $(function() {
                 return;
             }
         }
+        if(gfsh!=null && gfsh!=""){
+            if(gfsh.length!=15||gfsh.length!=18||gfsh.length!=20){
+                swal("购买方税号长度有误！");
+                return;
+            }
+        }
         var ps = [];
         var zf = [];
         var errorspmessage="";
@@ -787,6 +803,8 @@ $(function() {
                             SelectArr[i].options[0].selected = true;
                             $("#kpd").val('');
                         }
+                        jyspmx_table.clear().draw();
+                        jyzfmx_table.clear().draw();
                     } else {
                         swal(data.msg);
                     }
@@ -803,11 +821,17 @@ $(function() {
             SelectArr[i].options[0].selected = true;
             $("#kpd").val('');
         }
-    })
+    });
     $("#disSave").click(function () {
         var arry=getAllRowDataArry();
         var num= $("#disNum").val();
-        var zkl= parseFloat($("#zkl").val());
+        var disAmount= $("#disAmount").val();
+        if(disAmount==""|| disAmount==null){
+            swal("请重新输入折扣金额");
+            $('#disAmount').focus();
+            return;
+        }
+        var zkl= FormatFloat($("#zkl").val());
         if(zkl>1){
             swal("折扣率格式有误，请重新输入折扣金额");
             $('#disAmount').focus();
@@ -821,7 +845,7 @@ $(function() {
             var cishu1=2*i+1;
             var cishu2=2*i+2;
             var cishu3=i+parseInt(num)+1;
-            var zkje='-'+FormatFloat((arry[i].spje)/zspje*zzkje,"#");
+            var zkje='-'+FormatFloat((arry[i].spje)/zspje*zzkje,"#.00");
             var temp = (100 + arry[i].taxrate * 100) / 100;//税率计算方式
             var zkse =FormatFloat((zkje / temp) * arry[i].taxrate,"#.00");
             if(i<num){
@@ -910,10 +934,10 @@ $(function() {
     });
 
     $("#disAmount").on('change',function (){
-        var spje=parseInt($("#amount").val());
-        var zkje=parseInt($(this).val());
+        var spje=FormatFloat($("#amount").val(),"#.00");
+        var zkje=FormatFloat($(this).val(),"#.00");
         var zkl=zkje/spje;
-        $("#xz_gfdz").val(zkl.toFixed(3)*100+'%');
+        $("#xz_gfdz").val((zkl*100).toFixed(3)+'%');
         $('#zkl').val(zkl);
     });
     $("#close1").on('click', function () {
