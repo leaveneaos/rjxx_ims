@@ -419,13 +419,18 @@ public class PttqkpController extends BaseController {
 
 	@RequestMapping(value = "/getFpzldm")
 	@ResponseBody
-	public List<Fpkcvo> getKpd(int skpid) throws Exception {
+	public List<Fpkcvo> getKpd(String skpid,String kpddm) throws Exception {
 		List<Fpkcvo> list = new ArrayList();
-
 		String gsdm = getGsdm();
 		Map map = new HashMap();
 		map.put("gsdm",gsdm);
-		map.put("kpdid",skpid);
+		if(StringUtils.isBlank(skpid) && StringUtils.isBlank(kpddm)){
+			return new ArrayList<>();
+		}
+		if(StringUtils.isNotBlank(skpid)){
+			map.put("kpdid",Integer.valueOf(skpid));
+		}
+		map.put("kpddm",kpddm);
 		Skp skp = skpService.findOneByParams(map);
 		if(skp.getKplx()!=null){
 			String kplx = skp.getKplx();

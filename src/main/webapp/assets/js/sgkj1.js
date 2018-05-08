@@ -99,7 +99,7 @@ $(function() {
             '<input type="text" id="spdw" name="spdw">',
             '<input type="text" id="spsl" name="spsl" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
             '<input type="text" id="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
-            '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" style="text-align:right">',
+            '<input type="text" id="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,'+"''"+')" onchange="this.value=fomart(this.value)" style="text-align:right">',
             '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right">',
             '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly>'
         ]).draw();
@@ -287,16 +287,37 @@ $(function() {
                             data : {
                                 "xfid" : jyxxsq[i].xfid
                             },
-                            success : function(test) {
-                                for (var i = 0; i < test.length; i++) {
-                                    var option = $("<option>").text(test[i].kpdmc).val(
-                                        test[i].skpid);
+                            success : function(data) {
+                                for (var i = 0; i < data.length; i++) {
+                                    var option = $("<option>").text(data[i].kpdmc).val(
+                                        data[i].skpid);
                                     kpd.append(option);
                                 }
                             }
                         });
                         $("#kpd").val(jyxxsq[i].skpid);
-                        $("#fpzldm").val(jyxxsq[i].fpzldm);
+                        var kpddm = jyxxsq[i].kpddm;
+                        if(kpddm !=null && kpddm !=""){
+                            var fpzldm = $("#fpzldm");
+                            $("#fpzldm").empty();
+                            $.ajax({
+                                url : "pttqkp/getFpzldm",
+                                data : {
+                                    "kpddm" : kpddm
+                                },
+                                success : function(data) {
+                                    var option = $("<option>").text('请选择').val(-1);
+                                    fpzldm.append(option);
+                                    for (var i = 0; i < data.length; i++) {
+                                        option = $("<option>").text(data[i].fpzlmc).val(
+                                            data[i].fpzldm);
+                                        fpzldm.append(option);
+                                    }
+                                }
+                            });
+                        }
+                        $("#mainform").find('select[name="fpzldm"]').val(jyxxsq[i].fpzldm);
+                         // $("#fpzldm").val(jyxxsq[i].fpzldm);
                         $("#gfmc").val(jyxxsq[i].gfmc);
                         $("#gfsh").val(jyxxsq[i].gfsh);//购方税号
                         $("#gfdz").val(jyxxsq[i].gfdz);//购方地址
@@ -338,16 +359,19 @@ $(function() {
                         var yhzcbs=jymxsq[j].spse== null ? '' : jymxsq[j].yhzcbs;
                         var yhzcmc=jymxsq[j].spse== null ? '' : jymxsq[j].yhzcmc;
                         var lslbz=jymxsq[j].spse== null ? '' : jymxsq[j].lslbz;
+                        if(spje!=null && spje!=""){
+                            spje=FormatFloat(spje,"#.00")
+                        }
                         jyspmx_table.row.add([
                             "<span class='index' id='xhf'>" + b + "</span>",
                             '<input type="text" id="spmc"  name="spmc" value="'+jymxsq[j].spmc+'" readonly><input type="hidden" id="spbm" name="spbm" value="'+jymxsq[j].spdm+'">'+
                             '<input type="hidden" id="yhzcbs" name="yhzcbs" value="'+yhzcbs+'"><input type="hidden" id="yhzcmc" name="yhzcmc" value="'+yhzcmc+'"><input type="hidden" id="lslbz" name="lslbz" value="'+lslbz+'">' +
                             '<input type="hidden" id="fphxz"   name="fphxz"  value="'+fphxz+'" >',
-                            '<input type="text" id="ggxh" name="ggxh"  value="'+spggxh+'" >',
-                            '<input type="text" id="spdw" name="spdw"  value="'+spdw+'" >',
-                            '<input type="text" id="spsl" name="spsl"  style="text-align:right" value="'+sps+'" >',
-                            '<input type="text" id="spdj" name="spdj"  style="text-align:right" value="'+spdj+'" >',
-                            '<input type="text" id="spje" name="spje"  style="text-align:right" value="'+spje+'" >',
+                            '<input type="text" id="ggxh" name="ggxh"  value="'+spggxh+'" readonly>',
+                            '<input type="text" id="spdw" name="spdw"  value="'+spdw+'" readonly>',
+                            '<input type="text" id="spsl" name="spsl"  style="text-align:right" value="'+sps+'" readonly>',
+                            '<input type="text" id="spdj" name="spdj"  style="text-align:right" value="'+spdj+'" readonly>',
+                            '<input type="text" id="spje" name="spje"  style="text-align:right" value="'+spje+'" readonly>',
                             '<input type="text" id="taxrate" name="taxrate" class="selected" readonly style="text-align:right" value="'+spsl+'" >',
                             '<input type="text" id="spse" name="spse" style="text-align:right" class="selected" readonly value="'+spse+'" >'
                         ]).draw();
@@ -494,6 +518,7 @@ $(function() {
         var hjse=$("#hjse");//合计税额
 
         var temp = (100 + taxrate.val() * 100) / 100;//税率计算方式
+
         if (spdj!= "") {
             spje.val(FormatFloat(spsl.val() * spdj.val(), "#.00"));
             var jj = spsl.val() * spdj.val();
@@ -560,9 +585,9 @@ $(function() {
         var jshj=$("#jshj");//价税合计
         var hjje=$("#hjje");//合计金额
         var hjse=$("#hjse");//合计税额
-
         var temp = (100 + taxrate.val() * 100) / 100;//税率计算方式
         var jj = spje.val();
+        // spje.val(FormatFloat(spje.val(),"#.00"));
         spse.val(FormatFloat((jj / temp) * taxrate.val(),"#.00"));
         var jshjstr=0;
         var hjjestr=0;
@@ -583,6 +608,7 @@ $(function() {
         hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
         hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
     });
+
     $("#kj").click(function(){
         var xf=$("#xf").val();//销方
         var kpd=$("#kpd").val();//开票点
@@ -650,6 +676,10 @@ $(function() {
                 swal("用于报销时，纳税人识别号不能为空！");
                 return;
             }
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+                swal("购买方税号长度有误！");
+                return;
+            }
             sfbx="1";
         }
         if(fpzldm=="01"){
@@ -680,7 +710,7 @@ $(function() {
             }
         }
         if(gfsh!=null && gfsh!=""){
-            if(gfsh.length!=15||gfsh.length!=18||gfsh.length!=20){
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
                 swal("购买方税号长度有误！");
                 return;
             }
@@ -803,6 +833,9 @@ $(function() {
                             SelectArr[i].options[0].selected = true;
                             $("#kpd").val('');
                         }
+                        isCha=false;
+                        $('#discount').removeAttr("disabled");
+                        $('#cha').removeAttr("disabled");
                         jyspmx_table.clear().draw();
                         jyzfmx_table.clear().draw();
                     } else {
@@ -1052,6 +1085,7 @@ $(function() {
                     hjjestr+=$(row).children("td").eq(6).find('input[name="spje"]').val()/1;
                     hjsestr+=$(row).children("td").eq(8).find('input[name="spse"]').val()/1;
                     $(row).children("td").eq(6).find('input[name="spje"]').attr('disabled',true);
+                    $(row).children("td").eq(5).find('input[name="spdj"]').attr('disabled',true);
                 }
             });
             jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
@@ -1063,3 +1097,8 @@ $(function() {
         $moda2.modal('close');
     })
 });
+
+function fomart(spje) {
+   var  spjef = FormatFloat(spje,"#.00");
+   return spjef;
+}

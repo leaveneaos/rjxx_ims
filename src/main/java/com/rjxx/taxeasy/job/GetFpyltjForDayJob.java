@@ -43,13 +43,6 @@ public class GetFpyltjForDayJob implements Job {
             List<FpyltjVo> list = kplsService.findFpylByParams(map);
             Date date = new Date();
             for (FpyltjVo fpyltjVo : list) {
-                Map map1 = new HashMap();
-                map1.put("gsdm",fpyltjVo.getGsdm());
-                map1.put("xfid",fpyltjVo.getXfid());
-                map1.put("skpid",fpyltjVo.getSkpid());
-                map1.put("kprqq",new SimpleDateFormat("yyyy-MM-dd").format(fpyltjVo.getKprq()));
-                Fpyltj fpyltj1 = fpyltjService.findOneByParams(map1);
-                if(fpyltj1==null){
                     Fpyltj fpyltj = new Fpyltj();
                     fpyltj.setZjshj(fpyltjVo.getSumhjje());
                     fpyltj.setFpsl(fpyltjVo.getFpsl());
@@ -61,7 +54,6 @@ public class GetFpyltjForDayJob implements Job {
                     fpyltj.setKprq(fpyltjVo.getKprq());
                     fpyltj.setLrsj(date);
                     fpyltjJpaDao.save(fpyltj);
-                }
             }
             logger.info("====发票用量统计for day==== end");
         } catch (Exception e) {

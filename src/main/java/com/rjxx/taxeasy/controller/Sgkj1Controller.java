@@ -347,7 +347,6 @@ public class Sgkj1Controller extends BaseController{
                         jymxsq.setSpggxh(ggxhs[c]);
                     } catch (Exception e) {
                         jymxsq.setSpggxh(null);
-
                     }
                 }
                 try {
@@ -372,7 +371,11 @@ public class Sgkj1Controller extends BaseController{
                     }
                 }
                 if (spses.length != 0) {
-                    jymxsq.setSpse(Double.valueOf(spses[c]));
+                    try {
+                        jymxsq.setSpse(Double.valueOf(spses[c]));
+                    } catch (Exception e) {
+                        jymxsq.setSpse(null);
+                    }
                 }
                 jymxsq.setLrry(yhid);
                 jymxsq.setYxbz("1");
@@ -945,7 +948,9 @@ public class Sgkj1Controller extends BaseController{
             resultMap.put("msg","未查询到数据");
             return resultMap;
         }
-        if(map.get("post")!=null){
+        String msg = (String) map.get("msg");
+        if(StringUtils.isNotBlank(msg)){
+            resultMap.put("msg",msg);
             return resultMap;
         }
         Jyxxsq jyxxsq = (Jyxxsq) map.get("jyxxsq");
@@ -976,15 +981,6 @@ public class Sgkj1Controller extends BaseController{
         }
         resultMap.put("jymxsq",jymxsqList);
         resultMap.put("jyzfmx",zflist);
-        if(null!=map.get("msg")|| !"".equals(map.get("msg"))){
-            resultMap.put("msg", map.get("msg"));
-        }
-        if(null!=map.get("tmp")|| !"".equals(map.get("tmp"))){
-            resultMap.put("temp", map.get("tmp"));
-        }
-        if(null!= map.get("error")|| !"".equals(map.get("error"))){
-            resultMap.put("error", map.get("error"));
-        }
         return resultMap;
     }
 
