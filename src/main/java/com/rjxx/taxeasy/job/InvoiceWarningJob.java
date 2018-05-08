@@ -1,18 +1,9 @@
 package com.rjxx.taxeasy.job;
 
 
-import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
 import com.rjxx.taxeasy.bizcomm.utils.MailService;
-import com.rjxx.taxeasy.bizcomm.utils.XmlMapUtils;
-import com.rjxx.taxeasy.domains.Fpkc;
-import com.rjxx.taxeasy.domains.FpkcMx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.dto.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.FpkcYjtzVo;
-import com.rjxx.taxeasy.vo.KpfsVo;
-import com.rjxx.utils.XmlJaxbUtils;
-import org.apache.axiom.om.OMElement;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -28,9 +19,6 @@ import java.util.*;
  */
 @DisallowConcurrentExecution
 public class InvoiceWarningJob implements Job {
-
-    @Autowired
-    private CszbService cszbService;
 
     @Autowired
     private FpkcYztzService fpkcYztzService;
