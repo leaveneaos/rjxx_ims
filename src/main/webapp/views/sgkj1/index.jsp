@@ -108,7 +108,7 @@
 													class="star">*</span>发票种类</label>
 											<div class="am-u-sm-3 am-u-end">
 												<select id="fpzldm" name="fpzldm"  required>
-													<option value="">选择开票类型</option>
+													<%--<option value="">选择开票类型</option>--%>
 													<%--<option value="01">专用发票</option>
 													<option value="02">普通发票</option>--%>
 													<%--<option value="12">电子发票</option>--%>

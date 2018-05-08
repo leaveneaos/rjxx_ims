@@ -46,7 +46,19 @@ $(function() {
     var f=true;
     $("#add").click(function () {
 
-            var tr=$("#jyspmx_table").find("tr");
+        var tr=$("#jyspmx_table").find("tr");
+        var arry=getAllRowDataArry();
+        if(arry.length>1){
+            index = arry.length + 1;
+        }else if(arry.length==1){
+            for(var i=0;i<arry.length;i++){
+                if(arry[i].spmc==null){
+                    index=1;
+                }else {
+                    index=arry.length+1;
+                }
+            }
+        }
             if(tr.length>2){
                if(f){
                    tr.each(function(i,row){
@@ -67,8 +79,8 @@ $(function() {
                     });
                 }
             }
-            f=false;
-            index = mxarr.length + 1;
+            // f=false;
+            // index = mxarr.length + 1;
             jyspmx_table.row.add([
                  "<span class='index'>" + index + "</span>",
                 '<input type="text" id="spmc"  name="spmc" readonly><input type="hidden" id="spbm" name="spbm">' +
@@ -402,6 +414,10 @@ $(function() {
                 swal("用于报销时，纳税人识别号不能为空！");
                 return;
             }
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+                swal("用于报销时，纳税人识别号长度有误！");
+                return;
+            }
              sfbx="1";
         }
         if(fpzldm=="01"){
@@ -540,4 +556,25 @@ $(function() {
             $("#kpd").val('');
         }
     })
+    function getAllRowDataArry(){
+        var arry=[];
+        var spmc,spbm,yhzcbs,yhzcmc,lslbz,ggxh,spdw,spsl,spdj,spje,taxrate,spse;
+        $("#jyspmx_table").find("tr").each(function(i,cell){
+            spmc=$(cell).find('input[name="spmc"]').val();
+            spbm= $(cell).find('input[name="spbm"]').val();
+            yhzcbs= $(cell).find('input[name="yhzcbs"]').val();
+            yhzcmc= $(cell).find('input[name="yhzcmc"]').val();
+            lslbz= $(cell).find('input[name="lslbz"]').val();
+            ggxh=$(cell).find('input[name="ggxh"]').val();
+            spdw=$(cell).find('input[name="spdw"]').val();
+            spsl=$(cell).find('input[name="spsl"]').val();
+            spdj=$(cell).find('input[name="spdj"]').val();
+            spje= $(cell).find('input[name="spje"]').val();
+            taxrate=$(cell).find('input[name="taxrate"]').val();
+            spse=$(cell).find('input[name="spse"]').val();
+            arry.push({'spmc':spmc,'spbm':spbm,'yhzcbs':yhzcbs,'yhzcmc':yhzcmc,'lslbz':lslbz,'ggxh':ggxh,'spdw':spdw,'spsl':spsl,'spdj':spdj,'spje':spje,'taxrate':taxrate,'spse':spse});
+        });
+        arry.splice(0,1);
+        return arry;
+    };
 });
