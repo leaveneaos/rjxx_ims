@@ -30,9 +30,6 @@ $(function() {
         $('#importExcelForm').resetForm();
         $importModal.modal({"width": 600, "height": 350});
     });
-    $("#close1").click(function () {
-        $importModal.modal("close");
-    });
     $(this).removeData('amui.modal');
     var mxarr = [];
     var $modal = $("#my-alert-edit2");
@@ -120,7 +117,7 @@ $(function() {
 
     $('#smlr_info').bind('keyup', function(event) {
         if (event.keyCode == "13") {
-            // alert($("#smlr_info").val());
+            alert($("#smlr_info").val());
             var r = $("#main_form1").validator("isFormValid");
             var kprq = $("#sglr_kprq").val();
             if(kprq == ""){
@@ -542,6 +539,3 @@ $(function() {
     action.init();
 
 });
-
-
-
