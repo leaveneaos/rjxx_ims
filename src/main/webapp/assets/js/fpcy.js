@@ -126,7 +126,7 @@ $(function() {
 
     $('#smlr_info').bind('keyup', function(event) {
         if (event.keyCode == "13") {
-            // alert($("#smlr_info").val());
+            $("#lrsave").attr("disabled",true)
             var r = $("#main_form1").validator("isFormValid");
             var kprq = $("#sglr_kprq").val();
             var fpdm = $("#sglr_fpdm").val();
@@ -146,42 +146,49 @@ $(function() {
             }
             if (r) {
                 var frmData = $("#main_form1").serialize();
+                $('.confirm').attr('disabled', "disabled");
                 $.ajax({
-                    url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
-                        if (data.status) {
-                            if(data.requery !=null && data.requery == "1"){
-                                swal({
-                                    title: "提示",
-                                    text:data.msg,
-                                    //type: "warning",
-                                    showCancelButton: true,
-                                    closeOnConfirm: false,
-                                    confirmButtonText: "重新查询",
-                                    confirmButtonColor: "#ec6c62"
-                                }, function () {
-                                    $('.confirm').attr('disabled', "disabled");
-                                    $.ajax({
-                                        url: "income/requery", "type": "POST",  data: frmData,
-                                    }).done(function (data) {
-                                        $('.confirm').removeAttr('disabled');
-                                        swal(data.msg);
-                                    })
-                                });
-                                swal(data.msg);
-                                // $modal.modal("close");
-                                // $("#bj").val('3');
-                                // loaddata=true;
-                            }else {
-                                swal(data.msg);
-                                // $modal.modal("close");
-                                // $("#bj").val('3');
-                                // loaddata=true;
-                            }
-                        } else {
-                            swal(data.msg);
-                        }
-                    }
+                    url: "income/requery", "type": "POST",  data: frmData,
+                }).done(function (data) {
+                    $('.confirm').removeAttr('disabled');
+                    swal(data.msg);
                 });
+                // $.ajax({
+                //     url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
+                //         if (data.status) {
+                //             if(data.requery !=null && data.requery == "1"){
+                //                 swal({
+                //                     title: "提示",
+                //                     text:data.msg,
+                //                     //type: "warning",
+                //                     showCancelButton: true,
+                //                     closeOnConfirm: false,
+                //                     confirmButtonText: "重新查询",
+                //                     confirmButtonColor: "#ec6c62"
+                //                 }, function () {
+                //                     $('.confirm').attr('disabled', "disabled");
+                //                     $.ajax({
+                //                         url: "income/requery", "type": "POST",  data: frmData,
+                //                     }).done(function (data) {
+                //                         $('.confirm').removeAttr('disabled');
+                //                         swal(data.msg);
+                //                     })
+                //                 });
+                //                 swal(data.msg);
+                //                 // $modal.modal("close");
+                //                 // $("#bj").val('3');
+                //                 // loaddata=true;
+                //             }else {
+                //                 swal(data.msg);
+                //                 // $modal.modal("close");
+                //                 // $("#bj").val('3');
+                //                 // loaddata=true;
+                //             }
+                //         } else {
+                //             swal(data.msg);
+                //         }
+                //     }
+                // });
             } else {
                 swal('校验不通过!');
             }
