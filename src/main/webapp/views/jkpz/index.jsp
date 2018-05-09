@@ -126,8 +126,8 @@
                                         <option value="${item.gsdm}">${item.gsmc}</option>
                                     </c:forEach>
                                 </select>
-
-                                <button type="button" id="companySearch"
+                                <input type="text" id="gsmc" name="gsmc" placeholder="请输入公司名称" />
+                                    <button type="button" id="companySearch"
                                         class="am-btn am-btn-default am-btn-success am-btn-sm">查询</button>
                             </div>
                         </div>

@@ -170,6 +170,10 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
                             d.gsdm = el.$s_gsdm.val(); // search 公司代码
+                            var gsmc=  $('#gsmc').val();
+                            if(gsmc!=null && gsmc!=""){
+                                d.gsmc = gsmc;
+                            }
                             d.loaddata=loaddata;
                         }
                     },
@@ -559,9 +563,13 @@ $(function () {
             var _this = this;
             el.$jsSearch.on('click', function(e) {
                 var gsdm=  $('#jkpz_gsmc').val();
-                if(gsdm==null|| gsdm==""){
-                    swal('请选择公司!');
-                    return false;
+                var gsmc=  $('#gsmc').val();
+                if(gsdm==null|| gsdm=="" ){
+                    if(gsmc==null || gsmc==""){
+                        swal('请选择或者输入公司名称!');
+                        return false;
+                    }
+
                 }
                 loaddata = true;
                 e.preventDefault();

@@ -30,6 +30,9 @@ $(function() {
         $('#importExcelForm').resetForm();
         $importModal.modal({"width": 600, "height": 350});
     });
+    $("#close1").click(function () {
+        $importModal.modal("close");
+    });
     $(this).removeData('amui.modal');
     var mxarr = [];
     var $modal = $("#my-alert-edit2");
@@ -49,9 +52,6 @@ $(function() {
     $("#lrclose").click(function () {
         $modal.modal("close");
     });
-    $("#close1").on('click', function () {
-        $importModal.modal('close');
-    });
     var index = 1;
     $('#lrmain_tab').find('a.ai').on('opened.tabs.amui', function (e) {
         //jyspmx_edit_table.draw();
@@ -67,23 +67,13 @@ $(function() {
     $("#lrsave").click(function () {
         var r = $("#main_form1").validator("isFormValid");
         var kprq = $("#sglr_kprq").val();
-        var fpdm = $("#sglr_fpdm").val();
-        var fphm = $("#sglr_fphm").val();
         if(kprq == ""){
             $("#sglr_kprq").focus();
             swal('开票日期不能为空!');
             return false;
         }
-        if(fpdm ==null || fpdm==""){
-            swal('发票代码不能为空!');
-            return false;
-        }
-        if(fphm ==null || fphm==""){
-            swal('发票号码不能为空!');
-            return false;
-        }
         if (r) {
-           var frmData = $("#main_form1").serialize();
+            var frmData = $("#main_form1").serialize();
             $.ajax({
                 url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
                     if (data.status) {
@@ -103,17 +93,21 @@ $(function() {
                                 }).done(function (data) {
                                     $('.confirm').removeAttr('disabled');
                                     swal(data.msg);
+                                    t.ajax.reload();
                                 })
                             });
                             $modal.modal("close");
                             $("#bj").val('3');
                             loaddata=true;
+                            t.ajax.reload();
                         }else {
                             swal(data.msg);
                             $modal.modal("close");
                             $("#bj").val('3');
                             loaddata=true;
+                            t.ajax.reload();
                         }
+                        //swal(data.msg);
                     } else {
                         swal(data.msg);
                     }
@@ -126,69 +120,56 @@ $(function() {
 
     $('#smlr_info').bind('keyup', function(event) {
         if (event.keyCode == "13") {
-            $("#lrsave").attr("disabled",true)
+            // alert($("#smlr_info").val());
             var r = $("#main_form1").validator("isFormValid");
             var kprq = $("#sglr_kprq").val();
-            var fpdm = $("#sglr_fpdm").val();
-            var fphm = $("#sglr_fphm").val();
             if(kprq == ""){
                 $("#sglr_kprq").focus();
                 swal('开票日期不能为空!');
                 return false;
             }
-            if(fpdm ==null || fpdm==""){
-                swal('请重新扫描!');
-                return false;
-            }
-            if(fphm ==null || fphm==""){
-                swal('请重新扫描!');
-                return false;
-            }
             if (r) {
                 var frmData = $("#main_form1").serialize();
-                $('.confirm').attr('disabled', "disabled");
                 $.ajax({
-                    url: "income/requery", "type": "POST",  data: frmData,
-                }).done(function (data) {
-                    $('.confirm').removeAttr('disabled');
-                    swal(data.msg);
+                    url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
+                        if (data.status) {
+                            if(data.requery !=null && data.requery == "1"){
+                                swal({
+                                    title: "提示",
+                                    text:data.msg,
+                                    //type: "warning",
+                                    showCancelButton: true,
+                                    closeOnConfirm: false,
+                                    confirmButtonText: "重新查询",
+                                    confirmButtonColor: "#ec6c62"
+                                }, function () {
+                                    $('.confirm').attr('disabled', "disabled");
+                                    $.ajax({
+                                        url: "income/requery", "type": "POST",  data: frmData,
+                                    }).done(function (data) {
+                                        $('.confirm').removeAttr('disabled');
+                                        swal(data.msg);
+                                        t.ajax.reload();
+                                    })
+                                });
+                                swal(data.msg);
+                                $modal.modal("close");
+                                $("#bj").val('3');
+                                loaddata=true;
+                                t.ajax.reload();
+                            }else {
+                                swal(data.msg);
+                                $modal.modal("close");
+                                $("#bj").val('3');
+                                loaddata=true;
+                                t.ajax.reload();
+                            }
+                            //swal(data.msg);
+                        } else {
+                            swal(data.msg);
+                        }
+                    }
                 });
-                // $.ajax({
-                //     url: "income/invoiceCheck", "type": "POST",  data: frmData, success: function (data) {
-                //         if (data.status) {
-                //             if(data.requery !=null && data.requery == "1"){
-                //                 swal({
-                //                     title: "提示",
-                //                     text:data.msg,
-                //                     //type: "warning",
-                //                     showCancelButton: true,
-                //                     closeOnConfirm: false,
-                //                     confirmButtonText: "重新查询",
-                //                     confirmButtonColor: "#ec6c62"
-                //                 }, function () {
-                //                     $('.confirm').attr('disabled', "disabled");
-                //                     $.ajax({
-                //                         url: "income/requery", "type": "POST",  data: frmData,
-                //                     }).done(function (data) {
-                //                         $('.confirm').removeAttr('disabled');
-                //                         swal(data.msg);
-                //                     })
-                //                 });
-                //                 swal(data.msg);
-                //                 // $modal.modal("close");
-                //                 // $("#bj").val('3');
-                //                 // loaddata=true;
-                //             }else {
-                //                 swal(data.msg);
-                //                 // $modal.modal("close");
-                //                 // $("#bj").val('3');
-                //                 // loaddata=true;
-                //             }
-                //         } else {
-                //             swal(data.msg);
-                //         }
-                //     }
-                // });
             } else {
                 swal('校验不通过!');
             }
@@ -291,7 +272,7 @@ $(function() {
                         "render": function (data) {
                             return '<a class="showCycs"   >' + data.cycsTotal + '</a>';
                         }
-                        },
+                    },
                     {
                         "data": function (data) {
                             var sjly = data.sjly;

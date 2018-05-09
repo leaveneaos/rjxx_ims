@@ -93,12 +93,13 @@ public class JkpzController extends BaseController {
      */
     @RequestMapping(value = "/getjkmbList")
     @ResponseBody
-    public Map getJkmb(int length, int start, int draw,String gsdm,boolean loaddata) {
+    public Map getJkmb(int length, int start, int draw,String gsdm,String gsmc,boolean loaddata) {
         Map<String, Object> result = new HashMap();
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
         pagination.addParam("gsdm", gsdm);
+        pagination.addParam("gsmc", gsmc);
         pagination.addParam("orderBy", "lrsj");
         List<JkmbbVo> list = jkmbbService.findByPage(pagination);
         for (JkmbbVo jkmbbVo : list) {
