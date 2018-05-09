@@ -60,12 +60,12 @@ $(function () {
                         	//"data": "fpkcl"
                         	"data": null,
                         	"render":function(data){
-                        		if(data.yjyz!=null){
+                        		if(data.fpkcl !=null && data.yjyz!=null){
                         			if(data.yjyz>data.fpkcl){
                         				return "<span style='color:red;'>"+data.fpkcl+"<span>";
                         			}
                         		}else{
-                        			return data.fpkcl;
+                        			return data.fpkcl==null?"":data.fpkcl;
                         		}
                         		
                         	}

@@ -37,7 +37,8 @@ $(function () {
         config: {
             getUrl: 'yjfs/getYjfsList',
             sentUrl: 'yjfs/send',
-            updateUrl: 'yjfs/update'
+            updateUrl: 'yjfs/update',
+            getDdmx:'yjfs/getDdmxList'
 
         },
 
@@ -55,6 +56,8 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
+                    $("#ddMxtable").hide();
+                    $("#ddMxtable_wrapper").hide();
                        var tip = $('#tip').val();
                        var txt = $('#searchtxt').val();
                         d.loaddata=loaddata;
@@ -93,7 +96,7 @@ $(function () {
                         "data": null,
                         //"defaultContent": '<input type="checkbox" />'
                         render: function (data, type, full, meta) {
-                            return '<input type="checkbox" value="' + data.kplsh + '" />';
+                            return '<input type="checkbox" value="' + data.serialorder + '" />';
                         }
                     },
                     {
@@ -104,7 +107,8 @@ $(function () {
                     {
                         "data": null,
                         "render": function (data) {
-                            return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                            //return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                            return '<a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
                         }
                     },
                     {"data": "ddh"},
@@ -145,7 +149,65 @@ $(function () {
                     }
                 ]
             });
-
+            
+            t.on("click","tr",function(){
+            	var data = t.row($(this)).data();
+            	$("#ddMxtable").show();
+            	var mx=$("#ddMxtable") .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    ordering: false,
+                    searching: false,
+                    destroy:true,
+                    "ajax": {
+                        url: _this.config.getDdmx,
+                        type: 'POST',
+                        data: function (d) {
+                            d.loaddata = loaddata;
+                            d.serialorder = data.serialorder;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
+                        },
+                        {
+                        	"data": null,
+                        	 "render": function (data) {
+                        		 return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a>';
+                        	 }
+                        },
+                        {"data": "xfmc"},
+                        {"data": "fpdm"},
+                        {"data": "fphm"},
+                        {
+	                		"data": function (data) {
+	                            if (data.jshj) {
+	                                return FormatFloat(data.jshj, "###,###.00");
+	                            } else {
+	                                return null;
+	                            }
+	                        }, 'sClass': 'right'
+                        },
+                        {"data": "kprq"}
+                        ]
+                });
+            	
+            	 mx.on('draw.dt', function (e, settings, json) {
+                     var x = mx, page = x.page.info().start; // 设置第几页
+                     mx.column(0).nodes().each(function (cell, i) {
+                         cell.innerHTML = page + i + 1;
+                     });
+                 });
+            	
+            	
+            	
+            	
+            	
+            });
+            
             t.on('draw.dt', function (e, settings, json) {
                 var x = t,
                     page = x.page.info().start; // 设置第几页
@@ -188,7 +250,7 @@ $(function () {
                 });
 
                 // todo set key
-                _this.sentEmail({ids: data.kplsh + ':' + row});
+                _this.sentEmail({ids: data.serialorder + ':' + row});
             });
 
             return t;
@@ -369,9 +431,14 @@ $(function () {
 
                     var formValidity = this.isFormValid();
                     if (formValidity) {
-                        el.$jsLoading.modal('open');  // show loading
-
+                    	var email = $("#gfemail").val();
+                    	var reg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+                        if(!reg.test(email)){
+                        	swal("请填写有效邮箱");
+                        	return false;
+                        }
                         var data = el.$jsForm1.serialize(); // get form data data
+                        el.$jsLoading.modal('open');  // show loading
                         // TODO save data to serve
                         $.ajax({
                             url: _this.config.updateUrl,
@@ -387,7 +454,7 @@ $(function () {
                                     d.yx = el.$jsForm1.find('[name="yx"]').val();
                                     d.sj = el.$jsForm1.find('[name="sj"]').val();
                                     row.data(d).draw();
-
+                                    swal("保存成功");
                                     el.$modalOriginalDetail.modal('close');  // close modal
 
                                     _this.tableEx.ajax.reload(); // reload table data
@@ -425,7 +492,7 @@ $(function () {
             el.$jsForm1.find('input[name="gfemail"]').val(data.gfemail);
             el.$jsForm1.find('input[name="sj"]').val('');
             el.$jsForm1.find('input[name="wx"]').val(''); // 你决定放什么
-            el.$jsForm1.find('input[name="kplsh"]').val(data.kplsh);
+            el.$jsForm1.find('input[name="serialorder"]').val(data.serialorder);
             el.$jsForm1.find('input[name="rowId"]').val(data.rowid); // set rowid
         },
         resetForm: function () {

@@ -246,6 +246,31 @@
 										</tbody>
 									</table>
 								</div>
+								
+								
+								<div class="am-u-sm-12">
+									<div>
+										<table id="ddMxtable"
+											class="am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
+											<thead>
+												<tr>
+													<th>序号</th>
+													<th>操作</th>
+													<th>销方名称</th>
+													<th>发票代码</th>
+													<th>发票号码</th>
+													<th>价税合计</th>
+													<th>开票日期</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+								
+								
+								
+								
+								
 							</div>
 						</div>
 					</div>
@@ -269,7 +294,7 @@
 												<label for="gfemail" class="am-u-sm-4 am-form-label">邮件地址</label>
 												<div class="am-u-sm-8">
 													<input type="text" id="gfemail" name="gfemail"
-														placeholder="" /> <input type="hidden" name="kplsh"
+														placeholder="" /> <input type="hidden" name="serialorder"
 														placeholder="" /> <input type="hidden" name="rowId"
 														placeholder="" />
 

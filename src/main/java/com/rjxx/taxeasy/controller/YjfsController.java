@@ -1,5 +1,7 @@
 package com.rjxx.taxeasy.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.GetYjnr;
 import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
+import com.rjxx.taxeasy.bizcomm.utils.pdf.TwoDimensionCode;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.vo.KplsVO;
 import com.rjxx.taxeasy.web.BaseController;
@@ -67,6 +70,11 @@ public class YjfsController extends BaseController {
 	private String pdfSavePath;
 	@Value("${emailInfoUrl:}")
 	private String emailInfoUrl;
+	@Value("${imgdz_:}")
+	private String imgdz_;
+	@Value("${fpdz_:}")
+	private String fpdz_;
+	
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfs", getXfList());
@@ -88,23 +96,35 @@ public class YjfsController extends BaseController {
 					continue;
 				}
 				try {
-					params.put("kplsh", id);
-					final Kpls kpls = ks.findOneByParams(params);
-					if (kpls.getGfemail() == null || "".equals(kpls.getGfemail())) {
-						msg += "发票代码：" + kpls.getFpdm() + "|发票号码：" + kpls.getFphm() + "无邮箱,发送失败;";
+					//params.put("kplsh", id);
+					params.put("serialorder", id);
+					//final Kpls kpls = ks.findOneByParams(params);
+					final List<Kpls> list = ks.findBySerialorder(params);
+					Kpls kpls = list.get(0);
+					if(list==null || list.size()<1) {
+						msg +="根据serialorder未查到kpls信息";
 						continue;
+					}else {
+						if(kpls.getGfemail() == null || "".equals(kpls.getGfemail())) {
+							msg += "发票代码：" + kpls.getFpdm() + "|发票号码：" + kpls.getFphm() + "无邮箱,发送失败;";
+							continue;
+						}
 					}
+					
+					
 					Jyls jyls = js.findOne(kpls.getDjh());
 					Map jyxxsqMap=new HashMap();
 					jyxxsqMap.put("gsdm",kpls.getGsdm());
 					jyxxsqMap.put("jylsh",jyls.getJylsh());
 					Jyxxsq jyxxsq=jyxxsqService.findOneByJylsh(jyxxsqMap);
-					Kpls ls = new Kpls();
-					ls.setDjh(jyls.getDjh());
-					List<Kpls> lslist = kplsService.findAllByKpls(ls);
+					//Kpls ls = new Kpls();
+					//ls.setDjh(jyls.getDjh());
+					//List<Kpls> lslist = kplsService.findAllByKpls(ls);
 					List<String> pdfUrlList = new ArrayList<>();
-					for (Kpls kpls1 : lslist) {
+					BigDecimal jshj = new BigDecimal(0);
+					for (Kpls kpls1 : list) {
 						pdfUrlList.add(kpls1.getPdfurl());
+						jshj= jshj.add(new BigDecimal(kpls1.getJshj()));
 					}
 					GetYjnr getYjnr = new GetYjnr();
 					Map gsxxmap=new HashMap();
@@ -113,6 +133,7 @@ public class YjfsController extends BaseController {
 					Integer yjmbDm=gsxx.getYjmbDm();
 					Yjmb yjmb=yjmbService.findOne(yjmbDm);
 					String yjmbcontent=yjmb.getYjmbNr();
+					String yjmbSubject = yjmb.getYjmbSubject();
 					String q="";
 					String infoUrl="";
 					List<Fpcxvo> fpcxvos = invoiceQueryUtil.getInvoiceListByDdh(gsxx.getGsdm(), jyls.getDdh());
@@ -130,15 +151,51 @@ public class YjfsController extends BaseController {
 					csmap.put("pdfurls",pdfUrlList);
 					csmap.put("xfmc",jyls.getXfmc());
 					csmap.put("infoUrl",infoUrl);
+					
+					//-----------
+					SimpleDateFormat sdf2=new SimpleDateFormat("yyyy年MM月dd日");
+					csmap.put("gs_mc_", kpls.getXfmc());//取销方名称
+            		csmap.put("sq_sj_", sdf2.format(kpls.getKprq()));//取开票日期
+            		// 二维码生成部分
+            		TwoDimensionCode handler = new TwoDimensionCode();
+            		ByteArrayOutputStream output = new ByteArrayOutputStream();
+            		// 二维码中数据的来源
+            		handler.encoderQRCode(fpdz_+"?q="+kpls.getSerialorder(), output);
+            		String imgbase64string = org.apache.commons.codec.binary.Base64.encodeBase64String(output.toByteArray());
+            		String ewm ="data:image/jpeg;base64,"+imgbase64string;
+            		csmap.put("ewm", ewm);
+            		csmap.put("e_w_m_", ewm);
+            		csmap.put("d_d_h_", jyls.getDdh());
+            		csmap.put("gf_mc_", kpls.getGfmc());
+            		csmap.put("js_hj_",jshj.setScale(2).toString());
+            		csmap.put("fp_dz_", fpdz_+"?q="+kpls.getSerialorder());
+            		
+            		csmap.put("logodz_", imgdz_+"emailLogo.png");
+            		csmap.put("ewmdz_", imgdz_+"emailCode.jpg");
+            		//-----------
+            		
+            		
+            		if(yjmbSubject!=null && !"".equals(yjmbSubject)) {
+            			yjmbSubject=yjmbSubject.replace("gs_mc_", kpls.getXfmc());
+            			yjmbSubject=yjmbSubject.replace("d_d_h_", jyls.getDdh());
+            		}else {
+            			yjmbSubject="电子发票";
+            		}
+            		
+					
 					String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
 					if(kpls.getGsdm().equals("afb")){
 						String [] to=new String[1];
 						to[0]=kpls.getGfemail();
-						String filePath=pdfSavePath+kpls.getPdfurl().substring(kpls.getPdfurl().indexOf(kpls.getXfsh()),kpls.getPdfurl().length());
-						mailService.sendAttachmentsMail(to,"电子发票",content,filePath);
+						String filePaths = "";
+						for(Kpls kpls3:list) {
+							String filePath=pdfSavePath+kpls3.getPdfurl().substring(kpls3.getPdfurl().indexOf(kpls3.getXfsh()),kpls3.getPdfurl().length());
+							filePaths +=","+filePath;
+						}
+						mailService.sendAttachmentsMail(to,yjmbSubject,content,filePaths);
 					}else {
 						se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
-								String.valueOf(kpls.getDjh()), content, "电子发票");
+								String.valueOf(kpls.getDjh()), content, yjmbSubject);
 					}
 					/*
 					 * SendEmail se = new SendEmail();
@@ -164,14 +221,18 @@ public class YjfsController extends BaseController {
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
-	public Map update(String kplsh, String gfemail, String wx, String sj) {
+	public Map update(String serialorder, String gfemail, String wx, String sj) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			Map<String, Object> params = new HashMap<>();
-			params.put("kplsh", kplsh);
-			Kpls kpls = ks.findOneByParams(params);
-			kpls.setGfemail(gfemail);
-			ks.save(kpls);
+			params.put("serialorder", serialorder);
+			//Kpls kpls = ks.findOneByParams(params);
+			List<Kpls> list =ks.findAll(params);
+			for(Kpls kpls:list) {
+				kpls.setGfemail(gfemail);
+				ks.save(kpls);
+			}
+			
 			result.put("success", true);
 			result.put("statu", "0");
 			result.put("msg", "保存成功");
@@ -258,10 +319,10 @@ public class YjfsController extends BaseController {
 				maps.put("kprqz2", kprqz);
 			}
 			maps.put("fpczlx", "11");
-			List<Fpcxvo> list = kplsService.findByPage2(maps);
+			List<Fpcxvo> list = kplsService.findByPage3(maps);
 			int total;
 			if(0 == start){
-				total = kplsService.findTotal(maps);
+				total = kplsService.findTotal2(maps);
 				request.getSession().setAttribute("total",total);
 			}else{
 				total =  (Integer)request.getSession().getAttribute("total");
@@ -339,4 +400,32 @@ public class YjfsController extends BaseController {
 		}
 		return result;
 	}*/
+	@RequestMapping(value = "/getDdmxList")
+	@ResponseBody
+	public Map getDdmxList(int length, int start, int draw, String serialorder,boolean loaddata) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Pagination pagination = new Pagination();
+		pagination.setPageNo(start / length + 1);
+		pagination.setPageSize(length);
+		pagination.addParam("serialorder", serialorder);
+		
+		if(loaddata){
+			Map<String, Object> params = new HashMap<>();
+			params.put("serialorder", serialorder);
+			
+			List<Kpls> list =ks.findKplsMxListByPagination(pagination);
+			
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else {
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+		return result;
+	}
 }
