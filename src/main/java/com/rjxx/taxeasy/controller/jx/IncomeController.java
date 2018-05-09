@@ -172,8 +172,8 @@ public class IncomeController extends BaseController {
                     }
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String fpzt ="";
-                    if(fpcyjl.getReturncode().equals("00")){
-                        if(fpcyjl.getResultcode().equals("1000")){
+                    if("00".equals(fpcyjl.getReturncode())){
+                        if("1000".equals(fpcyjl.getResultcode())){
                             if(fpcy.getFpzt()!=null && fpcy.getFpzt().equals("0")){
                                 fpzt = "正常";
                             }else if(fpcy.getFpzt()!=null && fpcy.getFpzt().equals("1")){
