@@ -60,7 +60,6 @@ public class DirectAmqpConfiguration {
                 taskExecutor = ApplicationContextUtils.getBean(ThreadPoolTaskExecutor.class);
             }
             taskExecutor.execute(messageTask);
-            //订单数据库处理
         }catch(Exception e){
             logger.info("--------发送失败信息给用户邮箱，或发送短信，推送消息--------"+e.getMessage());
             e.printStackTrace();
