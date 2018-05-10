@@ -121,20 +121,23 @@ public class SgkjController extends BaseController{
     // 查询方法
     @RequestMapping(value = "/getItems")
     @ResponseBody
-    public Map<String, Object> getItems(int length, int start, int draw,Integer xfid) throws Exception {
+    public Map<String, Object> getItems(int length, int start, int draw,Integer xfid,String spmc) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
         String gsdm = getGsdm();
-        Cszb cszb = cszbService.getSpbmbbh(gsdm, getXfid(), null, "sfqyspz");
+        Cszb cszb = cszbService.getSpbmbbh(gsdm, xfid, null, "sfqyspz");
         List<Spvo> list2 = new ArrayList<>();
         if (null!=cszb&&cszb.getCsz().equals("是")) {
             Map<String, Object> pMap = new HashMap<>();
             pMap.put("xfs", getXfList());
+            pMap.put("gsdm",gsdm);
             list2 = spzService.findAllByParams(pMap);
         }
-
+        if(StringUtils.isNotBlank(spmc)){
+            pagination.addParam("spmc",spmc);
+        }
         pagination.addParam("gsdm",gsdm);
         if (list2.size()==0) {
             if(xfid !=null){

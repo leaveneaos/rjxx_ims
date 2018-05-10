@@ -428,6 +428,14 @@
 			</div>
 			<div class="am-modal-bd">
 				<hr />
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-6" style="float: right;">
+					<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+						<input type="text" id="s_spmc" name="s_spmc" class="am-form-field " placeholder="请输入商品名称">
+						<span class="am-input-group-btn" id="button1">
+							<button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+						</span>
+					</div>
+				</div>
 				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 					<div>
 						<table style="margin-bottom: 0px;" class="js-table am-table am-table-bordered am-table-hover am-text-nowrap"

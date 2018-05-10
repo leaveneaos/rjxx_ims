@@ -71,6 +71,10 @@ $(function() {
     var isCha = false;
     var $modal = $("#discountInfo");
     var $moda2 = $("#difInfo");
+    $('#button1').on('click', function(e) {
+        e.preventDefault();
+        detail_table.ajax.reload();
+    });
     $("#add").click(function () {
 
         var tr=$("#jyspmx_table").find("tr");

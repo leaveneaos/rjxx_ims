@@ -30,6 +30,10 @@ $(function() {
             type: 'POST',
             data: function (d) {
                 d.xfid = $("#xf").val();
+                var spmc = $("#s_spmc").val();
+                if(spmc !=null && spmc !=""){
+                    d.spmc = spmc;
+                }
             }
         },
         "columns": [
@@ -40,6 +44,10 @@ $(function() {
             {"data": "spdj"},
             {"data": "sl"},
          ]
+    });
+    $('#button1').on('click', function(e) {
+        e.preventDefault();
+        detail_table.ajax.reload();
     });
     var index = 1;
     var mxarr = [];
@@ -220,6 +228,7 @@ $(function() {
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {
         value=$(this).parent("td").parent("tr").children("td").eq(0).text();
+        $("#s_spmc").val("");
         $("#spxx").modal({"width": 720, "height": 500});
         detail_table.ajax.reload();
     });
@@ -565,7 +574,8 @@ $(function() {
             SelectArr[i].options[0].selected = true;
             $("#kpd").val('');
         }
-    })
+    });
+
     function getAllRowDataArry(){
         var arry=[];
         var spmc,spbm,yhzcbs,yhzcmc,lslbz,ggxh,spdw,spsl,spdj,spje,taxrate,spse;
