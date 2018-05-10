@@ -221,7 +221,7 @@
 								<div class="am-u-sm-12 am-padding-top">
 
 									<table
-										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th><input type="checkbox" id="check_all" /></th>
@@ -251,11 +251,12 @@
 								<div class="am-u-sm-12">
 									<div>
 										<table id="ddMxtable"
-											class="am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
+											class="am-table am-table-bordered am-table-compact am-table-hover am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
 													<th>序号</th>
 													<th>操作</th>
+													<th>订单号</th>
 													<th>销方名称</th>
 													<th>发票代码</th>
 													<th>发票号码</th>

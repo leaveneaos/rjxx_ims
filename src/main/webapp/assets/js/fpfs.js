@@ -96,7 +96,7 @@ $(function () {
                         "data": null,
                         //"defaultContent": '<input type="checkbox" />'
                         render: function (data, type, full, meta) {
-                            return '<input type="checkbox" value="' + data.serialorder + '" />';
+                            return '<input type="checkbox" disabled="true" value="' + data.serialorder + '" />';
                         }
                     },
                     {
@@ -107,8 +107,13 @@ $(function () {
                     {
                         "data": null,
                         "render": function (data) {
-                            //return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
-                            return '<a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                        	if(data.sfkp==1){
+                        		//return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a> <a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                        		return '<a class="modify" title="修改接收邮件地址和手机号码">修改</a> <a class="sent">发送</a>';
+                        	}else{
+                        		return '<a class="modify" title="修改接收邮件地址和手机号码">修改</a>';
+                        	}
+                        	
                         }
                     },
                     {"data": "ddh"},
@@ -152,6 +157,25 @@ $(function () {
             
             t.on("click","tr",function(){
             	var data = t.row($(this)).data();
+            	
+            	if($(this).find("td").eq(0).find("input").is(':checked')){
+            		$(this).find('td:eq(0) input').prop('checked',false);
+            	}else{
+            		  $(this).find('td:eq(0) input').prop('checked',true); 
+            	}
+            	
+            	
+            	var params = "";
+            	_this.tableEx.column(0).nodes().each(function (cell, i) {
+                    if($(cell).find('input[type="checkbox"]').is(':checked')){
+                    	params=params+";"+$(cell).find('input[type="checkbox"]').val();
+                    }
+                });
+            	if(params!=""){
+            		params=params.substring(1,params.length);
+            	}
+            	
+            	return;
             	$("#ddMxtable").show();
             	var mx=$("#ddMxtable") .DataTable({
                     "processing": true,
@@ -176,9 +200,14 @@ $(function () {
                         {
                         	"data": null,
                         	 "render": function (data) {
-                        		 return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a>';
+                        		 if(data.pdfurl !=null && data.pdfurl!=""){
+                        			 return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a>';
+                        		 }else{
+                        			 return "";
+                        		 }
                         	 }
                         },
+                        {"data":"ddh"},
                         {"data": "xfmc"},
                         {"data": "fpdm"},
                         {"data": "fphm"},

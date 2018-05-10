@@ -187,6 +187,12 @@ table thead th {
 																class="am-btn am-btn-default am-btn-danger">
 																<span></span> 删除
 															</button>
+															
+															<button type="button" id="kpd_wx"
+																class="am-btn am-btn-default am-btn-default">
+																<span></span> 无效
+															</button>
+															
 														</div>
 													</div>
 												</div>

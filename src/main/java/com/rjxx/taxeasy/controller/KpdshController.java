@@ -1040,4 +1040,24 @@ public class KpdshController extends BaseController {
 		result.put("drmb", drmb);
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/wx")
+	@SystemControllerLog(description = "开票单审核无效", key = "ddhs")
+	public Map<String, Object> wx(String ddhs) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		String[] sqlshs = ddhs.split(",");
+		List<Integer> sqlshList = new ArrayList<Integer>();
+		for (String sqlsh : sqlshs) {
+			//20180126开票流水处理删除改为物理删除。
+			//Jyxxsq jyxxsq = jyxxsqService.findOne(Integer.valueOf(sqlsh));
+			//jyxxsq.setYxbz("0");
+			//jyxxsqService.save(jyxxsq);
+			sqlshList.add(Integer.valueOf(sqlsh));
+		}
+		jyxxsqService.updateJyxxsqZtzt(sqlshList,"7");
+		result.put("msg", "无效成功");
+		return result;
+	}
+
 }

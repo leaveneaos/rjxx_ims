@@ -770,7 +770,40 @@ $(function() {
                     
         		}
             });
+            //无效
+            $("#kpd_wx").click(function () {
+               
+        		var chk_value="" ;
+        		$('input[name="dxk"]:checked').each(function(){
+        		chk_value+=$(this).val()+",";
+        		});
+        		var ddhs = chk_value.substring(0, chk_value.length-1);
+        		if(chk_value.length==0){
 
+                    swal("请至少选择一条数据");
+        		}else{
+                    swal({
+                        title: "您确认要进行无效操作吗？",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        confirmButtonText: "确 定",
+                        confirmButtonColor: "#ec6c62"
+                    }, function() {
+                        $('.confirm').attr('disabled',"disabled");
+                        $.ajax({
+                            type : "POST",
+                            url : "kpdsh/wx",
+                            data : {"ddhs":ddhs},
+                        }).done(function(data) {
+                            $('.confirm').removeAttr('disabled');
+                            swal(data.msg);
+                            _this.tableEx.ajax.reload();
+                        })
+                    });
+                    
+        		}
+            });
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
                     splsh.splice(0,splsh.length);
@@ -802,11 +835,15 @@ $(function() {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                     $(this).find('td:eq(0) input').prop('checked',false);
-                    splsh.splice($.inArray(data.sqlsh, splsh), 1);
+                    if(typeof(data)!="undefined"){
+                    	splsh.splice($.inArray(data.sqlsh, splsh), 1);
+                    }
                 } else {
                     $(this).find('td:eq(0) input').prop('checked',true)
                     $(this).addClass('selected');
-                    splsh.push(data.sqlsh);
+                    if(typeof(data)!="undefined"){
+                    	splsh.push(data.sqlsh);
+                    }
                 }
                 $('#check_all').prop('checked',false);
                 $("#kplsh").val(splsh.join(","));

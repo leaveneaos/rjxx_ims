@@ -113,7 +113,8 @@ $(function () {
                         }
                     	return sjly;
                     }},
-                    {
+                    {"data":"ztbzmc"}
+                    /*{
                         "data": function (data) {
                             var zt = data.ztbz;
                             switch (zt) {
@@ -137,15 +138,15 @@ $(function () {
                                     break;
                                 case '6':
                                     zt = '待处理';
-                                    break;    
-                                    
-                                    
-                                    
+                                    break;
+                                case '7':
+                                    zt = '无效';
+                                    break;  
                             }
                             // return "<a class = 'view'>" + zt + "</a>";
                             return zt ;
                         }
-                    },
+                    },*/
                     
                     /*  {
                      "data": null,
