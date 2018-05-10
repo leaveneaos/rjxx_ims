@@ -267,9 +267,15 @@ public class SksbxxzcControlller extends BaseController {
 			old.setYxbz("1");
 			old.setKplx(fplx);
 			old.setWrzs("1");//无人值守 ：默认1
-			old.setProvinceid(province);
-			old.setCityid(city);
-			old.setAreaid(area);
+			if(""!=province && !"-1".equals(province)){
+				old.setProvinceid(province);
+			}
+			if(""!=city && !"-1".equals(city)){
+				old.setCityid(city);
+			}
+			if(""!=area && !"-1".equals(area)){
+				old.setAreaid(area);
+			}
 			if(StringUtils.isNotBlank(address)){
 				old.setAddress(address);
 			}
@@ -369,9 +375,15 @@ public class SksbxxzcControlller extends BaseController {
 			skp.setXgry(getYhid());
 			skp.setXgsj(new Date());
 			skp.setYxbz("1");
-			skp.setProvinceid(province);
-			skp.setCityid(city);
-			skp.setAreaid(area);
+			if(""!=province && !"-1".equals(province)){
+				skp.setProvinceid(province);
+			}
+			if(""!=city && !"-1".equals(city)){
+				skp.setCityid(city);
+			}
+			if(""!=area && !"-1".equals(area)){
+				skp.setAreaid(area);
+			}
 			if(StringUtils.isNotBlank(address)){
 				skp.setAddress(address);
 			}

@@ -1,14 +1,12 @@
 package com.rjxx.taxeasy.controller;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.servlet.ServletOutputStream;
 
+import com.rjxx.taxeasy.dao.XfJpaDao;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +40,8 @@ import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ExcelUtil;
 
+import static com.rjxx.taxeasy.config.NsrConstans.*;
+
 @Controller
 @RequestMapping("/spslgl")
 public class SpslglController extends BaseController {
@@ -69,6 +69,9 @@ public class SpslglController extends BaseController {
 	@Autowired
 	private SpzXfService sxs;
 
+	@Autowired
+	private XfJpaDao xfJpaDao;
+
 	/**
 	 * 导入字段映射
 	 */
@@ -88,8 +91,8 @@ public class SpslglController extends BaseController {
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
 		Map<String, Object> params = new HashMap<>();
-		List<Spbm> spbms = spbmService.findAllByParam(params);
-		request.setAttribute("spbms", spbms);
+//		List<Spbm> spbms = spbmService.findAllByParam(params);
+//		request.setAttribute("spbms", spbms);
 		params.put("gsdm", getGsdm());
 		Sp sp = new Sp();
 		sp.setGsdm(getGsdm());
@@ -103,7 +106,7 @@ public class SpslglController extends BaseController {
 	@RequestMapping(value = "/getSplist")
 	@ResponseBody
 	public Map getAllSp(int length, int start, int draw, String spmc, String spdm, String txt, Double sl,
-			Integer slid) {
+			Integer slid,boolean loaddata) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
@@ -114,30 +117,45 @@ public class SpslglController extends BaseController {
 		pagination.addParam("sl", txt);
 		pagination.addParam("gsdm", getGsdm());
 		pagination.addParam("orderBy", "lrsj");
-		List<Spvo> list = spvoService.findAllOnPage(pagination);
-		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", list);
+		if(loaddata){
+			List<Spvo> list = spvoService.findAllOnPage(pagination);
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else {
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
 		return result;
 	}
 
 	@RequestMapping(value = "/getSpzs")
 	@ResponseBody
-	public Map getSpzs(int length, int start, int draw, String spzmc) {
+	public Map getSpzs(int length, int start, int draw, String spzmc,boolean loaddata ) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		pagination.addParam("spzmc", spzmc);
 		pagination.addParam("gsdm", getGsdm());
-		List<Spz> list = spzService.findByPage(pagination);
-		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", list);
+		if(loaddata){
+			List<Spz> list = spzService.findByPage(pagination);
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+		}else {
+			result.put("recordsTotal", 0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+		}
+
 		return result;
 	}
 
@@ -347,10 +365,53 @@ public class SpslglController extends BaseController {
 			result.put("msg", "请勾选商品组销方");
 			return result;
 		}
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("gsdm", getGsdm());
 		params.put("spzmc", spzmc);
 		try {
+			for (String xfid : xfids) {
+				List sylx = new ArrayList();
+				Xf xf = xfJpaDao.findOneById(Integer.valueOf(xfid));
+				String ybnsrqssj = xf.getYbnsrqssj();//一般纳税人起始时间
+				String ybnsrjyzs = xf.getYbnsrjyzs() ==null ?"2":xf.getYbnsrjyzs();//一般纳税人简易征收
+				Date ybnsrqssjDate = null;
+				if(org.apache.commons.lang.StringUtils.isNotBlank(ybnsrqssj)){
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+					ybnsrqssjDate = sdf.parse(ybnsrqssj);
+				}
+				//如果是小规模纳税人
+				if(ybnsrqssjDate==null || !ybnsrqssjDate.before(new Date())){
+					sylx = Arrays.asList(XGM_NSR);
+				}else{
+					switch (ybnsrjyzs){
+						case "2":
+							sylx = Arrays.asList(YB_NSR);
+							break;
+						case "3":
+							sylx = Arrays.asList(JYZS_NSR);
+							break;
+						case "4":
+							sylx = Arrays.asList(BFJYZS_NSR);
+							break;
+						default:
+							break;
+					}
+				}
+				for (String sp : sps) {
+					Map map = new HashMap();
+					map.put("spdm",sp);
+					map.put("gsdm",getGsdm());
+					Spvo spvo = spvoService.findOneSpvo(map);
+					String spsylx = spvo.getSylx();
+					boolean b = sylx.contains(spsylx);
+					if(!b){
+						result.put("success", false);
+						result.put("msg", "商品组中添加的商品类型跟销方可以开具的商品类型不一致");
+						return result;
+					}
+				}
+			}
 			Spz spz = spzService.findOneByParams(params);
 			if (spz != null) {
 				result.put("success", false);
@@ -405,6 +466,48 @@ public class SpslglController extends BaseController {
 				result.put("success", false);
 				result.put("msg", "商品组名称已存在");
 				return result;
+			}
+			for (String xfid : xfids) {
+				List sylx = new ArrayList();
+				Xf xf = xfJpaDao.findOneById(Integer.valueOf(xfid));
+				String ybnsrqssj = xf.getYbnsrqssj();//一般纳税人起始时间
+				String ybnsrjyzs = xf.getYbnsrjyzs() ==null ?"2":xf.getYbnsrjyzs();//一般纳税人简易征收
+				Date ybnsrqssjDate = null;
+				if(org.apache.commons.lang.StringUtils.isNotBlank(ybnsrqssj)){
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+					ybnsrqssjDate = sdf.parse(ybnsrqssj);
+				}
+				//如果是小规模纳税人
+				if(ybnsrqssjDate==null || !ybnsrqssjDate.before(new Date())){
+					sylx = Arrays.asList(XGM_NSR);
+				}else{
+					switch (ybnsrjyzs){
+						case "2":
+							sylx = Arrays.asList(YB_NSR);
+							break;
+						case "3":
+							sylx = Arrays.asList(JYZS_NSR);
+							break;
+						case "4":
+							sylx = Arrays.asList(BFJYZS_NSR);
+							break;
+						default:
+							break;
+					}
+				}
+				for (String sp : sps) {
+					Map map = new HashMap();
+					map.put("spdm",sp);
+					map.put("gsdm",getGsdm());
+					Spvo spvo = spvoService.findOneSpvo(map);
+					String spsylx = spvo.getSylx();
+					boolean b = sylx.contains(spsylx);
+					if(!b){
+						result.put("success", false);
+						result.put("msg", "商品组中添加的商品类型跟销方可以开具的商品类型不一致");
+						return result;
+					}
+				}
 			}
 			spz = spzService.findOne(spzid);
 			spz.setZbz(zbz);

@@ -33,6 +33,7 @@
 		$jsdel : $('.js-sent')
 	// del all
 	};
+    var loaddata = false;
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
@@ -63,7 +64,7 @@
 									} else if (tip == "2") {
 										d.spmc = $('#searchtxt').val();
 									} else if (tip == "3") {
-										d.sl = $('#searchtxt').val();
+										d.txt = $('#searchtxt').val();
 									}
 
 								} else if ($('#bj').val() == "2") {
@@ -71,7 +72,7 @@
 									d.spmc = el.$s_spmc.val(); // search 商品名称
 									d.slid = $('#smid2').val();
 								}
-
+                                d.loaddata=loaddata;
 							}
 						},
 						"columns" : [
@@ -141,6 +142,7 @@
 									"url" : "spslgl/getSpzs",
 									data : function(d) {
 										d.spzmc = $("#s_spzmc").val();
+										d.loaddata = loaddata;
 									}
 								},
 
@@ -226,6 +228,7 @@
 				$('#hongchong').modal('close');
 			});
 			$("#search").click(function() {
+				loaddata=true;
 				spz_table.ajax.reload();
 			});
 			$("#new").click(function() {
@@ -692,6 +695,7 @@
 		 */
 		search_ac : function() {
 			var _this = this;
+
 			el.$jsSearch
 					.on(
 							'click',
@@ -700,18 +704,23 @@
 								$('#bj').val('1');
 								// $('#searchform1').resetForm();
 								if ($('#tip').val() == '3') {
-									var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
-									if (!$('#searchtxt').val().match(reg)) {
-										// $('#msg').html('税率格式有误');
-										// $('#my-alert').modal('open');
-										swal('税率格式有误');
-										return;
-									}
+                                    var searchtxt = $('#searchtxt').val();
+									var reg = /^(([0-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+                                    if(searchtxt!=null && searchtxt!=""){
+                                        if (!$('#searchtxt').val().match(reg)) {
+                                            // $('#msg').html('税率格式有误');
+                                            // $('#my-alert').modal('open');
+                                            swal('税率格式有误');
+                                            return;
+                                        }
+                                    }
 								}
+								loaddata=true;
 								_this.tableEx.ajax.reload(); // 重新加载数据
 							});
 			el.$jsSearch2.on('click', function(e) {
 				e.preventDefault();
+                loaddata=true;
 				$('#bj').val('2');
 				// $('#tip').find('option[value=0]').prop('selected', true);
 				// $('#searchform').resetForm();

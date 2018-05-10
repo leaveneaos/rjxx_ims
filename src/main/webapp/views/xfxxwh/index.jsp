@@ -245,7 +245,7 @@
 													color="red">*</font>所在省</label>
 											<div class="am-u-sm-4">
 												<select id="province" name="province" onchange="getCity()">
-													<option value="0">请选择</option>
+													<option value="-1">请选择</option>
 													<c:forEach items="${provinces }" var="p">
 														<option value="${p.provinceid}">${p.province}</option>
 													</c:forEach>
@@ -255,6 +255,7 @@
 													color="red">*</font>所在市</label>
 											<div class="am-u-sm-4">
 												<select id="city" name="city"  onchange="getArea();">
+													<option value="-1">请选择</option>
 												</select>
 											</div>
 										</div>
@@ -263,6 +264,7 @@
 													color="red">*</font>所在区</label>
 											<div class="am-u-sm-4">
 												<select id="area" name="area">
+													<option value="-1">请选择</option>
 												</select>
 											</div>
 											<label for="address" class="am-u-sm-2 am-form-label"><font

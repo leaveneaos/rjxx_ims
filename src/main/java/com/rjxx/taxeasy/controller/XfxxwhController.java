@@ -239,9 +239,15 @@ public class XfxxwhController extends BaseController {
 				xf.setZpfpje(zpfpje);
 				xf.setPpzdje(ppzdje);
 				xf.setPpfpje(ppfpje);
-				xf.setProvinceid(province);
-				xf.setCityid(city);
-				xf.setAreaid(area);
+				if(""!=province && !"-1".equals(province)){
+					xf.setProvinceid(province);
+				}
+				if(""!=city && !"-1".equals(city)){
+					xf.setCityid(city);
+				}
+				if(""!=area && !"-1".equals(area)){
+					xf.setAreaid(area);
+				}
 				if(StringUtils.isNotBlank(address)){
 					xf.setAddress(address);
 				}
@@ -366,9 +372,15 @@ public class XfxxwhController extends BaseController {
 				xf.setZpfpje(zpfpje);
 				xf.setPpzdje(ppzdje);
 				xf.setPpfpje(ppfpje);
-				xf.setProvinceid(province);
-				xf.setCityid(city);
-				xf.setAreaid(area);
+				if(""!=province && !"-1".equals(province)){
+					xf.setProvinceid(province);
+				}
+				if(""!=city && !"-1".equals(city)){
+					xf.setCityid(city);
+				}
+				if(""!=area && !"-1".equals(area)){
+					xf.setAreaid(area);
+				}
 				if(StringUtils.isNotBlank(address)){
 					xf.setAddress(address);
 				}

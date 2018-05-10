@@ -30,6 +30,10 @@ $(function() {
             type: 'POST',
             data: function (d) {
                 d.xfid = $("#xf").val();
+                var spmc = $("#s_spmc").val();
+                if(spmc !=null && spmc !=""){
+                    d.spmc = spmc;
+                }
             }
         },
         "columns": [
