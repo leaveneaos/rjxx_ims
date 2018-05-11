@@ -171,6 +171,11 @@ h2 {
 
 
 </style>
+    <script type="text/javascript">
+        function slFormat(sl) {
+
+        }
+    </script>
 </head>
 <body>
 <%
@@ -204,8 +209,8 @@ h2 {
                         <table class="header_t1">
                             <tr>
                                 <td align="left" valign="bottom" class="titletd" style="width: 210px;">
-                                    <img style="width: 80px;height: 80px;margin-left: 42px;"
-                                         src="data:image/jpg;base64,${base64Image}"/>
+                                    <%--<img style="width: 80px;height: 80px;margin-left: 42px;"
+                                         src="data:image/jpg;base64,${base64Image}"/>--%>
                                 </td>
                                 <td width="320px" rowspan="2" align="center" valign="top" class="title printed"
                                     style="background: url('${imagePath}/${sfmc}.png'); background-position: center; background-repeat: no-repeat;background-size: 120px 80px;">
@@ -290,12 +295,12 @@ h2 {
                                                         <td class="titletd printed">纳税人识别号：<span><%=jyls.getGfsh() %></span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="titletd printed">地 址、电 话：<span style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %><%=jyls.getGfdh() %></span>
+                                                        <td class="titletd printed">地 址、电 话：<span style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %>&nbsp;<%=jyls.getGfdh() %></span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="titletd printed">
-                                                            开户行及账号：<span style="font-size: ${gfyhzhSize}pt"><%=jyls.getGfyh() %><%=jyls.getGfyhzh() %></span>
+                                                            开户行及账号：<span style="font-size: ${gfyhzhSize}pt"><%=jyls.getGfyh() %>&nbsp;<%=jyls.getGfyhzh() %></span>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -409,12 +414,12 @@ h2 {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="titletd printed">地 址、电 话：<span style="font-size: ${xfdzdhSize}pt"><%=jyls.getXfdz() %><%=jyls.getXfdh() %></span>
+                                                    <td class="titletd printed">地 址、电 话：<span style="font-size: ${xfdzdhSize}pt"><%=jyls.getXfdz() %>&nbsp;<%=jyls.getXfdh() %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="titletd printed">
-                                                        开户行及账号：<span style="font-size: ${xfyhzhSize}pt"><%=jyls.getXfyh() %><%=jyls.getXfyhzh() %></span>
+                                                        开户行及账号：<span style="font-size: ${xfyhzhSize}pt"><%=jyls.getXfyh() %>&nbsp;<%=jyls.getXfyhzh() %></span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -431,20 +436,20 @@ h2 {
                     <div>
                         <table class="footer_t1" style="width: 100%;height: 100%">
                             <tr>
-                                <td class="titletd printed" style="width: 30%;">收款人：<span>${skr}</span>
+                                <td class="titletd printed" style="width: 30%;">收款人：<span>${jyls.getSkr()}</span>
 
                                 </td>
-                                <td class="titletd printed" style="width: 22%;">复核：<span>${fhr}</span>
+                                <td class="titletd printed" style="width: 22%;">复核：<span>${jyls.getFhr()}</span>
 
                                 </td>
-                                <td class="titletd printed" style="width: 23%;">开票人：<span>${kpr}</span>
+                                <td class="titletd printed" style="width: 23%;">开票人：<span>${jyls.getKpr()}</span>
 
                                 </td>
                                 <td class="titletd printed" style="width: 25%;">
                                     销货方：（章）
-                                    <img style="position: absolute;bottom: 0px;left: 622px;width: 158px;height:auto;" src="${imagePath}/${xfsh}.png">
+                                    <%--<img style="position: absolute;bottom: 0px;left: 622px;width: 158px;height:auto;" src="${imagePath}/${xfsh}.png">
 
-                                    </img>
+                                    </img>--%>
                                 </td>
                             </tr>
                         </table>

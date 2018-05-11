@@ -1673,7 +1673,7 @@ public class KpController extends BaseController {
 		String kpsqh= kpsqhs.split(",")[0];
 		Jyspmx jyspmx = new Jyspmx();
 		jyspmx.setDjh(Integer.valueOf(kpsqh));
-		List<Jyspmx> mxcl = jyspmxService.findAllByParams(jyspmx);
+		List<Jyspmx> mxcl = jyspmxService.findAllByParams2(jyspmx);
 		Jyls jyls = jylsService.findOne(Integer.valueOf(kpsqh));
 		List dxlist = new ArrayList();
 		ChinaNumber cn = new ChinaNumber();
