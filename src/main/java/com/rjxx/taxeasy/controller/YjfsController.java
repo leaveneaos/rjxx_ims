@@ -171,8 +171,8 @@ public class YjfsController extends BaseController {
             		csmap.put("js_hj_",jshj.setScale(2).toString());
             		csmap.put("fp_dz_", fpdz_+"?q="+kpls.getSerialorder());
             		
-            		csmap.put("logodz_", imgdz_+"emailLogo.png");
-            		csmap.put("ewmdz_", imgdz_+"emailCode.jpg");
+            		csmap.put("lo_go_dz_", imgdz_+"emailLogo.png");
+            		csmap.put("e_wm_dz_", imgdz_+"emailCode.png");
             		//-----------
             		
             		
