@@ -12,11 +12,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  	<style type="text/css" rel="stylesheet">
 
-.printdiv
-{ 
-  width:938px; 
-  height:100%;
+.printed .spanText{
+    font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;
 }
+
+
+
 .table-overAuto>tbody {
     display:block;
     height:130px;
@@ -44,28 +45,9 @@
     font-family: SimSun;
     font-size: 9pt;
 }
-/*.filled{
-    font-family: SimSun;
-    font-size: 9pt;
-}*/
-/*body {
-    margin-left: 1px;
-    margin-right: 1px;
-    !*font-family: Arial Unicode MS;*!
-    font-size: 13px;
-}*/
 
 span {
     color: black;
-}
-
-#div {
-    width: 570px;
-    height: 595px;
-}
-
-#bodyer {
-    height: 400px;
 }
 
 h2 {
@@ -120,22 +102,12 @@ h2 {
     font-size: 10pt;
     color: #9E520A;
 }
-
-.mxtd {
-    border-right: 1px solid #da731b;
-    /*font-size: 10pt;*/
-    padding: 2px;
-}
-
 .boyder_t3 {
     width: 100%;
     border-bottom: 2px solid #da731b;
 }
 .boyder_tzidingui{
     border-bottom: none;
-}
-.boyder_tzidingui1{
-    border-top: none;
 }
 .footer_t1 {
     margin-left: 2px;
@@ -153,13 +125,6 @@ h2 {
     font-size: 10pt;
 
     color: black;
-}
-
-.notdjym {
-    font-size: 10pt;
-    color: black;
-    width: 200px;
-    padding: 5px 5px;
 }
 
 .title {
@@ -263,7 +228,7 @@ h2 {
                              </tr>
                            </tbody></table> -->
                     <div class="boyder" style="position: relative">
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 231px"></span>
+                        <span style="position: absolute;width: 1px;height: 195px;border-left: 2px solid #da731b;top: 106px;left: 231px"></span>
                         <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 332px"></span>
                         <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 377px"></span>
                         <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 457px"></span>
@@ -288,19 +253,19 @@ h2 {
                                             <td class="boyder_td2">
                                                 <table cellpadding="2px" style="width: 100%;table-layout:fixed;">
                                                     <tr>
-                                                        <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span style="font-size: ${gfmcSize}pt"><![CDATA[${gfmc}]]><%=jyls.getGfmc() %></span>
+                                                        <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span class="spanText" style="font-size: ${gfmcSize}pt"><![CDATA[${gfmc}]]><%=jyls.getGfmc() %></span>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="titletd printed">纳税人识别号：<span><%=jyls.getGfsh() %></span></td>
+                                                        <td class="titletd printed">纳税人识别号：<span class="spanText"><%=jyls.getGfsh() %></span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="titletd printed">地 址、电 话：<span style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %>&nbsp;<%=jyls.getGfdh() %></span>
+                                                        <td class="titletd printed">地 址、电 话：<span class="spanText" style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %>&nbsp;<%=jyls.getGfdh() %></span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="titletd printed">
-                                                            开户行及账号：<span style="font-size: ${gfyhzhSize}pt"><%=jyls.getGfyh() %>&nbsp;<%=jyls.getGfyhzh() %></span>
+                                                            开户行及账号：<span class="spanText" style="font-size: ${gfyhzhSize}pt"><%=jyls.getGfyh() %>&nbsp;<%=jyls.getGfyhzh() %></span>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -351,7 +316,7 @@ h2 {
                                             <td class="filled" width="80px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
                                             <td class="filled" width="75px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
                                             <td class="filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
-                                            <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
+                                            <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue shuilv"><%=jyspmx.getSpsl()%></span></td>
                                             <td width="120px" class="filled" style="text-align:right"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
                                         </tr>
                                         <%
@@ -388,11 +353,11 @@ h2 {
                             <td>
                                 <table class="boyder_t3" cellpadding="2px" cellspacing="0">
                                     <tr>
-                                        <td width="205px" align="center" class="td printed">价税合计（大写）</td>
+                                        <td width="228px" align="center" class="td printed">价税合计（大写）</td>
                                         <td align="left" width="205px" valign="center" class="filled">
                                             <%=zwlist.size()==0?"":zwlist.get(0)%>
                                         </td>
-                                        <td align="center" width="390px"><span style="color: #9E520A;" class="printed">（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
+                                        <td align="center" width="367px"><span style="color: #9E520A;" class="printed">（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
                                     </tr>
                                 </table>
                             </td>
@@ -406,20 +371,20 @@ h2 {
                                         <td class="boyder_td2" style="width:430px">
                                             <table cellpadding="2px" style="width: 100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span style="font-size: ${xfmcSize}pt"><%=jyls.getXfmc() %></span>
+                                                    <td class="titletd printed">名&nbsp;&nbsp;&nbsp;&nbsp;称：<span class="spanText" style="font-size: ${xfmcSize}pt"><%=jyls.getXfmc() %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="titletd printed">纳税人识别号：<span><%=jyls.getXfsh() %></span>
+                                                    <td class="titletd printed">纳税人识别号：<span class="spanText"><%=jyls.getXfsh() %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="titletd printed">地 址、电 话：<span style="font-size: ${xfdzdhSize}pt"><%=jyls.getXfdz() %>&nbsp;<%=jyls.getXfdh() %></span>
+                                                    <td class="titletd printed">地 址、电 话：<span class="spanText" style="font-size: ${xfdzdhSize}pt"><%=jyls.getXfdz() %>&nbsp;<%=jyls.getXfdh() %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="titletd printed">
-                                                        开户行及账号：<span style="font-size: ${xfyhzhSize}pt"><%=jyls.getXfyh() %>&nbsp;<%=jyls.getXfyhzh() %></span>
+                                                        开户行及账号：<span class="spanText" style="font-size: ${xfyhzhSize}pt"><%=jyls.getXfyh() %>&nbsp;<%=jyls.getXfyhzh() %></span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -461,3 +426,4 @@ h2 {
                 </div>
 </body>
 </html>
+
