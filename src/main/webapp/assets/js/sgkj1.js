@@ -813,7 +813,10 @@ $(function() {
         }else {
             is="0"
         }
-
+        if(jshj==null || jshj=="" || jshj=="0.00"){
+            swal("价税合计为0不能开具发票！");
+            return;
+        }
         var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+"&is="+is+
             "&ddh="+ddh+"&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm+
@@ -1051,6 +1054,10 @@ $(function() {
     $('#chaSave').click(function(){
         var hsxse = FormatFloat($('#hsxse').val(),"#.00");
         var kce = FormatFloat($('#kce').val(),"#.00");
+        if(Number(kce)>Number(hsxse)){
+            console.log("扣除额大于金额");
+            kce = hsxse;
+        }
         var sjje=hsxse-kce;
         var chaspje=0;
         if(hsxse==null || hsxse ==""){
@@ -1099,6 +1106,8 @@ $(function() {
             jshj.val(FormatFloat(jshjstr,"#.00"));//价税合计
             hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
             hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
+            $("#hsxse").val("");
+            $("#kce").val("");
         }
 
         });

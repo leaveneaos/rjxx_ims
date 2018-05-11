@@ -91,8 +91,8 @@ public class SpslglController extends BaseController {
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
 		Map<String, Object> params = new HashMap<>();
-//		List<Spbm> spbms = spbmService.findAllByParam(params);
-//		request.setAttribute("spbms", spbms);
+		List<Spbm> spbms = spbmService.findAllByParam(params);
+		request.setAttribute("spbms", spbms);
 		params.put("gsdm", getGsdm());
 		Sp sp = new Sp();
 		sp.setGsdm(getGsdm());
