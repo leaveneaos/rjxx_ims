@@ -151,19 +151,21 @@ $(function () {
                         '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="email" value="0" checked>邮件</label>'
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="text" value="1" >短信</label></td>' +
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="wechat" value="2" >微信</label></td>'
+                    },
+                    {
+                    	"data":"sfkp",
+                    	"sClass":'yinchang'
                     }
                 ]
             });
             
             t.on("click","tr",function(){
             	var data = t.row($(this)).data();
-            	
             	if($(this).find("td").eq(0).find("input").is(':checked')){
             		$(this).find('td:eq(0) input').prop('checked',false);
             	}else{
-            		  $(this).find('td:eq(0) input').prop('checked',true); 
+            		$(this).find('td:eq(0) input').prop('checked',true); 
             	}
-            	
             	
             	var params = "";
             	_this.tableEx.column(0).nodes().each(function (cell, i) {
@@ -172,10 +174,12 @@ $(function () {
                     }
                 });
             	if(params!=""){
-            		params=params.substring(1,params.length);
+            		params=params.substring(1,params.length).trim();
             	}
             	
-            	return;
+            	if(params==""){
+            		return false;
+            	}
             	$("#ddMxtable").show();
             	var mx=$("#ddMxtable") .DataTable({
                     "processing": true,
@@ -188,7 +192,8 @@ $(function () {
                         type: 'POST',
                         data: function (d) {
                             d.loaddata = loaddata;
-                            d.serialorder = data.serialorder;
+                            //d.serialorder = data.serialorder;
+                            d.serialorders = params;
                         }
                     },
                     "columns": [
@@ -400,14 +405,81 @@ $(function () {
                 var $this = $(this),
                     check = null;
                 if ($(this).is(':checked')) {
+                	//全选判断，如果未全部开票不能选中
                     _this.tableEx.column(0).nodes().each(function (cell, i) {
-                        $(cell).find('input[type="checkbox"]').prop('checked', true);
+                    	//var sfkp=$(cell).parent("tr").find("td:last-child").html().trim();
+                    	//if(sfkp==1){
+                    	$(cell).find('input[type="checkbox"]').prop('checked', true);
+                    	//}
                     });
                 } else {
                     _this.tableEx.column(0).nodes().each(function (cell, i) {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
+                var ids ="";
+                _this.tableEx.column(0).nodes().each(function (cell, i) {
+                	if($(cell).find('input[type="checkbox"]').is(':checked')){
+                		ids=ids+";"+$(cell).find('input[type="checkbox"]').val();
+                		
+                	}
+                });
+                
+                	$("#ddMxtable").show();
+                	var mx=$("#ddMxtable") .DataTable({
+                        "processing": true,
+                        "serverSide": true,
+                        ordering: false,
+                        searching: false,
+                        destroy:true,
+                        "ajax": {
+                            url: _this.config.getDdmx,
+                            type: 'POST',
+                            data: function (d) {
+                                d.loaddata = loaddata;
+                                //d.serialorder = data.serialorder;
+                                d.serialorders = ids.trim();
+                            }
+                        },
+                        "columns": [
+                            {
+                                "orderable": false,
+                                "data": null,
+                                "defaultContent": ""
+                            },
+                            {
+                            	"data": null,
+                            	 "render": function (data) {
+                            		 if(data.pdfurl !=null && data.pdfurl!=""){
+                            			 return '<a class="view" href="' + data.pdfurl + '"  target="_blank">查看</a>';
+                            		 }else{
+                            			 return "";
+                            		 }
+                            	 }
+                            },
+                            {"data":"ddh"},
+                            {"data": "xfmc"},
+                            {"data": "fpdm"},
+                            {"data": "fphm"},
+                            {
+    	                		"data": function (data) {
+    	                            if (data.jshj) {
+    	                                return FormatFloat(data.jshj, "###,###.00");
+    	                            } else {
+    	                                return null;
+    	                            }
+    	                        }, 'sClass': 'right'
+                            },
+                            {"data": "kprq"}
+                            ]
+                    });
+                	 mx.on('draw.dt', function (e, settings, json) {
+                         var x = mx, page = x.page.info().start; // 设置第几页
+                         mx.column(0).nodes().each(function (cell, i) {
+                             cell.innerHTML = page + i + 1;
+                         });
+                     });
+                	 
             });
         },
         /**
@@ -417,7 +489,7 @@ $(function () {
             var _this = this;
             el.$jsSent.on('click', function (e) {
                 e.preventDefault();
-
+                var msg ='';
                 var data = '',
                     row = '',
                     $tr = null,
@@ -425,7 +497,14 @@ $(function () {
                 _this.tableEx.column(0).nodes().each(function (cell, i) {
                     row = '';
                     var $checkbox = $(cell).find('input[type="checkbox"]');
+                    
                     if ($checkbox.is(':checked')) {
+                    	 var sffs = $(cell).parent("tr").find("td:last-child").html().trim();
+                         var ddh = $(cell).parent("tr").find("td:eq(3)").html().trim();
+                         if(sffs==0){
+                         	msg=msg+","+ddh;
+                         }
+                         
                         // todo 设置数据格式 使用 id:发送方式-发送方式-发送方式,id:发送方式-发送方式 形式
                         // 1:0-1-2,2:2,3:0-2 数据格式
                         row = $checkbox.val() + ':'; // set id; 使用 : 分割 id 和 发送方式
@@ -448,8 +527,16 @@ $(function () {
                     }
 
                 });
-
-                _this.sentEmail({ids: data});
+                //开始
+                if(msg!=''){
+                	swal("订单号【"+msg.substring(1,msg.length)+"】存在未开发票");
+                	return;
+                }else{
+                	//发送
+                    _this.sentEmail({ids: data});
+                }
+                
+                
             });
         },
         saveRow: function () {

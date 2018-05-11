@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -402,24 +403,32 @@ public class YjfsController extends BaseController {
 	}*/
 	@RequestMapping(value = "/getDdmxList")
 	@ResponseBody
-	public Map getDdmxList(int length, int start, int draw, String serialorder,boolean loaddata) throws Exception {
+	public Map getDdmxList(int length, int start, int draw, String serialorders,boolean loaddata) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
-		pagination.addParam("serialorder", serialorder);
-		
+		List<String> ids = new ArrayList<String>();
+		if(serialorders!=null && !"".equals(serialorders)) {
+			serialorders.split(";");
+			ids.addAll(Arrays.asList(serialorders.split(";")));
+		}
 		if(loaddata){
-			Map<String, Object> params = new HashMap<>();
-			params.put("serialorder", serialorder);
+			if(ids.size()>0) {
+				pagination.addParam("serialorders", ids);
+				List<Kpls> list =ks.findKplsMxListByPagination(pagination);
+				int total = pagination.getTotalRecord();
+				result.put("recordsTotal", total);
+				result.put("recordsFiltered", total);
+				result.put("draw", draw);
+				result.put("data", list);
+			}else {
+				result.put("recordsTotal", 0);
+				result.put("recordsFiltered", 0);
+				result.put("draw", draw);
+				result.put("data", new ArrayList<>());
+			}
 			
-			List<Kpls> list =ks.findKplsMxListByPagination(pagination);
-			
-			int total = pagination.getTotalRecord();
-			result.put("recordsTotal", total);
-			result.put("recordsFiltered", total);
-			result.put("draw", draw);
-			result.put("data", list);
 		}else {
 			result.put("recordsTotal", 0);
 			result.put("recordsFiltered", 0);

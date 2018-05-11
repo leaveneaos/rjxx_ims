@@ -29,6 +29,9 @@
 	.data-ctr {
 	  text-align: center;
 	}
+	.yinchang{
+		display:none;
+	}
 </style>
 </head>
 <body>
@@ -239,6 +242,7 @@
 												<th class="data-ctr">价税合计</th>
 												<th>邮箱</th>
 												<th>发票接收方式</th>
+												<th style="display:none;">是否开票成功</th>
 											</tr>
 										</thead>
 										<tbody>
