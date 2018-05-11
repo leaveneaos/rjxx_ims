@@ -121,9 +121,9 @@ public class SjdtjbbController extends BaseController {
 	        kprqz = sdf.format(calender.getTime());
 		}*/
 		params.put("kprqz", kprqz);
-//		List<Cxtjvo> list = ks.findYypl(params);
-		List<Cxtjvo> list = fpyltjService.findYplByParams(params);
-		logger.info(JSON.toJSONString(list));
+		List<Cxtjvo> list = ks.findYypl(params);
+//		List<Cxtjvo> list = fpyltjService.findYplByParams(params);
+//		logger.info(JSON.toJSONString(list));
 		List<Cxtjvo> zplist = new ArrayList<Cxtjvo>();
 		List<Cxtjvo> pplist = new ArrayList<Cxtjvo>();
 		List<Cxtjvo> dplist = new ArrayList<Cxtjvo>();
