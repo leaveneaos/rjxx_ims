@@ -19,7 +19,7 @@
 }
 .table-overAuto>tbody {
     display:block;
-    max-height:130px;
+    height:130px;
     overflow-y:auto;
 }
 
@@ -116,7 +116,7 @@ h2 {
 }
 
 .td {
-    border-right: 1px solid #da731b;
+    /*border-right: 1px solid #da731b;*/
     font-size: 10pt;
     color: #9E520A;
 }
@@ -131,7 +131,12 @@ h2 {
     width: 100%;
     border-bottom: 1px solid #da731b;
 }
-
+.boyder_tzidingui{
+    border-bottom: none;
+}
+.boyder_tzidingui1{
+    border-top: none;
+}
 .footer_t1 {
     margin-left: 2px;
 
@@ -252,7 +257,14 @@ h2 {
                                <td>&nbsp;</td>
                              </tr>
                            </tbody></table> -->
-                    <div class="boyder">
+                    <div class="boyder" style="position: relative">
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 231px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 332px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 377px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 457px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 532px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 652px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 692px"></span>
                         <table class="boyder_t1"
                                style="border: solid 1px  #da731b; border-collapse: collapse" cellpadding="0"
                                cellspacing="0">
@@ -301,7 +313,7 @@ h2 {
 
                             <tr>
                                 <td>
-                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
+                                    <table class="boyder_t3 boyder_tzidingui" style="width: 100%;height: 100%; table-layout: fixed;"
                                            cellpadding="0" cellspacing="0">
                                         <tr class="boyder_tr1 printed">
                                             <td class="td" width="228x">货物或应税劳务、服务名称</td>
@@ -314,8 +326,9 @@ h2 {
                                             <td class="titletd" width="120px">税额</td>
                                         </tr>
                                     </table>
-                                        <table class="boyder_t3 table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;"
+                                        <table class="boyder_t3 boyder_tzidingui table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;position: relative"
                                                cellpadding="0" cellspacing="0">
+
 
                                         <%
                                             for(int j=0;j<list.size();j++){
@@ -341,7 +354,7 @@ h2 {
                                         %>
 
                                         </table>
-                                    <table class="boyder_t3" style="width: 100%;height: 100%; table-layout: fixed;"
+                                    <table class="boyder_t3 " style="width: 100%;height: 100%; table-layout: fixed;"
                                            cellpadding="0" cellspacing="0">
                             <tr class="boyder_tr1">
                                 <td class="td printed" width="228x">合&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;计
@@ -366,16 +379,15 @@ h2 {
                         </td>
                         </tr>
 
-                        <tr height="30px">
+                        <tr height="">
                             <td>
                                 <table class="boyder_t3" cellpadding="2px" cellspacing="0">
                                     <tr>
                                         <td width="205px" align="center" class="td printed">价税合计（大写）</td>
                                         <td align="left" width="245px" valign="center" class="filled">
-                                            <img style="vertical-align:middle;width:12px;height:12px;"
-                                                 src="${imagePath}/jshj.jpg"/>${jshjdx}
+                                            <%=zwlist.size()==0?"":zwlist.get(0)%>
                                         </td>
-                                        <td align="center" width="350px"><span style="color: #9E520A;" class="printed"><%=zwlist.size()==0?"":zwlist.get(0)%>（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
+                                        <td align="center" width="350px"><span style="color: #9E520A;" class="printed">（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
                                     </tr>
                                 </table>
                             </td>
