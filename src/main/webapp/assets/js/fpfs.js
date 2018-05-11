@@ -96,7 +96,7 @@ $(function () {
                         "data": null,
                         //"defaultContent": '<input type="checkbox" />'
                         render: function (data, type, full, meta) {
-                            return '<input type="checkbox" disabled="true" value="' + data.serialorder + '" />';
+                            return '<input type="checkbox" value="' + data.serialorder + '" />';
                         }
                     },
                     {
@@ -161,11 +161,20 @@ $(function () {
             
             t.on("click","tr",function(){
             	var data = t.row($(this)).data();
-            	if($(this).find("td").eq(0).find("input").is(':checked')){
-            		$(this).find('td:eq(0) input').prop('checked',false);
-            	}else{
-            		$(this).find('td:eq(0) input').prop('checked',true); 
-            	}
+//            	if($(this).find("td").eq(0).find("input").is(':checked')){
+//            		$(this).find('td:eq(0) input').prop('checked',false);
+//            	}else{
+//            		$(this).find('td:eq(0) input').prop('checked',true); 
+//            	}
+            	
+            	
+            	if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                } else {
+                	$(this).find('td:eq(0) input').prop('checked',true); 
+                    $(this).addClass('selected');
+                }
             	
             	var params = "";
             	_this.tableEx.column(0).nodes().each(function (cell, i) {
@@ -177,9 +186,6 @@ $(function () {
             		params=params.substring(1,params.length).trim();
             	}
             	
-            	if(params==""){
-            		return false;
-            	}
             	$("#ddMxtable").show();
             	var mx=$("#ddMxtable") .DataTable({
                     "processing": true,
