@@ -393,6 +393,8 @@ $(function () {
                     {"data": "kprq"},
                     {"data": "fpdm"},
                     {"data": "fphm"},
+                    {"data": "yfpdm"},
+                    {"data": "yfphm"},
                     {"data": "gfmc"},
                     {"data": "fpzlmc"},
                     {
