@@ -6,6 +6,7 @@
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="models.*"%>
+<%@ page import="java.math.BigDecimal" %>
 
 <html>
 <head>
@@ -316,7 +317,7 @@ h2 {
                                             <td class="filled" width="80px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
                                             <td class="filled" width="75px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
                                             <td class="filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
-                                            <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue shuilv"><%=jyspmx.getSpsl()%></span></td>
+                                            <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue shuilv"><%=new DecimalFormat("0").format(new BigDecimal(jyspmx.getSpsl().toString()).multiply(new BigDecimal(100)))%>%</span></td>
                                             <td width="120px" class="filled" style="text-align:right"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
                                         </tr>
                                         <%
@@ -401,13 +402,13 @@ h2 {
                     <div>
                         <table class="footer_t1" style="width: 100%;height: 100%">
                             <tr>
-                                <td class="titletd printed" style="width: 30%;">收款人：<span>${jyls.getSkr()}</span>
+                                <td class="titletd printed" style="width: 30%;">收款人：<span class="spanText">${jyls.getSkr()}</span>
 
                                 </td>
-                                <td class="titletd printed" style="width: 22%;">复核：<span>${jyls.getFhr()}</span>
+                                <td class="titletd printed" style="width: 22%;">复核：<span class="spanText">${jyls.getFhr()}</span>
 
                                 </td>
-                                <td class="titletd printed" style="width: 23%;">开票人：<span>${jyls.getKpr()}</span>
+                                <td class="titletd printed" style="width: 23%;">开票人：<span class="spanText">${jyls.getKpr()}</span>
 
                                 </td>
                                 <td class="titletd printed" style="width: 25%;">
