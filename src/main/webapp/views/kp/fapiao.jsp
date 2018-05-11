@@ -98,7 +98,7 @@ h2 {
 .boyder_td1 {
     width: 25px;
     height: 105px;
-    border-right: 1px solid #da731b;
+    border-right: 2px solid #da731b;
     font-size: 10pt;
     color: #9E520A;
 }
@@ -106,7 +106,7 @@ h2 {
 .boyder_td2 {
     width: 50%;
     height: 105px;
-    border-right: 1px solid #da731b;
+    border-right: 2px solid #da731b;
 }
 
 .boyder_tr1 {
@@ -129,7 +129,7 @@ h2 {
 
 .boyder_t3 {
     width: 100%;
-    border-bottom: 1px solid #da731b;
+    border-bottom: 2px solid #da731b;
 }
 .boyder_tzidingui{
     border-bottom: none;
@@ -258,13 +258,13 @@ h2 {
                              </tr>
                            </tbody></table> -->
                     <div class="boyder" style="position: relative">
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 231px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 332px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 377px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 457px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 532px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 652px"></span>
-                        <span style="position: absolute;width: 1px;height: 173px;border-left: 1px solid #da731b;top: 106px;left: 692px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 231px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 332px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 377px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 457px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 532px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 652px"></span>
+                        <span style="position: absolute;width: 1px;height: 173px;border-left: 2px solid #da731b;top: 106px;left: 692px"></span>
                         <table class="boyder_t1"
                                style="border: solid 1px  #da731b; border-collapse: collapse" cellpadding="0"
                                cellspacing="0">
@@ -323,7 +323,7 @@ h2 {
                                             <td width="75px" class="td">单价</td>
                                             <td width="120px" class="td">金额</td>
                                             <td width="40px" class="td">税率</td>
-                                            <td class="titletd" width="120px">税额</td>
+                                            <td width="120px" class="td">税额</td>
                                         </tr>
                                     </table>
                                         <table class="boyder_t3 boyder_tzidingui table-overAuto" style="width: 100%;height: 100%; table-layout: fixed;position: relative"
@@ -340,11 +340,11 @@ h2 {
                                         %>
 
                                         <tr>
-                                            <td class="filled" width="228x"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
+                                            <td class="filled" width="228x" style="text-align:left"><span class="content_td_blue"><%=jyspmx.getSpmc()%></span></td>
                                             <td class="filled" width="102px"><span class="content_td_blue"><%=jyspmx.getSpggxh()==null?"":jyspmx.getSpggxh()%> </span></td>
                                             <td class="filled" width="45px"><span class="content_td_blue"><%=jyspmx.getSpdw()==null?"":jyspmx.getSpdw()%></span></td>
-                                            <td class="filled" width="80px"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
-                                            <td class="filled" width="75px"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
+                                            <td class="filled" width="80px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSps()==null?"":jyspmx.getSps()%></span></td>
+                                            <td class="filled" width="75px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpdj()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpdj())%></span></td>
                                             <td class="filled" width="120px" style="text-align:right"><span class="content_td_blue">  <%=jyspmx.getSpje()==null?"":new DecimalFormat("0.00").format(jyspmx.getSpje())%></span></td>
                                             <td class="filled" width="40px" style="text-align:right"><span class="content_td_blue"><%=jyspmx.getSpsl()%></span></td>
                                             <td width="120px" class="filled" style="text-align:right"><span class="content_td_blue"><%=new DecimalFormat("0.00").format(jyspmx.getSpse())%></span></td>
@@ -384,10 +384,10 @@ h2 {
                                 <table class="boyder_t3" cellpadding="2px" cellspacing="0">
                                     <tr>
                                         <td width="205px" align="center" class="td printed">价税合计（大写）</td>
-                                        <td align="left" width="245px" valign="center" class="filled">
+                                        <td align="left" width="205px" valign="center" class="filled">
                                             <%=zwlist.size()==0?"":zwlist.get(0)%>
                                         </td>
-                                        <td align="center" width="350px"><span style="color: #9E520A;" class="printed">（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
+                                        <td align="center" width="390px"><span style="color: #9E520A;" class="printed">（小写）</span><span class="filled">￥<%=new DecimalFormat("#.00").format(jshj)%></span></td>
                                     </tr>
                                 </table>
                             </td>

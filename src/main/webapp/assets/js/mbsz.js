@@ -146,7 +146,6 @@ $(function() {
 	                        var zdm = obj["zdm"];
 	                        var pzlx = obj["pzlx"];
 	                        var pzz = obj["pzz"];
-
 	                        if(zdm.indexOf('xf')!=0&&zdm!="skr"&&zdm!="kpr"&&zdm!="fhr"){
 								if (zdm != "gs") {
                                     $("#config_" + zdm + "_radio").val(pzlx);
