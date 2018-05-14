@@ -1311,6 +1311,16 @@ public class LrkpdController extends BaseController {
             if (StringUtils.isNotBlank(spdjStr)) {
                 jymxsq.setSpdj(Double.valueOf(spdjStr));
             }
+            //处理优惠信息
+            if(null !=getValue("spdm", pzMap, columnIndexMap, row) && !getValue("spdm", pzMap, columnIndexMap, row).equals("")){
+                Map map = new HashMap();
+                map.put("gsdm",jymxsq.getGsdm());
+                map.put("spbm",jymxsq.getSpdm());
+                Spvo spvo = spvoService.findOneSpvo(map);
+                jymxsq.setYhzcbs(spvo.getYhzcbs());
+                jymxsq.setYhzcmc(spvo.getYhzcmc());
+                jymxsq.setLslbz(spvo.getLslbz());
+            }
             jymxsq.setSpje(spje);
             jymxsq.setSpsl(spsl);
             jymxsq.setJshj(jshj);
@@ -1349,6 +1359,9 @@ public class LrkpdController extends BaseController {
                     logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
                 }else {
                     jymxsq.setSpdm(spvo.getSpbm());
+                    jymxsq.setYhzcbs(spvo.getYhzcbs());
+                    jymxsq.setYhzcmc(spvo.getYhzcmc());
+                    jymxsq.setLslbz(spvo.getLslbz());
                     logger.info("第"+i+"行自动附码成功------------------附码之后的结果为"+jymxsq.getSpdm());
                 }
             }
