@@ -227,7 +227,7 @@
 										class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
-												<th width="23px"><input type="checkbox" id="check_all" /></th>
+												<th><input type="checkbox" id="check_all" /></th>
 												<th>序号</th>
 												<th>操作</th>
 												<th>订单号</th>
