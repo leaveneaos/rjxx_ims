@@ -54,8 +54,12 @@ public class MainController extends BaseController{
             paramsList.add(Integer.valueOf(str));
         }
         params.put("roleIds", paramsList);
+        params.put("ztbz", "1");
+
         List<Privileges> privilegesList = privilegesService.findByRoleIds(params);
-        List<String> list = new ArrayList<String>();
+		request.setAttribute("list", privilegesList);
+
+        /*List<String> list = new ArrayList<String>();
         for(Privileges item:privilegesList){
         	String url = item.getUrls();
         	list.add(url);
@@ -76,7 +80,7 @@ public class MainController extends BaseController{
 			if(list.contains("/sgkj")){
 				request.setAttribute("sgkj", 1);
 			}
-        }
+        }*/
 		return "mainjsp/index";
 	}
 	

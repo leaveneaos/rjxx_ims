@@ -44,13 +44,13 @@
 											开票流水处理
 										</div>
 								</a></li></c:if>--%>
-								<c:if test="${fpcx==1}">
+								<%--<c:if test="${fpcx==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #00BCD4;">
 											<span class="am-icon-search am-icon-lg" data="<%=request.getContextPath()%>/fpcx" onclick="jump(this,'/fpcx')"></span><br> 
 											发票查询
 										</div>
-								</a></li></c:if>
+								</a></li></c:if>--%>
 								<%--<c:if test="${ytjbb==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #009688;">
@@ -65,13 +65,25 @@
 											发票归档
 										</div>
 								</a></li></c:if>--%>
-								 <c:if test="${sgkj==1}">
+								<%-- <c:if test="${sgkj==1}">
 								<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #259B24">
 											<span class="am-icon-archive am-icon-lg"  data="<%=request.getContextPath()%>/sgkj" onclick="jump(this,'/sgkj')"></span><br>
 											手工开具
 										</div>
-								</a></li></c:if>
+								</a></li></c:if>--%>
+
+								<c:forEach items="${list}" var = "li">
+
+									<li><a href="#" class="am-text-success">
+										<div style="font-size: 2.5rem; color: #259B24">
+											<span class="${li.description} am-icon-lg"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')"></span><br>
+											${li.name}
+										</div>
+									</a></li>
+
+								</c:forEach>
+
 							</ul>
 							</div>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="margin-top: 100px">
