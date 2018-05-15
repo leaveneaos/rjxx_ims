@@ -841,6 +841,10 @@ public class KpdshController extends BaseController {
 			jymx.setXgry(getYhid());
 			jymx.setKce(mxItem.getKce() == null ? null : mxItem.getKce().doubleValue());
 			jymx.setFphxz("0");
+			jymx.setYhzcbs(mxItem.getYhzcbs());
+			jymx.setYhzcmc(mxItem.getYhzcmc());
+			jymx.setLslbz(mxItem.getLslbz());
+
 			jyspmxService.save(jymx);
 			i++;
 		}
