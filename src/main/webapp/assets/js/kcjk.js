@@ -63,7 +63,9 @@ $(function () {
                         		if(data.fpkcl !=null && data.yjyz!=null){
                         			if(data.yjyz>data.fpkcl){
                         				return "<span style='color:red;'>"+data.fpkcl+"<span>";
-                        			}
+                        			}else {
+                        			    return data.fpkcl;
+                                    }
                         		}else{
                         			return data.fpkcl==null?"":data.fpkcl;
                         		}
