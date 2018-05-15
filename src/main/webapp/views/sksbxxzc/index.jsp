@@ -268,8 +268,7 @@
 												</div>
 											</div>
 											<div class="am-form-group">
-												<label for="province" class="am-u-sm-2 am-form-label"><font
-														color="red">*</font>所在省</label>
+												<label for="province" class="am-u-sm-2 am-form-label">所在省</label>
 												<div class="am-u-sm-4">
 													<select id="province" name="province" onchange="getCity()">
 														<option value="-1">请选择</option>
@@ -278,8 +277,7 @@
 														</c:forEach>
 													</select>
 												</div>
-												<label for="city" class="am-u-sm-2 am-form-label"><font
-														color="red">*</font>所在市</label>
+												<label for="city" class="am-u-sm-2 am-form-label">所在市</label>
 												<div class="am-u-sm-4">
 													<select id="city" name="city"  onchange="getArea();">
 														<option value="-1">请选择</option>
@@ -287,8 +285,7 @@
 												</div>
 											</div>
 											<div class="am-form-group">
-												<label for="area" class="am-u-sm-2 am-form-label"><font
-														color="red">*</font>所在区</label>
+												<label for="area" class="am-u-sm-2 am-form-label">所在区</label>
 												<div class="am-u-sm-4">
 													<select id="area" name="area">
 														<option value="-1">请选择</option>
