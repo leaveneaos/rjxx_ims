@@ -8,6 +8,7 @@ import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.invoice.ResponseUtil;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.service.adapter.AdapterService;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.vo.Jyzfmxvo;
 import com.rjxx.taxeasy.vo.Spvo;
@@ -61,6 +62,8 @@ public class PttqkpController extends BaseController {
 	private FpclService fpclService;
 	@Autowired
 	private ResponseUtil responseUtil;
+	@Autowired
+	private AdapterService adapterService;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
@@ -179,46 +182,40 @@ public class PttqkpController extends BaseController {
 				resMap=getDataService.getDataForGvc(ddh,gsdm,csz.getCsz());
 			}
 		}else {
-			//查询交易信息申请
-			List<Jyls> jylsList = jylsJpaDao.findByGsdmAndDdh(gsdm, ddh);
-			if(!jylsList.isEmpty()){
-				for (Jyls jyls : jylsList) {
-					Kpls kpls = kplsJpaDao.findOneByDjh(jyls.getDjh());
-					if(kpls!=null){
-						if("00".equals(kpls.getFpztdm())&&StringUtils.isNotBlank(kpls.getPdfurl())&&StringUtils.isNotBlank(kpls.getFphm())){
-							resultMap.put("msg", "该发票已开具成功！");
-							return  resultMap;
-						}else {
-							resultMap.put("msg", "该发票正在开具！");
-							return  resultMap;
-						}
-					}else {
-						resultMap.put("msg", "该发票正在开具！");
-						return  resultMap;
-					}
+			Map map = adapterService.getApiMsg(gsdm, ddh);
+			if(map==null){
+				resultMap.put("msg","未查询到数据");
+				return resultMap;
+			}
+			String msg = (String) map.get("msg");
+			if(StringUtils.isNotBlank(msg)){
+				resultMap.put("msg",msg);
+				return resultMap;
+			}
+			Jyxxsq jyxxsq = (Jyxxsq) map.get("jyxxsq");
+			List<Jyxxsq> jyxxsqList = new ArrayList<>();
+			List<Jyxxsq> rejyxxsqList = (List<Jyxxsq>) map.get("jyxxsqList");
+			List<Jymxsq> jymxsqList = (List<Jymxsq>) map.get("jymxsqList");
+			List<Jyzfmx> jyzfmxList = (List<Jyzfmx>) map.get("jyzfmxList");
+			if(jyxxsq!=null){
+				jyxxsqList.add(jyxxsq);
+			}
+			if( rejyxxsqList!=null && rejyxxsqList.size()>0){
+				jyxxsqList =rejyxxsqList;
+			}
+			List zflist = new ArrayList();
+			if(jyzfmxList!=null && jyzfmxList.size() > 0){
+				for (Jyzfmx jyzfmx : jyzfmxList){
+					Map parmMap = new HashMap();
+					parmMap.put("zffsDm",jyzfmx.getZffsDm());
+					List<Zffs> zffsss = zffsService.findAllByParams(parmMap);
+					Jyzfmxvo jyzfmxVo = new Jyzfmxvo();
+					jyzfmxVo.setZfmc(zffsss.get(0).getZffsMc());
+					jyzfmxVo.setZffsDm(zffsss.get(0).getZffsDm());
+					jyzfmxVo.setZfje(jyzfmx.getZfje());
+					zflist.add(jyzfmxVo);
 				}
 			}
-			Map<String, Object> params = new HashMap<>();
-			params.put("ddh",ddh);
-			params.put("gsdm",gsdm);
-			Jyxxsq jyxxsq= jyxxsqService.findOneByParams(params);
-			if(jyxxsq == null){
-				resultMap.put("msg", "未查询到数据，请重试！");
-				return  resultMap;
-			}
-			Integer sqlsh= jyxxsq.getSqlsh();
-			Map paramss=new HashMap();
-			paramss.put("sqlsh",sqlsh);
-			Jymxsq jymxsq=jymxsqService.findOneByParams(paramss);
-			if(jymxsq == null){
-				resultMap.put("msg", "未查询到数据，请重试！");
-				return  resultMap;
-			}
-			List<Jyxxsq> jyxxsqList = new ArrayList<>();
-			jyxxsqList.add(jyxxsq);
-			List<Jymxsq>jymxsqList=new ArrayList<>();
-			jymxsqList.add(jymxsq);
-			List<Jyzfmx>jyzfmxList=new ArrayList<>();
 			resultMap.put("jyxxsq", jyxxsqList);
 			resultMap.put("jymxsq", jymxsqList);
 			resultMap.put("jyzflist", jyzfmxList);

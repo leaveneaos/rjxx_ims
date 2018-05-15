@@ -149,6 +149,10 @@ $(function() {
                     if(null!=data.temp){
                         swal("提示:\r\n"+data.temp);
                     }
+                    jyspmx_table.clear().draw();
+                    jyzfmx_table.clear().draw();
+                    $("input").val('');
+                    $("#ddh").val(ddh)
                 }
             }
         });
@@ -381,6 +385,12 @@ $(function() {
                 return;
             }
         }
+        if(gfsh!=null && gfsh!=""){
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+                swal("购方税号长度有误！");
+                return;
+            }
+        }
         var ps = [];
         var errorspmessage="";
         var errorspjemessage="";
@@ -465,6 +475,9 @@ $(function() {
                             SelectArr[i].options[0].selected = true;
                             $("#kpd").val('');
                         }
+                        jyspmx_table.clear().draw();
+                        jyzfmx_table.clear().draw();
+                        $("input").val('');
                     } else {
                         swal(data.msg);
                     }
