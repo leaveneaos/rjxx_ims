@@ -258,7 +258,7 @@ h2 {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="titletd printed">纳税人识别号：<span class="spanText"><%=jyls.getGfsh() %></span></td>
+                                                        <td class="titletd printed">纳税人识别号：<span class="spanText"><c:if test="${jyls.getGfsh() != null }"><%=jyls.getGfsh() %></c:if></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="titletd printed">地 址、电 话：<span class="spanText" style="font-size: ${gfdzdhSize}pt"><%=jyls.getGfdz() %>&nbsp;<%=jyls.getGfdh() %></span>
