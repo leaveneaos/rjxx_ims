@@ -231,6 +231,13 @@ $(function() {
                 el.$jsForm.find('[name="fpzldm_ck"]').val(data.fpzldm);
                 el.$jsForm.find('[name="bzck"]').val(data.bz);
                 url = _this.config.editUrl + "?kplshck=" + data.kplsh;
+                if(data.gfsh!=null&&data.gfsh !=""){
+                    $('#sfbx').attr('checked',true);
+                    $("#show").html("*");
+                }else{
+                    $("#sfbx").removeAttr("checked");
+                    $("#show").html("");
+                }
                 //alert(url);
                 $('#your-modal').modal({
                     "width" : 900,
