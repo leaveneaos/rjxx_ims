@@ -56,6 +56,7 @@ public class ClientController extends BaseController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String cleintUpload(String data){
+        logger.info("进入-upload---------------------");
         if(StringUtils.isBlank(data)){
             return ResponeseUtils.error("上传数据为空");
         }
