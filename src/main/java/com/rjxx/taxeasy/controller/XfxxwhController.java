@@ -935,4 +935,20 @@ public class XfxxwhController extends BaseController {
 		}
 		return areasList;
 	}
+
+
+	@RequestMapping(value = "/getXf")
+	@ResponseBody
+	public Xf getXf(String xfid) throws Exception {
+		if(StringUtils.isBlank(xfid)){
+			return new Xf();
+		}
+		try {
+			Xf	xf = xfService.findOne(Integer.valueOf(xfid));
+			return  xf;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new Xf();
+		}
+	}
 }
