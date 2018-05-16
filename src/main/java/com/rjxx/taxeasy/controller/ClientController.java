@@ -56,13 +56,14 @@ public class ClientController extends BaseController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String cleintUpload(String data){
-        logger.info("进入-upload---------------------");
+        logger.info("进入-upload---------------------"+data);
         if(StringUtils.isBlank(data)){
             return ResponeseUtils.error("上传数据为空");
         }
         String key = DesUtils.GLOBAL_DES_KEY;
         try {
             String uploadData = DesUtils.DESDecrypt(data, key);
+            logger.info("解密之后的数据--------------"+uploadData);
             if(StringUtils.isBlank(uploadData)){
                 return ResponeseUtils.error("数据解密失败");
             }
