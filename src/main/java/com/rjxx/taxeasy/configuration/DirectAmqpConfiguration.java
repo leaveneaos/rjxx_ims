@@ -2,6 +2,10 @@ package com.rjxx.taxeasy.configuration;
 
 import com.rjxx.comm.utils.ApplicationContextUtils;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.domains.Cszb;
+import com.rjxx.taxeasy.domains.Kpls;
+import com.rjxx.taxeasy.service.CszbService;
+import com.rjxx.taxeasy.service.KplsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -25,6 +29,10 @@ public class DirectAmqpConfiguration {
 
     @Autowired
     private SkService skService;
+    @Autowired
+    private KplsService kplsService;
+    @Autowired
+    private CszbService cszbService;
 
     /**
      * 线程池执行任务
@@ -40,7 +48,17 @@ public class DirectAmqpConfiguration {
         public void run() {
             logger.info("------多线程接收MQ消息----------");
             try {
-                skService.SkServerKP(kplsh);
+                Kpls kpls=kplsService.findOne(kplsh);
+                Cszb cszb=cszbService.getSpbmbbh(kpls.getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+                if(cszb.getCsz().equals("01")){
+                    skService.callService(kplsh);
+                }else if(cszb.getCsz().equals("03")){
+                    if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
+                        skService.SkServerKP(kplsh);
+                    }
+                }else if(cszb.getCsz().equals("04")){
+                    skService.SkBoxKP(kplsh);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
