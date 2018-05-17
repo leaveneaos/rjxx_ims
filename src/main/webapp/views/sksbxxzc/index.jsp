@@ -557,6 +557,56 @@
 	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
+
+		    var provinceid =  ${xf.provinceid };
+		    var cityid =  ${xf.cityid };
+		    var areaid =  ${xf.areaid };
+            if(provinceid!=null && provinceid !=""){
+                $('.js-form').find('select[name="province"]').val(${xf.provinceid });
+            }
+            if(cityid !=null && cityid!=""){
+                var city = $("#city");
+                $("#city").empty();
+                $.ajax({
+                    url : "xfxxwh/getCity",
+                    async:false,
+                    data : {
+                        "provinceid" : provinceid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        city.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            var option = $("<option>").text(data[i].city).val(
+                                data[i].cityid);
+                            city.append(option);
+                        }
+                    }
+                });
+                $('.js-form').find('select[name="city"]').val(cityid);
+			}
+			if(areaid !=null && areaid !=""){
+                var area = $("#area");
+                $("#area").empty();
+                $.ajax({
+                    url : "xfxxwh/getArea",
+                    async:false,
+                    data : {
+                        "cityid" : cityid
+                    },
+                    success : function(data) {
+                        var option = $("<option>").text('请选择').val(-1);
+                        area.append(option);
+                        for (var i = 0; i < data.length; i++) {
+                            option = $("<option>").text(data[i].area).val(
+                                data[i].areaid);
+                            area.append(option);
+                        }
+                    }
+                });
+                $('.js-form').find('select[name="area"]').val(areaid);
+			}
+
 			//批量导入
 			var $importModal = $("#bulk-import-div");
 			$("#kp_dr").click(function() {
