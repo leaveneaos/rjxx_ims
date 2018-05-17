@@ -71,6 +71,8 @@ $(function () {
                         		}
                         		
                         	}
+                        },{
+                            "data":"xgsj"
                         },
                         {"data": "yjyz"},
                         {
