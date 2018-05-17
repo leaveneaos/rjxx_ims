@@ -18,6 +18,19 @@
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="assets/css/app.css">
 <script src="assets/js/loading.js"></script>
+	<style>
+		.tab-listBox>li{
+			width: 150px;
+			height: 160px;
+			background-color: #23abf0;
+			color: #fff;
+			border-radius: 10px;
+			margin-left: 20px;
+		}
+		.tab-listBoxSpan{
+			margin-top: 25px;
+		}
+	</style>
 </head>
 <body>
  <div class="am-g tpl-g">
@@ -28,7 +41,7 @@
 						<div class="widget-head am-cf"></div>
 						<div class="widget-body  am-fr">
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center">
+							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center tab-listBox">
 								<%--<li><a href="#" class="am-text-success">
 										<div style="font-size: 2.5rem; color: #5677FC;">
 											<span class="am-icon-list am-icon-lg" data="<%=request.getContextPath()%>/fpkc" onclick="jump(this,'/fpkc')">
@@ -76,7 +89,7 @@
 								<c:forEach items="${list}" var = "li">
 
 									<li><a href="#" class="am-text-success">
-										<div style="font-size: 2.5rem; color: #259B24">
+										<div class="tab-listBoxSpan" style="font-size: 2.5rem;color: #fff;">
 											<span class="${li.description} am-icon-lg"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')"></span><br>
 											${li.name}
 										</div>
