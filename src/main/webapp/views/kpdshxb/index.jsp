@@ -265,7 +265,7 @@ table thead th {
 														</tr>
 													</thead>
 												</table>
-												<legend>商品明细列表1</legend>
+												<legend>商品明细列表</legend>
 											</div>
 										</div>
 										<div style="margin-top: 0px; margin-left: 0px;"
