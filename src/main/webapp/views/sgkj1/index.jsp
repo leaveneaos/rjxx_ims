@@ -240,18 +240,18 @@
 												<li>开户行及账户 ：</li>
 											</ul>
 										</div>
-										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc">
-											<div class="am-u-sm-12" style="height: 35px" >
-												<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称" onkeyup="query()">
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;padding: 0">
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px" >
+												<input id="gfmc" name="gfmc" type="text" style="width: 100%;height: 100%;" value="" placeholder="请输入购方名称" onkeyup="query()">
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="gfsh" name="gfsh" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="gfsh" name="gfsh" type="text" style="width: 100%;height: 100%;" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址、电话 ">
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="gfdz" name="gfdz" type="text" style="width: 100%;height: 100%;" placeholder="请输入地址、电话 ">
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="yhzh" name="yhzh" type="text" placeholder="请输入开户行及账户">
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="yhzh" name="yhzh" type="text" style="width: 100%;height: 100%;" placeholder="请输入开户行及账户">
 											</div>
 										</div>
 										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
