@@ -13,7 +13,9 @@ import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -24,6 +26,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/pp")
+@CrossOrigin
 public class PpController  extends BaseController {
 
     @Autowired
@@ -61,6 +64,34 @@ public class PpController  extends BaseController {
         pagination.addParam("orderBy", "lrsj");
         pagination.addParam("xfs", getXfList());
         List<Pp> list = ppService.findByPage(pagination);
+        int total = pagination.getTotalRecord();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("recordsTotal", total);
+        result.put("recordsFiltered", total);
+        result.put("draw", draw);
+        result.put("data", list);
+        return result;
+    }
+
+
+    /**
+     * 分页查询可提取页面的品牌信息
+     *
+     * @param length
+     * @param start
+     * @param draw
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/gettqlist",method = RequestMethod.POST)
+    @ResponseBody
+    public Map gettqlist(int length, int start, int draw, String ppmc) throws Exception {
+        Pagination pagination = new Pagination();
+        pagination.setPageNo(start / length + 1);
+        pagination.setPageSize(length);
+        pagination.addParam("ppmc", ppmc);
+        pagination.addParam("orderBy", "id");
+        List<Pp> list = ppService.findTqListByPage(pagination);
         int total = pagination.getTotalRecord();
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("recordsTotal", total);
