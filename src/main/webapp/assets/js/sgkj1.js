@@ -613,8 +613,8 @@ $(function() {
 
         // var gfdh=$("#gfdh").val();//购方电话
         // var gfyh=$("#gfyh").val();//购方银行
-        var gfdh;
-        var gfyh;
+        var gfdh="";
+        var gfyh="";
         var yhzh=$("#yhzh").val();//购方银行账号
 
         var zfmc=$("#zfmc").val();//支付名称
@@ -1090,7 +1090,8 @@ $(function() {
         $("#kpd").attr("disabled",false);
         $("#fpzldm").attr("disabled",false);
         $("#ddh").attr("readonly",false);
-        $("input").val('');
+        $("input:visible").val('');
+        $("#isSave").val("-1");
         $("textarea").val('');
         $("#jyspmx_table>tbody").html('');
         var SelectArr = $("select");
