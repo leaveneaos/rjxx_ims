@@ -58,6 +58,8 @@ public class DirectAmqpConfiguration {
                     }
                 }else if(cszb.getCsz().equals("04")){
                     skService.SkBoxKP(kplsh);
+                }else if(cszb.getCsz().equals("05")){
+                    skService.skEkyunKP(kplsh);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
