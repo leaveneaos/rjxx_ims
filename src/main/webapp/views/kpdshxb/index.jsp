@@ -265,7 +265,7 @@ table thead th {
 														</tr>
 													</thead>
 												</table>
-												<legend>商品明细列表</legend>
+												<legend>商品明细列表1</legend>
 											</div>
 										</div>
 										<div style="margin-top: 0px; margin-left: 0px;"
@@ -277,6 +277,7 @@ table thead th {
 													<tr>
 														<th>序号</th>
 														<th>操作</th>
+														<th>订单号</th>
 														<th>名称</th>
 														<th>本次开具金额</th>
 														<th>可开具金额</th>

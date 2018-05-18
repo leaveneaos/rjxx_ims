@@ -231,6 +231,7 @@ $(function() {
                     return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
                 }
             },
+            {"data":"ddh"},
             {"data": "spmc"},
             {"data": function (data) {
             	var kkjje

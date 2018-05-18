@@ -113,7 +113,7 @@
                             <div class="am-u-sm-12 tj ">
                                 <div class="am-form-group">
                                     <div class="am-u-sm-12">
-                                        <button type="submit" class="js-submit am-btn am-btn-warning am-btn-block">登陆
+                                        <button type="submit" class="js-submit am-btn am-btn-warning am-btn-block">登录
                                         </button>
                                     </div>
                                 </div>
