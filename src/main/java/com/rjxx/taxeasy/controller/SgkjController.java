@@ -617,6 +617,9 @@ public class SgkjController extends BaseController{
                if("04".equals(cszb.getCsz())&&cszb != null ){
                    skService.SkBoxKP(kpls.getKplsh());
                }
+                if("05".equals(cszb.getCsz())&&cszb != null ){
+                    skService.skEkyunKP(kpls.getKplsh());
+                }
             }
 
         //return result;

@@ -1652,6 +1652,9 @@ public class KpController extends BaseController {
 					}else if("04".equals(cszb.getCsz())){
 						kpls.setFpztdm("04");
 						kplsService.save(kpls);
+					}else if("05".equals(cszb.getCsz())){
+						kpls.setFpztdm("04");
+						kplsService.save(kpls);
 					}
 					result.put("success", true);
 					result.put("msg", "重新开具成功！");
