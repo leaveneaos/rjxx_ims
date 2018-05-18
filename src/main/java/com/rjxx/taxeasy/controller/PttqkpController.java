@@ -6,6 +6,7 @@ import com.rjxx.taxeasy.dao.JylsJpaDao;
 import com.rjxx.taxeasy.dao.KplsJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.invoice.KpService;
 import com.rjxx.taxeasy.invoice.ResponseUtil;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.service.adapter.AdapterService;
@@ -64,6 +65,8 @@ public class PttqkpController extends BaseController {
 	private ResponseUtil responseUtil;
 	@Autowired
 	private AdapterService adapterService;
+	@Autowired
+	private KpService kpService;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
@@ -276,7 +279,7 @@ public class PttqkpController extends BaseController {
 	public Map save() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String gsdm = getGsdm();
-		Cszb  csz =  cszbService.getSpbmbbh(gsdm, null,null, "sfhhurl");
+//		Cszb  csz =  cszbService.getSpbmbbh(gsdm, null,null, "sfhhurl");
 		List<Jyxxsq> jyxxsqList = (List<Jyxxsq>) request.getSession().getAttribute("jyxxsq");
 		List<Jymxsq>jymxsqList= (List<Jymxsq>) request.getSession().getAttribute("jymxsq");
 		List<Jyzfmx>jyzfmxList= (List<Jyzfmx>) request.getSession().getAttribute("jyzfmx");
@@ -314,6 +317,8 @@ public class PttqkpController extends BaseController {
 			jyxxsq.setGfyh(request.getParameter("gfyh"));
 			jyxxsq.setGfyhzh(request.getParameter("yhzh"));
 			jyxxsq.setGfemail(request.getParameter("yjdz"));
+			jyxxsq.setGfsjh(request.getParameter("lxdh"));
+			String isSave = request.getParameter("isSave");
 			jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
 			jyxxsq.setSjly("0");//0平台录入，1接口接入
 			if(null!=request.getParameter("gfsh")&&!"".equals(request.getParameter("gfsh")) ){
@@ -333,10 +338,9 @@ public class PttqkpController extends BaseController {
 					return result;
 				}
 			}
-			try {
-				Map gsMap = new HashMap();
-				gsMap.put("gsdm", jyxxsq.getGsdm());
-				Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
+//				Map gsMap = new HashMap();
+//				gsMap.put("gsdm", jyxxsq.getGsdm());
+//				Gsxx gsxx = gsxxservice.findOneByGsdm(gsMap);
 				if (jyzfmxList != null && jyzfmxList.size()>0) {
 					String kpfsDm = "";
 					for (Jyzfmx jyzfmx : jyzfmxList) {
@@ -359,49 +363,27 @@ public class PttqkpController extends BaseController {
 				//获取分票规则信息
 				jyxxsq.setSfdyqd("0");
 				jyxxsq.setSfdy("0");
-				String resultxml="";
-				if(csz!=null&& csz.getCsz()!=null){
-					String xml = GetXmlUtil.getFpkjXml(jyxxsq, jymxsqList, jyzfmxList);
-					 resultxml = HttpUtils.HttpUrlPost(xml, gsxx.getAppKey(), gsxx.getSecretKey());
-				}else {
-					try {
-						Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
-						String kpfs=cszb2.getCsz();
-						fpclService.zjkp(jyxxsqList,kpfs);
-						result.put("success", true);
-						result.put("msg", "开票申请成功！");
-						return result;
-					} catch (Exception e) {
-						e.printStackTrace();
-						result.put("failure", true);
-						result.put("msg", "开票申请错误！");
-						return result;
-					}
-				}
-				logger.info("-------返回值---------" + resultxml);
-				Document document = DocumentHelper.parseText(resultxml);
-				Element root = document.getRootElement();
-				List<Element> childElements = root.elements();
-				Map xmlMap = new HashMap();
-				for (Element child : childElements) {
-					xmlMap.put(child.getName(), child.getText());
-				}
-				String returncode = (String) xmlMap.get("ReturnCode");
-				String ReturnMessage = (String) xmlMap.get("ReturnMessage");
-				if (returncode.equals("9999")) {
-					logger.info("发送客户端失败----msg--" + ReturnMessage);
-					result.put("failure", true);
-					result.put("msg", ReturnMessage);
-					return result;
-				} else {
+			try {
+				if(StringUtils.isNotBlank(isSave)&&!("-1").equals(isSave)){
+					Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
+					String kpfs=cszb2.getCsz();
+					fpclService.zjkp(jyxxsqList,kpfs);
 					result.put("success", true);
-					result.put("djh", jyxxsq.getSqlsh());
 					result.put("msg", "开票申请成功！");
+					return result;
 				}
-			} catch (DocumentException e) {
+				Map kpMap = new HashMap();
+				kpMap.put("jyxxsqList",jyxxsqList);
+				kpMap.put("jymxsqList",jymxsqList);
+				kpMap.put("jyzfmxList",jyzfmxList);
+				//01 开票，02 上传数据 不开票
+				String kpresult = kpService.uploadOrderData(gsdm, kpMap,"01");
+				result.put("success", true);
+				result.put("djh", jyxxsq.getSqlsh());
+				result.put("msg", kpresult);
+				return result;
+			} catch (Exception e) {
 				e.printStackTrace();
-				result.put("failure", true);
-				result.put("msg", "保存出现错误: " + e.getMessage());
 			}
 		}else {
 			result.put("failure", true);

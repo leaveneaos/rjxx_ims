@@ -202,7 +202,7 @@
 					</div>
 
 
-
+					<input type="hidden" name="isSave"  id="isSave" value="-1" >
 					<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
 						<legend>商品明细列表</legend>
 						<%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">

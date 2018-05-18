@@ -201,11 +201,11 @@
 									</div>
 									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方邮箱</label>
 									<div class="am-u-sm-3">
-										<input id="yjdz" name="ddh" type="text"  placeholder="输入邮箱" required>
+										<input id="yjdz" name="jydz" type="text"  placeholder="输入邮箱" required>
 									</div>
 									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方手机号</label>
 									<div class="am-u-sm-3">
-										<input id="lxdh" name="ddh" type="text"  placeholder="输入手机号" required>
+										<input id="lxdh" name="lxdh" type="text"  placeholder="输入手机号" required>
 									</div>
 								</div>
 							</form>

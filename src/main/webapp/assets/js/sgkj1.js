@@ -360,6 +360,8 @@ $(function() {
                         $("#yjdz").val(jyxxsq[i].gfemail);
                         $("#lxdh").val(jyxxsq[i].gfdh);
                         $("#tqm").val(jyxxsq[i].tqm);
+                        $('#bz').val(jyxxsq[i].bz);//备注
+                        $('#lxdh').val(jyxxsq[i].gfsjh);//购方手机号
                     }
                     var jymxsq=data.jymxsq;
                     var tableHtml='';

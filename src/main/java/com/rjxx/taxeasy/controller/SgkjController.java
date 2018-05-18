@@ -4,6 +4,7 @@ import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.dao.XfJpaDao;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.invoice.KpService;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Fpkcvo;
 import com.rjxx.taxeasy.vo.JyspmxDecimal2;
@@ -71,6 +72,8 @@ public class SgkjController extends BaseController{
     private  CheckOrderUtil checkOrderUtil;
     @Autowired
     private XfJpaDao xfJpaDao;
+    @Autowired
+    private KpService kpService;
 
     @RequestMapping
     public  String index()throws Exception{
@@ -359,18 +362,24 @@ public class SgkjController extends BaseController{
 
                 //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
                 //处理折扣行数据
-                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+//                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
                 //复制一个新的list用于生成处理表
-                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
-                jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
-
-                jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
-                 Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,new ArrayList<Jyzfmx>());
-                //List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
-                zjkp(sqlsh);
+//                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+//                jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
+//
+//                jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
+//                 Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,new ArrayList<Jyzfmx>());
+//                List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
+//                zjkp(sqlsh);
+                Map kpMap = new HashMap();
+                kpMap.put("jyxxsqList",jyxxsqList);
+                kpMap.put("jymxsqList",jymxsqList);
+                kpMap.put("jyzfmxList",new ArrayList<>() );
+                //01 开票，02 上传数据 不开票
+                String kpresult = kpService.uploadOrderData(gsdm, kpMap,"01");
                 result.put("success", true);
                 result.put("djh", jyxxsq.getSqlsh());
-                result.put("msg", "开票申请成功！");
+                result.put("msg", kpresult);
             }else{
                 result.put("failure", true);
                 result.put("msg", errormessage);

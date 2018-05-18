@@ -62,6 +62,7 @@ $(function() {
                 if(data.jyxxsq!=null){
                     var jyxxsq = data.jyxxsq;
                     for(var i=0;i<jyxxsq.length;i++){
+                        $("#isSave").val(jyxxsq[i].sqlsh);
                         $("#xf").val(jyxxsq[i].xfid);
                         var kpd = $("#kpd");
                         $("#kpd").empty();
@@ -91,6 +92,7 @@ $(function() {
                         $("#lxdh").val(jyxxsq[i].gfdh);
                         $("#tqm").val(jyxxsq[i].tqm);
                         $("#jshj").val(jyxxsq[i].jshj);
+                        $("#bz").val(jyxxsq[i].bz);
                     }
 					 var jyzflist=data.jyzflist;
 					 var a=1;
@@ -319,6 +321,12 @@ $(function() {
         var gfdh=$("#gfdh").val();//购方电话
         var gfyh=$("#gfyh").val();//购方银行
         var yhzh=$("#yhzh").val();//购方银行账号
+        var isSave=$("#isSave").val();//判断本地是否有数据，有数据为t_jyxxsq的申请流水号
+        var jshj=$("#jshj").val();//判断是否有数据
+        if(jshj==null || jshj=="" || Number(jshj)==0){
+            swal("可开具金额为0！");
+            return;
+        }
         if(xf==""){
             $("#xf").focus();
             swal("销方名称不能为空！");
@@ -450,7 +458,7 @@ $(function() {
             return;
         }
 
-        var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+
+        var data="&xf="+xf+"&kpd="+kpd+"&fpzldm="+fpzldm+"&bz="+bz+"&isSave="+isSave+
             "&gfmc="+gfmc+"&gfsh="+gfsh+"&gfdz="
             +gfdz+"&gfdh="+gfdh+"&gfyh="+gfyh+"&yhzh="+yhzh+"&yjdz="+yjdz+"&lxdh="+lxdh+"&tqm="+tqm;
         swal({
@@ -478,6 +486,7 @@ $(function() {
                         jyspmx_table.clear().draw();
                         jyzfmx_table.clear().draw();
                         $("input").val('');
+                        $("#isSave").val("-1");
                     } else {
                         swal(data.msg);
                     }

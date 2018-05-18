@@ -234,8 +234,8 @@
 																	class="js-auto  am-btn am-btn-success">自定义显示列</button>
 															<button id="autoColumn1" type="button"
 																	class="js-out  am-btn am-btn-primary">自定义导出列</button>--%>
-															<button id="autoColumn" type="button"
-																		class="js-auto  am-btn am-btn-primary">自定义显示列</button>
+															<%--<button id="autoColumn" type="button"
+																		class="js-auto  am-btn am-btn-primary">自定义显示列</button>--%>
 															<button id="fpck" type="button"
 																	class="js-fpck  am-btn am-btn-success">重新开具</button>
 														</div>

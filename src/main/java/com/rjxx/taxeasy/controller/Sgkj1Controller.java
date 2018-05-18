@@ -5,6 +5,7 @@ import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.dao.XfJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.dto.AdapterPost;
+import com.rjxx.taxeasy.invoice.KpService;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.service.adapter.impl.AdapterServiceImpl;
 import com.rjxx.taxeasy.vo.*;
@@ -78,6 +79,10 @@ public class Sgkj1Controller extends BaseController{
     private FpclService fpclService;
     @Autowired
     private ZffsService zffsService;
+    @Autowired
+    private RemarkProcessingUtil remarkUtil;
+    @Autowired
+    private KpService kpService;
 
     @RequestMapping
     public  String index()throws Exception{
@@ -435,7 +440,6 @@ public class Sgkj1Controller extends BaseController{
             String errormessage = checkOrderUtil.checkOrders(jyxxsqList,jymxsqList,jyzfmxList,getGsdm(),null);
             if(("").equals(errormessage)||errormessage==null){
                 if(StringUtils.isNotBlank(isSave)&&!("-1").equals(isSave)){
-//                    System.out.println("111");
                     Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
                     String kpfs=cszb2.getCsz();
                     Map map = new HashMap();
@@ -499,18 +503,38 @@ public class Sgkj1Controller extends BaseController{
 //                }
                 //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
                 //处理折扣行数据
-                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+//                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
                 //复制一个新的list用于生成处理表
-                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
-                jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
-
-                jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
-                Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,jyzfmxList);
-                //List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
-                zjkp(sqlsh);
+//                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+//                jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
+//
+//                jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
+//                String bzjg ="";
+//                try {
+//                    jyxxsqList = remarkUtil.dealRemark(jyxxsqList, gsdm);//根据参数设置处理备注
+//                    jyxxsqList = remarkUtil.dealZfRemark(jyxxsqList, jyzfmxList, gsdm);//处理支付备注
+//                }catch (Exception e){
+//                    bzjg ="9999";
+//                }
+//                String tmp2 = "";
+//                if(!bzjg.equals("")){
+//                    tmp2 ="处理备注出错！";
+//                    result.put("failure", true);
+//                    result.put("msg", tmp2);
+//                    return result;
+//                }
+//                Integer sqlsh=jyxxsqService.saveJyxxsq(jyxxsqList.get(0), jymxsqList,jymxsqClList,jyzfmxList);
+//                List<JymxsqCl> JymxsqCllist= discountDealUtil.dealDiscount(jymxsqList,0d,0d) ;
+//                zjkp(sqlsh);
+                Map kpMap = new HashMap();
+                kpMap.put("jyxxsqList",jyxxsqList);
+                kpMap.put("jymxsqList",jymxsqList);
+                kpMap.put("jyzfmxList",jyzfmxList);
+                //01 开票，02 上传数据 不开票
+                String kpresult = kpService.uploadOrderData(gsdm, kpMap,"01");
                 result.put("success", true);
                 result.put("djh", jyxxsq.getSqlsh());
-                result.put("msg", "开票申请成功！");
+                result.put("msg", kpresult);
             }else{
                 result.put("failure", true);
                 result.put("msg", errormessage);
