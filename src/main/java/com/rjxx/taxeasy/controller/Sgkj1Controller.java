@@ -240,18 +240,22 @@ public class Sgkj1Controller extends BaseController{
         jyxxsq.setZtbz("3");//'状态标识 0 待提交,1已申请,2退回,3已处理,4删除,5部分处理,6待处理'
         jyxxsq.setSjly("0");//0平台录入，1接口接入
         String tqm = request.getParameter("tqm");
-        if (StringUtils.isNotBlank(tqm)) {
-            Map params = new HashMap();
-            params.put("gsdm", gsdm);
-            params.put("tqm", tqm);
-            Jyxxsq tmp = jyxxsqService.findOneByParams(params);
-            if (tmp != null) {
-                result.put("failure", true);
-                result.put("msg", "提取码已经存在");
-                return result;
+        String ischeck = request.getParameter("ischeck");
+        String isSave = request.getParameter("isSave");
+        if(StringUtils.isNotBlank(ischeck) && ischeck.equals("1")){
+            if (StringUtils.isNotBlank(tqm)) {
+                Map params = new HashMap();
+                params.put("gsdm", gsdm);
+                params.put("tqm", tqm);
+                Jyxxsq tmp = jyxxsqService.findOneByParams(params);
+                if (tmp != null) {
+                    result.put("failure", true);
+                    result.put("msg", "提取码已经存在");
+                    return result;
+                }
+                jyxxsq.setTqm(tqm);
             }
         }
-        jyxxsq.setTqm(tqm);
         jyxxsq.setJylsh("JY" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
         jyxxsq.setJshj(Double.parseDouble(request.getParameter("jshj")));
         jyxxsq.setYkpjshj(0.00);
@@ -430,19 +434,38 @@ public class Sgkj1Controller extends BaseController{
             }
             String errormessage = checkOrderUtil.checkOrders(jyxxsqList,jymxsqList,jyzfmxList,getGsdm(),null);
             if(("").equals(errormessage)||errormessage==null){
-                List<Jyxxsq> jyxxsqList1 = (List<Jyxxsq>) request.getSession().getAttribute("jyxxsqList");
-                if(jyxxsqList1 !=null &&jyxxsqList1.size()>0){
-                    Cszb cszb = cszbService.getSpbmbbh(gsdm, jyxxsqList1.get(0).getXfid(),jyxxsqList1.get(0).getSkpid(),"extractMethod");
-                    if(cszb!=null && cszb.getCsz().equals("jyxxsq")){
-                        Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
-                        String kpfs=cszb2.getCsz();
-                        fpclService.zjkp(jyxxsqList1,kpfs);
-                        result.put("success", true);
-                        result.put("djh", jyxxsq.getSqlsh());
-                        result.put("msg", "开票申请成功！");
-                        return result;
+                if(!("-1").equals(isSave)){
+                    System.out.println("111");
+                    Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
+                    String kpfs=cszb2.getCsz();
+                    Map map = new HashMap();
+                    map.put("sqlsh",Integer.valueOf(isSave));
+                    Jyxxsq jyxxsq1 = jyxxsqService.findOneByParams(map);
+                    if(StringUtils.isNotBlank(jyxxsq.getGfmc())){
+                        jyxxsq1.setGfmc(jyxxsq.getGfmc());
                     }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfsh())){
+                        jyxxsq1.setGfsh(jyxxsq.getGfsh());
+                    }
+                    List<Jyxxsq> jyxxsqs = new ArrayList();
+                    jyxxsqs.add(jyxxsq1);
+                    fpclService.zjkp(jyxxsqs,kpfs);
+                    result.put("success", true);
+                    result.put("msg", "开票申请成功！");
+                    return result;
                 }
+//                if(jyxxsqList1 !=null &&jyxxsqList1.size()>0){
+//                    Cszb cszb = cszbService.getSpbmbbh(gsdm, jyxxsqList1.get(0).getXfid(),jyxxsqList1.get(0).getSkpid(),"extractMethod");
+//                    if(cszb!=null && cszb.getCsz().equals("jyxxsq")){
+//                        Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
+//                        String kpfs=cszb2.getCsz();
+//                        fpclService.zjkp(jyxxsqList1,kpfs);
+//                        result.put("success", true);
+//                        result.put("djh", jyxxsq.getSqlsh());
+//                        result.put("msg", "开票申请成功！");
+//                        return result;
+//                    }
+//                }
                 //jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList);
                 //处理折扣行数据
                 List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();

@@ -50,6 +50,93 @@
 	tbody td #spmc {
 		width: 200px;
 	}
+	.fp-content{
+		height: 730px;
+		position: relative;
+		padding: 0px 55px;
+		border: 2px solid #ccc;
+		box-shadow: 0 0 5px #e4e4e4;
+		margin-top: 25px;
+		min-width: 1010px;
+
+	}
+	.fayl-left{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 60px;
+		height: 100%;
+		background: url("../../img/fpkjfapiaobeijingleft.png") 100% 100% no-repeat;
+		background-position: 0 9px;
+	}
+	.fayl-right{
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		width: 60px;
+		height: 100%;
+		background: url("../../img/fpkjfapiaobeijingright.png") 100% 100% no-repeat;
+		background-position: 0 9px;
+	}
+	.fp-gmfBox{
+		width: 100%;
+	}
+	.fp-gmfBox li{
+		width: 100%;
+		height: 35px;
+		line-height: 35px;
+		overflow: hidden;
+	}
+	.jshj-box span{
+		display: inline-block;
+		height: 36px;
+		line-height: 36px;
+		float: left;
+	}
+
+	.jshj-box span:nth-child(1){
+         min-width: 200px;
+	}
+	.tableCheckBox{
+		display:  inline-block;
+		text-align: center;
+		cursor: pointer;
+		width: 100%;
+		height: 100%;
+	}
+	.tableCheckBoxSelect{
+		background-color: #0a628f;
+		color: #fff;
+	}
+	#jyspmx_table tr input{
+		width: 100%;
+		height: 100%;
+	}
+	.ddh-searchRed td input,.ddh-searchRed td span{
+		color: red;
+	}
+	#zhifuList{
+		background-color: #f5f5f5;
+		border: solid 1px #cccccc;
+	}
+	#zhifuList>li{
+		display: inline-block;
+		height: 62px;
+		width: 120px;
+		line-height: 62px;
+		text-align: center;
+		font-size: 18px;
+		color: #838fa1;
+		cursor: pointer;
+	}
+	#zhifuList>li:nth-child(1){
+		background-color: #3bb4f2;
+		font-family: SourceHanSansCN-Bold;
+		font-size: 18px;
+		color: #feffff;
+	}
+
+
 </style>
 </head>
 <body>
@@ -60,257 +147,214 @@
 					<!--[if lte IE 9]>
 					<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>以获得更好的体验！</p>
 					<![endif]-->
-					<div class="am-cf admin-main">
+
+						<div class="am-cf admin-main">
 						<!-- content start -->
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>手工开具</strong>
+								<strong class=" am-text-lg">业务处理</strong> / <strong class="am-text-primary">手工开具</strong>
 							</div>
 						</div>
-						<%--<input type="hidden" name="hsbz" id="hsbz" value="1"/>--%>
-						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
-							<div class="am-g">
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-									<form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">
-										<div class="am-form-group">
-											<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-													class="star">*</span>销方名称</label>
-											<div class="am-u-sm-3">
-												<select id="xf" name="xf" onchange="getKpd();" required>
-													<%--<c:if test="${xfnum>1}">--%>
-														<option value="">选择销方</option>
-														<c:forEach items="${xfList}" var="item">
-															<option value="${item.id}">${item.xfmc}</option>
-														</c:forEach>
-													<%--</c:if>--%>
+						<div class="am-g">
+							<form  id="mainform" class="am-form am-form-horizontal">
+								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+									<label for="xf" class="am-u-sm-1 am-form-label"><span class="star">*</span>销方名称</label>
+									<div class="am-u-sm-3">
+										<select id="xf" name="xf" onchange="getKpd();" required>
+													<option value="">选择销方</option>
+													<c:forEach items="${xfList}" var="item">
+														<option value="${item.id}">${item.xfmc}</option>
+													</c:forEach>
+												</select>
+									</div>
+									<label for="kpd" class="am-u-sm-1 am-form-label"><span class="star">*</span>开票点名称</label>
+									<div class="am-u-sm-3">
+										<select id="kpd" name="kpd" required onchange="getFplx();">
+											<option value="">选择开票点</option>
 													<%--<c:if test="${xfnum==1}">
-														<c:forEach items="${xfList}" var="item">
-															<option value="${item.id}">${item.xfmc}</option>
-														</c:forEach>
-													</c:if>--%>
-												</select>
-											</div>
-											<label for="kpd" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-													class="star">*</span>开票点名称</label>
-											<div class="am-u-sm-3">
-												<select id="kpd" name="kpd" required onchange="getFplx();">
-													<option value="">选择开票点</option>
-													<%--<c:if test="${xfnum==1}">
-														<c:forEach items="${skpList}" var="item">
-															<option value="${item.skpid}">${item.kpdmc}</option>
-														</c:forEach>
-													</c:if>--%>
-												</select>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<label for="fpzldm" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-													class="star">*</span>发票种类</label>
-											<div class="am-u-sm-3 am-u-end">
-												<select id="fpzldm" name="fpzldm"  required>
-													<%--<option value="">选择开票类型</option>--%>
-													<%--<option value="01">专用发票</option>
-													<option value="02">普通发票</option>--%>
-													<%--<option value="12">电子发票</option>--%>
-												</select>
-											</div>
-											<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-													class="star">*</span>订单号</label>
-
-											<div class="am-u-sm-3">
-												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-													<input id="ddh" name="ddh" type="text"  placeholder="输入订单号" required>
-													<span class="am-input-group-btn">
-                                                		<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
-                                            		</span>
-												</div>
-											</div>
-
-
-											<!-- <div class="am-u-sm-3">
-												<input type="text" id="ddh" name="ddh"
-													   placeholder="输入订单号" required />
-											</div> -->
-										</div>
-									</form>
-								</div>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
-								  <div class="am-u-sm-1 am-u-md-1 am-u-lg-1 data-buy" style="text-align: center;">购买方</div>
-								  <div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">
-								  	<form id="gfform" style="overflow: hidden;">
-								  		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
-												<div class="am-u-sm-12 am-u-md-5 am-u-lg-5" style="float: right;">
-													<label for="sfbx" class="am-form-label data-cte"><span class="star"></span>用于报销</label>
-													<input id="sfbx" name="sfbx" type="checkbox"  onclick="sf();"   checked />
-												</div>
-											</div>
-										    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfmc" class="am-u-sm-5 am-form-label data-cte" id="gfmclable"><span class="star">*</span>购方名称</label>
-												<div class="am-u-sm-7" >
-													<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称" onkeyup="query()">
-												</div>
-											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfsh" class="am-u-sm-6 am-form-label data-cte"><span class="star" id="show">*</span>购方税号</label>
-												<div class="am-u-sm-6">
-													<input id="gfsh" name="gfsh" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
-												</div>
-											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfdz" class="am-u-sm-5 am-form-label data-cte">地址</label>
-												<div class="am-u-sm-7">
-													<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址">
-												</div>
-											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfdh" class="am-u-sm-6 am-form-label data-cte">电话</label>
-												<div class="am-u-sm-6">
-													<input id="gfdh" name="gfdh" type="text" placeholder="请输入电话号码">
-												</div>
-											</div>
-										
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="gfyh" class="am-u-sm-5 am-form-label data-cte">开户行</label>
-												<div class="am-u-sm-7">
-													<input id="gfyh" name="gfyh" type="text" placeholder="请输入开户行">
-												</div>
-											</div>
-										
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<label for="yhzh" class="am-u-sm-6 am-form-label data-cte">银行账号</label>
-												<div class="am-u-sm-6">
-													<input id="yhzh" name="yhzh" type="text" placeholder="请输入银行账号">
-												</div>
-											</div>
-										</div>
-									</form>
-								  </div>
-								</div>
-							</div>
-
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
-								<legend>支付明细列表</legend>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-									<div class="am-btn-toolbar">
-										<div class="am-btn-group am-btn-group-xs">
-											<button type="button" id="addzf" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
-												<span></span> 新增
-											</button>
-											<button type="button" id="delzf" class="am-btn am-btn-default am-btn-danger">
-												<span></span> 删除
-											</button>
-										</div>
+                                                        <c:forEach items="${skpList}" var="item">
+                                                            <option value="${item.skpid}">${item.kpdmc}</option>
+                                                        </c:forEach>
+                                                    </c:if>--%>
+										</select>
+									</div>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>发票种类</label>
+									<div class="am-u-sm-3">
+										<select id="fpzldm" name="fpzldm"  required>
+											<%--<option value="">选择开票类型</option>--%>
+											<%--<option value="01">专用发票</option>
+                                            <option value="02">普通发票</option>--%>
+											<%--<option value="12">电子发票</option>--%>
+										</select>
 									</div>
 								</div>
-								<div>
-									<table id="jyzfmx_table" style="margin: 0"
-										   class="js-table am-table am-table-bordered  am-text-nowrap">
-										<thead>
-										<tr>
-											<th>序号</th>
-											<th>支付方式</th>
-											<th>支付金额</th>
-										</tr>
-										</thead>
-									</table>
+								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+
+									<label for="ddh" class="am-u-sm-1 am-form-label"><span class="star">*</span>订单号</label>
+									<div class="am-u-sm-3">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input id="ddh" name="ddh" type="text"  placeholder="输入订单号" required>
+											<span class="am-input-group-btn">
+												<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
+											</span>
+										</div>
+									</div>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方邮箱</label>
+									<div class="am-u-sm-3">
+										<input id="yjdz" name="ddh" type="text"  placeholder="输入邮箱" required>
+									</div>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方手机号</label>
+									<div class="am-u-sm-3">
+										<input id="lxdh" name="ddh" type="text"  placeholder="输入手机号" required>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
-
-						<div class="admin-content" style="border: 1px solid #ccc; margin-top: 10px;">
-							<legend>商品明细列表</legend>
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-								<div class="am-btn-toolbar">
-									<div class="am-btn-group am-btn-group-xs">
-										<button type="button" id="add" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
-											<span></span> 新增
-										</button>
-										<button type="button" id="del" class="am-btn am-btn-default am-btn-danger">
-											<span></span> 删除
-										</button>
-										<button type="button" id="discount" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
-											<span></span> 折扣
-										</button>
-										<button type="button" id="cha" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
-											<span></span> 差额
-										</button>
+						<div class="am-g" style="margin-top: 20px">
+							<button id="add"  type="button" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px">增行</button>
+							<button id="del" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">减行</button>
+							<button id="discount" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">折扣</button>
+							<button id="cha" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">差额</button>
+							<button id="kj" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">开具</button>
+							<button id="cz" type="button" class="am-btn am-btn-danger am-btn-sm" style="border-radius: 10px">重置</button>
+						</div>
+						<div class="am-g fp-content">
+							<div class="fayl-left"></div>
+							<div class="fayl-right"></div>
+							<%--*******************************************************************************8--%>
+							<div class="row" style="margin: 0px;padding: 0 50px">
+								<div class="am-g" style="text-align: center;height:50px;font-size: 24px;line-height: 50px">增值税电子普通发票</div>
+								<div class="am-g" style="border:2px solid #ccc">
+									<div class="am-g" style="border:  1px solid #ccc;height: 140px;margin: 0px">
+										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
+											<br />
+											购<br />
+											买<br />
+											方
+										</div>
+										<div class="am-u-sm-2">
+											<ul class="fp-gmfBox">
+												<li>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
+												<li>纳税人识别号 ：</li>
+												<li>地址 &nbsp;  、 电话 ：</li>
+												<li>开户行及账户 ：</li>
+											</ul>
+										</div>
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc">
+											<div class="am-u-sm-12" style="height: 35px" >
+												<input id="gfmc" name="gfmc" type="text" value="" placeholder="请输入购方名称" onkeyup="query()">
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="gfsh" name="gfsh" type="text" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="gfdz" name="gfdz" type="text" placeholder="请输入地址、电话 ">
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="yhzh" name="yhzh" type="text" placeholder="请输入开户行及账户">
+											</div>
+										</div>
+										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
+											<br />
+											密<br />
+											码<br />
+											方
+										</div>
+										<div class="am-u-sm-4" style="height: 100%;"></div>
 									</div>
-								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-top">
-								<div>
-									<table id="jyspmx_table" style="margin: 0"
-										class="js-table am-table am-table-bordered  am-text-nowrap">
-										<thead>
-											<tr>
-												<th>序号</th>
-												<th>货物或应税劳务、服务名称</th>
-												<th>规格型号</th>
-												<th>单位</th>
-												<th>数量</th>
-												<th>单价<a id="yss">(含税)</a><a id="noo" style="display: none;color: red">(不含税)</a></th>
-												<th>金额<a id="yss1">(含税)</a><a id="noo1" style="display: none;color: red">(不含税)</a></th>
-												<th>税率</th>
-												<th>税额</th>
+									<div class="am-g" style="margin: 0px">
+										<table border="1" style="width: 100%">
+											<thead style="width: 100%">
+											<tr style="width: 100%">
+												<th style="width: 5%">序号</th>
+												<th style="width: 24%">货物或应税劳务、服务名称</th>
+												<th style="width: 18%">规格型号</th>
+												<th style="width: 8%">单位</th>
+												<th style="width: 8%">数量</th>
+												<th style="width: 10%">单价</th>
+												<th style="width: 10%">金额</th>
+												<th style="width: 8%">税率</th>
+												<th style="width: 9%">税额</th>
 											</tr>
-										</thead>
-									</table>
-								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;margin: 10px auto;">
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-									<span>价税合计:</span>
-
-									<input id="jshj" name="jshj" type="text"  class="selected" readonly>
-								</div>
-								
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-									<span>金额合计(不含税):</span>
-
-									<input id="hjje" name="hjje" type="text" class="selected" readonly>
-								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-									<span>税额合计:</span>
-
-									<input id="hjse" name="hjse" type="text" class="selected" readonly>
-								</div>
-							</div>
-
-							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border: 1px solid #ccc;margin: 10px auto;">
-							  <div class="am-u-sm-1" style="margin-top: 30px;">备 注 :</div>
-							  <div class="am-u-sm-11">
-								<textarea id="bz" name="bz" rows="3"  style="width: 100%;"></textarea>
-							  </div>
-							</div>
-							<!-- <div class="am-u-sm-12" >  -->
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="text-align: center;">
-									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
-				                    	<span style="vertical-align: middle;">Email地址</span>
-										<input type="text" name="yjdz" id="yjdz">
+											</thead>
+										</table>
 									</div>
-									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
-										<span style="vertical-align: middle;">联系电话</span>
-										<input type="text" name="lxdh" id="lxdh">
+
+									<%--************--%>
+									<div class="am-g" style="margin: 0px;height: 213px;overflow-y: auto;">
+										<table border="1" style="width: 100%;" id="jyspmx_table">
+											<tbody>
+
+											</tbody>
+										</table>
 									</div>
-									<div class="am-u-sm-4 am-u-md-4 am-u-lg-4">
-										<span style="vertical-align: middle;">提取码</span>
-										<input type="text" name="tqm" id="tqm">
+									<%--*******************8--%>
+									<div class="am-g" style="border:  1px solid #ccc;height: 36px;margin: 0px">
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;text-align: center;line-height: 36px">
+                                                 合计
+										</div>
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;line-height: 36px">
+											金额合计(不含税):<input id="hjje" name="hjje" type="text" class="selected" readonly="" style="width: 100px" >
+										</div>
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;line-height: 36px">
+											税额合计:<input id="hjse" name="hjse" type="text" class="selected" readonly="" style="width: 100px">
+										</div>
+
 									</div>
-								</div>
-							<!-- </div> -->
-							<div class="am-u-sm-12 botm" >
-								<button id="kj" type="button" class="am-btn am-btn-secondary">开 具</button>
-								<button id="cz" type="button" class="am-btn am-btn-danger">重 置</button>
-							</div>
-						</div>
-						<!-- content end -->
+									<div class="am-g" style="border:  1px solid #ccc;height: 36px;margin: 0px">
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;text-align: center;line-height: 36px">
+											价税合计（大写）
+										</div>
+										<div class="am-u-sm-8 jshj-box" style="height: 100%;line-height: 36px">
+											<span id="jshjdx"></span>
+											<span style="height: 100%;line-height: 36px">（小写）</span>
+											<span id="jshjxx"><input id="jshj"></span>
+										</div>
+
+									</div>
+									<div class="am-g" style="border:  1px solid #ccc;height: 140px;margin: 0px">
+										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
+											<br />
+											销<br />
+											售<br />
+											方
+										</div>
+										<div class="am-u-sm-2">
+											<ul class="fp-gmfBox">
+												<li><span style="color: red;">*</span>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
+												<li>纳税人识别号 ：</li>
+												<li>地址 &nbsp;  、 电话 ：</li>
+												<li>开户行及账户 ：</li>
+											</ul>
+										</div>
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc">
+											<div class="am-u-sm-12" style="height: 35px" >
+												<input id="xfmc" class="selected" name="gfmc" type="text" value="" readonly>
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="xfsh" class="selected" name="gfsh" type="text" readonly>
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="xfdz" class="selected" name="gfdz" type="text" readonly>
+											</div>
+											<div class="am-u-sm-12" style="height: 35px">
+												<input id="xhzh" class="selected" name="yhzh" type="text" readonly>
+											</div>
+										</div>
+										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
+											<br />
+											备<br />
+											注
+
+										</div>
+										<%--<div class="am-u-sm-4" style="height: 100%;">--%>
+											<textarea id="bz" class="am-u-sm-4" style="height: 100%;"></textarea>
+										<%--</div>--%>
+									</div>
 
 
 						<!-- loading do not delete this -->
-						<div
-							class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn"
-							tabindex="-1">
+						<div class="js-modal-loading  am-modal am-modal-loading am-modal-no-btn" tabindex="-1">
 							<div class="am-modal-dialog">
 								<div class="am-modal-hd">正在载入...</div>
 								<div class="am-modal-bd">
@@ -320,11 +364,46 @@
 						</div>
 						
 					</div>
-				</div>
-			</div>
+					</div>
+							<div class="am-g" style="padding: 20px 0px;margin: 0px">
+								<div class="am-form-group am-form-group-sm">
+									<label for="ddh" class="am-u-sm-1 am-form-label">收款人：</label>
+									<div class="am-u-sm-2">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input id="skr" style="background-color: lightgray;" type="text" readonly>
+										</div>
+									</div>
+									<label for="ddh" class="am-u-sm-1 am-form-label">复核：</label>
+									<div class="am-u-sm-2">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input id="fh" style="background-color: lightgray;" type="text" readonly>
+										</div>
+									</div>
+
+									<label for="ddh" class="am-u-sm-1 am-form-label">开票人：</label>
+									<div class="am-u-sm-2">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input id="kpr" style="background-color: lightgray;" type="text" readonly>
+										</div>
+									</div>
+
+									<label for="ddh" class="am-u-sm-2 am-form-label">销售方：（章）</label>
+									<div class="am-u-sm-1">
+
+									</div>
+								</div>
+							</div>
+						</div>
+		                <div  class="am-g" style="margin-top: 20px">
+							<ul id="zhifuList">
+
+							</ul>
+						</div>
+		         </div>
+	        </div>
 		</div>
 	</div>
-
+		<input type="hidden" name="isSave"  id="isSave" value="-1" >
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="discountInfo">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">
@@ -336,12 +415,12 @@
 					<div class="am-g">
 						<div class="am-u-sm-12">
 							<div class="am-form-group">
-								<label for="disNum" class="am-u-sm-3 am-form-label"><span
-										style="color: red;">*</span>折扣行数</label>
-								<div class="am-u-sm-8">
-									<input type="text" id="disNum" name="disNum"
-										   placeholder="" required/>
-								</div>
+								<%--<label for="disNum" class="am-u-sm-3 am-form-label"><span--%>
+										<%--style="color: red;">*</span>折扣行数</label>--%>
+								<%--<div class="am-u-sm-8">--%>
+									<%--<input type="text" id="disNum" name="disNum"--%>
+										   <%--placeholder="" required/>--%>
+								<%--</div>--%>
 							</div>
 							<div class="am-form-group">
 								<label for="amount" class="am-u-sm-3 am-form-label">商品金额</label>
@@ -610,6 +689,26 @@
                     }
                 }
             });
+            $.ajax({
+                url : "xfxxwh/getXf",
+                data : {
+                    "xfid" : xfid
+                },
+                success : function(data) {
+              var dizhi=data.xfdz +""+data.xfdh;
+              var zh=data.xfyh +""+data.xfyhzh;
+                    $("#xfmc").val(data.xfmc);
+                    $("#xfsh").val(data.xfsh);
+                    $("#xfdz").val(dizhi );
+                    $("#xhzh").val(zh);
+                    $("#skr").val(data.skr);
+                    $("#fh").val(data.fhr);
+                    $("#kpr").val(data.kpr);
+                    $("#bz").val(data.bz);
+
+
+                }
+            });
         }
 
         //选取税控盘获取发票类型
@@ -654,5 +753,6 @@
 		})
 	</script>
 
+      </div>
 </body>
 </html>
