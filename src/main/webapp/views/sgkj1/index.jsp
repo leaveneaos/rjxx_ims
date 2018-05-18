@@ -152,7 +152,7 @@
 						<!-- content start -->
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class=" am-text-lg">业务处理</strong> / <strong class="am-text-primary">手工开具</strong>
+								<strong class=" am-text-primary am-text-lg" style="color: #ccc;">业务处理</strong> / <strong class="am-text-primary">手工开具</strong>
 							</div>
 						</div>
 						<div class="am-g">
@@ -234,7 +234,7 @@
 										</div>
 										<div class="am-u-sm-2">
 											<ul class="fp-gmfBox">
-												<li>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
+												<li><span style="color: red;">*</span>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
 												<li>纳税人识别号 ：</li>
 												<li>地址 &nbsp;  、 电话 ：</li>
 												<li>开户行及账户 ：</li>
@@ -321,24 +321,24 @@
 										</div>
 										<div class="am-u-sm-2">
 											<ul class="fp-gmfBox">
-												<li><span style="color: red;">*</span>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
+												<li>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 称 ：</li>
 												<li>纳税人识别号 ：</li>
 												<li>地址 &nbsp;  、 电话 ：</li>
 												<li>开户行及账户 ：</li>
 											</ul>
 										</div>
-										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc">
-											<div class="am-u-sm-12" style="height: 35px" >
-												<input id="xfmc" class="selected" name="gfmc" type="text" value="" readonly>
+										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;padding: 0px">
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px" >
+												<input id="xfmc" class="selected" style="width: 100%;height: 100%;" name="gfmc" type="text" value="" readonly>
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="xfsh" class="selected" name="gfsh" type="text" readonly>
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="xfsh" class="selected" style="width: 100%;height: 100%;" name="gfsh" type="text" readonly>
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="xfdz" class="selected" name="gfdz" type="text" readonly>
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="xfdz" class="selected" style="width: 100%;height: 100%;" name="gfdz" type="text" readonly>
 											</div>
-											<div class="am-u-sm-12" style="height: 35px">
-												<input id="xhzh" class="selected" name="yhzh" type="text" readonly>
+											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
+												<input id="xhzh" class="selected" style="width: 100%;height: 100%;" name="yhzh" type="text" readonly>
 											</div>
 										</div>
 										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
