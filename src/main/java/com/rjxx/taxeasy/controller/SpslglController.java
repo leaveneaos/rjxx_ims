@@ -91,16 +91,50 @@ public class SpslglController extends BaseController {
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
 		Map<String, Object> params = new HashMap<>();
-		List<Spbm> spbms = spbmService.findAllByParam(params);
-		request.setAttribute("spbms", spbms);
 		params.put("gsdm", getGsdm());
-		Sp sp = new Sp();
-		sp.setGsdm(getGsdm());
-		List<Sp> sps = spService.findAllByParams(sp);
+//		Sp sp = new Sp();
+//		sp.setGsdm(getGsdm());
+//		List<Sp> sps = spService.findAllByParams(sp);
 		List<Xf> xfs = xfService.findAllByMap(params);
-		request.setAttribute("sps", sps);
+//		request.setAttribute("sps", sps);
 		request.setAttribute("xfs", xfs);
 		return "spslgl/index";
+	}
+
+	@RequestMapping(value = "/getSpbms1")
+	@ResponseBody
+	public Map getSpbms1() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			Map<String, Object> params = new HashMap<>();
+			List<Spbm> spbms = spbmService.findAllByParam(params);
+			result.put("success",true);
+			result.put("data",spbms);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success",false);
+			return result;
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/getSps")
+	@ResponseBody
+	public Map getSps() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			Sp sp = new Sp();
+			sp.setGsdm(getGsdm());
+			List<Sp> sps = spService.findAllByParams(sp);
+			request.setAttribute("sps", sps);
+			result.put("success",true);
+			result.put("data",sps);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success",false);
+			return result;
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "/getSplist")
@@ -886,4 +920,47 @@ public class SpslglController extends BaseController {
 		return msg;
 	}
 
+
+	@RequestMapping(value = "/getspbmTree")
+	@ResponseBody
+	public Map spbmTree(){
+		Map result = new HashMap();
+		List<Map<String,Object>> nodes = new ArrayList<Map<String,Object>>();
+		List<Spbm> spbms = spbmService.findSpbm();
+		for(Spbm spbm: spbms){
+			Map<String,Object> node = new HashMap<String,Object>();
+			node.put("id", spbm.getSpbm());
+			node.put("text", spbm.getSpmc());
+			nodes.add(node);
+		}
+//		spbms = spbmService.findAllSpbm();
+//		List<Map<String,Object>> doing = new ArrayList<Map<String,Object>>();
+//		doing.addAll(nodes);
+//		while(!doing.isEmpty()){
+//			List<Map<String,Object>> todo = new ArrayList<Map<String,Object>>();
+//			for(Map<String,Object> item: doing){
+//				List<Spbm> spbms2 = new ArrayList<Spbm>();
+//				if(spbms !=null){
+//					for(int i=0;i<spbms.size();i++){
+//						if(((spbms.get(i).getSjspbm().equals(0)||spbms.get(i).equals(""))?"":spbms.get(i).getSjspbm()).equals(item.get("id"))){
+//							spbms2.add(spbms.get(i));
+//						}
+//					}
+//				}
+//				if (spbms2.isEmpty()) continue;
+//				List<Object> children = new ArrayList<Object>();
+//				for(Spbm spbm: spbms2){
+//					Map<String,Object> node = new HashMap<String,Object>();
+//					node.put("id", spbm.getSpbm());
+//					node.put("text", spbm.getSpmc());
+//					children.add(node);
+//					todo.add(node);
+//				}
+//				item.put("children", children.toArray(new Object[children.size()]));
+//			}
+//			doing = todo;
+//		}
+		result.put("data",nodes);
+		return result;
+	}
 }
