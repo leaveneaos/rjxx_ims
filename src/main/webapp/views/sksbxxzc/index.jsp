@@ -557,13 +557,14 @@
 	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
-
-		    var provinceid =  ${xf.provinceid };
-		    var cityid =  ${xf.cityid };
-		    var areaid =  ${xf.areaid };
+            <c:if test="${not empty xf.provinceid }">
+            var provinceid =  ${xf.provinceid };
             if(provinceid!=null && provinceid !=""){
                 $('.js-form').find('select[name="province"]').val(${xf.provinceid });
             }
+            </c:if>
+            <c:if test="${not empty xf.cityid }">
+            var cityid =  ${xf.cityid };
             if(cityid !=null && cityid!=""){
                 var city = $("#city");
                 $("#city").empty();
@@ -584,8 +585,11 @@
                     }
                 });
                 $('.js-form').find('select[name="city"]').val(cityid);
-			}
-			if(areaid !=null && areaid !=""){
+            }
+            </c:if>
+            <c:if test="${not empty xf.areaid }">
+            var areaid =  ${xf.areaid };
+            if(areaid !=null && areaid !=""){
                 var area = $("#area");
                 $("#area").empty();
                 $.ajax({
@@ -605,7 +609,11 @@
                     }
                 });
                 $('.js-form').find('select[name="area"]').val(areaid);
-			}
+            }
+            </c:if>
+
+
+
 
 			//批量导入
 			var $importModal = $("#bulk-import-div");
