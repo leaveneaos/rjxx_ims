@@ -99,7 +99,7 @@ $(function() {
             +'<td style="width: 10%"><input type="text" class="spdj" name="spdj" oninput="this.value=this.value.replace(/[^0-9.]/g,\'+"\'\'"+\')" style="text-align:right"></td>'
             +'<td style="width: 10%"><input type="text" class="spje" name="spje" oninput="this.value=this.value.replace(/[^0-9.]/g,\'+"\'\'"+\')" onchange="this.value=fomart(this.value)" style="text-align:right"></td>'
             +'<td style="width: 8%"><input type="text" class="taxrate selected" name="taxrate"  readonly style="text-align:right"></td>'
-            +'<td style="width: 8%"><input type="text" class="spse selected" name="spse" style="text-align:right" readonly></td></tr>';
+            +'<td style="width: 9%"><input type="text" class="spse selected" name="spse" style="text-align:right" readonly></td></tr>';
            if(addtr){
                $("#jyspmx_table>tbody").append($(trHtml))
            }
@@ -397,7 +397,7 @@ $(function() {
                             +'<td style="width: 10%"><input type="text" class="spdj" name="spdj" style="text-align:right" value="'+spdj+'" readonly></td>'
                             +'<td style="width: 10%"><input type="text" class="spje" name="spje"  style="text-align:right" value="'+spje+'" readonly></td>'
                             +'<td style="width: 8%"><input type="text" class="taxrate selected" name="taxrate"  readonly style="text-align:right" value="'+spsl+'"></td>'
-                            +'<td style="width: 8%"><input type="text" class="spse selected" name="spse" style="text-align:right" readonly value="'+spse+'"></td></tr>';
+                            +'<td style="width: 9%"><input type="text" class="spse selected" name="spse" style="text-align:right" readonly value="'+spse+'"></td></tr>';
                     }
                     $("#jyspmx_table>tbody").html($(tableHtml));
                     //塞消方信息
@@ -894,7 +894,7 @@ $(function() {
             +'<td style="width: 10%"><input style="color: red;text-align:right" type="text" class="spdj" name="spdj" readonly></td>'
             +'<td style="width: 10%"><input style="color: red;text-align:right" type="text" class="spje" name="spje" readonly value='+zkje+'></td>'
             +'<td style="width: 8%"><input type="text" class="taxrate selected" name="taxrate"  style="color: red;text-align:right" readonly  value='+arry[zhkRow].taxrate+'></td>'
-            +'<td style="width: 8%"><input type="text" class="spse selected" name="spse" style="color: red;text-align:right" readonly value='+zkse+'></td></tr>';
+            +'<td style="width: 9%"><input type="text" class="spse selected" name="spse" style="color: red;text-align:right" readonly value='+zkse+'></td></tr>';
         $("#jyspmx_table").find("tr").eq(zhkRow).find("input.fphxz").val('2');
         $("#jyspmx_table").find("tr").eq(zhkRow).find("input.spsl").attr("readonly",true);
         $("#jyspmx_table").find("tr").eq(zhkRow).find("input.spdj").attr("readonly",true);
