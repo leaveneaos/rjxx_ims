@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,43 +23,68 @@ import com.rjxx.utils.SendMessage;
 
 @Controller
 @RequestMapping("zc")
+@CrossOrigin
 public class ZcController extends BaseController {
 	@Autowired
 	private YanzhengmaService yanzhengmaService;
 	@Autowired
 	private ZclogService zclogService;
 	
-	@RequestMapping("/getYzm")
+	@RequestMapping(value = "/getYzm", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, Object> getYzm(String phone){
 		Map<String, Object> result = new HashMap<String, Object>();
-		String code = (int) (Math.random() * 900000 + 100000)+"";
 		Map<String, String> map = new HashMap<>();
-		map.put("code", code);
-		map.put("product", "容津信息");
-		String requestId = SendMessage.sendSms("泰易电子发票", "SMS_33950398", map, phone);
-		if("sendFail".equals(requestId)) {
-			result.put("success", false);
-			result.put("msg", "验证码获取失败,稍后重试。");
-		}else {
-			//验证码入库
-			Yanzhengma yanzhengma= new Yanzhengma();
-			yanzhengma.setPhone(phone);
-			yanzhengma.setCode(code);
-			yanzhengma.setLrsj(new Date());
-			yanzhengma.setRequestid(requestId);
-			yanzhengmaService.save(yanzhengma);
-			result.put("success", true);
-			result.put("msg", "收到验证后，请输入。");
+		if("".equals(phone) || phone ==null){
+			result.put("data","");
+			result.put("code","0");
+			result.put("msg","手机号不能是空");
+			return result;
 		}
-		
-		return result;
+		map.put("phone",phone);
+		//判断是否获取过验证码
+		Yanzhengma yzm=yanzhengmaService.findBySql(map);
+
+		if(yzm!=null){
+			result.put("data",yzm.getCode());
+			result.put("code","1");
+			result.put("msg","success");
+			yzm.setHqnum(yzm.getHqnum()==null?0:(yzm.getHqnum()+1));
+			yzm.setXgsj(new Date());
+			yanzhengmaService.save(yzm);
+			return  result;
+		}else{
+			//生成验证码
+			String code = (int) (Math.random() * 900000 + 100000)+"";
+			map.put("code", code);
+			map.put("product", "容津信息");
+			String requestId = SendMessage.sendSms("泰易电子发票", "SMS_33950398", map, phone);
+			if("sendFail".equals(requestId)) {
+				result.put("data", "");
+				result.put("code","0");
+				result.put("msg", "验证码获取失败,稍后重试。");
+				return result;
+			}else {
+				//验证码入库
+				Yanzhengma yanzhengma= new Yanzhengma();
+				yanzhengma.setPhone(phone);
+				yanzhengma.setCode(code);
+				yanzhengma.setLrsj(new Date());
+				yanzhengma.setRequestid(requestId);
+				yanzhengma.setHqnum(1);
+				yanzhengma.setYxbz("1");
+				yanzhengmaService.save(yanzhengma);
+				result.put("code","1");
+				result.put("msg","success");
+				return  result;
+			}
+		}
 	}
 	@RequestMapping("/zhuce")
 	@ResponseBody
 	public Map<String, Object> zhuce(String phone,String code){
 		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("phone", phone);
 		params.put("code", code);
 		Yanzhengma yanzm = yanzhengmaService.findBySql(params);
@@ -93,26 +119,35 @@ public class ZcController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping("/ljty")
+	@RequestMapping(value = "/ljty",method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public Map<String, Object> ljty(String phone){
+	public Map<String, Object> ljty(String phone,String code){
 		Map<String, Object> result = new HashMap<String, Object>();
-		if(phone!=null && !"".equals(phone)) {
-			result.put("issuc", true);
-			Map<String, Object> params = new HashMap<>();
-			params.put("phone", phone);
-			Zclog zclog = zclogService.findOneBySql(params);
-			if(zclog==null) {
-				result.put("issuc", false);
-			}else {
-				Map<String, Object> map = new HashMap<>();
-				map.put("id", zclog.getId());
-				map.put("tynum", zclog.getTynum()==null?1:zclog.getTynum()+1);
-				zclogService.updateTynum(map);
-			}
-			
-		}else {
-			result.put("issuc", false);
+		if(phone==null || "".equals(phone)){
+			result.put("code", "0");
+			result.put("msg", "手机号不能为空");
+			return result;
+		}
+		if(code==null || "".equals(code)){
+			result.put("code", "0");
+			result.put("msg", "验证码为空");
+			return result;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("phone",phone);
+		Yanzhengma yzm=yanzhengmaService.findBySql(map);
+		if(yzm==null){
+			result.put("code", "0");
+			result.put("msg", "手机号未注册");
+		}else if(code.equals(yzm.getCode())){
+			result.put("code", "1");
+			result.put("msg", "验证通过");
+			yzm.setTynum(yzm.getTynum()==null?0:(yzm.getTynum()+1));
+			yzm.setXgsj(new Date());
+			yanzhengmaService.save(yzm);
+		}else{
+			result.put("code", "0");
+			result.put("msg", "验证码错误");
 		}
 		return result;
 	}
