@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,10 +123,10 @@ public class YjfsController extends BaseController {
 					//ls.setDjh(jyls.getDjh());
 					//List<Kpls> lslist = kplsService.findAllByKpls(ls);
 					List<String> pdfUrlList = new ArrayList<>();
-					BigDecimal jshj = new BigDecimal(0);
+					double jshj = 0;
 					for (Kpls kpls1 : list) {
 						pdfUrlList.add(kpls1.getPdfurl());
-						jshj= jshj.add(new BigDecimal(kpls1.getJshj()));
+						jshj=jshj+kpls1.getJshj();
 					}
 					GetYjnr getYjnr = new GetYjnr();
 					Map gsxxmap=new HashMap();
@@ -138,13 +139,16 @@ public class YjfsController extends BaseController {
 					String q="";
 					String infoUrl="";
 					List<Fpcxvo> fpcxvos = invoiceQueryUtil.getInvoiceListByDdh(gsxx.getGsdm(), jyls.getDdh());
-					if(fpcxvos.get(0).getTqm()!=null && !fpcxvos.get(0).getTqm().equals("")){
-						q=fpcxvos.get(0).getTqm();
-						infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
-					}else if(fpcxvos.get(0).getKhh()!=null&&!fpcxvos.get(0).getKhh().equals("")){
-						q=fpcxvos.get(0).getKhh();
-						infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+					if(fpcxvos.size()>0){
+						if(fpcxvos.get(0).getTqm()!=null && !fpcxvos.get(0).getTqm().equals("")){
+							q=fpcxvos.get(0).getTqm();
+							infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+						}else if(fpcxvos.get(0).getKhh()!=null&&!fpcxvos.get(0).getKhh().equals("")){
+							q=fpcxvos.get(0).getKhh();
+							infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+						}
 					}
+
 					Map csmap=new HashMap();
 					csmap.put("ddh",jyls.getDdh());
 					SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -168,7 +172,7 @@ public class YjfsController extends BaseController {
             		csmap.put("e_w_m_", ewm);
             		csmap.put("d_d_h_", jyls.getDdh());
             		csmap.put("gf_mc_", kpls.getGfmc());
-            		csmap.put("js_hj_",jshj.setScale(2).toString());
+            		csmap.put("js_hj_",new DecimalFormat("0.00").format(jshj));
             		csmap.put("fp_dz_", fpdz_+"?q="+kpls.getSerialorder());
             		
             		csmap.put("lo_go_dz_", imgdz_+"emailLogo.png");
