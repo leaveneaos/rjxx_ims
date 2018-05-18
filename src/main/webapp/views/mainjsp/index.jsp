@@ -35,7 +35,6 @@
 		}
 		.tab-listBox>li:hover{
 			background-color: #23abf0;
-			/*color: #ffffff;*/
 		}
 		.tab-listBox>li:hover  div{
 			color: #ffffff;
