@@ -82,7 +82,7 @@ $(function() {
                 if(arry[i].spmc==null){
                     index=1;
                 }else {
-                    if(isCha){
+                    if($("#jyspmx_table").find("tr.select-Zk").length>0){
                         swal("开具差额，商品最大行数为1，请重试！");
                         return ;
                     }
@@ -501,7 +501,7 @@ $(function() {
         hjje.val(FormatFloat(hjjestr,"#.00"));//不含税金额合计
         hjse.val(FormatFloat(hjsestr,"#.00"));//合计税额
         $("#spxx").modal("close");
-        if(isCha){
+        if($("#jyspmx_table").find("tr.select-Zk").length>0){
             $moda2.modal({"width": 600, "height": 280});
         }
     });
@@ -576,7 +576,8 @@ $(function() {
 
     });
     $("#jyspmx_table").on('change', 'input.spje', function () {
-        if(isCha){
+
+        if($("#jyspmx_table").find("tr.select-Zk").length>0){
             $moda2.modal({"width": 600, "height": 280});
             return;
         }
@@ -810,7 +811,7 @@ $(function() {
         ps.push("mxcount=" + _index);
         zf.push("zfcount=" + indexzf);
         var is="";
-        if(isCha){
+        if($("#jyspmx_table").find("tr.select-Zk").length>0){
             is="1"
         }else {
             is="0"
