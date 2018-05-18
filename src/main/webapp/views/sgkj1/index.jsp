@@ -95,7 +95,7 @@
 	}
 
 	.jshj-box span:nth-child(1){
-         min-width: 200px;
+         min-width: 250px;
 	}
 	.tableCheckBox{
 		display:  inline-block;
@@ -110,7 +110,7 @@
 	}
 	#jyspmx_table tr input{
 		width: 100%;
-		height: 100%;
+		height: 29px;
 	}
 	.ddh-searchRed td input,.ddh-searchRed td span{
 		color: red;
@@ -152,7 +152,7 @@
 						<!-- content start -->
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class=" am-text-primary am-text-lg" style="color: #ccc;">业务处理</strong> / <strong class="am-text-primary">手工开具</strong>
+								<strong class=" am-text-primary am-text-lg" style="color: #838FA1;">业务处理</strong> / <strong style="color: #0e90d2;">手工开具</strong>
 							</div>
 						</div>
 						<div class="am-g">
@@ -195,7 +195,7 @@
 										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 											<input id="ddh" name="ddh" type="text"  placeholder="输入订单号" required>
 											<span class="am-input-group-btn">
-												<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
+												<button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search" id="searchddh" type="button"></button>
 											</span>
 										</div>
 									</div>
@@ -248,10 +248,10 @@
 												<input id="gfsh" name="gfsh" type="text" style="width: 100%;height: 100%;" placeholder="请在半角字符下输入" oninput="this.value=this.value.replace(/[^0-9A-Z]/g,'')">
 											</div>
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
-												<input id="gfdz" name="gfdz" type="text" style="width: 100%;height: 100%;" placeholder="请输入地址、电话 ">
+												<input id="gfdz" name="gfdz" type="text" style="width: 50%;height: 100%;" placeholder="请输入地址"><input id="gfdh" name="gfdh" type="text" style="width: 50%;height: 100%;" placeholder="请输入电话 ">
 											</div>
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
-												<input id="yhzh" name="yhzh" type="text" style="width: 100%;height: 100%;" placeholder="请输入开户行及账户">
+												<input id="gfyh" name="gfyh" type="text" style="width: 50%;height: 100%;" placeholder="请输入开户行"><input id="yhzh" name="yhzh" type="text" style="width: 50%;height: 100%;" placeholder="请输入账户">
 											</div>
 										</div>
 										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
@@ -308,7 +308,7 @@
 										<div class="am-u-sm-8 jshj-box" style="height: 100%;line-height: 36px">
 											<span id="jshjdx"></span>
 											<span style="height: 100%;line-height: 36px">（小写）</span>
-											<span id="jshjxx"><input id="jshj"></span>
+											<span id="jshjxx"><input id="jshj" class="selected" style="width: 100px" readonly></span>
 										</div>
 
 									</div>

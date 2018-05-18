@@ -60,14 +60,15 @@ $(function() {
         if($("#jyspmx_table").find("tr.ddh-seacher ").length>0){
             return
         }
+
      if(index1>1){
          var fwmc,je;
          tr.each(function () {
              var _this=$(this);
              fwmc=_this.find(".spmc").val();
              je=_this.find(".spje").val();
-             if(fwmc=='' || je==''){
-                 swal("请输入货物或应税劳务、服务名称或金额");
+             if(fwmc=='' || je=='' || !(Number(je)!=0)){
+                 swal("请输入货物或应税劳务、服务名称或金额不能为0");
                  addtr=false;
              }
 
@@ -601,6 +602,15 @@ $(function() {
     });
 
     $("#kj").click(function(){
+        var jyspje=$("#jyspmx_table").find("tr:last").find("input.spje").val();
+        if(!(Number(jyspje)!=0)){
+            swal("商品金额不能为0！");
+            return;
+        }
+        if(jyspje==''){
+            swal("商品金额不能为空！");
+            return;
+        }
         var xf=$("#xf").val();//消防
         var kpd=$("#kpd").val();//开票点名称
         var fpzldm=$("#fpzldm").val();//发票种类
@@ -612,10 +622,8 @@ $(function() {
         var gfsh=$("#gfsh").val();//购方税号
         var gfdz=$("#gfdz").val();//购方地址
 
-        // var gfdh=$("#gfdh").val();//购方电话
-        // var gfyh=$("#gfyh").val();//购方银行
-        var gfdh="";
-        var gfyh="";
+        var gfdh=$("#gfdh").val();//购方电话
+        var gfyh=$("#gfyh").val();//购方银行
         var yhzh=$("#yhzh").val();//购方银行账号
 
         var zfmc=$("#zfmc").val();//支付名称
