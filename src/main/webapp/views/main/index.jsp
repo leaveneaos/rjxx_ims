@@ -544,8 +544,8 @@
         var ejcd = $(th).attr('dele');
         $(".ejcd").css('background','none')
         $(th).css("background-color","#f2f6f9");
-       /* $("#cd1").val(ejcd);
-        $("#cd2").val(bt.id);*/
+        $("#cd1").val(ejcd);
+        $("#cd2").val(bt.id);
         $("#mainFrame").attr("src",v_id);
     }
     function logout() {
