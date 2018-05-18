@@ -571,7 +571,7 @@ $(function() {
             spje.val(FormatFloat((spdj.val()* spsl.val()),"#.00"));
             // spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
         }
-        pse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
+        spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
         chnageFromValue();
 
     });
