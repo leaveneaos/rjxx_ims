@@ -434,18 +434,49 @@ public class Sgkj1Controller extends BaseController{
             }
             String errormessage = checkOrderUtil.checkOrders(jyxxsqList,jymxsqList,jyzfmxList,getGsdm(),null);
             if(("").equals(errormessage)||errormessage==null){
-                if(!("-1").equals(isSave)){
-                    System.out.println("111");
+                if(StringUtils.isNotBlank(isSave)&&!("-1").equals(isSave)){
+//                    System.out.println("111");
                     Cszb cszb2 = cszbService.getSpbmbbh(gsdm, null, null, "kpfs");
                     String kpfs=cszb2.getCsz();
                     Map map = new HashMap();
                     map.put("sqlsh",Integer.valueOf(isSave));
+                    map.put("gsdm",getGsdm());
                     Jyxxsq jyxxsq1 = jyxxsqService.findOneByParams(map);
+                    if(jyxxsq1==null){
+                        result.put("failure", true);
+                        result.put("msg", "保存发票信息出现错误");
+                        return result;
+                    }
                     if(StringUtils.isNotBlank(jyxxsq.getGfmc())){
                         jyxxsq1.setGfmc(jyxxsq.getGfmc());
                     }
                     if(StringUtils.isNotBlank(jyxxsq.getGfsh())){
                         jyxxsq1.setGfsh(jyxxsq.getGfsh());
+                        jyxxsq1.setGflx("1");
+                    }else {
+                        jyxxsq1.setGflx("0");
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfyh())){
+                        jyxxsq1.setGfyh(jyxxsq.getGfyh());
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfyhzh())){
+                        jyxxsq1.setGfyhzh(jyxxsq.getGfyhzh());
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfdz())){
+                        jyxxsq1.setGfdz(jyxxsq.getGfdz());
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfdh())){
+                        jyxxsq1.setGfdh(jyxxsq.getGfdh());
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfemail())){
+                        jyxxsq1.setGfemail(jyxxsq.getGfemail());
+                        jyxxsq1.setSffsyj("1");
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getBz())){
+                        jyxxsq1.setBz(jyxxsq.getBz());
+                    }
+                    if(StringUtils.isNotBlank(jyxxsq.getGfsjh())){
+                        jyxxsq1.setGfsjh(jyxxsq.getGfsjh());
                     }
                     List<Jyxxsq> jyxxsqs = new ArrayList();
                     jyxxsqs.add(jyxxsq1);
