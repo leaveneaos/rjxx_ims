@@ -20,15 +20,28 @@
 <script src="assets/js/loading.js"></script>
 	<style>
 		.tab-listBox>li{
-			width: 150px;
-			height: 160px;
-			background-color: #23abf0;
-			color: #fff;
-			border-radius: 10px;
+			width: 62px;
+			height: 62px;
+			border-radius: 62px;
+			background-color: #ffffff;
+			color: #23abf0;
+			border: 1px solid #23abf0;
+			text-align: center;
+			line-height: 65px;
 			margin-left: 20px;
 		}
+		.tab-listBox>li div{
+			color: #23abf0;
+		}
+		.tab-listBox>li:hover{
+			background-color: #23abf0;
+			/*color: #ffffff;*/
+		}
+		.tab-listBox>li:hover  div{
+			color: #ffffff;
+		}
 		.tab-listBoxSpan{
-			margin-top: 25px;
+			margin-top: 13px;
 		}
 	</style>
 </head>
@@ -88,10 +101,10 @@
 
 								<c:forEach items="${list}" var = "li">
 
-									<li><a href="#" class="am-text-success">
-										<div class="tab-listBoxSpan" style="font-size: 2.5rem;color: #fff;">
-											<span class="${li.description} am-icon-lg"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')"></span><br>
-											${li.name}
+									<li><a href="#">
+										<div class="tab-listBoxSpan">
+											<span class="${li.description} am-icon-lg" style="font-size:15px"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')"></span><br>
+											<span style="color: #23abf0;font-size: 13px">${li.name}</span>
 										</div>
 									</a></li>
 
