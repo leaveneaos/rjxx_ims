@@ -67,6 +67,11 @@ public class YhglController extends BaseController {
 			Map params = new HashMap<>();
 			params.put("gsdm", gsdm);
 			params.put("sfsmr", 1);
+			String sup = getPrinciple().getSup();
+			if("1".equals(sup)){
+				params.put("sup",1);
+			}
+
 			List<Roles> xfs = rolesService.findBySql(params);
 			return xfs;
 		} catch (Exception e) {
@@ -98,6 +103,11 @@ public class YhglController extends BaseController {
 		pagination.addParam("yhmc", yhmc);
 		pagination.addParam("yhid", this.getYhid());
 		pagination.addParam("gsdm", this.getGsdm());
+
+		if("1".equals(getPrinciple().getSup())){
+			pagination.addParam("sup","1");
+		}
+
 		List<Yh> YhLists1 = yhService.findByPage(pagination);
 		List<YhVO> YhLists = new ArrayList<>();
 		for (Yh yh : YhLists1) {
@@ -150,6 +160,13 @@ public class YhglController extends BaseController {
 			} else {
 				yh.setSup("否");
 			}
+
+			if((null != yh.getSup() && yh.getSup().equals("1"))||(null!=yh.getAdmin() && "1".equals(yh.getAdmin()))){
+				yh.setAdmin("是");
+			}else{
+				yh.setAdmin("否");
+			}
+
 			if (!"".equals(rolemc) && null != rolemc) {
 				yh.setJsmc(rolemc.substring(0, rolemc.length() - 1));
 			}
@@ -225,6 +242,9 @@ public class YhglController extends BaseController {
 		yh.setYhmm(PasswordUtils.encrypt(yhmm));
 		if(jsids!=null && jsids.length >0 ) {
 			yh.setRoleids(RoleIds);
+			if(Arrays.asList(jsids).contains("1")){
+				yh.setAdmin("1");
+			}
 		}
 		yh.setSjhm(sjhm);
 		yh.setYx(yx);
@@ -410,6 +430,19 @@ public class YhglController extends BaseController {
 		update.setXgsj(TimeUtil.getSysDate());
 		update.setXgry(getYhid());
 		String[] jsids = jsIds;
+
+		if(jsids!=null && jsids.length >0 ){
+			if(Arrays.asList(jsids).contains("1")){
+				yh.setAdmin("1");
+			}else{
+				yh.setAdmin("0");
+			}
+		}else{
+			yh.setAdmin("0");
+		}
+
+
+
 		String RoleIds = StringUtils.join(jsids, ",");
 		update.setRoleids(RoleIds);
 		if (dids == null || dids.length < 1) {

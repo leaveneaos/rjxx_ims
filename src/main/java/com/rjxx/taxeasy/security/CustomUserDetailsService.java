@@ -63,18 +63,28 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
            
             List<Skp> skpList = skpService.getSkpListByYhId(yh.getId());
             WebPrincipal webPrincipal = new WebPrincipal();
-            String roleIds = yh.getRoleids();
-            if (StringUtils.isBlank(roleIds)) {
-                throw new UsernameNotFoundException(s + " no privileges");
+            List<Privileges> privilegesList = new ArrayList<Privileges>();
+            if("1".equals(yh.getSup())){
+               //超级管理员
+                privilegesList = privilegesService.findAll();
+            }else{
+                //非超级管理员
+                String roleIds = yh.getRoleids();
+                if (StringUtils.isBlank(roleIds)) {
+                    throw new UsernameNotFoundException(s + " no privileges");
+                }
+                List<Integer> paramsList = new ArrayList<>();
+                String[] arr = roleIds.split(",");
+                for (String str : arr) {
+                    paramsList.add(Integer.valueOf(str));
+                }
+                Map<String, Object> params = new HashMap<>();
+                params.put("roleIds", paramsList);
+                privilegesList = privilegesService.findByRoleIds(params);
             }
-            List<Integer> paramsList = new ArrayList<>();
-            String[] arr = roleIds.split(",");
-            for (String str : arr) {
-                paramsList.add(Integer.valueOf(str));
-            }
-            Map<String, Object> params = new HashMap<>();
-            params.put("roleIds", paramsList);
-            List<Privileges> privilegesList = privilegesService.findByRoleIds(params);
+
+
+
             List<PrivilegeTypes> privilegeTypesList = privilegeTypesService.findAllByParams(null);
             List<PrivilegeTypes> list = new ArrayList<>();
             for (PrivilegeTypes privilegeTypes : privilegeTypesList) {

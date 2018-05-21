@@ -259,9 +259,17 @@
 														<tr align="left">
 															<td style="width: 100%" colspan="2">
 															<input type="checkbox" id="roles-${j.id }" 
-															<c:if test="${j.sfsmr==1 }">checked="checked"</c:if>
+															<%--<c:if test="${j.sfsmr==1 }">checked="checked"</c:if>--%>
 															name="jsid"
-																value="${j.id }" />&nbsp;&nbsp;${j.name }</td>
+																value="${j.id }" />
+																<c:if test="${j.sfsmr==1 }">
+																	<span style="color:red">&nbsp;&nbsp;${j.name }</span>
+																</c:if>
+																<c:if test="${j.sfsmr!=1 }">
+																	<span>&nbsp;&nbsp;${j.name }</span>
+																</c:if>
+
+															</td>
 														</tr>
 													</c:forEach>
 												</table>

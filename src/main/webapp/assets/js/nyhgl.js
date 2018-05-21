@@ -119,7 +119,7 @@ $(function() {
 									"data" : "yx"
 								},
 								{
-									"data" : "sup"
+									"data" : "admin"
 								},
 								/*
 								 * { "data": function (data) { if (data.je) {
