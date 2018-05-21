@@ -40,6 +40,14 @@ $(function() {
             {"data": "sl"},
         ]
     });
+    $("#fpzldm").on("change",function () {
+        $("#centerTitle").html("增值税"+$("#fpzldm").find("option:selected").text());
+        if($(this).val()=="12"){
+            $("#yxStar").show();
+        }else{
+            $("#yxStar").hide();
+        }
+    })
     //good*****************************************8
     $("#jyspmx_table").on("click",".tableCheckBox",function () {
         var _this=$(this);
@@ -336,13 +344,12 @@ $(function() {
                                             data[i].fpzldm);
                                         fpzldm.append(option);
                                     }
-
                                     $("#fpzldm").val(jyxxsq[0].fpzldm);
+                                    $("#centerTitle").html("增值税"+$("#fpzldm").find("option:selected").text());
                                     $("#ddh").attr("readonly",true);
                                     $("#xf").attr("disabled",true);
                                     $("#kpd").attr("disabled",true);
                                     $("#fpzldm").attr("disabled",true);
-
 
                                 }
                             });
@@ -635,11 +642,12 @@ $(function() {
 
         var regsj = /^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
         var regyx = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-        if(!regsj.test(lxdh)){
-            swal("请输入正确的手机号");
-            return;
-        }
-        if(!regyx.test(yjdz)){
+        // if(!regsj.test(lxdh)){
+        //     swal("请输入正确的手机号");
+        //     return;
+        // }
+
+        if($("#fpzldm").val()=="12" && !regyx.test(yjdz)){
             swal("请输入正确的邮箱地址！");
             return;
         }
@@ -1098,6 +1106,7 @@ $(function() {
     }
     //重置good******************************************************8
     function resetFromControl() {
+        $("#yxStar").hide();
         $("#xf").attr("disabled",false);
         $("#kpd").attr("disabled",false);
         $("#fpzldm").attr("disabled",false);

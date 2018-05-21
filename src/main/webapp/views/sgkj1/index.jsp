@@ -199,11 +199,11 @@
 											</span>
 										</div>
 									</div>
-									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方邮箱</label>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span id="yxStar" class="star" style="display: none">*</span>购方邮箱</label>
 									<div class="am-u-sm-3">
 										<input id="yjdz" name="jydz" type="text"  placeholder="输入邮箱" required>
 									</div>
-									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>购方手机号</label>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label">购方手机号</label>
 									<div class="am-u-sm-3">
 										<input id="lxdh" name="lxdh" type="text"  placeholder="输入手机号" required>
 									</div>
@@ -223,7 +223,7 @@
 							<div class="fayl-right"></div>
 							<%--*******************************************************************************8--%>
 							<div class="row" style="margin: 0px;padding: 0 50px">
-								<div class="am-g" style="text-align: center;height:50px;font-size: 24px;line-height: 50px">增值税电子普通发票</div>
+								<div id="centerTitle" class="am-g" style="text-align: center;height:50px;font-size: 24px;line-height: 50px"></div>
 								<div class="am-g" style="border:2px solid #ccc">
 									<div class="am-g" style="border:  1px solid #ccc;height: 140px;margin: 0px">
 										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
