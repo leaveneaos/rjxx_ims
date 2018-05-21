@@ -103,9 +103,10 @@ public class YhglController extends BaseController {
 		pagination.addParam("yhmc", yhmc);
 		pagination.addParam("yhid", this.getYhid());
 		pagination.addParam("gsdm", this.getGsdm());
-
+		String flag ="0";
 		if("1".equals(getPrinciple().getSup())){
 			pagination.addParam("sup","1");
+			flag = "1";
 		}
 
 		List<Yh> YhLists1 = yhService.findByPage(pagination);
@@ -116,6 +117,7 @@ public class YhglController extends BaseController {
 		}
 		int total = pagination.getTotalRecord();
 		for (YhVO yh : YhLists) {
+			yh.setFlag(flag);
 			// Xf xf = Xf.find(Xf.class, yh.getYhjg());
 			Yh yh1 = yhService.findOne(yh.getLrry());
 			/*

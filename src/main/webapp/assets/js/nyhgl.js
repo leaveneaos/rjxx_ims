@@ -77,8 +77,29 @@ $(function() {
 									// "defaultContent": '<input type="checkbox"
 									// />'
 									render : function(data, type, full, meta) {
-										return '<input type="checkbox" value="'
-												+ data.id + '" />';
+
+                                        if (data.sup == '否') {
+
+                                            if(data.admin=='是'){
+                                                //需要在判断当前登录用户是否是超级用户
+                                                if(data.flag=='1'){
+                                                    return '<input type="checkbox" value="'
+                                                        + data.id + '" />';
+                                                }else{
+                                                    return ''
+                                                }
+                                            }else{
+                                                return '<input type="checkbox" value="'
+                                                    + data.id + '" />';
+                                            }
+
+
+                                        } else {
+                                            return ''
+                                        }
+
+										// return '<input type="checkbox" value="'
+										// 		+ data.id + '" />';
 									}
 								},
 								{
@@ -90,7 +111,19 @@ $(function() {
 									"data" : null,
 									"render" : function(data) {
 										if (data.sup == '否') {
-											return '<a class="xiugai">修改</a> <a class="chongzhimima">重置密码</a>'
+
+											if(data.admin=='是'){
+												//需要在判断当前登录用户是否是超级用户
+												if(data.flag=='1'){
+                                                    return '<a class="xiugai">修改</a> <a class="chongzhimima">重置密码</a>'
+                                                }else{
+                                                    return '<a class="xiugai"></a> <a class="shanchu"></a>'
+                                                }
+											}else{
+                                                return '<a class="xiugai">修改</a> <a class="chongzhimima">重置密码</a>'
+											}
+
+
 										} else {
 											return '<a class="xiugai"></a> <a class="shanchu"></a>'
 										}
