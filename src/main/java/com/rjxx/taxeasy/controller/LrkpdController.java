@@ -1314,12 +1314,15 @@ public class LrkpdController extends BaseController {
             //处理优惠信息
             if(null !=getValue("spdm", pzMap, columnIndexMap, row) && !getValue("spdm", pzMap, columnIndexMap, row).equals("")){
                 Map map = new HashMap();
-                //map.put("gsdm",jymxsq.getGsdm());
+                map.put("gsdm",jymxsq.getGsdm());
                 map.put("spbm",jymxsq.getSpdm());
                 Spvo spvo = spvoService.findOneSpvo(map);
-                jymxsq.setYhzcbs(spvo.getYhzcbs());
-                jymxsq.setYhzcmc(spvo.getYhzcmc());
-                jymxsq.setLslbz(spvo.getLslbz());
+                if(null !=spvo){
+                    jymxsq.setYhzcbs(spvo.getYhzcbs());
+                    jymxsq.setYhzcmc(spvo.getYhzcmc());
+                    jymxsq.setLslbz(spvo.getLslbz());
+                }
+
             }
             jymxsq.setSpje(spje);
             jymxsq.setSpsl(spsl);
