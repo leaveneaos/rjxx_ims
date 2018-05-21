@@ -345,6 +345,11 @@ $(function() {
                                         fpzldm.append(option);
                                     }
                                     $("#fpzldm").val(jyxxsq[0].fpzldm);
+                                    if($("#fpzldm").val()=="12"){
+                                        $("#yxStar").show();
+                                    }else{
+                                        $("#yxStar").hide();
+                                    }
                                     $("#centerTitle").html("增值税"+$("#fpzldm").find("option:selected").text());
                                     $("#ddh").attr("readonly",true);
                                     $("#xf").attr("disabled",true);
@@ -1107,6 +1112,7 @@ $(function() {
     //重置good******************************************************8
     function resetFromControl() {
         $("#yxStar").hide();
+        $("#centerTitle").html("");
         $("#xf").attr("disabled",false);
         $("#kpd").attr("disabled",false);
         $("#fpzldm").attr("disabled",false);
