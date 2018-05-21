@@ -84,6 +84,7 @@
 													</c:forEach>
 												</c:if>
 												<c:if test="${xfnum==1}">
+													<option value="">选择销方</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.id}">${item.xfmc}</option>
 													</c:forEach>

@@ -463,6 +463,7 @@ $(function() {
         if(gfsh!=null && gfsh!=""){
             if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
                 swal("纳税人识别号长度有误！");
+                $("#gfsh").focus();
                 return;
             }
         }
