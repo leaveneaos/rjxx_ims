@@ -88,7 +88,7 @@ $(function () {
                     {"data": "gfmc"},
                     {"data": "ddrq"},
                     {"data": "fpzlmc"},
-                    {"data":"tqm"},
+                    // {"data":"tqm"},
                     {"data":function(data){
                     	var sjly = data.sjly;
                     	switch (sjly) {
