@@ -149,6 +149,8 @@
                                                     <th>开票方式</th>
 													<%--<th>剩余库存(张)</th>--%>
 													<th>库存预警阈值(张)</th>
+													<th>发票库存(张)</th>
+													<th>库存更新时间</th>
 													<th style="display: none">csz</th>
                                                     <%--<th style="display: none">skpid</th>
                                                     <th style="display: none">fpzldm</th>--%>

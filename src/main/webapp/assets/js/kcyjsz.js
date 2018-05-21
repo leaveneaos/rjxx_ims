@@ -111,6 +111,8 @@ $(function () {
                                 return kpfs;
                             }},
                         {"data": "yjyz"},
+                        {"data": "fpkcl"},
+                        {"data":"kchqsj"},
                         {"data": "csz"},/*
                         {
                             "data": null,
@@ -125,7 +127,7 @@ $(function () {
                 t.column(1).nodes().each(function (cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
-                $('#yjdytable tr').find('td:eq(10)').hide();
+                $('#yjdytable tr').find('td:eq(12)').hide();
             });
 
             // 设置通知方式
@@ -167,10 +169,10 @@ $(function () {
                 var row = t.row($(this).parents('tr')).data();
                 $("#yjkcl").val(row.yjyz);
                 $("#xg_id").val(row.id);
-                if(row.csz =='03' || row.csz =='04'){
+                if(row.fpkcl !='' && row.fpkcl  !=null){
                     el.$jsdiv.modal('open');
                 }else{
-                    swal("目前只支持税控服务器和税空盒子开票方式库存预警！");
+                    swal("发票库存已获取才能进行预警设置！");
                     return;
                 }
 
