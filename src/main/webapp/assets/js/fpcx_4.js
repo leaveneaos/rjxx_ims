@@ -10,13 +10,14 @@ $(function () {
         $modalfpxx: $('#my-alert-edit'),
         $jsClose: $('.js-close'),
         $jsForm0: $('.js-form-0'),     // form
-
+        $jsExport : $('.js-export'),//导出
         $s_ddh: $('#s_ddh'), // search 订单号
         $s_lsh: $('#s_lsh'), // search 流水号
         $s_rqq: $('#s_rqq'), // search 开票日期
         $s_rqz: $('#s_rqz'),  // search 发票号码
         $xfsh: $('#s_xfsh'), // search 
         $gfmc: $('#s_gfmc'),// search 
+        $ztbz: $('#s_ddzt'),// search
         $jsLoading: $('.js-modal-loading')
     };
     var mxarr = [];
@@ -51,6 +52,7 @@ $(function () {
                             d.jylsh = el.$s_lsh.val();   // search 流水号
                             d.rqq = el.$s_rqq.val(); // search 开票日期
                             d.rqz = el.$s_rqz.val(); // search 开票日期
+                            d.ztbz = el.$ztbz.val(); // search 开票日期
                         }else{
                             var csm =  $('#dxcsm').val();
                             //alert(csm);
@@ -73,7 +75,7 @@ $(function () {
                         "defaultContent": "",
                         'sClass':'xh'
                     },
-                    {"data": "sqlsh"},
+                    // {"data": "sqlsh"},
                     {"data": "jylsh"},
                     {"data": "ddh"},
                     {
@@ -109,6 +111,9 @@ $(function () {
                             break;
                         case '5':
                             sjly = '支付宝录入';
+                            break;
+                        case '6':
+                            sjly = '其他浏览器录入';
                             break;
                         }
                     	return sjly;
@@ -318,12 +323,53 @@ $(function () {
         /**
          * 导出按钮
          */
-     /*   exportAc: function () {
-            el.$jsExport.on('click', function (e) {
-                // todo
-                alert('导出成功');
+        exportAc: function () {
+            //发票导出
+            el.$jsExport.on('click',function (e) {
+                var bj = $('#bj').val();
+                if($('#bj').val() =='2'){
+                    var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                    var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                    if (($("#w_kprqq").val() && $("#w_kprqq").val())) {// 都不为空
+                        if (dt1.getYear() == dt2.getYear()) {
+                            if (dt1.getMonth() == dt2.getMonth()) {
+                                if (dt1 - dt2 > 0) {
+                                    swal('开始日期大于结束日期,Error!');
+                                    return false;
+                                }
+                            } else {
+                                swal('Error,选择日期不能跨月!');
+                                return false;
+                            }
+                        } else {
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    }
+                    $("#searchform").submit();
+                }else{
+                    var dt1 = new Date(el.$s_rqq.val().replace(/-/g, "/"));
+                    var dt2 = new Date(el.$s_rqz.val().replace(/-/g, "/"));
+                    if ((el.$s_rqq.val() && el.$s_rqz.val())) {// 都不为空
+                        if (dt1.getYear() == dt2.getYear()) {
+                            if (dt1.getMonth() == dt2.getMonth()) {
+                                if (dt1 - dt2 > 0) {
+                                    swal('开始日期大于结束日期!');
+                                    return false;
+                                }
+                            } else {
+                                swal('请选择同一个年月内的时间!');
+                                return false;
+                            }
+                        } else {
+                            swal('请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    }
+                    $("#ycform").submit();
+                }
             });
-        },*/
+        },
         /**
          * 根据单据号来获得fphm、fpdm
          */
@@ -383,7 +429,7 @@ $(function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable     
             _this.search_ac();
-            //_this.exportAc();
+            _this.exportAc();
             _this.modalAction(); // hidden action
         }
     };

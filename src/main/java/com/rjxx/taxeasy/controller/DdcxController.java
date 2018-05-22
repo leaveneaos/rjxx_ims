@@ -1,10 +1,21 @@
 package com.rjxx.taxeasy.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.DczydlVo;
+import com.rjxx.utils.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +26,6 @@ import com.rjxx.taxeasy.domains.Jymxsq;
 import com.rjxx.taxeasy.domains.Jyspmx;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.JylsvoService;
-import com.rjxx.taxeasy.service.JymxsqService;
-import com.rjxx.taxeasy.service.JyspmxService;
-import com.rjxx.taxeasy.service.JyxxsqService;
-import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.vo.Jylsvo;
 import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.web.BaseController;
@@ -37,6 +43,8 @@ public class DdcxController extends BaseController {
 
 	@Autowired
 	private KplsService kplsService;
+	@Autowired
+	private YhDczdylService yhDczdylService;
 
 	@RequestMapping
 	public String index() {
@@ -49,7 +57,7 @@ public class DdcxController extends BaseController {
 	@RequestMapping(value = "/getJylsDd")
 	@ResponseBody
 	public Map getItems(int length, int start, int draw, String xfsh, String gfmc, String ddh, String rqq, String rqz,
-			String jylsh,boolean loaddata) {
+			String jylsh,boolean loaddata,String ztbz) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(loaddata){
 			Map params = new HashMap();
@@ -69,6 +77,7 @@ public class DdcxController extends BaseController {
 			params.put("gfmc", gfmc);
 			params.put("ddh", ddh);
 			params.put("jylsh", jylsh);
+			params.put("ztbz", ztbz);
 			if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
 				params.put("rqq", rqq);
 				params.put("rqz", TimeUtil.getAfterDays(rqz, 1));
@@ -152,5 +161,124 @@ public class DdcxController extends BaseController {
 			result.put("none", true);
 		}
 		return result;
+	}
+	static String src="abcdefafslfelgtryjukjhgfdadertjDSFGHJKJGHFERTUIOabcdefafslfelgtryjukjhgfdadertjDSFGHJKdertjDSFGHJKJGHFERTUIOabcdefafslfelgtryjukjhgfdadertjDSFGHJKJGHFERTUIO";
+	// 文件导出
+	@RequestMapping(value = "/exportExcel1")
+	@ResponseBody
+	public Map<String, Object> exportExcel(String dxcsm, String w_kprqq, String w_kprqz,
+										  String s_rqq ,String s_rqz, String s_xfsh, String s_gfmc,String s_ddh,String s_lsh,String dxcsz,String s_ddzt) throws Exception {
+
+		SXSSFWorkbook wb = new SXSSFWorkbook(100); // 这里100是在内存中的数量，如果大于此数量时，会写到硬盘，以避免在内存导致内存溢出
+		Sheet sh = wb.createSheet();
+		for (int rownum = 0; rownum < 100000; rownum++) {
+			Row row = sh.createRow(rownum);
+			for (int cellnum = 0; cellnum < 10; cellnum++) {
+				Cell cell = row.createCell(cellnum);
+				String address = new CellReference(cell).formatAsString();
+				cell.setCellValue(address + src.substring(rownum % 10 * 10 + 1, (rownum % 10 + 1) * 10));
+			}
+		}
+		FileOutputStream out = new FileOutputStream("/usr/rjxx/tomcat/tomcat_ims_5555/logs/aa7.xlsx");
+		wb.write(out);
+		out.close();
+//		Map params = new HashMap();
+//		List<Integer> xfs = new ArrayList<>();
+//		if (!getXfList().isEmpty()) {
+//			for (Xf xf : getXfList()) {
+//				xfs.add(xf.getId());
+//			}
+//		}
+//		if (xfs.size() > 0) {
+//			params.put("xfList", xfs);
+//		}
+//		if("ddh".equals(dxcsm)){
+//			params.put("ddh",dxcsz);
+//		}else if("gfmc".equals(dxcsm)){
+//			params.put("gfmc",dxcsz);
+//		}else {
+//			params.put("ddh",s_ddh);
+//			params.put("gfmc",s_gfmc);
+//		}
+//		params.put("xfsh",s_xfsh);
+//		params.put("jylsh",s_lsh);
+//		params.put("ztbz",s_ddzt);
+//		if(StringUtils.isNotBlank(w_kprqq)&&StringUtils.isNotBlank(w_kprqz)){
+//			params.put("rqq",w_kprqq);
+//			params.put("rqz", TimeUtil.getAfterDays(w_kprqz, 1));
+//		}else {
+//			params.put("rqq",s_rqq);
+//			params.put("rqz", TimeUtil.getAfterDays(s_rqz, 1));
+//		}
+//		params.put("gsdm", this.getGsdm());
+//		List<JyxxsqVO> kplscxList = jyxxsqservice.findAllBykplscx(params);
+//		Map<String, Object> map = new HashMap<>();
+////		int yhid = getYhid();
+////		map.put("yhid", yhid);
+////		List<DczydlVo> list = yhDczdylService.findAllByParams(map);
+//		String headers1 = "流水号,订单号, 价税合计, 购方名称, 订单日期,发票类型,数据来源,订单状态";
+////		for (DczydlVo yhDczdyl : list) {
+////			headers1 += "," + yhDczdyl.getZdzwm();
+////		}
+//		String[] headers = headers1.split(",");
+//		// 第一步，创建一个webbook，对应一个Excel文件
+//		SXSSFWorkbook wb = new SXSSFWorkbook(100); // 这里100是在内存中的数量，如果大于此数量时，会写到硬盘，以避免在内存导致内存溢出
+//		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
+//		Sheet sheet = wb.createSheet("开票流水");
+//		// 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short
+//		Row row = sheet.createRow(0);
+//		// 第四步，创建单元格，并设置值表头 设置表头居中
+//		CellStyle style = wb.createCellStyle();
+//		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+//		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Cell cell = null;
+//		for (int i = 0; i < headers.length; i++) {
+//			cell = row.createCell(i);
+//			cell.setCellValue(headers[i]);
+//			cell.setCellStyle(style);
+//		}
+//		JyxxsqVO kplscx = null;
+//		for (int i = 0; i < kplscxList.size(); i++) {
+//			row = sheet.createRow((short) i + 1);
+//			kplscx = kplscxList.get(i);
+//			String sjly = kplscx.getSjly();
+//			if (StringUtils.isNotBlank(sjly)) {
+//				if ("0".equals(sjly)) {
+//					sjly = "平台录入";
+//				} else if ("1".equals(sjly)) {
+//					sjly = "接口接入";
+//				} else if ("2".equals(sjly)) {
+//					sjly = "平台导入";
+//				} else if ("3".equals(sjly)) {
+//					sjly = "钉钉录入";
+//				} else if ("4".equals(sjly)) {
+//					sjly = "微信录入";
+//				} else if ("5".equals(sjly)) {
+//					sjly = "支付宝录入";
+//				}else if("6".equals(sjly)){
+//					sjly = "其他浏览器录入";
+//				}
+//			}else {
+//				sjly="";
+//			}
+//			row.createCell(0).setCellValue(kplscx.getJylsh() == null ? "":kplscx.getJylsh());
+//			row.createCell(1).setCellValue(kplscx.getDdh() == null ? "" : kplscx.getDdh());
+//			row.createCell(2).setCellValue(kplscx.getJshj() == null ? "0.00" : String.format("%.2f", kplscx.getJshj()));
+//			row.createCell(3).setCellValue(kplscx.getGfmc() == null ? "" : kplscx.getGfmc());
+//			row.createCell(4).setCellValue(kplscx.getDdrq() == null ? "" : sdf1.format(kplscx.getDdrq()));
+//			row.createCell(5).setCellValue(kplscx.getFpzlmc() == null ? "" : kplscx.getFpzlmc());
+//			row.createCell(6).setCellValue(sjly == null ? "" : sjly);
+//			row.createCell(7).setCellValue(kplscx.getZtbzmc() == null ? "" : kplscx.getZtbzmc());
+//		}
+//		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//		String filename = timeFormat.format(new Date()) + ".xlsx";
+//		response.setContentType("application/ms-excel;charset=UTF-8");
+//		response.setHeader("Content-Disposition",
+//				"attachment;filename=".concat(String.valueOf(URLEncoder.encode(filename, "UTF-8"))));
+//		OutputStream out = response.getOutputStream();
+//		wb.write(out);
+//		out.close();
+		return null;
 	}
 }

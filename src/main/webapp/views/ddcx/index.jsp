@@ -42,7 +42,7 @@
 	<!-- sidebar end -->
 	<!-- content start -->
 	<input type="hidden" id="djh" value="0">
-	<input type="hidden" id="bj" value="1">
+	<input type="hidden" id="bj" name="bj" value="1">
 	<div class="row-content am-cf">
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -57,7 +57,7 @@
 							<!-- 侧边栏内容 -->
 							<div id="doc-oc-demo3" class="am-offcanvas">
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
-								<form  id ="ycform">
+								<form  id ="ycform"  action="<c:url value='ddcx/exportExcel1'/>">
 								     <div class="am-offcanvas-content">
 														<div class="am-form-group">
 															<label for="s_xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
@@ -76,7 +76,7 @@
 										<div class="am-form-group">
 											<label for="s_gfmc" class="am-u-sm-4 am-form-label">购方名称</label>
 											<div class="am-u-sm-8">
-												<input id="s_gfmc" type="text"
+												<input id="s_gfmc" type="text" name="s_gfmc"
 													placeholder="购方名称">
 											</div>
 										</div>
@@ -85,7 +85,7 @@
 										<div class="am-form-group">
 											<label for="s_lsh" class="am-u-sm-4 am-form-label">流水号</label>
 											<div class="am-u-sm-8">
-												<input id="s_lsh" type="text" 
+												<input id="s_lsh" type="text" name="s_lsh"
 													placeholder="流水号">
 											</div>
 										</div>
@@ -94,19 +94,34 @@
 										<div class="am-form-group">
 											<label for="s_ddh" class="am-u-sm-4 am-form-label">订单号</label>
 											<div class="am-u-sm-8">
-												<input id="s_ddh" type="text" 
+												<input id="s_ddh" type="text" name="s_ddh"
 													placeholder="订单号">
 											</div>
 										</div>
 									</div>
 
-								
+									<div class="am-offcanvas-content" style="margin-top: 5px;">
+										<div class="am-form-group">
+											<label for="s_ddzt" class="am-u-sm-4 am-form-label">订单状态</label>
+											<div class="am-u-sm-8">
+												<select id="s_ddzt" name="s_ddzt"
+														data-am-selected="{btnSize: 'sm'}">
+													<option value="">----请选择----</option>
+													<option value="3">已处理</option>
+													<option value="6">待处理</option>
+													<option value="7">已失效</option>
+													<%--<option value="13">纸质发票换开</option>--%>
+												</select>
+											</div>
+										</div>
+									</div>
+
 									<div class="am-offcanvas-content" style="margin-top: 8px;">
 										<div class="am-form-group">
 											<label for="s_ddh" class="am-u-sm-4 am-form-label">订单日期</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
-												<input type="text" id="s_rqq" class="am-form-field"
+												<input type="text" id="s_rqq" name="s_rqq"  class="am-form-field"
 													placeholder="开始时间" readonly> <span
 													class="am-input-group-btn am-datepicker-add-on">
 													<button class="am-btn am-btn-default" type="button">
@@ -122,7 +137,7 @@
 											<label for="s_ddh" class="am-u-sm-4 am-form-label">订单日期</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
-												<input type="text" id="s_rqz" class="am-form-field"
+												<input type="text" id="s_rqz" name="s_rqz" class="am-form-field"
 													placeholder="截止时间" readonly> <span
 													class="am-input-group-btn am-datepicker-add-on">
 													<button class="am-btn am-btn-default" type="button">
@@ -145,12 +160,14 @@
 						</div>
 
 						<div class="am-g  am-padding-top">
-							<form action="#"
+							<form action="<c:url value='ddcx/exportExcel1'/>" id="searchform"
 								class="js-search-form  am-form am-form-horizontal">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
+												<button type="button"
+														class="js-export  am-btn am-btn-success">导出</button>
 													<!-- <button type="button" id="huankai"
 													class="am-btn am-btn-default am-btn-success">
 													<span></span> 换开
@@ -171,7 +188,7 @@
 								</div>
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 									<div class="am-form-group tpl-table-list-select">
-										<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+										<select id="dxcsm" name="dxcsm" data-am-selected="{btnSize: 'sm'}">
 											<option value="ddh">订单号</option>
 											<option value="gfmc">购方名称</option>
 										</select>
@@ -180,7 +197,7 @@
 								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
 									<div
 										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input id="dxcsz" type="text" class="am-form-field "> <span
+										<input id="dxcsz" name="dxcsz" type="text" class="am-form-field "> <span
 											class="am-input-group-btn">
 											<button id="kplscx_search"
 												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
@@ -216,7 +233,7 @@
 										<thead>
 											<tr>
 												<th>序号</th>
-				                                <th>单据号</th>
+				                                <%--<th>单据号</th>--%>
 				                                <th>流水号</th>
 				                                <th>订单号</th>
 				                                <th class="data-ctr">价稅合计</th>
