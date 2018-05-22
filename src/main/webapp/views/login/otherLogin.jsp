@@ -105,6 +105,7 @@
                                         <button type="submit" class="js-submit am-btn logon-landing">登录
                                         </button>
                                     </div>
+                                    <div class="am-u-sm-12" style="font-size: 12px;color: #d13636">${errors}</div>
                                 </div>
                             </div>
                             <!--<div class="am-u-sm-12  am-text-center">
