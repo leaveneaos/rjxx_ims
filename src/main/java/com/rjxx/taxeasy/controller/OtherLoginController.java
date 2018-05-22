@@ -61,7 +61,7 @@ public class OtherLoginController extends BaseController {
                 if (!encryptYhmm.equals(savedYhmm)) {
                     modelMap.put("errors", "用户名或密码不正确");
                     if("1".equals(flag)){
-                        return "otherLogin/login";
+                        return "login/otherLogin";
                     }else{
                         return "login/login";
                     }
@@ -81,7 +81,7 @@ public class OtherLoginController extends BaseController {
                     if(!isInRange){
                         modelMap.put("errors", "该IP被限制登录");
                         if("1".equals(flag)){
-                            return "otherLogin/login";
+                            return "login/otherLogin";
                         }else{
                             return "login/login";
                         }
@@ -100,7 +100,7 @@ public class OtherLoginController extends BaseController {
             } else {
                 modelMap.put("errors", "用户名或密码不正确");
                 if("1".equals(flag)){
-                    return "otherLogin/login";
+                    return "login/otherLogin";
                 }else{
                     return "login/login";
                 }
@@ -108,7 +108,7 @@ public class OtherLoginController extends BaseController {
         } else {
             modelMap.put("errors", "验证码不正确");
             if("1".equals(flag)){
-                return "otherLogin/login";
+                return "login/otherLogin";
             }else{
                 return "login/login";
             }
