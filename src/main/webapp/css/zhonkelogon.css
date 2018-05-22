@@ -38,7 +38,7 @@ footer a {
 }
 
 .getpng {
-    background-image: url(img/banner2.png);
+    background-image: url(../img/banner2.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     min-height: 400px;

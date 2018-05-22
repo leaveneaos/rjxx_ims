@@ -60,7 +60,7 @@
         <div class="am-g">
             <div class="am-u-sm-12  description am-padding">
                 <div class="d2  ">
-                    <form class="am-form am-form-horizontal" action="<c:url value='/login/doLogin'/>" method="post">
+                    <form class="am-form am-form-horizontal" action="<c:url value='/otherLogin/doLogin'/>" method="post">
                         <div class="am-g ">
                             <div class="am-u-sm-12  am-text-center">
                                 <div class="am-u-sm-12  title">
@@ -95,6 +95,7 @@
                                         <img name="randImage" id="randImage" onclick="loadimage();" src="<%=request.getContextPath()%>/image.jsp" width="100px" height="39px" border="1" align="absmiddle">
                                     </div>
                                 </div>
+                                <input type="hidden" value="1" name="flag">
                             </div>
                             <div class="am-u-sm-12 tj ">
                                 <div class="am-form-group">

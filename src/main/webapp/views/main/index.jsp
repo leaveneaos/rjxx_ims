@@ -40,7 +40,8 @@
 	<header id="mainHeader">
 		<!-- logo -->
 		<div class="am-fl tpl-header-logo">
-			<a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
+			<%--<a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>--%>
+			<a href="javascript:;" style="font-weight:900">${pingtai}</a>
 		</div>
 		<!-- 右侧内容 -->
 		<div class="tpl-header-fluid">
@@ -231,7 +232,8 @@
 		<iframe id="mainFrame" src="<%=request.getContextPath()%>/mainjsp" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
 	</div>
 	<footer id="mainFooter" style="height:40px;background-color: #e9ecf3;line-height: 40px;font-size: 14px">
-		<p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
+		<%--<p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>--%>
+		<p class="am-text-center">${banquan}</p>
 	</footer>
 </div>
 </div>

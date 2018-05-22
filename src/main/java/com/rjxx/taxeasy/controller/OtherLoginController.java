@@ -91,8 +91,8 @@ public class OtherLoginController extends BaseController {
                 if (!xfList.isEmpty()) {
                     if("1".equals(flag)){
                         session.setAttribute("loginFlag","1");
-                        session.setAttribute("pingtai","容津信息");
-                        session.setAttribute("banquan","容津信息");
+                        session.setAttribute("pingtai","中科联通电子发票服务平台");
+                        session.setAttribute("banquan","© Copyright 2018-2023 北京中科联通科技有限公司 京ICP备13015326号-1");
                     }
                     return "redirect:/main";
                 }
