@@ -558,6 +558,8 @@ $(function() {
                 spje.val('0.00');
             }
             if(spdj.val()!="" && spsl.val() !=""){
+
+
                 spje.val(FormatFloat((spdj.val()* spsl.val()),"#.00"));
                 // spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
             }
@@ -565,7 +567,7 @@ $(function() {
 
 
 
-        spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
+        spse.val(FormatFloat((spje.val()/(1+ Number(taxrate.val()))*taxrate.val()),"#.00"))
         chnageFromValue()
     });
     $("#jyspmx_table").on('change', 'input.spdj', function () {
@@ -586,7 +588,7 @@ $(function() {
             spje.val(FormatFloat((spdj.val()* spsl.val()),"#.00"));
             // spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
         }
-        spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
+        spse.val(FormatFloat((spje.val()/(1+ Number(taxrate.val()))*taxrate.val()),"#.00"))
         chnageFromValue();
 
     });
@@ -611,7 +613,7 @@ $(function() {
             spsl.val(Number(FormatFloat((spje.val() / spdj.val()),"#.000")) != Number(FormatFloat((spje.val() / spdj.val()),"#.00"))? FormatFloat((spje.val() / spdj.val()),"#.000000"):FormatFloat((spje.val() / spdj.val()),"#.00"));
             spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
         }
-        spse.val(FormatFloat((spje.val()/(1+ taxrate.val())*taxrate.val()),"#.00"))
+        spse.val(FormatFloat((spje.val()/(1+ Number(taxrate.val()))*taxrate.val()),"#.00"))
         chnageFromValue();
     });
 
