@@ -5,7 +5,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>泰易电子发票云服务平台</title>
+    <title>中科联通电子发票服务平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -48,7 +48,7 @@
                     <a class="am-btn am-btn-default" href="#" role="button" style="color: #ffffff;">首页</a>
                     <a class="am-btn am-btn-default" href="" role="button">产品</a>
                     <a class="am-btn am-btn-default" href="" role="button">服务</a>
-                    <a class="am-btn am-btn-default" href="" role="button">发票查验</a>
+                    <a class="am-btn am-btn-default" href="https://inv-veri.chinatax.gov.cn/" role="button">发票查验</a>
                 </div>
             </div>
         </div>
@@ -90,9 +90,9 @@
                                         <input type="text" name="code" class="code logoinputstyle" placeholder="验证码" required>
                                     </div>
                                 </div>
-                                <div class="am-u-sm-6 am-text-left">
+                                <div class="am-u-sm-5 am-text-left">
                                     <div class="am-u-sm-12 am-padding-0">
-                                        <img name="randImage" id="randImage" onclick="loadimage();" src="<%=request.getContextPath()%>/image.jsp" width="100px" height="39px" border="1" align="absmiddle">
+                                        <img name="randImage" id="randImage" onclick="loadimage();" src="<%=request.getContextPath()%>/image.jsp" width="100px" height="30px" border="1" align="absmiddle">
                                     </div>
                                 </div>
                                 <input type="hidden" value="1" name="flag">

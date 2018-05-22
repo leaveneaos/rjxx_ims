@@ -30,6 +30,8 @@ footer a {
     background-image: linear-gradient(0deg, #478fe3 0%, #1e58ac 100%), linear-gradient( #ffffff, #ffffff);
     color: #FFFFFF;
     box-sizing: border-box;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius:18px !important;
 }
 
 .header-leftBox a {
