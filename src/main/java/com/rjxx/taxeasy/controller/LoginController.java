@@ -100,6 +100,8 @@ public class LoginController extends BaseController {
 				}
 				List<Xf> xfList = getXfList();
 				if (!xfList.isEmpty()) {
+					session.setAttribute("pingtai","泰易（TaxEasy）开票通V2.0");
+					session.setAttribute("banquan","© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号");
 					return "redirect:/main";
 				}
 				return "redirect:/qymp";
@@ -199,7 +201,17 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/logout")
 	public String logout() throws Exception {
 		session.removeAttribute(SecurityConstants.LOGIN_SESSION_KEY);
-		return "redirect:/login/login";
+		String loginFlag = (String )session.getAttribute("loginFlag");
+		//session.removeAttribute("loginFlag");
+		//session.removeAttribute("pingtai");
+		session.invalidate();
+		if("1".equals(loginFlag)){
+			return "redirect:/otherLogin/login";
+		}else{
+			return "redirect:/login/login";
+		}
+
+		//return "redirect:/login/login";
 	}
 
 }
