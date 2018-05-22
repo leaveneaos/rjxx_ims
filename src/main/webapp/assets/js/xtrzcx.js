@@ -64,7 +64,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 // todo
                 // ajax request
-                alert('生成成功');
+                swal('生成成功');
             });
             // 发票明细
             t.on('click', 'a.view', function () {

@@ -117,7 +117,7 @@ $(function() {
 
     $('#smlr_info').bind('keyup', function(event) {
         if (event.keyCode == "13") {
-            alert($("#smlr_info").val());
+            swal($("#smlr_info").val());
             var r = $("#main_form1").validator("isFormValid");
             var kprq = $("#sglr_kprq").val();
             if(kprq == ""){

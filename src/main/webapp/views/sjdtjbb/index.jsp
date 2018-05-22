@@ -63,7 +63,7 @@
 													<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
 													<div class="am-u-sm-8">
 														<select id="s_xfid" name="xfid" onchange="getKpd()"
-															data-am-selected="{btnSize: 'sm'}">
+																data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 															<c:forEach items="${xfs}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
 															</c:forEach>
@@ -75,8 +75,8 @@
 												<div class="am-form-group">
 													<label for="s_kpd" class="am-u-sm-4 am-form-label">开票点</label>
 													<div class="am-u-sm-8">
-														<select id="s_skpid" name="skpid" 
-															data-am-selected="{btnSize: 'sm'}">
+														<select id="s_skpid" name="skpid"
+																data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 
 														</select>
 													</div>

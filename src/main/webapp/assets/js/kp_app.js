@@ -460,7 +460,7 @@ $(function() {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
+                                swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
@@ -944,7 +944,7 @@ $(function() {
                             swal("发送到开票队列成功!");
                             jyls_table.ajax.reload();
                         } else {
-                            alert(data.msg);
+                            swal(data.msg);
                         }
                     })
                 });

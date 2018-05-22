@@ -180,7 +180,7 @@
 														<label for="s_fpdm" class="am-u-sm-4 am-form-label">开票点</label>
 														<div class="am-u-sm-7">
 															<select id="mb_skp" name="mb_skp" class="am-u-sm-7"
-																	data-am-selected="{btnSize: 'sm'}">
+																	data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 
 															</select>
 														</div>

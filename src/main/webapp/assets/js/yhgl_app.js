@@ -5,10 +5,10 @@
     'use strict';
     $(function () {
         $('#add').click(function () {
-            alert("add button");
+           // alert("add button");
         });
         $('#delete').click(function () {
-            alert("delete button");
+           // alert("delete button");
         });
         $('#save').click(function () {
             //alert("save button");

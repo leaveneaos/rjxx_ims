@@ -98,7 +98,7 @@ $(function () {
                   	    	data:{"id":da.id},
                   	    	success:function(data){
                   	    		if(data.success){
-                  	    			alert("删除成功！");
+                                    swal("删除成功！");
                   	    			e.preventDefault();
                   	                _this.tableEx.ajax.reload();
                   	    		}
@@ -152,7 +152,7 @@ $(function () {
              		}           		
         		 });
         		if(ids==''){
-        			alert("请至少选中一条记录！");
+                    swal("请至少选中一条记录！");
         			return false;
         		}
         		$('#my-confirm').modal({
@@ -163,7 +163,7 @@ $(function () {
                 			data:{"ids":ids},
                 			success:function(data){
                 				if(data.success){
-                					alert("删除成功！");
+                                    swal("删除成功！");
                    	    			e.preventDefault();
                    	                _this.tableEx.ajax.reload();
                    	    		}
@@ -189,7 +189,7 @@ $(function () {
              		}           		
         		 });
         		if(ids==''){
-        			alert("请至少选中一条记录！");
+        			swal("请至少选中一条记录！");
         			return false;
         		}
         		$.ajax({
@@ -217,7 +217,7 @@ $(function () {
              		}           		
         		 });
         		if(ids==''){
-        			alert("请至少选中一条记录！");
+                    swal("请至少选中一条记录！");
         			return false;
         		}
         		$.ajax({

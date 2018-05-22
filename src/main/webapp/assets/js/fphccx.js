@@ -123,7 +123,7 @@ $(function () {
             // 红冲
             t.on('click', 'a.generates', function () {
                 var data = t.row($(this).parents('tr')).data();
-                alert('生成成功');
+                swal('生成成功');
             });
             // 发票明细
             t.on('click', 'a.view', function () {
@@ -150,7 +150,7 @@ $(function () {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
+                                swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
@@ -218,7 +218,7 @@ $(function () {
         exportAc: function () {
             el.$jsExport.on('click', function (e) {
                 // todo
-                alert('导出成功');
+                swal('导出成功');
             });
         },
         setForm0: function (data) {

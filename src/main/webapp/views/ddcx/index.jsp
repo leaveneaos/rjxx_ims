@@ -62,7 +62,7 @@
 														<div class="am-form-group">
 															<label for="s_xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
 															<div class="am-u-sm-8">
-																<select data-am-selected="{btnSize: 'sm'}" id="s_xfsh"
+																<select data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}" id="s_xfsh"
 																	name="s_xfsh">
 																	<option id="xzxfq" value="">选择销方</option>
 																	<c:forEach items="${xfList}" var="item">

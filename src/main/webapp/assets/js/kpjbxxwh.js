@@ -35,16 +35,16 @@
     			  $.ajax({
     				  url: "xfxxwh/save", method: 'POST', success: function (data) { 
     					  if(data.success){
-    						  alert(data.msg);
+                              swal(data.msg);
     					      $('#showXf').ajax.reload();
     					  }else {
-                              alert('后台错误: 保存数据失败,' + data.msg);
+                              swal('后台错误: 保存数据失败,' + data.msg);
                           }  
     					  el.$jsForm.ajax.reload();
     					  el.$jsLoading.modal('close'); // close loading
     				  },
     				  error: function () {
-                          alert('保存数据失败,请稍后重试');
+                          swal('保存数据失败,请稍后重试');
                       }
     	          });	
     			  el.$jsLoading.modal('close'); // close loading

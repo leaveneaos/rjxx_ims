@@ -162,7 +162,7 @@ $('#ck').click(function () {
             // type: 'alert'
         },
         function () {
-            alert('回调函数')
+            swal('回调函数')
         }
     )
 });

@@ -62,7 +62,7 @@ function editItem(id, mkmc, mkbl, pzid) {
 function saveMk() {
 	var mkmc = $("#mkmc").val();
 	if (mkmc == '') {
-		alert("区块名称不能为空！");
+        swal("区块名称不能为空！");
 		return;
 	}
 	$.ajax({
@@ -71,15 +71,15 @@ function saveMk() {
 		method : 'POST',
 		success : function(data) {
 			if (data.success) {
-				alert(data.msg);
+                swal(data.msg);
 				$('#addModel').modal('close');
 				window.location.reload();
 			} else {
-				alert('数据保存失败:' + data.msg);
+                swal('数据保存失败:' + data.msg);
 			}
 		},
 		error : function() {
-			alert('数据保存失败, 请重新登陆再试...!');
+            swal('数据保存失败, 请重新登陆再试...!');
 		}
 	});
 }
@@ -94,14 +94,14 @@ function deleteItem(id) {
 				method : 'post',
 				success : function(data) {
 					if (data.success) {
-						alert(data.msg);
+                        swal(data.msg);
 						window.location.reload();
 					} else {
-						alert('数据删除失败' + data.msg);
+                        swal('数据删除失败' + data.msg);
 					}
 				},
 				error : function() {
-					alert('数据删除失败, 请重新登陆再试...!');
+                    swal('数据删除失败, 请重新登陆再试...!');
 				}
 			});
 		},

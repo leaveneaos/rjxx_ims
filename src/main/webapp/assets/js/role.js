@@ -328,7 +328,6 @@ $(function() {
 					}
 					if (formValidity) {
 						el.$jsLoading.modal('toggle'); // show loading
-						// alert('验证成功');
 						var data = el.$jsForm0.serialize(); // get form data
 						// data
 						// TODO save data to serve

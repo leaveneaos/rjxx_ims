@@ -45,10 +45,7 @@
 						<input type="hidden" id="bj">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong id="yjcd" class="am-text-primary am-text-lg"></strong> /
-								<strong id="ejcd"></strong>
-								<button class="am-btn am-btn-success am-fr"
-									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+								<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 							</div>
 						</div>
 						<div id="doc-oc-demo3" class="am-offcanvas">
@@ -85,7 +82,7 @@
 											<label for="xfid1" class="am-u-sm-4 am-form-label">销方</label>
 											<div class="am-u-sm-7">
 												<select id="xfid1" name="xfid1"
-													data-am-selected="{btnSize: 'sm'}">
+														data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 													<option value="0">请选择</option>
 													<c:forEach items="${xfs}" var="item">
 														<option value="${item.id}">${item.xfmc}(${item.xfsh})</option>
@@ -122,56 +119,53 @@
 										</div>
 									</div>
 									<div style="padding: 32px;">
-										<button id="button3" type="button"
-											class="am-btn am-btn-default am-btn-success data-back">查询</button>
+										<button type="button" id="button3" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px;"> 查询</button>
 									</div>
 								</div>
 
 							</form>
 
 						</div>
+						<div class="am-g">
+							<form  id="searchForm" class="am-form am-form-horizontal">
+								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+									<div class="am-u-sm-3">
+										<select id="tip1" data-am-selected="{btnSize: 'sm'}">
+											<option value="0">请选择</option>
+											<option value="1" selected="selected">销方名称</option>
+											<option value="2">销方税号</option>
+											<option value="3">上级销方名称</option>
+											<option value="4">开票人</option>
+										</select>
+									</div>
+									<div class="am-u-sm-3">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input id="searchtxt" name="ddh" type="text"  required>
+											<span class="am-input-group-btn">
+												<button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search" id="button1" type="button"></button>
+											</span>
+										</div>
+									</div>
+									<button type="button"  class="am-btn am-btn-secondary am-btn-sm " data-am-offcanvas="{target: '#doc-oc-demo3'}" style="border-radius: 10px;margin-left: 10px;float: right"> 更多查询</button>
+
+								</div>
+							</form>
+						</div>
+
+
 						<div class="am-g am-padding-top">
-							<form id="searchform"
-								class="js-search-form am-form am-form-horizontal">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
-												<button type="button" id="button2"
-													class="am-btn am-btn-default am-btn-success">录入</button>
-												<button type="button"
-													class="js-sent am-btn am-btn-default am-btn-danger">
-													删除</button>
-												<button type="button" id="kp_dr"
-													class="am-btn am-btn-default">导入</button>
+												<button type="button"  id="button2" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px"> 录入</button>
+												<!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
+												<button type="button" id="deletexf" class="am-btn am-btn-danger am-btn-sm js-sent" style="border-radius: 10px;margin-left: 10px"> 删除</button>
+												<button type="button" id="kp_dr" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px;margin-left: 10px"> 导入</button>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="tip" data-am-selected="{btnSize: 'sm'}">
-											<option value="0">请选择</option>
-											<option value="1">开票点代码</option>
-											<option value="2">开票点名称</option>
-											<option value="3" selected="selected">销方名称</option>
-											<option value="4">开票人</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input type="text" id="searchtxt" class="am-form-field ">
-										<span class="am-input-group-btn" id="button1">
-											<button
-												class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
-										</span>
-									</div>
-								</div>
-
-							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
 

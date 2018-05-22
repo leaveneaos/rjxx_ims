@@ -155,9 +155,9 @@ $(function () {
 						method : 'POST',
 						success : function(data) {
 							if (data.success) {
-								alert(data.msg);
+                                swal(data.msg);
 							}else{
-								alert(data.msg);
+                                swal(data.msg);
 							}
 							
 						}

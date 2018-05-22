@@ -896,7 +896,7 @@ $(function() {
                             swal("发送到开票队列成功!");
                             jyls_table.ajax.reload();
                         } else {
-                            alert(data.msg);
+                            swal(data.msg);
                         }
                     })
                 });

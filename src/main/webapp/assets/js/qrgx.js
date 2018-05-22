@@ -292,14 +292,12 @@ $(function() {
                  return false;
                  }
                  } else {
-                 // alert('月份不同,Error!');
                  // $("#alertt").html('Error,请选择同一个年月内的时间!');
                  //               	$("#my-alert").modal('open');
                  swal('Error,选择日期不能跨月!');
                  return false;
                  }
                  } else {
-                 // alert('年份不同,Error!');
                  // $("#alertt").html('Error,请选择同一个年月内的时间!');
                  //               	$("#my-alert").modal('open');
                  swal('Error,请选择同一个年月内的时间!');
@@ -331,14 +329,14 @@ $(function() {
                 //                return false;
                 //           }
                 //       } else {
-                // alert('月份不同,Error!');
+
                 // $("#alertt").html('Error,请选择同一个年月内的时间!');
                 //               	$("#my-alert").modal('open');
                 //         swal('Error,选择日期不能跨月!');
                 //           return false;
                 //       }
                 //   } else {
-                // alert('年份不同,Error!');
+
                 // $("#alertt").html('Error,请选择同一个年月内的时间!');
                 //               	$("#my-alert").modal('open');
                 //    swal('Error,请选择同一个年月内的时间!');
@@ -358,7 +356,7 @@ $(function() {
             $("#jxfpxx_xgbc").on('click', function(e) {
                 $('.confirm').attr('disabled',"disabled");
                 var r = $("#main_form").validator("isFormValid");
-                alert($('#main_form').serialize());
+                swal($('#main_form').serialize());
                 if (r) {
                     $.ajax({
                         type : "POST",

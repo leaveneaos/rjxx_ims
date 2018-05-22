@@ -81,7 +81,7 @@ $(function () {
                 var data = t.row($(this).parents('tr')).data();
                 // todo
                 // ajax request
-                alert('生成成功');
+                swal('生成成功');
             });
             // 发票明细
             t.on('click', 'a.view', function () {
@@ -99,7 +99,7 @@ $(function () {
             var _this = this;
             el.$jsSearch.on('click', function (e) {
                 if ((!el.$s_ddrqq.val() && el.$s_ddrqz.val()) || (el.$s_ddrqq.val() && !el.$s_ddrqz.val())) {
-                    alert('Error,请选择开始和结束时间!');
+                    swal('Error,请选择开始和结束时间!');
                     return false;
                 }
                 var dt1 = new Date(el.$s_ddrqq.val().replace(/-/g, "/"));
@@ -108,17 +108,17 @@ $(function () {
                     if (dt1.getYear() == dt2.getYear()) {
                         if (dt1.getMonth() == dt2.getMonth()) {
                             if (dt1 - dt2 > 0) {
-                                alert('开始日期大于结束日期,Error!');
+                                swal('开始日期大于结束日期,Error!');
                                 return false;
                             }
                         } else {
                             // alert('月份不同,Error!');
-                            alert('Error,请选择同一个年月内的时间!');
+                            swal('Error,请选择同一个年月内的时间!');
                             return false;
                         }
                     } else {
                         // alert('年份不同,Error!');
-                        alert('Error,请选择同一个年月内的时间!');
+                        swal('Error,请选择同一个年月内的时间!');
                         return false;
                     }
                 }
@@ -132,7 +132,7 @@ $(function () {
         exportAc: function () {
             el.$jsExport.on('click', function (e) {
                 // todo
-                alert('导出成功');
+                swal('导出成功');
             });
         },
         setForm0: function (data) {

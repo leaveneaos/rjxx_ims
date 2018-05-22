@@ -49,7 +49,7 @@
 												<div class="am-form-group">
 													<label for="s_xfmc" class="am-u-sm-4 am-form-label">销方名称</label>
 													<div class="am-u-sm-8">
-														<select id="s_xfid" name="xfid" data-am-selected="{btnSize: 'sm'}">
+														<select id="s_xfid" name="xfid" data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 															<option value="">请选择销方</option>
 															<c:forEach items="${xfList}" var="xf">
 																<option value="${xf.id}">${xf.xfmc}</option>
@@ -62,7 +62,7 @@
 												<div class="am-form-group">
 													<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点</label>
 													<div class="am-u-sm-8">
-														<select id="s_skpid" name="skpid" data-am-selected="{btnSize: 'sm'}">
+														<select id="s_skpid" name="skpid" data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
 															<option value="">请选择开票点</option>
 															<c:forEach items="${skpList}" var="skp">
 																<option value="${skp.id}">${skp.kpdmc}</option>

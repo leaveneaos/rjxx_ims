@@ -325,7 +325,6 @@
                 }
                 $("#btnImport").attr("disabled", true);
                 $('.js-modal-loading').modal('toggle'); // show loading
-                // alert('验证成功');
                 var options = {
                     success : function(res) {
                         if (res.success) {
@@ -785,7 +784,6 @@
             el.$jsImport.on('click', function(e) {
                 el.$modal2.modal('open');
                 e.preventDefault();
-                // alert('导入'); // del this line
             });
         },
         import : function() {
@@ -796,7 +794,6 @@
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                         el.$jsLoading.modal('toggle'); // show loading
-                        // alert('验证成功');
                         var data = el.$jsForm2.serialize(); // get form data
                         // data
                         // TODO save data to serve
@@ -854,8 +851,7 @@
                 submit : function() {
                     var formValidity = this.isFormValid();
                     if (formValidity) {
-                        el.$jsLoading.modal('toggle'); // show loading
-                        // alert('验证成功');
+                        el.$jsLoading.modal('toggle'); // show loading;
                         var data = el.$jsForm.serialize(); // get form data
                         // data
                         // TODO save data to serve
@@ -910,7 +906,6 @@
                     if (formValidity) {
                         el.$jsLoading.modal('toggle'); // show loading
 
-                        // alert('验证成功');
                         var data = el.$jsForm.serialize(); // get form data
                         // data
                         // TODO save data to serve

@@ -38,7 +38,6 @@ $(function () {
                     d.skpid = $('#s_skpid').val(),
                     d.kprqq = $('#s_kprqq').val(),
                     d.kprqz = $('#s_kprqz').val()
-                    //alert($('#s_skpid').val());
             	}
                 
             }

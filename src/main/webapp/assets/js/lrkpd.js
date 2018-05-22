@@ -165,7 +165,7 @@
                 if (dt1.getYear() == dt2.getYear()) {
                     if (dt1.getMonth() == dt2.getMonth()) {
                         if (dt1 - dt2 > 0) {
-                            alert('开始日期大于结束日期!');
+                            swal('开始日期大于结束日期!');
                             return false;
                         }
                     } 
@@ -230,16 +230,16 @@
 				}
             });
             if (djhArr.length == 0) {
-                alert("请选择需要提交开票申请的交易流水...");
+                swal("请选择需要提交开票申请的交易流水...");
                 return;
             }
             $.ajax({
                 url: "lrkpd/sqKp", context: document.body, data: "djhArr=" + djhArr.join(","), success: function (data) {
                     if (data.success) {
-                        alert("已提交开票申请!");
+                        swal("已提交开票申请!");
                         jyls_table.ajax.reload();
                     } else {
-                        alert(data.msg);
+                        swal(data.msg);
                     }
                 }
             });
@@ -292,11 +292,11 @@
 						$('#fpzl_modify').val(jy.fpzldm);
 						hidespan3(jy.fpzldm);//为了设置当选择为专票时，其他几项购方信息为必录
 					} else {
-						alert(data.msg);
+                        swal(data.msg);
 					}
 				},
 				error : function() {
-					alert("出现错误，请稍后重试！");
+                    swal("出现错误，请稍后重试！");
 				}
 			})
         });
@@ -328,7 +328,7 @@
                  //data : $('#main_form_modify').serialize(),
                  success : function(data) {
 					if(data.msg){
-						alert("修改成功!");
+                        swal("修改成功!");
 						$('#my-alert-modify').modal('close');
 						 jyls_table.ajax.reload();
 					}
@@ -363,12 +363,12 @@
                 $.ajax({
                     url: "kpdsh/xgbcmx", "type": "POST", context: document.body, data: frmData, success: function (data) {
                         if (data.msg) {
-                            alert("保存成功!");
+                            swal("保存成功!");
 							$('#my-alert-edit1').modal('close');
                             jyls_table.ajax.reload();
                             jyspmx_table.ajax.reload();
                         } else {
-                            alert(data.msg);
+                            swal(data.msg);
                         }
                     }
                 });
@@ -395,10 +395,10 @@
                 }, 
                 success: function (data) {
                     if (data.success) {
-                        alert("发送到开票队列成功!");
+                        swal("发送到开票队列成功!");
                         jyls_table.ajax.reload();
                     } else {
-                        alert(data.msg);
+                        swal(data.msg);
                     }
                 }
             });
@@ -489,11 +489,11 @@
                 $.ajax({
                     url: "lrkpd/save", "type": "POST", context: document.body, data: frmData, success: function (data) {
                         if (data.success) {
-                            alert("保存成功!");
+                            swal("保存成功!");
                             $modal.modal("close");
                             jyls_table.ajax.reload();
                         } else {
-                            alert(data.msg);
+                            swal(data.msg);
                         }
                     }
                 });

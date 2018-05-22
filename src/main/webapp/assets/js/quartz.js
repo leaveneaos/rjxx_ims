@@ -107,7 +107,7 @@ $(function () {
                                 $("#my-alert").modal('open');
                                 _this.tableEx.ajax.reload();
                             }else if(result.code=="1"){
-                                alert(result.errortext);
+                                swal(result.errortext);
                             }
                         }
                     });
@@ -131,7 +131,7 @@ $(function () {
                                 $("#my-alert").modal('open');
                                 _this.tableEx.ajax.reload();
                             }else if(result.code=="1"){
-                                alert(result.errortext);
+                                swal(result.errortext);
                             }
                         }
                     });
@@ -193,7 +193,7 @@ $(function () {
                                     _this.tableEx.ajax.reload();
                                 }else if(result.code=="1"){
                                     el.$modaledit.modal('close');
-                                    alert(result.errortext);
+                                    swal(result.errortext);
                                 }
                             }
                         });
@@ -223,7 +223,7 @@ $(function () {
         	                        _this.tableEx.ajax.reload();
         	                    }else if(result.code=="1"){
         	                        el.$modaladd.modal('close');
-        	                        alert(result.errortext);
+                                    swal(result.errortext);
         	                    }
         	                }
         	            });
@@ -262,7 +262,7 @@ $(function () {
 
                                    _this.tableEx.ajax.reload();
                                }else if(result.code=="1"){
-                                   alert(result.errortext);
+                                   swal(result.errortext);
                                }
                            }
                        });

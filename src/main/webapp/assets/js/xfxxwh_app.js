@@ -275,7 +275,6 @@ $(function() {
 	            }
 	            $("#btnImport").attr("disabled", true);
 				$('.js-modal-loading').modal('toggle'); // show loading
-				// alert('验证成功');
 				var options = {
 		                success: function (res) {
 		                    if (res.success) {
