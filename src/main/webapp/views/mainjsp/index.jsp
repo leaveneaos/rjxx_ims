@@ -50,7 +50,7 @@
 			<div class="row">
 				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 					<div class="widget am-cf">
-						<div class="widget-head am-cf"></div>
+
 						<div class="widget-body  am-fr">
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 							<ul class="am-avg-sm-1 am-avg-md-6 am-margin am-text-center tab-listBox">

@@ -1,7 +1,7 @@
 /*==========*\
     common
 \*==========*/
-.admin-content { min-height: 820px; }
+/*.admin-content { min-height: 820px; }*/
 table thead th { text-align: center; }
 table tbody td a { text-decoration: underline; cursor: pointer!important; }
 table tbody td label { padding-top: 0!important; }

@@ -14,6 +14,11 @@
  */
 
 $(function() {
+	var mainHeight=$(document).height();
+	var header=$("#mainHeader").height();
+	var footer=$("#mainFooter").height();
+	var ifraneHeight=mainHeight-header-footer
+	$("#mainFrame").css("height",ifraneHeight)
 	
 });
 

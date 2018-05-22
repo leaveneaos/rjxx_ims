@@ -9,7 +9,7 @@
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html style="overflow: hidden">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,10 +37,10 @@
 <input type="hidden" id="cd2">
 <div class="am-g tpl-g all-topWrap-Box">
 	<!-- 头部 -->
-	<header>
+	<header id="mainHeader">
 		<!-- logo -->
 		<div class="am-fl tpl-header-logo">
-			<a href="javascript:;" style="font-weight:900">${pingtai}</a>
+			<a href="javascript:;" style="font-weight:900">泰易（TaxEasy）开票通V2.0</a>
 		</div>
 		<!-- 右侧内容 -->
 		<div class="tpl-header-fluid">
@@ -230,8 +230,8 @@
 		<!-- 内容区域 -->
 		<iframe id="mainFrame" src="<%=request.getContextPath()%>/mainjsp" frameborder="0" width="100%" onload="javascript:dyniframesize('mainFrame');"></iframe>
 	</div>
-	<footer>
-		<p class="am-text-center">${banquan}</p>
+	<footer id="mainFooter" style="height:40px;background-color: #e9ecf3;line-height: 40px;font-size: 14px">
+		<p class="am-text-center">© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号</p>
 	</footer>
 </div>
 </div>
@@ -683,6 +683,23 @@
 
     }
 
+    $(function() {
+        var heighr=$(window).height();
+        var header=$("#mainHeader").height();
+        var footer=$("#mainFooter").height();
+        var ifraneHeight=heighr-header-footer
+        $("#mainFrame").css("height",ifraneHeight);
+
+
+        $(window).resize(function () {          //当浏览器大小变化时
+            var heighr=$(window).height();
+            var header=$("#mainHeader").height();
+            var footer=$("#mainFooter").height();
+            var ifraneHeight=heighr-header-footer
+            $("#mainFrame").css("height",ifraneHeight);
+        });
+
+    });
 
 </script>
 
