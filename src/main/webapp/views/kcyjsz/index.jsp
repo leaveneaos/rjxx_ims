@@ -159,6 +159,24 @@
 										</table>
 									</div>
 								</div>
+                                <div class="am-u-sm-12">
+                                    <div>
+                                        <table id="yjszMxtable"
+                                               class="am-table am-table-bordered am-table-compact am-table-hover am-table-striped am-text-nowrap">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>销方名称</th>
+                                                <th>销方税号</th>
+                                                <th>门店名称</th>
+                                                <th>发票种类</th>
+                                                <th>通知方式</th>
+                                                <th>通知人员</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 						<!-- content end -->
