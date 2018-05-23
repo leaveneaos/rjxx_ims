@@ -226,7 +226,7 @@ public class DdcxController extends BaseController {
 		JyxxsqVO kplscx = null;
 		if(!kplscxList.isEmpty()) {
 			for (int i = 0; i < kplscxList.size(); i++) {
-				row = sheet.createRow((short) i + 1);
+				row = sheet.createRow(i + 1);
 				kplscx = kplscxList.get(i);
 				String sjly = kplscx.getSjly();
 				if (StringUtils.isNotBlank(sjly)) {
