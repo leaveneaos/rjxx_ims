@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 <style>
@@ -50,9 +51,7 @@
 		<div class="admin-content">
 				<div class="am-cf am-padding">
 					<div class="widget-title am-cf">
-						<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>导入模板设置</strong>
-						<button class="am-btn am-btn-success am-fr"
-										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+						<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 					</div>
 					   <!-- 侧边栏内容 begin-->
 								<div id="doc-oc-demo3" class="am-offcanvas">
@@ -95,8 +94,8 @@
 											</div>
 											<div style="padding: 32px;">
 												<button type="button" id="mb_search1"
-													class="am-btn am-btn-default am-btn-success data-back">
-													<span class="am-icon-search-plus"></span> 查询
+													class="am-btn am-btn-default am-btn-secondary data-back">
+													 查询
 												</button>
 											</div>
 										</form>
@@ -110,44 +109,58 @@
 			<div class="am-g  am-padding-top">
 				<form action="#" class="js-search-form  am-form am-form-horizontal">
 					<div class="am-g">
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-									<div class="am-form-group">
-										<div class="am-btn-toolbar">
-											<div class="am-btn-group am-btn-group-xs">
-												<button type="button" id="button2"
-													class="am-btn am-btn-default am-btn-primary">
-													录入
-												</button>
-												<button type="button" id="del"
-													class="am-btn am-btn-default am-btn-danger">
-													删除
-												</button>
-											</div>
-										</div>
-									</div>
-						</div>
-						<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="dxcsm"  data-am-selected="{ btnSize: 'sm'}">
-											<option value="s_mbmc">模板名称</option>
-										</select>
-									</div>
-						</div>
-						<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input id="dxcsz" type="text" class="am-form-field ">
-										<span class="am-input-group-btn">
-											<button id="mb_search"
-												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
-										</span>
-									</div>
-						</div>
+						<%--<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">--%>
+									<%--<div class="am-form-group">--%>
+										<%--<div class="am-btn-toolbar">--%>
+											<%--<div class="am-btn-group am-btn-group-xs">--%>
+												<%--<button type="button" id="button2"--%>
+													<%--class="am-btn am-btn-default am-btn-primary">--%>
+													<%--录入--%>
+												<%--</button>--%>
+												<%--<button type="button" id="del"--%>
+													<%--class="am-btn am-btn-default am-btn-danger">--%>
+													<%--删除--%>
+												<%--</button>--%>
+											<%--</div>--%>
+										<%--</div>--%>
+									<%--</div>--%>
+						<%--</div>--%>
+
 					</div>
 
-					<hr />
+					<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+						<div class="am-u-sm-3">
+								<select id="dxcsm"  data-am-selected="{ btnSize: 'sm'}">
+									<option value="s_mbmc">模板名称</option>
+								</select>
+						</div>
+						<div class="am-u-sm-3">
+							<div
+									class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+								<input id="dxcsz" type="text" class="am-form-field ">
+								<span class="am-input-group-btn">
+											<button id="mb_search"
+													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+													type="button"></button>
+										</span>
+							</div>
+						</div>
+						<button class="am-btn am-btn-secondary am-fr"
+								data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+					</div>
 				</form>
+				<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+					<div class="am-form-group">
+						<div class="am-btn-toolbar">
+							<div class="am-btn-group am-btn-group-xs btn-listBox">
+								<button type="button"  id="button2" class="am-btn am-btn-secondary am-btn-sm "> 录入</button>
+								<!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
+								<button type="button" id="del" class="am-btn am-btn-danger am-btn-sm js-sent" > 删除</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="am-u-sm-12  am-padding-top">
 					<div>
 						<table id="tbl"

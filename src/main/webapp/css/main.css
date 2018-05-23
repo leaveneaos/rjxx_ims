@@ -37,3 +37,18 @@ table.dataTable thead > tr > th { padding: .4rem; }
 .import{
 	background-color:#c0c0c0;	
 }
+.btn-listBox{
+	margin: 10px 0px;
+}
+.btn-listBox>button{
+	margin-left: 10px !important;
+}
+.btn-listBox>button:nth-child(1){
+	margin-left: 0px !important;
+}
+.am-btn-secondary{
+	border-radius: 5px !important;
+}
+ .am-btn-danger{
+	 border-radius: 5px !important;
+ }

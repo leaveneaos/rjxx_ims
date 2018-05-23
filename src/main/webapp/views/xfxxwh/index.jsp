@@ -49,7 +49,6 @@
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
 								<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
-								<%--<button class="am-btn am-btn-success am-fr" data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>--%>
 							</div>
 							<!-- 侧边栏内容 -->
 								<input type="text" hidden="true" id="bz">
@@ -96,7 +95,7 @@
 												</div>
 										    </div>
 										    <div style="padding: 32px;">
-												<button type="button" id="button3" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px;"> 查询</button>
+												<button type="button" id="button3" class="am-btn am-btn-secondary am-btn-sm"> 查询</button>
 		                                    </div>
 										  </div>
 										  
@@ -124,7 +123,7 @@
 											</span>
 										</div>
 									</div>
-									<button type="button"  class="am-btn am-btn-secondary am-btn-sm " data-am-offcanvas="{target: '#doc-oc-demo3'}" style="border-radius: 10px;margin-left: 10px;float: right"> 更多查询</button>
+									<button type="button"  class="am-btn am-btn-secondary am-btn-sm " data-am-offcanvas="{target: '#doc-oc-demo3'}" style="margin-left: 10px;float: right"> 更多查询</button>
 
 								</div>
 							</form>
@@ -135,11 +134,11 @@
 							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button"  id="button2" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px"> 录入</button>
+                                            <div class="am-btn-group am-btn-group-xs btn-listBox">
+                                                <button type="button"  id="button2" class="am-btn am-btn-secondary am-btn-sm " > 录入</button>
 <!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
-                                                <button type="button" id="deletexf" class="am-btn am-btn-danger am-btn-sm js-sent" style="border-radius: 10px;margin-left: 10px"> 删除</button>
-												<button type="button" id="kp_dr" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px;margin-left: 10px"> 导入</button>
+                                                <button type="button" id="deletexf" class="am-btn am-btn-danger am-btn-sm js-sent"> 删除</button>
+												<button type="button" id="kp_dr" class="am-btn am-btn-secondary am-btn-sm "> 导入</button>
                                             </div>
                                         </div>
                                     </div>

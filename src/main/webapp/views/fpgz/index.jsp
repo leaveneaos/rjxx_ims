@@ -45,27 +45,28 @@
 					<div class="admin-content">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">开票规则</strong> / <strong>分票规则</strong>
+								<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 							</div>
 						</div>
 						<div class="am-g  am-padding-top">
 							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 								<div class="am-form-group">
 									<div class="am-btn-toolbar">
-										<div class="am-btn-group am-btn-group-xs">
+										<div class="am-btn-group am-btn-group-xs btn-listBox">
 											<button type="button" id="gz_xzgz"
-												data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}"
-												class="am-btn am-btn-default am-btn-success">
-												<span></span> 新增
+											data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}"
+											class="am-btn am-btn-default am-btn-secondary">
+											<span></span> 新增
 											</button>
 											<button type="button" id="gz_scgz"
-												class="am-btn am-btn-default am-btn-danger">
+													class="am-btn am-btn-default am-btn-danger">
 												<span></span> 删除
 											</button>
-												<button type="button" id="gz_cxgz"
-												class="am-btn am-btn-default  am-btn-success">
+											<button type="button" id="gz_cxgz"
+													class="am-btn am-btn-default  am-btn-secondary">
 												<span></span> 查询
 											</button>
+
 										</div>
 									</div>
 								</div>
