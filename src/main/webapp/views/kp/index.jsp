@@ -33,7 +33,7 @@
   text-align: center;
 }
     #doc-modal-fpyl{
-        background-image: url("../img/fapiaobiankuang.jpg");
+        background-image: url("<%=request.getContextPath()%>/img/fapiaobiankuang.jpg");
         background-size:100% 100%;
         background-repeat:no-repeat;
 
