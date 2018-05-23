@@ -4,8 +4,7 @@ import java.util.*;
 
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.vo.FpkcYzszVo;
-import com.rjxx.taxeasy.vo.KpfsVo;
+import com.rjxx.taxeasy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.vo.Fpkcvo;
-import com.rjxx.taxeasy.vo.Fpyjdyvo;
 import com.rjxx.taxeasy.web.BaseController;
 
 @Controller
@@ -197,11 +194,11 @@ public class KcyjszController extends BaseController {
                     fpkcYztz.setYjszid(yjszid);
                     if (tzfsids.length > 1) {
                         String tzfs ="";
-                        for(int t=0;t<yjszids.length;t++){
-                            if (t == yjszids.length - 1) {
-                                tzfs += yjszids[t] + "";
+                        for(int t=0;t<tzfsids.length;t++){
+                            if (t == tzfsids.length - 1) {
+                                tzfs += tzfsids[t] + "";
                             } else {
-                                tzfs +=  yjszids[t] + ",";
+                                tzfs +=  tzfsids[t] + ",";
                             }
                         }
                         fpkcYztz.setTzfs(tzfs);
@@ -401,4 +398,35 @@ public class KcyjszController extends BaseController {
 		result.put("data", zyList);
 		return result;
 	}*/
+    @RequestMapping(value = "/getyjtzmx", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getYjtzmx(int length, int start, int draw,String idstr,boolean loaddata) {
+        Pagination pagination = new Pagination();
+        pagination.setPageNo(start / length + 1);
+        pagination.setPageSize(length);
+        List<String> ids = new ArrayList<String>();
+        if(idstr!=null && !"".equals(idstr)) {
+            idstr.split(";");
+            ids.addAll(Arrays.asList(idstr.split(";")));
+        }
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        if(loaddata && ids.size()>0){
+            pagination.addParam("ids", ids);
+            List<FpkcTzVo> list = fpkcYztzService.findAllByPage(pagination);
+
+            int total = pagination.getTotalRecord();
+            result.put("recordsTotal", total);
+            result.put("recordsFiltered", total);
+            result.put("draw", draw);
+            result.put("data", list);
+        }else{
+            result.put("recordsTotal", 0);
+            result.put("recordsFiltered", 0);
+            result.put("draw", draw);
+            result.put("data", new ArrayList<>());
+        }
+
+        return result;
+    }
 }

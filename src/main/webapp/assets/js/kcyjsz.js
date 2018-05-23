@@ -34,6 +34,7 @@ $(function () {
             szUrl: 'kcyjsz/update',
             plszUrl:'kcyjsz/plupdate',
             xzszUrl: 'kcyjsz/addtzfs',
+            getyjtzmx:'kcyjsz/getyjtzmx'
         },
         dataTable: function () {
             var _this = this;
@@ -48,7 +49,10 @@ $(function () {
                         url: _this.config.getUrl,
                         type: 'POST',
                         data: function (d) {
-                        	 $("#xfidhide").val($("#xfid").val());
+                            $("#yjszMxtable").hide();
+                            $("#yjszMxtable_wrapper").hide();
+
+                            $("#xfidhide").val($("#xfid").val());
                         	 var bz = $('#searchbz').val();
                              d.loaddata = loaddata;
                         	 if(bz=='1'){
@@ -81,7 +85,7 @@ $(function () {
                         {
                             "data": null,
                             "render": function (data) {
-                                return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
+                                return '<a href="#" class="modify1" style="margin-right: 10px;">设置</a>'
                             }
                         },
                         {"data": "xfmc"},
@@ -129,10 +133,96 @@ $(function () {
                 });
                 $('#yjdytable tr').find('td:eq(12)').hide();
             });
+            t.on("click","tr",function(){
+                var data = t.row($(this)).data();
+
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                } else {
+                    $(this).find('td:eq(0) input').prop('checked',true);
+                    $(this).addClass('selected');
+                }
+                var params = "";
+
+                _this.tableEx.column(0).nodes().each(function (cell, i) {
+                    if($(cell).find('input[type="checkbox"]').is(':checked')){
+                        var id=$(cell).find('input[type="checkbox"]').val();
+                        //过滤没有库存的数据
+                        if(id!='' && id!=null && id!='null'){
+                            params=params+";"+id;
+                        }
+                    }
+                });
+                if(params!=""){
+                    params=params.substring(1,params.length).trim();
+                }
+
+                $("#yjszMxtable").show();
+
+
+                var mx = $("#yjszMxtable") .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ordering": false,
+                    "searching": false,
+                    "destroy":true,
+                    "ajax": {
+                        url: _this.config.getyjtzmx,
+                        type: 'POST',
+                        data: function (d) {
+                            d.loaddata = loaddata;
+                            d.idstr = params;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
+                        },
+                        {"data":"xfmc"},
+                        {"data": "xfsh"},
+                        {"data": "kpdmc"},
+                        {"data": "fpzlmc"},
+                        {"data": function (data) {
+                                var tzfs=data.tzfs;
+                                if(tzfs!=null && tzfs!=""){
+                                    if(tzfs=='02'){
+                                        return "邮件";
+                                    }else if(tzfs=='03'){
+                                        return "短信";
+                                    }else if(tzfs=='02,03'||tzfs=='03,02'){
+                                        return "邮件、短信";
+                                    }else{
+                                        return tzfs;
+                                    }
+                                }else{
+                                    return "";
+                                }
+
+                            }
+                        },
+                        {"data": "yhmc"}
+
+                    ]
+
+                });
+                mx.on('draw.dt', function (e, settings, json) {
+                    var x = mx, page = x.page.info().start; // 设置第几页
+                    mx.column(0).nodes().each(function (cell, i) {
+                        cell.innerHTML = page + i + 1;
+                    });
+                });
+
+            });
+
+
 
             // 设置通知方式
             el.$jsTable1.on('click', el.$jsTable1, function() {
                 //_this.resetForm();
+                $("#fomm").resetForm();
                 var tableids ="";
                 var count =0;
                 var flag = true;
@@ -153,7 +243,9 @@ $(function () {
                     return;
                 }
                 if(tableids =='' ){//|| count>1
-                    swal("请选择一条记录且最多一条数据！");
+                   // swal("请选择一条记录且最多一条数据！");
+                    swal("请至少选择一条数据！");
+
                     return;
                 }else{
                     $("#yjids").val(tableids.substr(0,(tableids.length-1)));
@@ -380,6 +472,79 @@ $(function () {
                         $(cell).find('input[type="checkbox"]').prop('checked', false);
                     });
                 }
+
+                var params = "";
+
+                _this.tableEx.column(0).nodes().each(function (cell, i) {
+                    if($(cell).find('input[type="checkbox"]').is(':checked')){
+                        var id=$(cell).find('input[type="checkbox"]').val();
+                        //过滤没有库存的数据
+                        if(id!='' && id!=null && id!='null'){
+                            params=params+";"+id;
+                        }
+                    }
+                });
+                if(params!=""){
+                    params=params.substring(1,params.length).trim();
+                }
+                console.log("ceshi");
+
+                //显示明细
+                $("#yjszMxtable").show();
+                var mx = $("#yjszMxtable") .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ordering": false,
+                    "searching": false,
+                    "destroy":true,
+                    "ajax": {
+                        url: _this.config.getyjtzmx,
+                        type: 'POST',
+                        data: function (d) {
+                            d.loaddata = loaddata;
+                            d.idstr = params;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ""
+                        },
+                        {"data":"xfmc"},
+                        {"data": "xfsh"},
+                        {"data": "kpdmc"},
+                        {"data": "fpzlmc"},
+                        {"data": function (data) {
+                                var tzfs=data.tzfs;
+                                if(tzfs!=null && tzfs!=""){
+                                    if(tzfs=='02'){
+                                        return "邮件";
+                                    }else if(tzfs=='03'){
+                                        return "短信";
+                                    }else if(tzfs=='02,03'||tzfs=='03,02'){
+                                        return "邮件、短信";
+                                    }else{
+                                        return tzfs;
+                                    }
+                                }else{
+                                    return "";
+                                }
+
+                            }
+                        },
+                        {"data": "yhmc"}
+
+                    ]
+
+                });
+                mx.on('draw.dt', function (e, settings, json) {
+                    var x = mx, page = x.page.info().start; // 设置第几页
+                    mx.column(0).nodes().each(function (cell, i) {
+                        cell.innerHTML = page + i + 1;
+                    });
+                });
+
             });
         },
 
