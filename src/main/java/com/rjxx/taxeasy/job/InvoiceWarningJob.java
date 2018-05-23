@@ -1,7 +1,8 @@
 package com.rjxx.taxeasy.job;
 
 
-import com.rjxx.taxeasy.bizcomm.utils.MailService;
+import com.rjxx.taxeasy.bizcomm.utils.SaveMessage;
+import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.FpkcYjtzVo;
 import org.quartz.DisallowConcurrentExecution;
@@ -24,7 +25,10 @@ public class InvoiceWarningJob implements Job {
     private FpkcYztzService fpkcYztzService;
 
     @Autowired
-    private MailService mailService;
+    private SendalEmail SendalEmail;
+
+    @Autowired
+    private SaveMessage saveMessage;
 
 
     private static Logger logger = LoggerFactory.getLogger(InvoiceWarningJob.class);
@@ -42,16 +46,26 @@ public class InvoiceWarningJob implements Job {
                 for (int i= 0;i<tzList.size();i++){
                     FpkcYjtzVo fpkcYjtzVo = tzList.get(i);
                     if(fpkcYjtzVo.getTzfs().contains("02") && fpkcYjtzVo.getTzfs().contains("03")){
+                        //发邮件
                         String [] to=new String[1];
                         to[0]=fpkcYjtzVo.getEmail();
-                        mailService.sendSimpleMail(to,"发票库存预警",fpkcYjtzVo.getTzy());
+                        SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
+                        //短信
+                        Map<String, String> rep = new HashMap();
+                        rep.put("code", "051898");
+                        rep.put("product", "容津信息");
+                        saveMessage.sendMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_34725005", "发票库存预警");
                     }else if(fpkcYjtzVo.getTzfs().contains("02")){
                         //发邮件
                         String [] to=new String[1];
                         to[0]=fpkcYjtzVo.getEmail();
-                        mailService.sendSimpleMail(to,"发票库存预警",fpkcYjtzVo.getTzy());
+                        SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
                     }else if(fpkcYjtzVo.getTzfs().contains("03")){
                         //短信
+                        Map<String, String> rep = new HashMap();
+                        rep.put("code", "051898");
+                        rep.put("product", "容津信息");
+                        saveMessage.sendMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_34725005", "发票库存预警");
                     }
                 }
 
