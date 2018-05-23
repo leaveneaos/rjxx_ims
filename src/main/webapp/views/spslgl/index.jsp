@@ -189,9 +189,7 @@
 											</table>
 										</div>
 									</div>
-									<div class="am-g">
-										<div id="treeDemo"></div>
-									</div>
+
 
 								</div>
 							</div>
@@ -639,134 +637,6 @@
             return option;//返回最终html结果
         }
 
-        //ztreeome代码编写treedemoD
-        var setting = {
-            async:{
-                autoParam:["parentId"],
-                enable:true,
-                type:"post",
-                url:"spslgl/getSpbms1",
-                dataFilter:filter,
-            },
-            check : {
-                chkStyle: "radio",
-                enable: false,
-                chkboxType : { "Y" : "s", "N" : "ps" },
-                radioType : "level"
-            },
-            view: {
-                dblClickExpand: false
-            },
-            data : {
-                key : {
-                    name : "unitName"
-                },
-                simpleData : {
-                    enable : true,
-                    idKey : "id",
-                    pIdKey : "parentId",
-                    rootPId : 0
-                }
-            },
-            callback : {
-                beforeAsync : ztreeBeforeAsync,
-                onAsyncSuccess : ztreeOnAsyncSuccess,
-                onClick:ztreeOnAsyncSuccess
-            }
-        };
-
-        function filter(treeId, parentNode, childNodes) {
-            if (!childNodes) return null;
-            for (var i=0, l=childNodes.length; i<l; i++) {
-                childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-            }
-            return childNodes;
-        }
-        function ztreeOnAsyncSuccess(event, treeId, treeNode){
-            var url = "spslgl/getSpbms1?parentId=";
-            if(treeNode == undefined){
-                url += "1";
-            }
-            else{
-                url += treeNode.id;
-            }
-            $.ajax({
-                type : "post",
-                url : url,
-                data : "",
-                dataType : "json",
-                async : true,
-                success : function(jsonData) {
-                    if (jsonData != null) {
-                        var data = jsonData.unitList;
-                        if(data != null && data.length != 0){
-                            if(treeNode == undefined){
-                                // treeObj.addNodes(null,data,true);// 如果是根节点，那么就在null后面加载数据
-                            }
-                            else{
-                                treeObj.addNodes(treeNode,data,true);//如果是加载子节点，那么就是父节点下面加载
-                            }
-                        }
-                        treeObj.expandNode(treeNode,true, false, false);// 将新获取的子节点展开
-                    }
-                },
-                error : function() {
-                    alert("请求错误！");
-                }
-            });
-
-        };
-        function beforeClick(treeId, treeNode) {
-            if (!treeNode.isParent) {
-                alert("请选择父节点");
-                return false;
-            } else {
-                return true;
-            }
-        }
-        var log, className = "dark";
-        function ztreeBeforeAsync(treeId, treeNode) {
-            className = (className === "dark" ? "":"dark");
-            showLog("[ "+getTime()+" beforeAsync ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-            return true;
-        }
-        function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
-            showLog("[ "+getTime()+" onAsyncError ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-        }
-        function onAsyncSuccess(event, treeId, treeNode, msg) {
-            showLog("[ "+getTime()+" onAsyncSuccess ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-        }
-
-        function showLog(str) {
-            if (!log) log = $("#log");
-            log.append("<li class='"+className+"'>"+str+"</li>");
-            if(log.children("li").length > 8) {
-                log.get(0).removeChild(log.children("li")[0]);
-            }
-        }
-        function getTime() {
-            var now= new Date(),
-                h=now.getHours(),
-                m=now.getMinutes(),
-                s=now.getSeconds(),
-                ms=now.getMilliseconds();
-            return (h+":"+m+":"+s+ " " +ms);
-        }
-
-        function refreshNode(e) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-                type = e.data.type,
-                silent = e.data.silent,
-                nodes = zTree.getSelectedNodes();
-            if (nodes.length == 0) {
-                alert("请先选择一个父节点");
-            }
-            for (var i=0, l=nodes.length; i<l; i++) {
-                zTree.reAsyncChildNodes(nodes[i], type, silent);
-                if (!silent) zTree.selectNode(nodes[i]);
-            }
-        }
-        $.fn.zTree.init($("#treeDemo"), setting);
 
 
 
