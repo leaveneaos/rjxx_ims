@@ -41,10 +41,7 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<br> <strong class="am-text-primary am-text-lg">发票库存</strong>
-									/ <strong>库存预警订阅</strong>
-									<button class="am-btn am-btn-success am-fr"
-										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+									<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 								</div>
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -90,46 +87,50 @@
 											</div>
 											<div style="padding: 32px;">
 												<button type="button" id="button1"
-													class="am-btn am-btn-default am-btn-success data-back">
-													<span class="am-icon-search-plus"></span> 查询
+													class="am-btn am-btn-default am-btn-secondary data-back">
+													 查询
 												</button>
 											</div>
 									</form>
 								</div>
 							</div>
-							<hr/>
+								<div class="am-g">
+									<form  id="searchForm" class="am-form am-form-horizontal">
+										<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+											<div class="am-u-sm-3">
+												<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+													<option value="xfsh">销方税号</option>
+												</select>
+											</div>
+											<div class="am-u-sm-3">
+												<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+													<input type="text" class="am-form-field" id="searchValue">
+													<span class="am-input-group-btn">
+											<button id="searchButton"
+													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+													type="button"></button>
+										</span>
+												</div>
+											</div>
+											<button class="am-btn am-btn-secondary am-fr"
+													data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+										</div>
+									</form>
+								</div>
 							<div class="am-g  am-padding-top">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
-											<div class="am-btn-group am-btn-group-xs">
+											<div class="am-btn-group am-btn-group-xs ">
 												<input type="hidden" id="searchbz">
 												<%--<button class="am-btn am-btn-warning" id="button3">
 													<i class="am-icon-plus"></i>&nbsp;新增预警
 												</button>--%>
-												<button class="am-btn am-btn-success" id="button2">
-													<i class="am-icon-cog"></i>&nbsp;设置通知方式
+												<button class="am-btn am-btn-secondary" id="button2">
+													设置通知方式
 												</button>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-									<div class="am-form-group tpl-table-list-select">
-										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
-											<option value="xfsh">销方税号</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input type="text" class="am-form-field" id="searchValue">
-										<span class="am-input-group-btn">
-											<button id="searchButton"
-												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
-										</span>
 									</div>
 								</div>
 								<div class="am-u-sm-12">
