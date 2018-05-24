@@ -5,6 +5,7 @@ import com.rjxx.taxeasy.config.RabbitmqSend;
 import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.service.SkpService;
+import com.rjxx.utils.StringUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -42,8 +43,11 @@ public class BoxKpJob implements Job {
         try {
             logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
             String kplshStr = (String) rabbitmqSend.receivebox();
-            int kplsh = Integer.valueOf(kplshStr);
-            skService.SkBoxKP(kplsh);
+            if (StringUtils.isNotBlank(kplshStr)) {
+                int kplsh = Integer.valueOf(kplshStr);
+                skService.SkBoxKP(kplsh);
+            }
+            logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
         }catch (Exception e){
             e.printStackTrace();
         }
