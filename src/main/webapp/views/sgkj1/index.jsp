@@ -158,7 +158,7 @@
 						<div class="am-g">
 							<form  id="mainform" class="am-form am-form-horizontal">
 								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
-									<label for="xf" class="am-u-sm-1 am-form-label"><span class="star">*</span>销方名称</label>
+									<label for="xf" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>销方名称</label>
 									<div class="am-u-sm-3">
 										<select id="xf" name="xf" onchange="getKpd();" required>
 													<option value="">选择销方</option>
@@ -167,7 +167,7 @@
 													</c:forEach>
 												</select>
 									</div>
-									<label for="kpd" class="am-u-sm-1 am-form-label"><span class="star">*</span>开票点名称</label>
+									<label for="kpd" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>开票点名称</label>
 									<div class="am-u-sm-3">
 										<select id="kpd" name="kpd" required onchange="getFplx();">
 											<option value="">选择开票点</option>
@@ -178,7 +178,7 @@
                                                     </c:if>--%>
 										</select>
 									</div>
-									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span class="star">*</span>发票种类</label>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>发票种类</label>
 									<div class="am-u-sm-3">
 										<select id="fpzldm" name="fpzldm"  required>
 											<%--<option value="">选择开票类型</option>--%>
@@ -190,7 +190,7 @@
 								</div>
 								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
 
-									<label for="ddh" class="am-u-sm-1 am-form-label"><span class="star">*</span>订单号</label>
+									<label for="ddh" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>订单号</label>
 									<div class="am-u-sm-3">
 										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 											<input id="ddh" name="ddh" type="text"  placeholder="输入订单号" required>
@@ -199,11 +199,11 @@
 											</span>
 										</div>
 									</div>
-									<label for="fpzldm" class="am-u-sm-1 am-form-label"><span id="yxStar" class="star" style="display: none">*</span>购方邮箱</label>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span id="yxStar" class="star" style="display: none;padding-top: 4px">*</span>购方邮箱</label>
 									<div class="am-u-sm-3">
 										<input id="yjdz" name="jydz" type="text"  placeholder="输入邮箱" required>
 									</div>
-									<label for="fpzldm" class="am-u-sm-1 am-form-label">购方手机号</label>
+									<label for="fpzldm" class="am-u-sm-1 am-form-label" style="padding-top: 4px;">购方手机号</label>
 									<div class="am-u-sm-3">
 										<input id="lxdh" name="lxdh" type="text"  placeholder="输入手机号" required>
 									</div>

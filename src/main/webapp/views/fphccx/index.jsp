@@ -43,9 +43,7 @@
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
 								<br>
-									<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>红字发票查询</strong>
-									<button class="am-btn am-btn-success am-fr"
-										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+									<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 								</div>
 								<!-- 侧边栏内容 -->
 								<div id="doc-oc-demo3" class="am-offcanvas">
@@ -152,16 +150,59 @@
 											</div>						
 											<div style="padding: 32px;">
 												<button type="button"
-													class="js-search am-btn am-btn-default am-btn-success data-back">
-													<span class="am-icon-search-plus"></span> 查询
+													class="js-search am-btn am-btn-default am-btn-secondary data-back">
+													 查询
 												</button>
 											</div>
 										</form>
 									</div>
 								</div>
 							</div>
-							<div class="am-g am-padding-top">
+							<div class="am-g" style="margin-top: 20px">
 								<form class="am-form">
+									<div class="am-u-sm-5">
+										<div class="am-form-group">
+											<div class="am-u-sm-3">
+												红冲日期
+											</div>
+											<div class="am-u-sm-4">
+												<input type="text" id="w_kprqq" name="w_kprqq"
+													   placeholder="红冲起始日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+											<div class="am-u-sm-1">
+												至
+											</div>
+											<div class="am-u-sm-4">
+												<input type="text" id="w_kprqz" name="w_kprqz"
+													   placeholder="红冲截止日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+										</div>
+									</div>
+									<div class="am-u-sm-2">
+										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+											<option value="ddh">订单号</option>
+											<option value="fphm">发票号码</option>
+											<option value="gfmc">购方名称</option>
+										</select>
+									</div>
+									<div class="am-u-sm-2">
+										<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+											<input type="text" class="am-form-field" id="searchValue"> <span
+												class="am-input-group-btn">
+												<button id="jssearch"
+														class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+														type="button"></button>
+											</span>
+										</div>
+									</div>
+									<button class="am-btn am-btn-secondary am-fr"
+											data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
+								</form>
+							</div>
+
+							<div class="am-g am-padding-top">
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 										<div class="am-form-group">
 											<div class="am-btn-toolbar">
@@ -171,47 +212,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-										<div class="am-form-group tpl-table-list-select">
-											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
-												<option value="ddh">订单号</option>
-												<option value="fphm">发票号码</option>
-												<option value="gfmc">购方名称</option>
-											</select>
-										</div>
-									</div>
-									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-										<div
-											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input type="text" class="am-form-field" id="searchValue"> <span
-												class="am-input-group-btn">
-												<button id="jssearch"
-													class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-													type="button"></button>
-											</span>
-										</div>
-									</div>
-									<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-										<div class="am-form-group">
-											<div class="am-u-md-6 am-u-lg-2">
-												红冲日期
-											</div>
-											<div class="am-u-md-6 am-u-lg-3">
-												<input type="text" id="w_kprqq" name="w_kprqq"
-													   placeholder="红冲起始时间"
-													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-											</div>
-											<div class="am-u-md-6 am-u-lg-1">
-												至
-											</div>
-											<div class="am-u-md-6 am-u-lg-3">
-												<input type="text" id="w_kprqz" name="w_kprqz"
-													   placeholder="红冲截止时间"
-													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-											</div>
-										</div>
-									</div>
-								</form>
 							</div>
 							<hr />
 							<div class="am-u-sm-12 am-padding-top">

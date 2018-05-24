@@ -50,10 +50,8 @@
 						<div class="admin-content">
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
-									<strong id="yjcd" class="am-text-primary am-text-lg"></strong>
-									/ <strong id="ejcd"></strong>
-									<button class="am-btn am-btn-success am-fr"
-										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+									<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
+
 								</div>
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -114,10 +112,11 @@
 											</div>
 											<div style="padding: 32px;">
 												<button type="button" id="jsSearch"
-													class="am-btn am-btn-default am-btn-success data-back">
-													<span class="am-icon-search-plus"></span> 查询
+													class="am-btn am-btn-default am-btn-secondary data-back">
+													 查询
 												</button>
 											</div>
+
 										</form>
 									</div>
 								</div>
@@ -134,7 +133,7 @@
 												</c:forEach>
 											</select>
 										</div>
-										<div class="am-u-sm-3">
+										<div class="am-u-sm-2">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
 												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 												<input type="text" id="s_xzrq" class="am-form-field"
@@ -146,7 +145,7 @@
 												</span>
 											</div>
 										</div>
-										<div class="am-u-sm-3">
+										<div class="am-u-sm-2">
 											<div class="am-input-group am-datepicker-date am-u-sm-12"
 												data-am-datepicker="{format: 'yyyy-mm',viewMode: 'months', minViewMode: 'months'}">
 												<input type="text" id="s_xzrq1" class="am-form-field"
@@ -158,15 +157,17 @@
 												</span>
 											</div>
 										</div>
-										<div class="am-u-sm-2">
+										<div class="am-u-sm-1">
 											<div class="am-u-sm-12">
 												<button type="button" id="searchButton"
-													class="am-btn am-btn-default am-btn-success">
-													<span class="am-icon-search-plus"></span> 查询
+													class="am-btn am-btn-default am-btn-secondary">
+													 查询
 												</button>
 												<input type="hidden" id="searchbz" value="0">
 											</div>
 										</div>
+										<button class="am-btn am-btn-secondary am-fr"
+												data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right;margin-right: 10px">更多查询</button>
 									</div>
 								</div>
 							</form>

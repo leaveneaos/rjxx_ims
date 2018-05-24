@@ -44,10 +44,7 @@
 						<input type="hidden" id="bj">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong id="yjcd" class="am-text-primary am-text-lg"></strong> / <strong
-									id="ejcd"></strong>
-								<button class="am-btn am-btn-success am-fr"
-									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+								<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 							</div>
 						</div>
 						<div id="doc-oc-demo3" class="am-offcanvas">
@@ -230,7 +227,7 @@
 									</div>
 									<div class="am-offcanvas-content" style="padding: 32px;">
 										<button id="button3" type="button"
-											class="am-btn am-btn-default am-btn-success data-back">查询</button>
+											class="am-btn am-btn-default am-btn-secondary data-back">查询</button>
 									</div>
 
 								</div>
@@ -238,34 +235,14 @@
 							</form>
 
 						</div>
-						<div class="am-g  am-padding-top">
+						<div class="am-g" style="margin-top: 20px">
 							<form action="<c:url value='fpcx/exportExcel1'/>" id="searchform"
-								class="js-search-form  am-form am-form-horizontal">
+								  class="js-search-form  am-form am-form-horizontal">
 								<input type="hidden" name="kplsh" value="" id="kplsh"/>
-								<div class="am-cf">
-									<div class="am-form-group">
-										<div class="am-btn-toolbar">
-											<div class="am-btn-group am-btn-group-xs">
-												<!-- 												<button type="button" id="button2" -->
-												<!-- 													class="js-sent am-btn am-btn-default am-btn-success"> -->
-												<!-- 													发送</button> -->
-												<!-- 												<button type="button" class="js-search  am-btn am-btn-primary">查询</button> -->
-												<button type="button"
-													class="js-export  am-btn am-btn-success">导出</button>
-												<button type="button"
-													class="js-print  am-btn am-btn-warning">批量打印</button>
-												<button id="autoColumn" type="button"
-													class="js-auto  am-btn am-btn-success">自定义显示列</button>
-												<button id="autoColumn1" type="button"
-													class="js-out  am-btn am-btn-primary">自定义导出列</button>
 
-											</div>
-										</div>
-									</div>
-								</div>
 								<div class="am-padding-top"></div>
 
-								<div class="am-u-sm-6 am-u-md-6 am-u-lg-6">
+								<div class="am-u-sm-5">
 									<div class="am-form-group">
 										<div class="am-u-sm-3">
 											<select id="time1" name="time1" data-am-selected="{btnWidth: '95%',btnSize: 'sm'}">
@@ -273,7 +250,7 @@
 												<option value="2">开票日期</option>
 											</select>
 										</div>
-										<div class="am-u-sm-3">
+										<div class="am-u-sm-4">
 											<input type="text" id="w_kprqq" name="w_kprqq"
 												   placeholder="开票起始时间"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
@@ -281,7 +258,7 @@
 										<div class="am-u-sm-1">
 											至
 										</div>
-										<div class="am-u-sm-3  am-u-end">
+										<div class="am-u-sm-4">
 											<input type="text" id="w_kprqz" name="w_kprqz"
 												   placeholder="开票截止时间"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
@@ -289,7 +266,7 @@
 									</div>
 								</div>
 
-								<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
+								<div class="am-u-sm-2">
 									<div class="am-form-group tpl-table-list-select">
 										<select id="tip" name="tip" data-am-selected="{btnSize: 'sm'}">
 											<option value="0">请选择</option>
@@ -302,21 +279,44 @@
 										</select>
 									</div>
 								</div>
-								<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+								<div class="am-u-sm-2">
+									<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 										<input type="text" id="searchtxt" name="txt"
-											class="am-form-field "> <span
+											   class="am-form-field "> <span
 											class="am-input-group-btn" id="button1">
 											<button  id="button4"
-												class="am-btn js-search am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
+													 class="am-btn js-search am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+													 type="button"></button>
 										</span>
 									</div>
 								</div>
-
-
+								<button class="am-btn am-btn-secondary am-fr"
+										data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
 							</form>
+						</div>
+						<div class="am-g  am-padding-top">
+							<div class="am-cf">
+								<div class="am-form-group">
+									<div class="am-btn-toolbar">
+										<div class="am-btn-group am-btn-group-xs btn-listBox">
+											<!-- 												<button type="button" id="button2" -->
+											<!-- 													class="js-sent am-btn am-btn-default am-btn-success"> -->
+											<!-- 													发送</button> -->
+											<!-- 												<button type="button" class="js-search  am-btn am-btn-primary">查询</button> -->
+											<button type="button"
+													class="js-export  am-btn am-btn-secondary">导出</button>
+											<button type="button"
+													class="js-print  am-btn am-btn-secondary">批量打印</button>
+											<button id="autoColumn" type="button"
+													class="js-auto  am-btn am-btn-secondary">自定义显示列</button>
+											<button id="autoColumn1" type="button"
+													class="js-out  am-btn am-btn-secondary">自定义导出列</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
 									<table

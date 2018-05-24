@@ -57,10 +57,7 @@ table thead th {
 								<div class="admin-content">
 									<div class="am-cf widget-head">
 										<div class="widget-title am-cf">
-											<strong id="yjcd" class="am-text-primary am-text-lg">业务处理</strong>
-											/ <strong id="ejcd">开票单审核</strong>
-											<button class="am-btn am-btn-success am-fr"
-												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+											<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 										</div>
 										<!-- 侧边栏内容 -->
 										<div id="doc-oc-demo3" class="am-offcanvas">
@@ -145,98 +142,100 @@ table thead th {
 													</div>
 													<div style="padding: 32px;">
 														<button type="button" id="kp_search1"
-															class="am-btn am-btn-default am-btn-success data-back">
-															<span></span> 查询
+															class="am-btn am-btn-default am-btn-secondary data-back">
+															查询
 														</button>
 													</div>
 												</form>
 											</div>
 										</div>
 									</div>
-
-									<div class="am-g  am-padding-top">
-										<form action="#"
-											class="js-search-form  am-form am-form-horizontal">
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-												<div class="am-form-group">
-													<div class="am-btn-toolbar">
-														<div class="am-btn-group am-btn-group-xs">
-															<button type="button" id="kp_add"
-																class="am-btn am-btn-default am-btn-primary">
-																<span></span>录入
-															</button>
-															<button type="button" id="kp_dr"
-																class="am-btn am-btn-default am-btn-default">
-																<span></span>导入
-															</button>
-															<c:if test="${gsdm == 'xwdx' }">
-															<button type="button" id="xwkp_dr"
-																	class="am-btn am-btn-default am-btn-success">
-																<span></span>西外导入
-															</button>
-															</c:if>
-															<button type="button" id="kpd_kp"
-																class="am-btn am-btn-default am-btn-secondary">
-																<span></span> 处理
-															</button>
-															<!-- 	<button type="button" id="kpd_th"
-																class="am-btn am-btn-default am-btn-warning">
-																<span></span> 退回
-															</button> -->
-															<button type="button" id="kpd_sc"
-																class="am-btn am-btn-default am-btn-danger">
-																<span></span> 删除
-															</button>
-															
-															<button type="button" id="kpd_wx"
-																class="am-btn am-btn-default am-btn-default">
-																<span></span> 无效
-															</button>
-															
-														</div>
-													</div>
+									<div class="am-g" style="margin-top: 20px">
+										<form action="#" class="js-search-form  am-form am-form-horizontal">
+										 <div class="am-u-sm-5">
+											<div class="am-form-group">
+												<div class="am-u-sm-3">
+													订单日期
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqq" name="w_kprqq"
+														   placeholder="订单起始时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+												<div class="am-u-sm-1">
+													至
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqz" name="w_kprqz"
+														   placeholder="订单截止时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-												<div class="am-form-group tpl-table-list-select">
-													<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-														<option value="ddh">订单号</option>
-														<option value="gfmc">购方名称</option>
-													</select>
-												</div>
+										 </div>
+											<div class="am-u-sm-2">
+												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+													<option value="ddh">订单号</option>
+													<option value="gfmc">购方名称</option>
+												</select>
 											</div>
-											<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+											<div class="am-u-sm-2">
 												<div
-													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+														class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 													<input id="dxcsz" type="text" class="am-form-field ">
 													<span class="am-input-group-btn">
 														<button id="kp_search"
-															class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-															type="button"></button>
+																class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+																type="button"></button>
 													</span>
 												</div>
 											</div>
-											<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-												<div class="am-form-group">
-													<div class="am-u-md-6 am-u-lg-2">
-														订单日期
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqq" name="w_kprqq"
-															   placeholder="订单起始时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-													</div>
-													<div class="am-u-md-6 am-u-lg-1">
-														至
-													</div>
-													<div class="am-u-md-6 am-u-lg-3">
-														<input type="text" id="w_kprqz" name="w_kprqz"
-															   placeholder="订单截止时间"
-															   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											<button class="am-btn am-btn-secondary am-fr"
+													data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
+
+										</form>
+									</div>
+
+									<div class="am-g  am-padding-top">
+
+										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+											<div class="am-form-group">
+												<div class="am-btn-toolbar">
+													<div class="am-btn-group am-btn-group-xs btn-listBox">
+														<button type="button" id="kp_add"
+																class="am-btn am-btn-default am-btn-secondary">
+															<span></span>录入
+														</button>
+														<button type="button" id="kp_dr"
+																class="am-btn am-btn-default am-btn-secondary">
+															<span></span>导入
+														</button>
+														<c:if test="${gsdm == 'xwdx' }">
+															<button type="button" id="xwkp_dr"
+																	class="am-btn am-btn-default am-btn-secondary">
+																<span></span>西外导入
+															</button>
+														</c:if>
+														<button type="button" id="kpd_kp"
+																class="am-btn am-btn-default am-btn-secondary">
+															<span></span> 处理
+														</button>
+														<!-- 	<button type="button" id="kpd_th"
+                                                            class="am-btn am-btn-default am-btn-warning">
+                                                            <span></span> 退回
+                                                        </button> -->
+														<button type="button" id="kpd_sc"
+																class="am-btn am-btn-default am-btn-danger">
+															<span></span> 删除
+														</button>
+
+														<button type="button" id="kpd_wx"
+																class="am-btn am-btn-default am-btn-danger">
+															<span></span> 无效
+														</button>
 													</div>
 												</div>
 											</div>
-										</form>
+										</div>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
 												<table style="margin-bottom: 0px;"
@@ -325,9 +324,9 @@ table thead th {
 								</table>
 
 								<button id="yhqrbc" type="button"
-									class="am-btn am-btn-primary js-append-tab">确认保存</button>
+									class="am-btn am-btn-secondary js-append-tab">确认保存</button>
 								<button id="yhqx" type="button"
-									class="am-btn am-btn-primary js-append-tab">取消</button>
+									class="am-btn am-btn-secondary js-append-tab">取消</button>
 							</div>
 							<div id="tabs3" class="am-tab-panel">
 								<div class="am-cf widget-head">

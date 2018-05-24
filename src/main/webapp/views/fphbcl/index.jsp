@@ -55,40 +55,78 @@ table thead th {
 
 							<div id="tabs1" class="am-tab-panel am-active">
 								<div class="">
-									<div class="am-cf widget-head">														
-							           <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-								         <form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">
-											 <div class="am-form-group">
-												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-														 class="star">*</span>订单日期</label>
-												 <div class="am-u-sm-3">
-													 <input type="text" id="w_kprqq" name="w_kprqq"
-															placeholder="订单起始时间"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												 </div>
-												 <label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;text-align: center;"><span
-														 class="star"></span>至</label>
-												 <div class="am-u-sm-3">
-													 <input type="text" id="w_kprqz" name="w_kprqz"
-															placeholder="订单截止时间"
-															data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												 </div>
-											 </div>
+									<div class="am-cf widget-head">
 
-									<div class="am-form-group">
-										<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span
-												class="star">*</span>订单号</label>
-										<div class="am-u-sm-3">
-                                            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>
-											<span class="am-input-group-btn">
-                                                <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="kp_search" type="button"></button>
+							           <%--<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">--%>
+								         <%--<form  id="mainform" class="am-form am-form-horizontal" style="margin-top: 3px;">--%>
+											 <%--<div class="am-form-group">--%>
+												 <%--<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span--%>
+														 <%--class="star">*</span>订单日期</label>--%>
+												 <%--<div class="am-u-sm-3">--%>
+													 <%--<input type="text" id="w_kprqq" name="w_kprqq"--%>
+															<%--placeholder="订单起始时间"--%>
+															<%--data-am-datepicker="{format: 'yyyy-mm-dd'}" />--%>
+												 <%--</div>--%>
+												 <%--<label for="xf" class="am-u-sm-2 am-form-label" style="padding-top: 4px;text-align: center;"><span--%>
+														 <%--class="star"></span>至</label>--%>
+												 <%--<div class="am-u-sm-3">--%>
+													 <%--<input type="text" id="w_kprqz" name="w_kprqz"--%>
+															<%--placeholder="订单截止时间"--%>
+															<%--data-am-datepicker="{format: 'yyyy-mm-dd'}" />--%>
+												 <%--</div>--%>
+											 <%--</div>--%>
+
+									<%--<div class="am-form-group">--%>
+										<%--<label for="ddh" class="am-u-sm-2 am-form-label" style="padding-top: 4px;"><span--%>
+												<%--class="star">*</span>订单号</label>--%>
+										<%--<div class="am-u-sm-3">--%>
+                                            <%--<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">--%>
+											<%--<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>--%>
+											<%--<span class="am-input-group-btn">--%>
+                                                <%--<button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" id="kp_search" type="button"></button>--%>
+                                            <%--</span>--%>
+											<%--</div>--%>
+										<%--</div>--%>
+									<%--</div>--%>
+								<%--</form>--%>
+							<%--</div>--%>
+
+										<div class="am-g" style="margin:10px 0px;">
+											<form action="#" class="js-search-form  am-form am-form-horizontal">
+												<div class="am-u-sm-8">
+													<div class="am-form-group">
+														<div class="am-u-sm-3">
+															<span class="star">*</span>订单日期
+														</div>
+														<div class="am-u-sm-4">
+															<input type="text" id="w_kprqq" name="w_kprqq"
+																   placeholder="订单起始时间"
+																   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+														</div>
+														<div class="am-u-sm-1">
+															至
+														</div>
+														<div class="am-u-sm-4">
+															<input type="text" id="w_kprqz" name="w_kprqz"
+																   placeholder="订单截止时间"
+																   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+														</div>
+													</div>
+												</div>
+												<div class="am-u-sm-1">
+													<span class="star">*</span>订单号
+												</div>
+												<div class="am-u-sm-2">
+													<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+														<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>
+														<span class="am-input-group-btn">
+                                                <button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search" id="kp_search" type="button"></button>
                                             </span>
-											</div>
+													</div>
+												</div>
+
+											</form>
 										</div>
-									</div>
-								</form>
-							</div>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="border-top:1px solid #ccc;border-bottom:1px solid #ccc">
 								<div class="am-u-sm-1 am-u-md-1 am-u-lg-1 data-buy" style="text-align: center;">购买方</div>
 								<div class="am-u-sm-11 am-u-md-11 am-u-lg-11" style="border-left: 1px solid #ccc;">

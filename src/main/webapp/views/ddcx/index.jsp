@@ -50,9 +50,7 @@
 					<div class="admin-content">
 						<div class="am-cf widget-head">
 							<div class="widget-title am-cf">
-								<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>开票流水查询</strong>
-								<button class="am-btn am-btn-success am-fr"
-									data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+								<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 							</div>
 							<!-- 侧边栏内容 -->
 							<div id="doc-oc-demo3" class="am-offcanvas">
@@ -150,7 +148,7 @@
 									</div>
 									<div style="padding: 32px;">
 										<button type="button" id="kplscx_search1"
-											class="am-btn am-btn-default am-btn-success data-bck">
+											class="am-btn am-btn-default am-btn-secondary data-bck">
 											<span></span> 查询
 										</button>
 									</div>
@@ -158,74 +156,63 @@
 								</div>
 							</div>
 						</div>
+						<div class="am-g" style="margin-top: 20px">
+							<form action="#" id="searchform"
+								  class="js-search-form  am-form am-form-horizontal">
+								<div class="am-u-sm-5">
+									<div class="am-form-group">
+										<div class="am-u-sm-3">
+											订单日期
+										</div>
+										<div class="am-u-sm-4">
+											<input type="text" id="w_kprqq" name="w_kprqq"
+												   placeholder="订单起始日期"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+										<div class="am-u-sm-1">
+											至
+										</div>
+										<div class="am-u-sm-4">
+											<input type="text" id="w_kprqz" name="w_kprqz"
+												   placeholder="订单截止日期"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+									</div>
+								</div>
+								<div class="am-u-sm-2">
+									<select id="dxcsm" name="dxcsm" data-am-selected="{btnSize: 'sm'}">
+										<option value="ddh">订单号</option>
+										<option value="gfmc">购方名称</option>
+									</select>
+								</div>
+								<div class="am-u-sm-2">
+									<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+
+										<input id="dxcsz" name="dxcsz" type="text" class="am-form-field "> <span
+											class="am-input-group-btn">
+											<button id="kplscx_search"
+													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+													type="button"></button>
+										</span>
+									</div>
+								</div>
+								<button class="am-btn am-btn-secondary am-fr"
+										data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
+							</form>
+						</div>
 
 						<div class="am-g  am-padding-top">
-							<form action="<c:url value='ddcx/exportExcel1'/>" id="searchform"
-								class="js-search-form  am-form am-form-horizontal">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
 												<button type="button"
-														class="js-export  am-btn am-btn-success">导出</button>
-													<!-- <button type="button" id="huankai"
-													class="am-btn am-btn-default am-btn-success">
-													<span></span> 换开
-												</button> -->
-												
-												<!-- <button type="button" id="huankaidy"
-													class="am-btn am-btn-default am-btn-secondary">
-													<span></span> 换开并打印
-												</button> -->
-											<!-- 	<button type="button" id="huankaipl"
-													class="am-btn am-btn-default am-btn-success">
-													<span></span> 批量换开
-												</button> -->
-												
+														class="js-export  am-btn am-btn-secondary">导出</button>
+
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-									<div class="am-form-group tpl-table-list-select">
-										<select id="dxcsm" name="dxcsm" data-am-selected="{btnSize: 'sm'}">
-											<option value="ddh">订单号</option>
-											<option value="gfmc">购方名称</option>
-										</select>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-									<div
-										class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-										<input id="dxcsz" name="dxcsz" type="text" class="am-form-field "> <span
-											class="am-input-group-btn">
-											<button id="kplscx_search"
-												class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-												type="button"></button>
-										</span>
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-									<div class="am-form-group">
-										<div class="am-u-md-6 am-u-lg-2">
-											订单日期
-										</div>
-										<div class="am-u-md-6 am-u-lg-3">
-											<input type="text" id="w_kprqq" name="w_kprqq"
-												   placeholder="订单起始时间"
-												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-										<div class="am-u-md-6 am-u-lg-1">
-											至
-										</div>
-										<div class="am-u-md-6 am-u-lg-3">
-											<input type="text" id="w_kprqz" name="w_kprqz"
-												   placeholder="订单截止时间"
-												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-										</div>
-									</div>
-								</div>
-							</form>
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
 									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"

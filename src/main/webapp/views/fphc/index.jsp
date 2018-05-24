@@ -57,9 +57,8 @@
 									<input type="hidden" id="kplsh" value="0">
 									<input type="hidden" id="gsdm" value="0">
 									<div class="widget-title am-cf">
-										<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票红冲</strong>
-										<button class="am-btn am-btn-success am-fr"
-											data-am-offcanvas="{target: '#doc-oc-demo1'}">更多查询</button>
+										<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
+
 									</div>
 									<div id="doc-oc-demo1" class="am-offcanvas">
 										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -164,7 +163,7 @@
 												</div>
 												<div style="padding: 32px;">
 													<button type="button" id="hc_search1"
-														class="am-btn am-btn-default am-btn-success data-back">
+														class="am-btn am-btn-default am-btn-secondary data-back">
 														<span></span> 查询
 													</button>
 												</div>
@@ -173,63 +172,66 @@
 									</div>
 								</div>
 
+								<div class="am-g" style="margin-top: 20px">
+									<form action="#" class="js-search-form  am-form am-form-horizontal">
+										<div class="am-u-sm-5">
+											<div class="am-form-group">
+												<div class="am-u-sm-3">
+													开票日期
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqq" name="w_kprqq"
+														   placeholder="开票起始时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+												<div class="am-u-sm-1">
+													至
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqz" name="w_kprqz"
+														   placeholder="开票截止时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+											</div>
+										</div>
+										<div class="am-u-sm-2">
+											<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+												<option value="ddh">订单号</option>
+												<option value="fphm">发票号码</option>
+												<option value="gfmc">购方名称</option>
+											</select>
+										</div>
+										<div class="am-u-sm-2">
+											<div
+													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+												<input id="dxcsz" type="text" class="am-form-field ">
+												<span class="am-input-group-btn">
+													<button id="hc_search"
+															class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+															type="button"></button>
+												</span>
+											</div>
+										</div>
+										<button class="am-btn am-btn-secondary am-fr"
+												data-am-offcanvas="{target: '#doc-oc-demo1'}" style="float: right">更多查询</button>
+
+									</form>
+								</div>
+
 
 								<div class="am-g  am-padding-top">
-									<form action="#"
-										class="js-search-form  am-form am-form-horizontal">
 										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 											<div class="am-form-group">
 												<div class="am-btn-toolbar">
 													<div class="am-btn-group am-btn-group-xs">
 														<button type="button" id="hc_hc"
-															class="am-btn am-btn-default am-btn-success">
-															<span></span> 红冲
+															class="am-btn am-btn-default am-btn-secondary">
+															 红冲
 														</button>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-											<div class="am-form-group tpl-table-list-select">
-												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
-													<option value="ddh">订单号</option>
-													<option value="fphm">发票号码</option>
-													<option value="gfmc">购方名称</option>
-												</select>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-											<div
-												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-												<input id="dxcsz" type="text" class="am-form-field ">
-												<span class="am-input-group-btn">
-													<button id="hc_search"
-														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-														type="button"></button>
-												</span>
-											</div>
-										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-											<div class="am-form-group">
-												<div class="am-u-md-6 am-u-lg-2">
-													开票日期
-												</div>
-												<div class="am-u-md-6 am-u-lg-3">
-													<input type="text" id="w_kprqq" name="w_kprqq"
-														   placeholder="开票起始日期"
-														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												</div>
-												<div class="am-u-md-6 am-u-lg-1">
-													至
-												</div>
-												<div class="am-u-md-6 am-u-lg-3">
-													<input type="text" id="w_kprqz" name="w_kprqz"
-														   placeholder="开票截止日期"
-														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												</div>
-											</div>
-										</div>
-									</form>
 									<div class="am-u-sm-12 am-padding-top">
 										<div>
 											<table style="margin-bottom: 0px;"
@@ -288,9 +290,7 @@
 							<div class="am-tab-panel am-fade" id="tab2">
 							 <div class="am-cf widget-head">
 									<div class="widget-title am-cf">
-										<strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>发票红冲查询</strong>
-										<button class="am-btn am-btn-success am-fr"
-											data-am-offcanvas="{target: '#doc-oc-demo2'}">更多查询</button>
+										<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 									</div>
 									<div id="doc-oc-demo2" class="am-offcanvas">
 										<div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -395,7 +395,7 @@
 												</div>
 												<div style="padding: 32px;">
 													<button type="button" id="hc_search3"
-														class="am-btn am-btn-default am-btn-success data-back">
+														class="am-btn am-btn-default am-btn-secondary data-back">
 														<span></span> 查询
 													</button>
 												</div>
@@ -405,62 +405,55 @@
 								</div>
 
 
-								<div class="am-g  am-padding-top">
-									<form action="#"
-										class="js-search-form  am-form am-form-horizontal">
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+								<div class="am-g" style="margin-top: 20px">
+									<form action="#" class="js-search-form  am-form am-form-horizontal">
+										<div class="am-u-sm-5">
 											<div class="am-form-group">
-												<div class="am-btn-toolbar">
-													<div class="am-btn-group am-btn-group-xs">
-														<!-- <button type="button" id="kp_kp"
-															class="am-btn am-btn-default am-btn-success">
-															<span></span> 开票
-														</button> -->
-													</div>
+												<div class="am-u-sm-3">
+													开票日期
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqq1" name="w_kprqq"
+														   placeholder="开票起始时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+												</div>
+												<div class="am-u-sm-1">
+													至
+												</div>
+												<div class="am-u-sm-4">
+													<input type="text" id="w_kprqz1" name="w_kprqz"
+														   placeholder="开票截止时间"
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 											</div>
 										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-											<div class="am-form-group tpl-table-list-select">
-												<select id="dxcsm1" data-am-selected="{btnSize: 'sm'}">
-													<option value="ddh">订单号</option>
-													<option value="fphm">发票号码</option>
-													<option value="gfmc">购方名称</option>
-												</select>
-											</div>
+										<div class="am-u-sm-2">
+											<select id="dxcsm1" data-am-selected="{btnSize: 'sm'}">
+												<option value="ddh">订单号</option>
+												<option value="fphm">发票号码</option>
+												<option value="gfmc">购方名称</option>
+											</select>
 										</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+										<div class="am-u-sm-2">
 											<div
-												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+													class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 												<input id="dxcsz1" type="text" class="am-form-field ">
 												<span class="am-input-group-btn">
 													<button id="hc_search2"
-														class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-														type="button"></button>
+															class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+															type="button"></button>
 												</span>
 											</div>
 										</div>
-										<div class="am-u-sm-12 am-u-md-6 am-u-lg-8">
-											<div class="am-form-group">
-												<div class="am-u-md-6 am-u-lg-2">
-													开票日期
-												</div>
-												<div class="am-u-md-6 am-u-lg-3">
-													<input type="text" id="w_kprqq1" name="w_kprqq"
-														   placeholder="开票起始日期"
-														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												</div>
-												<div class="am-u-md-6 am-u-lg-1">
-													至
-												</div>
-												<div class="am-u-md-6 am-u-lg-3">
-													<input type="text" id="w_kprqz1" name="w_kprqz"
-														   placeholder="开票截止日期"
-														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
-												</div>
-											</div>
-										</div>
+										<button class="am-btn am-btn-secondary am-fr"
+												data-am-offcanvas="{target: '#doc-oc-demo2'}" style="float: right">更多查询</button>
+
 									</form>
+								</div>
+
+
+								<div class="am-g  am-padding-top">
+
 									<div class="am-u-sm-12 am-padding-top">
 										<div>
 											<table style="margin-bottom: 0px;"
