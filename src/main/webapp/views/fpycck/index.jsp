@@ -462,9 +462,9 @@
 											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center" style="line-height:44px">
 													<button type="button"
-															class="js-submit  am-btn am-btn-primary">确定</button>
+															class="js-submit  am-btn am-btn-secondary">确定</button>
 													<button type="button"
-															class="js-close  am-btn am-btn-danger">取消</button>
+															class="js-close  am-btn am-btn-secondary">取消</button>
 												</div>
 											</div>
 										</div>

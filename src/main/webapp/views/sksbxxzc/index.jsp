@@ -435,12 +435,12 @@
 									</div>
 
 									<div class="am-u-sm-12">
-										<div class="am-form-group">
+										<div class="am-form-group" style="margin-top: 20px;">
 											<div class="am-u-sm-12  am-text-center">
 												<button type="submit"
-													class="js-submit  am-btn am-radius am-btn-success">保存</button>
+													class="js-submit  am-btn am-radius am-btn-secondary">保存</button>
 												<button type="button"
-													class="js-close  am-btn am-radius am-btn-warning"
+													class="js-close  am-btn am-radius am-btn-secondary"
 													onclick="">取消</button>
 											</div>
 										</div>
@@ -469,9 +469,9 @@
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<button type="button" id="btnImport"
-												class="am-btn am-radius am-btn-xs am-btn-success">导入</button>
+												class="am-btn am-radius am-btn-xs am-btn-secondary">导入</button>
 											<button type="button" id="close1"
-												class="am-btn am-radius am-btn-warning am-btn-xs">关闭</button>
+												class="am-btn am-radius am-btn-secondary am-btn-xs">关闭</button>
 
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">

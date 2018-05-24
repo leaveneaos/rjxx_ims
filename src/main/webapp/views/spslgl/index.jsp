@@ -354,9 +354,9 @@
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
 												<button type="submit"
-														class="js-submit  am-btn am-radius am-btn-primary">保存</button>
+														class="js-submit  am-btn am-radius am-btn-secondary">保存</button>
 												<button type="button" id="close"
-														class="js-close  am-btn am-radius am-btn-danger"
+														class="js-close  am-btn am-radius am-btn-secondary"
 														onclick="">取消</button>
 											</div>
 										</div>
@@ -391,7 +391,7 @@
 										<button type="button" id="btnImport"
 												class="am-btn am-radius am-btn-xs am-btn-secondary">导入</button>
 										<button type="button" id="close2"
-												class="am-btn am-radius am-btn-danger am-btn-xs">关闭</button>
+												class="am-btn am-radius am-btn-secondary am-btn-xs">关闭</button>
 
 									</div>
 									<div class="am-u-sm-12" style="margin-top: 10px;">

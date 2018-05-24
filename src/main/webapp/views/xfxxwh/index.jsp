@@ -404,11 +404,11 @@
 									</div>
 
 							</div>
-							<div class="am-modal-footer" style="line-height:44px">
+							<div class="am-modal-footer" style="line-height:67px;height: 67px;">
 
 
 											<button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
-											<button type="button" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
+											<button type="button" class="js-close am-btn am-btn-default am-btn-secondary" style="margin-left: 10px">取消</button>
 
 
 
@@ -436,9 +436,9 @@
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">
 											<button type="button" id="btnImport"
-												class="am-btn am-btn-xs am-btn-success">导入</button>
+												class="am-btn am-btn-xs am-btn-secondary">导入</button>
 											<button type="button" id="close1"
-												class="am-btn am-btn-warning am-btn-xs">关闭</button>
+												class="am-btn am-btn-secondary am-btn-xs">关闭</button>
 			
 										</div>
 										<div class="am-u-sm-12" style="margin-top: 10px;">

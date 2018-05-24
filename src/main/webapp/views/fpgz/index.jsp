@@ -229,9 +229,9 @@
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
 																	<button type="submit"
-																		class="gz_xz am-btn am-btn-primary">确定</button>
+																		class="gz_xz am-btn am-btn-secondary">确定</button>
 																	<button type="button"
-																		class="gz_qx am-btn am-btn-danger">取消</button>
+																		class="gz_qx am-btn am-btn-secondary">取消</button>
 																</div>
 															</div>
 														</div>
@@ -279,8 +279,8 @@
 												<div class="am-u-sm-12">
 													<div class="am-form-group">
 														<div class="am-u-sm-12  am-text-center">
-															<button type="submit" class="gz_xz am-btn am-btn-primary">确定</button>
-															<button type="button" class="gz_qx  am-btn am-btn-danger">取消</button>
+															<button type="submit" class="gz_xz am-btn am-btn-secondary">确定</button>
+															<button type="button" class="gz_qx  am-btn am-btn-secondary">取消</button>
 														</div>
 													</div>
 												</div>

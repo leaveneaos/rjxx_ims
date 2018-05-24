@@ -338,7 +338,7 @@ table thead th {
 					<button type="button" id="jxfpxx_xgbc"
 							class="am-btn am-btn-xs am-btn-secondary">提交保存</button>
 					<button type="button" id="close"
-							class="am-btn am-btn-danger am-btn-xs">关闭</button>
+							class="am-btn am-btn-secondary am-btn-xs">关闭</button>
 				</div>
 			</div>
 		</div>
@@ -430,9 +430,9 @@ table thead th {
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 30px;">
 							<button type="button" id="btnImport"
-								class="am-btn am-btn-xs am-btn-primary">导入</button>
+								class="am-btn am-btn-xs am-btn-secondary">导入</button>
 							<button type="button" id="close1"
-								class="am-btn am-btn-danger am-btn-xs">关闭</button>
+								class="am-btn am-btn-secondary am-btn-xs">关闭</button>
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 10px;">
 							<a href="javascript:void(0)" id="btnDownloadDefaultTemplate"

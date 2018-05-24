@@ -28,7 +28,7 @@ $(function() {
     var $importModal = $("#bulk-import-div");
     $("#kp_dr").click(function () {
         $('#importExcelForm').resetForm();
-        $importModal.modal({"width": 600, "height": 350});
+        $importModal.modal({"width": 600, "height": 250});
     });
     $(this).removeData('amui.modal');
     var mxarr = [];
@@ -44,7 +44,7 @@ $(function() {
         mxarr = [];
         $('#lrmx_form').resetForm();
         $('#main_form2').resetForm();
-        $modal.modal({"width": 820, "height": 520});
+        $modal.modal({"width": 820, "height": 430});
     });
     $("#lrclose").click(function () {
         $modal.modal("close");

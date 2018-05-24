@@ -99,8 +99,8 @@ $(function() {
                 el.$jsForm.find('[name="wechatLogoUrl"]').val(data.wechatLogoUrl);
                 url = _this.config.editUrl + "?id=" + data.id;
                 $('#your-modal').modal({
-                    "width" : 900,
-                    "height" : 500
+                    "width" : 870,
+                    "height" :250
                 });
             });
             //删除
@@ -168,8 +168,8 @@ $(function() {
             $("#button2").click(function() {
                 url = _this.config.addUrl;
                 $('#your-modal').modal({
-                    "width" : 900,
-                    "height" : 500
+                    "width" : 870,
+                    "height" :250
                 });
             });
 
@@ -181,8 +181,8 @@ $(function() {
                 e.preventDefault();
                 url = _this.config.addUrl;
                 $('#your-modal').modal({
-                    "width" : 900,
-                    "height" : 500
+                    "width" : 870,
+                    "height" :250
                 });
 
             });

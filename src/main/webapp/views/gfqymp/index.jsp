@@ -216,10 +216,10 @@
 									</div>
 									<div class="am-u-sm-12">
 										<div class="am-form-group">
-											<div class="am-u-sm-12  am-text-center">
+											<div class="am-u-sm-12  am-text-center" style="margin-top: 50px;">
 												<button type="button" id="update"
-													class="am-btn am-btn-default am-btn-success">保存</button>
-												<button type="button" id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
+													class="am-btn am-btn-default am-btn-secondary">保存</button>
+												<button type="button" id="close2" class="am-btn am-btn-default am-btn-secondary">关闭</button>
 											</div>
 										</div>
 									</div>
@@ -313,10 +313,10 @@
 									</div>
 									<div class="am-u-sm-12">
 										<div class="am-form-group">
-											<div class="am-u-sm-12  am-text-center">
+											<div class="am-u-sm-12  am-text-center" style="margin-top: 50px;">
 												<button type="submit" id="save"
-													class="am-btn am-btn-default am-btn-success">保存</button>
-												<button type="button"  id="close1" class="am-btn am-btn-default am-btn-danger">关闭</button>
+													class="am-btn am-btn-default am-btn-secondary">保存</button>
+												<button type="button"  id="close1" class="am-btn am-btn-default am-btn-secondary">关闭</button>
 											</div>
 										</div>
 									</div>
