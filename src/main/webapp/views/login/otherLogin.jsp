@@ -60,7 +60,7 @@
         <div class="am-g">
             <div class="am-u-sm-12  description am-padding">
                 <div class="d2  ">
-                    <form class="am-form am-form-horizontal" action="<c:url value='/otherLogin/doLogin'/>" method="post">
+                    <form class="am-form am-form-horizontal" action="<c:url value='/zkltLogin/doLogin'/>" method="post">
                         <div class="am-g ">
                             <div class="am-u-sm-12  am-text-center">
                                 <div class="am-u-sm-12  title">

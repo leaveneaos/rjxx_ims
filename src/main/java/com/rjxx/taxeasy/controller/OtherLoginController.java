@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Controller
-@RequestMapping("/otherLogin")
+@RequestMapping("/zkltLogin")
 @CrossOrigin
 public class OtherLoginController extends BaseController {
     @Autowired

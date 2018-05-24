@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	http.headers().frameOptions().sameOrigin().disable();
         http.authorizeRequests()
-                .antMatchers("/extractInvoice/**","/tqm/**","otherLogin",  "/otherLogin/**","/login", "/login/**", "/assets/**",
+                .antMatchers("/extractInvoice/**","/tqm/**","zkltLogin",  "/zkltLogin/**","/login", "/login/**", "/assets/**",
                         "/css/**", "/img/**", "/js/**","/fonts/**", "/image.jsp", "/zc/**","/*.jsp","/wxdy/wxCallBack","/ding/**","/dinglrkpd/**","/dingqkp/**","/lrkpd/getSpxq","/suiteCallBackController/**","/dingpc/**","/dinggfgl/**","/recreatePdf/**","/Quartz/**","/testSkp/**","/pp/**").permitAll()
                 .anyRequest().hasRole("LOGIN_USER")
                 .and()

@@ -206,7 +206,7 @@ public class LoginController extends BaseController {
 		//session.removeAttribute("pingtai");
 		session.invalidate();
 		if("1".equals(loginFlag)){
-			return "redirect:/otherLogin/login";
+			return "redirect:/zkltLogin/login";
 		}else{
 			return "redirect:/login/login";
 		}
