@@ -45,48 +45,36 @@
 		<div class="admin-content">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">系统管理</strong> / <strong>参数配置</strong>
+					<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
 				</div>
 			</div>
-			<hr />
-			<div class="am-g  am-padding-top">
+			<div class="am-g" style="margin-top: 20px">
 				<form action="#" class="js-search-form  am-form am-form-horizontal">
 					<div class="am-g">
 						<div class="am-u-sm-6">
 							<div class="am-form-group">
-								<label for="s_fpdm" class="am-u-sm-4 am-form-label">参数名</label>
+								<label for="s_fpdm" class="am-u-sm-2 am-form-label" style="margin-top: 4px;padding-top: 0px">参数名</label>
 								<div class="am-u-sm-8">
 									<select id="csid" name="csid">
 										<option value="">请选择</option>
 										<c:forEach items="${csbs}" var="item">
-										<option value="${item.id}">${item.csmc}(${item.csm})</option>
-									</c:forEach>
+											<option value="${item.id}">${item.csmc}(${item.csm})</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
 						</div>
-<!-- 						<div class="am-u-sm-6">
-							<div class="am-form-group">
-								<label for="s_fpdm" class="am-u-sm-3 am-form-label">参数级别</label>
-								<div class="am-u-sm-9">
-									<select id="csjb" name="csjb">
-										<option value="">请选择</option>
-										<option value="1">公司层面</option>
-										<option value="2">销方层面</option>
-										<option value="3">开票点层面</option>
-									</select>
-								</div>
-							</div>
-						</div> -->
 					</div>
-					<hr />
-					<div class="am-u-sm-12  am-padding  am-text-center">
+				</form>
+			</div>
+			<div class="am-g  am-padding-top">
+					<div class="am-u-sm-12  am-padding ">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-primary">查询</button>
+							class="js-search  am-btn am-btn-secondary">查询</button>
 						<button id="button2" type="button"
 							class="js-search  am-btn am-btn-secondary">新增</button>
 					</div>
-	             </form>
+
 					<div class="am-u-sm-12  am-padding-top">
 						<div>
 

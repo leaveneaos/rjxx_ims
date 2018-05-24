@@ -51,7 +51,6 @@
 							<div class="am-cf widget-head">
 								<div class="widget-title am-cf">
 									<strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
-
 								</div>
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">

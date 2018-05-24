@@ -113,22 +113,31 @@
                 <div class="admin-content">
                     <div class="am-cf widget-head">
                         <div class="widget-title am-cf">
-                            <strong class="am-text-primary am-text-lg">业务处理</strong> / <strong>接口配置</strong>
+                            <strong id="yjcd" class="am-text-primary am-text-lg" style="color: #838FA1;"></strong> / <strong id="ejcd" style="color: #0e90d2;"></strong>
                         </div>
 
                             <!--公司搜索结果-->
-                        <div class="am-u-sm-9 am-padding-top" >
-                            <div class="am-form-group tpl-table-list-select">
-
+                        <div class="am-g am-padding-top" >
+                            <div class="am-u-sm-5">
                                 <select id="jkpz_gsmc" name="jkpz_gsmc" data-am-selected="{maxHeight: '300px',btnWidth: '60%'}">
                                     <option value="">请选择</option>
                                     <c:forEach items="${gsxx}" var="item">
                                         <option value="${item.gsdm}">${item.gsmc}</option>
                                     </c:forEach>
                                 </select>
-                                <input type="text" id="gsmc" name="gsmc" placeholder="请输入公司名称" />
-                                    <button type="button" id="companySearch"
-                                        class="am-btn am-btn-default am-btn-success am-btn-sm">查询</button>
+                                <%--<input type="text" id="gsmc" name="gsmc" placeholder="请输入公司名称" />--%>
+                                    <%--<button type="button" id="companySearch"--%>
+                                        <%--class="am-btn am-btn-default am-btn-success am-btn-sm">查询</button>--%>
+                            </div>
+                            <div class="am-u-sm-4">
+                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                    <input type="text" class="am-form-field" id="searchValue"> <span
+                                        class="am-input-group-btn">
+												<button type="button" id="companySearch"
+                                                        class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
+                                                        ></button>
+											</span>
+                                </div>
                             </div>
                         </div>
                         <div class="am-g  am-padding-top">
@@ -136,9 +145,9 @@
                                 <div class="am-u-sm-3">
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-sm">
+                                            <div class="am-btn-group am-btn-group-sm btn-listBox">
                                                 <button type="button" id="jkpz_add"
-                                                        class="am-btn am-btn-default am-btn-success">
+                                                        class="am-btn am-btn-default am-btn-secondary">
                                                     新增
                                                 </button>
                                                 <button type="button" id="jkpz_del"
@@ -468,7 +477,7 @@
                                    <div class="am-modal-footer">
                                            <div class="am-u-sm-12  am-text-center" style="line-height:44px">
                                                <button type="submit" class="am-btn am-btn-default am-btn-secondary"> 保存</button>
-                                               <button type="button" id="close1" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
+                                               <button type="button" id="close1" class="js-close am-btn am-btn-default am-btn-secondary">取消</button>
                                            </div>
                                </div>
                                 </form>
@@ -508,11 +517,11 @@
                                     </ul>--%>
                                     <div style="padding: 32px;">
                                         <button type="button" id="sqbutton"
-                                                class="am-btn am-btn-default am-btn-success data-back">
+                                                class="am-btn am-btn-default am-btn-secondary data-back">
                                             <span></span> 保存
                                         </button>
                                         <button type="button" id=""
-                                                class=" am-btn am-btn-default am-btn-success data-back">
+                                                class=" am-btn am-btn-default am-btn-secondary data-back">
                                             <span></span> 关闭
                                         </button>
                                     </div>
