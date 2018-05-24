@@ -29,6 +29,7 @@
 			text-align: center;
 			line-height: 65px;
 			margin-left: 20px;
+			cursor: pointer;
 		}
 		.tab-listBox>li div{
 			color: #23abf0;
@@ -100,12 +101,12 @@
 
 								<c:forEach items="${list}" var = "li">
 
-									<li><a href="#">
-										<div class="tab-listBoxSpan">
-											<span class="${li.description} am-icon-lg" style="font-size:15px"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')"></span><br>
+									<li>
+										<div class="tab-listBoxSpan"  data="<%=request.getContextPath()%>${li.urls}" onclick="jump(this,'${li.urls}')">
+											<span class="${li.description} am-icon-lg" style="font-size:15px" ></span><br>
 											<span style="color: #23abf0;font-size: 13px">${li.name}</span>
 										</div>
-									</a></li>
+									</li>
 
 								</c:forEach>
 
