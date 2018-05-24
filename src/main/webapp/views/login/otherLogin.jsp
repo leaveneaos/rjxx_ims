@@ -48,7 +48,7 @@
                     <a class="am-btn am-btn-default" href="#" role="button" style="color: #ffffff;">首页</a>
                     <a class="am-btn am-btn-default" href="" role="button">产品</a>
                     <a class="am-btn am-btn-default" href="" role="button">服务</a>
-                    <a class="am-btn am-btn-default" href="https://inv-veri.chinatax.gov.cn/" role="button">发票查验</a>
+                    <a class="am-btn am-btn-default" href="https://inv-veri.chinatax.gov.cn/" target="_blank" role="button">发票查验</a>
                 </div>
             </div>
         </div>
@@ -100,8 +100,8 @@
                             <div class="am-u-sm-12 tj ">
                                 <div class="am-form-group">
                                     <div class="am-u-sm-12" style="padding: 0;margin-top: 26px;">
-                                        <button type="button" class="am-btn logon-register">新注册
-                                        </button>
+                                        <%--<button type="button" class="am-btn logon-register">新注册--%>
+                                        <%--</button>--%>
                                         <button type="submit" class="js-submit am-btn logon-landing">登录
                                         </button>
                                     </div>
