@@ -136,7 +136,7 @@
 								<div class="am-u-sm-12">
 									<div >
 										<table id="yjdytable"
-											class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+											class="js-table  am-table am-table-hover am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
 												<tr>
 													<th><input type="checkbox" id="selectAll" /></th>
