@@ -258,7 +258,7 @@
 											<br />
 											密<br />
 											码<br />
-											方
+											区
 										</div>
 										<div class="am-u-sm-4" style="height: 100%;"></div>
 									</div>
@@ -294,10 +294,10 @@
                                                  合计
 										</div>
 										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;line-height: 36px">
-											金额合计(不含税):<input id="hjje" name="hjje" type="text" class="selected" readonly="" style="width: 100px" >
+											金额合计(不含税):<input id="hjje" name="hjje" type="text" class="selected" readonly="" style="width: 200px" >
 										</div>
 										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;line-height: 36px">
-											税额合计:<input id="hjse" name="hjse" type="text" class="selected" readonly="" style="width: 100px">
+											税额合计:<input id="hjse" name="hjse" type="text" class="selected" readonly="" style="width: 200px">
 										</div>
 
 									</div>
@@ -308,7 +308,7 @@
 										<div class="am-u-sm-8 jshj-box" style="height: 100%;line-height: 36px">
 											<span id="jshjdx"></span>
 											<span style="height: 100%;line-height: 36px">（小写）</span>
-											<span id="jshjxx"><input id="jshj" class="selected" style="width: 100px" readonly></span>
+											<span id="jshjxx"><input id="jshj" class="selected" style="width: 200px" readonly></span>
 										</div>
 
 									</div>
@@ -448,8 +448,8 @@
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
 									<button type="button" id="disSave"
-											class="am-btn am-btn-default am-btn-success">确定</button>
-									<button type="button"  id="close1" class="am-btn am-btn-default am-btn-danger">关闭</button>
+											class="am-btn am-btn-default am-btn-secondary">确定</button>
+									<button type="button"  id="close1" class="am-btn am-btn-default am-btn-secondary">关闭</button>
 								</div>
 							</div>
 						</div>
@@ -473,14 +473,14 @@
 								<label for="disNum" class="am-u-sm-3 am-form-label"><span
 										style="color: red;">*</span>含税销售额</label>
 								<div class="am-u-sm-8">
-									<input type="text" id="hsxse" name="hsxse" required/>
+									<input type="text" id="hsxse" name="hsxse"   required/>
 								</div>
 							</div>
 							<div class="am-form-group">
 								<label for="amount" class="am-u-sm-3 am-form-label"><span
 										style="color: red;">*</span>扣除额</label>
 								<div class="am-u-sm-8">
-									<input type="text" id="kce" name="kce" required />
+									<input type="text" id="kce" name="kce"   required />
 								</div>
 							</div>
 						</div>
@@ -488,8 +488,8 @@
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
 									<button type="button" id="chaSave"
-											class="am-btn am-btn-default am-btn-success">确定</button>
-									<button type="button"  id="close2" class="am-btn am-btn-default am-btn-danger">关闭</button>
+											class="am-btn am-btn-default am-btn-secondary">确定</button>
+									<button type="button"  id="close2" class="am-btn am-btn-default am-btn-secondary">关闭</button>
 								</div>
 							</div>
 						</div>

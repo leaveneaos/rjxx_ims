@@ -60,6 +60,27 @@ $(function() {
         e.preventDefault();
         detail_table.ajax.reload();
     });
+
+    //************************88s数字检验
+    $("#hsxse").keyup(function(){
+        var c=$(this);
+        if(/[^\d]/.test(c.val())){//替换非数字字符
+            var temp_amount=c.val().replace(/[^\d]/g,'');
+            $(this).val(temp_amount);
+        }
+    })
+
+    //点击行选中
+    // $("#jyspmx_table").on("click","tr",function () {
+    //     var _this=$(this);
+    //     var $span=_this.find(".tableCheckBox");
+    //     if($span.hasClass("tableCheckBoxSelect")){
+    //         $span.removeClass("tableCheckBoxSelect")
+    //     }else{
+    //         $span.addClass("tableCheckBoxSelect")
+    //     }
+    // })
+
     //good*****************************************8
     $("#add").click(function () {
         var addtr=true;
@@ -1113,6 +1134,8 @@ $(function() {
     }
     //重置good******************************************************8
     function resetFromControl() {
+        $("#discount").attr("disabled",false);
+        $("#cha").attr("disabled",false);
         $("#yxStar").hide();
         $("#centerTitle").html("");
         $("#xf").attr("disabled",false);
