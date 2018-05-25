@@ -53,7 +53,7 @@
 					        </div>
 					    </div>
 						<div class="am-u-sm-6">
-							<button type="button" class="js-search am-btn am-btn-primary">查询</button>
+							<button type="button" class="js-search am-btn am-btn-secondary">查询</button>
 						</div>
 					</div>
 					<hr/>

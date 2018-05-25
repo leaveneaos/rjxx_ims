@@ -402,9 +402,9 @@
 											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center">
 													<button type="button" id="jsSubmit"
-														class=" am-btn am-radius am-btn-success">保存</button>
+														class=" am-btn am-radius am-btn-secondary">保存</button>
 													<button type="button"
-														class="js-close1  am-btn am-radius am-btn-warning">取消</button>
+														class="js-close1  am-btn am-radius am-btn-secondary">取消</button>
 												</div>
 											</div>
 										</div>

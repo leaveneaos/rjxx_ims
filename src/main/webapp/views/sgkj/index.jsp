@@ -212,8 +212,8 @@
 							<legend>商品明细列表</legend>
 							<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 								<div class="am-btn-toolbar">
-									<div class="am-btn-group am-btn-group-xs">
-										<button type="button" id="add" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-success">
+									<div class="am-btn-group am-btn-group-xs btn-listBox">
+										<button type="button" id="add" data-am-modal="{target: '#doc-modal-4', closeViaDimmer: 0, width: 600}" class="am-btn am-btn-default am-btn-secondary">
 											<span></span> 新增
 										</button>
 										<button type="button" id="del" class="am-btn am-btn-default am-btn-danger">

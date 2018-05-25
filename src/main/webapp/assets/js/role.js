@@ -140,7 +140,7 @@ $(function() {
 							$('#roleid').val(row.id);
 							el.$modalHongchong.modal({
 								"width" : 700,
-								"height" : 450
+								"height" : 510
 							});
 						} else {
 							// $('#msg').html('查询角色权限异常');

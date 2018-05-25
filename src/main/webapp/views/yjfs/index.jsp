@@ -327,10 +327,9 @@
 											<div class="am-form-group">
 												<div class="am-u-sm-12  am-text-center">
 													<button type="button"
-														class="js-close  am-btn am-btn-danger">关闭</button>
+														class="js-close  am-btn am-btn-secondary">关闭</button>
 													<button type="submit"
-														class="js-submit  am-btn am-btn-primary">保存</button>
-
+														class="js-submit  am-btn am-btn-secondary" style="margin-left: 6px">保存</button>
 												</div>
 											</div>
 										</div>

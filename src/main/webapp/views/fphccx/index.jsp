@@ -316,7 +316,7 @@
 												<div class="am-form-group">
 													<div class="am-u-sm-12  am-text-center">
 														<button type="button"
-															class="js-close  am-btn am-btn-danger">关闭</button>
+															class="js-close  am-btn am-btn-secondary">关闭</button>
 													</div>
 												</div>
 											</div>

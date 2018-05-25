@@ -211,10 +211,10 @@
 															<div class="am-form-group">
 																<div class="am-u-sm-12  am-text-center">
 																	<button type="submit"
-																		class="js-submit am-btn am-btn-primary">确定</button>
+																		class="js-submit am-btn am-btn-secondary">确定</button>
 																	<button type="button"
 																		onclick="$('#shezhi').modal('close');"
-																		class="js-close am-btn am-btn-danger">取消</button>
+																		class="js-close am-btn am-btn-secondary">取消</button>
 																</div>
 															</div>
 														</div>
@@ -295,9 +295,9 @@
                         </div>
 						<div class="am-u-sm-12" style="margin-top: 30px;">
 							<button type="button" id="btadd"
-									class="am-btn am-btn-xs am-btn-primary">确定</button>
+									class="am-btn am-btn-xs am-btn-secondary">确定</button>
 							<button type="button" id="btclose"
-									class="am-btn am-btn-danger am-btn-xs">关闭</button>
+									class="am-btn am-btn-secondary am-btn-xs">关闭</button>
 						</div>
 					</div>
 				</form>
@@ -338,9 +338,9 @@
 									<div class="am-form-group am-padding-top">
 										<div class="am-u-sm-12  am-text-center">
 											<button type="submit"
-													class="js-submit  am-btn am-radius am-btn-success">确定</button>
+													class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
 											<button type="button" onclick="$('#hongchong').modal('close');"
-													class="js-close  am-btn am-radius am-btn-warning">取消</button>
+													class="js-close  am-btn am-radius am-btn-secondary">取消</button>
 										</div>
 									</div>
 						</div>
@@ -362,9 +362,9 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12  am-text-center">
 										<button type="submit"
-												class="js-submit  am-btn am-radius am-btn-success">确定</button>
+												class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
 										<button type="button" onclick="$('#hongchong').modal('close');"
-												class="js-close  am-btn am-radius am-btn-warning">取消</button>
+												class="js-close  am-btn am-radius am-btn-secondary">取消</button>
 									</div>
 								</div>
 							</div>
