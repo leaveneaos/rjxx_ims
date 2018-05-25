@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.job;
 
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.config.RabbitmqSend;
 import com.rjxx.taxeasy.domains.Crestvbusiness;
 import com.rjxx.taxeasy.service.CrestvbusinessService;
 import org.quartz.DisallowConcurrentExecution;
@@ -29,6 +30,9 @@ public class CrestvbusinessJob implements Job {
     private SkService skService;
 
     @Autowired
+    private RabbitmqSend rabbitmqSend;
+
+    @Autowired
     private CrestvbusinessService crestvbusinessService;
 
     private static Logger logger = LoggerFactory.getLogger(CrestvbusinessJob.class);
@@ -41,7 +45,8 @@ public class CrestvbusinessJob implements Job {
             Map map=new HashMap(1);
             List<Crestvbusiness> crestvbusinessServiceList=crestvbusinessService.findAllByParams(map);
             for(Crestvbusiness crestvbusiness:crestvbusinessServiceList){
-                skService.SkBoxKP(Integer.valueOf(crestvbusiness.getKplsh()));
+                //skService.SkBoxKP(Integer.valueOf(crestvbusiness.getKplsh()));
+                rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
             }
             logger.info("-------进入凯盈盒子断线重开定时任务结束---------"+context.getNextFireTime());
         }catch (Exception e){
