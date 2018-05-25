@@ -282,9 +282,9 @@
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
 												<button type="submit"
-													class="js-submit1  am-btn am-btn-primary">确定</button>
+													class="js-submit1  am-btn am-btn-secondary">确定</button>
 												<button type="button"
-													class="js-close1  am-btn am-btn-danger">取消</button>
+													class="js-close1  am-btn am-btn-secondary">取消</button>
 											</div>
 										</div>
 									</div>

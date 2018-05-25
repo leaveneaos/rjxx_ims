@@ -71,9 +71,9 @@ $(function() {
 								{
 									"data": function(data) {
 										if (data.tybz == "1") {
-											return "<a class='xiazai' href='#'>下载</a>";
+											return "<a class='xiazai' href='javascript:void(0)'>下载</a>";
 										} else {
-											return "<a class='modify' href='#'>修改</a>  <a class='xiazai' href='#'>下载</a> "	;	
+											return "<a class='modify' href='javascript:void(0)'>修改</a>  <a class='xiazai' href='javascript:void(0)'>下载</a> "	;
 										}
 									}						
 								},

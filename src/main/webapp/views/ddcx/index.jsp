@@ -28,9 +28,9 @@
 	.data-ctr {
 	  text-align: center;
 	}
-	.xh{
-		background-color: #fbf9f9;
-	}
+	/*.xh{*/
+		/*background-color: #fbf9f9;*/
+	/*}*/
 </style>
 </head>
 <body>

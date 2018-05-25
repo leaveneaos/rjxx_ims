@@ -331,7 +331,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .sidebar-nav-sub {
   display: none;
-  background: #2c3b41;
+  background: #f9f9f9;
 }
 .sidebar-nav-sub .sidebar-nav-link {
   font-size: 12px;
@@ -375,7 +375,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .sidebar-nav-link a {
   display: block;
-  color: #fff;
+  color: #666666;
   padding: 10px 17px;
  /* border-left: #282d2f 3px solid;*/
   font-size: 14px;
@@ -384,7 +384,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .sidebar-nav-link a.active {
   cursor: pointer;
   border-left: #1CA2CE 3px solid;
-  color: #fff;
+  color: #666666;
 }
 .sidebar-nav-link a:hover {
   color: #fff;
@@ -1191,9 +1191,9 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
  /* border-left: #fff 3px solid;*/
 }
 .theme-white .sidebar-nav-link a:hover {
-  background: #fff !important;
-  color: #000 !important;
-  border-left: #3bb4f2 3px solid;
+  background: #2ea3df !important;
+  color: #ffffff !important;
+  border-left: #2ea3df 3px solid;
 }
 
 .theme-white .sidebar-nav-link a.active {
@@ -1213,19 +1213,19 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   background: #e9ecf3;
 }
 .theme-white .tpl-header-fluid {
-  background: #3c8dbc;
+  background: #3bb4f2;
   /*border-top: 1px solid #eee;*/
 }
 .theme-white .tpl-header-logo {
-  background: #357ca5;
+  background: #2ea3df;
 }
 .theme-white .tpl-header-switch-button {
-  background: #3c8dbc;
+  background: #3bb4f2;
  /* border-right: 1px solid #eee;
   border-left: 1px solid #eee;*/
 }
 .theme-white .tpl-header-switch-button:hover {
-  background: #3c8dbc;
+  background: #3bb4f2;
   color: #fff;
   cursor: pointer;
 }
@@ -1238,7 +1238,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 
 }
 .theme-white .left-sidebar {
-  background: #222d32;
+  background: #f4f4f4;
 }
 .theme-white .widget-color-green {
   border: 1px solid #32c5d2;
@@ -1342,4 +1342,12 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 html{
   overflow-x: hidden;
+}
+thead th{
+  background-color: #e4e4e4;
+  color: #736961;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: SourceHanSansCN-Medium;
+  font-stretch: normal;
 }

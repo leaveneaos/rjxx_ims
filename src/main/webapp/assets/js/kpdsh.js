@@ -228,7 +228,7 @@ $(function() {
             {
                 "data": null,
                 "render": function (data) {
-                    return '<a href="#" class="modify1" style="margin-right: 10px;">修改</a>'
+                    return '<a href="javascript:void(0)" class="modify1" style="margin-right: 10px;">修改</a>'
                 }
             },
             {"data":"ddh"},
@@ -458,7 +458,7 @@ $(function() {
                             {
                                 "data": null,
                                 "render": function (data) {
-                                    return '<a href="#" class="modify" style="margin-right: 10px;">修改</a>'
+                                    return '<a href="javascript:void(0)" class="modify" style="margin-right: 10px;">修改</a>'
                                 }
                             },
 	                        {"data": "ddh"},

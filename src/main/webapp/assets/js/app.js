@@ -151,8 +151,8 @@ $('.sidebar-nav-sub-title').on('click', function () {
 //侧边栏点击事件
 $(document).on("click",".ejcd",function () {
     var _this=$(this);
-$(".left-sidebar").find(".ejcd").css({"background":"#2c3b41","color":"#fff"}).removeClass("second-muen");
-    _this.css({"background":"#fff","color":"#000"}).addClass("second-muen");
+$(".left-sidebar").find(".ejcd").css({"background":"#f9f9f9","color":"#666666","border-left":"none"}).removeClass("second-muen");
+    _this.css({"background":"#fff","color":"#2ea3df","border-left":"3px solid #2ea3df"}).addClass("second-muen");
 });
 
 //提示层封装

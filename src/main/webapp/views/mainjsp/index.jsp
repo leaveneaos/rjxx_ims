@@ -118,12 +118,12 @@
 										<table style="width:100%"
 											class="am-table am-table-compact tpl-table-black "
 											id="example-r">
-											<thead>
+											<thead >
 												<tr>
-													<th>系统公告</th>
-													<th></th>
-													<th></th>
-													<th></th>
+													<th style="color: #838FA1;background-color: #ffffff;font-size: 14px;font-weight: bold">系统公告</th>
+													<th style="color: #838FA1;background-color: #ffffff;font-size: 14px"></th>
+													<th style="color: #838FA1;background-color: #ffffff;font-size: 14px"></th>
+													<th style="color: #838FA1;background-color: #ffffff;font-size: 14px"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -166,7 +166,7 @@
     	var divs = $('.ejcd',parent.document);
     	for(var i=0;i<divs.length;i++){
     		if($(divs[i]).attr('data')==v_id){
-    			$(divs[i]).css({"background-color":"#f2f6f9","color":"#000"});
+    			$(divs[i]).css({"background":"#fff","color":"#2ea3df","border-left":"3px solid #2ea3df"});
     			$("#cd1",parent.document).val($(divs[i]).attr("dele"));
 				$("#cd2",parent.document).val($(divs[i]).attr("parname"));
     		}

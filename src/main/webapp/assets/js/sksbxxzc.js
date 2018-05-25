@@ -95,7 +95,7 @@ $(function() {
 
 						{
 							"data": null,
-	                        "defaultContent": "<a class='modify' href='#'>修改</a> "									
+	                        "defaultContent": "<a class='modify' href='javascript:void(0)'>修改</a> "
 						},
 						{
 							"data" : "xfmc"

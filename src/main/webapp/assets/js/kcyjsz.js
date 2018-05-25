@@ -85,7 +85,7 @@ $(function () {
                         {
                             "data": null,
                             "render": function (data) {
-                                return '<a href="#" class="modify1" style="margin-right: 10px;">设置</a>'
+                                return '<a href="javascript:void(0)" class="modify1" style="margin-right: 10px;">设置</a>'
                             }
                         },
                         {"data": "xfmc"},
