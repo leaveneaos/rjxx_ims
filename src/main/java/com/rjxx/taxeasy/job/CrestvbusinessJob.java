@@ -3,7 +3,9 @@ package com.rjxx.taxeasy.job;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqSend;
 import com.rjxx.taxeasy.domains.Crestvbusiness;
+import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.service.CrestvbusinessService;
+import com.rjxx.taxeasy.service.KplsService;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -30,6 +32,9 @@ public class CrestvbusinessJob implements Job {
     private SkService skService;
 
     @Autowired
+    private KplsService kplsService;
+
+    @Autowired
     private RabbitmqSend rabbitmqSend;
 
     @Autowired
@@ -45,8 +50,10 @@ public class CrestvbusinessJob implements Job {
             Map map=new HashMap(1);
             List<Crestvbusiness> crestvbusinessServiceList=crestvbusinessService.findAllByParams(map);
             for(Crestvbusiness crestvbusiness:crestvbusinessServiceList){
-                //skService.SkBoxKP(Integer.valueOf(crestvbusiness.getKplsh()));
-                rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
+                Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
+                if(!"00".equals(kpls.getFpztdm())&&!"05".equals(kpls.getFpztdm())&&!"02".equals(kpls.getFpztdm())){
+                    rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
+                }
             }
             logger.info("-------进入凯盈盒子断线重开定时任务结束---------"+context.getNextFireTime());
         }catch (Exception e){
