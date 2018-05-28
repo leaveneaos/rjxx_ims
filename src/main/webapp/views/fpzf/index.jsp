@@ -32,6 +32,12 @@
 .data-ctr {
   text-align: center;
 }
+#doc-modal-fpyl{
+	background-image: url("<%=request.getContextPath()%>/img/fapiaobiankuang.jpg");
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+
+}
 </style>
 </head>
 <body>
@@ -557,7 +563,7 @@
 				</div>
 			</div>
 		</div>
-            <div style="margin-left: -40%;overflow: auto; background-color: white;width:80%;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
+            <div style="margin-left: -40%; background-color: white;width:910px;padding: 0px 46px 35px;" class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-fpyl">
 			     <div class="am-modal-hd">
 			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
 			    </div>
