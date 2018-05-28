@@ -1000,15 +1000,31 @@ $(function() {
 					if(!fla){
 						return;
 					}
-        		     if (!confirm("您确认处理该记录？")) {
-        				return;
-        			}
-	            	$("#cljg").show();
-	            	$("#cljgbt").show();
-	            	  $tab.tabs('refresh');
-					kpspmx_table3.ajax.reload();
-					 kpspmx_table.ajax.reload();
-					$('#doc-tab-demo-1').tabs('open', 1)
+
+                    swal({
+                            title: "您确认处理该记录？",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3bb4f2",
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                $("#cljg").show();
+                                $("#cljgbt").show();
+                                $tab.tabs('refresh');
+                                kpspmx_table3.ajax.reload();
+                                kpspmx_table.ajax.reload();
+                                $('#doc-tab-demo-1').tabs('open', 1)
+                            }
+                        });
+
+        		     // if (!confirm("您确认处理该记录？")) {
+        			// 	return;
+        			// }
+
 				}
 			});
 		},

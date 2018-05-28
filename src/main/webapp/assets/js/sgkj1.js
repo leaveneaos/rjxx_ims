@@ -81,7 +81,7 @@ $(function() {
     //     }
     // })
 
-    //good*****************************************8
+    //good*****************************************
     $("#add").click(function () {
         var addtr=true;
         var tr=$("#jyspmx_table").find("tr");
@@ -100,7 +100,6 @@ $(function() {
                  swal("请输入货物或应税劳务、服务名称或金额不能为0");
                  addtr=false;
              }
-
          })
      }
         var arry=getAllRowDataArry();
@@ -133,8 +132,6 @@ $(function() {
            if(addtr){
                $("#jyspmx_table>tbody").append($(trHtml))
            }
-
-
     });
 
     $("#addzf").click(function () {

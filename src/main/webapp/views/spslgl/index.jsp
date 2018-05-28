@@ -493,9 +493,9 @@
 										</table>
 									</div>
 									<div class="am-text-center">
-										<button type="button" id="save" class="am-btn am-btn-success">确定</button>
+										<button type="button" id="save" class="am-btn am-btn-secondary">确定</button>
 										<button type="button" id="close3"
-												class="am-btn am-btn-warning">关闭</button>
+												class="am-btn am-btn-secondary">关闭</button>
 									</div>
 								</div>
 

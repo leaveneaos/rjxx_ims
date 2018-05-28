@@ -318,8 +318,9 @@
 											</div>
 											<label for="xfsh" class="am-u-sm-2 am-form-label">上级销方</label>
 											<div class="am-u-sm-4">
+												<%--data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}"--%>
 												<select id="sjxf" name="sjxf"
-														data-am-selected="{maxHeight: 300,btnSize: 'sm',searchBox: 1}">
+														>
 													<option value="0">请选择</option>
 													<c:forEach items="${xfs }" var="x">
 														<option value="${x.id }">${x.xfmc }</option>

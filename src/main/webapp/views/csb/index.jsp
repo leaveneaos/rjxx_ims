@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css">
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 	<style type="text/css">
@@ -70,9 +71,9 @@
 			<div class="am-g  am-padding-top">
 					<div class="am-u-sm-12  am-padding ">
 						<button id="button1" type="button"
-							class="js-search  am-btn am-btn-secondary">查询</button>
+							class="js-search  am-btn  am-btn-secondary am-btn-sm">查询</button>
 						<button id="button2" type="button"
-							class="js-search  am-btn am-btn-secondary">新增</button>
+							class="js-search  am-btn am-btn-secondary am-btn-sm">新增</button>
 					</div>
 
 					<div class="am-u-sm-12  am-padding-top">
