@@ -242,8 +242,8 @@
                         var html='';
                         for (var i = 0; i < list.length; i++) {
                             html +='<tr align="left">'
-                                +'<td style="width: 100%" colspan="2"><input'
-                                +'type="checkbox" id="spz-${s.spdm }" name="spz"'
+                                +'<td style="width: 100%" colspan="2">'
+                                +'<input type="checkbox" id="spz-${s.spdm }" name="spz"'
                                 +'value="'+list[i].spdm+'" />&nbsp;&nbsp;'+list[i].spmc+'</td>'
                                 +'</tr>'
                         }
