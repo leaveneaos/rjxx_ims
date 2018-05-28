@@ -1131,6 +1131,7 @@ $(function() {
     }
     //重置good******************************************************8
     function resetFromControl() {
+        $("#jshjdx").text("");
         $("#discount").attr("disabled",false);
         $("#cha").attr("disabled",false);
         $("#yxStar").hide();
