@@ -38,7 +38,7 @@
     以获得更好的体验！</p>
 <![endif]-->
 
-	<div class="am-cf admin-main">
+	<div class="row-content am-cf">
 		<!-- sidebar start -->
 		<!-- sidebar end -->
 
@@ -69,11 +69,16 @@
 				</form>
 			</div>
 			<div class="am-g  am-padding-top">
-					<div class="am-u-sm-12  am-padding ">
-						<button id="button1" type="button"
-							class="js-search  am-btn  am-btn-secondary am-btn-sm">查询</button>
-						<button id="button2" type="button"
-							class="js-search  am-btn am-btn-secondary am-btn-sm">新增</button>
+					<div class="am-form-group">
+						<div class="am-btn-toolbar">
+							<div class="am-btn-group am-btn-group-xs btn-listBox">
+								<button id="button1" type="button"
+										class="js-search  am-btn  am-btn-secondary am-btn-sm">查询</button>
+								<button id="button2" type="button"
+										class="js-search  am-btn am-btn-secondary am-btn-sm">新增</button>
+							</div>
+						</div>
+
 					</div>
 
 					<div class="am-u-sm-12  am-padding-top">

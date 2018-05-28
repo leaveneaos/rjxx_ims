@@ -145,7 +145,7 @@
                                 <div class="am-u-sm-3">
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-sm btn-listBox">
+                                            <div class="am-btn-group am-btn-group-xs btn-listBox">
                                                 <button type="button" id="jkpz_add"
                                                         class="am-btn am-btn-default am-btn-secondary">
                                                     新增
