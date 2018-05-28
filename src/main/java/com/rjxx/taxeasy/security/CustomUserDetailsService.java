@@ -70,14 +70,20 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
             }else{
                 //非超级管理员
                 String roleIds = yh.getRoleids();
-                if (StringUtils.isBlank(roleIds)) {
-                    throw new UsernameNotFoundException(s + " no privileges");
-                }
+
+//                if (StringUtils.isBlank(roleIds)) {
+//                    throw new UsernameNotFoundException(s + " no privileges");
+//                }
                 List<Integer> paramsList = new ArrayList<>();
-                String[] arr = roleIds.split(",");
-                for (String str : arr) {
-                    paramsList.add(Integer.valueOf(str));
+                if(!StringUtils.isBlank(roleIds)){
+                    String[] arr = roleIds.split(",");
+                    for (String str : arr) {
+                        paramsList.add(Integer.valueOf(str));
+                    }
+                }else{
+                    paramsList.add(-1);
                 }
+
                 Map<String, Object> params = new HashMap<>();
                 params.put("roleIds", paramsList);
                 privilegesList = privilegesService.findByRoleIds(params);

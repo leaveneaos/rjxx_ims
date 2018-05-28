@@ -49,14 +49,26 @@ public class MainController extends BaseController{
 		Yh yh = yhService.findOneByParams(params);
 		String roleIds = yh.getRoleids();
 		List<Integer> paramsList = new ArrayList<>();
-        String[] arr = roleIds.split(",");
-        for (String str : arr) {
-            paramsList.add(Integer.valueOf(str));
-        }
-        params.put("roleIds", paramsList);
+		if(roleIds!=null){
+			String[] arr = roleIds.split(",");
+			for (String str : arr) {
+				paramsList.add(Integer.valueOf(str));
+			}
+		}else{
+			paramsList.add(-1);
+		}
+
+
+		if(!"1".equals(getPrinciple().getSup())){
+			params.put("roleIds", paramsList);
+		}
+
         params.put("ztbz", "1");
 
         List<Privileges> privilegesList = privilegesService.findByRoleIds(params);
+
+
+
 		request.setAttribute("list", privilegesList);
 
         /*List<String> list = new ArrayList<String>();
