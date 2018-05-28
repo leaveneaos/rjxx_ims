@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 <script src="assets/js/loading.js"></script>
 </head>
