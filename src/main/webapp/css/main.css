@@ -52,3 +52,6 @@ table.dataTable thead > tr > th { padding: .4rem; }
  .am-btn-danger{
 	 border-radius: 5px !important;
  }
+.am-icon-search{
+	border-radius: 0px !important;
+}

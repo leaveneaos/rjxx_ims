@@ -57,7 +57,7 @@
 		border: 2px solid #ccc;
 		box-shadow: 0 0 5px #e4e4e4;
 		margin-top: 25px;
-		min-width: 1010px;
+		min-width: 1250px;
 
 	}
 	.fayl-left{
@@ -211,12 +211,19 @@
 							</form>
 						</div>
 						<div class="am-g" style="margin-top: 20px">
-							<button id="add"  type="button" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px">增行</button>
-							<button id="del" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">减行</button>
-							<button id="discount" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">折扣</button>
-							<button id="cha" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">差额</button>
-							<button id="kj" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">开具</button>
-							<button id="cz" type="button" class="am-btn am-btn-danger am-btn-sm" style="border-radius: 10px">重置</button>
+							<div class="am-form-group">
+								<div class="am-btn-toolbar">
+									<div class="am-btn-group am-btn-group-xs btn-listBox">
+										<button id="add"  type="button" class="am-btn am-btn-secondary am-btn-sm " style="border-radius: 10px">增行</button>
+										<button id="del" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">减行</button>
+										<button id="discount" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">折扣</button>
+										<button id="cha" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">差额</button>
+										<button id="kj" type="button" class="am-btn am-btn-secondary am-btn-sm" style="border-radius: 10px">开具</button>
+										<button id="cz" type="button" class="am-btn am-btn-danger am-btn-sm" style="border-radius: 10px">重置</button>
+									</div>
+								</div>
+							</div>
+
 						</div>
 						<div class="am-g fp-content">
 							<div class="fayl-left"></div>
