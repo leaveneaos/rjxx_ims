@@ -50,9 +50,13 @@ public class CrestvbusinessJob implements Job {
             Map map=new HashMap(1);
             List<Crestvbusiness> crestvbusinessServiceList=crestvbusinessService.findAllByParams(map);
             for(Crestvbusiness crestvbusiness:crestvbusinessServiceList){
-                Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
-                if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
-                    rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
+                if("1".equals(crestvbusiness.getMqbz())){
+                    Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
+                    if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
+                        rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
+                        crestvbusiness.setMqbz("1");
+                        crestvbusinessService.save(crestvbusiness);
+                    }
                 }
             }
             logger.info("-------进入凯盈盒子断线重开定时任务结束---------"+context.getNextFireTime());
