@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/css/amazeui.tree.min.css" />
 <link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
 	<div class="row-content am-cf">
@@ -39,9 +40,9 @@
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
-											<div class="am-btn-group am-btn-group-xs">
+											<div class="am-btn-group am-btn-group-xs btn-listBox">
 												<button type="button" id="xx_cx"
-													class="am-btn am-btn-default am-btn-primary">
+													class="am-btn am-btn-default am-btn-secondary">
 													<span></span>查询
 												</button>
 												<button type="button" id="xx_del"
@@ -49,7 +50,7 @@
 													<span></span>删除
 												</button>
 												<button type="button" id="xx_yd"
-													class="am-btn am-btn-default am-btn-success">
+													class="am-btn am-btn-default am-btn-secondary">
 													<span></span>标记为已读
 												</button>
 												<button type="button" id="xx_wd"
@@ -57,7 +58,7 @@
 													<span></span>标记为未读
 												</button>
 												<button type="button" id="xx_qyd"
-													class="am-btn am-btn-default am-btn-warning">
+													class="am-btn am-btn-default am-btn-secondary">
 													<span></span>全部已读
 												</button>
 											</div>

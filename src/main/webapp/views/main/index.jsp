@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="assets/css/amazeui.css" />
 	<link rel="stylesheet" href="assets/css/amazeui.datatables.css" />
 	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/loading.js"></script>
@@ -294,10 +295,10 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12  am-text-center">
 										<button id="btnSaveUserInfo" type="button"
-												class="am-btn am-btn-primary" data-am-modal-close onclick="save()">保存</button>
+												class="am-btn am-btn-secondary" data-am-modal-close onclick="save()">保存</button>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<button id="btnCancelUserInfo" type="button"
-												class="am-btn am-btn-primary" data-am-modal-close
+												class="am-btn am-btn-secondary" data-am-modal-close
 										>取消</button>
 									</div>
 								</div>
@@ -378,9 +379,9 @@
 						<div class="am-form-group">
 							<div class="am-u-sm-12  am-text-center">
 								<button id="btnUpdatePassword" type="button"
-										data-am-modal-close	class="am-btn am-btn-primary" onclick="updatePass()">保存</button>
+										data-am-modal-close	class="am-btn am-btn-secondary" onclick="updatePass()">保存</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="am-btn am-btn-primary"
+								<button type="button" class="am-btn am-btn-secondary"
 										data-am-modal-close>取消</button>
 							</div>
 						</div>
