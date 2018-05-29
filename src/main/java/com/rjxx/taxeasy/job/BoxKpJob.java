@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.job;
 
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqSend;
+import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.service.CszbService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.service.SkpService;
@@ -39,13 +40,15 @@ public class BoxKpJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-
         try {
             logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
             String kplshStr = (String) rabbitmqSend.receivebox();
             if (StringUtils.isNotBlank(kplshStr)) {
                 int kplsh = Integer.valueOf(kplshStr);
-                skService.SkBoxKP(kplsh);
+                Kpls kpls=kplsService.findOne(kplsh);
+                if(!"00".equals(kpls.getFpztdm())){
+                    skService.SkBoxKP(kplsh);
+                }
             }
             logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
         }catch (Exception e){

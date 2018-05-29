@@ -51,7 +51,7 @@ public class CrestvbusinessJob implements Job {
             List<Crestvbusiness> crestvbusinessServiceList=crestvbusinessService.findAllByParams(map);
             for(Crestvbusiness crestvbusiness:crestvbusinessServiceList){
                 Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
-                if(!"00".equals(kpls.getFpztdm())&&!"05".equals(kpls.getFpztdm())&&!"02".equals(kpls.getFpztdm())){
+                if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
                     rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
                 }
             }
