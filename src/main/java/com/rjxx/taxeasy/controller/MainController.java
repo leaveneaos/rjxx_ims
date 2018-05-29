@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +50,7 @@ public class MainController extends BaseController{
 		Yh yh = yhService.findOneByParams(params);
 		String roleIds = yh.getRoleids();
 		List<Integer> paramsList = new ArrayList<>();
-		if(roleIds!=null){
+		if(!StringUtils.isBlank(roleIds)){
 			String[] arr = roleIds.split(",");
 			for (String str : arr) {
 				paramsList.add(Integer.valueOf(str));
