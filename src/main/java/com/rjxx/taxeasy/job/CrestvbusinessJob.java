@@ -50,11 +50,16 @@ public class CrestvbusinessJob implements Job {
             Map map=new HashMap(1);
             List<Crestvbusiness> crestvbusinessServiceList=crestvbusinessService.findAllByParams(map);
             for(Crestvbusiness crestvbusiness:crestvbusinessServiceList){
+                Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
                 if("0".equals(crestvbusiness.getMqbz())){
-                    Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
                     if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
                         rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
                         crestvbusiness.setMqbz("1");
+                        crestvbusinessService.save(crestvbusiness);
+                    }
+                }else{
+                    if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
+                        crestvbusiness.setMqbz("0");
                         crestvbusinessService.save(crestvbusiness);
                     }
                 }
