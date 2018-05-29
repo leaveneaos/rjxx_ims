@@ -311,7 +311,7 @@
 
 			<hr />
 			<form action="fpck/fpckSave"  method="get" autocomplete="off" class="js-form am-form am-form-horizontal">
-				<div class="am-g">
+				<div class="am-g" style="padding: 20px;">
 					<div class="am-form-group">
 						<div class="am-g">
 							<div class="am-u-md-6">
@@ -395,7 +395,7 @@
 							<div class="am-form-group">
 								<div class="am-u-sm-12  am-text-center">
 									<button type="button" id="button2" class="am-btn am-btn-default am-btn-secondary">重新开具</button>
-									<button type="button" class="js-close am-btn am-btn-default am-btn-warning">取消</button>
+									<button type="button" class="js-close am-btn am-btn-default am-btn-secondary">取消</button>
 								</div>
 							</div>
 						</div>
