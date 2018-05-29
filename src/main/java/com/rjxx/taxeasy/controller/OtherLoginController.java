@@ -82,7 +82,7 @@ public class OtherLoginController extends BaseController {
             Map params = new HashMap<>();
             params.put("dlyhid", dlyhid);
             Yh loginUser = yhService.findOneByParams(params);
-            if (loginUser != null && StringUtils.isNotBlank(loginUser.getRoleids())) {
+            if (loginUser != null) {
                 String savedYhmm = loginUser.getYhmm();
                 if (!encryptYhmm.equals(savedYhmm)) {
                     modelMap.put("errors", "用户名或密码不正确");
