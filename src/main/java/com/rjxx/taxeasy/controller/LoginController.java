@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -64,18 +67,54 @@ public class LoginController extends BaseController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage() {
+		Cookie[] cs = request.getCookies();
+		if(cs!=null && cs.length>0){
+			for(Cookie cookie:cs){
+				if("login_cookie".equals(cookie.getName())){
+					if("zhongke".equals(cookie.getValue())){
+						return "login/otherLogin";
+					}
+				}
+			}
+		}
 		return "login/login";
 	}
 
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	public String login(String dlyhid, String yhmm, String code, ModelMap modelMap) throws Exception {
+		Cookie[] cookies = request.getCookies();
+		if(cookies==null){
+			Cookie cookie = new Cookie("login_cookie", "rjxx");
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}else{
+			boolean flag = true;
+			for(Cookie cookie:cookies){
+				if("login_cookie".equals(cookie.getName())){
+					cookie.setValue("rjxx");
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				Cookie cookie = new Cookie("login_cookie", "rjxx");
+				cookie.setPath("/");
+				response.addCookie(cookie);
+			}
+		}
+
+
+
 		String sessionCode = (String) session.getAttribute("rand");
 		String encryptYhmm = PasswordUtils.encrypt(yhmm);
 		if (code != null && sessionCode != null && code.equals(sessionCode)) {
 			Map params = new HashMap<>();
 			params.put("dlyhid", dlyhid);
 			Yh loginUser = yhService.findOneByParams(params);
-			if (loginUser != null && StringUtils.isNotBlank(loginUser.getRoleids())) {
+			//if (loginUser != null && StringUtils.isNotBlank(loginUser.getRoleids())) {
+			if (loginUser != null) {
 				String savedYhmm = loginUser.getYhmm();
 				if (!encryptYhmm.equals(savedYhmm)) {
 					modelMap.put("errors", "用户名或密码不正确");

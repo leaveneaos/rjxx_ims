@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +52,30 @@ public class OtherLoginController extends BaseController {
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String login(String dlyhid, String yhmm, String code,String flag, ModelMap modelMap) throws Exception {
+    public String login(String dlyhid, String yhmm, String code, String flag, ModelMap modelMap) throws Exception {
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null){
+            Cookie cookie = new Cookie("login_cookie", "zhongke");
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }else{
+            boolean flag_cookie = true;
+            for(Cookie cookie:cookies){
+                if("login_cookie".equals(cookie.getName())){
+                    cookie.setValue("zhongke");
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                    flag_cookie = false;
+                    break;
+                }
+            }
+            if(flag_cookie){
+                Cookie cookie = new Cookie("login_cookie", "zhongke");
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
+
         String sessionCode = (String) session.getAttribute("rand");
         String encryptYhmm = PasswordUtils.encrypt(yhmm);
         if (code != null && sessionCode != null && code.equals(sessionCode)) {
