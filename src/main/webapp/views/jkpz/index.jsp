@@ -131,7 +131,7 @@
                             </div>
                             <div class="am-u-sm-4">
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field" id="searchValue"> <span
+                                    <input type="text" class="am-form-field" id="gsmc"> <span
                                         class="am-input-group-btn">
 												<button type="button" id="companySearch"
                                                         class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
