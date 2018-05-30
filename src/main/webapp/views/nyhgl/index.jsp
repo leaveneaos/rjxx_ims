@@ -149,8 +149,8 @@
 						<!-- content end -->
 
 						<!-- model -->
-						<div class="am-modal am-modal-no-btn" tabindex="-1" id="hongchong">
-							<div class="am-modal-dialog" style="overflow: auto;">
+						<div class="am-modal" tabindex="-1" id="hongchong">
+							<div class="am-modal-dialog" style="overflow:hidden;">
 								<div class="am-modal-hd">
 									用户信息 <a href="javascript: void(0)"
 										class="am-close am-close-spin" data-am-modal-close>&times;</a>
@@ -162,7 +162,7 @@
 											<li><a href="#tab2">角色</a></li>
 											<li><a href="#tab3">销方和开票点</a></li>
 										</ul>
-										<div class="am-tabs-bd">
+										<div class="am-tabs-bd" style="height: 345px;overflow-y: auto">
 											<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 												<div class="am-modal-bd">
 													<hr />
@@ -236,14 +236,14 @@
 															</div>
 														</div>
 
-														<div class="am-form-group am-padding-top">
-															<div class="am-u-sm-12  am-text-center">
-																<button type="submit"
-																	class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
-																<button type="button"
-																	class="js-close  am-btn am-radius am-btn-secondary">取消</button>
-															</div>
-														</div>
+														<%--<div class="am-form-group am-padding-top">--%>
+															<%--<div class="am-u-sm-12  am-text-center">--%>
+																<%--<button type="submit"--%>
+																	<%--class="js-submit  am-btn am-radius am-btn-secondary">确定</button>--%>
+																<%--<button type="button"--%>
+																	<%--class="js-close  am-btn am-radius am-btn-secondary">取消</button>--%>
+															<%--</div>--%>
+														<%--</div>--%>
 													</div>
 
 												</div>
@@ -272,16 +272,16 @@
 														</tr>
 													</c:forEach>
 												</table>
-												<div class="am-u-sm-12">
-													<div class="am-form-group">
-														<div class="am-u-sm-12  am-text-center">
-															<button type="submit"
-																class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
-															<button type="button"
-																class="js-close  am-btn am-radius am-btn-secondary">取消</button>
-														</div>
-													</div>
-												</div>
+												<%--<div class="am-u-sm-12">--%>
+													<%--<div class="am-form-group">--%>
+														<%--<div class="am-u-sm-12  am-text-center">--%>
+															<%--<button type="submit"--%>
+																<%--class="js-submit  am-btn am-radius am-btn-secondary">确定</button>--%>
+															<%--<button type="button"--%>
+																<%--class="js-close  am-btn am-radius am-btn-secondary">取消</button>--%>
+														<%--</div>--%>
+													<%--</div>--%>
+												<%--</div>--%>
 											</div>
 											<div class="am-tab-panel am-fade" id="tab3">
 												<table style="width: 100%;">
@@ -340,18 +340,25 @@
 														</td>
 													</tr>
 												</table>
-												<div class="am-u-sm-12">
-													<div class="am-form-group">
-														<div class="am-u-sm-12  am-text-center">
-															<button type="submit"
-																class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
-															<button type="button"
-																class="js-close  am-btn am-radius am-btn-secondary">取消</button>
-														</div>
-													</div>
-												</div>
+												<%--<div class="am-u-sm-12">--%>
+													<%--<div class="am-form-group">--%>
+														<%--<div class="am-u-sm-12  am-text-center">--%>
+															<%--<button type="submit"--%>
+																<%--class="js-submit  am-btn am-radius am-btn-secondary">确定</button>--%>
+															<%--<button type="button"--%>
+																<%--class="js-close  am-btn am-radius am-btn-secondary">取消</button>--%>
+														<%--</div>--%>
+													<%--</div>--%>
+												<%--</div>--%>
 											</div>
 										</div>
+
+                                        <div class="am-margin am-modal-footer">
+                                            <button type="submit"
+                                                    class="js-submit  am-btn am-radius am-btn-secondary">确定</button>
+                                            <button type="button"
+                                                    class="js-close  am-btn am-radius am-btn-secondary" style="margin-left: 10px">取消</button>
+                                        </div>
 
 									</div>
 								</form>

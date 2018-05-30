@@ -787,7 +787,7 @@ table thead th {
 
 		</div>
 	</div>
-	<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-alert-edit2">
+	<div class="am-modal" tabindex="-1" id="my-alert-edit2">
 		<div class="am-modal-dialog" style="overflow: auto">
 			<div class="am-modal-hd am-modal-footer-hd">
 				开票单录入
@@ -805,7 +805,7 @@ table thead th {
 					<li><a href="#tab2" class="ai">商品明细</a></li>
 				</ul>
 
-				<div class="am-tabs-bd">
+				<div class="am-tabs-bd" style="height: 410px;overflow-y: auto">
 					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 						<form class="am-form am-form-horizontal" id="main_form2">
 							<fieldset>
@@ -1083,11 +1083,11 @@ table thead th {
 					</div>
 				</div>
 
-				<div class="am-margin">
+				<div class="am-margin am-modal-footer">
 					<button type="button" id="lrsave"
-						class="am-btn am-btn-xs am-btn-secondary">保存</button>
+						class="am-btn am-btn-secondary">保存</button>
 					<button type="button" id="lrclose"
-						class="am-btn am-btn-danger am-btn-xs">关闭</button>
+						class="am-btn am-btn-secondary" style="margin-left: 10px">关闭</button>
 				</div>
 
 			</div>
