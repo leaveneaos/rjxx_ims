@@ -68,7 +68,7 @@ table thead th {
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
 				<div class="widget am-cf">
-						<div id="nrbq" class="am-tabs-bd">
+						<div id="nrbq" class="">
 							<div id="tabs1" class="am-tab-panel am-active">
 								<div class="admin-content">
 									<div class="am-cf widget-head">

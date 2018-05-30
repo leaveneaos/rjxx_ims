@@ -51,7 +51,7 @@
 							<li style="display: none"><a href="#tab2">发票查询</a></li>
 						</ul>--%>
 
-						<div class="am-tabs-bd">
+						<div class="">
 							<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 								<div class="am-cf widget-head">
 									<input type="hidden" id="djh" value="0">

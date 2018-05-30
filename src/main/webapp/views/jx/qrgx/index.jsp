@@ -47,7 +47,7 @@ table thead th {
 					<div class="am-tabs" data-am-tabs="{noSwipe: 1}"
 						id="doc-tab-demo-1">
 
-						<div id="nrbq" class="am-tabs-bd">
+						<div id="nrbq" class="">
 							<div id="tabs1" class="am-tab-panel am-active">
 								<div class="admin-content">
 									<div class="am-cf widget-head">
