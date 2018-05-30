@@ -43,6 +43,10 @@ public class KcyjszController extends BaseController {
         Map map = new HashMap();
         map.put("yhid", getYhid());
         map.put("gsdm", getGsdm());
+        if("1".equals(getPrinciple().getSup())){
+            map.put("sup", "1");
+        }
+
         List<Yh> yhList = yhService.findAllByParams(map);
         request.setAttribute("yhList", yhList);
         return "kcyjsz/index";
