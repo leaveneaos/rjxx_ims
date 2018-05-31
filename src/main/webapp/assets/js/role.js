@@ -291,7 +291,7 @@ $(function() {
 		                    } else {
 			                	swal('删除失败,服务器错误' + data.msg);
 		                    }
-	                    
+                        el.$jsLoading.modal('close');
 	                }).error(function(data) {
 	                    swal('请求失败,请刷新后稍后重试!', "error");
 	                    el.$jsLoading.modal('close');
