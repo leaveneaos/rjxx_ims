@@ -20,8 +20,8 @@
 <script src="assets/js/loading.js"></script>
 	<style>
 		.tab-listBox>li{
-			width: 62px;
-			height: 62px;
+			width: 67px;
+			height: 67px;
 			border-radius: 62px;
 			background-color: #ffffff;
 			color: #23abf0;
