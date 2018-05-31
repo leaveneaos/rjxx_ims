@@ -25,11 +25,18 @@
         }
     </script>
     <script type="text/javascript">
-        window.onresize = function () {
-            document.getElementsByTagName('html')[0].style.fontSize = (window.document.documentElement.getBoundingClientRect().width / 1920 * 100) + 'px';
-        }
-        document.getElementsByTagName('html')[0].style.fontSize = (window.document.documentElement.getBoundingClientRect().width / 1920 * 100) + 'px';
-
+        (function remInit(){
+            window.onresize = function(){
+                var  userW = window.document.documentElement.getBoundingClientRect().width;
+                userW<1500?userW = 1500:null
+                window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
+                document.getElementsByTagName('html')[0].style.fontSize = (userW/1920*100)+'px';
+            }
+            var  userW = window.document.documentElement.getBoundingClientRect().width;
+            userW<1500?userW = 1500:null
+            window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
+            document.getElementsByTagName('html')[0].style.fontSize = (userW/1920*100)+'px';
+        })()
     </script>
 </head>
 
@@ -62,7 +69,7 @@
         <div class="btnbox " styl1e="visibility: hidden;">
         <a href="http://kpt.datarj.com/#/experience">
             <button type="button" class="ant-btn ant-btn-primary">
-                <span>免费体验</span>
+                <span>立即体验</span>
             </button></a>
         </div>
     </div>
@@ -102,6 +109,8 @@
             <div class="l0">
                 <a href="http://www.datarj.com/" target="_blank">
                 <img src="<%=request.getContextPath()%>/img/loginimg//logo.png"></a>
+
+                <p>开票通云平台</p>
             </div>
 
             <ul class="l2">
