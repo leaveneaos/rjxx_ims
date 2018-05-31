@@ -74,7 +74,11 @@ public class RolesController extends BaseController {
 		try {
 			Yh yh = yhService.findOne(yhid);
 			Map params = new HashMap<>();
-			params.put("idList", new ArrayList<>(Arrays.asList(yh.getRoleids().split(","))));
+			if(yh.getRoleids()!=null && !"".equals(yh.getRoleids().trim())){
+				params.put("idList", new ArrayList<>(Arrays.asList(yh.getRoleids().split(","))));
+			}else{
+				params.put("idList",new ArrayList<>());
+			}
 			types = privilegeTypesService.findBySql(params);
 			/*
 			 * String con =
