@@ -41,6 +41,7 @@
 </head>
 
 <body>
+
 <div class="_header">
     <div class="box">
         <a href="http://kpt.datarj.com/#/">
@@ -102,37 +103,34 @@
     <div class="box">
         <ul class="r0">
             <li>关于我们</li>
-            <li>联系我们</li>
-            <li>关注我们</li>
+            <a  target="_blank" href="http://www.datarj.com/">
+                <img src="<%=request.getContextPath()%>/img/loginimg//logo.png"></a>
         </ul>
         <div class="r1">
-            <div class="l0">
-                <a href="http://www.datarj.com/" target="_blank">
-                <img src="<%=request.getContextPath()%>/img/loginimg//logo.png"></a>
-
-                <p>开票通云平台</p>
-            </div>
-
             <ul class="l2">
                 <li>Tel:021-33566700</li>
                 <li>Fax:021-33566700</li>
-                <li>Add:上海市漕宝路82号</li>
-                <li>光大会展中心E座2802室</li>
             </ul>
-            <ul class="l3">
-                <li class="row0">
-                    <img class="er0" src="<%=request.getContextPath()%>/img/loginimg//erweima.png">
-                    <img class="er1" src="<%=request.getContextPath()%>/img/loginimg//erweima1.png">
-                </li>
-                <%--<ul class="row1">--%>
-                    <%--<li>关注我们</li>--%>
-                    <%--<li>关注我们</li>--%>
-                <%--</ul>--%>
-            </ul>
+
+            <div class="l0" >
+                Add:上海市漕宝路82号光大会展中心E座2802室
+            </div>
+            <div class="l1"> © Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
         </div>
-        <div class="r2">© Copyright 2011-2015 上海容津信息技术有限公司 沪ICP备15020560号</div>
+        <div class="r2">
+            <div class="r20 item">
+                <img class="er0" src="<%=request.getContextPath()%>/img/loginimg//erweima.png">
+                <div>微信公众号</div>
+            </div>
+            <div class="r21 item">
+                <img class="er1" src="<%=request.getContextPath()%>/img/loginimg//erweima1.png">
+                <div>微信公众号</div>
+            </div>
+
+        </div>
     </div>
 </div>
+
 <script>
     if (!!window.ActiveXObject || "ActiveXObject" in window)
     {
