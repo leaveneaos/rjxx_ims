@@ -15,7 +15,7 @@
     <link rel="alternate icon" type="image/png" href="../assets/i/favicon.png">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/login.css"/>
     <script src="../assets/js/jquery.min.js"></script>
-    <script src="assets/js/loading.js"></script>
+    <%--<script src="assets/js/loading.js"></script>--%>
     <script language="javascript">
         if(window !=top){
             top.location.href=location.href;
