@@ -228,8 +228,8 @@
 												<th class="data-ctr">金额</th>
 												<th class="data-ctr">税额</th>
 												<th class="data-ctr">价税合计</th>
-												<th>换开日期</th>
-												<th>开票人</th>
+												<th>作废日期</th>
+												<th>作废人</th>
 											</tr>
 										</thead>
 										<tbody>
