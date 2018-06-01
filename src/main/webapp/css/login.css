@@ -133,13 +133,15 @@ input
     overflow-x: hidden;
   }
 ._login {
-	/* background: grey;
-	height: 100%; */
+	/* background: grey;*/
+	height: 7.8rem;
+	background: url(./../img/loginimg/denglubeijging.png) no-repeat;
+	background-size: 100% 100%;
 	/* min-height: 4rem; */
 }
 body{
 	background-size: 100% 100%;
-	background: url(./../img/loginimg/denglubeijging.png);
+
 }
 button{
 	cursor: pointer;
@@ -366,9 +368,9 @@ a {
     height: 2.30rem;
     background-color: #f6f6f6;
     display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
 }
 ._footer  ul{
     margin-bottom: 0;
