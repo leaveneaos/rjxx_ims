@@ -314,67 +314,69 @@ $(function() {
 					},
 					type : 'POST',
 					success : function(data) {
-						$('#lxdz').val(data.xf.xfdz);
-						$('#lxdh').val(data.xf.xfdh);
-						$('#khyh').val(data.xf.xfyh);
-						$('#yhzh').val(data.xf.xfyhzh);
-						$('#skr').val(data.xf.skr);
-						$('#fhr').val(data.xf.fhr);
-						$('#kpr').val(data.xf.kpr);
-						el.$jsForm.find('select[id="kpxe-12"]').val(data.xf.dzpzdje);
-						el.$jsForm.find('[id="fpje-12"]').val(data.xf.dzpfpje);
-						el.$jsForm.find('select[id="kpxe-01"]').val(data.xf.zpzdje);
-						el.$jsForm.find('[id="fpje-01"]').val(data.xf.zpfpje);
-						el.$jsForm.find('select[id="kpxe-02"]').val(data.xf.ppzdje);
-						el.$jsForm.find('[id="fpje-02"]').val(data.xf.ppfpje);
-                        var provinceid = data.xf.provinceid;
-                        var cityid =  data.xf.cityid;
-                        var areaid =  data.xf.areaid;
-                        if(provinceid!=null && provinceid !=""){
-                            $('.js-form').find('select[name="province"]').val(provinceid);
-                        }
-                        if(cityid !=null && cityid!=""){
-                            var city = $("#city");
-                            $("#city").empty();
-                            $.ajax({
-                                url : "xfxxwh/getCity",
-                                async:false,
-                                data : {
-                                    "provinceid" : provinceid
-                                },
-                                success : function(data) {
-                                    var option = $("<option>").text('请选择').val(-1);
-                                    city.append(option);
-                                    for (var i = 0; i < data.length; i++) {
-                                        var option = $("<option>").text(data[i].city).val(
-                                            data[i].cityid);
+						if(data.xf!=null){
+                            $('#lxdz').val(data.xf.xfdz);
+                            $('#lxdh').val(data.xf.xfdh);
+                            $('#khyh').val(data.xf.xfyh);
+                            $('#yhzh').val(data.xf.xfyhzh);
+                            $('#skr').val(data.xf.skr);
+                            $('#fhr').val(data.xf.fhr);
+                            $('#kpr').val(data.xf.kpr);
+                            el.$jsForm.find('select[id="kpxe-12"]').val(data.xf.dzpzdje);
+                            el.$jsForm.find('[id="fpje-12"]').val(data.xf.dzpfpje);
+                            el.$jsForm.find('select[id="kpxe-01"]').val(data.xf.zpzdje);
+                            el.$jsForm.find('[id="fpje-01"]').val(data.xf.zpfpje);
+                            el.$jsForm.find('select[id="kpxe-02"]').val(data.xf.ppzdje);
+                            el.$jsForm.find('[id="fpje-02"]').val(data.xf.ppfpje);
+                            var provinceid = data.xf.provinceid;
+                            var cityid =  data.xf.cityid;
+                            var areaid =  data.xf.areaid;
+                            if(provinceid!=null && provinceid !=""){
+                                $('.js-form').find('select[name="province"]').val(provinceid);
+                            }
+                            if(cityid !=null && cityid!=""){
+                                var city = $("#city");
+                                $("#city").empty();
+                                $.ajax({
+                                    url : "xfxxwh/getCity",
+                                    async:false,
+                                    data : {
+                                        "provinceid" : provinceid
+                                    },
+                                    success : function(data) {
+                                        var option = $("<option>").text('请选择').val(-1);
                                         city.append(option);
+                                        for (var i = 0; i < data.length; i++) {
+                                            var option = $("<option>").text(data[i].city).val(
+                                                data[i].cityid);
+                                            city.append(option);
+                                        }
                                     }
-                                }
-                            });
-                            $('.js-form').find('select[name="city"]').val(cityid);
-                        }
-                        if(areaid !=null && areaid !=""){
-                            var area = $("#area");
-                            $("#area").empty();
-                            $.ajax({
-                                url : "xfxxwh/getArea",
-                                async:false,
-                                data : {
-                                    "cityid" : cityid
-                                },
-                                success : function(data) {
-                                    var option = $("<option>").text('请选择').val(-1);
-                                    area.append(option);
-                                    for (var i = 0; i < data.length; i++) {
-                                        option = $("<option>").text(data[i].area).val(
-                                            data[i].areaid);
+                                });
+                                $('.js-form').find('select[name="city"]').val(cityid);
+                            }
+                            if(areaid !=null && areaid !=""){
+                                var area = $("#area");
+                                $("#area").empty();
+                                $.ajax({
+                                    url : "xfxxwh/getArea",
+                                    async:false,
+                                    data : {
+                                        "cityid" : cityid
+                                    },
+                                    success : function(data) {
+                                        var option = $("<option>").text('请选择').val(-1);
                                         area.append(option);
+                                        for (var i = 0; i < data.length; i++) {
+                                            option = $("<option>").text(data[i].area).val(
+                                                data[i].areaid);
+                                            area.append(option);
+                                        }
                                     }
-                                }
-                            });
-                            $('.js-form').find('select[name="area"]').val(areaid);
-                        }
+                                });
+                                $('.js-form').find('select[name="area"]').val(areaid);
+                            }
+						}
 					},
 					error : function() {
 

@@ -306,7 +306,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="lxdz" name="lxdz"
 														style="float: left;" placeholder="联系地址"
-														value="${xf.xfdz }" class="am-form-field"
+														<%--value="${xf.xfdz }"--%> class="am-form-field"
 														required="required" />
 
 												</div>
@@ -314,7 +314,7 @@
 													color="red">*</font>联系电话</label>
 												<div class="am-u-sm-4">
 													<input type="text" id="lxdh" name="lxdh"
-														value="${xf.xfdh }" style="float: left;"
+														<%--value="${xf.xfdh }" --%>style="float: left;"
 														placeholder="联系电话" class="am-form-field patternTelephone"
 														required="required" />
 												</div>
@@ -325,7 +325,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="khyh" name="khyh"
 														style="float: left;" placeholder="开户银行"
-														value="${xf.xfyh }" class="am-form-field"
+														<%--value="${xf.xfyh }"--%> class="am-form-field"
 														required="required" />
 												</div>
 												<label for="yhzh" class="am-u-sm-2 am-form-label"><font
@@ -333,7 +333,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="yhzh" name="yhzh"
 														style="float: left;" placeholder="银行账号"
-														value="${xf.xfyhzh }" class="am-form-field"
+														<%--value="${xf.xfyhzh }"--%> class="am-form-field"
 														required="required" />
 												</div>
 											</div>
@@ -341,12 +341,12 @@
 												<label for="skr" class="am-u-sm-2 am-form-label">收款人</label>
 												<div class="am-u-sm-4">
 													<input type="text" id="skr" name="skr" style="float: left;"
-														placeholder="收款人" value="${xf.skr }" class="am-form-field" />
+														placeholder="收款人" <%--value="${xf.skr }"--%> class="am-form-field" />
 												</div>
 												<label for="fhr" class="am-u-sm-2 am-form-label">复核人</label>
 												<div class="am-u-sm-4">
 													<input type="text" id="fhr" name="fhr" style="float: left;"
-														placeholder="复核人" value="${xf.fhr }" class="am-form-field" />
+														placeholder="复核人" <%--value="${xf.fhr }"--%> class="am-form-field" />
 												</div>
 											</div>
 											<div class="am-form-group">
@@ -354,7 +354,7 @@
 													color="red">*</font>开票人</label>
 												<div class="am-u-sm-4">
 													<input type="text" id="kpr" name="kpr" style="float: left;"
-														placeholder="开票人" value="${xf.kpr }" class="am-form-field"
+														placeholder="开票人" <%--value="${xf.kpr }"--%> class="am-form-field"
 														required="required" />
 												</div>
 											</div>
@@ -551,7 +551,7 @@
 	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
-            <c:if test="${not empty xf.provinceid }">
+            <%--<c:if test="${not empty xf.provinceid }">
             var provinceid =  ${xf.provinceid };
             if(provinceid!=null && provinceid !=""){
                 $('.js-form').find('select[name="province"]').val(${xf.provinceid });
@@ -604,11 +604,7 @@
                 });
                 $('.js-form').find('select[name="area"]').val(areaid);
             }
-            </c:if>
-
-
-
-
+            </c:if>--%>
 			//批量导入
 			var $importModal = $("#bulk-import-div");
 			$("#kp_dr").click(function() {
