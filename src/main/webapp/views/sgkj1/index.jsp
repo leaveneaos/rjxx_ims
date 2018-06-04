@@ -160,28 +160,40 @@
 								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
 									<label for="xf" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>销方名称</label>
 									<div class="am-u-sm-3">
-										<select id="xf" name="xf" onchange="getKpd();" required>
+										<select id="xf" name="xf" onchange="getKpd();"  required >
+												<c:if test="${xfnum>1}">
 													<option value="">选择销方</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.id}">${item.xfmc}</option>
 													</c:forEach>
-												</select>
+												</c:if>
+												<c:if test="${xfnum==1}">
+													<c:forEach items="${xfList}" var="item">
+														<option value="${item.id}">${item.xfmc}</option>
+													</c:forEach>
+												</c:if>
+										</select>
 									</div>
 									<label for="kpd" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>开票点名称</label>
 									<div class="am-u-sm-3">
 										<select id="kpd" name="kpd" required onchange="getFplx();">
-											<option value="">选择开票点</option>
-													<%--<c:if test="${xfnum==1}">
+											<c:if test="${xfnum>1}">
+												<option value="">选择开票点</option>
+												<c:forEach items="${skpList}" var="item">
+													<option value="${item.skpid}">${item.kpdmc}</option>
+												</c:forEach>
+											</c:if>
+													<c:if test="${xfnum==1}">
                                                         <c:forEach items="${skpList}" var="item">
                                                             <option value="${item.skpid}">${item.kpdmc}</option>
                                                         </c:forEach>
-                                                    </c:if>--%>
+                                                    </c:if>
 										</select>
 									</div>
 									<label for="fpzldm" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>发票种类</label>
 									<div class="am-u-sm-3">
 										<select id="fpzldm" name="fpzldm"  required>
-											<%--<option value="">选择开票类型</option>--%>
+											<option value="">选择开票类型</option>
 											<%--<option value="01">专用发票</option>
                                             <option value="02">普通发票</option>--%>
 											<%--<option value="12">电子发票</option>--%>
@@ -647,6 +659,35 @@
 //            });
 //        }
 
+
+		if($("#kpd").find("option").length==1){
+            getFplx();
+		}
+
+        <c:if test="${xfnum==1}">
+        var xfid = $('#xf option:selected').val();
+        $.ajax({
+            url : "xfxxwh/getXf",
+            data : {
+                "xfid" : xfid
+            },
+            success : function(data) {
+                var dizhi=data.xfdz +""+data.xfdh;
+                var zh=data.xfyh +""+data.xfyhzh;
+                $("#xfmc").val(data.xfmc);
+                $("#xfsh").val(data.xfsh);
+                $("#xfdz").val(dizhi );
+                $("#xhzh").val(zh);
+                $("#skr").val(data.skr);
+                $("#fh").val(data.fhr);
+                $("#kpr").val(data.kpr);
+                $("#bz").val(data.bz);
+
+
+            }
+        });
+        </c:if>
+
         function query(){
             $("#gfmc").autocomplete({
                 autoFocus:true,
@@ -694,6 +735,10 @@
                             data[i].skpid);
                         kpd.append(option);
                     }
+                    if(data.length==1){
+                        $("#kpd").find("option").eq(1).attr("selected",true)
+                        getFplx();
+                    }
                 }
             });
             $.ajax({
@@ -737,6 +782,9 @@
                                 data[i].fpzldm);
                             fpzldm.append(option);
                         }
+                        if(data.length==1){
+                            $("#fpzldm").find("option").eq(1).attr("selected",true)
+						}
                     }
                 });
             }

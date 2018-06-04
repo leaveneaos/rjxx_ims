@@ -84,7 +84,6 @@
 														</c:forEach>
 													</c:if>
 													<c:if test="${xfnum==1}">
-														<option value="">选择销方</option>
 														<c:forEach items="${xfList}" var="item">
 															<option value="${item.id}">${item.xfmc}</option>
 														</c:forEach>
@@ -95,6 +94,12 @@
 													class="star">*</span>开票点名称</label>
 											<div class="am-u-sm-3">
 												<select id="kpd" name="kpd" required>
+													<c:if test="${xfnum>1}">
+														<option value="">选择开票点</option>
+														<c:forEach items="${skpList}" var="item">
+															<option value="${item.id}">${item.kpdmc}</option>
+														</c:forEach>
+													</c:if>
 													<c:if test="${xfnum==1}">
 														<c:forEach items="${skpList}" var="item">
 															<option value="${item.skpid}">${item.kpdmc}</option>

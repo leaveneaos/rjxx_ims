@@ -84,7 +84,6 @@
 													</c:forEach>
 												</c:if>
 												<c:if test="${xfnum==1}">
-													<option value="">选择销方</option>
 													<c:forEach items="${xfList}" var="item">
 														<option value="${item.id}">${item.xfmc}</option>
 													</c:forEach>
@@ -95,12 +94,17 @@
 												class="star">*</span>开票点名称</label>
 										<div class="am-u-sm-3">
 											<select id="kpd" name="kpd" onchange="getFplx();" required>
-												<%--<c:if test="${xfnum==1}">
+												<c:if test="${xfnum>1}">
 													<option value="">选择开票点</option>
 													<c:forEach items="${skpList}" var="item">
 														<option value="${item.id}">${item.kpdmc}</option>
 													</c:forEach>
-												</c:if>--%>
+												</c:if>
+												<c:if test="${xfnum==1}">
+												<c:forEach items="${skpList}" var="item">
+													<option value="${item.id}">${item.kpdmc}</option>
+												</c:forEach>
+												</c:if>
 											</select>
 										</div>
 									</div>
@@ -400,7 +404,9 @@
 //            }
 //        });
 //    }
-
+    if($("#kpd").find("option").length==1){
+        getFplx();
+    }
     function query(){
         $("#gfmc").autocomplete({
             autoFocus:true,
@@ -449,6 +455,10 @@
                             data[i].skpid);
                         kpd.append(option);
                     }
+                    if(data.length==1){
+                        $("#kpd").find("option").eq(1).attr("selected",true)
+						getFplx();
+                    }
                 }
             });
 		}
@@ -471,6 +481,9 @@
                         option = $("<option>").text(data[i].fpzlmc).val(
                             data[i].fpzldm);
                         fpzldm.append(option);
+                    }
+                    if(data.length==1){
+                        $("#fpzldm").find("option").eq(1).attr("selected",true)
                     }
                 }
             });

@@ -67,12 +67,12 @@ public class PttqkpController extends BaseController {
 	private AdapterService adapterService;
 	@Autowired
 	private KpService kpService;
+	@Autowired
+	private FpkcService fpkcService;
 
 	@RequestMapping
 	@SystemControllerLog(description = "平台提取开票", key = "")
 	public String index() {
-		request.setAttribute("xfList", getXfList());
-		request.setAttribute("skpList", getSkpList());
 		List<Sm> list = smService.findAllByParams(new Sm());
 		request.setAttribute("smlist", list);
 		String gsdm = this.getGsdm();
@@ -95,11 +95,6 @@ public class PttqkpController extends BaseController {
 		}
 		if (xfList.size() == 1) {
 			Map<String, Object> map = new HashMap<>();
-			/*
-			 * map.put("xfsh", xfList.get(0).getXfsh()); map.put("xfs",
-			 * getXfList());
-			 */
-			map.put("gsdm", gsdm);
 			List<Drmb> mbList = drmbService.findAllByParams(map);
 			Drmb mb = new Drmb();
 			mb.setXfsh(xfList.get(0).getXfsh());
@@ -115,7 +110,30 @@ public class PttqkpController extends BaseController {
 		request.setAttribute("spList", list2);
 		request.setAttribute("xfList", getXfList());
 		request.setAttribute("xfnum", getXfList().size());
-		System.out.println("销方下拉--"+ JSON.toJSONString(getXfList()));
+		if(getXfList().size()==1) {
+			Map params = new HashMap<>();
+			String skpStr = "";
+			List<Skp> skpList = getSkpList();
+			if (skpList != null) {
+				for (int j = 0; j < skpList.size(); j++) {
+					int skpid = skpList.get(j).getId();
+					if (j == skpList.size() - 1) {
+						skpStr += skpid + "";
+					} else {
+						skpStr += skpid + ",";
+					}
+				}
+			}
+			String[] skpid = skpStr.split(",");
+			if (skpid.length == 0) {
+				skpid = null;
+			}
+			params.put("xfid", getXfList().get(0).getId());
+			params.put("gsdm", gsdm);
+			params.put("skpid", skpid);
+			List<Fpkcvo> list3 = fpkcService.findKpd(params);
+			request.setAttribute("skpList", list3);
+		}
 		return "pttqkp/index";
 	}
 

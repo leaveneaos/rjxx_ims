@@ -227,6 +227,10 @@ $(function() {
     });
     var value;
     jyspmx_table.on('click', 'input#spmc', function () {
+        if($("#xf").val()==""){
+            swal("请选择销方名称");
+            return;
+        }
         value=$(this).parent("td").parent("tr").children("td").eq(0).text();
         $("#s_spmc").val("");
         $("#spxx").modal({"width": 720, "height": 500});

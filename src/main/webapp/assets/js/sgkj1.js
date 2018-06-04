@@ -475,6 +475,10 @@ $(function() {
     $("#jyspmx_table").on('click', 'input.spmclick', function () {
         var  rowstr=$(this).closest("tr").index()+1;//获取当前行数
         var fphxz=$("#jyspmx_table").find("tr").eq(rowstr).children("td").eq(1).find('input[name="fphxz"]').val();
+        if($("#xf").val()==""){
+            swal("请选择销方名称");
+            return;
+        }
         var bl = true;
         if(fphxz!=null && fphxz !="0"){
             bl=false;
