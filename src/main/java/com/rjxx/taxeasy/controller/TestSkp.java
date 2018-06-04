@@ -1,7 +1,9 @@
 package com.rjxx.taxeasy.controller;
 
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.utils.XmlJaxbUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,7 +131,8 @@ public class TestSkp extends BaseController {
 
     @RequestMapping("/GetCurrentInvoiceInfo")
     @ResponseBody
-    public String GetCurrentInvoiceInfo(int kplsh) throws Exception {
-        return skService.GetCurrentInvoiceInfo(kplsh);
+    public String GetCurrentInvoiceInfo(String fpzldm, int skpid) throws Exception {
+        InvoiceResponse invoiceResponse=skService.getCodeAndNo(skpid,fpzldm);
+        return XmlJaxbUtils.toXml(invoiceResponse);
     }
 }
