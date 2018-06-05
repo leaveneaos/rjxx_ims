@@ -1682,8 +1682,14 @@ public class KpController extends BaseController {
 		List dxlist = new ArrayList();
 		ChinaNumber cn = new ChinaNumber();
 		Double aa = 0.00;
+		Double kce = 0.00;
 		for (int x = 0; x < mxcl.size(); x++) {
 			aa = aa + mxcl.get(x).getJshj();
+			kce = kce +(mxcl.get(x).getKce() ==null?0d:mxcl.get(x).getKce());
+		}
+		if(jyls.getZsfs().equals("2")){
+			String bz = "差额征税："+kce+"。 "+jyls.getBz();
+			jyls.setBz(bz);
 		}
 		String jshjstr = new DecimalFormat("0.00").format(aa);
 		dxlist.add(cn.getCHSNumber(jshjstr));
