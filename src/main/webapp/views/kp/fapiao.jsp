@@ -391,7 +391,7 @@ h2 {
                                             </table>
                                         </td>
                                         <td class="boyder_td1 printed" style="text-align: center">备<br/><br/><br/>注</td>
-                                        <td valign="top" style="width:320px" class="filled"><%=jyls.getBz() %></td>
+                                        <td valign="top" style="width:320px;text-align:left" class="filled"><%=jyls.getBz() %></td>
                                     </tr>
                                 </table>
                             </td>

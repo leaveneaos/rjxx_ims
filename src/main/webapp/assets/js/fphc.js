@@ -332,6 +332,16 @@ $(function () {
                             'sClass': 'right'
                         }]
                 });
+            t.on("click","tr",function(){
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                } else {
+                    $(this).find('td:eq(0) input').prop('checked',true);
+                    $(this).addClass('selected');
+                }
+
+            })
             var loaddata2=false;
             t1 = $('#ysTable')
             .DataTable({
@@ -480,20 +490,41 @@ $(function () {
             t.on('click', 'input#chk', function () {
                 var data = t.row($(this).parents('tr')).data();
                 var kplshStr = [];
-                $('#chk:checked').each(function(){    
-                 kplshStr.push($(this).val()); 
+                $('#chk:checked').each(function(){
+                    kplshStr.push($(this).val());
                 });
                 if(kplshStr.length>1){
                     swal("不能批量红冲！");
-                    $('input[type="checkbox"]').prop('checked', false);     
-                      return;
+                    $('input[type="checkbox"]').prop('checked', false);
+                    return;
                 }
                 $("#kplsh").val(data.kplsh);
                 $("#gsdm").val(data.gsdm);
                 $("#fpzldm").val(data.fpzldm);
                 kpspmx_table.ajax.reload();
             });
-            
+            t.on('click', 'tbody>tr', function () {
+                var data = t.row($(this)).data();
+                var kplshStr = [];
+                $('#chk:checked').each(function(){
+                    kplshStr.push($(this).val());
+                });
+                if(kplshStr.length>1){
+                    swal("不能批量红冲！");
+                    $('input[type="checkbox"]').prop('checked', false);
+                    return;
+                }
+                $("#kplsh").val(data.kplsh);
+                $("#gsdm").val(data.gsdm);
+                $("#fpzldm").val(data.fpzldm);
+                kpspmx_table.ajax.reload();
+            });
+
+
+
+            //js-table2
+            //选中列查询明细
+
             $('#hc_search').click(function () {
                 $("#bj").val("2");
                 $('#xzxfq').attr("selected","selected");
