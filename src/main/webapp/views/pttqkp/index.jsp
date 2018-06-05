@@ -456,8 +456,9 @@
                         kpd.append(option);
                     }
                     if(data.length==1){
+                        getFplx();
                         $("#kpd").find("option").eq(1).attr("selected",true)
-						getFplx();
+
                     }
                 }
             });

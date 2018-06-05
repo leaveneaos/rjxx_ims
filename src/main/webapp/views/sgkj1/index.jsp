@@ -736,8 +736,9 @@
                         kpd.append(option);
                     }
                     if(data.length==1){
-                        $("#kpd").find("option").eq(1).attr("selected",true)
                         getFplx();
+                        $("#kpd").find("option").eq(1).attr("selected",true)
+
                     }
                 }
             });
