@@ -177,17 +177,17 @@
 									<label for="kpd" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>开票点名称</label>
 									<div class="am-u-sm-3">
 										<select id="kpd" name="kpd" required onchange="getFplx();">
-											<c:if test="${xfnum>1}">
+											<%--<c:if test="${xfnum>1}">--%>
 												<option value="">选择开票点</option>
 												<c:forEach items="${skpList}" var="item">
 													<option value="${item.skpid}">${item.kpdmc}</option>
 												</c:forEach>
-											</c:if>
-													<c:if test="${xfnum==1}">
-                                                        <c:forEach items="${skpList}" var="item">
-                                                            <option value="${item.skpid}">${item.kpdmc}</option>
-                                                        </c:forEach>
-                                                    </c:if>
+											<%--</c:if>--%>
+													<%--<c:if test="${xfnum==1}">--%>
+                                                        <%--<c:forEach items="${skpList}" var="item">--%>
+                                                            <%--<option value="${item.skpid}">${item.kpdmc}</option>--%>
+                                                        <%--</c:forEach>--%>
+                                                    <%--</c:if>--%>
 										</select>
 									</div>
 									<label for="fpzldm" class="am-u-sm-1 am-form-label" style="padding-top: 4px;"><span class="star">*</span>发票种类</label>
@@ -660,11 +660,12 @@
 //        }
 
 
-		if($("#kpd").find("option").length==1){
-            getFplx();
-		}
+		// if($("#kpd").find("option").length==2){
+         //    getFplx();
+		// }
 
         <c:if test="${xfnum==1}">
+		getKpd();
         var xfid = $('#xf option:selected').val();
         $.ajax({
             url : "xfxxwh/getXf",
@@ -736,8 +737,9 @@
                         kpd.append(option);
                     }
                     if(data.length==1){
+
+                        $("#kpd").find("option").eq(1).attr("selected",true);
                         getFplx();
-                        $("#kpd").find("option").eq(1).attr("selected",true)
 
                     }
                 }
