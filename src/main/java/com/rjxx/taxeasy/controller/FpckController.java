@@ -13,6 +13,7 @@ import com.rjxx.taxeasy.utils.UrlUtils;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.HtmlUtils;
+import com.rjxx.utils.StringUtils;
 import com.rjxx.utils.XmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -280,6 +281,15 @@ public class FpckController extends BaseController {
                         String returnHCMsg = resultHCMap.get("ReturnMessage").toString();
                         String returnHCCode = resultHCMap.get("ReturnCode").toString();
                         if (returnHCCode.equals("0000")) {
+                            //更新原始数据提取码
+                            if(StringUtils.isNotBlank(jyxxsq.getTqm())){
+                                Map param= new HashMap();
+                                param.put("tqm",jyxxsq.getTqm()+"_01");
+                                param.put("gsdm",jyxxsq.getGsdm());
+                                param.put("sqlsh",jyxxsq.getSqlsh());
+                                jyxxsqService.updateJyxxsqTqm(param);
+                            }
+
                             //修改购方信息--重开
                             if(fpcklx!=null && fpcklx.equals("01")){
                                 if (null != gfshck && !gfshck.equals("")) {
