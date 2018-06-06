@@ -239,7 +239,7 @@ public class FpckController extends BaseController {
                     Jyxxsq jyxxsq = jyxxsqService.findOneByJylsh(jyxxsqMap);
                     Map jymxsqMap = new HashMap();
                     jymxsqMap.put("sqlsh", list.get(0).getSqlsh());
-                    jymxsqMap.put("gsdm", getGsdm());
+//                    jymxsqMap.put("gsdm", getGsdm());
                     jymxsqList = jymxsqService.findAllBySqlsh(jymxsqMap);
                     if (jymxsqList.size() < 0) {
                         result.put("success", false);
