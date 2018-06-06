@@ -135,6 +135,10 @@
 		font-size: 18px;
 		color: #feffff;
 	}
+	textarea{
+		/*border: none;*/
+		resize: none;
+	}
 
 
 </style>
@@ -348,16 +352,21 @@
 										</div>
 										<div class="am-u-sm-4" style="height: 100%;border-right: 1px solid #ccc;padding: 0px">
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px" >
-												<input id="xfmc" class="selected" style="width: 100%;height: 100%;" name="gfmc" type="text" value="" readonly>
+												<textarea id="xfmc" class="selected" name="gfmc"style="width: 100%;height: 100%;" readonly></textarea>
+												<%--<input id="xfmc" class="selected" style="width: 100%;height: 100%;" name="gfmc" type="text" value="" readonly>--%>
 											</div>
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
-												<input id="xfsh" class="selected" style="width: 100%;height: 100%;" name="gfsh" type="text" readonly>
+												<%--<input id="xfsh" class="selected" style="width: 100%;height: 100%;" name="gfsh" type="text" readonly>--%>
+												<textarea id="xfsh" class="selected" name="gfmc"style="width: 100%;height: 100%;" readonly></textarea>
+
 											</div>
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
-												<input id="xfdz" class="selected" style="width: 100%;height: 100%;" name="gfdz" type="text" readonly>
+												<%--<input id="xfdz" class="selected" style="width: 100%;height: 100%;" name="gfdz" type="text" readonly>--%>
+												<textarea id="xfdz" class="selected" name="gfmc"style="width: 100%;height: 100%;" readonly></textarea>
 											</div>
 											<div class="am-u-sm-12" style="height: 35px;padding: 0px">
-												<input id="xhzh" class="selected" style="width: 100%;height: 100%;" name="yhzh" type="text" readonly>
+												<%--<input id="xhzh" class="selected" style="width: 100%;height: 100%;" name="yhzh" type="text" readonly>--%>
+												<textarea id="xhzh" class="selected" name="gfmc"style="width: 100%;height: 100%;" readonly></textarea>
 											</div>
 										</div>
 										<div class="am-u-sm-1" style="height: 100%;border-right: 1px solid #ccc">
@@ -750,11 +759,15 @@
                     "xfid" : xfid
                 },
                 success : function(data) {
-              var dizhi=data.xfdz +""+data.xfdh;
-              var zh=data.xfyh +""+data.xfyhzh;
+                    var dizhilef=data.xfdz===null? "":data.xfdz;
+                    var dizhiright=data.xfdh==null? "":data.xfdh;
+                    var zhlef=data.xfyh==null? "":data.xfyh ;
+                    var zhright=data.xfyhzh==null? "":data.xfyhzh;
+                    var dizhi=dizhilef +""+dizhiright;
+                    var zh=zhlef+""+zhright;
                     $("#xfmc").val(data.xfmc);
                     $("#xfsh").val(data.xfsh);
-                    $("#xfdz").val(dizhi );
+                    $("#xfdz").val(dizhi);
                     $("#xhzh").val(zh);
                     $("#skr").val(data.skr);
                     $("#fh").val(data.fhr);
