@@ -112,7 +112,7 @@ public class FpycckController extends BaseController {
         //发票异常开具只查询发票状态为05,14
         List fpztlist = new ArrayList();
         fpztlist.add("05");
-        fpztlist.add("14");
+        //fpztlist.add("14");
         maps.put("fpztlist", fpztlist);
         maps.put("fpzt", fpzt);
         maps.put("xfmc", xfmc);
