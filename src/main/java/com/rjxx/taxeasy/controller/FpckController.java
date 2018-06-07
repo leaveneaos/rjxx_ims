@@ -321,6 +321,8 @@ public class FpckController extends BaseController {
                                     jymxsqList.get(i).setDdh(jyxxsq.getDdh());
                                 }
                             }
+                            //修改订单日期
+                            jyxxsq.setDdrq(new Date());
                             jyxxsqList.add(jyxxsq);
                             Map kpMap = new HashMap();
                             kpMap.put("jyxxsqList", jyxxsqList);
