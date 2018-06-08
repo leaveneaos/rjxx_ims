@@ -288,7 +288,7 @@
 												<label for="kpdmc" class="am-u-sm-2 am-form-label">开票点品牌</label>
 												<div class="am-u-sm-4">
 													<select id="pid" name="pid">
-														<option value="-1">请选择</option>
+														<option value="0">请选择</option>
 														<c:forEach items="${pps}" var="item">
 															<option value="${item.id}">${item.ppmc}(${item.ppdm})</option>
 														</c:forEach>
