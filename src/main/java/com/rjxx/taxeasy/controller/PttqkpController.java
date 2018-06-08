@@ -344,6 +344,11 @@ public class PttqkpController extends BaseController {
 			}else {
 				jyxxsq.setGflx("0");
 			}
+			if(null !=request.getParameter("yjdz") && !"".equals(request.getParameter("yjdz"))){
+				jyxxsq.setSffsyj("1");
+			}else {
+				jyxxsq.setSffsyj("0");
+			}
 			String tqm = request.getParameter("tqm");
 			if (StringUtils.isNotBlank(tqm)) {
 				Map params = new HashMap();
