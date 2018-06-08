@@ -78,6 +78,32 @@ $(function() {
                                      option = $("<option>").text(test[i].kpdmc).val(test[i].skpid);
                                     kpd.append(option);
                                 }
+                                if(test.length==1){
+                                    $("#kpd").find("option").eq(1).attr("selected",true);
+                                    var skpid = $('#kpd option:selected').val();
+                                    if(skpid !=null && skpid !=""){
+                                        var fpzldm = $("#fpzldm");
+                                        $("#fpzldm").empty();
+                                        $.ajax({
+                                            url : "pttqkp/getFpzldm",
+                                            data : {
+                                                "skpid" : skpid
+                                            },
+                                            success : function(data) {
+                                                var option = $("<option>").text('请选择').val(-1);
+                                                fpzldm.append(option);
+                                                for (var i = 0; i < data.length; i++) {
+                                                    option = $("<option>").text(data[i].fpzlmc).val(
+                                                        data[i].fpzldm);
+                                                    fpzldm.append(option);
+                                                }
+                                                if(data.length==1){
+                                                    $("#fpzldm").find("option").eq(1).attr("selected",true)
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
                             }
                         });
                         //$("#kpd").val(jyxxsq[i].skpid);
