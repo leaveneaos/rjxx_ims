@@ -772,39 +772,52 @@ $(function() {
         		}
             });
             //无效
+
             $("#kpd_wx").click(function () {
-               
+
+                var chk_value="" ;
+                $('input[name="dxk"]:checked').each(function(){
+                    chk_value+=$(this).val()+",";
+                });
+                if(chk_value.length==0){
+
+                    swal("请至少选择一条数据");
+                }else{
+                    //订单状态调整
+                    var $xgztModal = $("#bulk-xgzt-div");
+                    $('#xgddzt').resetForm();
+                    $xgztModal.modal({"width": 450, "height": 300});
+                }
+            });
+
+            $("#xtztButton").click(function () {
+                var xg_zt = $("#xg_zt").val();
+                if (!xg_zt) {
+                    swal("请选择要修改的订单状态！");
+                    return;
+                }
         		var chk_value="" ;
         		$('input[name="dxk"]:checked').each(function(){
         		chk_value+=$(this).val()+",";
         		});
         		var ddhs = chk_value.substring(0, chk_value.length-1);
-        		if(chk_value.length==0){
-
-                    swal("请至少选择一条数据");
-        		}else{
-                    swal({
-                        title: "您确认要进行无效操作吗？",
-                        type: "warning",
-                        showCancelButton: true,
-                        closeOnConfirm: false,
-                        confirmButtonText: "确 定",
-                        confirmButtonColor: "#ec6c62"
-                    }, function() {
-                        $('.confirm').attr('disabled',"disabled");
-                        $.ajax({
-                            type : "POST",
-                            url : "kpdsh/wx",
-                            data : {"ddhs":ddhs},
-                        }).done(function(data) {
-                            $('.confirm').removeAttr('disabled');
-                            swal(data.msg);
-                            _this.tableEx.ajax.reload();
-                        })
-                    });
-                    
-        		}
+                $.ajax({
+                    type : "POST",
+                    url : "kpdsh/wx",
+                    data : {
+                        "ddhs":ddhs,
+                        "xgzt":xg_zt
+                    },
+                    success : function(data) {
+                        $('#bulk-xgzt-div').modal('close');
+                        $('.confirm').removeAttr('disabled');
+                        swal(data.msg);
+                        _this.tableEx.ajax.reload();
+                    }
+                });
             });
+
+
             $('#check_all').change(function () {
             	if ($('#check_all').prop('checked')) {
                     splsh.splice(0,splsh.length);
@@ -1092,6 +1105,9 @@ $(function() {
 			});
             $("#xwclose1").on('click', function() {
                 $('#bulk-xwimport-div').modal('close');
+            });
+            $("#xtztclose").on('click', function() {
+                $('#bulk-xgzt-div').modal('close');
             });
 			$("#mxclose").on('click', function() {
 				$('#my-alert-edit1').modal('close');

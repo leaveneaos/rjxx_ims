@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.JyxxsqVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +18,6 @@ import com.rjxx.taxeasy.domains.Sp;
 import com.rjxx.taxeasy.domains.Spz;
 import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.CszbService;
-import com.rjxx.taxeasy.service.DrmbService;
-import com.rjxx.taxeasy.service.SmService;
-import com.rjxx.taxeasy.service.SpvoService;
-import com.rjxx.taxeasy.service.SpzService;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 
@@ -38,6 +35,8 @@ public class KpdshxbController extends BaseController{
 	private SpzService spzService;
 	@Autowired
 	DrmbService drmbService;
+	@Autowired
+	JyxxsqService jyxxsqService;
 	@RequestMapping
 	@SystemControllerLog(description = "开票单审核页面进入",key = "")
 	public String index() {
@@ -47,6 +46,8 @@ public class KpdshxbController extends BaseController{
 		request.setAttribute("smlist", list);
 		String gsdm = this.getGsdm();
 		request.setAttribute("gsdm", gsdm);
+		List<JyxxsqVO> ztbzList = jyxxsqService.findkxgzt(new HashMap());
+		request.setAttribute("ztbzList", ztbzList);
 		List<Object> argList = new ArrayList<>();
 		argList.add(gsdm);
 		Cszb cszb = cszbService.getSpbmbbh(gsdm, getXfid(), null, "sfqyspz");

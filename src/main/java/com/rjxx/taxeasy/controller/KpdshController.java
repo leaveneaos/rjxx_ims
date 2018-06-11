@@ -1048,7 +1048,7 @@ public class KpdshController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/wx")
 	@SystemControllerLog(description = "开票单审核无效", key = "ddhs")
-	public Map<String, Object> wx(String ddhs) {
+	public Map<String, Object> wx(String ddhs,String xgzt) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] sqlshs = ddhs.split(",");
 		List<Integer> sqlshList = new ArrayList<Integer>();
@@ -1059,8 +1059,8 @@ public class KpdshController extends BaseController {
 			//jyxxsqService.save(jyxxsq);
 			sqlshList.add(Integer.valueOf(sqlsh));
 		}
-		jyxxsqService.updateJyxxsqZtzt(sqlshList,"7");
-		result.put("msg", "无效成功");
+		jyxxsqService.updateJyxxsqZtzt(sqlshList,xgzt);
+		result.put("msg", "修改订单状态成功");
 		return result;
 	}
 

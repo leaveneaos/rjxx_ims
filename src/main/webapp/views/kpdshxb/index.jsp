@@ -230,7 +230,7 @@ table thead th {
 
 														<button type="button" id="kpd_wx"
 																class="am-btn am-btn-default am-btn-danger">
-															<span></span> 无效
+															<span></span> 状态调整
 														</button>
 													</div>
 												</div>
@@ -1242,8 +1242,45 @@ table thead th {
 						</div>
 						<div class="am-u-sm-12" style="margin-top: 30px;">
 							<button type="button" id="xwbtnImport"
-									class="am-btn am-btn-xs am-btn-primary">导入</button>
+									class="am-btn am-btn-xs am-btn-secondary">导入</button>
 							<button type="button" id="xwclose1"
+									class="am-btn am-btn-danger am-btn-xs">关闭</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="am-modal am-modal-no-btn" tabindex="-1"
+		 id="bulk-xgzt-div">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd am-modal-footer-hd">
+				修改订单状态
+			</div>
+			<div class="am-tab-panel am-fade am-in am-active">
+				<form class="am-form am-form-horizontal" id="xgddzt"
+					  method="post"
+					  action=""
+					  enctype="multipart/form-data">
+					<div class="am-form-group">
+						<div class="am-u-sm-12">
+							<label class="am-u-sm-4 am-form-label"><font color="red">*</font>订单状态</label>
+							<div class="am-u-sm-8">
+								<select id="xg_zt" name="xg_zt" class="am-u-sm-12">
+										<option value="">请选择</option>
+										<c:forEach items="${ztbzList}" var="item">
+											<option value="${item.ztbzdm}">${item.ztbzmc}</option>
+										</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="am-u-sm-12" style="margin-top: 140px;">
+							<button type="button" id="xtztButton"
+									class="am-btn am-btn-xs am-btn-secondary">确定</button>
+							<button type="button" id="xtztclose"
 									class="am-btn am-btn-danger am-btn-xs">关闭</button>
 						</div>
 					</div>
