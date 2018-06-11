@@ -213,7 +213,7 @@ public class FpcxController extends BaseController {
     @RequestMapping(value = "/exportExcel")
     @ResponseBody
     public Map<String, Object> exportExcel(String ddh, String kprqq, String kprqz, String time2,String spmc, String fphm,
-                                           String printflag,String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt,String kplsh1,String jzjtzt,String check) throws Exception {
+                                           String printflag,String gfmc, String fpdm, String fpzt, String fpczlx, String tip, String txt,String kplsh1,String jzjtzt,String s_check) throws Exception {
         String gsdm = this.getGsdm();
         String xfStr = "";
         List<Xf> xfs = getXfList();
@@ -279,7 +279,7 @@ public class FpcxController extends BaseController {
         params.put("xfid", xfid);
         params.put("skpid", skpid);
         params.put("ddh", ddh);
-        if(null!= check && check.equals("1")){
+        if(null!= s_check && s_check.equals("1")){
             params.put("lrry", getYhid());
         }
         params.put("jzjtzt",jzjtzt);
