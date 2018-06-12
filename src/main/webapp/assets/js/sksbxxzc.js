@@ -25,7 +25,8 @@ $(function() {
 		$zpfz : $('#zpfz'),
 		$checkAll : $('#check_all'), // check all checkbox
 		$jsdel : $('.js-sent'), // del all
-		$jsLoading : $('.js-modal-loading')
+		$jsLoading : $('.js-modal-loading'),
+        $FactoryReset : $('#FactoryReset'),
 	};
 
 	var action = {
@@ -529,6 +530,62 @@ $(function() {
 					ids : data
 				});
 				el.$checkAll.prop('checked', false);
+			});
+		},
+        FactoryReset:function(){
+            var _this = this;
+            el.$FactoryReset.on('click', function(e) {
+                e.preventDefault();
+                var kpdidStr = [],row = '';
+                _this.tableEx.column(0).nodes().each(function(cell, i) {
+                    var $checkbox = $(cell).find('input[type="checkbox"]');
+                    if ($checkbox.is(':checked')) {
+                        row = _this.tableEx.row(i).data().id;
+                        kpdidStr.push(row);
+                    }
+                });
+                if(kpdidStr.length>1){
+                    swal("不能批量恢复出厂设置！");
+                    $('input[type="checkbox"]').prop('checked', false);
+                    return;
+                }else if(kpdidStr.length==0){
+                    swal("请选择一条记录！");
+                    $('input[type="checkbox"]').prop('checked', false);
+                    return;
+                }
+                swal({
+                    title: "提示",
+                    text: "您确定要恢复出厂设置吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "确 定",
+                    confirmButtonColor: "#ec6c62"
+                }, function() {
+                    $('.confirm').attr('disabled',"disabled");
+                    $.ajax({
+                        url : 'sksbxxzc/FactoryReset',
+                        data : {
+                            kpdid : row
+                        },
+                        type : 'POST',
+                    }).done(function(data) {
+                        if (data.success) {
+                            $('.confirm').removeAttr('disabled');
+                            _this.tableEx.ajax.reload(); // reload table data
+                            swal({
+                                title: "已成功恢复出厂设置",
+                                timer: 1500,
+                                type: "success",
+                                showConfirmButton: false
+                            });
+                        } else {
+                            swal('恢复出厂设置,服务器错误' + data.msg);
+                        }
+                    }).error(function(data) {
+                        swal('请求失败,请刷新后稍后重试!', "error");
+                    });
+                });
 			});
 		},
 		/**

@@ -1,17 +1,17 @@
 package com.rjxx.taxeasy.controller;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-
+import com.rjxx.comm.mybatis.Pagination;
+import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.dao.ProvincesJpaDao;
 import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.filter.SystemControllerLog;
+import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.vo.SkpVo;
+import com.rjxx.taxeasy.web.BaseController;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.ExcelUtil;
 import com.rjxx.utils.StringUtils;
+import com.rjxx.utils.XmltoJson;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.filter.SystemControllerLog;
-import com.rjxx.taxeasy.service.DmFpbcService;
-import com.rjxx.taxeasy.service.FpzlService;
-import com.rjxx.taxeasy.service.GroupService;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.PpService;
-import com.rjxx.taxeasy.service.SkpService;
-import com.rjxx.taxeasy.service.XfService;
-import com.rjxx.taxeasy.vo.SkpVo;
-import com.rjxx.taxeasy.web.BaseController;
-import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.ExcelUtil;
+import javax.servlet.ServletOutputStream;
+import java.io.InputStream;
+import java.util.*;
 
 @Controller
 @RequestMapping("/sksbxxzc")
@@ -60,6 +50,12 @@ public class SksbxxzcControlller extends BaseController {
 
 	@Autowired
 	private DmFpbcService dfs;
+
+	@Autowired
+	private SkService skService;
+
+	@Autowired
+	private CszbService cszbService;
 
 	@Autowired
 	private ProvincesJpaDao provincesJpaDao;
@@ -465,7 +461,40 @@ public class SksbxxzcControlller extends BaseController {
 
 		return result;
 	}
+	@RequestMapping(value = "/FactoryReset")
+	@ResponseBody
+	public Map<String, Object> FactoryReset(Integer kpdid) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			Skp skp=skpService.findOne(kpdid);
+			Cszb cszb = cszbService.getSpbmbbh(skp.getGsdm(), skp.getXfid(), skp.getId(), "kpfs");
+		    String kpfs=cszb.getCsz();
+		    if(kpfs.equals("04")){
+				String message = skService.FactoryReset(kpdid);
+				Map resultMap= XmltoJson.strJson2Map(message);
+				String code="";
+				String Msg="";
+				if(null!=resultMap){
+					code=resultMap.get("Code")==null?"":resultMap.get("Code").toString();
+					Msg=resultMap.get("Msg")==null?"":resultMap.get("Msg").toString();
+				}
+				if("0".equals(code)){
+					result.put("success", true);
+				}else{
+					result.put("success", false);
+					result.put("msg", Msg);
+				}
+			}else{
+				result.put("failure", false);
+				result.put("msg", "该设备不是税控盒子");
+			}
+		} catch (Exception e) {
+			result.put("failure", false);
+			result.put("msg", "异常，请稍后再试");
+		}
 
+		return result;
+	}
 	@RequestMapping(value = "/del")
 	@ResponseBody
 	@Transactional
