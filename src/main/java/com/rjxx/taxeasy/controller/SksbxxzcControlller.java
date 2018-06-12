@@ -471,24 +471,31 @@ public class SksbxxzcControlller extends BaseController {
 		    String kpfs=cszb.getCsz();
 		    if(kpfs.equals("04")){
 				String message = skService.FactoryReset(kpdid);
-				Map resultMap= XmltoJson.strJson2Map(message);
-				String code="";
-				String Msg="";
-				if(null!=resultMap){
-					code=resultMap.get("Code")==null?"":resultMap.get("Code").toString();
-					Msg=resultMap.get("Msg")==null?"":resultMap.get("Msg").toString();
-				}
-				if("0".equals(code)){
-					result.put("success", true);
+				Thread.sleep(6000);
+				if(null!=message){
+					Map resultMap= XmltoJson.strJson2Map(message);
+					String code="";
+					String Msg="";
+					if(null!=resultMap){
+						code=resultMap.get("Code")==null?"":resultMap.get("Code").toString();
+						Msg=resultMap.get("Msg")==null?"":resultMap.get("Msg").toString();
+					}
+					if("0".equals(code)){
+						result.put("success", true);
+					}else{
+						result.put("success", false);
+						result.put("msg", Msg);
+					}
 				}else{
-					result.put("success", false);
-					result.put("msg", Msg);
+					result.put("failure", false);
+					result.put("msg", "异常，请稍后再试!");
 				}
 			}else{
 				result.put("failure", false);
 				result.put("msg", "该设备不是税控盒子");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.put("failure", false);
 			result.put("msg", "异常，请稍后再试");
 		}
