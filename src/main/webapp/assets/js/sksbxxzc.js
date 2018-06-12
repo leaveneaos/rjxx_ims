@@ -701,6 +701,7 @@ $(function() {
 			_this.checkAllAc();
 			_this.delAllAc();
 			_this.saveRow();
+            _this.FactoryReset();
 		}
 	};
 	action.init();
