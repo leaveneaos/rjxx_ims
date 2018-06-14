@@ -231,6 +231,24 @@
                 loaddata=true;
                 spz_table.ajax.reload();
             });
+            $("#sub").on("click",function () {
+                if($("#spdm").val()==""){
+                    swal('商品代码不能为空');
+                    return false
+                }
+                if($("#spmc").val()==""){
+                    swal('商品名称不能为空');
+                    return false
+                }
+                if($("#smid").val()==""){
+                    swal('税率不能为空');
+                    return false
+                }
+                if($("#spbm").val()==-1 || $("#spbm").val()=="" || $("#spbm").val()==null){
+                    swal('请选择商品和服务税收分类编码');
+                    return false;
+                }
+            });
             $("#new").click(function() {
                 $.ajax({
                     url: "spslgl/getSps",
@@ -259,6 +277,7 @@
                 url1 = "spslgl/saveSpz";
             });
             $("#save").click(function() {
+
                 var data = $("#form1").serialize();
                 $('#save').attr("disabled", true);
                 var spzmc = $("#spzmc").val();
