@@ -78,13 +78,13 @@ public class DdcxController extends BaseController {
 			params.put("ztbz", ztbz);
 			if (rqq != null && !rqq.trim().equals("") && rqz != null && !rqz.trim().equals("")) { // 名称参数非空时增加名称查询条件
 				params.put("rqq", rqq);
-				params.put("rqz", TimeUtil.getAfterDays(rqz, 1));
+				params.put("rqz", rqz);
 			} else if (rqq != null && !rqq.trim().equals("") && (rqz == null || rqz.trim().equals(""))) {
 				params.put("rqq", rqq);
-				params.put("rqz", TimeUtil.getAfterDays(rqq, 1));
+				params.put("rqz", rqq);
 			} else if ((rqq == null || rqq.trim().equals("")) && rqz != null && !rqz.trim().equals("")) {
 				params.put("rqq", rqz);
-				params.put("rqz", TimeUtil.getAfterDays(rqz, 1));
+				params.put("rqz", rqz);
 			}
 
 			//params.addParam("orderBy", "ddrq desc");
@@ -190,10 +190,10 @@ public class DdcxController extends BaseController {
 		params.put("ztbz",s_ddzt);
 		if(StringUtils.isNotBlank(w_kprqq)&&StringUtils.isNotBlank(w_kprqz)){
 			params.put("rqq",w_kprqq);
-			params.put("rqz", TimeUtil.getAfterDays(w_kprqz, 1));
+			params.put("rqz", w_kprqz);
 		}else {
 			params.put("rqq",s_rqq);
-			params.put("rqz", TimeUtil.getAfterDays(s_rqz, 1));
+			params.put("rqz", s_rqz);
 		}
 		params.put("gsdm", this.getGsdm());
 		List<JyxxsqVO> kplscxList = jyxxsqservice.findAllBykplscx(params);
