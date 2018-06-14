@@ -353,7 +353,7 @@
 									<div class="am-u-sm-12">
 										<div class="am-form-group">
 											<div class="am-u-sm-12  am-text-center">
-												<button type="submit"
+												<button id="sub" type="submit"
 														class="js-submit  am-btn am-radius am-btn-secondary">保存</button>
 												<button type="button" id="close"
 														class="js-close  am-btn am-radius am-btn-secondary"
