@@ -17,6 +17,7 @@ import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -51,7 +52,6 @@ public class FphbclController extends BaseController {
 
 
     @RequestMapping
-    @SystemControllerLog(description = "发票合并处理", key = "")
     public String index() {
         request.setAttribute("xfList", getXfList());
         request.setAttribute("skpList", getSkpList());
@@ -59,8 +59,9 @@ public class FphbclController extends BaseController {
     }
 
     //查询未开票数据进行合并
+
+    @RequestMapping(value="/getItems", method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping("/getItems")
     public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
                                         String spmc, String gfmc, String xfsh, String fpzldm, boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -127,8 +128,8 @@ public class FphbclController extends BaseController {
 
 
     //发票合并
+    @RequestMapping(value = "/fphb", method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping("/fphb")
     public Map fphbcl(String sqlshs,String gfmc,String gfsh,String gfdz,
                     String gfdh,String gfyh,String yhzh){
         Map<String, Object> result = new HashMap();
@@ -192,8 +193,8 @@ public class FphbclController extends BaseController {
     }
 
     //合并撤销
+    @RequestMapping(value = "/fphbCancle", method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping("/fphbCancle")
     public Map fphbCancle(String sqlshs){
         Map<String, Object> result = new HashMap();
         try {
@@ -225,8 +226,8 @@ public class FphbclController extends BaseController {
     }
 
     //合并保存
+    @RequestMapping(value = "/fphbSave", method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping("/fphbSave")
     public Map fphbSave(String sqlshs){
         Map<String, Object> result = new HashMap();
         try {
