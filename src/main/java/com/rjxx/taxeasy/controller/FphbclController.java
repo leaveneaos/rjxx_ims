@@ -28,7 +28,7 @@ import java.util.*;
  * @date: 2018/4/10 13:49
  * @describe: 发票合并处理
  */
-@RestController
+@Controller
 @RequestMapping("/fphbcl")
 public class FphbclController extends BaseController {
 
@@ -60,7 +60,6 @@ public class FphbclController extends BaseController {
     }
 
     //查询未开票数据进行合并
-
     @RequestMapping(value="/getItems")
     @ResponseBody
     public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
