@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -27,7 +28,7 @@ import java.util.*;
  * @date: 2018/4/10 13:49
  * @describe: 发票合并处理
  */
-@Controller
+@RestController
 @RequestMapping("/fphbcl")
 public class FphbclController extends BaseController {
 
@@ -60,7 +61,7 @@ public class FphbclController extends BaseController {
 
     //查询未开票数据进行合并
 
-    @RequestMapping(value="/getItems", method = RequestMethod.POST)
+    @RequestMapping(value="/getItems")
     @ResponseBody
     public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
                                         String spmc, String gfmc, String xfsh, String fpzldm, boolean loaddata) throws Exception {
@@ -128,7 +129,7 @@ public class FphbclController extends BaseController {
 
 
     //发票合并
-    @RequestMapping(value = "/fphb", method = RequestMethod.POST)
+    @RequestMapping(value = "/fphb")
     @ResponseBody
     public Map fphbcl(String sqlshs,String gfmc,String gfsh,String gfdz,
                     String gfdh,String gfyh,String yhzh){
@@ -193,7 +194,7 @@ public class FphbclController extends BaseController {
     }
 
     //合并撤销
-    @RequestMapping(value = "/fphbCancle", method = RequestMethod.POST)
+    @RequestMapping(value = "/fphbCancle")
     @ResponseBody
     public Map fphbCancle(String sqlshs){
         Map<String, Object> result = new HashMap();
@@ -226,7 +227,7 @@ public class FphbclController extends BaseController {
     }
 
     //合并保存
-    @RequestMapping(value = "/fphbSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/fphbSave")
     @ResponseBody
     public Map fphbSave(String sqlshs){
         Map<String, Object> result = new HashMap();
