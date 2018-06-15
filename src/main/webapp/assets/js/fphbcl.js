@@ -148,7 +148,7 @@ $(function() {
                 searching : false,
                 "scrollX" : true,
 		        ajax: {
-		            "url": "/fphbcl/fphb",
+		            url: "/fphbcl/fphb",
 		            async:false,
 		            data: function (d) {
 		        		var gfmc=$("#gfmc").val();
@@ -189,7 +189,7 @@ $(function() {
 		            {"data": "gfdh"},
 		            {"data": "jshj"}
 		        ],
-                "fnDrawCallback"    : function(){
+                "fnDrawCallback" : function(){
                     this.api().column(0).nodes().each(function(cell, i) {
                         cell.innerHTML =  i + 1;
                     });
