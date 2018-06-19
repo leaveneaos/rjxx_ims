@@ -118,6 +118,7 @@ public class YjfsController extends BaseController {
 					Map jyxxsqMap=new HashMap();
 					jyxxsqMap.put("gsdm",kpls.getGsdm());
 					jyxxsqMap.put("jylsh",jyls.getJylsh());
+					jyxxsqMap.put("sqlsh", jyls.getSqlsh());
 					Jyxxsq jyxxsq=jyxxsqService.findOneByJylsh(jyxxsqMap);
 					//Kpls ls = new Kpls();
 					//ls.setDjh(jyls.getDjh());
