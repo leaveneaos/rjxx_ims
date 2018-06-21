@@ -543,7 +543,7 @@ public class KpdshController extends BaseController {
 				}
 			} else {
 				for (int j = 0; j < jyspmxs.size(); j++) {
-					if (jyspmxs.get(j).getKkjje().compareTo(jyspmxs.get(j).getJshj()) == 0) {
+					if (jyspmxs.get(j).getKkjje().doubleValue()==jyspmxs.get(j).getJshj().doubleValue()) {
 
 					} else {
 

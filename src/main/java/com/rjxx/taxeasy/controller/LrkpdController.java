@@ -1326,8 +1326,8 @@ public class LrkpdController extends BaseController {
             }
             jymxsq.setSpje(spje);
             jymxsq.setSpsl(spsl);
-            jymxsq.setJshj(jshj);
-            jymxsq.setKkjje(jshj);
+            jymxsq.setJshj(div(jshj,1d,2));
+            jymxsq.setKkjje(div(jshj,1d,2));
             jymxsq.setYkjje(0d);
             jymxsq.setSpse(Double.valueOf(getValue("spse", pzMap, columnIndexMap, row)));
 
@@ -2088,4 +2088,6 @@ public class LrkpdController extends BaseController {
         result.put("count", resultList.size() - 1);
         return result;
     }
+
+
 }
