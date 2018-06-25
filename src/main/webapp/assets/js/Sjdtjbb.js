@@ -202,11 +202,17 @@ $(function () {
             data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
             success:function(msg){
                 var dateArray = msg.dateArray;
+                dateArray.splice(5,1,Number(dateArray[5]).toFixed(2))
                 var zpArray = msg.zpArray;
+                zpArray.splice(5,1,Number(zpArray[5]).toFixed(2))
                 var zpjeArray = msg.zpjeArray;
+                zpjeArray.splice(5,1,Number(zpjeArray[5]).toFixed(2))
                 var ppArray = msg.ppArray;
+                ppArray.splice(5,1,Number(ppArray[5]).toFixed(2))
                 var ppjeArray = msg.ppjeArray;
+                ppjeArray.splice(5,1,Number(ppjeArray[5]).toFixed(2))
                 var dpArray = msg.dpArray;
+                dpArray.splice(5,1,Number(dpArray[5]).toFixed(2))
                 var dpjeArray = msg.dpjeArray;
                 dpjeArray.splice(5,1,Number(dpjeArray[5]).toFixed(2))
                 fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray);
