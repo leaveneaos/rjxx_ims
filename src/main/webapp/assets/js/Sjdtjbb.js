@@ -208,6 +208,14 @@ $(function () {
                 var ppjeArray = msg.ppjeArray;
                 var dpArray = msg.dpArray;
                 var dpjeArray = msg.dpjeArray;
+                dpjeArray.splice(0,1,Number(dpjeArray[0]).toFixed(2));
+                dpjeArray.splice(1,1,Number(dpjeArray[1]).toFixed(2));
+                dpjeArray.splice(2,1,Number(dpjeArray[2]).toFixed(2));
+                dpjeArray.splice(3,1,Number(dpjeArray[3]).toFixed(2));
+                dpjeArray.splice(4,1,Number(dpjeArray[4]).toFixed(2));
+                dpjeArray.splice(5,1,Number(dpjeArray[5]).toFixed(2));
+
+
                 fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray);
                 console.log(dpjeArray)
 
@@ -216,7 +224,7 @@ $(function () {
 
     };
 
-//dpjeArray.splice(5,1,Number(dpjeArray[5]).toFixed(2))
+//
     function fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray) {
         var t3 = document.getElementById('main');
         var myChart = echarts.init(t3);
