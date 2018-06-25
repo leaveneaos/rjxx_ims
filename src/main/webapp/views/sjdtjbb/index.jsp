@@ -183,7 +183,7 @@
 							</div> -->
 							<!-- 折线图结束 -->
 								<br>
-								<div class="am-u-sm-12" style="text-align: center">
+								<div class="am-u-sm-12" style="text-align:center">
 									<span><strong>&nbsp;</strong></span>
 								</div>
 								<br>

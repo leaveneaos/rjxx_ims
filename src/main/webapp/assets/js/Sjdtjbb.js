@@ -58,7 +58,9 @@ $(function () {
             },},
             {"data": "kpdmc"},
             {"data": "fpsl"},
-            {"data": "jshj"}
+            {"data": function(data){
+                    return Number(data.jshj).toFixed(2);
+                }}
             ]
     });
     t.on('draw.dt', function (e, settings, json) {
@@ -206,13 +208,16 @@ $(function () {
                 var ppjeArray = msg.ppjeArray;
                 var dpArray = msg.dpArray;
                 var dpjeArray = msg.dpjeArray;
+                dpjeArray.splice(5,1,Number(dpjeArray[5]).toFixed(2))
                 fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray);
+                console.log(dpjeArray)
+
             }
         });
 
     };
 
-
+//
     function fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray) {
         var t3 = document.getElementById('main');
         var myChart = echarts.init(t3);
@@ -327,7 +332,7 @@ $(function () {
                 }
 
             ]
-        };
+        };//
         // 使用刚指定的配置项和数据显示图表。
         myChart.hideLoading();
         myChart.setOption(option);
