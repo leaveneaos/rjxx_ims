@@ -303,7 +303,7 @@ public class FpcxController extends BaseController {
         int yhid = getYhid();
         map.put("yhid", yhid);
         List<DczydlVo> list = yhDczdylService.findAllByParams(map);
-        String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票类型,商品名称,商品金额,商品税额";
+        String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票类型,商品名称,商品金额,商品税率,商品税额";
         for (DczydlVo yhDczdyl : list) {
             headers1 += "," + yhDczdyl.getZdzwm();
         }
@@ -356,7 +356,8 @@ public class FpcxController extends BaseController {
             row.createCell(7).setCellValue(ykfpcx.getFpzlmc() == null ? "" : ykfpcx.getFpzlmc());
             row.createCell(8).setCellValue(ykfpcx.getSpmc() == null ? "" : ykfpcx.getSpmc());
             row.createCell(9).setCellValue(ykfpcx.getSpje() == null ? "" : ykfpcx.getSpje().toString());
-            row.createCell(10).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
+            row.createCell(10).setCellValue(ykfpcx.getSpsl() == null ? "" : String.valueOf(ykfpcx.getSpsl()));
+            row.createCell(11).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
 
 
             int k = 11;
