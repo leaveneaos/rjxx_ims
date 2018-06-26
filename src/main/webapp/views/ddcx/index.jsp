@@ -157,7 +157,7 @@
 							</div>
 						</div>
 						<div class="am-g" style="margin-top: 20px">
-							<form action="#" id="searchform"
+							<form action="<c:url value='ddcx/exportExcel1'/>" id="searchform"
 								  class="js-search-form  am-form am-form-horizontal">
 								<div class="am-u-sm-5">
 									<div class="am-form-group">
@@ -198,10 +198,7 @@
 								</div>
 								<button class="am-btn am-btn-secondary am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
-							</form>
-						</div>
 
-						<div class="am-g  am-padding-top">
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 									<div class="am-form-group">
 										<div class="am-btn-toolbar">
@@ -213,6 +210,9 @@
 										</div>
 									</div>
 								</div>
+							</form>
+						</div>
+						<div class="am-g  am-padding-top">
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
 									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
