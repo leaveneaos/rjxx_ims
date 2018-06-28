@@ -202,22 +202,35 @@ $(function () {
             data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
             success:function(msg){
                 var dateArray = msg.dateArray;
+                var dateArray1=dateArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var zpArray = msg.zpArray;
+                var zpArray1=zpArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var zpjeArray = msg.zpjeArray;
+                var zpjeArray1=zpjeArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var ppArray = msg.ppArray;
+                var ppArray1=ppArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var ppjeArray = msg.ppjeArray;
+                var ppjeArray1=ppjeArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var dpArray = msg.dpArray;
+                var dpArray1=dpArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
                 var dpjeArray = msg.dpjeArray;
-                dpjeArray.splice(0,1,Number(dpjeArray[0]).toFixed(2));
-                dpjeArray.splice(1,1,Number(dpjeArray[1]).toFixed(2));
-                dpjeArray.splice(2,1,Number(dpjeArray[2]).toFixed(2));
-                dpjeArray.splice(3,1,Number(dpjeArray[3]).toFixed(2));
-                dpjeArray.splice(4,1,Number(dpjeArray[4]).toFixed(2));
-                dpjeArray.splice(5,1,Number(dpjeArray[5]).toFixed(2));
-
-
-                fpyl(dateArray,zpArray,zpjeArray,ppArray,ppjeArray,dpArray,dpjeArray);
-                console.log(dpjeArray)
+                var dpjeArray1=dpjeArray.map(function(currentValue){
+                    return Number(currentValue).toFixed(2)
+                });
+                fpyl(dateArray1,zpArray1,zpjeArray1,ppArray1,ppjeArray1,dpArray1,dpjeArray1);
+                
 
             }
         });
