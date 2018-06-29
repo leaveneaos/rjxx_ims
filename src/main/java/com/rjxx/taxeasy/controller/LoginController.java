@@ -139,6 +139,7 @@ public class LoginController extends BaseController {
 				}
 				List<Xf> xfList = getXfList();
 				if (!xfList.isEmpty()) {
+					session.setAttribute("loginFlag","0");
 					session.setAttribute("pingtai","泰易（TaxEasy）开票通V2.0");
 					session.setAttribute("banquan","© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号");
 					return "redirect:/main";

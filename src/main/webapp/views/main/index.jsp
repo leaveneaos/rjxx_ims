@@ -57,7 +57,7 @@
 			<div class="am-fr tpl-header-navbar">
 
 				<ul>
-					<li><a class="am-text-sm" href="qympk"  target="_blank" style="color:#fff;" ><span class="am-icon-newspaper-o"></span> 企业名片库</a></li>
+					<li><a class="am-text-sm" href="qympk" id="qympkid" target="_blank" style="color:#fff;" ><span class="am-icon-newspaper-o"></span> 企业名片库</a></li>
 					<li><a class="am-text-sm" href="khdxz" target="_blank"><span class="am-icon-download"></span> 客户端下载</a></li>
 					<!-- 欢迎语 -->
 					<%--  <li class="am-text-sm tpl-header-navbar-welcome">
@@ -688,6 +688,16 @@
     }
 
     $(function() {
+        <c:if test="${not empty loginFlag }">
+        var loginFlag =  ${loginFlag};
+        if(loginFlag==1){
+            var link = document.head.querySelector("link");
+            link.href = "assets/i/favicon2.png";
+            $("#qympkid").css('display','none');
+		}
+
+        </c:if>
+
         var heighr=$(window).height();
         var header=$("#mainHeader").height();
         var footer=$("#mainFooter").height();
