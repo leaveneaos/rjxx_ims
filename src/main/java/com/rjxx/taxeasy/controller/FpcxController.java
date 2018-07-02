@@ -360,7 +360,7 @@ public class FpcxController extends BaseController {
             row.createCell(11).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
 
 
-            int k = 11;
+            int k = 12;
             for (DczydlVo dczydlVo : list) {
                 if ("gfsjh".equals(dczydlVo.getZddm())) {
                     row.createCell(k).setCellValue(ykfpcx.getGfsjh() == null ? "" : ykfpcx.getGfsjh());
