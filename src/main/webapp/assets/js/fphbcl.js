@@ -40,7 +40,7 @@ $(function() {
         sqlshs=sqkp.join(",");
 		$.ajax({
 			type : "POST",
-			url : "/fphbcl/fphbSave",
+			url : "fphbcl/fphbSave",
 			data : {"sqlshs":sqlshs},
 			success : function(data) {
 				if(data.msg){
@@ -95,7 +95,7 @@ $(function() {
 	var action = {
 		tableEx : null, // cache dataTable
 		config : {
-			getUrl : '/fphbcl/getItems'
+			getUrl : 'fphbcl/getItems'
 		},//jyls_table el.$jsTable
 		dataTable : function() {
 			var _this = this;
@@ -148,7 +148,7 @@ $(function() {
                 searching : false,
                 "scrollX" : true,
 		        ajax: {
-		            url: "/fphbcl/fphb",
+		            url: "fphbcl/fphb",
 		            async:false,
 		            data: function (d) {
 		        		var gfmc=$("#gfmc").val();

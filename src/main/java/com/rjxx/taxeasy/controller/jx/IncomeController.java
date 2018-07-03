@@ -324,7 +324,7 @@ public class IncomeController extends BaseController {
         return result;
     }
 
-    @RequestMapping(value = "cycs")
+    @RequestMapping(value = "cycs", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> cycs(int length, int start, int draw,String id,boolean loaddata){
         Map<String, Object> result = new HashMap<String, Object>();
