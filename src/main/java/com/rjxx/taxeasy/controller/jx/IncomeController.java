@@ -78,8 +78,8 @@ public class IncomeController extends BaseController {
      * @return
      * @throws Exception
      */
+    @RequestMapping(value = "/getFpcyList", method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping("/getFpcyList")
     public Map<String, Object> getFpcyList(int length, int start, int draw, String fpdm, String fphm, String kprqq,
                                          String gfsh, String fpzldm,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();

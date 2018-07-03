@@ -60,7 +60,7 @@ public class FphbclController extends BaseController {
     }
 
     //查询未开票数据进行合并
-    @RequestMapping(value="/getItems")
+    @RequestMapping(value="/getItems", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getItems(int length, int start, int draw, String ddh, String kprqq, String kprqz,
                                         String spmc, String gfmc, String xfsh, String fpzldm, boolean loaddata) throws Exception {
