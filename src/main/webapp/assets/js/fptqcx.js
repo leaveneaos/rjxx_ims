@@ -30,7 +30,7 @@ $(function () {
                 "scrollX": false,
                 "ajax": {
                     url: _this.config.getUrl,
-                    type: 'GET',
+                    type: 'post',
                     data: function (d) {
                         d.ddh = el.$s_ddh.val();   // search 订单号
                         d.gfmc = el.$s_gfmc.val(); //购方名称                   

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rjxx.comm.mybatis.Pagination;
@@ -29,7 +30,7 @@ public class FptqcxController extends BaseController {
 		return "fptqcx/index";
 	}
 
-	@RequestMapping(value = "/getItems")
+	@RequestMapping(value = "/getItems",method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getItems(int length, int start, int draw, String ddh, String tqrqq, String tqrqz,
 			String gfmc, String tqsb, String jlly,boolean loaddata) throws Exception {
