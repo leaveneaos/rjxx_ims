@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -45,6 +46,7 @@ public class InvoiceWarningJob implements Job {
                 logger.info("-------进入库存预警定时任务开始---------"+context.getNextFireTime());
                 List<FpkcYjtzVo> tzList = fpkcYztzService.findAllTzList(new HashMap());
                 for (int i= 0;i<tzList.size();i++){
+                    SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
                     FpkcYjtzVo fpkcYjtzVo = tzList.get(i);
                     if(fpkcYjtzVo.getTzfs().contains("02") && fpkcYjtzVo.getTzfs().contains("03")){
                         //发邮件
@@ -55,9 +57,9 @@ public class InvoiceWarningJob implements Job {
                         //短信
                         Map<String, String> rep = new HashMap();
                         rep.put("name", fpkcYjtzVo.getYhmc());
-                        rep.put("mail", fpkcYjtzVo.getEmail());
+                        rep.put("date", sim.format(new Date()));
                         if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
-                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
+                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138069573", "开票通");
                     }else if(fpkcYjtzVo.getTzfs().contains("02")){
                         //发邮件
                         String [] to=new String[1];
@@ -68,9 +70,9 @@ public class InvoiceWarningJob implements Job {
                         //短信
                         Map<String, String> rep = new HashMap();
                         rep.put("name", fpkcYjtzVo.getYhmc());
-                        rep.put("mail", fpkcYjtzVo.getEmail());
+                        rep.put("date", sim.format(new Date()));
                         if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
-                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
+                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138069573", "开票通");
                     }
                 }
 
