@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 
 /**
+ * 发票库存预警定时任务
  * Created by kzx on 2018/05/04.
  */
 @DisallowConcurrentExecution
@@ -49,23 +50,27 @@ public class InvoiceWarningJob implements Job {
                         //发邮件
                         String [] to=new String[1];
                         to[0]=fpkcYjtzVo.getEmail();
-                        SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
+                        if(null!=fpkcYjtzVo.getEmail() && !fpkcYjtzVo.getEmail().equals(""))
+                            SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
                         //短信
                         Map<String, String> rep = new HashMap();
-                        rep.put("code", "051898");
-                        rep.put("product", "容津信息");
-                        saveMessage.sendMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_34725005", "发票库存预警");
+                        rep.put("name", "051898");
+                        rep.put("mail", fpkcYjtzVo.getEmail());
+                        if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
+                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
                     }else if(fpkcYjtzVo.getTzfs().contains("02")){
                         //发邮件
                         String [] to=new String[1];
                         to[0]=fpkcYjtzVo.getEmail();
-                        SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
+                        if(null!=fpkcYjtzVo.getEmail() && !fpkcYjtzVo.getEmail().equals(""))
+                            SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
                     }else if(fpkcYjtzVo.getTzfs().contains("03")){
                         //短信
                         Map<String, String> rep = new HashMap();
-                        rep.put("code", "051898");
-                        rep.put("product", "容津信息");
-                        saveMessage.sendMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_34725005", "发票库存预警");
+                        rep.put("name", "051898");
+                        rep.put("mail", fpkcYjtzVo.getEmail());
+                        if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
+                            saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
                     }
                 }
 
