@@ -54,7 +54,7 @@ public class InvoiceWarningJob implements Job {
                             SendalEmail.sendEmail(null, fpkcYjtzVo.getGsdm(),to[0] , "发票库存预警",null, fpkcYjtzVo.getTzy(), "发票库存预警通知");
                         //短信
                         Map<String, String> rep = new HashMap();
-                        rep.put("name", "051898");
+                        rep.put("name", fpkcYjtzVo.getYhmc());
                         rep.put("mail", fpkcYjtzVo.getEmail());
                         if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
                             saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
@@ -67,7 +67,7 @@ public class InvoiceWarningJob implements Job {
                     }else if(fpkcYjtzVo.getTzfs().contains("03")){
                         //短信
                         Map<String, String> rep = new HashMap();
-                        rep.put("name", "051898");
+                        rep.put("name", fpkcYjtzVo.getYhmc());
                         rep.put("mail", fpkcYjtzVo.getEmail());
                         if(null!=fpkcYjtzVo.getPhone() && !fpkcYjtzVo.getPhone().equals(""))
                             saveMessage.saveMessage(fpkcYjtzVo.getGsdm(), null, fpkcYjtzVo.getPhone(), rep, "SMS_138074402", "开票通");
