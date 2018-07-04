@@ -39,6 +39,7 @@ public class FptqcxController extends BaseController {
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String gsdm = getGsdm();
+		if(loaddata){
 		List<Xf> xfs = getXfList();
 		if (xfs != null && xfs.size() > 0) {
 			pagination.addParam("xfs", xfs);
@@ -58,7 +59,6 @@ public class FptqcxController extends BaseController {
 		pagination.addParam("jlly", jlly);
 		List<Fptqvo> tqjlList = jylsService.fptqcx(pagination);
 		int total = pagination.getTotalRecord();
-		if(loaddata){
 			result.put("recordsTotal", total);
 			result.put("recordsFiltered", total);
 			result.put("draw", draw);
