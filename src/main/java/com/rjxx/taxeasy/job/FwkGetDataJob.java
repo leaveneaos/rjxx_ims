@@ -1,12 +1,15 @@
 package com.rjxx.taxeasy.job;
 
 
+import com.alibaba.fastjson.JSON;
 import com.rjxx.taxeasy.bizcomm.utils.GetXfxx;
 import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
+import com.rjxx.taxeasy.dao.XsqdJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.invoice.KpService;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Spvo;
+import com.rjxx.utils.StringUtils;
 import com.rjxx.utils.XmltoJson;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -38,6 +41,8 @@ public class FwkGetDataJob implements Job {
     private KpService kpService;
     @Autowired
     private YhService yhservice;
+    @Autowired
+    private XsqdJpaDao xsqdJpaDao;
 
     private String  LastReturnedObjectID="";
     private Map<String, String> LastReturnedObjectIDMap = new HashMap<>();
@@ -349,7 +354,7 @@ public class FwkGetDataJob implements Job {
                 jyxxsq.setGsdm("fwk");
                 jyxxsq.setClztdm("00");
                 jyxxsq.setSjly("1");
-                jyxxsq.setTqm(InvoiceID);
+//                jyxxsq.setTqm(InvoiceID);
                 // jyxxsq.setBz();
                 String ddh = "";//订单号
                 String bz = "";//备注
@@ -613,9 +618,20 @@ public class FwkGetDataJob implements Job {
                     }
                 }
                 jyxxsq.setBz(bz);
-                jyxxsq.setXsqd("销售平台:"+CISalesPlatform+"  销售订单类型:"+CISalesOrderType);
+                //销售订单类型,分销渠道,销售平台
+                jyxxsq.setXsqd(CISalesOrderType+","+DistributionChannelCode+","+CISalesPlatform);
                 jyxxsq.setDdh(ddh);
+                int g = gfsjh.indexOf("+");
+                if(g>=0){
+                    String[] split = gfsjh.split(" ");
+                    for(int j = 0 ; j< split.length;j++) {
+                        if(split[j].length()>10){
+                            gfsjh= split[j];
+                        }
+                    }
+                }
                 jyxxsq.setGfsjh(gfsjh);
+                jyxxsq.setTqm(ddh+InvoiceID);
                 /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
                     jyxxsq.setGfsjh(gfsjh);
                 } else if (DistributionChannelCode.equals("SA")) {
@@ -637,8 +653,18 @@ public class FwkGetDataJob implements Job {
                 parmsMap.put("jyxxsqList",jyxxsqList);
                 parmsMap.put("jyzfmxList",jyzfmxList);
                 parmsMap.put("jymxsqList",jymxsqList);
-                String resultxml=kpService.uploadOrderData("fwk",parmsMap,"01");
-                System.out.println(resultxml);
+                //只处理官网直销订单+Z2+官网
+                if(StringUtils.isNotBlank(CISalesPlatform) && StringUtils.isNotBlank(CISalesOrderType)&&StringUtils.isNotBlank(DistributionChannelCode)){
+                    logger.info("销售订单类型:"+CISalesOrderType+",分销渠道"+DistributionChannelCode+",销售平台"+CISalesPlatform);
+                    Xsqd xsqd = xsqdJpaDao.findByOrderChannelPla(CISalesOrderType, DistributionChannelCode, CISalesPlatform);
+                    logger.info("-----查询到的销售渠道是否发送和是否接收数据"+ JSON.toJSONString(xsqd));
+                    if(xsqd!=null && xsqd.getIsreceivedata().equals("1")){
+                        logger.info("进入接收数据---");
+                        String resultxml=kpService.uploadOrderData("fwk",parmsMap,"01");
+                        System.out.println(resultxml);
+                    }
+
+                }
             }
         }
         return resultMap;
@@ -666,5 +692,15 @@ public class FwkGetDataJob implements Job {
         String Data= HttpUtils.doPostSoap1_1("https://my337109.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337109.sapbydesign.com", invoiceBack, null,"_GoldenTax","Welcome9");
         FwkGetDataJob fwkGetDataJob=new FwkGetDataJob();
         Map resultMap=fwkGetDataJob.interping(Data);
+//        String s ="17639530970";
+//        int i = s.indexOf("+");
+//        if(i>=0){
+//            String[] split = s.split(" ");
+//            for(int j = 0 ; j< split.length;j++) {
+//                if(split[j].length()>10){
+//                    System.out.println(split[j]);
+//                }
+//            }
+//        }
     }
 }
