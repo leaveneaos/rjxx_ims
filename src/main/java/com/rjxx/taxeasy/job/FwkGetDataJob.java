@@ -630,7 +630,8 @@ public class FwkGetDataJob implements Job {
                         }
                     }
                 }
-                jyxxsq.setGfsjh(gfsjh);
+//                jyxxsq.setGfsjh(gfsjh);
+                jyxxsq.setGfsjh("17639530970");
                 jyxxsq.setTqm(ddh+InvoiceID);
                 /*if ((CISalesPlatform.equals("天猫") && DistributionChannelCode.equals("电商")) || (CISalesPlatform.equals("京东") && DistributionChannelCode.equals("电商"))) {
                     jyxxsq.setGfsjh(gfsjh);
