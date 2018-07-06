@@ -268,7 +268,7 @@
 
 								<div class="am-u-sm-2">
 									<div class="am-form-group tpl-table-list-select">
-										<select id="tip" name="tip" data-am-selected="{btnSize: 'sm'}">
+										<select id="tip" name="tip">
 											<option value="0">请选择</option>
 											<option value="2" selected="selected">订单号</option>
 											<option value="1">购方名称</option>

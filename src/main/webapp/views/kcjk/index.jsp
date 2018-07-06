@@ -108,7 +108,7 @@
 							<div class="am-g" style="margin-top: 20px">
 								<form class="am-form">
 									<div class="am-u-sm-2">
-										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+										<select  id="s_mainkey">
 											<option value="xfsh">销方税号</option>
 										</select>
 									</div>

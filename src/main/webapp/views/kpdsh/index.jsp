@@ -154,7 +154,7 @@
 								</div>
 								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 									<div class="am-form-group tpl-table-list-select">
-										<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+										<select id="dxcsm" >
 											<option value="gfmc">购方名称</option>
 											<option value="ddh">订单号</option>
 										</select>

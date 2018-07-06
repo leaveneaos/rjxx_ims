@@ -171,7 +171,7 @@ table thead th {
 												</div>
 											</div>
 											<div class="am-u-sm-2">
-												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+												<select id="dxcsm" >
 													<option value="jylsh">批次号</option>
 												</select>
 											</div>

@@ -181,7 +181,7 @@
 										</div>
 									</div>
 									<div class="am-u-sm-2">
-										<select id="tip" data-am-selected="{btnSize: 'sm'}">
+										<select id="tip" >
 											<option value="0">请选择</option>
 											<option value="1" selected="selected">购方名称</option>
 											<option value="2">订单号</option>

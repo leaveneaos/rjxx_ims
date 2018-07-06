@@ -238,7 +238,7 @@
 			</div>
 			<div class="am-u-sm-2">
 				<select id="tip" name="tip"
-						data-am-selected="{btnSize: 'sm'}">
+						>
 					<option value="0">请选择</option>
 					<option value="2" selected="selected">订单号</option>
 					<%--<option value="3">商品名称</option>--%>

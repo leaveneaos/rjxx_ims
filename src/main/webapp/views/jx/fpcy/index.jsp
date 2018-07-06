@@ -154,7 +154,7 @@ table thead th {
 										<form action="#"
 											  class="js-search-form  am-form am-form-horizontal">
 											<div class="am-u-sm-3">
-												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+												<select id="dxcsm" >
 													<option value="fpdm">发票代码</option>
 													<option value="fphm">发票号码</option>
 												</select>

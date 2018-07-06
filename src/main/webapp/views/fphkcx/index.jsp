@@ -150,7 +150,7 @@
 							<div class="am-g" style="margin-top: 20px">
 								<form class="am-form">
 									<div class="am-u-sm-2">
-										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+										<select  id="s_mainkey">
 											<option value="ddh">订单号</option>
 											<option value="gfmc">购方名称</option>
 										</select>

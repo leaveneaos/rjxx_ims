@@ -98,7 +98,7 @@
 									<form  id="searchForm" class="am-form am-form-horizontal">
 										<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
 											<div class="am-u-sm-3">
-												<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+												<select  id="s_mainkey">
 													<option value="xfsh">销方税号</option>
 												</select>
 											</div>

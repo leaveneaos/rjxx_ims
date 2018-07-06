@@ -80,7 +80,7 @@
 								class="js-search-form  am-form am-form-horizontal">
 									<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
 										<div class="am-u-sm-3">
-												<select id="dxcsm" data-am-selected="{btnSize: 'sm'}">
+												<select id="dxcsm" >
 													<option value="gfmc">购方名称</option>
 													<option value="nsrsbh">纳税人识别号</option>
 												</select>

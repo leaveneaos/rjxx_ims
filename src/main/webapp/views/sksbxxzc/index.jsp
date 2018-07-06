@@ -130,7 +130,7 @@
 							<form  id="searchForm" class="am-form am-form-horizontal">
 								<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
 									<div class="am-u-sm-3">
-										<select id="tip1" data-am-selected="{btnSize: 'sm'}">
+										<select id="tip1" >
 											<option value="0">请选择</option>
 											<option value="1" selected="selected">销方名称</option>
 											<option value="2">销方税号</option>

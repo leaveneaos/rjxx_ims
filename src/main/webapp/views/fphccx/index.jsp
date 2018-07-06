@@ -181,7 +181,7 @@
 										</div>
 									</div>
 									<div class="am-u-sm-2">
-										<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
+										<select  id="s_mainkey">
 											<option value="ddh">订单号</option>
 											<option value="fphm">发票号码</option>
 											<option value="gfmc">购方名称</option>
