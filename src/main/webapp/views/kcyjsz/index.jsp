@@ -60,7 +60,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="am-offcanvas-content top-position">
+											<%--<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
 													<label for="s_kpdmc" class="am-u-sm-4 am-form-label">开票点</label>
 													<div class="am-u-sm-8">
@@ -70,8 +70,8 @@
 														</select>
 													</div>
 												</div>
-											</div>
-											<div class="am-offcanvas-content top-position">
+											</div>--%>
+											<%--<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
 													<label for="s_fplx" class="am-u-sm-4 am-form-label">发票种类</label>
 													<div class="am-u-sm-8">
@@ -84,7 +84,7 @@
 														</select>
 													</div>
 												</div>
-											</div>
+											</div>--%>
 											<div style="padding: 32px;">
 												<button type="button" id="button1"
 													class="am-btn am-btn-default am-btn-secondary data-back">
@@ -141,18 +141,18 @@
 												<tr>
 													<th><input type="checkbox" id="selectAll" /></th>
 													<th>序号</th>
-													<th>操作</th>
+													<%--<th>操作</th>--%>
 													<th>销方名称</th>
 													<th>销方税号</th>
-                                                    <th>税控盘号</th>
-													<th>门店名称</th>
-													<th>发票种类</th>
-                                                    <th>开票方式</th>
+                                                    <th>通知方式</th>
+													<th>通知人员</th>
+													<%--<th>修改时间</th>--%>
+                                                    <%--<th>开票方式</th>--%>
 													<%--<th>剩余库存(张)</th>--%>
-													<th>库存预警阈值(张)</th>
-													<th>发票库存(张)</th>
-													<th>库存更新时间</th>
-													<th style="display: none">csz</th>
+													<%--<th>库存预警阈值(张)</th>
+													<th>发票库存(张)</th>--%>
+													<th>修改时间</th>
+													<%--<th style="display: none">csz</th>--%>
                                                     <%--<th style="display: none">skpid</th>
                                                     <th style="display: none">fpzldm</th>--%>
 												</tr>
@@ -171,8 +171,8 @@
                                                 <th>销方税号</th>
                                                 <th>门店名称</th>
                                                 <th>发票种类</th>
-                                                <th>通知方式</th>
-                                                <th>通知人员</th>
+                                                <th>发票库存量</th>
+                                                <th>发票预警值</th>
                                             </tr>
                                             </thead>
                                         </table>
@@ -331,7 +331,7 @@
 											<td style="width: 20%"><input
 													type="checkbox" id="tzfs-1" name="tzfsid"
 													value="02"/>&nbsp;&nbsp;邮件通知
-												<input type="checkbox" id="tzfs-2" name="tzfsid"
+												<input type="checkbox" id="tzfs-2" name="tzfsid" onclick="xzyj(this)"
 														value="03"/>&nbsp;&nbsp;短信通知</td>
 										</tr>
 									</table>
@@ -404,6 +404,19 @@
                 for (var i = 0; i < smObj1.length; i++) {
                     smObj1[i].checked = false;
                 }
+            }
+        }
+
+        function xzyj(obj) {
+            var smObj1 = document.getElementsByName("tzfsid");
+            if (obj.checked == true) {
+                for (var i = 0; i < smObj1.length; i++) {
+                    smObj1[i].checked = true;
+                }
+            } else {
+//                for (var i = 0; i < smObj1.length; i++) {
+                    this.checked = false;
+//                }
             }
         }
 

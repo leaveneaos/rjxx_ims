@@ -74,7 +74,7 @@ $(function () {
                             "orderable": false,
                             "data": null,
                             render: function (data, type, full, meta) {
-                                 return '<input type="checkbox" value="'+data.id+'"/>';
+                                 return '<input type="checkbox" value="'+data.xfid+'"/>';
                             }
                         },
                         {
@@ -82,18 +82,34 @@ $(function () {
                             "data": null,
                             "defaultContent": ""
                         },
-                        {
+                        /*{
                             "data": null,
                             "render": function (data) {
                                 return '<a href="javascript:void(0)" class="modify1" style="margin-right: 10px;">设置</a>'
                             }
-                        },
+                        },*/
                         {"data": "xfmc"},
                         {"data": "xfsh"},
-                        {"data": "skph"},
-                        {"data": "kpdmc"},
-                        {"data":"fpzlmc"},
-                        {"data":function(data){
+                        {"data": function (data) {
+                            var tzfs=data.tzfs;
+                            if(tzfs!=null && tzfs!=""){
+                                if(tzfs=='02'){
+                                    return "邮件";
+                                }else if(tzfs=='03'){
+                                    return "短信";
+                                }else if(tzfs=='02,03'||tzfs=='03,02'){
+                                    return "邮件、短信";
+                                }else{
+                                    return tzfs;
+                                }
+                            }else{
+                                return "";
+                            }
+                        }
+                        },
+                        {"data": "yhmc"},
+                        /*{"data":"fpzlmc"},*/
+                       /* {"data":function(data){
                                 var kpfs = data.kpfs;
                                 switch (kpfs) {
                                     case '01':
@@ -113,11 +129,11 @@ $(function () {
                                         break;
                                 }
                                 return kpfs;
-                            }},
-                        {"data": "yjyz"},
-                        {"data": "fpkcl"},
-                        {"data":"kchqsj"},
-                        {"data": "csz"},/*
+                            }},*/
+                        /*{"data": "yjyz"},
+                        {"data": "fpkcl"},*/
+                        {"data":"xgsj"}
+                        /*{"data": "csz"},
                         {
                             "data": null,
                             "render": function (data) {
@@ -185,26 +201,8 @@ $(function () {
                         {"data": "xfsh"},
                         {"data": "kpdmc"},
                         {"data": "fpzlmc"},
-                        {"data": function (data) {
-                                var tzfs=data.tzfs;
-                                if(tzfs!=null && tzfs!=""){
-                                    if(tzfs=='02'){
-                                        return "邮件";
-                                    }else if(tzfs=='03'){
-                                        return "短信";
-                                    }else if(tzfs=='02,03'||tzfs=='03,02'){
-                                        return "邮件、短信";
-                                    }else{
-                                        return tzfs;
-                                    }
-                                }else{
-                                    return "";
-                                }
-
-                            }
-                        },
-                        {"data": "yhmc"}
-
+                        {"data": "fpkcl"},
+                        {"data": "fpyjz"}
                     ]
 
                 });
@@ -226,35 +224,57 @@ $(function () {
                 var tableids ="";
                 var count =0;
                 var flag = true;
+                var params = "";
+                var xfid ="";
                 _this.tableEx.column(0).nodes().each(function (cell,i) {
                     var checkbox = $(cell).find('input[type="checkbox"]');
                     if(checkbox.is(':checked')){
                         count++;
                         tableids+=checkbox.val()+',';
                         var row = t.row(i).data();
-                        if(null ==row.yjyz || row.yjyz ==''){
-                            flag = false;
-                            return;
-                        }
+                        xfid=xfid+";"+row.xfid;
                     }
                 });
-                if(flag == false){
-                    swal("只能设置已有库存预警值的记录！");
-                    return;
+                if(xfid!=""){
+                    xfid=xfid.substring(1,xfid.length).trim();
                 }
                 if(tableids =='' ){//|| count>1
-                   // swal("请选择一条记录且最多一条数据！");
                     swal("请至少选择一条数据！");
-
                     return;
                 }else{
                     $("#yjids").val(tableids.substr(0,(tableids.length-1)));
                     ur = _this.config.xzszUrl
                 }
-                el.$modalHongchong.modal({
-                    "width" : 600,
-                    "height" : 450
+                var url = "kcyjsz/getmx";
+                $.ajax({
+                    type : "POST",
+                    url : url,
+                    data : {
+                        xfid : xfid
+                    },
+                    success : function(data) {
+                        if (data) {
+                            for (var  i =0;i<data.length;i++){
+                                var tzbz = data[i].tzbz;
+                                var xfmc = data[i].xfmc;
+                                if(tzbz==false){
+                                    flag=false;
+                                    params +="销方名称："+xfmc+"的发票已获取才能设置通知方式";
+                                }
+                            }
+                            if(flag){
+                                el.$modalHongchong.modal({
+                                    "width" : 600,
+                                    "height" : 450
+                                });
+                            }else {
+                                swal(params);
+                            }
+                        }
+
+                    }
                 });
+
             });
 
             el.$jsTable.on('click', 'a.modify1', function () {
@@ -534,7 +554,6 @@ $(function () {
                             }
                         },
                         {"data": "yhmc"}
-
                     ]
 
                 });
@@ -602,6 +621,7 @@ $(function () {
                                     // table
                                 } else {
                                     el.$jsLoading.modal('close');
+                                    el.$modalHongchong.modal('close'); // close
                                     // $('#msg').html(data.msg);
                                     // $('#my-alert').modal('open');
                                     swal(data.msg);

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -476,5 +478,29 @@ public class FpkcController extends BaseController {
 			result.put("msg", "保存成功！");
 			return result;
 		}
+
+	@RequestMapping(value = "/updateYj")
+	@ResponseBody
+	public Map<String, Object> update( Integer xg_id,String yjkcl) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("success", true);
+		result.put("msg", "保存成功！");
+		try {
+			if(xg_id==null|| StringUtils.isBlank(yjkcl)){
+				result.put("success", false);
+				result.put("msg", "保存失败！");
+				return result;
+			}
+			Fpkc item = fpkcService.findOne(xg_id);
+			item.setXgsj(new Date());
+			item.setXgry(getYhid());
+			item.setKcyjz(Integer.valueOf(yjkcl));
+			fpkcService.save(item);
+		} catch (Exception e) {
+			result.put("success", false);
+			result.put("msg", "保存失败！");
+		}
+		return result;
+	}
 
 }

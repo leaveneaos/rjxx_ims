@@ -2,9 +2,12 @@ package com.rjxx.taxeasy.controller;
 
 import java.util.*;
 
+import com.alibaba.fastjson.JSON;
+import com.rjxx.taxeasy.dao.FpkcTzJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.*;
+import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +34,12 @@ public class KcyjszController extends BaseController {
 
     @Autowired
     private FpkcYztzService fpkcYztzService;
+    @Autowired
+    private FpkcTzService fpkcTzService;
+    @Autowired
+    private XfService xfService;
+    @Autowired
+    private FpkcTzJpaDao fpkcTzJpaDao;
 
     @RequestMapping
     public String index() throws Exception {
@@ -116,7 +125,7 @@ public class KcyjszController extends BaseController {
             }
             pagination.addParam("skpid", (null == skpid || skpid.compareTo(-1) == 0) ? null : skpid);
             pagination.addParam("fpzldm", fpzldm);
-            List<FpkcYzszVo> kcyjList = fpkcYzszService.findByPage(pagination);
+            List<FpkcYzszVo> kcyjList = fpkcTzService.findByPage(pagination);
 
             int total = pagination.getTotalRecord();
             result.put("recordsTotal", total);
@@ -189,13 +198,21 @@ public class KcyjszController extends BaseController {
                 Integer yjszid = Integer.valueOf(yjszids[i]);
                 if (null != yjszid) {
                     Map map = new HashMap();
-                    map.put("yjszid", yjszid);
-                    fpkcYztzService.deleteYhtzByYjszid(map);
+                    map.put("xfid", yjszid);
+                    map.put("gsdm",getGsdm());
+                    FpkcTz fpkcTz = fpkcTzService.findOneByParams(map);
+                    if(fpkcTz!=null){
+                        fpkcTzJpaDao.delete(fpkcTz);
+                    }
+//                    fpkcYztzService.deleteYhtzByYjszid(map);
                 }
                 for (int j = 0; j < yhids.length; j++) {
-                    FpkcYztz fpkcYztz = new FpkcYztz();
-                    fpkcYztz.setGsdm(gsdm);
-                    fpkcYztz.setYjszid(yjszid);
+                    Yh yh = yhService.findOne(Integer.valueOf(yhids[j]));
+                    FpkcTz fpkcTz = new FpkcTz();
+//                    FpkcYztz fpkcYztz = new FpkcYztz();
+//                    fpkcYztz.setGsdm(gsdm);
+                    fpkcTz.setGsdm(gsdm);
+//                    fpkcYztz.setYjszid(yjszid);
                     if (tzfsids.length > 1) {
                         String tzfs ="";
                         for(int t=0;t<tzfsids.length;t++){
@@ -205,17 +222,41 @@ public class KcyjszController extends BaseController {
                                 tzfs +=  tzfsids[t] + ",";
                             }
                         }
-                        fpkcYztz.setTzfs(tzfs);
+                        fpkcTz.setTzfs(tzfs);
+//                        fpkcYztz.setTzfs(tzfs);
                     } else {
-                        fpkcYztz.setTzfs(tzfsids[0]);
+//                        fpkcYztz.setTzfs(tzfsids[0]);
+                        fpkcTz.setTzfs(tzfsids[0]);
                     }
-                    fpkcYztz.setTzyhid(Integer.valueOf(yhids[j]));
-                    fpkcYztz.setLrry(getYhid());
-                    fpkcYztz.setLrsj(new Date());
-                    fpkcYztz.setXgry(getYhid());
-                    fpkcYztz.setXgsj(new Date());
-                    fpkcYztz.setYxbz("1");
-                    fpkcYztzService.save(fpkcYztz);
+                    if(StringUtils.isBlank(yh.getYx())){
+                        if(fpkcTz.getTzfs().contains("02")){
+                            result.put("success", false);
+                            result.put("msg", yh.getYhmc()+"的邮箱为空，不能设置邮件通知！");
+                            return result;
+                        }
+                    }
+                    if(StringUtils.isBlank(yh.getSjhm())){
+                        if(fpkcTz.getTzfs().contains("03")){
+                            result.put("success", false);
+                            result.put("msg", yh.getYhmc()+"的手机号码为空，不能设置短信通知！");
+                            return result;
+                        }
+                    }
+//                    fpkcYztz.setTzyhid(Integer.valueOf(yhids[j]));
+//                    fpkcYztz.setLrry(getYhid());
+//                    fpkcYztz.setLrsj(new Date());
+//                    fpkcYztz.setXgry(getYhid());
+//                    fpkcYztz.setXgsj(new Date());
+//                    fpkcYztz.setYxbz("1");
+                    fpkcTz.setTzyhid(Integer.valueOf(yhids[j]));
+                    fpkcTz.setXfid(yjszid);
+                    fpkcTz.setLrry(getYhid());
+                    fpkcTz.setLrsj(new Date());
+                    fpkcTz.setXgry(getYhid());
+                    fpkcTz.setXgsj(new Date());
+                    fpkcTz.setYxbz("1");
+                    fpkcTzJpaDao.save(fpkcTz);
+//                    fpkcYztzService.save(fpkcYztz);
                 }
             }
 
@@ -404,7 +445,7 @@ public class KcyjszController extends BaseController {
 	}*/
     @RequestMapping(value = "/getyjtzmx", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getYjtzmx(int length, int start, int draw,String idstr,boolean loaddata) {
+    public Map<String, Object> getYjtzmx(int length, int start, int draw,String idstr,String xfid,boolean loaddata) {
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
         pagination.setPageSize(length);
@@ -413,12 +454,11 @@ public class KcyjszController extends BaseController {
             idstr.split(";");
             ids.addAll(Arrays.asList(idstr.split(";")));
         }
-
         Map<String, Object> result = new HashMap<String, Object>();
-        if(loaddata && ids.size()>0){
-            pagination.addParam("ids", ids);
-            List<FpkcTzVo> list = fpkcYztzService.findAllByPage(pagination);
-
+        if(loaddata&& ids.size()>0){
+            pagination.addParam("xfid", ids);
+            pagination.addParam("gsdm", getGsdm());
+            List<FpkcTzVo> list = fpkcTzService.findAllByPage(pagination);
             int total = pagination.getTotalRecord();
             result.put("recordsTotal", total);
             result.put("recordsFiltered", total);
@@ -430,7 +470,50 @@ public class KcyjszController extends BaseController {
             result.put("draw", draw);
             result.put("data", new ArrayList<>());
         }
-
         return result;
+    }
+
+    @RequestMapping(value = "/getmx", method = RequestMethod.POST)
+    @ResponseBody
+    public List getmx(String xfid) {
+        Map map = new HashMap();
+        List<String> ids = new ArrayList<String>();
+        if(xfid!=null && !"".equals(xfid)) {
+            xfid.split(";");
+            ids.addAll(Arrays.asList(xfid.split(";")));
+        }
+        map.put("xfid", ids);
+        map.put("gsdm", getGsdm());
+        List<FpkcTzVo> list = fpkcTzService.findByParams(map);
+        List list1 = new ArrayList();
+        for(int j =0;j<ids.size();j++){
+            Map map1 = new HashMap();
+            String s = ids.get(j);
+            Xf xf = xfService.findOne(Integer.valueOf(s));
+            if(list.isEmpty()){
+                map1.put("xfid",s);
+                map1.put("xfmc",xf.getXfmc());
+                map1.put("tzbz",false);
+                list1.add(map1);
+            }else {
+                for(int i=0;i<list.size();i++){
+                    boolean contains = s.contains(list.get(i).getXfid().toString());
+                    if(contains&&(list.get(i).getFpyjz()!=null || "".equals(list.get(i).getFpyjz()))){
+                        map1.put("xfid",s);
+                        map1.put("xfmc",xf.getXfmc());
+                        map1.put("tzbz",true);
+                        list1.add(map1);
+                        break;
+                    }
+                    map1.put("xfid",s);
+                    map1.put("xfmc",xf.getXfmc());
+                    map1.put("tzbz",false);
+                    list1.add(map1);
+                    break;
+                }
+            }
+        }
+        System.out.println(JSON.toJSONString(list1));
+        return list1;
     }
 }
