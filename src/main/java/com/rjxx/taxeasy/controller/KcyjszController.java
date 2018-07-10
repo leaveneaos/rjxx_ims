@@ -195,18 +195,20 @@ public class KcyjszController extends BaseController {
             String[] yhids = request.getParameterValues("yhid");
             //List<FpkcYztz> items = fpkcYztzService.findAllByParams(params);
             for (int i = 0; i < yjszids.length; i++) {
-                Integer yjszid = Integer.valueOf(yjszids[i]);
-                if (null != yjszid) {
-                    Map map = new HashMap();
-                    map.put("xfid", yjszid);
-                    map.put("gsdm",getGsdm());
-                    FpkcTz fpkcTz = fpkcTzService.findOneByParams(map);
-                    if(fpkcTz!=null){
-                        fpkcTzJpaDao.delete(fpkcTz);
-                    }
-//                    fpkcYztzService.deleteYhtzByYjszid(map);
-                }
+
                 for (int j = 0; j < yhids.length; j++) {
+                    Integer yjszid = Integer.valueOf(yjszids[i]);
+                    if (null != yjszid) {
+                        Map map = new HashMap();
+                        map.put("xfid", yjszid);
+                        map.put("gsdm",getGsdm());
+                        map.put("tzyhid",yhids[j]);
+                        FpkcTz fpkcTz = fpkcTzService.findOneByParams(map);
+                        if(fpkcTz!=null){
+                            fpkcTzJpaDao.delete(fpkcTz);
+                        }
+//                    fpkcYztzService.deleteYhtzByYjszid(map);
+                    }
                     Yh yh = yhService.findOne(Integer.valueOf(yhids[j]));
                     FpkcTz fpkcTz = new FpkcTz();
 //                    FpkcYztz fpkcYztz = new FpkcYztz();
