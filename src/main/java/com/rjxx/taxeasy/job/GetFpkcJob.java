@@ -3,7 +3,7 @@ package com.rjxx.taxeasy.job;
 
 import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
 import com.rjxx.taxeasy.bizcomm.utils.XmlMapUtils;
-
+import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Fpkc;
 import com.rjxx.taxeasy.domains.FpkcMx;
 import com.rjxx.taxeasy.domains.Skp;
@@ -22,6 +22,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -29,6 +30,7 @@ import java.util.*;
  * Created by kzx on 2018/04/27.
  */
 @DisallowConcurrentExecution
+@Service
 public class GetFpkcJob implements Job {
 
     @Autowired
@@ -52,82 +54,109 @@ public class GetFpkcJob implements Job {
      */
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        String ws_url ="http://datarj.imwork.net:52472/Service.asmx?wsdl";
+        String ws_url = "";
         try {
-            //do{
-                logger.info("-------进入发票库存定时任务开始---------"+context.getNextFireTime());
-                //目前只统计
-                Map map = new HashMap();
-                //map.put("skurl2","03");
-                //map.put("csz","03");
-                List<KpfsVo> kpfsList = cszbService.findAllKpfs(map);
-                if(!kpfsList.isEmpty()){
-                    for(int i=0;i<kpfsList.size();i++){
-                        KpfsVo kpfsVo = kpfsList.get(i);
-                        if(null!=kpfsVo.getCsz() && kpfsVo.getCsz().equals("03")){
-                            String skurl = kpfsVo.getSkurl();
-                            String kpzdbs = kpfsVo.getKpzdbs();
-                            if(null!=skurl && null!=kpzdbs){
-                                String result = HttpUtils.netSetParameter(ws_url,"SetParameter",
-                                        skurl.split("/")[2].split(":")[0],skurl.split("/")[2].split(":")[1],"00000000",null);
-                                if(getParam(result).equals("0")){
-                                    Skp skp = skpService.findOne(kpfsVo.getKpdid());
-                                    String kplx[] = skp.getKplx().split(",");
-                                    for(int j=0;j<kplx.length;j++){
-                                        String fwqkplx = getSkKplx(kplx[j]);
-                                        String result2 = HttpUtils.netFPLGXXCX(ws_url,"FPLGXXCX",null,kpzdbs,fwqkplx,"1","1");
-                                        Map map2 = getFplgxx(kpfsVo.getGsdm(),kpfsVo.getXfid(),kpfsVo.getKpdid(),kplx[j],result2);
-                                        if(map2.get("returncode").equals("0")){
-                                            Map params = new HashMap();
-                                            params.put("gsdm",kpfsVo.getGsdm());
-                                            params.put("xfid",kpfsVo.getXfid());
-                                            params.put("skpid",kpfsVo.getKpdid());
-                                            params.put("fpzldm",kplx[j]);
-                                            Fpkc yfpkc = fpkcService.findOneByParams(params);
-                                            Fpkc fpkc = (Fpkc)map2.get("fpkc");
-                                            Integer kcid = null;
-                                            if(yfpkc!=null){
-                                                if(fpkc.getFpkcl().compareTo(yfpkc.getFpkcl())!=0) {
-                                                    yfpkc.setFpkcl(fpkc.getFpkcl());
-                                                    yfpkc.setXgsj(new Date());
-                                                    kcid = yfpkc.getId();
-                                                    Map params2 = new HashMap();
-                                                    //如果库存已存在，则删除原来的发票号段明细
-                                                    params2.put("kcid", kcid);
-                                                    fpkcMxService.deleteMxByKcid(params2);
-                                                    fpkcService.save(yfpkc);
-                                                }
-                                            }else{
-                                                fpkcService.save(fpkc);
-                                                kcid = fpkc.getId();
-                                            }
-
-                                            List<FpkcMx> fpkcMxList = (List)map2.get("fpkcMxList");
-                                            if(!fpkcMxList.isEmpty()){
-                                                for(int m=0;m<fpkcMxList.size();m++){
-                                                    FpkcMx fpkcMx = fpkcMxList.get(m);
-                                                    fpkcMx.setKcid(kcid);
-                                                }
-                                                fpkcMxService.save(fpkcMxList);
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }else{
-                    //break;
-                }
-           // }while (true);
+            logger.info("-------进入发票库存定时任务开始---------"+context.getNextFireTime());
+            getFpkc(ws_url);
             logger.info("-------进入发票库存定时任务结束---------"+context.getNextFireTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 获取服务器库存
+     * @param ws_url
+     */
+    public void getFpkc(String ws_url){
+        //获取IIS服务对应的url地址。
+        Cszb cszb = cszbService.getSpbmbbh(null,null,null,"getskkcUrl");
+        if(null!=cszb && null != cszb.getCsz() && !cszb.getCsz().equals("")){
+            ws_url = cszb.getCsz();
+            Map map = new HashMap();
+            map.put("skurl2","03");//保证取值skurl不为空的数据
+            map.put("csz","03");
+            List<KpfsVo> kpfsList = cszbService.findAllKpfs(map);
+            if(!kpfsList.isEmpty()){
+                Map<String,String> skurlMap = new HashMap<>();//定义无用变量用来分组。
+                List<String> skurlList = new ArrayList<>();//服务器地址list（说明有几台服务器）
+                for(int i=0;i<kpfsList.size();i++){
+                    KpfsVo kpfsVo = kpfsList.get(i);
+                    if (!skurlMap.containsKey(kpfsVo.getSkurl())) {
+                        skurlMap.put(kpfsVo.getSkurl(),kpfsVo.getSkurl());
+                        skurlList.add(kpfsVo.getSkurl());
+                    }
+                }
+                for(int a=0;a<skurlList.size();a++){
+                    String url = skurlList.get(a);
+                    String result = netSetParameter(ws_url,url);//税控服务器设置参数
+                    //判断设置参数是否成功，0表示设置参数成功。
+                    if(null != result && getParam(result).equals("0")){
+                        for(int t=0;t<kpfsList.size();t++){
+                            KpfsVo kpfsVo = kpfsList.get(t);
+                            //遍历需获取库存的url与当前已设置参数的url进行比较，并获取库存。
+                            if(kpfsVo.getSkurl().equals(url)){
+                                Skp skp = skpService.findOne(kpfsVo.getKpdid());
+                                String kplx[] = skp.getKplx().split(",");
+                                for(int j=0;j<kplx.length;j++){
+                                    String fwqkplx = getSkKplx(kplx[j]);
+                                    String result2 = HttpUtils.netFPLGXXCX(ws_url,"FPLGXXCX",null,skp.getKpdip(),fwqkplx,"1","1");
+                                    Map map2 = getFplgxx(kpfsVo.getGsdm(),kpfsVo.getXfid(),kpfsVo.getKpdid(),kplx[j],result2);
+                                    if(map2.get("returncode").equals("0")){
+                                        Map params = new HashMap();
+                                        params.put("gsdm",kpfsVo.getGsdm());
+                                        params.put("xfid",kpfsVo.getXfid());
+                                        params.put("skpid",kpfsVo.getKpdid());
+                                        params.put("fpzldm",kplx[j]);
+                                        Fpkc yfpkc = fpkcService.findOneByParams(params);
+                                        Fpkc fpkc = (Fpkc)map2.get("fpkc");
+                                        Integer kcid = null;
+                                        if(yfpkc!=null){
+                                            if(fpkc.getFpkcl().compareTo(yfpkc.getFpkcl())!=0) {
+                                                yfpkc.setFpkcl(fpkc.getFpkcl());
+                                                yfpkc.setXgsj(new Date());
+                                                kcid = yfpkc.getId();
+                                                Map params2 = new HashMap();
+                                                //如果库存已存在，则删除原来的发票号段明细
+                                                params2.put("kcid", kcid);
+                                                fpkcMxService.deleteMxByKcid(params2);
+                                                fpkcService.save(yfpkc);
+                                            }
+                                        }else{
+                                            fpkcService.save(fpkc);
+                                            kcid = fpkc.getId();
+                                        }
+                                        List<FpkcMx> fpkcMxList = (List)map2.get("fpkcMxList");
+                                        if(!fpkcMxList.isEmpty()){
+                                            for(int m=0;m<fpkcMxList.size();m++){
+                                                FpkcMx fpkcMx = fpkcMxList.get(m);
+                                                fpkcMx.setKcid(kcid);
+                                            }
+                                            fpkcMxService.save(fpkcMxList);
+                                        }
+                                    }
 
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    /**
+     *  对服务器进行参数设置
+     * @param ws_url
+     * @param skUrl
+     * @return
+     */
+   private static String netSetParameter(String ws_url,String skUrl){
+        return  HttpUtils.netSetParameter(ws_url,"SetParameter",
+                skUrl.split("/")[2].split(":")[0],skUrl.split("/")[2].split(":")[1],"00000000",null);
+   }
 
     private String getSkKplx(String kplx){
         if(kplx.equals("12")){
@@ -244,6 +273,7 @@ public class GetFpkcJob implements Job {
                 "    </returndata>\n" +
                 "  </body>\n" +
                 "</business>";
-        getFplgxx("1",1,1,"02",tmp);
+        //getFplgxx("1",null,1,"02",tmp);
+        System.out.println(netSetParameter("http://datarj.imwork.net:52472/Service.asmx?wsdl","http://116.228.105.246:9002/SKServer/SKDo"));
     }
 }
