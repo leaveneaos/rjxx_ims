@@ -202,9 +202,9 @@ $(function () {
             data:{"xfid":xfid,"skpid":skpid,"kprqq":kprqq,"kprqz":kprqz},
             success:function(msg){
                 var dateArray = msg.dateArray;
-                var dateArray1=dateArray.map(function(currentValue){
-                    return Number(currentValue).toFixed(2)
-                });
+                // var dateArray1=dateArray.map(function(currentValue){
+                //     return Number(currentValue).toFixed(2)
+                // });
                 var zpArray = msg.zpArray;
                 var zpArray1=zpArray.map(function(currentValue){
                     return Number(currentValue).toFixed(2)
@@ -229,8 +229,7 @@ $(function () {
                 var dpjeArray1=dpjeArray.map(function(currentValue){
                     return Number(currentValue).toFixed(2)
                 });
-                fpyl(dateArray1,zpArray1,zpjeArray1,ppArray1,ppjeArray1,dpArray1,dpjeArray1);
-                
+                fpyl(dateArray,zpArray1,zpjeArray1,ppArray1,ppjeArray1,dpArray1,dpjeArray1);
 
             }
         });
