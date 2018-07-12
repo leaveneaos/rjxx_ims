@@ -4,25 +4,27 @@ import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.rjxx.taxeasy.bizcomm.utils.InvoiceQueryUtil;
-import com.rjxx.taxeasy.bizcomm.utils.MailService;
+import com.alibaba.fastjson.JSON;
+import com.rjxx.taxeasy.bizcomm.utils.*;
+import com.rjxx.taxeasy.dao.PpJpaDao;
+import com.rjxx.taxeasy.dao.ShortLinkJpaDao;
+import com.rjxx.taxeasy.dao.XsqdJpaDao;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Fpcxvo;
+import com.rjxx.taxeasy.vo.messageParams;
+import com.rjxx.taxeasy.vo.smsEnvelopes;
+import com.rjxx.utils.StringUtils;
+import com.rjxx.utils.dwz.ShortUrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.GetYjnr;
-import com.rjxx.taxeasy.bizcomm.utils.SendalEmail;
 import com.rjxx.taxeasy.bizcomm.utils.pdf.TwoDimensionCode;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.vo.KplsVO;
@@ -76,6 +78,19 @@ public class YjfsController extends BaseController {
 	private String imgdz_;
 	@Value("${fpdz_:}")
 	private String fpdz_;
+	@Autowired
+	private CszbService cszbService;
+	@Autowired
+	private XsqdJpaDao xsqdJpaDao;
+	@Autowired
+	private SkpService skpService;
+	@Autowired
+	private PpJpaDao ppJpaDao;
+	@Autowired
+	private ShortLinkJpaDao shortLinkJpaDao;
+	@Autowired
+	private SaveMessage saveMsg;
+
 	
 	@RequestMapping
 	public String index() {
@@ -85,21 +100,44 @@ public class YjfsController extends BaseController {
 
 	@RequestMapping(value = "/send")
 	@ResponseBody
-	@SystemControllerLog(description = "发送邮件",key = "ids")  
-	public Map send(String ids) {
+	@SystemControllerLog(description = "发送邮件,短信",key = "ids")
+	public Map send(String ids,String st) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<>();
 		String msg = "";
 		if (!"".equals(ids)) {
 			String[] idls = ids.split(",");
-			for (int i = 0; i < idls.length; i++) {
-				String id = idls[i].split(":")[0];
-				if (id.equals("")) {
-					continue;
+			String[] split = st.split(",");//发送方式
+			//校验开通发送短信
+			for(int j=0;j<split.length;j++){
+				String fsfs=split[j];
+				String id = idls[j];
+				params.put("serialorder", id);
+				params.put("gsdm",getGsdm());
+				final List<Kpls> list = ks.findBySerialorder(params);
+				Kpls kpls = list.get(0);
+				Jyls jyls = js.findOne(kpls.getDjh());
+				//发生短信校验是否开通短信
+				if(fsfs.contains("1")){
+					Cszb cszb = cszbService.getSpbmbbh(getGsdm(), jyls.getXfid(), jyls.getSkpid(),  "sfktdx");
+					if(cszb==null || "否".equals(cszb.getCsz()) || "".equals(cszb.getCsz())) {
+						result.put("statu", "1");
+						result.put("msg", "订单号为："+jyls.getDdh()+"的发票接收方式为短信时，必须先开通短信功能！");
+						return result;
+					}
 				}
+			}
+			//发送
+			for (int i = 0; i < idls.length; i++) {
+				String id = idls[i];
+				String fsfs=split[i];
+//				String id = idls[i].split(":")[0];
+//				if (id.equals("")) {
+//					continue;
+//				}
 				try {
-					//params.put("kplsh", id);
 					params.put("serialorder", id);
+					params.put("gsdm",getGsdm());
 					//final Kpls kpls = ks.findOneByParams(params);
 					final List<Kpls> list = ks.findBySerialorder(params);
 					Kpls kpls = list.get(0);
@@ -112,8 +150,6 @@ public class YjfsController extends BaseController {
 							continue;
 						}
 					}
-					
-					
 					Jyls jyls = js.findOne(kpls.getDjh());
 					Map jyxxsqMap=new HashMap();
 					jyxxsqMap.put("gsdm",kpls.getGsdm());
@@ -129,86 +165,170 @@ public class YjfsController extends BaseController {
 						pdfUrlList.add(kpls1.getPdfurl());
 						jshj=jshj+kpls1.getJshj();
 					}
-					GetYjnr getYjnr = new GetYjnr();
 					Map gsxxmap=new HashMap();
 					gsxxmap.put("gsdm",kpls.getGsdm());
 					Gsxx gsxx=gsxxService.findOneByGsdm(gsxxmap);
-					Integer yjmbDm=gsxx.getYjmbDm();
-					Yjmb yjmb=yjmbService.findOne(yjmbDm);
-					String yjmbcontent=yjmb.getYjmbNr();
-					String yjmbSubject = yjmb.getYjmbSubject();
-					String q="";
-					String infoUrl="";
-					List<Fpcxvo> fpcxvos = invoiceQueryUtil.getInvoiceListByDdh(gsxx.getGsdm(), jyls.getDdh());
-					if(fpcxvos.size()>0){
-						if(fpcxvos.get(0).getTqm()!=null && !fpcxvos.get(0).getTqm().equals("")){
-							q=fpcxvos.get(0).getTqm();
-							infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
-						}else if(fpcxvos.get(0).getKhh()!=null&&!fpcxvos.get(0).getKhh().equals("")){
-							q=fpcxvos.get(0).getKhh();
-							infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+					if(fsfs.contains("0")){
+						System.out.println("发送邮件");
+						GetYjnr getYjnr = new GetYjnr();
+						Integer yjmbDm=gsxx.getYjmbDm();
+						Yjmb yjmb=yjmbService.findOne(yjmbDm);
+						String yjmbcontent=yjmb.getYjmbNr();
+						String yjmbSubject = yjmb.getYjmbSubject();
+						String q="";
+						String infoUrl="";
+						List<Fpcxvo> fpcxvos = invoiceQueryUtil.getInvoiceListByDdh(gsxx.getGsdm(), jyls.getDdh());
+						if(fpcxvos.size()>0){
+							if(fpcxvos.get(0).getTqm()!=null && !fpcxvos.get(0).getTqm().equals("")){
+								q=fpcxvos.get(0).getTqm();
+								infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+							}else if(fpcxvos.get(0).getKhh()!=null&&!fpcxvos.get(0).getKhh().equals("")){
+								q=fpcxvos.get(0).getKhh();
+								infoUrl=emailInfoUrl+"g="+gsxx.getGsdm()+"&q="+q;
+							}
 						}
-					}
 
-					Map csmap=new HashMap();
-					csmap.put("ddh",jyls.getDdh());
-					SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-					csmap.put("ddrq",sdf.format(jyxxsq.getDdrq()));
-					csmap.put("pdfurls",pdfUrlList);
-					csmap.put("xfmc",jyls.getXfmc());
-					csmap.put("infoUrl",infoUrl);
-					
-					//-----------
-					SimpleDateFormat sdf2=new SimpleDateFormat("yyyy年MM月dd日");
-					csmap.put("gs_mc_", kpls.getXfmc());//取销方名称
-            		csmap.put("sq_sj_", sdf2.format(kpls.getKprq()));//取开票日期
-            		// 二维码生成部分
-            		TwoDimensionCode handler = new TwoDimensionCode();
-            		ByteArrayOutputStream output = new ByteArrayOutputStream();
-            		// 二维码中数据的来源
-            		handler.encoderQRCode(fpdz_+"?q="+kpls.getSerialorder(), output);
-            		String imgbase64string = org.apache.commons.codec.binary.Base64.encodeBase64String(output.toByteArray());
-            		String ewm ="data:image/jpeg;base64,"+imgbase64string;
-            		csmap.put("ewm", ewm);
-            		csmap.put("e_w_m_", ewm);
-            		csmap.put("d_d_h_", jyls.getDdh());
-            		csmap.put("gf_mc_", kpls.getGfmc());
-            		csmap.put("js_hj_",new DecimalFormat("0.00").format(jshj));
-            		csmap.put("fp_dz_", fpdz_+"?q="+kpls.getSerialorder());
-            		
-            		csmap.put("lo_go_dz_", imgdz_+"emailLogo.png");
-            		csmap.put("e_wm_dz_", imgdz_+"emailCode.png");
-            		//-----------
-            		
-            		
-            		if(yjmbSubject!=null && !"".equals(yjmbSubject)) {
-            			yjmbSubject=yjmbSubject.replace("gs_mc_", kpls.getXfmc());
-            			yjmbSubject=yjmbSubject.replace("d_d_h_", jyls.getDdh());
-            		}else {
-            			yjmbSubject="电子发票";
-            		}
-            		
-					
-					String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
-					if(kpls.getGsdm().equals("afb")){
-						String [] to=new String[1];
-						to[0]=kpls.getGfemail();
-						String filePaths = "";
-						for(Kpls kpls3:list) {
-							String filePath=pdfSavePath+kpls3.getPdfurl().substring(kpls3.getPdfurl().indexOf(kpls3.getXfsh()),kpls3.getPdfurl().length());
-							filePaths +=","+filePath;
+						Map csmap=new HashMap();
+						csmap.put("ddh",jyls.getDdh());
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+						csmap.put("ddrq",sdf.format(jyxxsq.getDdrq()));
+						csmap.put("pdfurls",pdfUrlList);
+						csmap.put("xfmc",jyls.getXfmc());
+						csmap.put("infoUrl",infoUrl);
+
+						//-----------
+						SimpleDateFormat sdf2=new SimpleDateFormat("yyyy年MM月dd日");
+						csmap.put("gs_mc_", kpls.getXfmc());//取销方名称
+						csmap.put("sq_sj_", sdf2.format(kpls.getKprq()));//取开票日期
+						// 二维码生成部分
+						TwoDimensionCode handler = new TwoDimensionCode();
+						ByteArrayOutputStream output = new ByteArrayOutputStream();
+						// 二维码中数据的来源
+						handler.encoderQRCode(fpdz_+"?q="+kpls.getSerialorder(), output);
+						String imgbase64string = org.apache.commons.codec.binary.Base64.encodeBase64String(output.toByteArray());
+						String ewm ="data:image/jpeg;base64,"+imgbase64string;
+						csmap.put("ewm", ewm);
+						csmap.put("e_w_m_", ewm);
+						csmap.put("d_d_h_", jyls.getDdh());
+						csmap.put("gf_mc_", kpls.getGfmc());
+						csmap.put("js_hj_",new DecimalFormat("0.00").format(jshj));
+						csmap.put("fp_dz_", fpdz_+"?q="+kpls.getSerialorder());
+
+						csmap.put("lo_go_dz_", imgdz_+"emailLogo.png");
+						csmap.put("e_wm_dz_", imgdz_+"emailCode.png");
+						//-----------
+						if(yjmbSubject!=null && !"".equals(yjmbSubject)) {
+							yjmbSubject=yjmbSubject.replace("gs_mc_", kpls.getXfmc());
+							yjmbSubject=yjmbSubject.replace("d_d_h_", jyls.getDdh());
+						}else {
+							yjmbSubject="电子发票";
 						}
-						mailService.sendAttachmentsMail(to,yjmbSubject,content,filePaths);
-					}else {
-						se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
-								String.valueOf(kpls.getDjh()), content, yjmbSubject);
+						String content = getYjnr.getFpkjYj(csmap,yjmbcontent);
+						if(kpls.getGsdm().equals("afb")){
+							String [] to=new String[1];
+							to[0]=kpls.getGfemail();
+							String filePaths = "";
+							for(Kpls kpls3:list) {
+								String filePath=pdfSavePath+kpls3.getPdfurl().substring(kpls3.getPdfurl().indexOf(kpls3.getXfsh()),kpls3.getPdfurl().length());
+								filePaths +=","+filePath;
+							}
+							mailService.sendAttachmentsMail(to,yjmbSubject,content,filePaths);
+						}else {
+							se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
+									String.valueOf(kpls.getDjh()), content, yjmbSubject);
+						}
+
 					}
-					/*
-					 * SendEmail se = new SendEmail();
-					 * se.sendMail(jyls.getDdh(), kpls.getGfemail(), new
-					 * ArrayList<String>() { { add(kpls.getPdfurl()); } },
-					 * gsxx.getGsmc());
-					 */
+					if(fsfs.contains("1")){
+						try {
+							Cszb cszb = cszbService.getSpbmbbh(jyls.getGsdm(), jyls.getXfid(), jyls.getSkpid(), "sfktdx");
+							if(cszb!=null && "是".equals(cszb.getCsz())){
+								if(StringUtils.isBlank(jyls.getGfsjh())){
+									result.put("statu", "1");
+									result.put("msg",jyls.getDdh()+"的购方手机号为空");
+									return result;
+								}
+								Map<String, String> rep = new HashMap();
+								rep.put("jshj", jyls.getJshj() + "");
+								rep.put("tqm", jyls.getTqm());
+								if(jyls.getGsdm().equals("fwk")){
+									if(StringUtils.isNotBlank(jyls.getTqm())){
+										String xsqd = jyxxsq.getXsqd();
+										logger.info("销售渠道："+xsqd);
+										String ddlx ="";//订单类型
+										String xspt ="";//销售平台
+										String fxqd ="";//分销 渠道
+										if(StringUtils.isNotBlank(xsqd)){
+											int ii = xsqd.indexOf(",");
+											if(ii>=0){
+												String[] split2 = xsqd.split(",");
+												ddlx = split2[0];
+												fxqd = split2[1];
+												xspt = split2[2];
+												if(fxqd.equals("Z1")){
+													ddlx="全部";
+													xspt="全部";
+												}
+												if(fxqd.equals("02")&&xspt.equals("商场")){
+													ddlx="全部";
+												}
+												if(fxqd.equals("Z3")&&(xspt.equals("SA公司")||xspt.equals("SA个人")||xspt.equals("KA客户")||xspt.equals("Staff Sales")||xspt.equals("Demo Sales"))){
+													ddlx="全部";
+												}
+												if(fxqd.equals("Z5")){
+													ddlx="全部";
+													xspt="全部";
+												}
+												if(fxqd.equals("01")&&(xspt.equals("天猫")||xspt.equals("京东"))){
+													ddlx="全部";
+												}
+												logger.info("订单类型"+ddlx+"分销渠道"+fxqd+"销售平台"+xspt);
+												Xsqd xsqd1 = xsqdJpaDao.findByOrderChannelPla(ddlx, fxqd, xspt);
+												logger.info("---"+ JSON.toJSONString(xsqd1));
+												//特定的发送短信
+												if(xsqd1!=null&&xsqd1.getIssend().equals("0")){
+												}else {
+													smsEnvelopes mb=new smsEnvelopes();
+													mb.setToPhoneNumber(jyls.getGfsjh());
+													messageParams messageParams=new messageParams();
+													messageParams.setExtractcode(jyls.getTqm());
+													mb.setMessageType("DigitalInvoiceCode");
+													mb.setMessageParams(messageParams);
+													List mblist=new ArrayList();
+													mblist.add(mb);
+													Map smsEnvelopesMap=new HashMap();
+													smsEnvelopesMap.put("smsEnvelopes",mblist);
+													logger.info("-----短信模板-------"+JSON.toJSONString(smsEnvelopesMap));
+													HttpUtils.HttpPost_Basic(gsxx.getMessageurl(),JSON.toJSONString(smsEnvelopesMap));
+													Map param3 = new HashMap<>();
+													param3.put("djh", kpls.getDjh());
+													param3.put("dxzt", '1');
+													jylsService.updateDxbz(param3);
+												}
+											}
+										}
+									}
+								}else{
+									Cszb dxmb = cszbService.getSpbmbbh(jyls.getGsdm(), jyls.getXfid(), jyls.getSkpid(), "sms_code");
+									String mbdm="SMS_34725005";
+									if(dxmb!=null&&dxmb.getCsz()!=null){
+										mbdm=dxmb.getCsz();
+										rep = shortParam(jyls);
+									}
+									logger.info("----短信模板代码---"+mbdm+"短信内容："+JSON.toJSONString(rep));
+									saveMsg.saveMessage(jyls.getGsdm(), kpls.getDjh(), jyls.getGfsjh(), rep, mbdm, "泰易电子发票");
+									Map param3 = new HashMap<>();
+									param3.put("djh", kpls.getDjh());
+									param3.put("dxzt", '1');
+									jylsService.updateDxbz(param3);
+								}
+							}
+						} catch (Exception e) {
+							result.put("statu", "1");
+							result.put("msg", e.getMessage());
+							return result;
+						}
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 					result.put("statu", "1");
@@ -225,6 +345,76 @@ public class YjfsController extends BaseController {
 		return result;
 	}
 
+	//生成短链接并保存
+	public Map shortParam(Jyls jyls){
+		Map parms=new HashMap();
+		Kpls ls = new Kpls();
+		ls.setDjh(jyls.getDjh());
+		List<Kpls> listkpls = kplsService.findAllByKpls(ls);
+		Map skpMap = new HashMap();
+		skpMap.put("kpdid",jyls.getSkpid());
+		skpMap.put("gsdm",jyls.getGsdm());
+		Skp skp = skpService.findOneByParams(skpMap);
+		Pp pp = null;
+		if(skp.getPid()!=null && skp.getPid()!=-1 &&skp.getPid()!=0){
+			pp = ppJpaDao.findOneById(skp.getPid());
+		}else{
+			pp = ppJpaDao.findOneByPpdm("rjxx");
+		}
+		//参数转为短链接
+		try {
+			ShortLink normalLink = shortLinkJpaDao.findOneByNormalLink("q=" + listkpls.get(0).getSerialorder());
+			if(normalLink!=null){
+				parms.put("ppmc",pp.getPpmc());
+				parms.put("param",normalLink.getShortLink());
+				normalLink.setCount(normalLink.getCount()+1);
+				normalLink.setModifyDate(new Date());
+				normalLink.setModifier(getYhid()+"");
+				shortLinkJpaDao.save(normalLink);
+				return parms;
+			}
+			String dlj= ShortUrlUtil.shortUrl("q="+listkpls.get(0).getSerialorder());//生成短链接
+			parms.put("ppmc",pp.getPpmc());
+			parms.put("param",dlj);
+			ShortLink shortLink = new ShortLink();
+			shortLink.setShortLink(dlj);
+			shortLink.setNormalLink("q="+listkpls.get(0).getSerialorder());
+			shortLink.setType("01");//开票
+			shortLink.setCreator("1");
+			shortLink.setCreateDate(new Date());
+			shortLink.setModifier("1");
+			shortLink.setModifyDate(new Date());
+			shortLink.setUseMark("1");
+			shortLink.setCount(1);
+			shortLinkJpaDao.save(shortLink);
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			logger.info("------短链接保存出现异常：---------");
+			String dlj1= ShortUrlUtil.shortUrl("q="+listkpls.get(0).getSerialorder());
+			logger.info("重新生成shortLink 1"+dlj1);
+			ShortLink shortLink1 = shortLinkJpaDao.findOneByShortLink(dlj1);
+			if(shortLink1!=null){
+				//查询到数据重新生成shortLink
+				dlj1 = ShortUrlUtil.shortUrl("q="+listkpls.get(0).getSerialorder());//生成短链接
+				logger.info("继续生成shortLink 2"+dlj1);
+			}
+			parms.put("ppmc",pp.getPpmc());
+			parms.put("param",dlj1);
+			ShortLink shortLink = new ShortLink();
+			shortLink.setShortLink(dlj1);
+			shortLink.setNormalLink("q="+listkpls.get(0).getSerialorder());
+			shortLink.setType("01");//开票
+			shortLink.setCreator("1");
+			shortLink.setCreateDate(new Date());
+			shortLink.setModifier("1");
+			shortLink.setModifyDate(new Date());
+			shortLink.setUseMark("1");
+			shortLink.setCount(1);
+			shortLinkJpaDao.save(shortLink);
+		}
+		return parms;
+	}
+
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	public Map update(String serialorder, String gfemail, String wx, String sj) {
@@ -236,7 +426,25 @@ public class YjfsController extends BaseController {
 			List<Kpls> list =ks.findAll(params);
 			for(Kpls kpls:list) {
 				kpls.setGfemail(gfemail);
+				kpls.setXgsj(new Date());
+				kpls.setXgry(getYhid());
 				ks.save(kpls);
+				Jyls jyls = js.findOne(kpls.getDjh());
+				jyls.setGfsjh(sj);
+				jyls.setGfemail(gfemail);
+				jyls.setXgry(getYhid());
+				jyls.setXgsj(new Date());
+				js.save(jyls);
+				Map jyxxsqMap=new HashMap();
+				jyxxsqMap.put("gsdm",kpls.getGsdm());
+				jyxxsqMap.put("jylsh",jyls.getJylsh());
+				jyxxsqMap.put("sqlsh", jyls.getSqlsh());
+				Jyxxsq jyxxsq=jyxxsqService.findOneByJylsh(jyxxsqMap);
+				jyxxsq.setGfsjh(sj);
+				jyxxsq.setGfemail(gfemail);
+				jyxxsq.setXgsj(new Date());
+				jyxxsq.setXgry(getYhid());
+				jyxxsqService.save(jyxxsq);
 			}
 			
 			result.put("success", true);

@@ -38,8 +38,8 @@ $(function () {
             getUrl: 'yjfs/getYjfsList',
             sentUrl: 'yjfs/send',
             updateUrl: 'yjfs/update',
-            getDdmx:'yjfs/getDdmxList'
-
+            getDdmx:'yjfs/getDdmxList',
+            checkUrl:'yjfs/check'
         },
 
         dataTable: function () {
@@ -145,11 +145,12 @@ $(function () {
                         }
                     }, 'sClass': 'right'},
                     {"data": "gfemail"},
+                    {"data": "gfsjh"},
                     {
                         "data": null,
                         "defaultContent": '<td>' +
-                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="email" value="0" checked>邮件</label>'
-                        // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="text" value="1" >短信</label></td>' +
+                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="0"  checked>邮件</label>'+
+                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="1" >短信</label></td>'
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="wechat" value="2" >微信</label></td>'
                     },
                     {
@@ -267,16 +268,28 @@ $(function () {
 
             });
 
-            // 红冲发票明细
             t.on('click', 'a.sent', function () {
                 var data = t.row($(this).parents('tr')).data(),
                     $sentType = null,
-                    row = '';
-                if (data.gfemail == null || data.gfemail == "") {
-                    // $('#msg').html('没有邮箱，请增加邮箱后在发送');
-                    // $('#my-alert').modal('open');
-                    swal('没有邮箱，请增加邮箱后在发送');
-                    return;    
+                    row = '',sends="";
+
+                var groupCheckbox=$(this).closest("tr").find($("input[name='check']"));
+                for(var i=0;i<groupCheckbox.length;i++){
+                    if(groupCheckbox[i].checked){
+                        var val =groupCheckbox[i].value;
+                        if(val=="0"){
+                            if (data.gfemail == null || data.gfemail == "") {
+                                swal('没有邮箱，请增加邮箱后在发送');
+                                return;
+                            }
+                        }else if(val=="1"){
+                            if(data.gfsjh == null || data.gfsjh==""){
+                                swal('没有手机号码，请增加手机号码后在发送');
+                                return;
+                            }
+                        }
+                        sends +=val;
+                    }
                 }
                 $(this).parents('tr').find('.sentType').each(function (i, el) {
                     $sentType = $(el);
@@ -288,9 +301,13 @@ $(function () {
                         }
                     }
                 });
-
+                if(sends==null || sends==""){
+                    swal('发送失败,请选择发票接收方式');
+                    return;
+                }
                 // todo set key
-                _this.sentEmail({ids: data.serialorder + ':' + row});
+                var s = data.serialorder ;
+                _this.sentEmail(s,sends);
             });
 
             return t;
@@ -299,7 +316,8 @@ $(function () {
          * 发送 email request
          * @param data { ids: '1,2,3,4' }
          */
-        sentEmail: function (data) {
+        sentEmail: function (data,sends) {
+            sends=(sends.substring(sends.length-1)==',')?sends.substring(0,sends.length-1):sends;
             $('.confirm').attr('disabled',"disabled");
             var _this = this;
             el.$jsLoading.modal('open');
@@ -308,11 +326,11 @@ $(function () {
                 // $('#my-alert').modal('open');
                 swal('请先选择至少一条数据');
                 el.$jsLoading.modal('close');
-                return;             
+                return;
             }
-            $.ajax({
+           $.ajax({
                 url: _this.config.sentUrl,
-                data: data,
+                data: {"ids":data,"st":sends},
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {
@@ -325,7 +343,7 @@ $(function () {
                     } else {
                         // $('#msg').html('发送失败,服务器错误' + data.message);
                         // $('#my-alert').modal('open');
-                        swal('发送失败,服务器错误' + data.message);
+                        swal('发送失败:' + data.msg);
                     }
                     el.$jsLoading.modal('close');
                 },
@@ -335,8 +353,6 @@ $(function () {
                     swal('请求失败,请刷新后稍后重试!');
                 }
             });
-
-
         },
         /**
          * search action
@@ -500,36 +516,42 @@ $(function () {
                     row = '',
                     $tr = null,
                     $sentType = null;
+                var sendTy="";
+                var msg2="";
                 _this.tableEx.column(0).nodes().each(function (cell, i) {
                     row = '';
                     var $checkbox = $(cell).find('input[type="checkbox"]');
-                    
                     if ($checkbox.is(':checked')) {
                     	 var sffs = $(cell).parent("tr").find("td:last-child").html().trim();
                          var ddh = $(cell).parent("tr").find("td:eq(3)").html().trim();
                          if(sffs==0){
                          	msg=msg+","+ddh;
                          }
-                         
                         // todo 设置数据格式 使用 id:发送方式-发送方式-发送方式,id:发送方式-发送方式 形式
                         // 1:0-1-2,2:2,3:0-2 数据格式
-                        row = $checkbox.val() + ':'; // set id; 使用 : 分割 id 和 发送方式
+                        row = $checkbox.val(); // set id; 使用 : 分割 id 和 发送方式
+                        var s = "";
                         $checkbox.parents('tr').find('.sentType').each(function (j, el) {
                             $sentType = $(this);
                             if ($sentType.is(':checked')) {
-                                if (j === 0) { // 拼接 选中的数据
+                                s+=$sentType.val();
+                                /*if (j === 0) { // 拼接 选中的数据
                                     row = row + $sentType.val();
                                 } else {
                                     row = row + '-' + $sentType.val(); // split -
-                                }
+                                }*/
                             }
                         });
-
-                        if (i === 0) { // 拼接 选中的数据
-                            data = row;
-                        } else {
-                            data = data + ',' + row;
+                        if(s==""){
+                            msg2+="第"+(i+1)+"行，请选择发票接收方式\r\n";
                         }
+                        sendTy+= s+",";
+                        // if (i === 0) { // 拼接 选中的数据
+                        //     data = row;
+                        // } else {
+                        //     data = data + ',' + row;
+                        // }
+                        data +=  row+",";
                     }
 
                 });
@@ -537,12 +559,16 @@ $(function () {
                 if(msg!=''){
                 	swal("订单号【"+msg.substring(1,msg.length)+"】存在未开发票");
                 	return;
+                }else if(msg2!=""){
+                    swal(msg2);
+                    return;
                 }else{
-                	//发送
-                    _this.sentEmail({ids: data});
+                    //发送
+                    var s ={ids: data}.ids;
+                    s=(s.substring(s.length-1)==',')?s.substring(0,s.length-1):s;
+                    _this.sentEmail(s,sendTy);
                 }
-                
-                
+
             });
         },
         saveRow: function () {
@@ -554,10 +580,18 @@ $(function () {
                     var formValidity = this.isFormValid();
                     if (formValidity) {
                     	var email = $("#gfemail").val();
+                    	var sj = $("#sj").val();
                     	var reg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+                    	var reg1=/^[1][3,4,5,7,8][0-9]{9}$/;
                         if(!reg.test(email)){
-                        	swal("请填写有效邮箱");
+                            $("#gfemail").focus();
+                            swal("请填写有效邮箱");
                         	return false;
+                        }
+                        if(!reg1.test(sj)){
+                            $("#sj").focus();
+                            swal("请填写有效的手机号码");
+                            return false;
                         }
                         var data = el.$jsForm1.serialize(); // get form data data
                         el.$jsLoading.modal('open');  // show loading
@@ -612,7 +646,7 @@ $(function () {
             var _this = this,
                 i;
             el.$jsForm1.find('input[name="gfemail"]').val(data.gfemail);
-            el.$jsForm1.find('input[name="sj"]').val('');
+            el.$jsForm1.find('input[name="sj"]').val(data.gfsjh);
             el.$jsForm1.find('input[name="wx"]').val(''); // 你决定放什么
             el.$jsForm1.find('input[name="serialorder"]').val(data.serialorder);
             el.$jsForm1.find('input[name="rowId"]').val(data.rowid); // set rowid

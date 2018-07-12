@@ -242,6 +242,7 @@
 												<th class="data-ctr">税额</th> -->
 												<th class="data-ctr">价税合计</th>
 												<th>邮箱</th>
+												<th>手机号码</th>
 												<th>发票接收方式</th>
 												<th style="display:none;">是否开票成功</th>
 											</tr>
@@ -287,7 +288,7 @@
 						id="original-detail-modal">
 						<div class="am-modal-dialog">
 							<div class="am-modal-hd">
-								修改发票接收地址 <a href="javascript: void(0)"
+								修改接收邮件地址和手机号码 <a href="javascript: void(0)"
 									class="am-close am-close-spin" data-am-modal-close>&times;</a>
 							</div>
 							<div class="am-modal-bd">
@@ -307,12 +308,12 @@
 												</div>
 											</div>
 
-											<%--<div class="am-form-group">--%>
-											<%--<label for="sj" class="am-u-sm-4 am-form-label">手机号码</label>--%>
-											<%--<div class="am-u-sm-8">--%>
-											<%--<input type="text" id="sj" name="sj" placeholder=""/>--%>
-											<%--</div>--%>
-											<%--</div>--%>
+											<div class="am-form-group">
+											<label for="sj" class="am-u-sm-4 am-form-label">手机号码</label>
+											<div class="am-u-sm-8">
+											<input type="text" id="sj" name="sj" placeholder=""/>
+											</div>
+											</div>
 
 											<%--<div class="am-form-group">--%>
 											<%--<label for="wx" class="am-u-sm-4 am-form-label">微信账号</label>--%>
