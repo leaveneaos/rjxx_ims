@@ -84,7 +84,7 @@ public class SksbxxzcControlller extends BaseController {
 		List<Provinces> provincesList = provincesJpaDao.findAll();
 		request.setAttribute("provinces", provincesList);
 		request.setAttribute("xfs", getXfList());
-		request.setAttribute("xf", getXfList().get(0));
+		request.setAttribute("xf", getXfList().isEmpty()?null:getXfList().get(0));
 		Map<String, Object> prms = new HashMap<>();
 		prms.put("gsdm", getGsdm());
 		List<Pp> ppList = ps.findAllByParams(prms);

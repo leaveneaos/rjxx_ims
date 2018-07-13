@@ -40,7 +40,7 @@ public class PpController  extends BaseController {
     @SystemControllerLog(description = "品牌管理", key = "")
     public String index() throws Exception {
         session.setAttribute("xfs", getXfList());
-        session.setAttribute("xf", getXfList().get(0));
+        session.setAttribute("xf", getXfList().isEmpty()?null:getXfList().get(0));
         return "pp/index";
     }
 
