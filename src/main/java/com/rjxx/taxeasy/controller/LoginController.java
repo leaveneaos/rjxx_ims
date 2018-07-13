@@ -137,14 +137,15 @@ public class LoginController extends BaseController {
 						return "login/login";
 					}
 				}
-				List<Xf> xfList = getXfList();
-				if (!xfList.isEmpty()) {
+				//先跳过该页面，直接登录进入系统管理页面。
+				//List<Xf> xfList = getXfList();
+				//if (!xfList.isEmpty()) {
 					session.setAttribute("loginFlag","0");
 					session.setAttribute("pingtai","泰易（TaxEasy）开票通V2.0");
 					session.setAttribute("banquan","© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号");
 					return "redirect:/main";
-				}
-				return "redirect:/qymp";
+				//}
+				//return "redirect:/qymp";
 			} else {
 				modelMap.put("errors", "用户名或密码不正确");
 				return "login/login";

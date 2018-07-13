@@ -113,16 +113,17 @@ public class OtherLoginController extends BaseController {
                         }
                     }
                 }
-                List<Xf> xfList = getXfList();
-                if (!xfList.isEmpty()) {
+                //先跳过该页面，直接登录进入系统管理页面。
+                //List<Xf> xfList = getXfList();
+                //if (!xfList.isEmpty()) {
                     if("1".equals(flag)){
                         session.setAttribute("loginFlag","1");
                         session.setAttribute("pingtai","中科联通电子发票服务平台");
                         session.setAttribute("banquan","© Copyright 2018-2023 北京中科联通科技有限公司 京ICP备13015326号-1");
                     }
                     return "redirect:/main";
-                }
-                return "redirect:/qymp";
+                //}
+                //return "redirect:/qymp";
             } else {
                 modelMap.put("errors", "用户名或密码不正确");
                 if("1".equals(flag)){
