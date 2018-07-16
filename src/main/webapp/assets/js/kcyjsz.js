@@ -259,7 +259,7 @@ $(function () {
                                 var xfmc = data[i].xfmc;
                                 if(tzbz==false){
                                     flag=false;
-                                    params +="销方名称："+xfmc+"的发票已获取才能设置通知方式";
+                                    params +="销方名称："+xfmc+"的发票已获取并且预警值已设置才能设置通知方式";
                                 }
                             }
                             if(flag){
