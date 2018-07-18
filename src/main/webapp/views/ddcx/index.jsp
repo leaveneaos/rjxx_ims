@@ -20,7 +20,6 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="assets/css/fixedColumns.dataTables.scss">
 <script src="assets/js/loading.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 
@@ -56,6 +55,7 @@
 							<div id="doc-oc-demo3" class="am-offcanvas">
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 								<form  id ="ycform"  action="<c:url value='ddcx/exportExcel1'/>">
+									<input type="hidden" name="sqlsh" value="" id="sqlsh"/>
 								     <div class="am-offcanvas-content">
 														<div class="am-form-group">
 															<label for="s_xfsh" class="am-u-sm-4 am-form-label">选择销方</label>
@@ -159,6 +159,7 @@
 						<div class="am-g" style="margin-top: 20px">
 							<form action="<c:url value='ddcx/exportExcel1'/>" id="searchform"
 								  class="js-search-form  am-form am-form-horizontal">
+								<input type="hidden" name="sqlsh1" value="" id="sqlsh1"/>
 								<div class="am-u-sm-5">
 									<div class="am-form-group">
 										<div class="am-u-sm-3">
@@ -219,6 +220,7 @@
 										id="kpls_table">
 										<thead>
 											<tr>
+												<th><input type="checkbox" id="select_all" /></th>
 												<th>序号</th>
 				                                <%--<th>单据号</th>--%>
 				                                <th>流水号</th>
@@ -388,7 +390,6 @@
 	<script src="assets/js/format.js"></script>
     <script src="assets/js/fpcx_4.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
-    <script src="assets/js/dataTables.fixedColumns.js"></script>
 	<script type="text/javascript">
         function getCurrentMonthFirst(){
             var date=new Date();

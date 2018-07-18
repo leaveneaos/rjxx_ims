@@ -18,7 +18,8 @@ $(function () {
         $xfsh: $('#s_xfsh'), // search 
         $gfmc: $('#s_gfmc'),// search 
         $ztbz: $('#s_ddzt'),// search
-        $jsLoading: $('.js-modal-loading')
+        $jsLoading: $('.js-modal-loading'),
+        $checkAll : $('#select_all')
     };
     var mxarr = [];
     var index = 1;
@@ -38,9 +39,6 @@ $(function () {
                 ordering: false,
                 searching: false,
                 "scrollX": true,
-                fixedColumns : {//关键是这里了，需要第一列不滚动就设置1
-                    leftColumns : 1
-                },
                 "ajax": {
                     url: _this.config.getUrl,
                     type: 'post',
@@ -70,10 +68,17 @@ $(function () {
                 },
                 "columns": [
                     {
+                        "orderable" : false,
+                        "data" : null,
+                        render : function(data, type, full, meta) {
+                            return '<input type="checkbox" id ="checkboxID" value="'
+                                + data.sqlsh + '" />';
+                        }
+                    },
+                    {
                         "orderable": false,
                         "data": null,
-                        "defaultContent": "",
-                        'sClass':'xh'
+                        "defaultContent": ""
                     },
                     // {"data": "sqlsh"},
                     {"data": "jylsh"},
@@ -163,10 +168,9 @@ $(function () {
                 // "columnDefs": [{"bVisible": false, "aTargets": [1]}],
             });
 
-            t.on('draw.dt', function (e, settings, json) {
-                var x = t,
-                    page = x.page.info().start; // 设置第几页
-                t.column(0).nodes().each(function (cell, i) {
+            t.on('draw.dt', function(e, settings, json) {
+                var x = t, page = x.page.info().start; // 设置第几页
+                t.column(1).nodes().each(function(cell, i) {
                     cell.innerHTML = page + i + 1;
                 });
 
@@ -223,7 +227,13 @@ $(function () {
                 ]
 
             });
-
+            $('#kpls_table tbody').on('dblclick', 'tr', function () {
+                if ( $(this).find('td:eq(0) input').is(':checked')){
+                    $(this).find('td:eq(0) input').prop('checked',false);
+                }else {
+                    $(this).find('td:eq(0) input').prop('checked',true);
+                }
+            });
              t.on( 'click', 'a.view', function () {
              var data = t.row( $(this).parents('tr')).data();
              // todo
@@ -234,7 +244,68 @@ $(function () {
              jyspmx_table.ajax.reload();
              el.$modalfpxx.modal({"width": 1000, "height": 550});
 
-             }); 
+             });
+            //发票导出
+            el.$jsExport.on('click',function (e) {
+                var bj = $('#bj').val();
+                var sqlsh11 ='';
+                t.column(0).nodes().each(//循环检测勾选复选框并取得sqlsh
+                    function (cell,i){
+                        var $checkbox = $(cell).find('input[type="checkbox"]');
+                        if($checkbox.is(':checked')){
+                            sqlsh11 += $checkbox.val()+ ',';
+                        }
+                    }
+                );
+
+                if($('#bj').val() =='2'){
+                    var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
+                    var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
+                    if (($("#w_kprqq").val() && $("#w_kprqq").val())) {// 都不为空
+                        if (dt1.getYear() == dt2.getYear()) {
+                            if (dt1.getMonth() == dt2.getMonth()) {
+                                if (dt1 - dt2 > 0) {
+                                    swal('开始日期大于结束日期,Error!');
+                                    return false;
+                                }
+                            } else {
+                                swal('Error,选择日期不能跨月!');
+                                return false;
+                            }
+                        } else {
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    }
+                    alert(2)
+                    $('#sqlsh1').val(sqlsh11);
+                    $("#searchform").submit();
+                    alert($('#sqlsh1').val());
+                }else{
+                    var dt1 = new Date(el.$s_rqq.val().replace(/-/g, "/"));
+                    var dt2 = new Date(el.$s_rqz.val().replace(/-/g, "/"));
+                    if ((el.$s_rqq.val() && el.$s_rqz.val())) {// 都不为空
+                        if (dt1.getYear() == dt2.getYear()) {
+                            if (dt1.getMonth() == dt2.getMonth()) {
+                                if (dt1 - dt2 > 0) {
+                                    swal('开始日期大于结束日期!');
+                                    return false;
+                                }
+                            } else {
+                                swal('请选择同一个年月内的时间!');
+                                return false;
+                            }
+                        } else {
+                            swal('请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    }
+                    alert(1)
+                    $('#sqlsh').val(sqlsh11);
+                    $("#ycform").submit();
+                    alert($('#sqlsh').val());
+                }
+            });
             return t;
         },
 
@@ -323,10 +394,20 @@ $(function () {
         /**
          * 导出按钮
          */
-        exportAc: function () {
+        /*exportAc: function () {
             //发票导出
             el.$jsExport.on('click',function (e) {
                 var bj = $('#bj').val();
+                var sqlsh11 ='';
+                this.tableEx.column(0).nodes().each(//循环检测勾选复选框并取得kplsh
+                    function (cell,i){
+                        var $checkbox = $(cell).find('input[type="checkbox"]');
+                        if($checkbox.is(':checked')){
+                            sqlsh11 += $checkbox.val()+ ',';
+                        }
+                    }
+                )
+
                 if($('#bj').val() =='2'){
                     var dt1 = new Date($("#w_kprqq").val().replace(/-/g, "/"));
                     var dt2 = new Date($("#w_kprqz").val().replace(/-/g, "/"));
@@ -347,6 +428,7 @@ $(function () {
                         }
                     }
                     $("#searchform").submit();
+                    $('#sqlsh1').val(sqlsh11);
                 }else{
                     var dt1 = new Date(el.$s_rqq.val().replace(/-/g, "/"));
                     var dt2 = new Date(el.$s_rqz.val().replace(/-/g, "/"));
@@ -367,6 +449,27 @@ $(function () {
                         }
                     }
                     $("#ycform").submit();
+                    $('#sqlsh').val(sqlsh11);
+                }
+            });
+        },*/
+        //全选按钮
+        checkAllAc : function() {
+            var _this = this;
+            el.$checkAll.on('change', function(e) {
+                var $this = $(this), check = null;
+                if ($(this).is(':checked')) {
+                    _this.tableEx.column(0).nodes().each(
+                        function(cell, i) {
+                            $(cell).find('input[type="checkbox"]').prop(
+                                'checked', true);
+                        });
+                } else {
+                    _this.tableEx.column(0).nodes().each(
+                        function(cell, i) {
+                            $(cell).find('input[type="checkbox"]').prop(
+                                'checked', false);
+                        });
                 }
             });
         },
@@ -429,8 +532,9 @@ $(function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable     
             _this.search_ac();
-            _this.exportAc();
+            /*_this.exportAc();*/
             _this.modalAction(); // hidden action
+            _this.checkAllAc();
         }
     };
     action.init();

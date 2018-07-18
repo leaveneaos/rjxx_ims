@@ -165,7 +165,7 @@ public class DdcxController extends BaseController {
 	@RequestMapping(value = "/exportExcel1")
 	@ResponseBody
 	public Map<String, Object> exportExcel(String dxcsm, String w_kprqq, String w_kprqz,
-										  String s_rqq ,String s_rqz, String s_xfsh, String s_gfmc,String s_ddh,String s_lsh,String dxcsz,String s_ddzt) throws Exception {
+										  String s_rqq ,String s_rqz, String s_xfsh, String s_gfmc,String s_ddh,String s_lsh,String dxcsz,String s_ddzt,String sqlsh1) throws Exception {
 
 		Map params = new HashMap();
 		List<Integer> xfs = new ArrayList<>();
@@ -176,6 +176,16 @@ public class DdcxController extends BaseController {
 		}
 		if (xfs.size() > 0) {
 			params.put("xfList", xfs);
+		}
+		String []  sqlsh ;
+		if(null ==sqlsh1 || sqlsh1.equals("")){
+			sqlsh1 = request.getParameter("sqlsh");
+		}
+		if(sqlsh1!=null&&!sqlsh1.equals("")){
+			sqlsh1 = sqlsh1.substring(0,sqlsh1.length() - 1);
+			sqlsh = sqlsh1.split(",");
+		}else {
+			sqlsh = null;
 		}
 		if("ddh".equals(dxcsm)){
 			params.put("ddh",dxcsz);
@@ -196,6 +206,7 @@ public class DdcxController extends BaseController {
 			params.put("rqz", s_rqz);
 		}
 		params.put("gsdm", this.getGsdm());
+		params.put("sqlsh",sqlsh);
 		List<JyxxsqVO> kplscxList = jyxxsqservice.findAllBykplscx(params);
 //		Map<String, Object> map = new HashMap<>();
 //		int yhid = getYhid();
