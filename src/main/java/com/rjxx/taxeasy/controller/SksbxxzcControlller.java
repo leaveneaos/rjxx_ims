@@ -467,6 +467,11 @@ public class SksbxxzcControlller extends BaseController {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			Skp skp=skpService.findOne(kpdid);
+			if(skp==null || StringUtils.isBlank(skp.getDevicesn())){
+				result.put("failure", false);
+				result.put("msg", "没有凯盈开票终端SN!");
+				return result;
+			}
 			Cszb cszb = cszbService.getSpbmbbh(skp.getGsdm(), skp.getXfid(), skp.getId(), "kpfs");
 		    String kpfs=cszb.getCsz();
 		    if(kpfs.equals("04")){
@@ -488,7 +493,7 @@ public class SksbxxzcControlller extends BaseController {
 					}
 				}else{
 					result.put("failure", false);
-					result.put("msg", "异常，请稍后再试!");
+					result.put("msg", "请稍后再试!");
 				}
 			}else{
 				result.put("failure", false);
@@ -497,11 +502,72 @@ public class SksbxxzcControlller extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("failure", false);
-			result.put("msg", "异常，请稍后再试");
+			result.put("msg", "请稍后再试");
 		}
 
 		return result;
 	}
+
+	/**
+	 * 查询终端状态
+	 * @param kpdid
+	 * @return
+	 */
+	@RequestMapping(value = "/deviceState")
+	@ResponseBody
+	public Map<String, Object> deviceState(Integer kpdid) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			Skp skp=skpService.findOne(kpdid);
+//			Skp skp=skpService.findOne(1203);
+			if(skp==null || StringUtils.isBlank(skp.getDevicesn())){
+				result.put("failure", false);
+				result.put("msg", "查询终端失败，没有凯盈开票终端SN!");
+				return result;
+			}
+			Cszb cszb = cszbService.getSpbmbbh(skp.getGsdm(), skp.getXfid(), skp.getId(), "kpfs");
+			String kpfs=cszb.getCsz();
+			if(kpfs.equals("04")){
+				String message = skService.deviceState(kpdid);
+//				String message = skService.deviceState(1203);
+				Thread.sleep(600);
+				if(null!=message){
+					Map resultMap= XmltoJson.strJson2Map(message);
+					String code="";
+					String Msg="";
+					String deviceSN="";
+					String latestOnlineTime="";
+					if(null!=resultMap){
+						code=resultMap.get("ResultCode")==null?"":resultMap.get("ResultCode").toString();
+						Msg=resultMap.get("ResultMsg")==null?"":resultMap.get("ResultMsg").toString();
+						deviceSN=resultMap.get("DeviceSN")==null?"":resultMap.get("DeviceSN").toString();
+						latestOnlineTime=resultMap.get("LatestOnlineTime")==null?"":resultMap.get("LatestOnlineTime").toString();
+					}
+					if("0".equals(code)){
+						result.put("deviceSN",deviceSN);
+						result.put("latestOnlineTime",latestOnlineTime);
+						result.put("success", true);
+						return result;
+					}else{
+						result.put("success", false);
+						result.put("msg","查询终端失败："+Msg);
+					}
+				}else{
+					result.put("failure", false);
+					result.put("msg", "查询终端失败，请稍后再试!");
+				}
+			}else{
+				result.put("failure", false);
+				result.put("msg", "该设备不支持查询终端状态");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("failure", false);
+			result.put("msg", "异常，请稍后再试");
+		}
+		return result;
+	}
+
 	@RequestMapping(value = "/del")
 	@ResponseBody
 	@Transactional

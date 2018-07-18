@@ -95,8 +95,20 @@ $(function() {
 						},
 
 						{
-							"data": null,
-	                        "defaultContent": "<a class='modify' href='javascript:void(0)'>修改</a> "
+                            // "data": null,
+                            // "defaultContent":
+                            // "<a class='modify' href='javascript:void(0)'>修改</a> "
+                            // + "&nbsp;&nbsp" +'<a href="javascript:void(0)" class="modify1">状态查询</a>'
+                            // + "&nbsp;&nbsp" +'<a href="javascript:void(0)" class="modify1">解绑</a>'
+                            "data" : function(data) {
+                                if (data.kpfsCsz == "04") {
+                                    return "<a class='modify' href='javascript:void(0)'>修改</a> "
+                                    + "&nbsp;&nbsp" +'<a href="javascript:void(0)" class="state">状态查询</a>'
+                                     + "&nbsp;&nbsp" +'<a href="javascript:void(0)" class="reset">解绑</a>';
+                                }else{
+                                    return "<a class='modify' href='javascript:void(0)'>修改</a> ";
+                                }
+                            }
 						},
 						{
 							"data" : "xfmc"
@@ -174,7 +186,72 @@ $(function() {
 				// $('#tbl tr').find('td:eq(4)').hide();
 				// $('#tbl tr').find('td:eq(5)').hide();
 			});
-
+			//终端状态查询
+            t.on('click', 'a.state', function() {
+                var data = t.row($(this).parents('tr')).data();
+                    $('.confirm').attr('disabled',"disabled");
+                el.$jsLoading.modal('open');
+                    $.ajax({
+                        url : 'sksbxxzc/deviceState',
+                        data : {
+                            kpdid : data.id
+                        },
+                        type : 'POST',
+                    }).done(function(data) {
+                        if (data.success) {
+                            $('.confirm').removeAttr('disabled');
+                            el.$jsLoading.modal('close');
+                            swal("终端SN号:"+data.deviceSN+"\r\n末次在线时刻:"+data.latestOnlineTime);
+                        } else {
+                            el.$jsLoading.modal('close');
+                            swal(data.msg);
+                        }
+                    }).error(function(data) {
+                        el.$jsLoading.modal('close');
+                        swal('请求失败,请刷新后稍后重试!');
+                    });
+            });
+			//解绑
+            t.on('click', 'a.reset', function() {
+                var data = t.row($(this).parents('tr')).data();
+				if(data.kpfsCsz!="04"){
+                    swal("不能进行解绑操作！");
+                    return;
+				}
+                swal({
+                    title: "提示",
+                    text: "您确定要解绑吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: "确 定",
+                    confirmButtonColor: "#ec6c62"
+                }, function() {
+                    $('.confirm').attr('disabled',"disabled");
+                    $.ajax({
+                        url : 'sksbxxzc/FactoryReset',
+                        data : {
+                            kpdid : data.id
+                        },
+                        type : 'POST',
+                    }).done(function(data) {
+                        if (data.success) {
+                            $('.confirm').removeAttr('disabled');
+                            _this.tableEx.ajax.reload(); // reload table data
+                            swal({
+                                title: "已成功解绑",
+                                timer: 1500,
+                                type: "success",
+                                showConfirmButton: false
+                            });
+                        } else {
+                            swal('解绑失败:' + data.msg);
+                        }
+                    }).error(function(data) {
+                        swal('请求失败,请刷新后稍后重试!', "error");
+                    });
+                });
+            });
 			t.on('click', 'a.modify', function() {
 				var data = t.row($(this).parents('tr')).data();
 				el.$jsForm.find('[name="kpddm"]').val(data.kpddm);
@@ -580,7 +657,7 @@ $(function() {
                                 showConfirmButton: false
                             });
                         } else {
-                            swal('恢复出厂设置,服务器错误' + data.msg);
+                            swal('恢复出厂设置失败:' + data.msg);
                         }
                     }).error(function(data) {
                         swal('请求失败,请刷新后稍后重试!', "error");
