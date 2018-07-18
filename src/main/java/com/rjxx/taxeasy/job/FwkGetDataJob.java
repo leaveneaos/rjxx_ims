@@ -61,15 +61,17 @@ public class FwkGetDataJob implements Job {
                             "<soapenv:Header/>\n" +
                             "<soapenv:Body>\n" +
                             "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                            "<CustomerInvoiceSelectionByElements>\n" +
-                            "<SelectionByDate>\n" +
-                            "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                            "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
+                            "<CustomerInvoiceSelectionByElements>\n"+
+                            "<SelectionByLastChangeDateTime>\n"+
+                            "<InclusionExclusionCode>I</InclusionExclusionCode>\n"+
+                            "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n"+
 /*
                             "<LowerBoundaryCustomerInvoiceDate>2018-03-20</LowerBoundaryCustomerInvoiceDate>\n" +
 */
-                            "<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +
-                            "</SelectionByDate>\n" +
+                            /*"<LowerBoundaryCustomerInvoiceDate>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"</LowerBoundaryCustomerInvoiceDate>\n" +*/
+                            "<LowerBoundaryCustomerInvoiceLastChangeDateTime>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"T00:00:00Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                            "<UpperBoundaryCustomerInvoiceLastChangeDateTime>"+new SimpleDateFormat("yyyy-MM-dd").format(time)+"T23:59:59Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                            "</SelectionByLastChangeDateTime>\n"+
                             "</CustomerInvoiceSelectionByElements>\n" +
                             "<ProcessingConditions>\n" +
                             "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +

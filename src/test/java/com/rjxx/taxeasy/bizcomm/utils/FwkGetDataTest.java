@@ -1,5 +1,6 @@
 package com.rjxx.taxeasy.bizcomm.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.rjxx.Application;
 import com.rjxx.taxeasy.job.FwkGetDataJob;
 import org.junit.Test;
@@ -9,6 +10,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -27,36 +31,55 @@ public class FwkGetDataTest {
     @Test
     public void getdata(){
         do{
+            Calendar cal=Calendar.getInstance();
+            cal.add(Calendar.DATE,-1);
+            Date time=cal.getTime();
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(time));
         String invoiceBack="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:glob=\"http://sap.com/xi/SAPGlobal20/Global\" xmlns:yni=\"http://0001092235-one-off.sap.com/YNIIVJHSY_\">\n" +
                 "<soapenv:Header/>\n" +
                 "<soapenv:Body>\n" +
                 "<glob:CustomerInvoiceByElementsQuery_sync>\n" +
-                "<CustomerInvoiceSelectionByElements>\n" +
+                "<CustomerInvoiceSelectionByElements>\n"+
+                "<SelectionByLastChangeDateTime>\n"+
+                "<InclusionExclusionCode>I</InclusionExclusionCode>\n"+
+                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n"+
+                "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T00:00:00Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T00:00:00Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                "</SelectionByLastChangeDateTime>\n"+
+                "</CustomerInvoiceSelectionByElements>\n"+
+                "<ProcessingConditions>\n"+
+                /*"<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n"+
+                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n"+*/
+                "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
+                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
+                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
+                "</ProcessingConditions>\n"+
+              /*  "<CustomerInvoiceSelectionByElements>\n" +
                 "<SelectionByDate>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
-                "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
-                "<LowerBoundaryCustomerInvoiceDate>2018-07-03</LowerBoundaryCustomerInvoiceDate>\n" +
-                 /*"<LowerBoundaryCustomerInvoiceDate>2018-01-10</LowerBoundaryCustomerInvoiceDate>\n"+
-                 "<UpperBoundaryCustomerInvoiceDate>2018-01-10</UpperBoundaryCustomerInvoiceDate>\n"+*/
-                 "</SelectionByDate>\n" +
-                /*"<SelectionByID>\n" +
+                "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n" +
+                "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T10:00:00Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n" +
+                "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T11:00:00Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                "</SelectionByDate>\n" +
+                *//*"<SelectionByID>\n" +
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n" +
                 "<IntervalBoundaryTypeCode>1</IntervalBoundaryTypeCode>\n" +
                 "<LowerBoundaryIdentifier>168618</LowerBoundaryIdentifier>\n" +
-                "</SelectionByID>\n" +*/
+                "</SelectionByID>\n" +*//*
                 "</CustomerInvoiceSelectionByElements>\n" +
                 "<ProcessingConditions>\n" +
                 "<QueryHitsUnlimitedIndicator>false</QueryHitsUnlimitedIndicator>\n" +
-                "<QueryHitsMaximumNumberValue>420</QueryHitsMaximumNumberValue>\n" +
-                "<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
-                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +
-                "</ProcessingConditions>"+
+                "<QueryHitsMaximumNumberValue>100</QueryHitsMaximumNumberValue>\n" +
+                *//*"<QueryHitsMaximumNumberValueSpecified>true</QueryHitsMaximumNumberValueSpecified>\n" +
+                "<LastReturnedObjectID>"+LastReturnedObjectID+"</LastReturnedObjectID>\n" +*//*
+                "</ProcessingConditions>"+*/
                 "</glob:CustomerInvoiceByElementsQuery_sync>\n" +
                 "</soapenv:Body>\n" +
                 "</soapenv:Envelope>\n";
         System.out.println(invoiceBack);
         String Data= HttpUtils.doPostSoap1_1("https://my337076.sapbydesign.com/sap/bc/srt/scs/sap/querycustomerinvoicein?sap-vhost=my337076.sapbydesign.com", invoiceBack, null,"_BW","Welcome9");
-
+            System.out.println(JSON.toJSONString(Data));
         Map resultMap=fwkGetDataJob.interping(Data);
 
         if(null==resultMap){
