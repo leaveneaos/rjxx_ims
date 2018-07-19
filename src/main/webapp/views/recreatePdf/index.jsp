@@ -32,6 +32,7 @@
 </style>
 </head>
 <body>
+<input type="hidden" id="searchbz" name="searchbz" value="0">
 	<div class="row-content am-cf">
 		<div class="row">
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -50,7 +51,7 @@
 								<div id="doc-oc-demo3" class="am-offcanvas">
 									<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 										<form class="js-search-form am-form">
-											<%--	<div class="am-offcanvas-content">
+												<div class="am-offcanvas-content">
                                                     <div class="am-form-group">
                                                         <label for="s_xfid" class="am-u-sm-4 am-form-label">销方名称</label>
                                                         <div class="am-u-sm-8">
@@ -64,20 +65,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="am-offcanvas-content top-position">
-                                                    <div class="am-form-group">
-                                                        <label for="s_skpid" class="am-u-sm-4 am-form-label">开票点</label>
-                                                        <div class="am-u-sm-8">
-                                                            <select id="s_skpid" name="skpid"
-                                                                data-am-selected="{btnSize: 'sm'}">
-                                                                <option value="">请选择开票点</option>
-                                                                <c:forEach items="${skpList}" var="skp">
-                                                                    <option value="${skp.id}">${skp.kpdmc}</option>
-                                                                </c:forEach>
-                                                            </select>
-                                                        </div>
+											<%--<div class="am-offcanvas-content top-position">
+                                                <div class="am-form-group">
+                                                    <label for="s_skpid" class="am-u-sm-4 am-form-label">开票点</label>
+                                                    <div class="am-u-sm-8">
+                                                        <select id="s_skpid" name="skpid"
+                                                            data-am-selected="{btnSize: 'sm'}">
+                                                            <option value="">请选择开票点</option>
+                                                            <c:forEach items="${skpList}" var="skp">
+                                                                <option value="${skp.id}">${skp.kpdmc}</option>
+                                                            </c:forEach>
+                                                        </select>
                                                     </div>
-                                                </div>--%>
+                                                </div>
+                                            </div>--%>
 											<%--<div class="am-offcanvas-content top-position">
 												<div class="am-form-group">
 													<label for="fpzldm" class="am-u-sm-4 am-form-label">发票种类</label>
@@ -152,7 +153,7 @@
 							</div>
 							<div class="am-g am-padding-top">
 								<form class="am-form">
-									<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+									<div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
 										<div class="am-form-group">
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
@@ -164,6 +165,26 @@
 											</div>
 										</div>
 									</div>
+									<div class="am-u-sm-4">
+										<div class="am-form-group">
+											<div class="am-u-sm-3">
+												开票日期
+											</div>
+											<div class="am-u-sm-4">
+												<input type="text" id="w_kprqq" name="w_kprqq"
+													   placeholder="起始日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+											<div class="am-u-sm-1">
+												至
+											</div>
+											<div class="am-u-sm-4">
+												<input type="text" id="w_kprqz" name="w_kprqz"
+													   placeholder="截止日期"
+													   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+											</div>
+										</div>
+									</div>
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 										<div class="am-form-group tpl-table-list-select">
 											<select data-am-selected="{btnSize: 'sm'}" id="s_mainkey">
@@ -172,7 +193,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+									<div class="am-u-sm-12 am-u-md-12 am-u-lg-2">
 										<div
 											class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 											<input type="text" class="am-form-field" id="searchValue"> <span
@@ -247,5 +268,32 @@
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/recreatePdf.js"></script>
 	<script src="assets/js/sweetalert.min.js"></script>
+	<script type="text/javascript">
+        function getCurrentMonthFirst(){
+            var date=new Date();
+            date.setDate(1);
+            return date;
+        }
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(function() {
+            var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            $("#w_kprqq").val(formatDate(startDate));
+            $("#w_kprqz").val(formatDate(endDate));
+            $("#s_kprqq").val(formatDate(startDate));
+            $("#s_kprqz").val(formatDate(endDate));
+        });
+	</script>
 </body>
 </html>

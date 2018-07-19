@@ -16,6 +16,7 @@ import com.rjxx.taxeasy.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class RecreatePdfController extends BaseController{
     @RequestMapping(value = "/getKplsList")
     @ResponseBody
     public Map getKplsList(int length, int start, int draw,String ddh, String gfmc,
-                           String kprqq,String kprqz,boolean loaddata) throws Exception {
+                           String xfid, String kprqq,String kprqz,boolean loaddata) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Pagination pagination = new Pagination();
         pagination.setPageNo(start / length + 1);
@@ -60,15 +61,16 @@ public class RecreatePdfController extends BaseController{
         pagination.addParam("ddh", ddh);
         pagination.addParam("gfmc", gfmc);
         pagination.addParam("gsdm",getGsdm());
+        pagination.addParam("xfi",xfid);
         if (!"".equals(kprqq)) {
             pagination.addParam("kprqq", kprqq);
         }
         if (!"".equals(kprqz)) {
             pagination.addParam("kprqz", kprqz);
         }
-        List<Fpcxvo> list = kplsService.findPdf(pagination);
-        int total = pagination.getTotalRecord();
         if(loaddata){
+            List<Fpcxvo> list = kplsService.findPdf(pagination);
+            int total = pagination.getTotalRecord();
             result.put("recordsTotal",total);
             result.put("recordsFiltered",total);
             result.put("draw",draw);
@@ -81,7 +83,7 @@ public class RecreatePdfController extends BaseController{
         }
         return result;
     }
-    @RequestMapping(value = "/recreate")
+    @RequestMapping(value = "/recreate",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> update(String djhArr) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();

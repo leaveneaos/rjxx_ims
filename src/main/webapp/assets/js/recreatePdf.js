@@ -34,7 +34,7 @@ $(function () {
                 searching: false,
                 "ajax": {
                     url: _this.config.getUrl,
-                    type: 'GET',
+                    type: 'POST',
                     data: function (d) {
                         var bz = $('#searchbz').val();
                         if(bz=='1'){
@@ -44,6 +44,7 @@ $(function () {
                             d.gfmc = el.$s_gfmc.val();   // search 发票号码
                             d.kprqq = el.$s_kprqq.val(); // search 开票日期
                             d.kprqz = el.$s_kprqz.val(); // search 开票日期
+                            d.xfid = el.$s_xfid.val();
                           //  d.fpzl = el.$s_fpzl.val();
                             d.loaddata = loaddata;
                         }else{
@@ -54,6 +55,8 @@ $(function () {
                             if(item=='gfmc'){
                                 d.gfmc = $('#searchValue').val();
                             }
+                            d.kprqq = $('#w_kprqq').val(); // search 开票日期
+                            d.kprqz = $('#w_kprqz').val(); // search 开票日期
                             d.loaddata = loaddata;
                         }
                     }
@@ -116,6 +119,30 @@ $(function () {
             });
 
             $('#jssearch').on('click',function(e){
+                if ((!$('#w_kprqq').val() && $('#w_kprqz').val()) || ($('#w_kprqq').val() && !$('#w_kprqz').val())) {
+                    swal('Error,请选择开始和结束时间!');
+                    return false;
+                }
+                var dt1 = new Date($('#w_kprqq').val().replace(/-/g, "/"));
+                var dt2 = new Date($('#w_kprqz').val().replace(/-/g, "/"));
+                if (($('#w_kprqq').val() && $('#w_kprqz').val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            // swal('月份不同,Error!');
+                            swal('Error,请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    } else {
+                        // swal('年份不同,Error!');
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
                 $('#searchbz').val("0");
                 e.preventDefault();
                 loaddata = true;
@@ -190,6 +217,7 @@ $(function () {
                 }, function() {
                     $.ajax({
                         url: "recreatePdf/recreate",
+                        type: 'POST',
                         context: document.body,
                         data:{ "djhArr" : djhArr.join(",")},
                     }).done(function(data) {

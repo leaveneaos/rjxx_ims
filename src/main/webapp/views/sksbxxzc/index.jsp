@@ -162,7 +162,7 @@
 												<!--                                                 <button type="button"  id="button4" class="modify am-btn am-btn-default am-btn-warning"> 修改</button> -->
 												<button type="button" id="deletexf" class="am-btn am-btn-danger am-btn-sm js-sent" > 删除</button>
 												<button type="button" id="kp_dr" class="am-btn am-btn-secondary am-btn-sm " > 导入</button>
-												<button type="button" id="FactoryReset" class="am-btn am-btn-danger am-btn-sm" >恢复出厂设置</button>
+												<%--<button type="button" id="FactoryReset" class="am-btn am-btn-danger am-btn-sm" >恢复出厂设置</button>--%>
 											</div>
 										</div>
 									</div>
