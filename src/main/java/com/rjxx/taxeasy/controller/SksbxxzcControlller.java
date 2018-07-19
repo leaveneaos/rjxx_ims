@@ -83,7 +83,8 @@ public class SksbxxzcControlller extends BaseController {
 	public String index() {
 		List<Provinces> provincesList = provincesJpaDao.findAll();
 		request.setAttribute("provinces", provincesList);
-		request.setAttribute("xfs", getXfList());
+		List xfsList = xfService.getXfListByYhId(getYhid());
+		request.setAttribute("xfs", xfsList);
 		request.setAttribute("xf", getXfList().isEmpty()?null:getXfList().get(0));
 		Map<String, Object> prms = new HashMap<>();
 		prms.put("gsdm", getGsdm());
@@ -111,7 +112,7 @@ public class SksbxxzcControlller extends BaseController {
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String xfStr = "";
-		List<Xf> xfs = getXfList();
+		List<Xf> xfs = xfService.getXfListByYhId(getYhid());
 		if (xfs != null) {
 			for (int i = 0; i < xfs.size(); i++) {
 				int xfid = xfs.get(i).getId();
@@ -127,7 +128,8 @@ public class SksbxxzcControlller extends BaseController {
 			xfi = null;
 		}
 		String skpStr = "";
-		List<Skp> skpList = getSkpList();
+		//List<Skp> skpList = getSkpList();
+		List<Skp> skpList = skpService.getSkpListByYhId(getYhid());
 		if (skpList != null) {
 			for (int j = 0; j < skpList.size(); j++) {
 				int skpid = skpList.get(j).getId();
@@ -169,7 +171,8 @@ public class SksbxxzcControlller extends BaseController {
 	public Map getXf(Integer xfid) {
 		Map<String, Object> result = new HashMap<>();
 		Xf x = null;
-		for (Xf xf : getXfList()) {
+		List<Xf> xfsList = xfService.getXfListByYhId(getYhid());
+		for (Xf xf : xfsList) {
 			if (xf.getId().equals(xfid)) {
 				x = xf;
 			}

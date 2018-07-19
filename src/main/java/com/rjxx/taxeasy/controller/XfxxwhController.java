@@ -120,7 +120,7 @@ public class XfxxwhController extends BaseController {
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String xfStr = "";
-		List<Xf> xfs = getXfList();
+		List<Xf> xfs = xfService.getXfListByYhId(getYhid());
 		if (xfs != null) {
 			for (int i = 0; i < xfs.size(); i++) {
 				int xfid = xfs.get(i).getId();
