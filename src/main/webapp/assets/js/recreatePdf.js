@@ -82,8 +82,8 @@ $(function () {
                     {"data": "fphm"},
                     {
                         "data": function (data) {
-                            if (data.je) {
-                                return FormatFloat(data.je, "###,###.00");
+                            if (data.hjje) {
+                                return FormatFloat(data.hjje, "###,###.00");
                             } else {
                                 return null;
                             }
@@ -91,8 +91,8 @@ $(function () {
                     },
                     {
                         "data": function (data) {
-                            if (data.se) {
-                                return FormatFloat(data.se, "###,###.00");
+                            if (data.hjse) {
+                                return FormatFloat(data.hjse, "###,###.00");
                             } else {
                                 return null;
                             }
