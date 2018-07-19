@@ -277,10 +277,8 @@ $(function () {
                             return false;
                         }
                     }
-                    alert(2)
                     $('#sqlsh1').val(sqlsh11);
                     $("#searchform").submit();
-                    alert($('#sqlsh1').val());
                 }else{
                     var dt1 = new Date(el.$s_rqq.val().replace(/-/g, "/"));
                     var dt2 = new Date(el.$s_rqz.val().replace(/-/g, "/"));
@@ -300,10 +298,8 @@ $(function () {
                             return false;
                         }
                     }
-                    alert(1)
                     $('#sqlsh').val(sqlsh11);
                     $("#ycform").submit();
-                    alert($('#sqlsh').val());
                 }
             });
             return t;
