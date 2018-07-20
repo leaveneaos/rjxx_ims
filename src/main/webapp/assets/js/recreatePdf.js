@@ -209,19 +209,23 @@ $(function () {
                     return;
                 }
                 swal({
-                    title: "您是否需要重新生成PDF！",
+                    title: "提示",
+                    text: "您是否需要重新生成PDF!",
+                    type: "warning",
                     showCancelButton: true,
                     closeOnConfirm: false,
                     confirmButtonText: "确 定",
                     confirmButtonColor: "#ec6c62"
                 }, function() {
+                    $('.confirm').attr('disabled',"disabled");
                     $.ajax({
                         url: "recreatePdf/recreate",
                         type: 'POST',
-                        context: document.body,
+                        /*context: document.body,*/
                         data:{ "djhArr" : djhArr.join(",")},
                     }).done(function(data) {
                         if (data.success) {
+                            $('.confirm').removeAttr('disabled');
                             swal({
                                 title: "生成成功",
                                 timer: 1500,
