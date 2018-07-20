@@ -211,8 +211,8 @@ public class SksbxxzcControlller extends BaseController {
 			prms.put("gsdm", getGsdm());
 
 			Skp old = new Skp();
-			old.setKpddm(kpddm);
-			old.setKpdmc(kpdmc);
+			//old.setKpddm(kpddm);
+			//old.setKpdmc(kpdmc);
 			old.setGsdm(getGsdm());
 			if (pid != null && pid != 0) {
 				old.setPid(pid);
@@ -226,7 +226,7 @@ public class SksbxxzcControlller extends BaseController {
 			;
 			Gsxx gsxx = gs.findOneByParams(prms);
 			if (gsxx.getKpdnum() != null && gsxx.getKpdnum() - sum <= 0) {
-				result.put("failure", true);
+				result.put("failure", false);
 				result.put("msg", "税控盘数量已达到税控盘数量设置最大值，不能添加，如需增加请联系平台开发商");
 				return result;
 			}

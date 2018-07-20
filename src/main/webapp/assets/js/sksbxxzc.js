@@ -701,7 +701,7 @@ $(function() {
 								} else if (data.failure) {
 									swal(data.msg);
 								} else {
-									swal('后台错误: 数据操作失败' + data.msg);
+									swal(data.msg);
 								}
 								el.$jsLoading.modal('close');
 							},

@@ -306,6 +306,24 @@ public class YjfsController extends BaseController {
 													jylsService.updateDxbz(param3);
 												}
 											}
+										}else {
+											logger.info("福维克--没有销售渠道-手工开具-发送短信");
+											smsEnvelopes mb=new smsEnvelopes();
+											mb.setToPhoneNumber(jyls.getGfsjh());
+											messageParams messageParams=new messageParams();
+											messageParams.setExtractcode(jyls.getTqm());
+											mb.setMessageType("DigitalInvoiceCode");
+											mb.setMessageParams(messageParams);
+											List mblist=new ArrayList();
+											mblist.add(mb);
+											Map smsEnvelopesMap=new HashMap();
+											smsEnvelopesMap.put("smsEnvelopes",mblist);
+											logger.info("-----短信模板-------"+JSON.toJSONString(smsEnvelopesMap));
+											HttpUtils.HttpPost_Basic(gsxx.getMessageurl(),JSON.toJSONString(smsEnvelopesMap));
+											Map param3 = new HashMap<>();
+											param3.put("djh", kpls.getDjh());
+											param3.put("dxzt", '1');
+											jylsService.updateDxbz(param3);
 										}
 									}
 								}else{
