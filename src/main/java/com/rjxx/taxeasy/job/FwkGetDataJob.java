@@ -200,8 +200,8 @@ public class FwkGetDataJob implements Job {
                         Gsxx gsxx=gsxxService.findOneByParams(parms);
                         String ss=HttpUtils.HttpUrlWebService(xml,gsxx.getAppKey(),gsxx.getSecretKey(),"04");
                     }*/
-            }else if (!("专票").equals(InvoiceTypeCI)&&null!=InvoiceTypeCI) {
-
+            }else if (!("增票").equals(InvoiceTypeCI)&&null!=InvoiceTypeCI) {
+                //增票 代表专票---（根据开票类型，非增值税专票）则开电子发票
                 String CISalesPlatform = null;/**销售平台**/
                 if(CustomerInvoiceMap.get("n1:CISalesPlatform")!=null) {
                     Map CISalesPlatformMap = (Map) CustomerInvoiceMap.get("n1:CISalesPlatform");
