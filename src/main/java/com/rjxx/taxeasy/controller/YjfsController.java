@@ -144,12 +144,12 @@ public class YjfsController extends BaseController {
 					if(list==null || list.size()<1) {
 						msg +="根据serialorder未查到kpls信息";
 						continue;
-					}else {
+					}/*else {
 						if(kpls.getGfemail() == null || "".equals(kpls.getGfemail())) {
 							msg += "发票代码：" + kpls.getFpdm() + "|发票号码：" + kpls.getFphm() + "无邮箱,发送失败;";
 							continue;
 						}
-					}
+					}*/
 					Jyls jyls = js.findOne(kpls.getDjh());
 					Map jyxxsqMap=new HashMap();
 					jyxxsqMap.put("gsdm",kpls.getGsdm());
