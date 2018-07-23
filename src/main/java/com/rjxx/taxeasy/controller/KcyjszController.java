@@ -500,18 +500,21 @@ public class KcyjszController extends BaseController {
             }else {
                 for(int i=0;i<list.size();i++){
                     boolean contains = s.contains(list.get(i).getXfid().toString());
-                    if(contains&&(list.get(i).getFpyjz()!=null || "".equals(list.get(i).getFpyjz()))){
+                    if(contains && list.get(i).getFpyjz()!=null && !"".equals(list.get(i).getFpyjz())){
                         map1.put("xfid",s);
                         map1.put("xfmc",xf.getXfmc());
                         map1.put("tzbz",true);
                         list1.add(map1);
                         break;
                     }
-                    map1.put("xfid",s);
-                    map1.put("xfmc",xf.getXfmc());
-                    map1.put("tzbz",false);
-                    list1.add(map1);
-                    break;
+                    if(i==list.size()-1){
+                        map1.put("xfid",s);
+                        map1.put("xfmc",xf.getXfmc());
+                        map1.put("tzbz",false);
+                        list1.add(map1);
+                    }
+
+                    //break;
                 }
             }
         }
