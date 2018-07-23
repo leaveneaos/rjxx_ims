@@ -149,8 +149,8 @@ $(function () {
                     {
                         "data": null,
                         "defaultContent": '<td>' +
-                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="0"  >邮件</label>'+
-                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="1" checked>短信</label></td>'
+                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="0"  checked>邮件</label>'+
+                        '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="check" value="1" >短信</label></td>'
                         // '<label class="am-checkbox-inline"> <input class="sentType" type="checkbox" name="wechat" value="2" >微信</label></td>'
                     },
                     {
