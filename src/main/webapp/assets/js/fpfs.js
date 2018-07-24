@@ -583,16 +583,20 @@ $(function () {
                     	var sj = $("#sj").val();
                     	var reg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
                     	var reg1=/^[1][3,4,5,7,8][0-9]{9}$/;
-                        if(!reg.test(email)){
-                            $("#gfemail").focus();
-                            swal("请填写有效邮箱");
-                        	return false;
+                    	if(email!=null && email!=""){
+                            if(!reg.test(email)){
+                                $("#gfemail").focus();
+                                swal("请填写有效邮箱");
+                                return false;
+                            }
                         }
-                        if(!reg1.test(sj)){
-                            $("#sj").focus();
-                            swal("请填写有效的手机号码");
-                            return false;
-                        }
+                       if(sj!=null && sj !=""){
+                           if(!reg1.test(sj)){
+                               $("#sj").focus();
+                               swal("请填写有效的手机号码");
+                               return false;
+                           }
+                       }
                         var data = el.$jsForm1.serialize(); // get form data data
                         el.$jsLoading.modal('open');  // show loading
                         // TODO save data to serve
