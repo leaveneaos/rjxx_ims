@@ -54,12 +54,11 @@ public class ErrorExceptionCallback implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
             logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
-
                 Channel channel = ((PublisherCallbackChannel) rabbitmqUtils.getChannel()).getDelegate();
                 String QueueName = rabbitmqUtils.getQueueName("ErrorException_Callback", "12");
                 int queueCount = (int) channel.messageCount(QueueName);
                 int co = 0;
-                while(co<=queueCount) {
+                while(co<queueCount) {
                     co++;
                     String kplshStr = (String) rabbitmqSend.receiveMsg("ErrorException_Callback", "12");
                     if (StringUtils.isNotBlank(kplshStr)) {
@@ -228,6 +227,7 @@ public class ErrorExceptionCallback implements Job {
                                                     fphxwsj6.setKplsh(kplsh);
                                                     fphxwsj6.setXfid(kpls.getXfid());
                                                     fphxwsj6.setSkpid(kpls.getSkpid());
+                                                    fphxwsj6.setDdh(jyls.getDdh());
                                                     fphxwsj6.setEnddate(new Date());
                                                     fphxwsj6.setReturncode("9999");
                                                     fphxwsj6.setStartdate(new Date());
@@ -265,6 +265,7 @@ public class ErrorExceptionCallback implements Job {
                                                     fphxwsjl8.setKplsh(kplsh);
                                                     fphxwsjl8.setXfid(kpls.getXfid());
                                                     fphxwsjl8.setSkpid(kpls.getSkpid());
+                                                    fphxwsjl8.setDdh(jyls.getDdh());
                                                     fphxwsjl8.setEnddate(new Date());
                                                     if (StringUtils.isBlank(returnCode) || !"0000".equals(returnCode) || !"0".equals(returnCode)) {
                                                         fphxwsjl8.setReturncode("9999");
