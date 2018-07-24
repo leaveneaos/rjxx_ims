@@ -211,7 +211,7 @@ public class ErrorExceptionCallback implements Job {
                                             Map returnMap = generatePdfService.httpPost(returnmessage, kpls);
                                             logger.info("返回报文" + JSON.toJSONString(returnMap));
                                             String Secret = this.getSign(returnmessage, gsxx.getSecretKey());
-                                            if (returnMap == null) {
+                                            if (returnMap == null || returnMap.get("ReturnCode")==null) {
                                                 logger.info("回写返回为空，放入mq---" + kpls.getKplsh() + "_" + count);
                                                 Map map = new HashMap();
                                                 map.put("kplsh", kplsh);
