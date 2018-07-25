@@ -50,11 +50,14 @@ public class FphxTest {
     @Autowired
     private KplsService kplsService;
 
+    @Autowired
+    private FphxUtil fphxUtil;
+
 
 
     @Test
     public void fphx(){
-        String message=generatePdfService.CreateReturnMessage3(1325);
+        String message=fphxUtil.CreateReturnMessage3(1325);
         System.out.println(message);
       /*  Map parms=new HashMap();
         parms.put("gsdm","fwk");
