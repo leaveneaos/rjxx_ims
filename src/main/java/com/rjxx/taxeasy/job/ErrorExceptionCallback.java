@@ -2,6 +2,7 @@ package com.rjxx.taxeasy.job;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
+import com.rjxx.taxeasy.bizcomm.utils.FphxUtil;
 import com.rjxx.taxeasy.bizcomm.utils.GeneratePdfService;
 import com.rjxx.taxeasy.bizcomm.utils.HttpUtils;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
@@ -33,8 +34,8 @@ public class ErrorExceptionCallback implements Job {
     private RabbitmqUtils rabbitmqSend;
     @Autowired
     private KplsService kplsService;
-    @Autowired
-    private GeneratePdfService generatePdfService;
+//    @Autowired
+//    private GeneratePdfService generatePdfService;
     @Autowired
     private GsxxService gsxxService;
     @Autowired
@@ -45,6 +46,8 @@ public class ErrorExceptionCallback implements Job {
     private JylsService jylsService;
     @Autowired
     private RabbitmqUtils rabbitmqUtils;
+    @Autowired
+    private FphxUtil fphxUtil;
 
 
 
@@ -82,33 +85,32 @@ public class ErrorExceptionCallback implements Job {
                                 String url = gsxx.getCallbackurl();
                                 String returnmessage = "";
                                 if (kpls.getFpzldm().equals("12") && kpls.getGsdm().equals("Family")) {
-                                    returnmessage = generatePdfService.CreateReturnMessage2(kpls.getKplsh());
+                                    returnmessage = fphxUtil.CreateReturnMessage2(kpls.getKplsh());
                                 } else if (kpls.getFpzldm().equals("12") && kpls.getGsdm().equals("mcake")) {
-                                    returnmessage = generatePdfService.CreateReturnMessage(kpls.getKplsh());
+                                    returnmessage = fphxUtil.CreateReturnMessage(kpls.getKplsh());
                                 } else if (kpls.getFpzldm().equals("12") && (kpls.getGsdm().equals("fwk") || kpls.getGsdm().equals("bqw"))) {
-                                    returnmessage = generatePdfService.CreateReturnMessage3(kpls.getKplsh());
+                                    returnmessage = fphxUtil.CreateReturnMessage3(kpls.getKplsh());
                                 } else {
                                     Cszb cszb = cszbService.getSpbmbbh(gsxx.getGsdm(), null, null, "callBackType");
                                     String callbacktype = cszb.getCsz();
                                     if (callbacktype != null) {
                                         if ("9".equals(callbacktype)) {
-                                            returnmessage = generatePdfService.createJsonMsg(kpls.getKplsh());
+                                            returnmessage = fphxUtil.createJsonMsg(kpls.getKplsh());
                                         }
                                     } else {
-                                        returnmessage = generatePdfService.CreateReturnMessage(kpls.getKplsh());
+                                        returnmessage = fphxUtil.CreateReturnMessage(kpls.getKplsh());
                                     }
                                 }
                                 //输出调用结果
-                                logger.info("回写报文" + returnmessage);
                                 if (returnmessage != null && !"".equals(returnmessage)) {
                                     if (kpls.getGsdm().equals("afb")) {
-                                        Map returnMap = generatePdfService.httpPostNoSign(returnmessage, kpls);
+                                        Map returnMap = fphxUtil.httpPostNoSign(returnmessage, kpls);
                                         logger.info("返回报文" + JSON.toJSONString(returnMap));
                                     }
                                     if (kpls.getGsdm().equals("fwk")) {
                                         try {
-                                            String ss = generatePdfService.netWebService(url, "CallBack", returnmessage, gsxx.getAppKey(), gsxx.getSecretKey());
-                                            String fwkReturnMessageStr = generatePdfService.fwkReturnMessage(kpls);
+                                            String ss = fphxUtil.netWebService(url, "CallBack", returnmessage, gsxx.getAppKey(), gsxx.getSecretKey());
+                                            String fwkReturnMessageStr = fphxUtil.fwkReturnMessage(kpls);
                                             logger.info("----------sap回写报文----------" + fwkReturnMessageStr);
                                             String Data = HttpUtils.doPostSoap1_2(gsxx.getSapcallbackurl(), fwkReturnMessageStr, null, "Deepak", "Welcome0");
                                             logger.info("----------fwk平台回写返回报文--------" + ss);
@@ -144,7 +146,7 @@ public class ErrorExceptionCallback implements Job {
                                                 }
                                                 rabbitmqSend.sendMsg("ErrorException_Callback", kpls.getFpzldm(), kpls.getKplsh() + "_" + count);
                                             } else {
-                                                Map resultMap = generatePdfService.handerReturnMes(ss);
+                                                Map resultMap = fphxUtil.handerReturnMes(ss);
                                                 String returnCode = resultMap.get("ReturnCode").toString();
                                                 //解析sap返回值
                                                 String note = "";
@@ -207,7 +209,7 @@ public class ErrorExceptionCallback implements Job {
                                         }
                                     } else {
                                         try {
-                                            Map returnMap = generatePdfService.httpPost(returnmessage, kpls);
+                                            Map returnMap = fphxUtil.httpPost(returnmessage, kpls);
                                             logger.info("返回报文" + JSON.toJSONString(returnMap));
                                             String Secret = this.getSign(returnmessage, gsxx.getSecretKey());
                                             if (returnMap == null || returnMap.get("ReturnCode")==null) {
