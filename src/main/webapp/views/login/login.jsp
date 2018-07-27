@@ -119,11 +119,11 @@
 
                 </div>
                 <div  class="login_row" id="usernameInput" >
-                    <img class="icon-user" src="../../img/loginimg/yonghu.png" />
+                    <img class="icon-user" src="<%=request.getContextPath()%>/img/loginimg/yonghu.png" />
                     <input type="text" name="dlyhid"  placeholder="请输入用户账号"/>
                 </div>
                 <div class="login_row" id="pwdInput" >
-                    <img class="icon-pwd" src="../../img/loginimg/mima.png" />
+                    <img class="icon-pwd" src="<%=request.getContextPath()%>/img/loginimg/mima.png" />
                     <input type="text" name="yhmm"  placeholder="请输入密码"/>
                 </div>
                    <div class="login_row yzm_row" >
