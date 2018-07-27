@@ -111,7 +111,7 @@
                 <p class="hide">还未注册？
                     <Link to="/reg">立即注册</Link>
                 </p>--%>
-                <div class="login_row" id="headerNew" style="padding-bottom: 0.2rem;width:98%;">
+                <div class="login_row" id="headerNew" style="padding-bottom: 0.2rem;width:96%;">
                     <div id="leftTitle" style="float:left;font-size: 0.21rem;opacity: 1;font-weight: bolder;color:#ffffff;">
                         欢迎登陆</div>
                     <div id="rightTitle" style="float: right;font-size: 0.18rem;opacity: 1;color:#ffffff;">
@@ -126,9 +126,8 @@
                     <img class="icon-pwd" src="../../img/loginimg/mima.png" />
                     <input type="text" name="yhmm"  placeholder="请输入密码"/>
                 </div>
-                   <div class="login_row" style="width:98%;clear:both;padding-left: 1%;" >
-                       <input type="text"
-                              style="float: left;width:60%;height: 0.4rem;font-size: 0.18rem;border-radius: 0.10rem;"
+                   <div class="login_row yzm_row" >
+                       <input type="text" id="inputYzm"
                               name="code" class="code" placeholder="请输入验证码" required>
                        <img name="randImage" id="randImage" onclick="loadimage();"
                             src="<%=request.getContextPath()%>/image.jsp" width="28%"

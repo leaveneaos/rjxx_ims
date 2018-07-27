@@ -453,17 +453,32 @@ a {
 	position: relative;
 }
 #usernameInput input,#pwdInput input{
-	width:90%;
+	width:92%;
 	height: 0.4rem;
-	padding-left: 8%;
-	font-size: 0.18rem;
+	padding-left: 6%;
+	font-size: 0.13rem;
 	border-radius: 0.10rem;
 	opacity: 1;
+	border:2px solid gray;
+}
+#usernameInput input:focus,#pwdInput input:focus{
+	border-color:#2765e3;
 }
 #usernameInput .icon-user,#pwdInput .icon-pwd{
 	/*background: url(./../img/loginimg/yonghu.png) no-repeat;*/
-	width: 5%;
+	width: 4%;
+	height: 0.2rem;
 	position: absolute;
-	top:0.07rem;
-	left: 0.18rem;
+	top:0.14rem;
+	left: 0.2rem;
+}
+.yzm_row{
+	width:98%;clear:both;padding-left: 1%;
+}
+.yzm_row #inputYzm{
+	float: left;width:60%;height: 0.4rem;font-size: 0.13rem;border-radius: 0.10rem;
+	border:2px solid gray;
+}
+.yzm_row #inputYzm:focus{
+	border-color:#2765e3;
 }
