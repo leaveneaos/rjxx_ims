@@ -1,6 +1,7 @@
 package com.rjxx.taxeasy.configuration;
 
 import com.rjxx.comm.utils.ApplicationContextUtils;
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Kpls;
@@ -54,7 +55,11 @@ public class DirectAmqpConfiguration {
                     skService.callService(kplsh);
                 }else if(cszb.getCsz().equals("03")){
                     if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
-                        skService.SkServerKP(kplsh);
+                        //skService.SkServerKP(kplsh);
+                        InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
+                        if(!invoiceResponse.getReturnCode().equals("0000")){
+                            skService.SkServerKP(kplsh);
+                        }
                     }
                 }else if(cszb.getCsz().equals("04")){
                     skService.SkBoxKP(kplsh);
