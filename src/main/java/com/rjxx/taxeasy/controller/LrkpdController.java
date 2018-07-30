@@ -77,6 +77,9 @@ public class LrkpdController extends BaseController {
 
     @Autowired
     private  SpbmService spbmService;
+
+    @Autowired
+    private  GfxxService gfxxservice;
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
     public String index() {
@@ -829,9 +832,7 @@ public class LrkpdController extends BaseController {
                     }
                 }
             }
-            if (mb == null || mb < 1) {
-                mb = mrmb;
-            }
+            if (mb == null || mb < 1) mb = mrmb;
             
             Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,null);
             if (!"".equals(msgMap.get("msg").toString())) {
@@ -1073,6 +1074,7 @@ public class LrkpdController extends BaseController {
             mb = -1;
         }
         params.setMbid(mb);
+        //导入的配置list---28
         List<DrPz> drPzList = drPzService.findAllByParams(params);
         Map<String, DrPz> pzMap = new HashMap<>();
         Map<String, String> enCnExcelColumnMap = new HashMap<>();
@@ -1080,7 +1082,9 @@ public class LrkpdController extends BaseController {
         enCnExcelColumnMap.putAll(importColumnMapping);
         if (drPzList != null && !drPzList.isEmpty()) {
             for (DrPz drPz : drPzList) {
+                //zdm字段名
                 pzMap.put(drPz.getZdm(), drPz);
+                //plzx配置类型  auto:默认 onconfig:配置  pzz:配置值--excel列名
                 if ("config".equals(drPz.getPzlx())) {
                     enCnExcelColumnMap.put(drPz.getZdm(), drPz.getPzz());
                     drpzMap.put(drPz.getZdm(), drPz.getPzz());
@@ -1094,6 +1098,7 @@ public class LrkpdController extends BaseController {
             flag1 = false;
             for (Object obj : titleList) {
                 String tmp = (String) obj;
+                //配置模板中的配置值为空或是匹配导入模板excel中的某个列名
                 if ("".equals(str) || (str.equals(tmp))) {
                     flag1 = true;
                     break;
@@ -1167,6 +1172,9 @@ public class LrkpdController extends BaseController {
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
         List<Jymxsq> mxList = new ArrayList<>();
         Integer num = 1;
+        //do
+        Map gfMap = new HashMap();
+
         Map<String ,Integer> ddhmap =new HashMap();
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
@@ -1225,6 +1233,74 @@ public class LrkpdController extends BaseController {
 
             jyxxsq.setSkpid(skpid);
             jyxxsq.setKpddm(skp.getKpddm());//解决没有kpddm问题。
+
+            //判断是否匹配购方
+            Xf xfPo = new Xf();
+            xfPo.setGsdm(gsdm);
+            xfPo.setXfsh(xfsh1);
+            //gfmc
+            String gfmc = getValue("gfmc", pzMap, columnIndexMap, row);
+            Xf xfInfo = xfService.findOneByParams(xfPo);
+            Cszb sfzdfm = cszbService.getSpbmbbh(gsdm, xfInfo.getId(), skpid, "sfppgf");
+            if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
+                Gfxx gfxx = new Gfxx();
+                if (gfMap.containsKey(gfmc)){
+                    gfxx = (Gfxx) gfMap.get(gfmc);
+                    jyxxsq.setGfsh(gfxx.getGfsh());
+                    jyxxsq.setGfmc(gfxx.getGfmc());
+                    jyxxsq.setGfdz(gfxx.getGfdz());
+                    jyxxsq.setGfdh(gfxx.getGfdh());
+                    jyxxsq.setGfyh(gfxx.getGfyh());
+                    jyxxsq.setGfyhzh(gfxx.getGfyhzh());
+                    jyxxsq.setGfsjh(gfxx.getLxdh());
+                    jyxxsq.setZtbz("6");
+                    jyxxsq.setSjly("2");
+                   //收件人地址
+                    jyxxsq.setGfsjrdz(gfxx.getGfdz());
+                    jyxxsq.setGfemail(gfxx.getEmail());
+
+                }else {
+                    gfxx = getGfxxByName(gsdm,gfmc);
+                    if(null == gfxx){
+//                        msgg = "数据库中不存在有效的购方:"+gfmc+"请先去维护购方信息！\r\n";
+//                        msg += msgg;
+//                        result.put("msg", msg);
+//                        return result;
+                        jyxxsq.setGfmc(gfmc);
+
+                    }else{
+                        jyxxsq.setGfsh(gfxx.getGfsh());
+                        jyxxsq.setGfmc(gfxx.getGfmc());
+                        jyxxsq.setGfdz(gfxx.getGfdz());
+                        jyxxsq.setGfdh(gfxx.getGfdh());
+                        jyxxsq.setGfyh(gfxx.getGfyh());
+                        jyxxsq.setGfyhzh(gfxx.getGfyhzh());
+                        jyxxsq.setGfsjh(gfxx.getLxdh());
+                        jyxxsq.setZtbz("6");
+                        jyxxsq.setSjly("2");
+                        //收件人地址
+                        jyxxsq.setGfsjrdz(gfxx.getGfdz());
+                        jyxxsq.setGfemail(gfxx.getEmail());
+                        gfMap.put(gfmc,gfxx);
+                    }
+
+                }
+                //获取购方信息
+//                Gfxx gfxx = getGfxxByName(gsdm,gfmc);
+
+//                jyxxsq.setGfsh(gfxx.getGfsh());
+//                jyxxsq.setGfmc(gfxx.getGfmc());
+//                jyxxsq.setGfdz(gfxx.getGfdz());
+//                jyxxsq.setGfdh(gfxx.getGfdh());
+//                jyxxsq.setGfyh(gfxx.getGfyh());
+//                jyxxsq.setGfyhzh(gfxx.getGfyhzh());
+//                jyxxsq.setGfsjh(gfxx.getLxdh());
+//                jyxxsq.setZtbz("6");
+//                jyxxsq.setSjly("2");
+//               //收件人地址
+//                jyxxsq.setGfsjrdz(gfxx.getGfdz());
+//                jyxxsq.setGfemail(gfxx.getEmail());
+            }else{
             jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
             jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));
             jyxxsq.setGfdz(getValue("gfdz", pzMap, columnIndexMap, row));
@@ -1239,13 +1315,17 @@ public class LrkpdController extends BaseController {
                 }
             }
             jyxxsq.setGfsjh(sjh);
+            jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
+            jyxxsq.setGfsjrdz(getValue("gfsjrdz", pzMap, columnIndexMap, row));
+
+            }
+
             jyxxsq.setZtbz("6");
             jyxxsq.setSjly("2");
             jyxxsq.setBz(getValue("bz", pzMap, columnIndexMap, row));
-            jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
             jyxxsq.setTqm(getValue("tqm", pzMap, columnIndexMap, row));
             jyxxsq.setKhh(getValue("khh", pzMap, columnIndexMap, row));
-            jyxxsq.setGfsjrdz(getValue("gfsjrdz", pzMap, columnIndexMap, row));
+
             if (StringUtils.isNotBlank(jyxxsq.getGfemail())) {
                 jyxxsq.setSffsyj("1");
             }
@@ -1438,8 +1518,14 @@ public class LrkpdController extends BaseController {
             }
             String fpzldm = jyxxsq.getFpzldm();// 发票种类代码
             if (fpzldm == null || "".equals(fpzldm)) {
-                msgg = "第" + (i + 2) + "行发票种类没有填写，请重新填写！\r\n";
+                msgg = "第" + (i + 2) + "行发票种类没有填写，请重新填写对应的发票种类(01:增值税专用发票;02:增值税普通发票;12:电子发票(增普))！\r\n";
                 msg += msgg;
+            }else{
+                if (!("01".equals(fpzldm) || "02".equals(fpzldm) || "12".equals(fpzldm))){
+                    msgg = "第" + (i + 2) + "行发票种类"+fpzldm+"不存在请重新填写对应的发票种类(01:增值税专用发票;02:增值税普通发票;12:电子发票(增普))！\r\n";
+                    msg += msgg;
+                }
+
             }
 
             String xfdh = jyxxsq.getXfdh();// 销方电话校验
@@ -1481,6 +1567,8 @@ public class LrkpdController extends BaseController {
                 msgg = "第" + (i + 2) + "行开票人超出10个字符，请重新填写！\r\n";
                 msg += msgg;
             }
+
+
             String gfsh = jyxxsq.getGfsh();// 购方税号校验
             String gfyh1 = jyxxsq.getGfyh();// 购方税号校验
             String gfyhzh1 = jyxxsq.getGfyhzh();// 购方税号校验
@@ -1511,6 +1599,12 @@ public class LrkpdController extends BaseController {
             if (gfmc == null || "".equals(gfmc)) {
                 msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！\r\n";
                 msg += msgg;
+            }else {
+                if(!gfMap.containsKey(gfmc)){
+                    msgg = "第" + (i + 2) + "行购方名称:"+gfmc+" 匹配无效，请先去维护购方信息！\r\n";
+                    msg += msgg;
+
+                }
             }
             if (gfmc != null && gfmc.length() > 100) { // 购方名称长度的判断
                 msgg = "第" + (i + 2) + "行购方名称超出100个字符，请重新填写！\r\n";
@@ -2088,6 +2182,18 @@ public class LrkpdController extends BaseController {
         result.put("count", resultList.size() - 1);
         return result;
     }
+    /**
+     * 通过购方名称获得购方信息
+     */
+    public Gfxx getGfxxByName(String gsdm,String gfmc){
+        Map parm = new HashMap();
+        parm.put("gsdm",gsdm);
+        parm.put("gfmc",gfmc);
 
+        Gfxx gfxx = gfxxservice.findOneByParams(parm);
+        return  gfxx;
+
+
+    }
 
 }
