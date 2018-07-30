@@ -43,7 +43,7 @@
             var allH=$('body').height();
             var headerH=$('._header').height();
             var footerH=$('._footer').height();
-            $('._login').height(allH-headerH-footerH);
+            $('._login').height(allH-headerH-footerH-5);
             $('._footer').css('padding-bottom','0px');
             var loginH=$('._login').height();
             var loginW=$('._login').width();
