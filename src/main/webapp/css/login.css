@@ -139,6 +139,7 @@ input
 ._login {
 	/* background: grey;*/
 	height: 7.8rem;
+	/*display: none;*/
 	/*
 
 	background: url(./../img/loginimg/denglubeijging.png) no-repeat;
@@ -167,6 +168,7 @@ button{
 	/*border-radius: 0.10rem;*/
 	overflow: auto;
 	margin: auto;
+
 	/*padding-bottom:0.6rem;*/
 }
 
@@ -482,3 +484,5 @@ a {
 .yzm_row #inputYzm:focus{
 	border-color:#2765e3;
 }
+
+.login_row{display: none;}

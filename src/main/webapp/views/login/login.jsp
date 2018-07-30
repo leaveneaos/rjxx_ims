@@ -27,7 +27,7 @@
     <script type="text/javascript">
         (function remInit(){
             window.onresize = function(){
-                test();
+                changeWH();
                 var  userW = window.document.documentElement.getBoundingClientRect().width;
                 userW<1500?userW = 1500:null
                 window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
@@ -38,8 +38,8 @@
             window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
             document.getElementsByTagName('html')[0].style.fontSize = (userW/1920*100)+'px';
         })()
-        function test(){
-
+        function changeWH(){
+            $('.login_row').css('display','block');
             var allH=$('body').height();
             var headerH=$('._header').height();
             var footerH=$('._footer').height();
@@ -55,10 +55,13 @@
 
             //$('#loginBox').css('height',(oneH*0.6)+'px');//.css('margin-top',())
         }
+    $(function(){
+        changeWH();
+    })
     </script>
 </head>
 
-<body onload="test()">
+<body>
 
 <div class="_header"  >
     <div class="box">
