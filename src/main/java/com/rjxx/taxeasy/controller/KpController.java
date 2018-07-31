@@ -15,6 +15,7 @@ import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.ChinaNumber;
 import com.rjxx.utils.ExcelUtil;
+import com.rjxx.utils.NumberUtil;
 import com.rjxx.utils.Tools;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -87,6 +88,8 @@ public class KpController extends BaseController {
 	GsxxService gsxxService;
 	@Autowired
 	KplsService kplsService;
+	@Autowired
+	private SkpService skpService;
 
 	/**
 	 * 页面初始化
@@ -1606,13 +1609,32 @@ public class KpController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> hqfphm(String fpzldm,Integer skpid) throws Exception{
 		Map<String, Object> result = new HashMap<>();
-			InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
+		//获取开票方式
+		Skp skp = skpService.findOne(skpid);
+		Cszb cszb=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"kpfs");
+		//税控服务器获取
+		if(cszb!=null&&"06".equals(cszb.getCsz())){
+			if(StringUtils.isBlank(skp.getKpdip())){
+				result.put("msg", "获取负票号码失败，没有开票终端标识");
+				result.put("success", true);
+				result.put("fwqzp",false);
+				return result;
+			}
+			result.put("kpzdbs",skp.getKpdip());
+			result.put("success", true);
+			result.put("fwqzp",true);
+			result.put("fplxdm",NumberUtil.fplxdm(fpzldm));
+			return result;
+		}
+		InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
 		if ("0000".equals(invoiceResponse.getReturnCode())) {
 			result.put("msg", "获取号码成功 ");
 			result.put("success", true);
+			result.put("fwqzp",false);
 			result.put("fpdm", invoiceResponse.getFpdm());
 			result.put("fphm", invoiceResponse.getFphm());
 		}else{
+			result.put("fwqzp",false);
 			result.put("success", false);
 			result.put("msg", invoiceResponse.getReturnMessage());
 		}

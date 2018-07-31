@@ -43,8 +43,8 @@ public class FwkGetDataTest {
                 "<SelectionByLastChangeDateTime>\n"+
                 "<InclusionExclusionCode>I</InclusionExclusionCode>\n"+
                 "<IntervalBoundaryTypeCode>3</IntervalBoundaryTypeCode>\n"+
-                "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T00:00:00Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n"+
-                "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2018-07-16T00:00:00Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                "<LowerBoundaryCustomerInvoiceLastChangeDateTime>2018-07-19T00:00:00Z</LowerBoundaryCustomerInvoiceLastChangeDateTime>\n"+
+                "<UpperBoundaryCustomerInvoiceLastChangeDateTime>2018-07-19T23:59:59Z</UpperBoundaryCustomerInvoiceLastChangeDateTime>\n"+
                 "</SelectionByLastChangeDateTime>\n"+
                 "</CustomerInvoiceSelectionByElements>\n"+
                 "<ProcessingConditions>\n"+
