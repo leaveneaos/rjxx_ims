@@ -331,7 +331,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .sidebar-nav-sub {
   display: none;
-  background: #f9f9f9;
+  background: #072531;
 }
 .sidebar-nav-sub .sidebar-nav-link {
   font-size: 12px;
@@ -375,7 +375,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .sidebar-nav-link a {
   display: block;
-  color: #666666;
+  color: #ffffff;
   padding: 10px 17px;
  /* border-left: #282d2f 3px solid;*/
   font-size: 14px;
@@ -384,7 +384,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .sidebar-nav-link a.active {
   cursor: pointer;
   border-left: #1CA2CE 3px solid;
-  color: #666666;
+  color: #ffffff;
 }
 .sidebar-nav-link a:hover {
   color: #fff;
@@ -1191,9 +1191,9 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
  /* border-left: #fff 3px solid;*/
 }
 .theme-white .sidebar-nav-link a:hover {
-  background: #2ea3df !important;
+  background: #1d97f6 !important;
   color: #ffffff !important;
-  border-left: #2ea3df 3px solid;
+  border-left: #ffffff 3px solid;
 }
 
 .theme-white .sidebar-nav-link a.active {
@@ -1213,14 +1213,14 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   background: #e9ecf3;
 }
 .theme-white .tpl-header-fluid {
-  background: #3bb4f2;
+  background: #086ab6;
   /*border-top: 1px solid #eee;*/
 }
 .theme-white .tpl-header-logo {
-  background: #2ea3df;
+  background: #0864ac;
 }
 .theme-white .tpl-header-switch-button {
-  background: #3bb4f2;
+  background: #086ab6;
  /* border-right: 1px solid #eee;
   border-left: 1px solid #eee;*/
 }
@@ -1238,7 +1238,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 
 }
 .theme-white .left-sidebar {
-  background: #f4f4f4;
+  background: #031d28;
 }
 .theme-white .widget-color-green {
   border: 1px solid #32c5d2;
