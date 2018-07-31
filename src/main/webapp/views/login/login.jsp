@@ -155,8 +155,8 @@
     <div class="box">
         <ul class="r0">
             <li>关于我们</li>
-            <a  href="#">
-                <img src="<%=request.getContextPath()%>/img/loginimg/gongsiLogo.jpg"></a>
+            <a  href="http://kpt.datarj.com/#/">
+                <img src="<%=request.getContextPath()%>/img/loginimg/gongsiLogo.png"></a>
         </ul>
         <div class="r1">
             <ul class="l2">
