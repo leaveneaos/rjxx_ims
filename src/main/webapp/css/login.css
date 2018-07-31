@@ -392,7 +392,11 @@ a {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-
+	height: 100%;
+}
+._footer .box .r0,._footer .box .r1,._footer .box .r2{
+height: 100%;
+	padding-bottom: 0.2rem;
 }
 ._footer .box .r0  li{
     margin-top: 0.5rem;
@@ -402,11 +406,13 @@ a {
     font-stretch: normal;
     letter-spacing: 0px;
     color: #ffffff;
+	margin-bottom: 0.24rem;
 }
 ._footer .box .r0  img{
-    width: 1.72rem;
-    height: 0.57rem;
-    margin-top: 0.4rem;
+	/*height: 1.15rem;*/
+	/*width: 1.85rem;*/
+	/*margin-bottom: 0.24rem;*/
+
 }
 
 ._footer .box .r1 .l2,._footer .box .r1 .l0{
@@ -424,7 +430,7 @@ a {
     margin-bottom: 0.24rem;
 }
 ._footer .box .r1 .l0{margin-top: 0rem; width:auto;}
-._footer .box .r1 .l1{font-size: 0.16rem;}
+._footer .box .r1 .l1{font-size: 0.16rem;    margin-bottom: 0.24rem;}
 ._footer .box .r2{
     display: flex; margin-top: 0.5rem;
 }
@@ -439,11 +445,12 @@ a {
     font-stretch: normal;
     letter-spacing: 0px;
     color: #ffffff;
-
+	margin-bottom: 0.24rem;
 }
 ._footer .box .r2  .item img{
     width: 1.08rem;
     height: 1.08rem;
+
 }
 .frombox .login_row{
 	margin-top: 0.3rem;
