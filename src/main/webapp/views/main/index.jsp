@@ -547,7 +547,7 @@
         var v_id = $(th).attr('data');
         var ejcd = $(th).attr('dele');
         $(".ejcd").css('background','none')
-        $(th).css("background-color","#f2f6f9");
+        $(th).css("background-color","#072531");
         $("#cd1").val(ejcd);
         $("#cd2").val(bt.id);
         $("#mainFrame").attr("src",v_id);
