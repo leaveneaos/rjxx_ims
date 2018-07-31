@@ -2,7 +2,7 @@
          pageEncoding="utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<html style="height: 100%;width: 100%;">
 <head lang="en">
     <meta charset="UTF-8">
     <title>泰易电子发票云服务平台</title>
@@ -26,13 +26,13 @@
     </script>
     <script type="text/javascript">
         (function remInit(){
-            window.onresize = function(){
-                changeWH();
+           /* window.onresize = function(){
+                //changeWH();
                 var  userW = window.document.documentElement.getBoundingClientRect().width;
                 userW<1500?userW = 1500:null
                 window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
                 document.getElementsByTagName('html')[0].style.fontSize = (userW/1920*100)+'px';
-            }
+            }*/
             var  userW = window.document.documentElement.getBoundingClientRect().width;
             userW<1500?userW = 1500:null
             window.document.documentElement.getBoundingClientRect().width<1000?userW = window.document.documentElement.getBoundingClientRect().width:null
@@ -55,14 +55,14 @@
 
             //$('#loginBox').css('height',(oneH*0.6)+'px');//.css('margin-top',())
         }
-    $(function(){
+   /* $(function(){
         changeWH();
-    })
+    })*/
     </script>
 </head>
 
-<body>
-
+<body style="height: 100%;width: 100%;">
+<div style="height: 100%;width: 100%; ">
 <div class="_header"  >
     <div class="box">
         <a href="http://kpt.datarj.com/#/">
@@ -97,7 +97,7 @@
     </div>
 </div>
 <div class="_login " >
-    <div class="box " id="loginBox" style="text-align: center;overflow-y: auto;" >
+    <div class="box " id="loginBox" style="text-align: center;" >
         <form  action="<c:url value='/login/doLogin'/>" method="post" style="">
             <div  class="frombox " >
                <%-- <div class="header">用户登录</div>
@@ -114,7 +114,7 @@
                 <p class="hide">还未注册？
                     <Link to="/reg">立即注册</Link>
                 </p>--%>
-                <div class="login_row" id="headerNew" style="padding-bottom: 0.2rem;width:96%;">
+                <div class="login_row" id="headerNew" style="padding-bottom: 0.2rem;width:4.2rem;">
                     <div id="leftTitle" style="float:left;font-size: 0.21rem;opacity: 1;font-weight: bolder;color:#ffffff;">
                         欢迎登陆</div>
                     <div id="rightTitle" style="float: right;font-size: 0.18rem;opacity: 1;color:#ffffff;">
@@ -135,12 +135,12 @@
                        <img name="randImage" id="randImage" onclick="loadimage();"
                             src="<%=request.getContextPath()%>/image.jsp" width="28%"
                             align="absmiddle"
-                            style="float: right;height: 0.45rem;margin-right: 2%;border: 1px solid #d9d9d9;border-radius: 0.10rem; "
+                            style="float: right;height: 0.45rem;border: 1px solid #d9d9d9;border-radius: 0.10rem; "
                        >
                        <div class="red" style="clear: both;">${errors}</div>
                    </div>
-                <div class="login_row" style="text-align: left;clear:both;width:98%;padding-left: 1%;padding-top: 0.01rem">
-                    <button type="submit" class="primary" style="float: left;width:98%;height: 0.45rem;">
+                <div class="login_row" style="clear:both;padding-top: 0.01rem">
+                    <button type="submit" class="primary" style="float: left;width:100%;height: 0.45rem;">
                         <span>登 录</span>
                     </button>
 
@@ -190,6 +190,7 @@
         sessionStorage.newcome12 = 200
     }
 </script>
+</div>
 </body>
 
 </html>

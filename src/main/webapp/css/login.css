@@ -137,8 +137,14 @@ input
     overflow-x: hidden;
   }
 ._login {
+	width:100%;
+	height: 66%;
+	display: flex;
+	justify-content: center ;
+	align-items:center;
+
 	/* background: grey;*/
-	height: 7.8rem;
+	/*height: 7.8rem;*/
 	/*display: none;*/
 	/*
 
@@ -155,18 +161,12 @@ body{
 button{
 	cursor: pointer;
 }
-._login .box {
-	text-align: center;
-	display: block;
-
-	width:100%;
-}
 
 ._login .box .frombox {
 
 	/*background-color: rgba(255, 255, 255, 0.8);*/
 	/*border-radius: 0.10rem;*/
-	overflow: auto;
+
 	margin: auto;
 
 	/*padding-bottom:0.6rem;*/
@@ -240,6 +240,7 @@ button{
 	height: 0.98rem;
 	/*background: white;*/
 	width: 100%;
+	height: 10%;
 	display: flex;
 	justify-content: center;
 	overflow: hidden;
@@ -376,12 +377,12 @@ a {
 
 ._footer {
     width: 100%;
-    height: 2.30rem;
+    height: 24%;
     /*background-color: #f6f6f6;*/
     display: flex;
-    /*position: fixed;*/
-    /*bottom: 0;*/
-    /*left: 0;*/
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 ._footer  ul{
     margin-bottom: 0;
@@ -446,18 +447,18 @@ a {
 }
 .frombox .login_row{
 	margin-top: 0.3rem;
+	width:4.22rem;
 	/*height: 0.6rem;*/
 }
 #usernameInput,#pwdInput{
-	width: 98%;
+
 	clear: both;
-	overflow: auto;
 	position: relative;
 }
 #usernameInput input,#pwdInput input{
-	width:92%;
+	width:4rem;
 	height: 0.4rem;
-	padding-left: 6%;
+	padding-left: 0.22rem;
 	font-size: 0.13rem;
 	border-radius: 0.10rem;
 	opacity: 1;
@@ -467,22 +468,20 @@ a {
 	border-color:#2765e3;
 }
 #usernameInput .icon-user,#pwdInput .icon-pwd{
-	/*background: url(./../img/loginimg/yonghu.png) no-repeat;*/
-	width: 4%;
+	width: 0.2rem;
 	height: 0.2rem;
 	position: absolute;
 	top:0.14rem;
-	left: 0.2rem;
+	left: 0.1rem;
 }
 .yzm_row{
-	width:98%;clear:both;padding-left: 1%;
+	clear:both;
 }
 .yzm_row #inputYzm{
-	float: left;width:60%;height: 0.4rem;font-size: 0.13rem;border-radius: 0.10rem;
+	float: left;width:2.62rem;height: 0.4rem;font-size: 0.13rem;border-radius: 0.10rem;
 	border:2px solid gray;
 }
 .yzm_row #inputYzm:focus{
 	border-color:#2765e3;
 }
 
-.login_row{display: none;}
