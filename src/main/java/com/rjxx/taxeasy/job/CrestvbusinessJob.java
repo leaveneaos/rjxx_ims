@@ -53,6 +53,7 @@ public class CrestvbusinessJob implements Job {
                 Kpls kpls=kplsService.findOne(Integer.valueOf(crestvbusiness.getKplsh()));
                 if("0".equals(crestvbusiness.getMqbz())){
                     if("04".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())){
+                        logger.info("CrestvbusinessJob.execute,定时任务异常补偿，放入凯盈开票队列，kplsh="+kpls.getKplsh());
                         rabbitmqSend.sendbox(crestvbusiness.getKplsh()+"");
                         crestvbusiness.setMqbz("1");
                         crestvbusinessService.save(crestvbusiness);
