@@ -1066,6 +1066,7 @@ public class LrkpdController extends BaseController {
         // 数据的校验
         String msgg = "";
         String msg = "";
+        Boolean sfpp = false;
         Map result = new HashMap();
         double zjshj = 0.0; //导入明细的总价税合计
         int yhid = this.getYhid();
@@ -1243,6 +1244,7 @@ public class LrkpdController extends BaseController {
             Xf xfInfo = xfService.findOneByParams(xfPo);
             Cszb sfzdfm = cszbService.getSpbmbbh(gsdm, xfInfo.getId(), skpid, "sfppgf");
             if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
+                sfpp = true;
                 Gfxx gfxx = new Gfxx();
                 if (gfMap.containsKey(gfmc)){
                     gfxx = (Gfxx) gfMap.get(gfmc);
@@ -1600,11 +1602,14 @@ public class LrkpdController extends BaseController {
                 msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！\r\n";
                 msg += msgg;
             }else {
-                if(!gfMap.containsKey(gfmc)){
-                    msgg = "第" + (i + 2) + "行购方名称:"+gfmc+" 匹配无效，请先去维护购方信息！\r\n";
-                    msg += msgg;
+                if (sfpp){
+                    if(!gfMap.containsKey(gfmc)){
+                        msgg = "第" + (i + 2) + "行购方名称:"+gfmc+" 匹配无效，请先去维护购方信息！\r\n";
+                        msg += msgg;
 
+                    }
                 }
+
             }
             if (gfmc != null && gfmc.length() > 100) { // 购方名称长度的判断
                 msgg = "第" + (i + 2) + "行购方名称超出100个字符，请重新填写！\r\n";
