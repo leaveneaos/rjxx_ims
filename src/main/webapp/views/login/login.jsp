@@ -127,7 +127,7 @@
                 </div>
                 <div class="login_row" id="pwdInput" >
                     <img class="icon-pwd" src="<%=request.getContextPath()%>/img/loginimg/mima.png" />
-                    <input type="text" name="yhmm"  placeholder="请输入密码"/>
+                    <input type="password" name="yhmm"  placeholder="请输入密码"/>
                 </div>
                    <div class="login_row yzm_row" >
                        <input type="text" id="inputYzm"
