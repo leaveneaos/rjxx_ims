@@ -244,7 +244,7 @@ public class ErrorExceptionCallback implements Job {
                                                 String returnCode = returnMap.get("ReturnCode").toString();
                                                 String returnMessage = returnMap.get("ReturnMessage").toString();
                                                 //回写失败放入mq
-                                                if (StringUtils.isBlank(returnCode) || !"0000".equals(returnCode) || !"0".equals(returnCode)) {
+                                                if (StringUtils.isBlank(returnCode) ||( !"0000".equals(returnCode) && !"0".equals(returnCode))) {
                                                     logger.info("回写返回不成功，放入mq---" + kpls.getKplsh() + "_" + count);
                                                     rabbitmqSend.sendMsg("ErrorException_Callback", kpls.getFpzldm(), kpls.getKplsh() + "_" + count);
                                                 }
@@ -253,7 +253,7 @@ public class ErrorExceptionCallback implements Job {
                                                 map.put("gsdm", kpls.getGsdm());
                                                 Fphxwsjl fphxwsjl7 = fphxwsjlService.findOneByParams(map);
                                                 if (fphxwsjl7 != null) {
-                                                    if (StringUtils.isBlank(returnCode) || !"0000".equals(returnCode) || !"0".equals(returnCode)) {
+                                                    if (StringUtils.isBlank(returnCode) || (!"0000".equals(returnCode) && !"0".equals(returnCode))) {
                                                         fphxwsjl7.setReturncode("9999");
                                                     } else {
                                                         fphxwsjl7.setReturncode("0000");
@@ -269,7 +269,7 @@ public class ErrorExceptionCallback implements Job {
                                                     fphxwsjl8.setSkpid(kpls.getSkpid());
                                                     fphxwsjl8.setDdh(jyls.getDdh());
                                                     fphxwsjl8.setEnddate(new Date());
-                                                    if (StringUtils.isBlank(returnCode) || !"0000".equals(returnCode) || !"0".equals(returnCode)) {
+                                                    if (StringUtils.isBlank(returnCode) || (!"0000".equals(returnCode) && !"0".equals(returnCode))) {
                                                         fphxwsjl8.setReturncode("9999");
                                                     } else {
                                                         fphxwsjl8.setReturncode("0000");
