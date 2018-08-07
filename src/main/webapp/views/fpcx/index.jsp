@@ -624,11 +624,11 @@
 								<div class="am-u-sm-12">
 									<div class="am-form-group">
 										<label class="am-u-sm-4 am-form-label">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input name="fileType" checked="checked" type="radio" value="0" />excle</label> 
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input name="fileType" checked="checked" type="radio" value="0" />EXCEL</label> 
 									    <label class="am-u-sm-4 am-form-label">
 						    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input name="fileType" type="radio" value="1" />txt </label>
+							<input name="fileType" type="radio" value="1" />TXT</label>
 									</div>
 								</div>
 						</div>
