@@ -379,8 +379,8 @@ public class FpcxController extends BaseController {
                     if (fphmMaps.containsKey(fph)) {
                         mxWrite = new StringBuffer();
                         //折扣行标记
-                        //明细
-                        mxWrite.append("0");
+                        //折扣行标记 0代表正常行
+                        mxWrite.append(fpcxvo.getFphxz().equals("0")?"0":"1");
                         mxWrite.append(fgf + fpcxvo.getSpmc());
                         mxWrite.append(fgf + (null == fpcxvo.getSpggxh() || "".equals(fpcxvo.getSpggxh()) ? "" : fpcxvo.getSpggxh()));
                         mxWrite.append(fgf + (null == fpcxvo.getSpdw() || "".equals(fpcxvo.getSpdw()) ? "" : fpcxvo.getSpdw()));
@@ -388,7 +388,8 @@ public class FpcxController extends BaseController {
                         mxWrite.append(fgf + (null == fpcxvo.getSpje() || "".equals(fpcxvo.getSpje()) ? "" : fpcxvo.getSpje()));
                         mxWrite.append(fgf + (null == fpcxvo.getSpsl() || "".equals(fpcxvo.getSpsl()) ? "" : fpcxvo.getSpsl()));
                         mxWrite.append(fgf + (null == fpcxvo.getSpse() || "".equals(fpcxvo.getSpse()) ? "" : fpcxvo.getSpse()));
-                        mxWrite.append(fgf + (null == fpcxvo.getSpdj() || "".equals(fpcxvo.getSpdj()) ? "" : fpcxvo.getSpdj()) + fgf + "1");
+                        mxWrite.append(fgf + (null == fpcxvo.getSpdj() || "".equals(fpcxvo.getSpdj()) ? "" : fpcxvo.getSpdj()));
+                        mxWrite.append(fgf + "1");
                         mxWrite.append(fgf + "");
 
                         write.append(mxWrite);
@@ -479,8 +480,8 @@ public class FpcxController extends BaseController {
                     //换行
                     write.append(enter);
                     //明细
-                    //折扣行标记
-                    write.append("0");
+                    //折扣行标记 0代表正常行
+                    write.append(fpcxvo.getFphxz().equals("0")?"0":"1");
                     write.append(fgf + fpcxvo.getSpmc());
                     write.append(fgf + (null == fpcxvo.getSpggxh() || "".equals(fpcxvo.getSpggxh()) ? "" : fpcxvo.getSpggxh()));
                     write.append(fgf + (null == fpcxvo.getSpdw() || "".equals(fpcxvo.getSpdw()) ? "" : fpcxvo.getSpdw()));
@@ -488,7 +489,8 @@ public class FpcxController extends BaseController {
                     write.append(fgf + (null == fpcxvo.getSpje() || "".equals(fpcxvo.getSpje()) ? "" : fpcxvo.getSpje()));
                     write.append(fgf + (null == fpcxvo.getSpsl() || "".equals(fpcxvo.getSpsl()) ? "" : fpcxvo.getSpsl()));
                     write.append(fgf + (null == fpcxvo.getSpse() || "".equals(fpcxvo.getSpse()) ? "" : fpcxvo.getSpse()));
-                    write.append(fgf + (null == fpcxvo.getSpdj() || "".equals(fpcxvo.getSpdj()) ? "" : fpcxvo.getSpdj()) + fgf + "1");
+                    write.append(fgf + (null == fpcxvo.getSpdj() || "".equals(fpcxvo.getSpdj()) ? "" : fpcxvo.getSpdj()));
+                    write.append(fgf + "1");
                     write.append(fgf + "");
                     write.append(enter);
                 }
@@ -515,7 +517,7 @@ public class FpcxController extends BaseController {
             int yhid = getYhid();
             map.put("yhid", yhid);
             List<DczydlVo> list = yhDczdylService.findAllByParams(map);
-            String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票类型,商品名称,商品金额,商品税率,商品税额";
+            String headers1 = "订单号,操作类型, 发票代码, 发票号码, 价税合计,购方名称,开票日期,发票类型,商品名称,商品数量,商品单价,商品金额,商品税率,商品税额";
             for (DczydlVo yhDczdyl : list) {
                 headers1 += "," + yhDczdyl.getZdzwm();
             }
@@ -567,12 +569,15 @@ public class FpcxController extends BaseController {
                 row.createCell(6).setCellValue(ykfpcx.getKprq() == null ? "" : ykfpcx.getKprq());
                 row.createCell(7).setCellValue(ykfpcx.getFpzlmc() == null ? "" : ykfpcx.getFpzlmc());
                 row.createCell(8).setCellValue(ykfpcx.getSpmc() == null ? "" : ykfpcx.getSpmc());
-                row.createCell(9).setCellValue(ykfpcx.getSpje() == null ? "" : ykfpcx.getSpje().toString());
-                row.createCell(10).setCellValue(ykfpcx.getSpsl() == null ? "" : String.valueOf(ykfpcx.getSpsl()));
-                row.createCell(11).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
+                //新增数量，单价列
+                row.createCell(9).setCellValue(ykfpcx.getSps() == null ? "" : ykfpcx.getSps().toString());
+                row.createCell(10).setCellValue(ykfpcx.getSpdj() == null ? "" : ykfpcx.getSpdj().toString());
+                row.createCell(11).setCellValue(ykfpcx.getSpje() == null ? "" : ykfpcx.getSpje().toString());
+                row.createCell(12).setCellValue(ykfpcx.getSpsl() == null ? "" : String.valueOf(ykfpcx.getSpsl()));
+                row.createCell(13).setCellValue(ykfpcx.getSpse() == null ? "" : ykfpcx.getSpse().toString());
 
 
-                int k = 12;
+                int k = 14;
                 for (DczydlVo dczydlVo : list) {
                     if ("gfsjh".equals(dczydlVo.getZddm())) {
                         row.createCell(k).setCellValue(ykfpcx.getGfsjh() == null ? "" : ykfpcx.getGfsjh());
@@ -629,7 +634,7 @@ public class FpcxController extends BaseController {
                         row.createCell(k).setCellValue(ykfpcx.getYfpdm() == null ? "" : ykfpcx.getYfpdm());
                     } else if ("ykpjshj".equals(dczydlVo.getZddm())) {
                         row.createCell(k).setCellValue(
-                                ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getYkpjshj()));
+                                ykfpcx.getYkpjshj() == null ? "0.00" : String.format("%.2f", ykfpcx.getSpje()+ykfpcx.getSpse()));
                     } else if ("tqm".equals(dczydlVo.getZddm())) {
                         row.createCell(k).setCellValue(ykfpcx.getTqm() == null ? "" : ykfpcx.getTqm());
                     } else if ("kpddm".equals(dczydlVo.getZddm())) {
