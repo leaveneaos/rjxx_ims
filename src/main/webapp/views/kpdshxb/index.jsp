@@ -1486,12 +1486,12 @@ table thead th {
             }
             var pos = filename.lastIndexOf(".");
             if (pos == -1) {
-                swal("导入的文件必须是excel文件");
+                swal("导入的文件必须是excel或txt文件");
                 return;
             }
             var extName = filename.substring(pos + 1);
-            if ("xls" != extName && "xlsx" != extName) {
-                swal("导入的文件必须是excel文件");
+            if (("xls" != extName && "xlsx" != extName) && ("TXT"!=extName && "txt"!= extName)) {
+                swal("导入的文件必须是excel或txt格式文件");
                 return;
             }
             $("#btnImport").attr("disabled", true);
@@ -1530,7 +1530,7 @@ table thead th {
                 error: function(XmlHttpRequest, textStatus, errorThrown) {
                     $("#btnImport").attr("disabled", false);
                     $('.js-modal-loading').modal('close');
-                    swal("保存失败，检查excel数据！");
+                    swal("保存失败，检查数据！");
                 }
             });
         });

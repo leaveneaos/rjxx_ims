@@ -8,8 +8,10 @@ $(function() {
 		$modalfpxx : $('#fpxx'),
 		$jsSubmit : $('.js-submit'),
 		$jsSubmit1 : $('.js-submit1'),
+		$jsSubmit2 : $('.js-submit2'),
 		$jsClose : $('.js-close'),
 		$jsClose1 : $('.js-close1'),
+		$jsClose2 : $('.js-close2'),
 		$jsAuto : $('.js-auto'),
 		$jsOut : $('.js-out'),
 		$jsForm0 : $('.js-form-0'), // form
@@ -285,6 +287,24 @@ $(function() {
                     }
                 }
             });
+            //导出
+            el.$jsSubmit2.on('click',function() {
+            	var bja = $('#bj').val();
+            	$('#biaoti0').modal('close');
+               var fileFlag = $('input[name="fileType"]:checked').val();
+				$('#fileFlag').val(fileFlag);
+				$('#fileFlag1').val(fileFlag);
+				$('#searchform').submit();
+				if(bja== '1'){
+					$('#searchform').submit();
+				}else if(bja == '2'){
+					$('#searchform1').submit();
+				}  
+            });
+            el.$jsClose2.on('click',function() {
+            	$('#biaoti0').modal('close');    
+            });
+            
             //发票导出
             el.$jsExport.on('click',function (e) {
                 var bj = $('#bj').val();
@@ -300,7 +320,9 @@ $(function() {
 
                 if(bj == '1'){
                         $('#kplsh').val(kplsh11);
-                        $('#searchform').submit();
+                          $('#biaoti0').modal('open');
+//                        $('#searchform').submit();
+                          
                 }else if(bj=='2'){
                     $('#kplsh1').val(kplsh11);
                     var dt1 = new Date(el.$s_kprqq.val().replace(/-/g, "/"));
@@ -322,7 +344,8 @@ $(function() {
                         }
                     }
                         $('#kplsh1').val(kplsh11);
-                        $("#searchform1").submit();
+                        $('#biaoti0').modal('open');
+//                      $("#searchform1").submit();
 				}
 
             })

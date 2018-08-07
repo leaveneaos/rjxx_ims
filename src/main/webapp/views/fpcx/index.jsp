@@ -50,6 +50,7 @@
 						<div id="doc-oc-demo3" class="am-offcanvas">
 							<form action="<c:url value='fpcx/exportExcel'/>" id="searchform1">
 								<input type="hidden" name="kplsh1" value="" id="kplsh1"/>
+								<input type="hidden" name="fileFlag" value="" id="fileFlag1"/>
 								<div class="am-offcanvas-bar am-offcanvas-bar-flip">
 									<div class="am-offcanvas-content">
 										<div class="am-form-group">
@@ -239,7 +240,9 @@
 							<form action="<c:url value='fpcx/exportExcel1'/>" id="searchform"
 								  class="js-search-form  am-form am-form-horizontal">
 								<input type="hidden" name="kplsh" value="" id="kplsh"/>
-
+                                <!--文件类型标记-->
+							<input type="hidden" name="fileFlag" value="" id="fileFlag"/>
+								<!--文件类型标记end-->
 								<div class="am-padding-top"></div>
 
 								<div class="am-u-sm-5">
@@ -607,6 +610,43 @@
 						</div>
 					</div>
 				</div>
+				
+				<!--导出弹窗-->
+	<div class="am-modal" tabindex="-1" id="biaoti0">
+		<div class="am-modal-dialog">
+			<form id="biao" class="js-form-0 am-form am-form-horizontal">
+						<div class="am-modal-hd">
+							请选择导出的文件类型<a href="javascript: void(0)"
+								class="am-close am-close-spin" data-am-modal-close>&times;</a>
+						</div>
+						<div class="am-modal-bd" style="overflow: auto; max-height: 400px;">
+							<hr />
+								<div class="am-u-sm-12">
+									<div class="am-form-group">
+										<label class="am-u-sm-4 am-form-label">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input name="fileType" checked="checked" type="radio" value="0" />excle</label> 
+									    <label class="am-u-sm-4 am-form-label">
+						    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input name="fileType" type="radio" value="1" />txt </label>
+									</div>
+								</div>
+						</div>
+			            <div class="am-modal-footer">
+							<div class="am-u-sm-12">
+								<div class="am-form-group">
+									<div class="am-u-sm-12  am-text-center" style="line-height:44px">
+										<button type="button"
+												class="js-submit2  am-btn am-btn-primary">确定</button>
+										<button type="button" class="js-close2  am-btn am-btn-danger">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+			</form>
+		</div>
+	</div>
+	<!--导出弹窗end-->
 				<div class="am-modal" tabindex="-1" id="biaoti1">
 					<div class="am-modal-dialog">
 						<form id="biao1" class="js-form-0 am-form am-form-horizontal">

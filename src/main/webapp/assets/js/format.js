@@ -79,7 +79,7 @@ function BasicFormat(value, mask, action, param) {
 //var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
 function fileChange(target) {
     var fileSize = 0;
-    var filetypes =[".jpg",".png",".rar",".txt",".zip",".doc",".ppt",".xls",".pdf",".docx",".xlsx"];
+    var filetypes = [".jpg", ".png", ".rar", ".txt", ".zip", ".doc", ".ppt", ".xls", ".pdf", ".docx", ".xlsx", ".TXT", ".txt"];
     var filepath = target.value;
     var filemaxsize = 1024*2;//2M
     if(filepath){
