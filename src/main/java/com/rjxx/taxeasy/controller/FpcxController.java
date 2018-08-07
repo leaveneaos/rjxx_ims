@@ -316,7 +316,7 @@ public class FpcxController extends BaseController {
             BufferedOutputStream buffer = null;
             StringBuffer write = null;
             StringBuffer mxWrite = null;
-            String enter = "\n";
+            String enter = "\r\n";
             //分隔符
             String fgf = "~~";
             //发票序号
