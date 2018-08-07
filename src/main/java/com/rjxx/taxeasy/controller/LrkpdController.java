@@ -6,16 +6,12 @@ import com.rjxx.taxeasy.bizcomm.utils.GetXfxx;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
 import com.rjxx.taxeasy.service.*;
-import com.rjxx.taxeasy.vo.JymxsqVo;
 import com.rjxx.taxeasy.vo.JyxxsqVO;
 import com.rjxx.taxeasy.vo.Spbm;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.BeanConvertUtils;
-import com.rjxx.utils.ExcelUtil;
-import com.rjxx.utils.StringUtils;
-import com.rjxx.utils.Tools;
+import com.rjxx.utils.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -65,10 +61,10 @@ public class LrkpdController extends BaseController {
 
     @Autowired
     private SmService smService;
-    
+
     @Autowired
     private DiscountDealUtil discountDealUtil;
-    
+
     @Autowired
     private PldrjlService pldrjlService;
 
@@ -76,10 +72,14 @@ public class LrkpdController extends BaseController {
     private CszbService cszbService;
 
     @Autowired
-    private  SpbmService spbmService;
+    private SpbmService spbmService;
 
     @Autowired
-    private  GfxxService gfxxservice;
+    private GfxxService gfxxservice;
+
+    @Autowired
+    private  CheckOrderUtil checkOrderUtil;
+
     @RequestMapping
     @SystemControllerLog(description = "功能首页", key = "")
     public String index() {
@@ -805,67 +805,111 @@ public class LrkpdController extends BaseController {
             result.put("message", "请选择要导入的文件");
             return result;
         }
-        List<List> resultList = ExcelUtil.exportListFromExcel(importFile.getInputStream(),
-                FilenameUtils.getExtension(importFile.getOriginalFilename()), 0);
-        if (resultList.size() < 2) {
-            result.put("success", false);
-            result.put("message", "行数少于2行，没有数据");
-            return result;
+
+        //检验格式
+        Drmb d1 = new Drmb();
+        if (mb > 0) {
+            d1 = drmbService.findOne(mb);
         }
-        try {
-            String fileName = importFile.getOriginalFilename();
-            if (fileName != null && fileName.length() > 0) {
-                fileName = fileName.substring(0, fileName.lastIndexOf("."));
-                if (mb > 0) {
-                    Drmb d = drmbService.findOne(mb);
-                    if (d != null && fileName.equals(d.getMbmc())) {
-                        XfMb mr = new XfMb();
-                        mr.setMbid(mb);
-                        mr.setXfsh(mb_xfsh);
-                        mr.setYxbz("1");
-                        mr.setLrry(getYhid());
-                        mr.setLrsj(new Date());
-                        mr.setXgry(getYhid());
-                        mr.setXgsj(new Date());
-                        xfmbService.save(mr);
-                        result.put("yes", true);
+        //判断是否含有通用标志 含有系统标志的为系统模板
+        boolean falg = false;
+        String tybz = d1.getTybz();
+        if (null != tybz && !"".equals(tybz)){
+            falg = true;
+        }
+
+        //TxT文档
+        String filename = importFile.getOriginalFilename();
+        if (filename != null && filename.length() > 0) {
+            String fileType = filename.substring((filename.lastIndexOf(".") + 1));
+            if (falg) {
+                if ("TXT".equalsIgnoreCase(fileType) || "txt".equalsIgnoreCase(fileType)) {
+                    Map res = processTxtData(importFile, mb, mb_xfsh, mb_skp, allTime);
+                    String mess = (String) res.get("msg");
+                    if ("".equals(mess)) {
+                        result.put("success", true);
+                        result.put("allTime", allTime);
+                        result.put("count", res.get("count"));
+                        return result;
+                    } else {
+                        result.put("success", false);
+                        result.put("message", mess);
+                        return result;
                     }
+                }else {
+                    result.put("success", false);
+                    result.put("message", "您选择的导入文件不是TXT类型，请选择对应文件类型的模板！");
+                    return result;
+                }
+            }else{
+                if (!"xlsx".equalsIgnoreCase(fileType) && !"xls".equalsIgnoreCase(fileType) ) {
+                    result.put("success", false);
+                    result.put("message", "您选择的导入文件不是xlsx，请选择对应文件类型的模板！");
+                    return result;
                 }
             }
-            if (mb == null || mb < 1) mb = mrmb;
-            
-            Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,null);
-            if (!"".equals(msgMap.get("msg").toString())) {
+        }
+            List<List> resultList = ExcelUtil.exportListFromExcel(importFile.getInputStream(),
+                    FilenameUtils.getExtension(importFile.getOriginalFilename()), 0);
+            if (resultList.size() < 2) {
                 result.put("success", false);
-                result.put("message", msgMap.get("msg").toString());
+                result.put("message", "行数少于2行，没有数据");
                 return result;
             }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            result.put("success", false);
-            result.put("message", "模板的配置和excel表格表头不一致，请修改模板或表头使两者一致再导入！");
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.put("success", false);
-            result.put("message", "导入出错");
-            return result;
-        }
+            try {
+                String fileName = importFile.getOriginalFilename();
+                if (fileName != null && fileName.length() > 0) {
+                    fileName = fileName.substring(0, fileName.lastIndexOf("."));
+                    if (mb > 0) {
+                        Drmb d = drmbService.findOne(mb);
+                        if (d != null && fileName.equals(d.getMbmc())) {
+                            XfMb mr = new XfMb();
+                            mr.setMbid(mb);
+                            mr.setXfsh(mb_xfsh);
+                            mr.setYxbz("1");
+                            mr.setLrry(getYhid());
+                            mr.setLrsj(new Date());
+                            mr.setXgry(getYhid());
+                            mr.setXgsj(new Date());
+                            xfmbService.save(mr);
+                            result.put("yes", true);
+                        }
+                    }
+                }
+                if (mb == null || mb < 1) mb = mrmb;
 
-        result.put("success", true);
-        result.put("allTime", allTime);
-        result.put("count", resultList.size() - 1);
-        return result;
+                Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp, allTime, null);
+                if (!"".equals(msgMap.get("msg").toString())) {
+                    result.put("success", false);
+                    result.put("message", msgMap.get("msg").toString());
+                    return result;
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                result.put("success", false);
+                result.put("message", "模板的配置和excel表格表头不一致，请修改模板或表头使两者一致再导入！");
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+                result.put("success", false);
+                result.put("message", "导入出错");
+                return result;
+            }
+
+            result.put("success", true);
+            result.put("allTime", allTime);
+            result.put("count", resultList.size() - 1);
+            return result;
+
     }
 
-    
     /**
      * 批量导入excel数据
      *
      * @return
      * @throws Exception
      */
-    public Map<String, Object> importExcel4Pl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp,String pch)
+    public Map<String, Object> importExcel4Pl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp, String pch)
             throws Exception {
         Map<String, Object> result = new HashMap<>();
         Map msgMap = new HashMap();
@@ -905,8 +949,8 @@ public class LrkpdController extends BaseController {
             if (mb == null || mb < 1) {
                 mb = mrmb;
             }
-            System.out.println("校验处理开始时间："+new Date());
-             msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,pch);
+            System.out.println("校验处理开始时间：" + new Date());
+            msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp, allTime, pch);
             if (!"".equals(msgMap.get("msg").toString())) {
                 result.put("success", false);
                 result.put("message", msgMap.get("msg").toString());
@@ -916,13 +960,13 @@ public class LrkpdController extends BaseController {
         } catch (NullPointerException e) {
             e.printStackTrace();
             result.put("success", false);
-            result.put("jshj","0");
+            result.put("jshj", "0");
             result.put("message", "模板的配置和excel表格表头不一致，请修改模板或表头使两者一致再导入！");
             return result;
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success", false);
-            result.put("jshj","0");
+            result.put("jshj", "0");
             result.put("message", "导入出错");
             return result;
         }
@@ -933,7 +977,7 @@ public class LrkpdController extends BaseController {
         result.put("count", resultList.size() - 1);
         return result;
     }
-    
+
     /**
      * 导入字段映射
      */
@@ -1061,7 +1105,7 @@ public class LrkpdController extends BaseController {
      * @param dataList
      * @throws Exception
      */
-    private Map processExcelList(List<List> dataList, Integer mb, String xfsh1, Integer skpid,java.sql.Timestamp allTime,String pch) throws Exception {
+    private Map processExcelList(List<List> dataList, Integer mb, String xfsh1, Integer skpid, java.sql.Timestamp allTime, String pch) throws Exception {
 
         // 数据的校验
         String msgg = "";
@@ -1111,8 +1155,8 @@ public class LrkpdController extends BaseController {
             }
         }
         if (!"".equals(msg)) {
-        	result.put("msg", msg);
-        	result.put("jshj", zjshj);
+            result.put("msg", msg);
+            result.put("jshj", zjshj);
             return result;
         }
         // 转换成key为中文，value为英文的map
@@ -1173,10 +1217,11 @@ public class LrkpdController extends BaseController {
         List<Jyxxsq> jyxxsqList = new ArrayList<>();
         List<Jymxsq> mxList = new ArrayList<>();
         Integer num = 1;
+
         //do
         Map gfMap = new HashMap();
 
-        Map<String ,Integer> ddhmap =new HashMap();
+        Map<String, Integer> ddhmap = new HashMap();
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
             Jyxxsq jyxxsq = new Jyxxsq();
@@ -1190,26 +1235,26 @@ public class LrkpdController extends BaseController {
             jyxxsq.setFpzldm(getValue("fpzldm", pzMap, columnIndexMap, row));
             jyxxsq.setFpczlxdm("11");
             jyxxsq.setYxbz("1");
-            if(null != pch && !pch.equals("")){
-            	 jyxxsq.setJylsh(pch);
-            }else{
-            	 jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
+            if (null != pch && !pch.equals("")) {
+                jyxxsq.setJylsh(pch);
+            } else {
+                jyxxsq.setJylsh(getValue("jylsh", pzMap, columnIndexMap, row));
             }
-           
+
             jyxxsq.setDdh(getValue("ddh", pzMap, columnIndexMap, row));
             jyxxsq.setDdrq(allTime);
            /* if (!flag) {*/
-                jyxxsq.setXfid(xf.getId());
-                jyxxsq.setXfsh(xf.getXfsh());
-                jyxxsq.setXfmc(xf.getXfmc());
-                Map xfxxmap=GetXfxx.getXfxx(xf,skp);
-                jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
-                jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
-                jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
-                jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
-                jyxxsq.setSkr(xfxxmap.get("skr").toString());
-                jyxxsq.setKpr(xfxxmap.get("kpr").toString());
-                jyxxsq.setFhr(xfxxmap.get("fhr").toString());
+            jyxxsq.setXfid(xf.getId());
+            jyxxsq.setXfsh(xf.getXfsh());
+            jyxxsq.setXfmc(xf.getXfmc());
+            Map xfxxmap = GetXfxx.getXfxx(xf, skp);
+            jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
+            jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
+            jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
+            jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
+            jyxxsq.setSkr(xfxxmap.get("skr").toString());
+            jyxxsq.setKpr(xfxxmap.get("kpr").toString());
+            jyxxsq.setFhr(xfxxmap.get("fhr").toString());
            /* } else {
                 jyxxsq.setXfid(xf1.getId());
                 jyxxsq.setXfsh(xf1.getXfsh());
@@ -1243,10 +1288,10 @@ public class LrkpdController extends BaseController {
             String gfmc = getValue("gfmc", pzMap, columnIndexMap, row);
             Xf xfInfo = xfService.findOneByParams(xfPo);
             Cszb sfzdfm = cszbService.getSpbmbbh(gsdm, xfInfo.getId(), skpid, "sfppgf");
-            if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
+            if (null != sfzdfm && null != sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz())) {
                 sfpp = true;
                 Gfxx gfxx = new Gfxx();
-                if (gfMap.containsKey(gfmc)){
+                if (gfMap.containsKey(gfmc)) {
                     gfxx = (Gfxx) gfMap.get(gfmc);
                     jyxxsq.setGfsh(gfxx.getGfsh());
                     jyxxsq.setGfmc(gfxx.getGfmc());
@@ -1257,20 +1302,20 @@ public class LrkpdController extends BaseController {
                     jyxxsq.setGfsjh(gfxx.getLxdh());
                     jyxxsq.setZtbz("6");
                     jyxxsq.setSjly("2");
-                   //收件人地址
+                    //收件人地址
                     jyxxsq.setGfsjrdz(gfxx.getGfdz());
                     jyxxsq.setGfemail(gfxx.getEmail());
 
-                }else {
-                    gfxx = getGfxxByName(gsdm,gfmc);
-                    if(null == gfxx){
+                } else {
+                    gfxx = getGfxxByName(gsdm, gfmc);
+                    if (null == gfxx) {
 //                        msgg = "数据库中不存在有效的购方:"+gfmc+"请先去维护购方信息！\r\n";
 //                        msg += msgg;
 //                        result.put("msg", msg);
 //                        return result;
                         jyxxsq.setGfmc(gfmc);
 
-                    }else{
+                    } else {
                         jyxxsq.setGfsh(gfxx.getGfsh());
                         jyxxsq.setGfmc(gfxx.getGfmc());
                         jyxxsq.setGfdz(gfxx.getGfdz());
@@ -1283,7 +1328,7 @@ public class LrkpdController extends BaseController {
                         //收件人地址
                         jyxxsq.setGfsjrdz(gfxx.getGfdz());
                         jyxxsq.setGfemail(gfxx.getEmail());
-                        gfMap.put(gfmc,gfxx);
+                        gfMap.put(gfmc, gfxx);
                     }
 
                 }
@@ -1302,23 +1347,23 @@ public class LrkpdController extends BaseController {
 //               //收件人地址
 //                jyxxsq.setGfsjrdz(gfxx.getGfdz());
 //                jyxxsq.setGfemail(gfxx.getEmail());
-            }else{
-            jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
-            jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));
-            jyxxsq.setGfdz(getValue("gfdz", pzMap, columnIndexMap, row));
-            jyxxsq.setGfdh(getValue("gfdh", pzMap, columnIndexMap, row));
-            jyxxsq.setGfyh(getValue("gfyh", pzMap, columnIndexMap, row));
-            jyxxsq.setGfyhzh(getValue("gfyhzh", pzMap, columnIndexMap, row));
-            String sjh = getValue("gfsjh", pzMap, columnIndexMap, row);
-            if (sjh != null) {
-                sjh = new BigDecimal(sjh).toPlainString();
-                if (sjh.contains(".")) {
-                    sjh = sjh.substring(0, sjh.indexOf(","));
+            } else {
+                jyxxsq.setGfsh(getValue("gfsh", pzMap, columnIndexMap, row));
+                jyxxsq.setGfmc(getValue("gfmc", pzMap, columnIndexMap, row));
+                jyxxsq.setGfdz(getValue("gfdz", pzMap, columnIndexMap, row));
+                jyxxsq.setGfdh(getValue("gfdh", pzMap, columnIndexMap, row));
+                jyxxsq.setGfyh(getValue("gfyh", pzMap, columnIndexMap, row));
+                jyxxsq.setGfyhzh(getValue("gfyhzh", pzMap, columnIndexMap, row));
+                String sjh = getValue("gfsjh", pzMap, columnIndexMap, row);
+                if (sjh != null) {
+                    sjh = new BigDecimal(sjh).toPlainString();
+                    if (sjh.contains(".")) {
+                        sjh = sjh.substring(0, sjh.indexOf(","));
+                    }
                 }
-            }
-            jyxxsq.setGfsjh(sjh);
-            jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
-            jyxxsq.setGfsjrdz(getValue("gfsjrdz", pzMap, columnIndexMap, row));
+                jyxxsq.setGfsjh(sjh);
+                jyxxsq.setGfemail(getValue("gfemail", pzMap, columnIndexMap, row));
+                jyxxsq.setGfsjrdz(getValue("gfsjrdz", pzMap, columnIndexMap, row));
 
             }
 
@@ -1340,7 +1385,7 @@ public class LrkpdController extends BaseController {
                 // 不含税
                 jshj = spje * (1.0 + spsl);
             }
-            zjshj +=jshj;
+            zjshj += jshj;
             jyxxsq.setJshj(jshj);
 //			if (jyls.getGfmc() == null && jyls.getJshj() == null) {
 //				continue;
@@ -1351,24 +1396,24 @@ public class LrkpdController extends BaseController {
                     if (jy.getDdh() != null && jy.getDdh().equals(jyxxsq.getDdh())) {
                         jy.setJshj(jy.getJshj() + jyxxsq.getJshj());
                         tmp = true;
-                            for (Map.Entry<String, Integer> entry : ddhmap.entrySet()) {
-                                     if(entry.getKey().equals(jyxxsq.getDdh())){
-                                         num= ddhmap.get(jyxxsq.getDdh());
-                                     }
-                              }
+                        for (Map.Entry<String, Integer> entry : ddhmap.entrySet()) {
+                            if (entry.getKey().equals(jyxxsq.getDdh())) {
+                                num = ddhmap.get(jyxxsq.getDdh());
+                            }
+                        }
                         num++;
-                        ddhmap.put(jy.getDdh(),num);
+                        ddhmap.put(jy.getDdh(), num);
                         break;
                     }
                 }
                 if (!tmp) {
                     num = 1;
                     jyxxsqList.add(jyxxsq);
-                    ddhmap.put(jyxxsq.getDdh(),num);
+                    ddhmap.put(jyxxsq.getDdh(), num);
                 }
             } else {
                 jyxxsqList.add(jyxxsq);
-                ddhmap.put(jyxxsq.getDdh(),num);
+                ddhmap.put(jyxxsq.getDdh(), num);
             }
             Jymxsq jymxsq = new Jymxsq();
             jymxsq.setDdh(jyxxsq.getDdh());
@@ -1394,12 +1439,12 @@ public class LrkpdController extends BaseController {
                 jymxsq.setSpdj(Double.valueOf(spdjStr));
             }
             //处理优惠信息
-            if(null !=getValue("spdm", pzMap, columnIndexMap, row) && !getValue("spdm", pzMap, columnIndexMap, row).equals("")){
+            if (null != getValue("spdm", pzMap, columnIndexMap, row) && !getValue("spdm", pzMap, columnIndexMap, row).equals("")) {
                 Map map = new HashMap();
-                map.put("gsdm",jymxsq.getGsdm());
-                map.put("spbm",jymxsq.getSpdm());
+                map.put("gsdm", jymxsq.getGsdm());
+                map.put("spbm", jymxsq.getSpdm());
                 Spvo spvo = spvoService.findOneSpvo(map);
-                if(null !=spvo){
+                if (null != spvo) {
                     jymxsq.setYhzcbs(spvo.getYhzcbs());
                     jymxsq.setYhzcmc(spvo.getYhzcmc());
                     jymxsq.setLslbz(spvo.getLslbz());
@@ -1408,17 +1453,17 @@ public class LrkpdController extends BaseController {
             }
             jymxsq.setSpje(spje);
             jymxsq.setSpsl(spsl);
-            jymxsq.setJshj(div(jshj,1d,2));
-            jymxsq.setKkjje(div(jshj,1d,2));
+            jymxsq.setJshj(div(jshj, 1d, 2));
+            jymxsq.setKkjje(div(jshj, 1d, 2));
             jymxsq.setYkjje(0d);
             jymxsq.setSpse(Double.valueOf(getValue("spse", pzMap, columnIndexMap, row)));
 
-            if(null !=jyxxsq.getZsfs() && jyxxsq.getZsfs().equals("2")){
+            if (null != jyxxsq.getZsfs() && jyxxsq.getZsfs().equals("2")) {
                 Double kce = getValue("kce", pzMap, columnIndexMap, row) == null ? null : Double.valueOf(getValue("kce", pzMap, columnIndexMap, row));
                 jymxsq.setKce(kce);
-                Double temp = div(sub(jymxsq.getJshj(),jymxsq.getKce()), (1 + jymxsq.getSpsl()), 100);
-                jymxsq.setSpse(mul(temp,jymxsq.getSpsl()));
-            }else {
+                Double temp = div(sub(jymxsq.getJshj(), jymxsq.getKce()), (1 + jymxsq.getSpsl()), 100);
+                jymxsq.setSpse(mul(temp, jymxsq.getSpsl()));
+            } else {
                 if (jymxsq.getSpje() != null && jymxsq.getSpse() == 0) {
                     Double temp = div(jymxsq.getJshj(), (1 + jymxsq.getSpsl()), 100);
                     String je = new DecimalFormat("0.00").format(temp);
@@ -1430,24 +1475,24 @@ public class LrkpdController extends BaseController {
         }
         //是否自动附码 @zsq
         Cszb sfzdfm = cszbService.getSpbmbbh(getGsdm(), getXfid(), null, "sfzdfm");
-        if(null!= sfzdfm  && null!=sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz()) ){
-            for(int i = 0; i < mxList.size(); i++){
+        if (null != sfzdfm && null != sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz())) {
+            for (int i = 0; i < mxList.size(); i++) {
                 Jymxsq jymxsq = mxList.get(i);
-                logger.info("第"+i+"行开始自动附码------");
+                logger.info("第" + i + "行开始自动附码------");
                 Map map = new HashMap();
-                map.put("gsdm",jymxsq.getGsdm());
-                map.put("spmc",jymxsq.getSpmc());
+                map.put("gsdm", jymxsq.getGsdm());
+                map.put("spmc", jymxsq.getSpmc());
                 Spvo spvo = spvoService.findOneSpvo(map);
-                if(null==spvo){
+                if (null == spvo) {
                     msgg = "第" + (i + 2) + "行商品名称没有税收分类编码！\r\n";
                     msg += msgg;
-                    logger.info("附码失败-----第"+i+"行商品名称没有税收分类编码！");
-                }else {
+                    logger.info("附码失败-----第" + i + "行商品名称没有税收分类编码！");
+                } else {
                     jymxsq.setSpdm(spvo.getSpbm());
                     jymxsq.setYhzcbs(spvo.getYhzcbs());
                     jymxsq.setYhzcmc(spvo.getYhzcmc());
                     jymxsq.setLslbz(spvo.getLslbz());
-                    logger.info("第"+i+"行自动附码成功------------------附码之后的结果为"+jymxsq.getSpdm());
+                    logger.info("第" + i + "行自动附码成功------------------附码之后的结果为" + jymxsq.getSpdm());
                 }
             }
         }
@@ -1456,19 +1501,19 @@ public class LrkpdController extends BaseController {
         // 开始数据校验
         for (int i = 0; i < jyxxsqList.size(); i++) {
             Jyxxsq jyxxsq = jyxxsqList.get(i);
-            if(jyxxsq.getZsfs().equals("2")){
-                int count=0;
-                for(int m=0;m<mxList.size();m++){
-                    Jymxsq jymxsq =mxList.get(m);
-                    if(jyxxsq.getDdh().equals(jymxsq.getDdh())){
+            if (jyxxsq.getZsfs().equals("2")) {
+                int count = 0;
+                for (int m = 0; m < mxList.size(); m++) {
+                    Jymxsq jymxsq = mxList.get(m);
+                    if (jyxxsq.getDdh().equals(jymxsq.getDdh())) {
                         count++;
                     }
-                    if(null == jymxsq.getKce() || jymxsq.getKce()<=0d){
+                    if (null == jymxsq.getKce() || jymxsq.getKce() <= 0d) {
                         msgg = "第" + (i + 2) + "行征收方式为差额征收时，扣除额不能为空\r\n";
                         msg += msgg;
                     }
                 }
-                if(count>1){
+                if (count > 1) {
                     msgg = "第" + (i + 2) + "行征收方式为差额征收时，该笔订单只能有一行数据\r\n";
                     msg += msgg;
                 }
@@ -1476,9 +1521,9 @@ public class LrkpdController extends BaseController {
             if (StringUtils.isNotBlank(jyxxsq.getTqm())) {
                 tqmList.add(jyxxsq.getTqm());
             }
-            if(!skp.getKplx().contains(jyxxsq.getFpzldm())){
-                    msgg = "开票类型与开票点设置不符,请重新选择开票点！\r\n";
-                    msg += msgg;
+            if (!skp.getKplx().contains(jyxxsq.getFpzldm())) {
+                msgg = "开票类型与开票点设置不符,请重新选择开票点！\r\n";
+                msg += msgg;
             }
             String jylsh = jyxxsq.getJylsh();
             if (jylsh == null || "".equals(jylsh)) { // 交易流水号的判断
@@ -1522,9 +1567,9 @@ public class LrkpdController extends BaseController {
             if (fpzldm == null || "".equals(fpzldm)) {
                 msgg = "第" + (i + 2) + "行发票种类没有填写，请重新填写对应的发票种类(01:增值税专用发票;02:增值税普通发票;12:电子发票(增普))！\r\n";
                 msg += msgg;
-            }else{
-                if (!("01".equals(fpzldm) || "02".equals(fpzldm) || "12".equals(fpzldm))){
-                    msgg = "第" + (i + 2) + "行发票种类"+fpzldm+"不存在请重新填写对应的发票种类(01:增值税专用发票;02:增值税普通发票;12:电子发票(增普))！\r\n";
+            } else {
+                if (!("01".equals(fpzldm) || "02".equals(fpzldm) || "12".equals(fpzldm))) {
+                    msgg = "第" + (i + 2) + "行发票种类" + fpzldm + "不存在请重新填写对应的发票种类(01:增值税专用发票;02:增值税普通发票;12:电子发票(增普))！\r\n";
                     msg += msgg;
                 }
 
@@ -1601,15 +1646,20 @@ public class LrkpdController extends BaseController {
             if (gfmc == null || "".equals(gfmc)) {
                 msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！\r\n";
                 msg += msgg;
-            }else {
+            } else {
+
                 if (sfpp){
-                    if(!gfMap.containsKey(gfmc)){
-                        msgg = "第" + (i + 2) + "行购方名称:"+gfmc+" 匹配无效，请先去维护购方信息！\r\n";
+                    if (!gfMap.containsKey(gfmc)) {
+                        msgg = "第" + (i + 2) + "行购方名称:" + gfmc + " 匹配无效，请先去维护购方信息！\r\n";
                         msg += msgg;
 
                     }
                 }
+                if (!gfMap.containsKey(gfmc)) {
+                    msgg = "第" + (i + 2) + "行购方名称:" + gfmc + " 匹配无效，请先去维护购方信息！\r\n";
+                    msg += msgg;
 
+                }
             }
             if (gfmc != null && gfmc.length() > 100) { // 购方名称长度的判断
                 msgg = "第" + (i + 2) + "行购方名称超出100个字符，请重新填写！\r\n";
@@ -1636,14 +1686,14 @@ public class LrkpdController extends BaseController {
                 msg += msgg;
             }
             String gfEmailstr = jyxxsq.getGfemail();// 购方email校验
-            if(gfEmailstr!=null&&!"".equals(gfEmailstr.trim())){
-                 String []gfEmailArray=gfEmailstr.split(",");
-                 for(String gfEmail:gfEmailArray){
-                     if (gfEmail != null && !"".equals(gfEmail.trim()) && !gfEmail.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")) {
-                         msgg = "第" + (i + 2) + "行购方email格式不正确，请重新填写！\r\n";
-                         msg += msgg;
-                     }
-                 }
+            if (gfEmailstr != null && !"".equals(gfEmailstr.trim())) {
+                String[] gfEmailArray = gfEmailstr.split(",");
+                for (String gfEmail : gfEmailArray) {
+                    if (gfEmail != null && !"".equals(gfEmail.trim()) && !gfEmail.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")) {
+                        msgg = "第" + (i + 2) + "行购方email格式不正确，请重新填写！\r\n";
+                        msg += msgg;
+                    }
+                }
             }
             String hsbz = jyxxsq.getHsbz();// 含税标志校验
             if (hsbz == null || "".equals(hsbz)) {
@@ -1655,7 +1705,7 @@ public class LrkpdController extends BaseController {
             }
             Jymxsq mxsq = mxList.get(i);
             String spdm = mxsq.getSpdm();
-            if(spdm==null || "".equals(spdm)){
+            if (spdm == null || "".equals(spdm)) {
                 msgg = "第" + (i + 2) + "行商品代码不能为空，请重新填写！\r\n";
                 msg += msgg;
             }
@@ -1663,12 +1713,12 @@ public class LrkpdController extends BaseController {
                 msgg = "第" + (i + 2) + "行商品代码超过20个字符，请重新填写！\r\n";
                 msg += msgg;
             }
-            if(spdm != null && spdm.length() == 19){
+            if (spdm != null && spdm.length() == 19) {
                 Map params2 = new HashMap();
                 params2.put("spbm", spdm);
                 List<Spbm> spbmList = spbmService.findAllByParam(params2);
-                if(spbmList.isEmpty()){
-                    msgg += "第"+ (i+1) + "行的商品税收分类编码(ProductCode)"+spdm+"不是最明细列!\r\n";
+                if (spbmList.isEmpty()) {
+                    msgg += "第" + (i + 1) + "行的商品税收分类编码(ProductCode)" + spdm + "不是最明细列!\r\n";
                 }
             }
             String spmc = mxsq.getSpmc();
@@ -1727,10 +1777,10 @@ public class LrkpdController extends BaseController {
                 }
             }
 
-            if(mxsq.getKce() !=null && !mxsq.getKce().equals("")){
+            if (mxsq.getKce() != null && !mxsq.getKce().equals("")) {
                 double kce = mxsq.getKce();
                 double jshj = mxsq.getJshj();
-                if(kce>=jshj){
+                if (kce >= jshj) {
                     msgg = "第" + (i + 2) + "行扣除额必须小于等于含税销售额（含税金额+税额），请检查！\r\n";
                     msg += msgg;
                 }
@@ -1796,25 +1846,25 @@ public class LrkpdController extends BaseController {
         }
         // 没有异常，保存
         if ("".equals(msg)) {
-        	/*System.out.println("校验处理结束时间："+new Date());
-        	System.out.println("保存数据开始时间："+new Date());*/
-        	//处理折扣行数据
+            /*System.out.println("校验处理结束时间："+new Date());
+            System.out.println("保存数据开始时间："+new Date());*/
+            //处理折扣行数据
             List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
             //复制一个新的list用于生成处理表
             List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
-            
+
             jymxsqTempList = BeanConvertUtils.convertList(mxList, Jymxsq.class);
-            
-            jymxsqClList = discountDealUtil.dealDiscount(jyxxsqList,jymxsqTempList,new ArrayList<Jyzfmx>(),gsdm);
-            jyxxsqservice.saveAll(jyxxsqList, mxList,jymxsqClList,new ArrayList<Jyzfmx>());
-            System.out.println("保存数据结束时间："+new Date());
+
+            jymxsqClList = discountDealUtil.dealDiscount(jyxxsqList, jymxsqTempList, new ArrayList<Jyzfmx>(), gsdm);
+            jyxxsqservice.saveAll(jyxxsqList, mxList, jymxsqClList, new ArrayList<Jyzfmx>());
+            System.out.println("保存数据结束时间：" + new Date());
         }
         result.put("msg", msg);
         result.put("jshj", zjshj);
         return result;
     }
 
-    
+
     /**
      * 获取每一行中的
      *
@@ -2014,7 +2064,7 @@ public class LrkpdController extends BaseController {
                         jymxsq.setKce(Double.valueOf(kces[c]));
                     } catch (Exception e) {
                         jymxsq.setKce(null);
-                        zsfs ="0";
+                        zsfs = "0";
                     }
                 }
                 if (spges.length != 0) {
@@ -2068,9 +2118,9 @@ public class LrkpdController extends BaseController {
             //复制一个新的list用于生成处理表
             List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
             jymxsqTempList = BeanConvertUtils.convertList(jymxsqList, Jymxsq.class);
-            
-            jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj,jyxxsq.getHsbz());
-            jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList,jymxsqClList,new ArrayList<Jyzfmx>());
+
+            jymxsqClList = discountDealUtil.dealDiscount(jymxsqTempList, 0d, jshj, jyxxsq.getHsbz());
+            jyxxsqservice.saveJyxxsq(jyxxsq, jymxsqList, jymxsqClList, new ArrayList<Jyzfmx>());
             result.put("success", true);
             result.put("djh", jyxxsq.getSqlsh());
         } catch (Exception ex) {
@@ -2081,20 +2131,20 @@ public class LrkpdController extends BaseController {
         return result;
     }
 
-    
+
     @RequestMapping(value = "/importPldrjl", method = RequestMethod.POST)
     @ResponseBody
     @Transactional
-    public Map<String,Object> importPldrjl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp) throws Exception{
-    	Map<String,Object> resultMap = new HashMap<String,Object>();
-    	
-    	String pch = "PCH" + System.currentTimeMillis();
-    	System.out.println("导入处理开始时间："+new Date());
-    	resultMap = importExcel4Pl(importFile,mb,mrmb, mb_xfsh,mb_skp,pch);
-    	if(resultMap.get("success").equals("true") || (boolean)resultMap.get("success") ==true){
-    		java.sql.Timestamp allTime = (java.sql.Timestamp)resultMap.get("allTime");
-    		 // 获取导入销方
-    		List<Xf> xfList = this.getXfList();
+    public Map<String, Object> importPldrjl(MultipartFile importFile, Integer mb, Integer mrmb, String mb_xfsh, Integer mb_skp) throws Exception {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        String pch = "PCH" + System.currentTimeMillis();
+        System.out.println("导入处理开始时间：" + new Date());
+        resultMap = importExcel4Pl(importFile, mb, mrmb, mb_xfsh, mb_skp, pch);
+        if (resultMap.get("success").equals("true") || (boolean) resultMap.get("success") == true) {
+            java.sql.Timestamp allTime = (java.sql.Timestamp) resultMap.get("allTime");
+            // 获取导入销方
+            List<Xf> xfList = this.getXfList();
             Xf xf = null;
             for (Xf x : xfList) {
                 if (x.getXfsh().equals(mb_xfsh)) {
@@ -2106,17 +2156,18 @@ public class LrkpdController extends BaseController {
             Pldrjl pldrjl = new Pldrjl();
             String gsdm = this.getGsdm();
             pldrjl.setGsdm(gsdm);
-            pldrjl.setJlts((Integer)resultMap.get("count"));
+            pldrjl.setJlts((Integer) resultMap.get("count"));
             pldrjl.setJshj(Double.valueOf(resultMap.get("jshj").toString()));
             pldrjl.setJylsh(pch);
-            pldrjl.setLrsj(allTime); 
+            pldrjl.setLrsj(allTime);
             pldrjl.setXfid(xf.getId());
             pldrjl.setZtbz("0");
             pldrjl.setDrwjm(fileName);
             pldrjlService.save(pldrjl);
-    	}
-    	return resultMap;
+        }
+        return resultMap;
     }
+
     /**
      * 导入excel数据
      *
@@ -2165,7 +2216,7 @@ public class LrkpdController extends BaseController {
                 mb = mrmb;
             }
             java.sql.Timestamp allTime = TimeUtil.getNowDate();
-            Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp,allTime,null);
+            Map msgMap = processExcelList(resultList, mb, mb_xfsh, mb_skp, allTime, null);
             if (!"".equals(msgMap.get("msg").toString())) {
                 result.put("success", false);
                 result.put("message", msgMap.get("msg").toString());
@@ -2187,17 +2238,405 @@ public class LrkpdController extends BaseController {
         result.put("count", resultList.size() - 1);
         return result;
     }
+
     /**
      * 通过购方名称获得购方信息
      */
-    public Gfxx getGfxxByName(String gsdm,String gfmc){
+    public Gfxx getGfxxByName(String gsdm, String gfmc) {
         Map parm = new HashMap();
-        parm.put("gsdm",gsdm);
-        parm.put("gfmc",gfmc);
+        parm.put("gsdm", gsdm);
+        parm.put("gfmc", gfmc);
 
         Gfxx gfxx = gfxxservice.findOneByParams(parm);
-        return  gfxx;
+        return gfxx;
 
+
+    }
+
+    /**
+     * 解析txt文档的内容
+     * @param fileContent
+     * @param mb
+     * @param xfsh1
+     * @param skpid
+     * @param allTime
+     * @return
+     * @throws Exception
+     */
+    public Map resolveTxtFile(String fileContent,Integer mb, String xfsh1, Integer skpid, java.sql.Timestamp allTime) throws Exception {
+
+        int yhid = this.getYhid();
+        List<Xf> xfList = this.getXfList();
+        List<Skp> skpList = this.getSkpList();
+
+        // 获取导入销方
+        Xf xf = null;
+        for (Xf x : xfList) {
+            if (x.getXfsh().equals(xfsh1)) {
+                xf = x;
+                break;
+            }
+        }
+        //税控盘
+        Skp skp = null;
+        for (Skp x : skpList) {
+            if (x.getId().equals(skpid)) {
+                skp = x;
+                break;
+            }
+        }
+        Map xfxxmap = GetXfxx.getXfxx(xf, skp);
+        String[] dataArry = fileContent.split("\n");
+
+        String[] ddArr = fileContent.split("SJJK0101");
+
+        Map dataMap = new HashMap();
+        List<Jyxxsq> jyxxsqList = new ArrayList<>();
+        List<Jymxsq> mxList = new LinkedList<>();
+        Jyxxsq jyxxsq = null;
+
+        for (int i = 1, length = ddArr.length; i < length; i++) {
+            double zjshj = 0d;
+            jyxxsq = new Jyxxsq();
+            String arr = ddArr[i];
+            //以换行分割  数组包括“”;
+            String[] ddsj = arr.split("\n");
+            //下标3
+            String zsjAndxf = ddsj[3];
+            logger.info("主数据+销方信息：---------"+zsjAndxf);
+            //数据规范2-----begin
+            String[] all = zsjAndxf.split("\\\\n");
+            String zsj = all[0];
+            String xfxx = all[1];
+            String[] ddzsj = zsj.split("~~");
+            logger.info("主数据：---------" + zsj);
+            //交易流水号
+            String lsh = ddzsj[0];
+            //商品数量
+            String num = ddzsj[1];
+            //购方名称
+            String gfmc = ddzsj[2];
+            //购方税号
+            String gfsh = ddzsj[3];
+            //购方地址电话
+            String gfdzdh = ddzsj[4];
+            //购方银行and账号
+            String gfyhzh = ddzsj[5];
+            //备注
+            String bz = ddzsj[6];
+
+            logger.info("销方信息：---------" + xfxx);
+            String[] xfxxArr = xfxx.split("~~");
+
+            for (int j = 0,size = xfxxArr.length; j < size; j++) {
+                //复核人
+                if (j == 0) {
+                    String fhr = xfxxArr[0];
+                    jyxxsq.setFhr(fhr);
+                }
+                //收款人
+                if (j == 1) {
+                    String skr = xfxxArr[1];
+                    jyxxsq.setSkr(skr);
+                }
+                //清单行商品名称
+                if (j == 2) {
+                    String spm = xfxxArr[2];
+                }
+                //单据日期
+                if (j == 3) {
+                    String djrq = xfxxArr[3];
+                }
+                //销方银行账号
+                if (j == 4) {
+                    String xfyhzh = xfxxArr[4];
+                    jyxxsq.setXfyhzh(xfyhzh);
+                }
+
+                // 销方地址电话
+                if (j == 5) {
+                    String xfdzdh = xfxxArr[5];
+                }
+
+                //购方邮箱地址
+                if (j == 6) {
+                    String gfyxdz = xfxxArr[6];
+                    jyxxsq.setGfemail(gfyxdz);
+                }
+                //购方手机号
+                if (j == 7) {
+                    String gfsjh = xfxxArr[7];
+                    jyxxsq.setGfsjh(gfsjh);
+                }
+                //开具类型
+                if (j == 8){
+                    String fplx = xfxxArr[8];
+                    jyxxsq.setFpzldm(fplx);
+                }else{
+                    Cszb cszb = cszbService.getSpbmbbh(getGsdm(),getXfid(),skpid,"mrfpzldm");
+                    jyxxsq.setFpzldm(cszb.getCsz());
+                }
+
+            }
+
+            //主信息
+            jyxxsq.setJylsh(lsh.trim());
+            jyxxsq.setDdh(lsh.trim());
+            jyxxsq.setGfmc(gfmc);
+            jyxxsq.setGfsh(gfsh);
+            jyxxsq.setGfdz(gfdzdh);
+            jyxxsq.setYxbz("1");
+            jyxxsq.setGsdm(skp.getGsdm());
+            jyxxsq.setSjly("2");
+            jyxxsq.setTqm(lsh);
+            jyxxsq.setBz(bz);
+            //电话
+            jyxxsq.setGfyh(gfyhzh);
+            //销方信息
+            jyxxsq.setXfsh(xfsh1);
+            jyxxsq.setXfid(xf.getId());
+            jyxxsq.setXfsh(xf.getXfsh());
+            jyxxsq.setXfmc(xf.getXfmc());
+            jyxxsq.setXfdz(xfxxmap.get("xfdz").toString());
+            jyxxsq.setXfdh(xfxxmap.get("xfdh").toString());
+            jyxxsq.setXfyh(xfxxmap.get("xfyh").toString());
+            jyxxsq.setXfyhzh(xfxxmap.get("xfyhzh").toString());
+            jyxxsq.setSkr(xfxxmap.get("skr").toString());
+            jyxxsq.setFhr(xfxxmap.get("fhr").toString());
+            jyxxsq.setKpr(xfxxmap.get("kpr").toString());
+
+            jyxxsq.setKpddm(skp.getKpddm());
+
+
+            jyxxsq.setSkpid(skpid);
+            //状态标志 6-待处理
+            jyxxsq.setZtbz("6");
+            //已开票价税合计
+            jyxxsq.setYkpjshj(0.00);
+            jyxxsq.setLrsj(allTime);
+            jyxxsq.setXgsj(allTime);
+            jyxxsq.setClztdm("00");
+            jyxxsq.setZsfs("0");
+            //dai
+            jyxxsq.setLrry(yhid);
+            jyxxsq.setXgry(yhid);
+            jyxxsq.setFpczlxdm("11");
+            jyxxsq.setYxbz("1");
+            jyxxsq.setDdrq(allTime);
+
+//            jyxxsqList.add(jyxxsq);
+//            dataMap.put("jyxxsqList", jyxxsqList);
+            int k =1;
+            for (int j = 4, len = ddsj.length; j < len; j++) {
+
+                Jymxsq jymxsq = new Jymxsq();
+                logger.info("明细信息：---------" + ddsj[j]);
+                String jymx = ddsj[j];
+                String[] jymxArr = jymx.split("~~");
+                //货物名称
+                String spmc = jymxArr[0];
+                //计量单位
+                String unit = jymxArr[1];
+                //规格
+                String gkxh = jymxArr[2];
+                //数量(数值)
+                String sl = jymxArr[3];
+                //不含税金额
+                String bhsje = jymxArr[4];
+                //税率
+                String rat = jymxArr[5];
+                //商品税目
+                String spsm = jymxArr[6];
+                //折扣金额
+                String zkje = jymxArr[7];
+                //税额
+                String se = jymxArr[8];
+
+                //折扣税额
+                String zkse = jymxArr[9];
+
+                //折扣率
+                String zkl = jymxArr[10];
+                //单价
+                String dj = jymxArr[11];
+                //价格方式
+                String jgfs = jymxArr[12] == null?"0":jymxArr[12];
+
+                jymxsq.setSpmc(spmc.trim());
+                jymxsq.setSpdw(unit);
+                jymxsq.setSpggxh(gkxh);
+                jymxsq.setSpdj(Double.parseDouble(dj));
+                //
+                jymxsq.setSps(Double.parseDouble(sl));
+                if (rat != null && !"".equals(rat.trim())) {
+                    jymxsq.setSpsl(Double.parseDouble(rat));
+                }else{
+                    jymxsq.setSpsl(0d);
+                }
+//                jymxsq.setSpse(Double.parseDouble(se));
+
+                jymxsq.setYxbz("1");
+
+                jymxsq.setLrsj(allTime);
+                jymxsq.setXgsj(allTime);
+                //
+                jymxsq.setSpje(Double.parseDouble(bhsje));
+                if (se != null && !"".equals(se.trim())){
+                    jymxsq.setSpse(Double.parseDouble(se));
+                }else{
+                    jymxsq.setSpse(0.00);
+                }
+                double jshj = 0d;
+                if (se != null && !"".equals(se.trim())){
+                    jshj = Double.parseDouble(bhsje) + Double.parseDouble(se);
+//                double jshj = Double.parseDouble(dj);
+                }else{
+                    jshj =  Double.parseDouble(bhsje);
+                }
+                jymxsq.setJshj(jshj);
+                jymxsq.setKkjje(jshj);
+                jymxsq.setYkjje(0d);
+                //0 不含税单价  1-含税单价 缺省为0
+                if(null != jgfs && jgfs.equals("0")){
+                    jymxsq.setSpdj((jymxsq.getJshj()/jymxsq.getSps()));
+                    jymxsq.setSpse(0d);
+                    jymxsq.setSpje(jymxsq.getJshj());
+                    jymxsq.setHsbz("1");
+                }else{
+                    jymxsq.setHsbz(jgfs);
+                }
+                jymxsq.setDdh(jyxxsq.getDdh());
+                //dai
+                jymxsq.setSpmxxh(k);
+                k++;
+
+                jymxsq.setGsdm(skp.getGsdm());
+                jymxsq.setLrry(yhid);
+                jymxsq.setXgry(yhid);
+                jymxsq.setKce(0d);
+                //处理折扣行
+                if (null == zkje || zkje.equals("")) {
+                    jymxsq.setFphxz("0");
+                    mxList.add(jymxsq);
+                } else {
+                    jymxsq.setFphxz("2");
+                    Jymxsq jymxsq2 = new Jymxsq(jymxsq);
+                    jymxsq2.setSpje(null==zkje||zkje.equals("")?0d:-Double.valueOf(zkje));
+                    jymxsq2.setSpse(null==zkse||zkse.equals("")?0d:-Double.valueOf(zkse));
+                    jymxsq2.setJshj(jymxsq2.getSpje() + jymxsq2.getSpse());
+                    jymxsq2.setSpdj(null);
+                    jymxsq2.setSps(null);
+                    jymxsq2.setSpggxh(null);
+                    jymxsq2.setFphxz("1");
+                    jymxsq2.setKkjje(jymxsq2.getJshj());
+                    jymxsq2.setYkjje(0d);
+                    mxList.add(jymxsq);
+                    mxList.add(jymxsq2);
+                    zjshj+= jymxsq2.getJshj();
+                }
+
+                zjshj+= jshj;
+                dataMap.put("mxList", mxList);
+
+
+            }
+            jyxxsq.setJshj(zjshj);
+            jyxxsq.setZsfs("0");
+            jyxxsq.setHsbz(mxList.get(0).getHsbz());
+            jyxxsqList.add(jyxxsq);
+            dataMap.put("jyxxsqList", jyxxsqList);
+
+        }
+        return dataMap;
+    }
+
+
+    /**
+     * 处理TXT
+     */
+    public Map processTxtData(MultipartFile importFile, Integer mb, String mb_xfsh, Integer mb_skp, Timestamp allTime) throws Exception {
+
+        String msgg = "";
+        String message = "";
+        Map result = new HashMap();
+        //获取txt文件内容
+        String data = FileUtil.readFileContentByIn(importFile.getInputStream(), "utf-8");
+        logger.info("TXT----------内容:"+data);
+        if (null != data && data.length() > 0) {
+            Map dataMap = new HashMap();
+            try {
+                dataMap = resolveTxtFile(data, mb, mb_xfsh, mb_skp, allTime);
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+
+                message = "导入TXT文本的格式有误，请检查！";
+                result.put("msg",message);
+                return  result;
+            }
+            String gsdm = getGsdm();
+
+            List<Jyxxsq> jyxxsqList = new ArrayList<>();
+            List<Jymxsq> mxList = new ArrayList<>();
+            jyxxsqList = (List<Jyxxsq>) dataMap.get("jyxxsqList");
+            mxList = (List<Jymxsq>) dataMap.get("mxList");
+
+
+            //是否自动附码 @zsq
+            Cszb sfzdfm = cszbService.getSpbmbbh(getGsdm(), getXfid(), mb_skp, "sfzdfm");
+            if (null != sfzdfm && null != sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz())) {
+                for (int i = 0; i < mxList.size(); i++) {
+                    Jymxsq jymxsq = mxList.get(i);
+                    logger.info("商品名:" + jymxsq.getSpmc() + "开始自动附码------");
+                    Map map = new HashMap();
+                    map.put("gsdm", jymxsq.getGsdm());
+                    map.put("spmc", jymxsq.getSpmc());
+                    Spvo spvo = spvoService.findOneSpvo(map);
+                    if (null == spvo) {
+                        msgg = "商品名:" + jymxsq.getSpmc() + "没有税收分类编码,请先维护！\r\n";
+                        message += msgg;
+                    } else {
+                        jymxsq.setSpdm(spvo.getSpbm());
+                        jymxsq.setYhzcbs(spvo.getYhzcbs());
+                        jymxsq.setYhzcmc(spvo.getYhzcmc());
+                        jymxsq.setLslbz(spvo.getLslbz());
+                        logger.info("商品名:" + jymxsq.getSpmc() + "自动附码成功------------------附码之后的结果为" + jymxsq.getSpdm());
+                    }
+                }
+                if (!"".equals(message)) {
+                    result.put("msg",message);
+                    return  result;
+
+                }
+
+            }
+
+           message = checkOrderUtil.checkAll(jyxxsqList, mxList, null, gsdm, "01");
+
+            if ("".equals(message)) {
+
+
+                List<JymxsqCl> jymxsqClList = new ArrayList<JymxsqCl>();
+                //复制一个新的list用于生成处理表
+                List<Jymxsq> jymxsqTempList = new ArrayList<Jymxsq>();
+
+                jymxsqTempList = BeanConvertUtils.convertList(mxList, Jymxsq.class);
+
+                jymxsqClList = discountDealUtil.dealDiscount(jyxxsqList, jymxsqTempList, new ArrayList<Jyzfmx>(),gsdm);
+                jyxxsqservice.saveAll(jyxxsqList, mxList, jymxsqClList, new ArrayList<Jyzfmx>());
+                result.put("msg",message);
+                result.put("count",jyxxsqList.size());
+                return  result;
+            }else{
+                result.put("msg",message);
+                return  result;
+            }
+        } else {
+
+            message = "导入txt文件的内容为空，请检查！";
+            result.put("msg",message);
+            return  result;
+        }
 
     }
 
