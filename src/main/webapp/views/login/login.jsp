@@ -88,7 +88,7 @@
                 <a class="" href="http://kpt.datarj.com/#/news/list">平台动态</a>
             </li>
         </ul>
-        <div class="btnbox " styl1e="visibility: hidden;">
+        <div class="btnbox " sty1e="visibility: hidden;">
         <a href="http://kpt.datarj.com/#/experience">
             <button type="button" class="ant-btn ant-btn-primary">
                 <span>立即体验</span>
@@ -114,10 +114,10 @@
                 <p class="hide">还未注册？
                     <Link to="/reg">立即注册</Link>
                 </p>--%>
-                <div class="login_row" id="headerNew" style="padding-bottom: 0.2rem;width:4.2rem;">
-                    <div id="leftTitle" style="float:left;font-size: 0.21rem;opacity: 1;font-weight: bolder;color:#ffffff;">
+                <div class="login_row" id="headerNew" style="padding-bottom:2vh;width:43vh;">
+                    <div id="leftTitle" style="float:left;font-size: 2.4vh;opacity: 1;font-weight: bolder;color:#ffffff;">
                         欢迎登陆</div>
-                    <div id="rightTitle" style="float: right;font-size: 0.18rem;opacity: 1;color:#ffffff;">
+                    <div id="rightTitle" style="float: right;font-size: 2vh;opacity: 1;color:#ffffff;">
                         开票通云服务平台</div>
 
                 </div>
@@ -135,12 +135,12 @@
                        <img name="randImage" id="randImage" onclick="loadimage();"
                             src="<%=request.getContextPath()%>/image.jsp" width="28%"
                             align="absmiddle"
-                            style="float: right;height: 0.45rem;border: 1px solid #d9d9d9;border-radius: 0.10rem; "
+                            style="float: right;height: 4.3vh;border: 1px solid #d9d9d9;border-radius: 0.10rem; "
                        >
                        <div class="red" style="clear: both;">${errors}</div>
                    </div>
-                <div class="login_row" style="clear:both;padding-top: 0.01rem">
-                    <button type="submit" class="primary" style="float: left;width:100%;height: 0.45rem;">
+                <div class="login_row" style="clear:both;padding-top: 0.1vh">
+                    <button type="submit" class="primary" style="float: left;width:100%;height: 4.5vh;font-size: 2.4vh;">
                         <span>登 录</span>
                     </button>
 
