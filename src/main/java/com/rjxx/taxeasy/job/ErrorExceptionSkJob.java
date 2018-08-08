@@ -1,12 +1,16 @@
 package com.rjxx.taxeasy.job;
 
+import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
 import com.rjxx.taxeasy.domains.Cszb;
+import com.rjxx.taxeasy.domains.Kpcf;
 import com.rjxx.taxeasy.domains.Kpls;
 import com.rjxx.taxeasy.service.CszbService;
+import com.rjxx.taxeasy.service.KpcfService;
 import com.rjxx.taxeasy.service.KplsService;
 import com.rjxx.taxeasy.service.SkpService;
+import com.rjxx.time.TimeUtil;
 import com.rjxx.utils.StringUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
@@ -17,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,15 +41,46 @@ public class ErrorExceptionSkJob implements Job {
     @Autowired
     private SkService skService;
 
+    @Autowired
+    private KpcfService kpcfService;
+
+
+
     private static Logger logger = LoggerFactory.getLogger(ErrorExceptionSkJob.class);
 
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
-            do{
-                logger.info("-------进入定时任务开始---------"+context.getNextFireTime());
-                String kplshStr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "12");
+            //do{
+                logger.info("-------进入ErrorExceptionSkJob发票异常补偿定时任务开始---------"+context.getNextFireTime());
+                //获取重发表中次数大于等于4小于6的记录
+                List<Kpcf> kpcfList = kpcfService.findAllByCount();
+                if (!kpcfList.isEmpty() && kpcfList.size() > 0){
+                    for (Kpcf kpcf : kpcfList){
+                     int kplsh = kpcf.getKplsh();
+                     //查询确认是否开成功
+                     InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
+                        if (!invoiceResponse.getReturnCode().equals("0000")){
+                            //开票
+                           InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
+                           if (invoiceResponse1.getReturnCode().equals("0000")){
+                               //成功 删除记录
+                               kpcfService.deleteById(kplsh);
+                           }else {
+                               //count +1
+                               kpcf.setXgsj(TimeUtil.getNowDate());
+                               kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                               kpcfService.save(kpcf);
+                           }
+                        }else if (invoiceResponse.getReturnCode().equals("0000")){
+                            kpcfService.deleteById(kplsh);
+                        }
+                    }
+                }/*else{
+                    break;
+                }*/
+               /* String kplshStr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "12");
                 if (StringUtils.isNotBlank(kplshStr)) {
                     int kplsh = Integer.valueOf(kplshStr);
                     Map params = new HashMap();
@@ -61,8 +97,8 @@ public class ErrorExceptionSkJob implements Job {
                     }
                 }else{
                     break;
-                }
-            }while (true);
+                }*/
+            //}while (true);
             /*do{
                 String kplshzpstr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "01");
                 if (StringUtils.isNotBlank(kplshzpstr)) {
@@ -97,7 +133,7 @@ public class ErrorExceptionSkJob implements Job {
                         break;
                     }
                }while (true);*/
-                 logger.info("-------进入定时任务结束---------"+context.getNextFireTime());
+                 logger.info("-------进入ErrorExceptionSkJob发票异常补偿定时任务开始---------"+context.getNextFireTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
