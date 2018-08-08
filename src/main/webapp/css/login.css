@@ -27,6 +27,7 @@ ol, ul, dl {
 body{
 	background: url(./../img/loginimg/loginback.png) no-repeat;
 
+
 }
 html,body,#root {
     width: 100%;
@@ -134,11 +135,11 @@ input
     display: none !important;
   }
   html{
-    overflow-x: hidden;
+    overflow-x: auto;
   }
 ._login {
 	width:100%;
-	height: 66%;
+	height: 66vh;
 	display: flex;
 	justify-content: center ;
 	align-items:center;
@@ -150,13 +151,14 @@ input
 
 	background: url(./../img/loginimg/denglubeijging.png) no-repeat;
 	*/
-
+	overflow-x: auto;
 	background-size: 100% 100%;
 	/* min-height: 4rem; */
 }
 body{
 	background-size: 100% 100%;
 	height: 100vh !important;
+	overflow-x: auto;
 }
 button{
 	cursor: pointer;
@@ -173,15 +175,13 @@ button{
 }
 
 ._login .box .frombox .header {
-	width: 4.76rem;
-	height: 0.52rem;
+	width: 30vh;
+	height: 5vh;
 	/*background-color: #ffffff;*/
 	border-top-left-radius: 0.10rem;
 	border-top-right-radius: 0.10rem;
 	text-align: center;
-	line-height: 0.52rem;
 	font-family: SourceHanSansCN-Medium;
-	font-size: 0.24rem;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0rem;
@@ -189,42 +189,40 @@ button{
 }
 
 ._login .box .frombox input {
-	width: 3.73rem;
-	height: 0.40rem;
+	width: 37.3vh;
+	height: 4vh;
 	background-color: #ffffff;
 	font-family: SourceHanSansCN-Medium;
-	font-size: 0.14rem;
+
 	font-weight: normal;
 	font-stretch: normal;
-	line-height: 0.13rem;
+	line-height: 1.4vh;
 	letter-spacing: 0rem;
 	color: #999999;
 	display: block;
 	margin: 0 auto;
-	text-indent: 0.14rem;
+	text-indent: 1.4vh;
 	border-width: 0rem;
 }
 
 ._login .box .frombox .user {
-	margin-top: 0.28rem;
+	margin-top: 2.8vh;
 }
 
 ._login .box .frombox .pwd {
-	margin-top: 0.17rem;
+	margin-top: 1.7vh;
 }
 
 ._login .box .frombox Button {
 	display: block;
-	width: 2rem;
-	height: 0.40rem;
+	width: 43vh;
+	height: 4vh;
 	background-color: #2765e3;
 	border-radius: 0.10rem;
 	margin: 0 auto;
 	font-family: SourceHanSansCN-Bold;
-	font-size: 0.19rem;
 	font-weight: normal;
 	font-stretch: normal;
-	line-height: 0.13rem;
 	letter-spacing: 0rem;
 	color: #ffffff;
 	/*border-width: 0;*/
@@ -233,22 +231,22 @@ button{
 
 }
 .submit{
-	margin-top: 0.2rem !important;
+	margin-top: 2vh !important;
 }
 
 ._header {
-	height: 0.98rem;
 	/*background: white;*/
 	width: 100%;
-	height: 10%;
+	height: 10vh;
 	display: flex;
 	justify-content: center;
-	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: auto;
 }
 ._header .box {
 	display: flex;
 	justify-content: space-between;
-	width: 12.1rem;
+	width: 140vh;
 }
 div, input, a, img {
 	-webkit-tap-highlight-color: transparent;
@@ -258,27 +256,25 @@ a {
 	text-decoration: none;
 }
 ._header .box img {
-	height: 0.55rem;
-	width: 1.45rem;
-	margin-top: 0.24rem;
-	margin-right: 0.88rem;
+
+	width: 14.5vh;
+	margin-top: 2.4vh;
+	margin-right: 8.8vh;
 }
 ._header .box ul {
 	margin-bottom: 0;
-	padding-top: 0.53rem;
+	padding-top: 5vh;
 	display: flex;
 }
 ._header .box ul li {
 	display: inline-block;
-	height: 0.19rem;
 	font-family: SourceHanSansCN-Medium;
-	font-size: 0.22rem;
+	font-size: 2.6vh;
 	font-weight: normal;
 	font-stretch: normal;
-	line-height: 0.13rem;
 	letter-spacing: 0.0rem;
 	color: #ffffff;
-	margin-right: 0.36rem;
+	margin-right: 3.6vh;
 	cursor: pointer;
 }
 ._header .box ul .fontSelect {
@@ -288,20 +284,19 @@ a {
 	visibility: hidden;
 }
 ._header .box .btnbox {
-	padding-top: 0.42rem;display: flex;
+	padding-top: 5vh;display: flex;
 }
 ._header .box .btnbox button {
-	height: 0.32rem;
+	height: 3.2vh;
 	background-color: #3266FF;
 	border-radius: 0.10rem;
 	font-family: SourceHanSansCN-Normal;
-	font-size: 0.16rem;
+	font-size: 1.8vh !important;
 	font-weight: normal;
 	font-stretch: normal;
-	line-height: 0.13rem;
 	letter-spacing: 0.0rem;
 	color: #ffffff;
-	margin-right: 0.13rem;
+	margin-right: 1.3vh;
 }
 .ant-btn-primary>a:only-child {
 	color: currentColor;
@@ -326,9 +321,7 @@ a {
 	background: transparent;
 }
 .ant-btn {
-	line-height: 1.5;
 	display: inline-block;
-	font-weight: 400;
 	text-align: center;
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
@@ -337,9 +330,7 @@ a {
 	border: 1px solid transparent;
 	white-space: nowrap;
 	padding: 0 15px;
-	font-size: 14px;
 	border-radius: 4px;
-	height: 32px;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -358,7 +349,7 @@ a {
 	border-color: #1890ff;
 }
 .red{
-	text-align: left;color: red;font-size: 0.14rem;line-height: 0.28rem;height: 0.28rem;;
+	text-align: left;color: red;font-size: 1.4vh;line-height: 2.8vh;height: 2.8vh;
 }
 .yzm{
 	display: flex;
@@ -377,83 +368,84 @@ a {
 
 ._footer {
     width: 100%;
-    height: 24%;
+    height: 24vh;
     /*background-color: #f6f6f6;*/
     display: flex;
-    position: fixed;
     bottom: 0;
     left: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 ._footer  ul{
     margin-bottom: 0;
 }
 ._footer .box {
-    width: 12.10rem;
+    width: 140vh;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
 	height: 100%;
 }
 ._footer .box .r0,._footer .box .r1,._footer .box .r2{
-height: 100%;
+height: 18vh;
 }
 ._footer .box .r0  li{
-    margin-top: 0.5rem;
+    margin-top: 5vh;
     font-family: SourceHanSansCN-Medium;
-    font-size: 0.24rem;
+    font-size: 2.4vh;
     font-weight: normal;
     font-stretch: normal;
     letter-spacing: 0px;
     color: #ffffff;
-	margin-bottom: 0.25rem;
+
 }
 ._footer .box .r0  img{
-	height: 0.7rem;
+	height: 5.6vh;
 	/*width: 1.85rem;*/
-	/*margin-bottom: 0.24rem;*/
+	margin-top: 4vh;
 
 }
 
 ._footer .box .r1 .l2,._footer .box .r1 .l0{
-    margin-top: 0.5rem;
+    margin-top: 5vh;
     display: flex;
-    width:3.8rem;
+    width:38vh;
     justify-content: space-between;
     font-family: SourceHanSansCN-Normal;
-    font-size: 0.18rem;
+    font-size: 1.8vh;
     font-weight: normal;
     font-stretch: normal;
-    line-height:  0.3rem;
+    line-height:  3vh;
     letter-spacing: 0px;
     color: #ffffff;
-    margin-bottom: 0.24rem;
+    margin-bottom: 2.4vh;
 }
 ._footer .box .r1 .l0{margin-top: 0rem; width:auto;}
-._footer .box .r1 .l1{font-size: 0.16rem;    margin-bottom: 0.24rem;}
+._footer .box .r1 .l1{font-size: 1.6vh;    margin-bottom: 2.4vh;}
 ._footer .box .r2{
-    display: flex; margin-top: 0.5rem;
+    display: flex;
 }
 ._footer .box .r2 .r20{
-    margin-right: 0.5rem;
+    margin-right: 5vh;
 }
 ._footer .box .r2  .item {
+	margin-top: 5vh;
     text-align: center;
     font-family: SourceHanSansCN-Normal;
-    font-size: 0.16rem;
+    font-size: 1.6vh;
     font-weight: normal;
     font-stretch: normal;
     letter-spacing: 0px;
     color: #ffffff;
-	margin-bottom: 0.24rem;
 }
 ._footer .box .r2  .item img{
-    width: 1.08rem;
-    height: 1.08rem;
+    width: 10.8vh;
+    height: 10.8vh;
 
 }
 .frombox .login_row{
-	margin-top: 0.3rem;
-	width:4.22rem;
+	margin-top: 3vh;
+	width:43vh;
 	/*height: 0.6rem;*/
 }
 #usernameInput,#pwdInput{
@@ -462,10 +454,10 @@ height: 100%;
 	position: relative;
 }
 #usernameInput input,#pwdInput input{
-	width:4rem;
-	height: 0.4rem;
-	padding-left: 0.22rem;
-	font-size: 0.13rem;
+	width:40vh;
+	height: 4vh;
+	padding-left: 3vh;
+	font-size: 1.4vh;
 	border-radius: 0.10rem;
 	opacity: 1;
 	border:2px solid gray;
@@ -474,17 +466,17 @@ height: 100%;
 	border-color:#2765e3;
 }
 #usernameInput .icon-user,#pwdInput .icon-pwd{
-	width: 0.2rem;
-	height: 0.2rem;
+	width: 2vh;
+	height: 2vh;
 	position: absolute;
-	top:0.14rem;
-	left: 0.1rem;
+	top:1.4vh;
+	left: 1vh;
 }
 .yzm_row{
 	clear:both;
 }
 .yzm_row #inputYzm{
-	float: left;width:2.62rem;height: 0.4rem;font-size: 0.13rem;border-radius: 0.10rem;
+	float: left;width:26vh;height: 4vh;font-size: 1.4vh;border-radius: 0.10rem;
 	border:2px solid gray;
 }
 .yzm_row #inputYzm:focus{
