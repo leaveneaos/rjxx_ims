@@ -64,7 +64,7 @@ public class ErrorExceptionSkJob implements Job {
                         if (null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000")){
                             //开票
                            InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
-                           if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000") && null !=invoiceResponse1.getFphm()){
+                           if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
                                //成功 删除记录
                                kpcfService.deleteById(kplsh);
                            }else {
@@ -133,7 +133,7 @@ public class ErrorExceptionSkJob implements Job {
                         break;
                     }
                }while (true);*/
-                 logger.info("-------进入ErrorExceptionSkJob发票异常补偿定时任务开始---------"+context.getNextFireTime());
+                 logger.info("-------进入ErrorExceptionSkJob发票异常补偿定时任务结束---------"+context.getNextFireTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
