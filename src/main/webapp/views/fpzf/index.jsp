@@ -182,6 +182,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqq" name="w_kprqq"
 														   placeholder="开票起始时间"
+														   onfocus="$(this).blur()"
 														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 												<div class="am-u-sm-1">
@@ -190,6 +191,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqz" name="w_kprqz"
 														   placeholder="开票截止时间"
+														   onfocus="$(this).blur()"
 														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 											</div>
@@ -412,6 +414,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqq1" name="w_kprqq"
 														   placeholder="开票起始时间"
+														   onfocus="$(this).blur()"
 														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 												<div class="am-u-sm-1">
@@ -420,6 +423,7 @@
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqz1" name="w_kprqz"
 														   placeholder="开票截止时间"
+														   onfocus="$(this).blur()"
 														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
 											</div>
