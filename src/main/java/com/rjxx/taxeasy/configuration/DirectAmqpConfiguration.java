@@ -79,9 +79,9 @@ public class DirectAmqpConfiguration {
 
                         }else if(null !=invoiceResponse && invoiceResponse.getReturnCode() == null){
                             InvoiceResponse invoiceResponse2 =  skService.SkServerKP(kplsh);
-                            /*if (null !=invoiceResponse2 && invoiceResponse2.getReturnCode().equals("0000")){
+                            if (null !=invoiceResponse2 && invoiceResponse2.getReturnCode().equals("0000")){
                                 kpcfService.deleteById(kplsh);
-                            }*/
+                            }
 
                         }
                     }
