@@ -157,10 +157,12 @@ table thead th {
 												<div class="am-u-sm-3">
 													订单日期
 												</div>
+												<!--updateBy_CL_on_20180808 start -->
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqq" name="w_kprqq"
 														   placeholder="订单起始时间"
-														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+														   data-am-datepicker="{format: 'yyyy-mm-dd'}"
+														   onfocus="$(this).blur()"/>
 												</div>
 												<div class="am-u-sm-1">
 													至
@@ -168,8 +170,10 @@ table thead th {
 												<div class="am-u-sm-4">
 													<input type="text" id="w_kprqz" name="w_kprqz"
 														   placeholder="订单截止时间"
+														   onfocus="$(this).blur()"
 														   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 												</div>
+												<!--updateBy_CL_on_20180808 end -->
 											</div>
 										 </div>
 											<div class="am-u-sm-2">

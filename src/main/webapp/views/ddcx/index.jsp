@@ -168,6 +168,7 @@
 										<div class="am-u-sm-4">
 											<input type="text" id="w_kprqq" name="w_kprqq"
 												   placeholder="订单起始日期"
+												   onfocus="$(this).blur()"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 										</div>
 										<div class="am-u-sm-1">
@@ -176,6 +177,7 @@
 										<div class="am-u-sm-4">
 											<input type="text" id="w_kprqz" name="w_kprqz"
 												   placeholder="订单截止日期"
+												   onfocus="$(this).blur()"
 												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
 										</div>
 									</div>
