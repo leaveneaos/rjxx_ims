@@ -69,11 +69,11 @@ public class DirectAmqpConfiguration {
                             //调用税控服务器开票
                           InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
 
-                          if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
+                          if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000") && null !=invoiceResponse1.getFphm()){
                               //如果开票成功 删除开票重发表中对应的记录
                               kpcfService.deleteById(kplsh);
                           }
-                        }else if(invoiceResponse.getReturnCode().equals("0000")){
+                        }else if(invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             //如果开票成功 删除开票重发表中对应的记录
                             kpcfService.deleteById(kplsh);
 
