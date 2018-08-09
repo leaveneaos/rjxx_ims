@@ -73,7 +73,7 @@ public class DirectAmqpConfiguration {
                               //如果开票成功 删除开票重发表中对应的记录
                               kpcfService.deleteById(kplsh);
                           }
-                        }else if(invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
+                        }else if(null !=invoiceResponse.getReturnCode() && invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             //如果开票成功 删除开票重发表中对应的记录
                             kpcfService.deleteById(kplsh);
 
