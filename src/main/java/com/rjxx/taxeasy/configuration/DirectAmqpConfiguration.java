@@ -65,7 +65,7 @@ public class DirectAmqpConfiguration {
                     if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
                         //skService.SkServerKP(kplsh);
                         InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
-                        if(null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000")){
+                        if(null==invoiceResponse || (null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000"))){
                             //调用税控服务器开票
                           InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
 
