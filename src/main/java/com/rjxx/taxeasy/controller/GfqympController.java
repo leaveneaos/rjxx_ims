@@ -55,7 +55,17 @@ public class GfqympController extends BaseController {
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String gsdm = getGsdm();
-		
+
+
+		List<Integer> xfs = new ArrayList<>();
+		if (!getXfList().isEmpty()) {
+			for (Xf xf : getXfList()) {
+				xfs.add(xf.getId());
+			}
+		}
+		if (xfs.size() > 0) {
+			pagination.addParam("xfs", xfs);
+		}
 		String gfmc=request.getParameter("gfmc");
 		String nsrsbh=request.getParameter("nsrsbh");
 		pagination.addParam("gfmc", gfmc);
