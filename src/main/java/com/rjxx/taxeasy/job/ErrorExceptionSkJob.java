@@ -61,10 +61,10 @@ public class ErrorExceptionSkJob implements Job {
                      int kplsh = kpcf.getKplsh();
                      //查询确认是否开成功
                      InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
-                        if (!invoiceResponse.getReturnCode().equals("0000")){
+                        if (null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000")){
                             //开票
                            InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
-                           if (invoiceResponse1.getReturnCode().equals("0000")){
+                           if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000") && null !=invoiceResponse1.getFphm()){
                                //成功 删除记录
                                kpcfService.deleteById(kplsh);
                            }else {
@@ -73,7 +73,7 @@ public class ErrorExceptionSkJob implements Job {
                                kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
                                kpcfService.save(kpcf);
                            }
-                        }else if (invoiceResponse.getReturnCode().equals("0000")){
+                        }else if (invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             kpcfService.deleteById(kplsh);
                         }
                     }
