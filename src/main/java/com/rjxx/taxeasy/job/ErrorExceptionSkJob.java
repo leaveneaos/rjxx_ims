@@ -61,7 +61,7 @@ public class ErrorExceptionSkJob implements Job {
                      int kplsh = kpcf.getKplsh();
                      //查询确认是否开成功
                      InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
-                        if (null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000")){
+                        if (null==invoiceResponse || (null !=invoiceResponse && null != invoiceResponse.getReturnCode() && !invoiceResponse.getReturnCode().equals("0000"))){
                             //开票
                            InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
                            if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
@@ -80,8 +80,27 @@ public class ErrorExceptionSkJob implements Job {
                                }
                                kpcfService.save(kpcf);
                            }
-                        }else if (invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
+                        }else if (null != invoiceResponse.getReturnCode() && invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             kpcfService.deleteById(kplsh);
+                        }else if (null !=invoiceResponse && invoiceResponse.getReturnCode() == null){
+                            InvoiceResponse invoiceResponse2 =  skService.SkServerKP(kplsh);
+                            if (null !=invoiceResponse2 && invoiceResponse2.getReturnCode().equals("0000")){
+                                //成功 删除记录
+                                kpcfService.deleteById(kplsh);
+                            }else {
+
+                                //count +1
+                                kpcf.setXgsj(TimeUtil.getNowDate());
+                                kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                                if(kpcf.getKpcfcs() == 6){
+                                    Kpls kpls=kplsService.findOne(kplsh);
+                                    kpls.setFpztdm("05");
+                                    kplsService.save(kpls);
+
+                                }
+                                kpcfService.save(kpcf);
+                            }
+
                         }
                     }
                 }/*else{

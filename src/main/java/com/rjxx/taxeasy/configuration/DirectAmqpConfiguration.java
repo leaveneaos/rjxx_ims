@@ -65,7 +65,7 @@ public class DirectAmqpConfiguration {
                     if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
                         //skService.SkServerKP(kplsh);
                         InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
-                        if(null==invoiceResponse || (null !=invoiceResponse && !invoiceResponse.getReturnCode().equals("0000"))){
+                        if(null==invoiceResponse || (null !=invoiceResponse && null != invoiceResponse.getReturnCode() && !invoiceResponse.getReturnCode().equals("0000"))){
                             //调用税控服务器开票
                           InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
 
@@ -76,6 +76,12 @@ public class DirectAmqpConfiguration {
                         }else if(invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             //如果开票成功 删除开票重发表中对应的记录
                             kpcfService.deleteById(kplsh);
+
+                        }else if(null !=invoiceResponse && invoiceResponse.getReturnCode() == null){
+                            InvoiceResponse invoiceResponse2 =  skService.SkServerKP(kplsh);
+                            if (null !=invoiceResponse2 && invoiceResponse2.getReturnCode().equals("0000")){
+                                kpcfService.deleteById(kplsh);
+                            }
 
                         }
                     }
