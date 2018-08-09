@@ -68,9 +68,16 @@ public class ErrorExceptionSkJob implements Job {
                                //成功 删除记录
                                kpcfService.deleteById(kplsh);
                            }else {
+
                                //count +1
                                kpcf.setXgsj(TimeUtil.getNowDate());
                                kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                               if(kpcf.getKpcfcs() == 6){
+                                   Kpls kpls=kplsService.findOne(kplsh);
+                                   kpls.setFpztdm("05");
+                                   kplsService.save(kpls);
+
+                               }
                                kpcfService.save(kpcf);
                            }
                         }else if (invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
