@@ -69,7 +69,7 @@ public class DdcxController extends BaseController {
 				}
 			}
 			if (xfs.size() > 0) {
-				params.put("xfList", xfs);
+				params.put("xfs", xfs);
 			}
 			params.put("xfsh", xfsh);
 			params.put("gfmc", gfmc);
