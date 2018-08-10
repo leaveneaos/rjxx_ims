@@ -1110,7 +1110,7 @@ public class LrkpdController extends BaseController {
         // 数据的校验
         String msgg = "";
         String msg = "";
-        Boolean sfpp = false;
+        boolean sfpp = false;
         Map result = new HashMap();
         double zjshj = 0.0; //导入明细的总价税合计
         int yhid = this.getYhid();
@@ -1222,6 +1222,7 @@ public class LrkpdController extends BaseController {
         Map gfMap = new HashMap();
 
         Map<String, Integer> ddhmap = new HashMap();
+        Cszb sfzdfm1 = cszbService.getSpbmbbh(gsdm, xf.getId(), skpid, "sfppgf");
         for (int k = 1; k < dataList.size(); k++) {
             List row = dataList.get(k);
             Jyxxsq jyxxsq = new Jyxxsq();
@@ -1281,14 +1282,9 @@ public class LrkpdController extends BaseController {
             jyxxsq.setKpddm(skp.getKpddm());//解决没有kpddm问题。
 
             //判断是否匹配购方
-            Xf xfPo = new Xf();
-            xfPo.setGsdm(gsdm);
-            xfPo.setXfsh(xfsh1);
             //gfmc
             String gfmc = getValue("gfmc", pzMap, columnIndexMap, row);
-            Xf xfInfo = xfService.findOneByParams(xfPo);
-            Cszb sfzdfm = cszbService.getSpbmbbh(gsdm, xfInfo.getId(), skpid, "sfppgf");
-            if (null != sfzdfm && null != sfzdfm.getCsz() && "是".equals(sfzdfm.getCsz())) {
+            if (null != sfzdfm1 && null != sfzdfm1.getCsz() && "是".equals(sfzdfm1.getCsz())) {
                 sfpp = true;
                 Gfxx gfxx = new Gfxx();
                 if (gfMap.containsKey(gfmc)) {
@@ -1654,11 +1650,6 @@ public class LrkpdController extends BaseController {
                         msg += msgg;
 
                     }
-                }
-                if (!gfMap.containsKey(gfmc)) {
-                    msgg = "第" + (i + 2) + "行购方名称:" + gfmc + " 匹配无效，请先去维护购方信息！\r\n";
-                    msg += msgg;
-
                 }
             }
             if (gfmc != null && gfmc.length() > 100) { // 购方名称长度的判断
