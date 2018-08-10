@@ -72,13 +72,17 @@ public class ErrorExceptionSkJob implements Job {
                                //count +1
                                kpcf.setXgsj(TimeUtil.getNowDate());
                                kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                               if (kpcf.getKpcfcs() < 6){
+                                   kpcfService.save(kpcf);
+                               }
                                if(kpcf.getKpcfcs() == 6){
                                    Kpls kpls=kplsService.findOne(kplsh);
                                    kpls.setFpztdm("05");
                                    kplsService.save(kpls);
+                                   kpcfService.deleteById(kplsh);
 
                                }
-                               kpcfService.save(kpcf);
+//                               kpcfService.save(kpcf);
                            }
                         }else if (null != invoiceResponse.getReturnCode() && invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
                             kpcfService.deleteById(kplsh);
@@ -92,13 +96,17 @@ public class ErrorExceptionSkJob implements Job {
                                 //count +1
                                 kpcf.setXgsj(TimeUtil.getNowDate());
                                 kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                                if (kpcf.getKpcfcs() < 6){
+                                    kpcfService.save(kpcf);
+                                }
                                 if(kpcf.getKpcfcs() == 6){
                                     Kpls kpls=kplsService.findOne(kplsh);
                                     kpls.setFpztdm("05");
                                     kplsService.save(kpls);
+                                    kpcfService.deleteById(kplsh);
 
                                 }
-                                kpcfService.save(kpcf);
+//                                kpcfService.save(kpcf);
                             }
 
                         }
