@@ -347,21 +347,22 @@ public class FpcxController extends BaseController {
                 double je1 = 0d;
                 double se1 = 0d;
                 for (Fpcxvo fpcxvo1 : ykfpList) {
-                    String fphm1 = fpcxvo1.getFphm();
+//                    String fphm1 = fpcxvo1.getFphm();
+                    Integer kplsh2 = fpcxvo1.getKplsh();
                     je1 = fpcxvo1.getSpje();
                     se1 = fpcxvo1.getSpse();
-                    if (zfphs.containsKey(fphm1)) {
-                        Integer num = (Integer) zfphs.get(fphm1);
+                    if (zfphs.containsKey(kplsh2)) {
+                        Integer num = (Integer) zfphs.get(kplsh2);
                         //jine
-                        double je = (double) bhsjeMap.get(fphm1);
-                        double se = (double) zseMap.get(fphm1);
-                        zseMap.put(fphm1, se1 + se);
-                        zfphs.put(fphm1, (num.intValue() + 1));
-                        bhsjeMap.put(fphm1, je1 + je);
+                        double je = (double) bhsjeMap.get(kplsh2);
+                        double se = (double) zseMap.get(kplsh2);
+                        zseMap.put(kplsh2, se1 + se);
+                        zfphs.put(kplsh2, (num.intValue() + 1));
+                        bhsjeMap.put(kplsh2, je1 + je);
                     } else {
-                        zfphs.put(fphm1, n1);
-                        bhsjeMap.put(fphm1, je1);
-                        zseMap.put(fphm1, se1);
+                        zfphs.put(kplsh2, n1);
+                        bhsjeMap.put(kplsh2, je1);
+                        zseMap.put(kplsh2, se1);
                     }
 
                 }
@@ -374,9 +375,10 @@ public class FpcxController extends BaseController {
                 for (int i = 1, n = 1, size = ykfpList.size(); i <= size; i++, n++) {
                     fpcxvo = ykfpList.get(i - 1);
 
-                    //发票号   判断是否含有多笔明细
-                    String fph = fpcxvo.getFphm();
-                    if (fphmMaps.containsKey(fph)) {
+                    //开票流水号   判断是否含有多笔明细
+//                    String fph = fpcxvo.getFphm();
+                    Integer kpls = fpcxvo.getKplsh();
+                    if (fphmMaps.containsKey(kpls)) {
                         mxWrite = new StringBuffer();
                         //折扣行标记
                         //折扣行标记 0代表正常行
@@ -398,7 +400,7 @@ public class FpcxController extends BaseController {
                         continue;
 
                     } else {
-                        fphmMaps.put(fph, fph);
+                        fphmMaps.put(kpls, kpls);
                     }
                     write.append(fpxh + n);
                     write.append(enter);
@@ -442,24 +444,30 @@ public class FpcxController extends BaseController {
                     write.append(zfbj + fgf + sfdyqd);
                     write.append(fgf + fpzl);
                     //"税务月份"20180725
-                    String kprq = dateFromat(fpcxvo.getKprq());
-                    String month = kprq.substring(4, 6);
+                    String kprq ="";
+                    String month ="";
+                    if (null != fpcxvo.getKprq() && !"".equals(fpcxvo.getKprq())){
+                        kprq = dateFromat(fpcxvo.getKprq());
+                        month = kprq.substring(4, 6);
+                    }
+
+
                     //发票类别代码-发票代码
                     write.append(fgf + (null == fpcxvo.getFpdm() || "".equals(fpcxvo.getFpdm()) ? "" : fpcxvo.getFpdm().trim()));
                     //发票号
-                    write.append(fgf + fph);
+                    write.append(fgf + kpls);
                     //商品明细行数
-                    write.append(fgf + zfphs.get(fph));
+                    write.append(fgf + zfphs.get(kpls));
                     //开票日期 月份
                     write.append(fgf + kprq + fgf + month);
                     //销售单据
                     write.append(fgf + fpcxvo.getDjh());
                     //不含税金额
-                    write.append(fgf + bhsjeMap.get(fph));
+                    write.append(fgf + bhsjeMap.get(kpls));
                     //税率
                     write.append(fgf + fpcxvo.getSpsl());
                     //税额
-                    write.append(fgf + zseMap.get(fph));
+                    write.append(fgf + zseMap.get(kpls));
                     //购方信息
                     write.append(fgf + fpcxvo.getGfmc() + fgf + fpcxvo.getGfsh());
                     write.append(fgf + (null == fpcxvo.getGfdz() || "".equals(fpcxvo.getGfdz()) ? "" : fpcxvo.getGfdz().trim()));
