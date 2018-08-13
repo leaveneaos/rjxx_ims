@@ -1638,6 +1638,13 @@ public class LrkpdController extends BaseController {
                     msg += msgg;
                 }
             }
+
+            //购方税号是否含有特殊字符检验
+            if (gfsh != null && CheckOrderUtil.isSpecialCharacter(gfsh)){
+                msgg = "第" + (i + 2) + "行购方税号不符合规则,请检查！\r\n";
+                msg += msgg;
+
+            }
             String gfmc = jyxxsq.getGfmc();// 购方名称校验
             if (gfmc == null || "".equals(gfmc)) {
                 msgg = "第" + (i + 2) + "行购方名称没有填写，请重新填写！\r\n";
@@ -1665,6 +1672,9 @@ public class LrkpdController extends BaseController {
             if (gfyhzh != null && gfyhzh.length() > 50) { // 购方银行账号长度的判断
                 msgg = "第" + (i + 2) + "行购方银行账号超出50个字符，请重新填写！\r\n";
                 msg += msgg;
+            }else if(gfyhzh != null && CheckOrderUtil.isSpecialCharacterForNum(gfyhzh)){
+                msgg = "第" + (i + 2) + "行购方银行账号不符合规则，请检查！\r\n";
+                msg += msgg;
             }
             String gfdz = jyxxsq.getGfdz();// 购方地址校验
             if (gfdz != null && gfdz.length() > 100) { // 购方地址长度的判断
@@ -1675,6 +1685,17 @@ public class LrkpdController extends BaseController {
             if (gfdh != null && gfdh.length() > 25) { // 购方电话长度的判断
                 msgg = "第" + (i + 2) + "行购方电话超出25位，请重新填写！\r\n";
                 msg += msgg;
+            }else if (gfdh != null && CheckOrderUtil.isSpecialCharacterForNum(gfdh)){
+                   msgg = "第"+(i + 2) +"行购方电话不符合规则,请检查！\r\n";
+                    msg += msgg;
+            }
+            String gfsjh = jyxxsq.getGfsjh();//购方手机号检验
+            if (gfsjh != null ){
+                if (CheckOrderUtil.isSpecialCharacterForNum(gfsjh)){
+                    msgg = "第"+(i + 2) +"行购方手机号不符合规则,请检查！\r\n";
+                    msg += msgg;
+                }
+
             }
             String gfEmailstr = jyxxsq.getGfemail();// 购方email校验
             if (gfEmailstr != null && !"".equals(gfEmailstr.trim())) {
