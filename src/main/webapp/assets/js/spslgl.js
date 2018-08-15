@@ -261,7 +261,7 @@
                         for (var i = 0; i < list.length; i++) {
                             html +='<tr align="left">'
                                 +'<td style="width: 100%" colspan="2">'
-                                +'<input type="checkbox" id="spz-${s.spdm }" name="spz"'
+                                +'<input type="checkbox" id="spz-'+list[i].spdm+'" name="spz"'
                                 +'value="'+list[i].spdm+'" />&nbsp;&nbsp;'+list[i].spmc+'</td>'
                                 +'</tr>'
                         }
@@ -407,6 +407,7 @@
                         var list1 = data.xfs;
                         for (i = 0; i < list.length; i++) {
                             rp = list[i];
+                           /* alert(list[i].spdm);*/
                             slt = '#spz-' + rp.spdm;
                             $(slt).prop('checked', true);
                         }
