@@ -463,6 +463,21 @@
 											<%--value="${s.spdm }" />&nbsp;&nbsp;${s.spmc }</td>--%>
 											<%--</tr>--%>
 											<%--</c:forEach>--%>
+											<tr align="left">
+												<td style="width: 100%" colspan="2">
+													<div title="" style="padding: 10px;" id="bm-box1">
+
+														<div class="am-panel-group" id="accordion">
+															<input type="checkbox" onclick="qxsp(this)" id="all"
+																   name="all" />&nbsp;&nbsp;全选<br>
+															<c:forEach items="${sps }" var="s" varStatus="i">
+																<input type="checkbox" id="spz-${s.spdm }" name="spz"
+																	   value="${s.spdm }" />&nbsp;&nbsp;${s.spmc }<br>
+															</c:forEach>
+														</div>
+													</div>
+												</td>
+											</tr>
 										</table>
 									</div>
 									<div class="am-tab-panel am-fade" id="tab3">
@@ -639,7 +654,6 @@
     });
 
     function qxsp(obj) {
-        var smObj = document.getElementById('spz');
         var smObj1 = document.getElementsByName("spz");
         if (obj.checked == true) {
             for (var i = 0; i < smObj1.length; i++) {
