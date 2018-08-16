@@ -92,11 +92,11 @@ public class SpslglController extends BaseController {
 		request.setAttribute("smlist", list);
 		Map<String, Object> params = new HashMap<>();
 		params.put("gsdm", getGsdm());
-//		Sp sp = new Sp();
-//		sp.setGsdm(getGsdm());
-//		List<Sp> sps = spService.findAllByParams(sp);
+		Sp sp = new Sp();
+		sp.setGsdm(getGsdm());
+		List<Sp> sps = spService.findAllByParams(sp);
 		List<Xf> xfs = xfService.findAllByMap(params);
-//		request.setAttribute("sps", sps);
+		request.setAttribute("sps", sps);
 		request.setAttribute("xfs", xfs);
 		return "spslgl/index";
 	}

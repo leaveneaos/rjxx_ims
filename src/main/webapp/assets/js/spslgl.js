@@ -266,7 +266,7 @@
                                 +'</tr>'
                         }
                         allHtml=quanxuan+html;
-                        $('#s_sp').html($(allHtml));
+                        /*$('#s_sp').html($(allHtml));*/
                     }
                 });
 
