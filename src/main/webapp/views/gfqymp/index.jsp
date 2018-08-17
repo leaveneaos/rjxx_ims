@@ -32,6 +32,7 @@
 	<!-- sidebar end -->
 	<!-- content start -->
 	<input type="hidden" id="djh" value="0">
+	<input type="hidden" id="bj" name="bj" value="1">
 	<div class="row-content am-cf">
 		<div class="row">
 		    <input type="hidden" id="gfid" value="0">
@@ -64,6 +65,40 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="am-offcanvas-content" style="margin-top: 5px;">
+										<div class="am-form-group">
+											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期</label>
+											<div class="am-input-group am-datepicker-date am-u-sm-8"
+												data-am-datepicker="{format: 'yyyy-mm-dd'}">
+												<input type="text" id="s_lrsjq" name="s_lrsjq"  class="am-form-field"
+													placeholder="开始时间" readonly> <span
+													class="am-input-group-btn am-datepicker-add-on">
+													<button class="am-btn am-btn-default" type="button">
+														<span class="am-icon-calendar"></span>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="am-offcanvas-content" style="margin-top: 5px;">
+										<div class="am-form-group">
+											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期</label>
+											<div class="am-input-group am-datepicker-date am-u-sm-8"
+												data-am-datepicker="{format: 'yyyy-mm-dd'}">
+												<input type="text" id="s_lrsjz" name="s_lrsjz" class="am-form-field"
+													placeholder="截止时间" readonly> <span
+													class="am-input-group-btn am-datepicker-add-on">
+													<button class="am-btn am-btn-default" type="button">
+														<span class="am-icon-calendar"></span>
+													</button>
+												</span>
+											</div>
+
+										</div>
+									</div>
+									
 									<div style="padding: 32px;">
 										<button type="button" id="search1"
 											class="am-btn am-btn-default am-btn-secondary data-back">
@@ -79,13 +114,37 @@
 							<form action="#"
 								class="js-search-form  am-form am-form-horizontal">
 									<div class="am-form-group am-form-group-sm" style="margin-top: 20px">
+								<!--日期表begin-->		
+								<div class="am-u-sm-5">
+									<div class="am-form-group">
 										<div class="am-u-sm-3">
+											录入日期
+										</div>
+										<div class="am-u-sm-4">
+											<input type="text" id="w_lrsjq" name="w_lrsjq"
+												   placeholder="录入起始日期"
+												   onfocus="$(this).blur()"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+										<div class="am-u-sm-1">
+											至
+										</div>
+										<div class="am-u-sm-4">
+											<input type="text" id="w_lrsjz" name="w_lrsjz"
+												   placeholder="录入截止日期"
+												   onfocus="$(this).blur()"
+												   data-am-datepicker="{format: 'yyyy-mm-dd'}" />
+										</div>
+									</div>
+								</div>
+								<!--end-->
+										<div class="am-u-sm-2">
 												<select id="dxcsm" >
 													<option value="gfmc">购方名称</option>
 													<option value="nsrsbh">纳税人识别号</option>
 												</select>
 										</div>
-										<div class="am-u-sm-3">
+										<div class="am-u-sm-2">
 											<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 												<input id="dxcsz" type="text" class="am-form-field "> <span
 													class="am-input-group-btn">
@@ -93,10 +152,11 @@
 													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
 													type="button"></button>
 										</span>
-											</div>
+										</div>
 										</div>
 										<button class="am-btn am-btn-secondary am-fr"
-												data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
+											id= "moreBtn" data-am-offcanvas="{target: '#doc-oc-demo3'}" style="float: right">更多查询</button>
+											
 									</div>
 
 							</form>
@@ -121,6 +181,7 @@
 												<th><input type="checkbox" id="check_all" /></th>
 												<th>购方企业名称</th>
 												<th>纳税人识别号</th>
+												<th>录入日期</th>
 												<th>注册地址</th>
 												<th>注册电话</th>
 												<th>开户银行</th>
@@ -381,5 +442,43 @@
 	<script src="assets/js/format.js"></script>
     <script src="assets/js/gfqymp.js"></script>
     <script src="assets/js/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        function getCurrentMonthFirst(){
+            var date=new Date();
+            date.setDate(1);
+            return date;
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(function() {
+            var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            //var $alert = $('#my-alert');
+            $("#w_lrsjq").val(formatDate(startDate));
+            $("#w_lrsjz").val(formatDate(endDate));
+            $("#s_lrsjq").val(formatDate(startDate));
+            $("#s_lrsjz").val(formatDate(endDate));
+//          alert($("#w_lrsjq").val());
+        });
+        
+        
+        $("#moreBtn").on('click', function () {
+        	var startDate = getCurrentMonthFirst();
+            var endDate = new Date();
+            $("#s_lrsjq").val(formatDate(startDate));
+            $("#s_lrsjz").val(formatDate(endDate));
+           });
+	</script>
 </body>
 </html>

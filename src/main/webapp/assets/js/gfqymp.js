@@ -13,6 +13,8 @@ $(function () {
         $xiugai: $('#xiugai'),
         $jsUpdate: $('#update'),
     };
+    
+    var loaddata = false;
     var action = {
         tableEx: null, // cache dataTable
         config: {
@@ -33,15 +35,33 @@ $(function () {
                     url: _this.config.getUrl,
                     type: 'POST',
                     data: function (d) {
-                    	d.gfmc = $("#s_gfmc").val(); // search 
-                        d.nsrsbh = $("#s_nsrsbh").val(); // search 
-                        
+                    	d.loaddata = loaddata;
+                    	//侧窗
+                    	/*d.gfmc = $("#s_gfmc").val(); // search 
+                        d.nsrsbh = $("#s_nsrsbh").val(); // search */
+                        //
                         var csm =  $('#dxcsm').val()
-                        if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
+                        //主窗
+                        if( $('#bj').val() == '2'){
+                        	d.lrsjq = $("#w_lrsjq").val();
+                            d.lrsjz = $("#w_lrsjz").val();
+                            if("gfmc"==csm){//购方名称
+                            	d.gfmc = $("#dxcsz").val();
+                            }else if("nsrsbh"==csm){//纳税人识别号
+                            	d.nsrsbh = $('#dxcsz').val()
+                            }
+                            
+                        }else{
+                        	d.lrsjq = $("#s_lrsjq").val();
+                            d.lrsjz = $("#s_lrsjz").val();
+                            d.gfmc = $("#s_gfmc").val(); // search 
+                            d.nsrsbh = $("#s_nsrsbh").val(); // search 
+                        }
+                        /*if("gfmc"==csm&&(d.gfmc==null||d.gfmc=="")){ //购方名称
                       	  d.gfmc = $('#dxcsz').val()
                       }else if("nsrsbh"==csm&&(d.nsrsbh==null||d.nsrsbh=="")){//订单号
                       	  d.nsrsbh = $('#dxcsz').val()
-                      }
+                      }*/
                     }
                 },
               "columns": [
@@ -61,6 +81,7 @@ $(function () {
 
                     {"data": "gfmc"},
                     {"data": "gfsh"},
+                    {"data": "lrsj"},
                     {"data": "gfdz"},
                     {"data": "gfdh"},
                     {"data": "gfyh"},
@@ -124,7 +145,8 @@ $(function () {
 							function(res) {
 								if (res) {
 									swal("删除成功");
-									window.location.reload(true);
+//									window.location.reload(true);
+	                             _this.tableEx.ajax.reload();
 								}
 					});
 				}
@@ -181,11 +203,13 @@ $(function () {
 			});	
 			 $('#search').click(function () {
 	             	$("#ycform").resetForm();
-	              	t.ajax.reload();
+	             	loaddata=false;
+	              	/*t.ajax.reload();*/
 	             });
 	             $('#search1').click(function () {
 	             	$("#dxcsz").val("");
-	             	t.ajax.reload();
+	             	loaddata=false;
+	             	/*t.ajax.reload();*/
 	             });
             return t;
         },
@@ -228,6 +252,7 @@ $(function () {
 						swal('更新购方信息失败: ' + data.msg);
 
 					}
+					loaddata=true;
 					_this.tableEx.ajax.reload(); // reload table
 					// data
 
@@ -260,6 +285,7 @@ $(function () {
 						swal('删除购方信息失败: ' + data.msg);
 
 					}
+					loaddata=true;
 					_this.tableEx.ajax.reload(); // reload table
 					// data
 
@@ -309,6 +335,7 @@ $(function () {
 									// loading
 									el.$modalHongchong.modal('close'); // close
 									swal(data.msg);
+									loaddata=true;
 									_this.tableEx.ajax.reload(); // reload table
 								} else if (data.repeat) {
 									swal(data.msg);
@@ -364,12 +391,76 @@ $(function () {
                 el.$modalHongchong.modal('close');
             });
         },
+        
+        //日期检验 侧窗 1
+        search_ac:function(){
+        	var _this = this;
+        	$("#search1").on('click',function (e){
+        		if((!$("#s_lrsjq").val() && $("#s_lrsjz").val())
+        		|| ($("#s_lrsjq").val() && !$("#s_lrsjz").val())){
+        			swal("Error,请选择开始和结束时间!");
+        			return false;
+        		}
+        		var dt1 = new Date($("#s_lrsjq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#s_lrsjz").val().replace(/-/g, "/"));
+                if (($("#s_lrsjq").val() && $("#s_lrsjz").val())) {// 都不为空
+                	if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                swal('开始日期大于结束日期,Error!');
+                                return false;
+                            }
+                        } else {
+                            swal('Error,选择日期不能跨月!');
+                            return false;
+                        }
+                    } else {
+                        swal('Error,请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
+                 e.preventDefault();
+                $('#bj').val('1');
+                loaddata=true;
+              	_this.tableEx.ajax.reload();
+        	});
+        	//主
+        	$("#search").on('click', function (e1) {
+                var dt1 = new Date($("#w_lrsjq").val().replace(/-/g, "/"));
+                var dt2 = new Date($("#w_lrsjz").val().replace(/-/g, "/"));
+                if (($("#w_lrsjq").val() && $("#w_lrsjz").val())) {// 都不为空
+                    if (dt1.getYear() == dt2.getYear()) {
+                        if (dt1.getMonth() == dt2.getMonth()) {
+                            if (dt1 - dt2 > 0) {
+                                swal('开始日期大于结束日期!');
+                                return false;
+                            }
+                        } else {
+                            swal('请选择同一个年月内的时间!');
+                            return false;
+                        }
+                    } else {
+                        swal('请选择同一个年月内的时间!');
+                        return false;
+                    }
+                }
+                 e1.preventDefault();
+                $('#bj').val('2');
+                loaddata=true;
+                _this.tableEx.ajax.reload();
+
+            });
+        },
+        
+        
+        
         init: function () {
             var _this = this;
             _this.tableEx = _this.dataTable(); // cache variable
         	_this.xz();
             //_this.exportAc();
             _this.modalAction(); // hidden action
+            _this.search_ac();
         }
     };
     action.init();

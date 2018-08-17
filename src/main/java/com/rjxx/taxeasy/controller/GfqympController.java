@@ -51,12 +51,12 @@ public class GfqympController extends BaseController {
 	@ResponseBody
 	public Map getGfxxList(int length, int start, int draw) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
+		String loaddata = request.getParameter("loaddata");
+		if("true".equals(loaddata)){
 		Pagination pagination = new Pagination();
 		pagination.setPageNo(start / length + 1);
 		pagination.setPageSize(length);
 		String gsdm = getGsdm();
-
-
 		List<Integer> xfs = new ArrayList<>();
 		if (!getXfList().isEmpty()) {
 			for (Xf xf : getXfList()) {
@@ -66,19 +66,33 @@ public class GfqympController extends BaseController {
 		if (xfs.size() > 0) {
 			pagination.addParam("xfs", xfs);
 		}
-		String gfmc=request.getParameter("gfmc");
+		String gfmc=request.getParameter("gfmc").trim();
 		String nsrsbh=request.getParameter("nsrsbh");
+		String lrsjq = request.getParameter("lrsjq");
+		String lrsjz = request.getParameter("lrsjz");
+
 		pagination.addParam("gfmc", gfmc);
 		pagination.addParam("nsrsbh", nsrsbh);
 		pagination.addParam("gsdm", gsdm);
+		pagination.addParam("lrsjq", lrsjq);
+		pagination.addParam("lrsjz", lrsjz);
 		// pagination.addParam("fpczlxdm", "12");
-		List<Gfxx> list = gfxxservice.findByPage(pagination);
-		int total = pagination.getTotalRecord();
-		result.put("recordsTotal", total);
-		result.put("recordsFiltered", total);
-		result.put("draw", draw);
-		result.put("data", list);
+			List<Gfxx> list = gfxxservice.findByPage(pagination);
+			int total = pagination.getTotalRecord();
+			result.put("recordsTotal", total);
+			result.put("recordsFiltered", total);
+			result.put("draw", draw);
+			result.put("data", list);
+
+		}else{
+			result.put("recordsTotal",0);
+			result.put("recordsFiltered", 0);
+			result.put("draw", draw);
+			result.put("data", new ArrayList<>());
+
+		}
 		return result;
+
 	}
 
 	/**
@@ -241,7 +255,9 @@ public class GfqympController extends BaseController {
 			ChinaInitial chinain = new ChinaInitial();
 			String mcszmsx = chinain.getPYIndexStr(gfmc, false);//第二个参数代表是否大小写，ture大写，false小写。
 			Gfxx gfxx = new Gfxx();
-			gfxx.setId(Integer.valueOf(id));
+			//
+			gfxx = gfxxservice.findOne(Integer.parseInt(id));
+//			gfxx.setId(Integer.valueOf(id));
 			gfxx.setGfsh(gfsh);
 			gfxx.setGfmc(gfmc);
 			gfxx.setGfdz(gfdz);
@@ -251,7 +267,7 @@ public class GfqympController extends BaseController {
 			gfxx.setMcszmsx(mcszmsx);
 			gfxx.setYxbz("1");
 			gfxx.setGsdm(getGsdm());
-			//gfxx.setLrsj(new Date());
+//			gfxx.setLrsj(new Date());
 			gfxx.setLrry(1);
 			gfxx.setXgsj(new Date());
 			gfxx.setXgry(1);
