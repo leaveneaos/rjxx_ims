@@ -1,10 +1,8 @@
 package com.rjxx.taxeasy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.rjxx.comm.mybatis.Pagination;
-import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
-import com.rjxx.taxeasy.bizcomm.utils.FpclService;
-import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
-import com.rjxx.taxeasy.bizcomm.utils.SkService;
+import com.rjxx.taxeasy.bizcomm.utils.*;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
 import com.rjxx.taxeasy.domains.*;
 import com.rjxx.taxeasy.filter.SystemControllerLog;
@@ -13,10 +11,7 @@ import com.rjxx.taxeasy.vo.JyspmxVo;
 import com.rjxx.taxeasy.vo.Spvo;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.time.TimeUtil;
-import com.rjxx.utils.ChinaNumber;
-import com.rjxx.utils.ExcelUtil;
-import com.rjxx.utils.NumberUtil;
-import com.rjxx.utils.Tools;
+import com.rjxx.utils.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -90,6 +85,10 @@ public class KpController extends BaseController {
 	KplsService kplsService;
 	@Autowired
 	private SkpService skpService;
+	@Autowired
+	private JyxxsqService jyxxsqService;
+	@Autowired
+	private JymxsqService jymxsqService;
 
 	/**
 	 * 页面初始化
@@ -1194,6 +1193,7 @@ public class KpController extends BaseController {
 		String[] djhs = djhArr.split(",");
 		Date xgsj = new Date();
 		List djhList = new ArrayList();
+		boolean isb= false;
 		for(int m=0;m<djhs.length;m++){
 			Map params = new HashMap();
 			params.put("clztdm","40");
@@ -1205,25 +1205,166 @@ public class KpController extends BaseController {
 				djhList.add(djhs[m]);
 			}
 		}
+		List dataList = new ArrayList();
+		List kplshList = new ArrayList();
 		for (int i = 0; i < djhList.size(); i++) {
-			boolean first=false;
-			 if(i==0){
-				 first=true;
-			 }
-             boolean flag = fpclService.kpcl1(Integer.valueOf(djhList.get(i).toString()),dybz,first);
-			if (!flag) {
-				result.put("success", false);
-				result.put("msg", "第"+(i+1)+"条流水申请开具失败");
-				return result;
+			Jyls jyls1 = jylsService.findOne(Integer.valueOf(djhList.get(i).toString()));
+			Skp skp = skpService.findOne(jyls1.getSkpid());
+			Cszb cszb=cszbService.getSpbmbbh(getGsdm(),jyls1.getXfid(),jyls1.getSkpid(),"kpfs");
+			//服务器开具纸票--封装xml
+			if(cszb!=null&&"06".equals(cszb.getCsz())) {
+				isb=true;
+				Jyspmx jyspmx = new Jyspmx();
+				jyspmx.setDjh(Integer.valueOf(djhList.get(i).toString()));
+				List<Jyspmx> list = jyspmxService.findAllByParams(jyspmx);
+				//保存开票流水
+				Kpls kpls = fpclService.saveKp(jyls1, list, dybz);
+				String xml= GetXmlUtil.getFpkjzpXml(skp,kpls.getFpzldm(), "0","00" ,list,kpls);
+				if(com.rjxx.utils.StringUtils.isBlank(xml)){
+					result.put("success", false);
+					result.put("msg", "第"+(i+1)+"条流水申请开具失败");
+					return result;
+				}
+//				String xml ="<?xml version=\"1.0\" encoding=\"gbk\"?>\n" +
+//						"<business id=\"10008\" comment=\"发票开具\">\n" +
+//						"    <body yylxdm=\"1\">\n" +
+//						"    <kpzdbs>wdgctz001</kpzdbs>\n" +
+//						"    <fplxdm>007</fplxdm>\n" +
+//						"    <fpqqlsh>47,165</fpqqlsh>\n" +
+//						"    <kplx>007</kplx>\n" +
+//						"    <tspz>00</tspz>\n" +
+//						"    <xhdwsbh>!91310112MA1GB58AXT</xhdwsbh>\n" +
+//						"    <xhdwmc>上海颛桥万达广场投资有限公司</xhdwmc>\n" +
+//						"    <xhdwdzdh>上海市闵行区都市路2700号 021-33887851</xhdwdzdh>\n" +
+//						"    <xhdwyhzh>中国建设银行股份有限公司上海贵都路支行 31050110253700000214 </xhdwyhzh>\n" +
+//						"    <ghdwsbh></ghdwsbh>\n" +
+//						"    <ghdwmc><![CDATA[个人]]></ghdwmc>\n" +
+//						"    <ghdwdzdh> </ghdwdzdh>\n" +
+//						"    <ghdwyhzh> </ghdwyhzh>\n" +
+//						"    <qdbz>0</qdbz>\n" +
+//						"    <zsfs>0</zsfs>\n" +
+//						"    <fyxm count=\"1\">\n" +
+//						"        <group xh=\"1\">\n" +
+//						"            <fphxz>0</fphxz>\n" +
+//						"            <spmc><![CDATA[电费]]></spmc>\n" +
+//						"            <ggxh></ggxh>\n" +
+//						"            <dw></dw>\n" +
+//						"            <spsl></spsl>\n" +
+//						"            <dj></dj>\n" +
+//						"            <je>9.48</je>\n" +
+//						"            <sl>0.16</sl>\n" +
+//						"            <se>1.52</se>\n" +
+//						"            <hsbz>0</hsbz>\n" +
+//						"            <spbm>1100101020200000000</spbm>\n" +
+//						"            <yhzcbs>0</yhzcbs>\n" +
+//						"            <lslbs></lslbs>\n" +
+//						"            <zzstsgl></zzstsgl>\n" +
+//						"        </group>\n" +
+//						"    </fyxm>\n" +
+//						"    <hjje>9.48</hjje>\n" +
+//						"    <hjse>1.52</hjse>\n" +
+//						"    <jshj>11</jshj>\n" +
+//						"    <kce></kce>\n" +
+//						"    <bz></bz>\n" +
+//						"    <skr>兰小翠</skr>\n" +
+//						"    <fhr>孟婵</fhr>\n" +
+//						"    <kpr>兰小翠</kpr>\n" +
+//						"    <yfpdm></yfpdm>\n" +
+//						"    <yfphm></yfphm>\n" +
+//						"    </body>\n" +
+//						"</business>\n";
+				System.out.println(xml);
+				dataList.add(xml);
+				kplshList.add(kpls.getKplsh());
+			}else {
+				boolean first=false;
+				 if(i==0){
+					 first=true;
+				 }
+				 boolean flag = fpclService.kpcl1(Integer.valueOf(djhList.get(i).toString()),dybz,first);
+				if (!flag) {
+					result.put("success", false);
+					result.put("msg", "第"+(i+1)+"条流水申请开具失败");
+					return result;
+				}
 			}
+		}
+		if(!dataList.isEmpty()){
+			result.put("xmlList", dataList);
+			result.put("kplshList", kplshList);
 		}
 		cljlService.saveYhcljl(getYhid(), "申请开具发票");
 		result.put("success", true);
 		result.put("msg", "申请开票成功！");
+		result.put("isb", isb);
+		System.out.println(JSON.toJSONString(result));
 		return result;
 	}
 
-	
+
+	@RequestMapping(value = "/saveKpls1",method = RequestMethod.POST)
+	@ResponseBody
+	public Map saveKpls(String returncode,String returnmsg,String kplsh,
+						String fpdm,String fphm,String kprq,String skm,
+						String jym ,String ewm){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			if(com.rjxx.utils.StringUtils.isBlank(kplsh)){
+                result.put("success", false);
+                return result;
+            }
+			Kpls kpls = kplsService.findOne(Integer.valueOf(kplsh));
+			if(kpls==null){
+				result.put("success", false);
+				return result;
+			}
+			if("0".equals(returncode)){
+                kpls.setFpdm(fpdm);
+                kpls.setFphm(fphm);
+                kpls.setFpztdm("00");
+                kpls.setMwq(skm);
+                kpls.setErrorReason(null);
+                kpls.setKprq(TimeUtil.getSysDateInDate(kprq, null));
+                kpls.setXgsj(new Date());
+                kpls.setXgry(1);
+                kpls.setFpEwm(ewm);
+                kpls.setJym(jym);
+                kplsService.save(kpls);
+                Jyls jyls = jylsService.findOne(kpls.getDjh());
+                jyls.setClztdm("91");
+                jylsService.save(jyls);
+                //封装打印报文
+				Skp skp = skpService.findOne(kpls.getSkpid());
+				String xml= GetXmlUtil.getFpdyXml(skp.getKpdip(),kpls.getFpzldm(), "0",kpls);
+				result.put("success", true);
+				result.put("xml",xml);
+				return result;
+            }else {
+                kpls.setFpztdm("05");
+                if(returnmsg.equals("00F103:Socket连接有误")){
+                    kpls.setFpztdm("04");
+                }
+                kpls.setErrorReason(returnmsg);
+                kpls.setXgsj(new Date());
+                kpls.setXgry(1);
+                kplsService.save(kpls);
+                Jyls jyls = jylsService.findOne(kpls.getDjh());
+                jyls.setClztdm("92");
+                jylsService.save(jyls);
+				result.put("success", false);
+            }
+			//result.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", false);
+			return result;
+		}
+		return result;
+	}
+
+
+
+
 	@RequestMapping(value = "/doKp1")
 	@ResponseBody
 	@SystemControllerLog(description = "发票开具",key = "djhArr")
@@ -1614,12 +1755,6 @@ public class KpController extends BaseController {
 		Cszb cszb=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"kpfs");
 		//税控服务器获取
 		if(cszb!=null&&"06".equals(cszb.getCsz())){
-			if(StringUtils.isBlank(skp.getKpdip())){
-				result.put("msg", "获取负票号码失败，没有开票终端标识");
-				result.put("success", true);
-				result.put("fwqzp",false);
-				return result;
-			}
 			result.put("kpzdbs",skp.getKpdip());
 			result.put("success", true);
 			result.put("fwqzp",true);

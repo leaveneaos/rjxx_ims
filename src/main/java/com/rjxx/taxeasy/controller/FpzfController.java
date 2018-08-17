@@ -1,29 +1,22 @@
 package com.rjxx.taxeasy.controller;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
+import com.rjxx.time.TimeUtil;
+import com.rjxx.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.rjxx.taxeasy.bizcomm.utils.FpzfService;
 import com.rjxx.comm.mybatis.Pagination;
 import com.rjxx.taxeasy.bizcomm.utils.DataOperte;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Jyspmx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.GsxxService;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.JyspmxService;
-import com.rjxx.taxeasy.service.KplsService;
-import com.rjxx.taxeasy.service.KpspmxService;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Kpspmxvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -48,7 +41,7 @@ public class FpzfController extends BaseController{
 	private DataOperte dc;
 
 	@Autowired
-	private GsxxService gsxxservice;
+	private CszbService cszbService;
 	@RequestMapping
 	public String index() {
 		request.setAttribute("xfList", getXfList());
@@ -472,6 +465,22 @@ public class FpzfController extends BaseController{
 	@ResponseBody
 	public Map<String, Object> update(Integer kplsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
+		boolean zfb = false;
+			Kpls kpls = kplsService.findOne(kplsh);
+			Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), kpls.getSkpid(), "kpfs");
+			if(cszb!=null&& "06".equals(cszb.getCsz())){
+				zfb=true;
+				String zfcl1 = FpzfService.zfcl1(kplsh);
+				if(StringUtils.isBlank(zfcl1)){
+					result.put("success", false);
+					result.put("msg", "作废失败!");
+					return result;
+				}
+				result.put("success", true);
+				result.put("zfxml", zfcl1);
+				result.put("zfb",zfb);
+				return result;
+			}
 			InvoiceResponse flag = FpzfService.zfcl(kplsh, getYhid(), getGsdm());
 			if (flag.getReturnCode().equals("0000")) {
 				result.put("success", true);
@@ -480,8 +489,44 @@ public class FpzfController extends BaseController{
 				result.put("success", true);
 				result.put("msg", "作废请求失败!"+flag.getReturnMessage());
 			}
+		result.put("zfb",zfb);
 		return result;
 	}
+
+	@RequestMapping(value = "/zfKpls1",method = RequestMethod.POST)
+	@ResponseBody
+	public Map saveKpls(String returncode,String returnmsg,String kplsh,
+						String fpdm,String fphm,String zfrq){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			if(StringUtils.isBlank(kplsh)){
+				result.put("success", false);
+				return result;
+			}
+			Kpls kpls = kplsService.findOne(Integer.valueOf(kplsh));
+			if(kpls==null){
+				result.put("success", false);
+				return result;
+			}
+			if("0".equals(returncode)){
+				kpls.setZfrq(TimeUtil.getSysDateInDate(zfrq, null));
+				kpls.setFpczlxdm("14");
+				kpls.setFpztdm("08");
+				kplsService.save(kpls);
+				result.put("success", true);
+				return result;
+			}else {
+				result.put("success", false);
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", false);
+			return result;
+		}
+	}
+
+
 	@RequestMapping(value = "/kpyl")
 	public String kpyl(String kpsqhs) throws Exception {
 		Map<String, Object> result = new HashMap<>();

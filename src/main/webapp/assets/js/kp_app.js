@@ -618,11 +618,92 @@ $(function() {
                     data:{ "djhArr" : djhArr.join(","),"dybz":"0"},
                     success: function (data) {
                         if (data.success) {
-                            $('#kp_kp').removeAttr("disabled"); 
-                            $('#kp_kpdy').removeAttr("disabled"); 
-                            $('#kp_del').removeAttr("disabled");  
-                            swal("申请开票成功");
-                            jyls_table.ajax.reload();
+                            if(data.isb){
+                                var xml = data.xmlList;
+                                //var msg="";
+                                //参数设置
+                                var b= cssz();
+                                if(b){
+                                    for(var i =0;i<xml.length;i++){
+                                        //开具纸票报文
+                                        var fpInfo = xml[i];
+                                        console.log("开具报文"+fpInfo);
+                                        var kplsh = data.kplshList[i];
+                                        //alert("开票流水号"+kplsh);
+                                        var  ret = sk.Operate(fpInfo);
+                                        //alert("开具返回"+ret);
+                                        var xmlDoc2 = $.parseXML(ret);
+                                        //解析返回
+                                        var returncode ,returnmsg,fpdm,fphm,kprq,jym,skm,ewm;
+                                        returncode= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
+                                        returnmsg= xmlDoc2.getElementsByTagName('returnmsg')[0].textContent;
+                                        if(returncode!=null && returncode==0){
+                                            fpdm= xmlDoc2.getElementsByTagName('fpdm')[0].textContent;
+                                            fphm= xmlDoc2.getElementsByTagName('fphm')[0].textContent;
+                                            kprq= xmlDoc2.getElementsByTagName('kprq')[0].textContent;
+                                            skm= xmlDoc2.getElementsByTagName('skm')[0].textContent;
+                                            jym= xmlDoc2.getElementsByTagName('jym')[0].textContent;
+                                            ewm= xmlDoc2.getElementsByTagName('ewm')[0].textContent;
+                                            //更新发票代码、发票号码
+                                            $.ajax({
+                                                url: "kp/saveKpls1",
+                                                type:"POST",
+                                                async:false,
+                                                data:{
+                                                    "returncode":returncode,
+                                                    "returnmsg":returnmsg,
+                                                    "kplsh":kplsh,
+                                                    "fpdm":fpdm,
+                                                    "fphm":fphm,
+                                                    "kprq":kprq,
+                                                    "jym":jym,
+                                                    "skm":skm,
+                                                    "ewm":ewm
+                                                },
+                                                success: function (data) {
+                                                    if(!data.success){
+                                                        swal("第"+(i+1)+"行，开票失败");
+                                                        return;
+                                                    }
+                                                    //打印
+                                                    //var dyInfo="<?xml version='1.0' encoding='gbk'?> <business id='20004' comment='发票打印'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm> <fpdm>"+fpdms+"</fpdm> <fphm>"+fphms+"</fphm> <dylx>0</dylx> <dyfs>2</dyfs> <printername>DASCOM DS-670</printername></body></business>";
+                                                    if(data.xml!=null){
+                                                        var dyInfo = data.xml;
+                                                        // alert("打印参数"+dyInfo);
+                                                        var  dyrets = sk.Operate(dyInfo);
+                                                        // alert("打印返回"+dyrets);
+                                                        var dyreturncodes ,dyreturnmsgs;
+                                                        //打印返回
+                                                        var xmlDoc3 = $.parseXML(dyrets);
+                                                        dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+                                                        dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+                                                        if(dyreturncodes==null||dyreturncodes!=0){
+                                                            swal("第"+(i+1)+"开票成功，打印失败,失败原因"+dyreturnmsgs);
+                                                            return;
+                                                        }
+                                                    }
+
+                                                }
+                                            })
+                                        }else{
+                                            swal("第"+(i+1)+"开票失败,失败原因"+returnmsg);
+                                            return;
+                                        }
+                                    }
+                                        $('#kp_kp').removeAttr("disabled");
+                                        $('#kp_kpdy').removeAttr("disabled");
+                                        $('#kp_del').removeAttr("disabled");
+                                        swal("开票成功");
+                                        jyls_table.ajax.reload();
+                                }
+                            }else {
+                                //alert("222")
+                                $('#kp_kp').removeAttr("disabled");
+                                $('#kp_kpdy').removeAttr("disabled");
+                                $('#kp_del').removeAttr("disabled");
+                                swal("申请开票成功");
+                                jyls_table.ajax.reload();
+                            }
                         } else {
                             $('#kp_kp').removeAttr("disabled"); 
                             $('#kp_kpdy').removeAttr("disabled"); 
@@ -682,21 +763,80 @@ $(function() {
                             data:{ "fpzldm" :fpzldm,"skpid":skpid }, 
                             success: function (data) {
                                 if (data.success) {
-                                    $("#doc-modal-fphm").modal("open");
-                                    if(fpzldm=="12"){
-                                        $("#fplxmc").val("电子发票(增普)");
+                                    //服务器纸票
+                                    if(data.fwqzp){
+                                        var b= cssz();
+                                        if(b){
+                                            if(data.kpzdbs==null || data.kpzdbs==""){
+                                                swal("获取发票号码失败，没有开票终端标识");
+                                                return;
+                                            }
+                                            // var sInputInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"10004\" comment=\"查询当前未开票号\">\r\n<body yylxdm=\"1\">\r\n<kpzdbs>hzbwtest</kpzdbs>\r\n<fplxdm>"+data.fplxdm+"</fplxdm>\r\n</body>\r\n</business>\r\n";
+                                            var sInputInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"10004\" comment=\"查询当前未开票号\">\r\n<body yylxdm=\"1\">\r\n<kpzdbs>"+data.kpzdbs+"</kpzdbs>\r\n<fplxdm>"+data.fplxdm+"</fplxdm>\r\n</body>\r\n</business>\r\n";
+                                            try
+                                            {
+                                                var  ret = sk.Operate(sInputInfo);
+                                                // var ret = "<?xml version='1.0' encoding='UTF-8' ?> <business id='10004' comment='查询当前未开票号'> <body yylxdm='1'> <returncode>0</returncode> <returnmsg>返回信息</returnmsg> <returndata> <dqfpdm>当前未开具发票代码</dqfpdm> <dqfphm>当前未开具发票号码</dqfphm> </returndata> </body> </business>";
+                                                var xmlDoc = $.parseXML(ret);
+                                                var returncode= xmlDoc.getElementsByTagName('returncode')[0].textContent;
+                                                var returnmsg= xmlDoc.getElementsByTagName('returnmsg')[0].textContent;
+                                                if(returncode!=null && returncode==0){
+                                                    var dqfpdm= xmlDoc.getElementsByTagName('dqfpdm')[0].textContent;
+                                                    var dqfphm= xmlDoc.getElementsByTagName('dqfphm')[0].textContent;
+                                                    $("#doc-modal-fphm").modal("open");
+                                                    if(fpzldm=="12"){
+                                                        $("#fplxmc").val("电子发票(增普)");
+                                                    }
+                                                    if(fpzldm=="02"){
+                                                        $("#fplxmc").val("增值税普通发票");
+                                                    }
+                                                    if(fpzldm=="01"){
+                                                        $("#fplxmc").val("增值税专用发票");
+                                                    }
+                                                    $("#fpdm2").val(dqfpdm);
+                                                    $("#fphm2").val(dqfphm);
+                                                    $('#kp_kp').removeAttr("disabled");
+                                                    $('#kp_kpdy').removeAttr("disabled");
+                                                    $('#kp_del').removeAttr("disabled");
+                                                }else {
+                                                    swal(returnmsg);
+                                                }
+                                            } catch(e) {
+                                                alert(e.message + ",errno:" + e.number);
+                                            }
+                                        }
+                                    }else {
+                                        $("#doc-modal-fphm").modal("open");
+                                        if(fpzldm=="12"){
+                                            $("#fplxmc").val("电子发票(增普)");
+                                        }
+                                        if(fpzldm=="02"){
+                                            $("#fplxmc").val("增值税普通发票");
+                                        }
+                                        if(fpzldm=="01"){
+                                            $("#fplxmc").val("增值税专用发票");
+                                        }
+                                        $("#fpdm2").val(data.fpdm);
+                                        $("#fphm2").val(data.fphm);
+                                        $('#kp_kp').removeAttr("disabled");
+                                        $('#kp_kpdy').removeAttr("disabled");
+                                        $('#kp_del').removeAttr("disabled");
                                     }
-                                    if(fpzldm=="02"){
-                                        $("#fplxmc").val("增值税普通发票");
-                                    }
-                                    if(fpzldm=="01"){
-                                        $("#fplxmc").val("增值税专用发票");
-                                    }
-                                    $("#fpdm2").val(data.fpdm);
-                                    $("#fphm2").val(data.fphm);
-                                    $('#kp_kp').removeAttr("disabled");
-                                    $('#kp_kpdy').removeAttr("disabled");
-                                    $('#kp_del').removeAttr("disabled");
+                                    // $("#doc-modal-fphm").modal("open");
+                                    // if(fpzldm=="12"){
+                                    //     $("#fplxmc").val("电子发票(增普)");
+                                    // }
+                                    // if(fpzldm=="02"){
+                                    //     $("#fplxmc").val("增值税普通发票");
+                                    // }
+                                    // if(fpzldm=="01"){
+                                    //     $("#fplxmc").val("增值税专用发票");
+                                    // }
+                                    // $("#fpdm2").val(data.fpdm);
+                                    // $("#fphm2").val(data.fphm);
+                                    // $('#kp_kp').removeAttr("disabled");
+                                    // $('#kp_kpdy').removeAttr("disabled");
+                                    // $('#kp_del').removeAttr("disabled");
                                 } else {
                                     swal({
                                         title: data.msg+"您是否离线开票！",

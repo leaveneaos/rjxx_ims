@@ -1,0 +1,135 @@
+
+
+<!doctype html>
+<html lang="zh">
+<OBJECT ID=sk CLASSID="clsid:003BD8F2-A6C3-48EF-9B72-ECFD8FC4D49F"
+		codebase="NISEC_SKSCX.ocx#version=1,0,0,1">
+</OBJECT>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>我是demo</title>
+
+</head>
+<body>
+<!--Test -->
+<div id="test">
+	<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+					<div style="max-width: 800px; margin: 0 auto; margin-bottom: 50px;">
+						<button id="Button1" onclick="ss()"
+								class="mui-btn mui-btn-primary mui-btn-block"
+								style="width: 90%; margin: 0 auto;">提&nbsp;&nbsp;交</button>
+					</div>
+	</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+
+    var key ="f400dd0a3f4aab703efa235d5dc99258";
+    var appId="RJ153d922939ee";
+    //var data={"drawer":"王子殿下","invType":"12","order":{"buyer":{"customerType":"0","isSend":"1","name":"wupeng"},"chargeTaxWay":"0","invoiceList":"0","invoiceSfdy":"0","invoiceSplit":"0","orderDate":"2018-07-17 13:54:57","orderDetails":[{"amount":"55.55","mxTotalAmount":"55.55","productCode":"1050105040100000000","productName":"实木地板","rowType":"0","taxRate":0.05}],"orderNo":"308","taxMark":"1","totalAmount":"55.55"},"payee":"王子","reviewer":"王子","seller":{"address":"浙江省杭州市西湖区|塘苗路18","bank":"中国建设银行股份有限公司杭州华星支行","bankAcc":"6222801541111158786","identifier":"500102010003643","name":"上海百旺测试3643","telephoneNo":"15888888888"},"serialNumber":"308"};
+	//var signData = "data={'drawer':'王子殿下','invType':'12','order':{'buyer': {'customerType': '0','isSend': '1','name': 'wupeng'},'chargeTaxWay': '0','invoiceList': '0','invoiceSfdy': '0','invoiceSplit': '0','orderDate': '2018-07-17 13:54:57','orderDetails': [{'amount': '55.55','mxTotalAmount': '55.55','productCode': '1050105040100000000','productName': '实木地板','rowType': '0','taxRate': 0.05}],'orderNo': '308','taxMark': '1','totalAmount': '55.55'},'payee': '王子','reviewer': '王子','seller': {'address': '浙江省杭州市西湖区|塘苗路18','bank': '中国建设银行股份有限公司杭州华星支行','bankAcc': '6222801541111158786','identifier': '500102010003643','name': '上海百旺测试3643','telephoneNo': '15888888888'},'serialNumber': '308'}&key="+key;
+	//alert(signData);
+	var sign="0a38c6120d02954f5e14e6a938bd5e21";
+    var postdata ={'appId':appId,'clientNo':'hytz_01','data':{'drawer':'王子殿下','invType':'12','order':{'buyer': {'customerType': '0','isSend': '1','name': 'wupeng','email': '913015635@qq.com，zhangsongqiang@datarj.com'},'chargeTaxWay': '0','invoiceList': '0','invoiceSfdy': '0','invoiceSplit': '0','orderDate': '2018-07-17 13:54:57','orderDetails': [{'amount': '55.55','mxTotalAmount': '55.55','productCode': '1050105040100000000','productName': '实木地板','rowType': '0','taxRate': 0.05}],'orderNo': '308','taxMark': '1','totalAmount': '55.55'},'payee': '王子','reviewer': '王子','seller': {'address': '浙江省杭州市西湖区|塘苗路18','bank': '中国建设银行股份有限公司杭州华星支行','bankAcc': '6222801541111158786','identifier': '500102010003643','name': '上海百旺测试3643','telephoneNo': '15888888888'},'serialNumber': '30812'},'reqType': '01','sign': sign,'taxNo': '500102010003643'};
+//    function demo() {
+//        $.ajax({
+//            url: "http://test.datarj.com/webService/kptService",
+//            type : 'post',
+//            dataType: "json",
+//            contentType: "application/json;charset=utf-8",
+//            xhrFields:{
+//                withCredentials:true
+//            },
+//            crossDomain:true,
+//            data: JSON.stringify(postdata),
+//            success: function (data) {
+//               console.log(data);
+//               alert("返回："+data.msg);
+//            }
+//        });
+//    }
+					var fpdm;
+					var fphm;
+					function ss() {
+                        var b= cssz();
+                        if(b){
+                            var kpzdbs ="wdgctz001";
+                            var  fplxdm ="007";
+                            var sInputInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"10004\" comment=\"查询当前未开票号\">\r\n<body yylxdm=\"1\">\r\n<kpzdbs>"+kpzdbs+"</kpzdbs>\r\n<fplxdm>"+fplxdm+"</fplxdm>\r\n</body>\r\n</business>\r\n";
+                            //var sInputInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"10004\" comment=\"查询当前未开票号\">\r\n<body yylxdm=\"1\">\r\n<kpzdbs>"+data.kpzdbs+"</kpzdbs>\r\n<fplxdm>"+data.fplxdm+"</fplxdm>\r\n</body>\r\n</business>\r\n";
+                            alert("获取发票代码号码传入参数"+sInputInfo);
+                            try
+                            {
+                                var  ret = sk.Operate(sInputInfo);
+                                //var ret = "<?xml version='1.0' encoding='UTF-8' ?> <business id='10004' comment='查询当前未开票号'> <body yylxdm='1'> <returncode>0</returncode> <returnmsg>返回信息</returnmsg> <returndata> <dqfpdm>当前未开具发票代码</dqfpdm> <dqfphm>当前未开具发票号码</dqfphm> </returndata> </body> </business>";
+                                var xmlDoc = $.parseXML(ret);
+                                var returncode= xmlDoc.getElementsByTagName('returncode')[0].textContent;
+                                var returnmsg= xmlDoc.getElementsByTagName('returnmsg')[0].textContent;
+                                if(returncode!=null && returncode==0){
+                                    var dqfpdm= xmlDoc.getElementsByTagName('dqfpdm')[0].textContent;
+                                    var dqfphm= xmlDoc.getElementsByTagName('dqfphm')[0].textContent;
+                                    fpdm = dqfpdm;
+                                    fphm=dqfphm;
+                                   // var fp ="<?xml version='1.0' encoding='gbk'?> <business id='10008' comment='发票开具'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>004</fplxdm> <fpqqlsh>47,172</fpqqlsh> <kplx>0</kplx> <tspz>00</tspz> <xhdwsbh>91310112MA1GB58AXT</xhdwsbh> <xhdwmc>上海颛桥万达广场投资有限公司</xhdwmc> <xhdwdzdh>上海市闵行区都市路2700号 021-33887851</xhdwdzdh> <xhdwyhzh>中国建设银行股份有限公司上海贵都路支行 31050110253700000214 </xhdwyhzh> <ghdwsbh>91310112312480621D</ghdwsbh> <ghdwmc><![CDATA[上海容津信息技术有限公司]]></ghdwmc> <ghdwdzdh>上海市闵行区虹梅南路 021-55571833 </ghdwdzdh> <ghdwyhzh>中国建设银行上海南方商城支行 31001658700052520325</ghdwyhzh> <qdbz>0</qdbz> <zsfs>0</zsfs> <fyxm count='1'> <group xh='1'> <fphxz>0</fphxz> <spmc><![CDATA[电费]]></spmc> <spsm></spsm> <ggxh></ggxh> <dw></dw> <spsl></spsl> <dj></dj> <je>15.52</je> <sl>0.16</sl> <se>2.48</se> <hsbz>0</hsbz> <spbm>1100101020200000000</spbm> <zxbm></zxbm> <yhzcbs>0</yhzcbs> <lslbs></lslbs> <zzstsgl></zzstsgl> </group> </fyxm> <hjje>15.52</hjje> <hjse>2.48</hjse> <jshj>18</jshj> <kce></kce> <bz></bz> <skr>兰小翠</skr> <fhr>孟婵</fhr> <kpr>兰小翠</kpr> <tzdbh></tzdbh> <yfpdm></yfpdm> <yfphm></yfphm> </body></business>";
+                                    var fp ="<?xml version='1.0' encoding='gbk'?> <business id='10008' comment='发票开具'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm> <fpqqlsh>47,172</fpqqlsh> <kplx>0</kplx> <tspz>00</tspz> <xhdwsbh>91310112MA1GB58AXT</xhdwsbh> <xhdwmc>上海颛桥万达广场投资有限公司</xhdwmc> <xhdwdzdh>上海市闵行区都市路2700号 021-33887851</xhdwdzdh> <xhdwyhzh>中国建设银行股份有限公司上海贵都路支行 31050110253700000214 </xhdwyhzh> <ghdwsbh></ghdwsbh> <ghdwmc><![CDATA[个人]]></ghdwmc> <ghdwdzdh></ghdwdzdh> <ghdwyhzh></ghdwyhzh> <qdbz>0</qdbz> <zsfs>0</zsfs> <fyxm count='1'> <group xh='1'> <fphxz>0</fphxz> <spmc><![CDATA[电费]]></spmc> <spsm></spsm> <ggxh></ggxh> <dw></dw> <spsl></spsl> <dj></dj> <je>15.52</je> <sl>0.16</sl> <se>2.48</se> <hsbz>0</hsbz> <spbm>1100101020200000000</spbm> <zxbm></zxbm> <yhzcbs>0</yhzcbs> <lslbs></lslbs> <zzstsgl></zzstsgl> </group> </fyxm> <hjje>15.52</hjje> <hjse>2.48</hjse> <jshj>18</jshj> <kce></kce> <bz></bz> <skr>兰小翠</skr> <fhr>孟婵</fhr> <kpr>兰小翠</kpr> <tzdbh></tzdbh> <yfpdm></yfpdm> <yfphm></yfphm> </body></business>";
+                                    alert("开票传入参数"+fp);
+                                    var  rets = sk.Operate(fp);
+                                    alert("开票返回"+rets);
+                                    var xmlDoc2 = $.parseXML(rets);
+                                    var returncodes ,returnmsgs,fpdms,fphms,kprqs,jyms,skms,ewms;
+                                    returncodes= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
+                                    returnmsg= xmlDoc2.getElementsByTagName('returnmsg')[0].textContent;
+                                    if(returncodes!=null && returncodes==0){
+                                        fpdms= xmlDoc2.getElementsByTagName('fpdm')[0].textContent;
+                                        fphms= xmlDoc2.getElementsByTagName('fphm')[0].textContent;
+                                        kprqs= xmlDoc2.getElementsByTagName('kprq')[0].textContent;
+                                        skms= xmlDoc2.getElementsByTagName('skm')[0].textContent;
+                                        jyms= xmlDoc2.getElementsByTagName('jym')[0].textContent;
+                                        ewms= xmlDoc2.getElementsByTagName('ewm')[0].textContent;
+                                        var dy="<?xml version='1.0' encoding='gbk'?> <business id='20004' comment='发票打印'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm> <fpdm>"+fpdms+"</fpdm> <fphm>"+fphms+"</fphm> <dylx>0</dylx> <dyfs>2</dyfs> <printername>DASCOM DS-670</printername></body></business>";
+                                        var  dyrets = sk.Operate(dy);
+                                        var dyreturncodes ,dyreturnmsgs
+                                        var xmlDoc3 = $.parseXML(dyrets);
+                                        dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+                                        dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+                                        alert("打印返回"+dyrets);
+                                    }
+                                }else {
+                                    alert(returnmsg);
+                                }
+                            } catch(e) {
+                                alert(e.message + ",errno:" + e.number);
+                            }
+                        }
+                    };
+
+    //税控服务器开具纸票之前，先调用参数设置
+    function cssz() {
+        var servletip ="180.153.192.171";
+        var servletport ="18080";
+        var keypwd ="88888888";
+        var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";
+		alert(csInfo);
+        try
+        {
+            var ret = sk.Operate(csInfo);
+            alert(ret);
+            var xmlDoc = $.parseXML(ret);
+            var returncode= xmlDoc.getElementsByTagName('returncode')[0].textContent;
+            var returnmsg= xmlDoc.getElementsByTagName('returnmsg')[0].textContent;
+            if(returncode !=null && returncode !="0"){
+                alert(returnmsg);
+                return false;
+            }
+        }catch(e) {
+            alert(e.message + ",errno:" + e.number);
+            return false;
+        }
+        return true;
+    };
+</script>
+</body>
+</html>
