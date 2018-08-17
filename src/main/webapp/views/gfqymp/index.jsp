@@ -68,7 +68,7 @@
 									
 									<div class="am-offcanvas-content" style="margin-top: 5px;">
 										<div class="am-form-group">
-											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期</label>
+											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期始</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
 												<input type="text" id="s_lrsjq" name="s_lrsjq"  class="am-form-field"
@@ -84,7 +84,7 @@
 
 									<div class="am-offcanvas-content" style="margin-top: 5px;">
 										<div class="am-form-group">
-											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期</label>
+											<label for="s_ddh" class="am-u-sm-4 am-form-label">录入日期止</label>
 											<div class="am-input-group am-datepicker-date am-u-sm-8"
 												data-am-datepicker="{format: 'yyyy-mm-dd'}">
 												<input type="text" id="s_lrsjz" name="s_lrsjz" class="am-form-field"
