@@ -1211,20 +1211,22 @@ public class KpController extends BaseController {
 			Jyls jyls1 = jylsService.findOne(Integer.valueOf(djhList.get(i).toString()));
 			Skp skp = skpService.findOne(jyls1.getSkpid());
 			Cszb cszb=cszbService.getSpbmbbh(getGsdm(),jyls1.getXfid(),jyls1.getSkpid(),"kpfs");
-			//服务器开具纸票--封装xml
-			if(cszb!=null&&"06".equals(cszb.getCsz())) {
-				isb=true;
-				Jyspmx jyspmx = new Jyspmx();
-				jyspmx.setDjh(Integer.valueOf(djhList.get(i).toString()));
-				List<Jyspmx> list = jyspmxService.findAllByParams(jyspmx);
-				//保存开票流水
-				Kpls kpls = fpclService.saveKp(jyls1, list, dybz);
-				String xml= GetXmlUtil.getFpkjzpXml(skp,kpls.getFpzldm(), "0","00" ,list,kpls);
-				if(com.rjxx.utils.StringUtils.isBlank(xml)){
-					result.put("success", false);
-					result.put("msg", "第"+(i+1)+"条流水申请开具失败");
-					return result;
-				}
+			//服务器
+			if(cszb!=null&&"03".equals(cszb.getCsz())) {
+				//开具纸票--封装xml
+				if(jyls1.getFpzldm().contains("0")){
+					isb=true;
+					Jyspmx jyspmx = new Jyspmx();
+					jyspmx.setDjh(Integer.valueOf(djhList.get(i).toString()));
+					List<Jyspmx> list = jyspmxService.findAllByParams(jyspmx);
+					//保存开票流水
+					Kpls kpls = fpclService.saveKp(jyls1, list, dybz);
+					String xml= GetXmlUtil.getFpkjzpXml(skp,kpls.getFpzldm(), "0","00" ,list,kpls);
+					if(com.rjxx.utils.StringUtils.isBlank(xml)){
+						result.put("success", false);
+						result.put("msg", "第"+(i+1)+"条流水申请开具失败");
+						return result;
+					}
 //				String xml ="<?xml version=\"1.0\" encoding=\"gbk\"?>\n" +
 //						"<business id=\"10008\" comment=\"发票开具\">\n" +
 //						"    <body yylxdm=\"1\">\n" +
@@ -1273,9 +1275,10 @@ public class KpController extends BaseController {
 //						"    <yfphm></yfphm>\n" +
 //						"    </body>\n" +
 //						"</business>\n";
-				System.out.println(xml);
-				dataList.add(xml);
-				kplshList.add(kpls.getKplsh());
+					System.out.println(xml);
+					dataList.add(xml);
+					kplshList.add(kpls.getKplsh());
+				}
 			}else {
 				boolean first=false;
 				 if(i==0){
@@ -1297,6 +1300,11 @@ public class KpController extends BaseController {
 		result.put("success", true);
 		result.put("msg", "申请开票成功！");
 		result.put("isb", isb);
+		Cszb skurl=cszbService.getSpbmbbh(getGsdm(),null,null,"skurl");
+		String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
+		String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
+		result.put("servletip",servletip);
+		result.put("servletport",servletport);
 		System.out.println(JSON.toJSONString(result));
 		return result;
 	}
@@ -1753,13 +1761,21 @@ public class KpController extends BaseController {
 		//获取开票方式
 		Skp skp = skpService.findOne(skpid);
 		Cszb cszb=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"kpfs");
-		//税控服务器获取
-		if(cszb!=null&&"06".equals(cszb.getCsz())){
-			result.put("kpzdbs",skp.getKpdip());
-			result.put("success", true);
-			result.put("fwqzp",true);
-			result.put("fplxdm",NumberUtil.fplxdm(fpzldm));
-			return result;
+		//服务器
+		if(cszb!=null&&"03".equals(cszb.getCsz())){
+			//开具纸票
+			if(fpzldm.contains("0")){
+				Cszb skurl=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"skurl");
+				String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
+				String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
+				result.put("servletip",servletip);
+				result.put("servletport",servletport);
+				result.put("kpzdbs",skp.getKpdip());
+				result.put("success", true);
+				result.put("fwqzp",true);
+				result.put("fplxdm",NumberUtil.fplxdm(fpzldm));
+				return result;
+			}
 		}
 		InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
 		if ("0000".equals(invoiceResponse.getReturnCode())) {

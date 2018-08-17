@@ -1096,9 +1096,9 @@
         return [year, month, day].join('-');
     }
     //税控服务器开具纸票之前，先调用参数设置
-    function cssz() {
-        var servletip ="180.153.192.171";
-        var servletport ="18080";
+    function cssz(servletip,servletport) {
+        //var servletip ="180.153.192.171";
+        //var servletport ="18080";
         //默认8个8
         var keypwd ="88888888";
         var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";

@@ -598,7 +598,7 @@ $(function () {
                         }).done(function(data) {
                             if(data.success){
                                 if(data.zfb){
-                                    var b= cssz1();
+                                    var b= cssz1(data.servletip,data.servletport);
                                     if(b){
                                          var  zfret = sk.Operate(data.zfxml);
                                          // alert(zfret);

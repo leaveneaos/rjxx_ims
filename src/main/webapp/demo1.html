@@ -36,7 +36,10 @@
 					var fpdm;
 					var fphm;
 					function ss() {
-                        var b= cssz();
+					    var url ="http://180.153.192.171:18080/SKServer/SKDo";
+					    var servletip = url.split("http://")[1].split("/")[0].split(":")[0];
+					    var servletport = url.split("http://")[1].split("/")[0].split(":")[1];
+                        var b= cssz(servletip,servletport);
                         if(b){
 
                             try
@@ -55,9 +58,11 @@
                     };
 
     //税控服务器开具纸票之前，先调用参数设置
-    function cssz() {
-        var servletip ="180.153.192.171";
-        var servletport ="18080";
+    function cssz(servletip,servletport) {
+        //var servletip ="180.153.192.171";
+        //var servletport ="18080";
+        alert(servletip);
+        alert(servletport);
         var keypwd ="88888888";
         var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";
 		alert(csInfo);
@@ -83,7 +88,7 @@
 			if(b){
 				try
 				{
-					var zf="<?xml version='1.0' encoding='gbk'?> <business id='10009' comment='发票作废'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm><zflx>1</zflx> <fpdm>3100174320</fpdm> <fphm>05187021</fphm> <hjje>15.52</hjje><zfr>兰小翠</zfr></body></business>";
+					var zf="<?xml version='1.0' encoding='gbk'?> <business id='10009' comment='发票作废'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm><zflx>1</zflx> <fpdm>3100174320</fpdm> <fphm>05187023</fphm> <hjje>8.62</hjje><zfr>兰小翠</zfr></body></business>";
 					alert("作废参数"+zf);
 					var  zfrets = sk.Operate(zf);
 					var dyreturncodes ,dyreturnmsgs

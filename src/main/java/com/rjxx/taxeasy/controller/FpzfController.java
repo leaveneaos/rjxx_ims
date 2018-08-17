@@ -468,18 +468,27 @@ public class FpzfController extends BaseController{
 		boolean zfb = false;
 			Kpls kpls = kplsService.findOne(kplsh);
 			Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), kpls.getSkpid(), "kpfs");
-			if(cszb!=null&& "06".equals(cszb.getCsz())){
-				zfb=true;
-				String zfcl1 = FpzfService.zfcl1(kplsh);
-				if(StringUtils.isBlank(zfcl1)){
-					result.put("success", false);
-					result.put("msg", "作废失败!");
+			//服务器
+			if(cszb!=null&& "03".equals(cszb.getCsz())){
+				//纸票作废
+				if(kpls.getFpzldm().contains("0")){
+					zfb=true;
+					Cszb skurl=cszbService.getSpbmbbh(getGsdm(),null,null,"skurl");
+					String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
+					String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
+					result.put("servletip",servletip);
+					result.put("servletport",servletport);
+					String zfcl1 = FpzfService.zfcl1(kplsh);
+					if(StringUtils.isBlank(zfcl1)){
+						result.put("success", false);
+						result.put("msg", "作废失败!");
+						return result;
+					}
+					result.put("success", true);
+					result.put("zfxml", zfcl1);
+					result.put("zfb",zfb);
 					return result;
 				}
-				result.put("success", true);
-				result.put("zfxml", zfcl1);
-				result.put("zfb",zfb);
-				return result;
 			}
 			InvoiceResponse flag = FpzfService.zfcl(kplsh, getYhid(), getGsdm());
 			if (flag.getReturnCode().equals("0000")) {

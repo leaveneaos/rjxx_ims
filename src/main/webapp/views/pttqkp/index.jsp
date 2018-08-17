@@ -502,7 +502,7 @@
     $('#gfsh').blur(function() {
         var gfsh = $('#gfsh').val();
         if(null != gfsh && gfsh != ''){
-            if(gfsh.length != 15 && gfsh.length != 18 && gfsh.length !=20 ){
+            if(gfsh.length != 15 && gfsh.length != 18 && gfsh.length !=20 && gfsh.length !=9){
                 swal("购方税号由(15,18或20位)数字或大写字母组成")
                 return;
             }
