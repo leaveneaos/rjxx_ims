@@ -234,8 +234,15 @@ public class YjfsController extends BaseController {
 							}
 							mailService.sendAttachmentsMail(to,yjmbSubject,content,filePaths);
 						}else {
-							se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(), kpls.getGfemail(), "手工发送邮件",
-									String.valueOf(kpls.getDjh()), content, yjmbSubject);
+							String gfEmailstr =kpls.getGfemail();
+							if(gfEmailstr!=null&&!"".equals(gfEmailstr.trim())){
+								String []gfEmailArray=gfEmailstr.split("，");
+								for(String gfEmail:gfEmailArray){
+									//se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(),gfEmail , "发票开具成功发送邮件", String.valueOf(kpls.getDjh()), content, yjmbSubject);
+									se.sendEmail(String.valueOf(kpls.getDjh()), kpls.getGsdm(),gfEmail, "手工发送邮件",
+											String.valueOf(kpls.getDjh()), content, yjmbSubject);
+								}
+							}
 						}
 
 					}

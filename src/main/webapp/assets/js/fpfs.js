@@ -584,11 +584,15 @@ $(function () {
                     	var reg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
                     	var reg1=/^[1][3,4,5,7,8][0-9]{9}$/;
                     	if(email!=null && email!=""){
-                            if(!reg.test(email)){
-                                $("#gfemail").focus();
-                                swal("请填写有效邮箱");
-                                return false;
+                    	    var split = email.split(",");
+                    	    for(var i =0 ;i<split.length;i++){
+                                if(!reg.test(split[i])){
+                                    $("#gfemail").focus();
+                                    swal("请填写有效邮箱");
+                                    return false;
+                                }
                             }
+
                         }
                        if(sj!=null && sj !=""){
                            if(!reg1.test(sj)){

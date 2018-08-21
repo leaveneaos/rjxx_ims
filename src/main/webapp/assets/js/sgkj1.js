@@ -730,7 +730,7 @@ $(function() {
                 swal("用于报销时，纳税人识别号不能为空！");
                 return;
             }
-            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20&&gfsh.length!=9){
                 swal("购买方税号长度有误！");
                 return;
             }
@@ -764,7 +764,7 @@ $(function() {
             }
         }
         if(gfsh!=null && gfsh!=""){
-            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20){
+            if(gfsh.length!=15&&gfsh.length!=18&&gfsh.length!=20&&gfsh.length!=9){
                 swal("纳税人识别号长度有误！");
                 $("#gfsh").focus();
                 return;

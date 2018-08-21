@@ -1,0 +1,106 @@
+
+
+<!doctype html>
+<html lang="zh">
+<OBJECT ID=sk CLASSID="clsid:003BD8F2-A6C3-48EF-9B72-ECFD8FC4D49F"
+		codebase="NISEC_SKSCX.ocx#version=1,0,0,1">
+</OBJECT>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>我是demo</title>
+
+</head>
+<body>
+<!--Test -->
+<div id="test">
+	<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+					<div style="max-width: 800px; margin: 0 auto; margin-bottom: 50px;">
+						<button id="Button1" onclick="ss()"
+								class="mui-btn mui-btn-primary mui-btn-block"
+								style="width: 90%; margin: 0 auto;">提&nbsp;&nbsp;交</button>
+					</div>
+
+		<div style="max-width: 800px; margin: 0 auto; margin-bottom: 50px;">
+			<button id="Button2" onclick="zf()"
+					class="mui-btn mui-btn-primary mui-btn-block"
+					style="width: 90%; margin: 0 auto;">作废提&nbsp;&nbsp;交</button>
+		</div>
+	</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+
+					var fpdm;
+					var fphm;
+					function ss() {
+					    var url ="http://180.153.192.171:18080/SKServer/SKDo";
+					    var servletip = url.split("http://")[1].split("/")[0].split(":")[0];
+					    var servletport = url.split("http://")[1].split("/")[0].split(":")[1];
+                        var b= cssz(servletip,servletport);
+                        if(b){
+
+                            try
+                            {
+							var dy="<?xml version='1.0' encoding='gbk'?> <business id='20004' comment='发票打印'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm> <fpdm>3100174320</fpdm> <fphm>05187021</fphm> <dylx>0</dylx> <dyfs>1</dyfs> <printername>DASCOM DS-670</printername></body></business>";
+							var  dyrets = sk.Operate(dy);
+							var dyreturncodes ,dyreturnmsgs
+							var xmlDoc3 = $.parseXML(dyrets);
+							dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+							dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+							alert("打印返回"+dyrets);
+                            } catch(e) {
+                                alert(e.message + ",errno:" + e.number);
+                            }
+                        }
+                    };
+
+    //税控服务器开具纸票之前，先调用参数设置
+    function cssz(servletip,servletport) {
+        //var servletip ="180.153.192.171";
+        //var servletport ="18080";
+        alert(servletip);
+        alert(servletport);
+        var keypwd ="88888888";
+        var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";
+		alert(csInfo);
+        try
+        {
+            var ret = sk.Operate(csInfo);
+            alert(ret);
+            var xmlDoc = $.parseXML(ret);
+            var returncode= xmlDoc.getElementsByTagName('returncode')[0].textContent;
+            var returnmsg= xmlDoc.getElementsByTagName('returnmsg')[0].textContent;
+            if(returncode !=null && returncode !="0"){
+                alert(returnmsg);
+                return false;
+            }
+        }catch(e) {
+            alert(e.message + ",errno:" + e.number);
+            return false;
+        }
+        return true;
+    };
+		function zf() {
+			var b= cssz();
+			if(b){
+				try
+				{
+					var zf="<?xml version='1.0' encoding='gbk'?> <business id='10009' comment='发票作废'> <body yylxdm='1'> <kpzdbs>wdgctz001</kpzdbs> <fplxdm>007</fplxdm><zflx>1</zflx> <fpdm>3100174320</fpdm> <fphm>05187023</fphm> <hjje>8.62</hjje><zfr>兰小翠</zfr></body></business>";
+					alert("作废参数"+zf);
+					var  zfrets = sk.Operate(zf);
+					var dyreturncodes ,dyreturnmsgs
+					var xmlDoc3 = $.parseXML(zfrets);
+					dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+					dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+					alert("作废返回"+zfrets);
+				} catch(e) {
+					alert(e.message + ",errno:" + e.number);
+				}
+			}
+		};
+</script>
+</body>
+</html>

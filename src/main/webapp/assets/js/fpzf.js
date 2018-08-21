@@ -392,7 +392,7 @@ $(function () {
                  $("#doc-modal-fpyl").modal("open");
             });
              t1.on('click', 'a.view1', function () {
-                 var data = t.row($(this).parents('tr')).data();
+                 var data = t1.row($(this).parents('tr')).data();
                  $("#doc-modal-fpyll").load('fpzf/kpyl?kpsqhs='+data.djh);
                  $("#doc-modal-fpyl").modal("open");
             });
@@ -597,10 +597,54 @@ $(function () {
                             data:{"kplsh":kplsh},
                         }).done(function(data) {
                             if(data.success){
-                                $('.confirm').removeAttr('disabled');
-                                swal(data.msg);
-                                $("#kplsh").val("");
-                                t.ajax.reload();
+                                if(data.zfb){
+                                    var b= cssz1(data.servletip,data.servletport);
+                                    if(b){
+                                         var  zfret = sk.Operate(data.zfxml);
+                                         // alert(zfret);
+                                        //var ret = "<?xml version='1.0' encoding='gbk' ?> <business id='10009' comment='发票作废'> <body yylxdm='1'> <returncode>0</returncode> <returnmsg>返回信息</returnmsg> <returndata> <fpdm>发票代码</fpdm> <fphm>发票号码</fphm><zfrq>作废日期</zfrq></returndata> </body> </business>";
+                                        var xmlDoc2 = $.parseXML(zfret);
+                                        var returncode ,returnmsg,fpdm,fphm,zfrq;
+                                        returncode= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
+                                        returnmsg= xmlDoc2.getElementsByTagName('returnmsg')[0].textContent;
+                                        if(returncode!=null && returncode==0){
+                                            fpdm= xmlDoc2.getElementsByTagName('fpdm')[0].textContent;
+                                            fphm= xmlDoc2.getElementsByTagName('fphm')[0].textContent;
+                                            zfrq= xmlDoc2.getElementsByTagName('zfrq')[0].textContent;
+                                            $.ajax({
+                                                url: "fpzf/zfKpls1",
+                                                type:"POST",
+                                                async:false,
+                                                data:{
+                                                    "returncode" : returncode,
+                                                    "returnmsg":returnmsg,
+                                                    "kplsh":kplsh,
+                                                    "fpdm":fpdm,
+                                                    "fphm":fphm,
+                                                    "zfrq":zfrq
+                                                },
+                                                success: function (data) {
+                                                    if(!data.success){
+                                                        swal("作废成功，保存数据失败");
+                                                    }else {
+                                                        $('.confirm').removeAttr('disabled');
+                                                        swal("作废成功");
+                                                        $("#kplsh").val("");
+                                                        t.ajax.reload();
+                                                    }
+                                                }
+                                            });
+                                        }else {
+                                           swal("作废失败，失败原因："+returnmsg);
+                                        }
+                                    }
+
+                                }else {
+                                    $('.confirm').removeAttr('disabled');
+                                    swal(data.msg);
+                                    $("#kplsh").val("");
+                                    t.ajax.reload();
+                                }
                             }else{
                                 swal(data.msg);
                             }
