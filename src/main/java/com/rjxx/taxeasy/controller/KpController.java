@@ -1776,6 +1776,16 @@ public class KpController extends BaseController {
 				result.put("fplxdm",NumberUtil.fplxdm(fpzldm));
 				return result;
 			}
+		}else if(cszb.getCsz().equals("04")){
+			if (fpzldm.equals("01")) {
+				fpzldm = "004";
+			} else if (fpzldm.equals("02")) {
+				fpzldm = "007";
+			} else if (fpzldm.equals("12")) {
+				fpzldm = "026" ;
+			} else if (fpzldm.equals("03")) {
+				fpzldm= "025";
+			}
 		}
 		InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
 		if ("0000".equals(invoiceResponse.getReturnCode())) {
