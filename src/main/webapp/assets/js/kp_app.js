@@ -622,7 +622,7 @@ $(function() {
                                 var xml = data.xmlList;
                                 //var msg="";
                                 //参数设置
-                                var b= cssz(data.servletip,data.servletport);
+                                var b= cssz(data.servletip,data.servletport,data.zsmm);
                                 if(b){
                                     for(var i =0;i<xml.length;i++){
                                         //开具纸票报文
@@ -765,7 +765,7 @@ $(function() {
                                 if (data.success) {
                                     //服务器纸票
                                     if(data.fwqzp){
-                                        var b= cssz(data.servletip,data.servletport);
+                                        var b= cssz(data.servletip,data.servletport,data.zsmm);
                                         if(b){
                                             if(data.kpzdbs==null || data.kpzdbs==""){
                                                 swal("获取发票号码失败，没有开票终端标识");

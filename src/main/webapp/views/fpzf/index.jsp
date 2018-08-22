@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
-	<OBJECT ID=sk CLASSID="clsid:003BD8F2-A6C3-48EF-9B72-ECFD8FC4D49F"
+	<OBJECT ID=sk CLASSID="clsid:003BD8F2-A6C3-48EF-9B72-ECFD8FC4D49F" style="height: 0px"
 			codebase="NISEC_SKSCX.ocx#version=1,0,0,1">
 	</OBJECT>
 <script src="assets/js/loading.js"></script>
@@ -659,11 +659,11 @@
 
         return [year, month, day].join('-');
     }
-    function cssz1(servletip,servletport) {
+    function cssz1(servletip,servletport,keypwd) {
         //var servletip ="180.153.192.171";
         //var servletport ="18080";
         //默认8个8
-        var keypwd ="88888888";
+        //var keypwd ="88888888";
         var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";
         try
         {
