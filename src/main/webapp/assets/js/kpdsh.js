@@ -986,7 +986,7 @@ $(function() {
 						je+=fpp*1;
 						bckpje.push(fpp); 
 						if(fpp==0){
-						}else if(!fpp.match("^(([1-9]+)|([0-9]+\.[0-9]{0,2}))$")){
+						}else if(!fpp.match("^[0-9-]+(.[0-9]{2})?$")){
                             swal("第 "+(i+1)+"行明细金额格式有误，请重新填写！");
 		    				return false;
 		    			}else if(Number(fpp)>Number(delcommafy(rows1[i+1].cells[3].innerHTML))){
