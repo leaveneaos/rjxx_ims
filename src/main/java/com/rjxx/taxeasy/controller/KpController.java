@@ -1207,14 +1207,15 @@ public class KpController extends BaseController {
 		}
 		List dataList = new ArrayList();
 		List kplshList = new ArrayList();
+		Skp skp=null;
 		for (int i = 0; i < djhList.size(); i++) {
 			Jyls jyls1 = jylsService.findOne(Integer.valueOf(djhList.get(i).toString()));
-			Skp skp = skpService.findOne(jyls1.getSkpid());
+			 skp = skpService.findOne(jyls1.getSkpid());
 			Cszb cszb=cszbService.getSpbmbbh(getGsdm(),jyls1.getXfid(),jyls1.getSkpid(),"kpfs");
 			//服务器
-			if(cszb!=null&&"03".equals(cszb.getCsz())) {
+			if(cszb!=null&&"03".equals(cszb.getCsz())&&jyls1.getFpzldm().contains("0")) {
 				//开具纸票--封装xml
-				if(jyls1.getFpzldm().contains("0")){
+//				if(){
 					isb=true;
 					Jyspmx jyspmx = new Jyspmx();
 					jyspmx.setDjh(Integer.valueOf(djhList.get(i).toString()));
@@ -1227,58 +1228,10 @@ public class KpController extends BaseController {
 						result.put("msg", "第"+(i+1)+"条流水申请开具失败");
 						return result;
 					}
-//				String xml ="<?xml version=\"1.0\" encoding=\"gbk\"?>\n" +
-//						"<business id=\"10008\" comment=\"发票开具\">\n" +
-//						"    <body yylxdm=\"1\">\n" +
-//						"    <kpzdbs>wdgctz001</kpzdbs>\n" +
-//						"    <fplxdm>007</fplxdm>\n" +
-//						"    <fpqqlsh>47,165</fpqqlsh>\n" +
-//						"    <kplx>007</kplx>\n" +
-//						"    <tspz>00</tspz>\n" +
-//						"    <xhdwsbh>!91310112MA1GB58AXT</xhdwsbh>\n" +
-//						"    <xhdwmc>上海颛桥万达广场投资有限公司</xhdwmc>\n" +
-//						"    <xhdwdzdh>上海市闵行区都市路2700号 021-33887851</xhdwdzdh>\n" +
-//						"    <xhdwyhzh>中国建设银行股份有限公司上海贵都路支行 31050110253700000214 </xhdwyhzh>\n" +
-//						"    <ghdwsbh></ghdwsbh>\n" +
-//						"    <ghdwmc><![CDATA[个人]]></ghdwmc>\n" +
-//						"    <ghdwdzdh> </ghdwdzdh>\n" +
-//						"    <ghdwyhzh> </ghdwyhzh>\n" +
-//						"    <qdbz>0</qdbz>\n" +
-//						"    <zsfs>0</zsfs>\n" +
-//						"    <fyxm count=\"1\">\n" +
-//						"        <group xh=\"1\">\n" +
-//						"            <fphxz>0</fphxz>\n" +
-//						"            <spmc><![CDATA[电费]]></spmc>\n" +
-//						"            <ggxh></ggxh>\n" +
-//						"            <dw></dw>\n" +
-//						"            <spsl></spsl>\n" +
-//						"            <dj></dj>\n" +
-//						"            <je>9.48</je>\n" +
-//						"            <sl>0.16</sl>\n" +
-//						"            <se>1.52</se>\n" +
-//						"            <hsbz>0</hsbz>\n" +
-//						"            <spbm>1100101020200000000</spbm>\n" +
-//						"            <yhzcbs>0</yhzcbs>\n" +
-//						"            <lslbs></lslbs>\n" +
-//						"            <zzstsgl></zzstsgl>\n" +
-//						"        </group>\n" +
-//						"    </fyxm>\n" +
-//						"    <hjje>9.48</hjje>\n" +
-//						"    <hjse>1.52</hjse>\n" +
-//						"    <jshj>11</jshj>\n" +
-//						"    <kce></kce>\n" +
-//						"    <bz></bz>\n" +
-//						"    <skr>兰小翠</skr>\n" +
-//						"    <fhr>孟婵</fhr>\n" +
-//						"    <kpr>兰小翠</kpr>\n" +
-//						"    <yfpdm></yfpdm>\n" +
-//						"    <yfphm></yfphm>\n" +
-//						"    </body>\n" +
-//						"</business>\n";
 					System.out.println(xml);
 					dataList.add(xml);
 					kplshList.add(kpls.getKplsh());
-				}
+//				}
 			}else {
 				boolean first=false;
 				 if(i==0){
@@ -1300,11 +1253,12 @@ public class KpController extends BaseController {
 		result.put("success", true);
 		result.put("msg", "申请开票成功！");
 		result.put("isb", isb);
-		Cszb skurl=cszbService.getSpbmbbh(getGsdm(),null,null,"skurl");
+		Cszb skurl=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skp.getId(),"skurl");
 		String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
 		String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
 		result.put("servletip",servletip);
 		result.put("servletport",servletport);
+		result.put("zsmm",skp.getZsmm());
 		System.out.println(JSON.toJSONString(result));
 		return result;
 	}
@@ -1762,9 +1716,9 @@ public class KpController extends BaseController {
 		Skp skp = skpService.findOne(skpid);
 		Cszb cszb=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"kpfs");
 		//服务器
-		if(cszb!=null&&"03".equals(cszb.getCsz())){
+		if(cszb!=null&&"03".equals(cszb.getCsz())&&fpzldm.contains("0")){
 			//开具纸票
-			if(fpzldm.contains("0")){
+//			if(){
 				Cszb skurl=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skpid,"skurl");
 				String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
 				String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
@@ -1774,18 +1728,11 @@ public class KpController extends BaseController {
 				result.put("success", true);
 				result.put("fwqzp",true);
 				result.put("fplxdm",NumberUtil.fplxdm(fpzldm));
+				result.put("zsmm",skp.getZsmm());
 				return result;
-			}
+//			}
 		}else if(cszb.getCsz().equals("04")){
-			if (fpzldm.equals("01")) {
-				fpzldm = "004";
-			} else if (fpzldm.equals("02")) {
-				fpzldm = "007";
-			} else if (fpzldm.equals("12")) {
-				fpzldm = "026" ;
-			} else if (fpzldm.equals("03")) {
-				fpzldm= "025";
-			}
+			fpzldm = NumberUtil.fplxdm(fpzldm);
 		}
 		InvoiceResponse invoiceResponse = skService.getCodeAndNo(skpid, fpzldm);
 		if ("0000".equals(invoiceResponse.getReturnCode())) {

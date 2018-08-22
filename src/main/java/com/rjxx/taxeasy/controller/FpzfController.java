@@ -39,6 +39,8 @@ public class FpzfController extends BaseController{
 	private FpzfService FpzfService;
 	@Autowired
 	private DataOperte dc;
+	@Autowired
+	private SkpService skpService;
 
 	@Autowired
 	private CszbService cszbService;
@@ -469,15 +471,17 @@ public class FpzfController extends BaseController{
 			Kpls kpls = kplsService.findOne(kplsh);
 			Cszb cszb = cszbService.getSpbmbbh(kpls.getGsdm(), kpls.getXfid(), kpls.getSkpid(), "kpfs");
 			//服务器
-			if(cszb!=null&& "03".equals(cszb.getCsz())){
+			if(cszb!=null&& "03".equals(cszb.getCsz())&&kpls.getFpzldm().contains("0")){
 				//纸票作废
-				if(kpls.getFpzldm().contains("0")){
+//				if(){
 					zfb=true;
-					Cszb skurl=cszbService.getSpbmbbh(getGsdm(),null,null,"skurl");
+					Skp skp = skpService.findOne(kpls.getSkpid());
+					Cszb skurl=cszbService.getSpbmbbh(getGsdm(),kpls.getXfid(), kpls.getSkpid(),"skurl");
 					String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
 					String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
 					result.put("servletip",servletip);
 					result.put("servletport",servletport);
+					result.put("zsmm",skp.getZsmm());
 					String zfcl1 = FpzfService.zfcl1(kplsh);
 					if(StringUtils.isBlank(zfcl1)){
 						result.put("success", false);
@@ -488,7 +492,7 @@ public class FpzfController extends BaseController{
 					result.put("zfxml", zfcl1);
 					result.put("zfb",zfb);
 					return result;
-				}
+//				}
 			}
 			InvoiceResponse flag = FpzfService.zfcl(kplsh, getYhid(), getGsdm());
 			if (flag.getReturnCode().equals("0000")) {
