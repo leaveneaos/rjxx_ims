@@ -825,7 +825,7 @@ public class KpdshController extends BaseController {
 		for (JyspmxDecimal2 mxItem : fpJyspmxList) {
 			Jyspmx jymx = new Jyspmx();
 			jymx.setDjh(djh);
-			jymx.setSpmxxh(i);
+			jymx.setSpmxxh(mxItem.getSpmxxh());
 			jymx.setSpdm(mxItem.getSpdm());
 			jymx.setSpmc(mxItem.getSpmc());
 			jymx.setSpggxh(mxItem.getSpggxh());
