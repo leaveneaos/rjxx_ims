@@ -634,9 +634,9 @@ public class KpdshController extends BaseController {
 						Integer.valueOf(jysmx.getSpmxxh()), jyxxsq.getXfid(), jyxxsq.getFpzldm(), "1",
 						Integer.valueOf(1), jysmx.getGsdm(),jysmx.getKce() == null ? null : jysmx.getKce().doubleValue());
 				fpcljlVo.setSjts(i + 1);
-				if (fpcljlVo.getJshj() > 0) {
+//				if (fpcljlVo.getJshj() > 0) {
 					listfpcl.add(fpcljlVo);
-				}
+//				}
 				int fpnum = jysmx.getFpnum();
 				List<JyspmxDecimal2> list2 = fpMap.get(fpnum);
 
