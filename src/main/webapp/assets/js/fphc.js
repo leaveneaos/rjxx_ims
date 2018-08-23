@@ -711,10 +711,79 @@ $(function () {
                                     data:{"xhStr":xhStr,"hcjeStr":hcjeStr,"kplsh":kplsh,"hztzdh":hztzdh},
                                 }).done(function(data) {
                                     if(data.success){
+                                        //服务器纸票红冲
+                                        if(data.isb){
+                                            var b= cssz2(data.servletip,data.servletport,data.zsmm);
+                                            if(b){
+                                                var xml = data.xml;
+                                                var hckplsh = data.hckplsh;
+                                                alert("红冲报文"+xml);
+                                                var  ret = sk.Operate(xml);
+                                                alert("红冲返回"+ret);
+                                                var xmlDoc2 = $.parseXML(ret);
+                                                var returncode ,returnmsg,fpdm,fphm,kprq,jym,skm,ewm;
+                                                returncode= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
+                                                returnmsg= xmlDoc2.getElementsByTagName('returnmsg')[0].textContent;
+                                                if(returncode!=null && returncode==0){
+                                                    fpdm= xmlDoc2.getElementsByTagName('fpdm')[0].textContent;
+                                                    fphm= xmlDoc2.getElementsByTagName('fphm')[0].textContent;
+                                                    kprq= xmlDoc2.getElementsByTagName('kprq')[0].textContent;
+                                                    skm= xmlDoc2.getElementsByTagName('skm')[0].textContent;
+                                                    jym= xmlDoc2.getElementsByTagName('jym')[0].textContent;
+                                                    ewm= xmlDoc2.getElementsByTagName('ewm')[0].textContent;
+                                                    //更新发票代码、发票号码
+                                                    $.ajax({
+                                                        url: "kp/saveKpls1",
+                                                        type:"POST",
+                                                        async:false,
+                                                        data:{
+                                                            "returncode":returncode,
+                                                            "returnmsg":returnmsg,
+                                                            "kplsh":hckplsh,
+                                                            "fpdm":fpdm,
+                                                            "fphm":fphm,
+                                                            "kprq":kprq,
+                                                            "jym":jym,
+                                                            "skm":skm,
+                                                            "ewm":ewm
+                                                        },
+                                                        success: function (data) {
+                                                            if(!data.success){
+                                                                swal("红冲失败");
+                                                                return;
+                                                            }
+                                                            //打印
+                                                            if(data.xml!=null){
+                                                                var dyInfo = data.xml;
+                                                                // alert("打印参数"+dyInfo);
+                                                                var  dyrets = sk.Operate(dyInfo);
+                                                                // alert("打印返回"+dyrets);
+                                                                var dyreturncodes ,dyreturnmsgs;
+                                                                //打印返回
+                                                                var xmlDoc3 = $.parseXML(dyrets);
+                                                                dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+                                                                dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+                                                                if(dyreturncodes==null||dyreturncodes!=0){
+                                                                    swal("红冲成功，打印失败,失败原因"+dyreturnmsgs);
+                                                                    return;
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                    $('.confirm').removeAttr('disabled');
+                                                    swal(data.msg);
+                                                    $("#kplsh").val("");
+                                                    t.ajax.reload();
+                                                }else{
+                                                    swal("红冲失败,失败原因"+returnmsg);
+                                                    return;
+                                                }
+                                            }
+                                        }else {
                                         $('.confirm').removeAttr('disabled');
                                         swal(data.msg);
                                         $("#kplsh").val("");
-                                        t.ajax.reload();
+                                        t.ajax.reload();}
                                     }else{
                                         swal(data.msg);
                                     }
@@ -826,10 +895,80 @@ $(function () {
                                 data: {"xhStr": xhStr, "hcjeStr": hcjeStr, "kplsh": kplsh, "hztzdh": "","jylsh":""},
                             }).done(function (data) {
                                 if (data.success) {
+                                    //服务器纸票红冲
+                                    if(data.isb){
+                                        var b= cssz2(data.servletip,data.servletport,data.zsmm);
+                                        if(b){
+                                            var xml = data.xml;
+                                            var hckplsh = data.hckplsh;
+                                            // alert("红冲报文"+xml);
+                                            var  ret = sk.Operate(xml);
+                                            // alert("红冲返回"+ret);
+                                            var xmlDoc2 = $.parseXML(ret);
+                                            var returncode ,returnmsg,fpdm,fphm,kprq,jym,skm,ewm;
+                                            returncode= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
+                                            returnmsg= xmlDoc2.getElementsByTagName('returnmsg')[0].textContent;
+                                            if(returncode!=null && returncode==0){
+                                                fpdm= xmlDoc2.getElementsByTagName('fpdm')[0].textContent;
+                                                fphm= xmlDoc2.getElementsByTagName('fphm')[0].textContent;
+                                                kprq= xmlDoc2.getElementsByTagName('kprq')[0].textContent;
+                                                skm= xmlDoc2.getElementsByTagName('skm')[0].textContent;
+                                                jym= xmlDoc2.getElementsByTagName('jym')[0].textContent;
+                                                ewm= xmlDoc2.getElementsByTagName('ewm')[0].textContent;
+                                                //更新发票代码、发票号码
+                                                $.ajax({
+                                                    url: "kp/saveKpls1",
+                                                    type:"POST",
+                                                    async:false,
+                                                    data:{
+                                                        "returncode":returncode,
+                                                        "returnmsg":returnmsg,
+                                                        "kplsh":hckplsh,
+                                                        "fpdm":fpdm,
+                                                        "fphm":fphm,
+                                                        "kprq":kprq,
+                                                        "jym":jym,
+                                                        "skm":skm,
+                                                        "ewm":ewm
+                                                    },
+                                                    success: function (data) {
+                                                        if(!data.success){
+                                                            swal("红冲失败");
+                                                            return;
+                                                        }
+                                                        //打印
+                                                        if(data.xml!=null){
+                                                            var dyInfo = data.xml;
+                                                            // alert("打印参数"+dyInfo);
+                                                            var  dyrets = sk.Operate(dyInfo);
+                                                            // alert("打印返回"+dyrets);
+                                                            var dyreturncodes ,dyreturnmsgs;
+                                                            //打印返回
+                                                            var xmlDoc3 = $.parseXML(dyrets);
+                                                            dyreturncodes= xmlDoc3.getElementsByTagName('returncode')[0].textContent;
+                                                            dyreturnmsgs= xmlDoc3.getElementsByTagName('returnmsg')[0].textContent;
+                                                            if(dyreturncodes==null||dyreturncodes!=0){
+                                                                swal("红冲成功，打印失败,失败原因"+dyreturnmsgs);
+                                                                return;
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                                $('.confirm').removeAttr('disabled');
+                                                swal(data.msg);
+                                                $("#kplsh").val("");
+                                                t.ajax.reload();
+                                            }else{
+                                                swal("红冲失败,失败原因"+returnmsg);
+                                                return;
+                                            }
+                                        }
+                                    }else {
                                     $('.confirm').removeAttr('disabled');
                                     swal(data.msg);
                                     $("#kplsh").val("");
                                     t.ajax.reload();
+                                    }
                                 } else {
                                     swal(data.msg);
                                 }

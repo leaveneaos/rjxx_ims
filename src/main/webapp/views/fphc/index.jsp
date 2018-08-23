@@ -24,6 +24,9 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+	<OBJECT ID=sk CLASSID="clsid:003BD8F2-A6C3-48EF-9B72-ECFD8FC4D49F" style="height: 0px"
+			codebase="NISEC_SKSCX.ocx#version=1,0,0,1">
+	</OBJECT>
 <script src="assets/js/loading.js"></script>
 <style type="text/css">
 	.am-form-horizontal .am-form-label {
@@ -678,7 +681,27 @@
 
         return [year, month, day].join('-');
     }
-
+    function cssz2(servletip,servletport,keypwd) {
+        //var servletip ="180.153.192.171";
+        //var servletport ="18080";
+        //var keypwd ="88888888";
+        var csInfo = "<?xml version=\"1.0\" encoding=\"gbk\"?>\r\n<business id=\"20001\" comment=\"参数设置\">\r\n<body yylxdm=\"1\">\r\n<servletip>"+servletip+"</servletip>\r\n<servletport>"+servletport+"</servletport>\r\n<keypwd>"+keypwd+"</keypwd>\r\n</body>\r\n</business>\r\n";
+        try
+        {
+            var ret = sk.Operate(csInfo);
+            var xmlDoc = $.parseXML(ret);
+            var returncode= xmlDoc.getElementsByTagName('returncode')[0].textContent;
+            var returnmsg= xmlDoc.getElementsByTagName('returnmsg')[0].textContent;
+            if(returncode !=null && returncode !="0"){
+                swal(returnmsg);
+                return false;
+            }
+        }catch(e) {
+            swal(e.message + ",errno:" + e.number);
+            return false;
+        }
+        return true;
+    };
     $(function() {
         var startDate = getCurrentMonthFirst();
         var endDate = new Date();
