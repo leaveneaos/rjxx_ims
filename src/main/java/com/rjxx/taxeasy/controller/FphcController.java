@@ -1,15 +1,10 @@
 package com.rjxx.taxeasy.controller;
 
 import com.rjxx.taxeasy.bizcomm.utils.FphcService;
+import com.rjxx.taxeasy.bizcomm.utils.GetXmlUtil;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
-import com.rjxx.taxeasy.domains.Jyls;
-import com.rjxx.taxeasy.domains.Jyspmx;
-import com.rjxx.taxeasy.domains.Skp;
-import com.rjxx.taxeasy.domains.Xf;
-import com.rjxx.taxeasy.service.JylsService;
-import com.rjxx.taxeasy.service.JyspmxService;
-import com.rjxx.taxeasy.service.KplsService;
-import com.rjxx.taxeasy.service.KpspmxService;
+import com.rjxx.taxeasy.domains.*;
+import com.rjxx.taxeasy.service.*;
 import com.rjxx.taxeasy.vo.Fpcxvo;
 import com.rjxx.taxeasy.vo.Kpspmxvo;
 import com.rjxx.taxeasy.web.BaseController;
@@ -39,6 +34,10 @@ public class FphcController extends BaseController {
 	private JylsService jylsService;
 	@Autowired 
 	private JyspmxService jyspmxService;
+	@Autowired
+	private CszbService cszbService;
+	@Autowired
+	private SkpService skpService;
 	
 	@RequestMapping
 	public String index() throws Exception {
@@ -477,6 +476,7 @@ public class FphcController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> update(String hcjeStr, String xhStr, Integer kplsh,String hztzdh,String jylsh) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
+		boolean isb= false;
 		result.put("success", true);
 		result.put("msg", "红冲成功！");
 		Map map = new HashMap<>();
@@ -488,6 +488,31 @@ public class FphcController extends BaseController {
 				result.put("msg", "超过开票日期一年，不能红冲！");
 				return result;
 			}
+		}
+		//服务器-纸票-红冲
+		Kpls kpls = kplsService.findOneByParams(map);
+		Skp skp = skpService.findOne(kpls.getSkpid());
+		Cszb cszb=cszbService.getSpbmbbh(getGsdm(),kpls.getXfid(),kpls.getSkpid(),"kpfs");
+		if(cszb!=null&&"03".equals(cszb.getCsz())&&kpls.getFpzldm().contains("0")){
+			isb=true;
+			Cszb skurl=cszbService.getSpbmbbh(getGsdm(),skp.getXfid(),skp.getId(),"skurl");
+			String servletip = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[0];
+			String servletport = skurl.getCsz().split("http://")[1].split("/")[0].split(":")[1];
+			result.put("servletip",servletip);
+			result.put("servletport",servletport);
+			result.put("zsmm",skp.getZsmm());
+			result.put("success", true);
+			result.put("msg", "红冲请求已接受！");
+			result.put("isb", isb);
+			Map map1 = fphcService.hccl1(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh,jylsh);
+			if(map1.get("xml")==null){
+				result.put("success", false);
+				result.put("msg", "红冲请求失败，封装数据异常!");
+				return result;
+			}
+			result.put("xml", map1.get("xml"));
+			result.put("hckplsh",map1.get("kplsh"));
+			return result;
 		}
 		InvoiceResponse flag = fphcService.hccl(kplsh, getYhid(), getGsdm(), hcjeStr, xhStr,hztzdh,jylsh);
 		if (flag.getReturnCode().equals("0000")) {
