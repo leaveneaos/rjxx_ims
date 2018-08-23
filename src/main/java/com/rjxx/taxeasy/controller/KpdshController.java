@@ -653,8 +653,11 @@ public class KpdshController extends BaseController {
 				List<JyspmxDecimal2> fpJyspmxList = entry.getValue();
 				List<JyspmxDecimal2> fpJyspmxList1 = new ArrayList<>();
 				for (JyspmxDecimal2 jyspmxDecimal2 : fpJyspmxList) {
-					if (jyspmxDecimal2.getJshj() != null
-							&& jyspmxDecimal2.getJshj().compareTo(new BigDecimal("0")) > 0) {
+					/*if (jyspmxDecimal2.getJshj() != null
+							&& jyspmxDecimal2.getJshj().c().compareTo(new BigDecimal("0")) > 0	) {
+						fpJyspmxList1.add(jyspmxDecimal2);
+					}*/
+					if (jyspmxDecimal2.getJshj() != null) {
 						fpJyspmxList1.add(jyspmxDecimal2);
 					}
 				}
@@ -840,7 +843,8 @@ public class KpdshController extends BaseController {
 			jymx.setXgsj(TimeUtil.getNowDate());
 			jymx.setXgry(getYhid());
 			jymx.setKce(mxItem.getKce() == null ? null : mxItem.getKce().doubleValue());
-			jymx.setFphxz("0");
+			//jymx.setFphxz("0");
+			jymx.setFphxz(mxItem.getFphxz());
 			jymx.setYhzcbs(mxItem.getYhzcbs());
 			jymx.setYhzcmc(mxItem.getYhzcmc());
 			jymx.setLslbz(mxItem.getLslbz());
