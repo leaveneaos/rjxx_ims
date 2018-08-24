@@ -47,7 +47,7 @@
     <skr>${kpls.skr!}</skr>
     <fhr>${kpls.fhr!}</fhr>
     <kpr>${kpls.kpr!}</kpr>
-    <tzdbh></tzdbh>
+    <tzdbh>${kpls.hztzdh!}</tzdbh>
     <yfpdm>${kpls.hzyfpdm!}</yfpdm>
     <yfphm>${kpls.hzyfphm!}</yfphm>
     </body>
