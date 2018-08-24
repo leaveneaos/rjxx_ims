@@ -124,9 +124,9 @@ public class ErrorExceptionCallback implements Job {
                                                 //更新
                                                 Fphxwsjl fphxwsjl1 = fphxwsjlService.findOneByParams(map);
                                                 if (fphxwsjl1 != null) {
-                                                    fphxwsjl1.setStartdate(new Date());
                                                     fphxwsjl1.setEnddate(new Date());
                                                     fphxwsjl1.setReturncode("9999");
+                                                    fphxwsjl1.setReturnmessage("回写失败，返回数据为空");
                                                     fphxwsjlService.save(fphxwsjl1);
                                                 } else {
                                                     Fphxwsjl fphxwsjl2 = new Fphxwsjl();
@@ -142,6 +142,7 @@ public class ErrorExceptionCallback implements Job {
                                                     fphxwsjl2.setSign("");
                                                     fphxwsjl2.setWsurl(gsxx.getSapcallbackurl());
                                                     fphxwsjl2.setReturncontent(fwkReturnMessageStr);
+                                                    fphxwsjl2.setReturnmessage(fwkReturnMessageStr);
                                                     fphxwsjlService.save(fphxwsjl2);
                                                 }
                                                 rabbitmqSend.sendMsg("ErrorException_Callback", kpls.getFpzldm(), kpls.getKplsh() + "_" + count);
@@ -178,8 +179,9 @@ public class ErrorExceptionCallback implements Job {
                                                     } else {
                                                         fphxwsjl3.setReturncode("0000");
                                                     }
-                                                    fphxwsjl3.setStartdate(new Date());
                                                     fphxwsjl3.setEnddate(new Date());
+                                                    fphxwsjl3.setReturnmessage(Data);
+                                                    fphxwsjl3.setReturncontent(fwkReturnMessageStr);
                                                     fphxwsjlService.save(fphxwsjl3);
                                                 } else {
                                                     Fphxwsjl fphxwsjl4 = new Fphxwsjl();
@@ -219,9 +221,9 @@ public class ErrorExceptionCallback implements Job {
                                                 map.put("gsdm", kpls.getGsdm());
                                                 Fphxwsjl fphxwsjl5 = fphxwsjlService.findOneByParams(map);
                                                 if (fphxwsjl5 != null) {
-                                                    fphxwsjl5.setStartdate(new Date());
                                                     fphxwsjl5.setEnddate(new Date());
                                                     fphxwsjl5.setReturncode("9999");
+                                                    fphxwsjl5.setReturnmessage("回写失败，返回数据为空");
                                                     fphxwsjlService.save(fphxwsjl5);
                                                 } else {
                                                     Fphxwsjl fphxwsj6 = new Fphxwsjl();
@@ -237,6 +239,7 @@ public class ErrorExceptionCallback implements Job {
                                                     fphxwsj6.setSign(Secret);
                                                     fphxwsj6.setWsurl(gsxx.getCallbackurl());
                                                     fphxwsj6.setReturncontent(returnmessage);
+                                                    fphxwsj6.setReturnmessage(returnmessage);
                                                     fphxwsjlService.save(fphxwsj6);
                                                 }
                                                 rabbitmqSend.sendMsg("ErrorException_Callback", kpls.getFpzldm(), kpls.getKplsh() + "_" + count);
@@ -258,8 +261,8 @@ public class ErrorExceptionCallback implements Job {
                                                     } else {
                                                         fphxwsjl7.setReturncode("0000");
                                                     }
-                                                    fphxwsjl7.setStartdate(new Date());
                                                     fphxwsjl7.setEnddate(new Date());
+                                                    fphxwsjl7.setReturnmessage(returnmessage);
                                                     fphxwsjlService.save(fphxwsjl7);
                                                 } else {
                                                     Fphxwsjl fphxwsjl8 = new Fphxwsjl();
