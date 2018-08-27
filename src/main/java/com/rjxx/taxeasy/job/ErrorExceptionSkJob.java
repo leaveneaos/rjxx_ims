@@ -199,6 +199,10 @@ public class ErrorExceptionSkJob implements Job {
                     deal(kplsh,kpcf,i);
 
                 }
+                Kpls kpls=kplsService.findOne(kplsh);
+                kpls.setFpztdm("05");
+                kplsService.save(kpls);
+                kpcfService.deleteById(kplsh);
             }else{
                 //调用税控服务器开票
                 InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
