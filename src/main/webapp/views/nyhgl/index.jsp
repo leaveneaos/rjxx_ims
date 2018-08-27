@@ -83,7 +83,7 @@
 								<form action="#" id="searchform"
 									  class="js-search-form  am-form am-form-horizontal">
 									<div class="am-u-sm-3">
-											<select id="tip" >
+											<select id="tip" style="height: ${par.select.height};padding: 0">
 												<option value="0">请选择</option>
 												<option value="1">用户账号</option>
 												<option value="2">用户名称</option>
@@ -92,7 +92,7 @@
 									<div class="am-u-sm-3">
 										<div
 												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input type="text" id="searchtxt" class="am-form-field ">
+											<input style="height:${par.select.height} " type="text" id="searchtxt" class="am-form-field ">
 											<span class="am-input-group-btn" id="button3">
 												<button
 														class="am-btn  am-btn-default am-btn-secondary tpl-table-list-field"

@@ -117,9 +117,10 @@
                         </div>
 
                             <!--公司搜索结果-->
-                        <div class="am-g am-padding-top" >
-                            <div class="am-u-sm-5">
-                                <select id="jkpz_gsmc" name="jkpz_gsmc" data-am-selected="{maxHeight: '300px',btnWidth: '60%'}">
+                        <div class="am-g am-padding-top am-form" >
+                            <div class="am-u-sm-3" >
+                                <%--<select id="jkpz_gsmc" name="jkpz_gsmc" data-am-selected="{maxHeight: '300px',btnWidth: '100%'}">--%>
+                                <select id="jkpz_gsmc" name="jkpz_gsmc" style="height:${par.select.height}" >
                                     <option value="">请选择</option>
                                     <c:forEach items="${gsxx}" var="item">
                                         <option value="${item.gsdm}">${item.gsmc}</option>
@@ -129,9 +130,9 @@
                                     <%--<button type="button" id="companySearch"--%>
                                         <%--class="am-btn am-btn-default am-btn-success am-btn-sm">查询</button>--%>
                             </div>
-                            <div class="am-u-sm-4">
+                            <div class="am-u-sm-3">
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field" id="gsmc"> <span
+                                    <input style="height:${par.select.height}"  type="text" class="am-form-field" id="gsmc"> <span
                                         class="am-input-group-btn">
 												<button type="button" id="companySearch"
                                                         class="am-btn am-btn-default am-btn-secondary tpl-table-list-field"
