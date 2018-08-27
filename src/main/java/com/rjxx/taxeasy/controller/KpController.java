@@ -1773,7 +1773,9 @@ public class KpController extends BaseController {
 							skService.SkServerKPhttps(Integer.parseInt(kpsqh[i]));
 						}else if("05".equals(kpls.getFpztdm())||"14".equals(kpls.getFpztdm())) {
 							if("05".equals(kpls.getFpztdm())&&null!=kpls.getErrorReason()&&kpls.getErrorReason().contains("09D103")){
-								skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+								//skService.SkServerKP(Integer.parseInt(kpsqh[i]));
+								kpls.setFpztdm("04");
+								kplsService.save(kpls);
 							}else{
 								kpls.setFpztdm("04");
 								kplsService.save(kpls);
