@@ -148,7 +148,7 @@ table thead th {
 										<form action="#"
 											  class="js-search-form  am-form am-form-horizontal">
 											<div class="am-u-sm-3">
-												<select id="dxcsm">
+												<select id="dxcsm" style="height: ${par.select.height};padding: 0">
 													<option value="gfsh">购方税号</option>
 													<option value="fpdm">发票代码</option>
 													<option value="fphm">发票号码</option>
@@ -157,7 +157,7 @@ table thead th {
 											<div class="am-u-sm-3">
 												<div
 														class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-													<input id="dxcsz" type="text" class="am-form-field ">
+													<input style="height: ${par.select.height};" id="dxcsz" type="text" class="am-form-field ">
 													<span class="am-input-group-btn">
 														<button id="kp_search"
 																class="am-btn am-btn-default am-btn-secondary tpl-table-list-field"
