@@ -134,8 +134,8 @@
                                     <input type="text" class="am-form-field" id="gsmc"> <span
                                         class="am-input-group-btn">
 												<button type="button" id="companySearch"
-                                                        class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
-                                                        ></button>
+                                                        class="am-btn am-btn-default am-btn-secondary tpl-table-list-field"
+                                                        style="margin-left: ${par.btMarginLeft}px">${par.btText}</button>
 											</span>
                                 </div>
                             </div>

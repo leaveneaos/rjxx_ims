@@ -19,7 +19,7 @@ function completeLoading() {
     setTimeout(function(){
     loadingMask = document.getElementById('loadingDiv');  
         document.getElementById('loadingDiv').parentNode.removeChild(loadingMask);
-        console.log(this);
+        /*console.log(this);*/
     },300);
     }  
 } 

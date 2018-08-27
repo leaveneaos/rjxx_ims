@@ -44,7 +44,7 @@
 								<div class="widget-title am-cf">
 								<br>
 									<strong class="am-text-primary am-text-lg">查询统计</strong> / <strong>重新回写</strong>
-									<button class="am-btn am-btn-success am-fr"
+									<button class="am-btn am-btn-secondary am-fr"
 										data-am-offcanvas="{target: '#doc-oc-demo3'}">更多查询</button>
 								</div>
 								<!-- 侧边栏内容 -->
@@ -143,7 +143,7 @@
 											</div>						
 											<div style="padding: 32px;">
 												<button type="button"
-													class="js-search am-btn am-btn-default am-btn-success data-back">
+													class="js-search am-btn am-btn-default am-btn-secondary data-back">
 													<span class="am-icon-search-plus"></span> 查询
 												</button>
 											</div>
@@ -158,7 +158,7 @@
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
 													<button type="button" id="callback"
-															class="am-btn am-btn-default am-btn-success">
+															class="am-btn am-btn-default am-btn-secondary">
 														<span></span> 重新回写
 													</button>
 												</div>
@@ -201,8 +201,8 @@
 											<input type="text" class="am-form-field" id="searchValue"> <span
 												class="am-input-group-btn">
 												<button id="jssearch"
-													class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-													type="button"></button>
+													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field"
+													type="button" style="margin-left: ${par.btMarginLeft}px;">${par.btText}</button>
 											</span>
 										</div>
 									</div>

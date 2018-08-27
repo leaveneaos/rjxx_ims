@@ -154,8 +154,8 @@
 												<input id="dxcsz" type="text" class="am-form-field "> <span
 													class="am-input-group-btn">
 											<button id="search"
-													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search"
-													type="button"></button>
+													class="am-btn am-btn-default am-btn-secondary tpl-table-list-field"
+													type="button" style="margin-left: ${par.btMarginLeft}px">${par.btText}</button>
 										</span>
 										</div>
 										</div>
