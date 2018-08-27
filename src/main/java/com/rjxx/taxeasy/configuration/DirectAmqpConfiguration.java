@@ -103,7 +103,7 @@ public class DirectAmqpConfiguration {
             if(invoiceResponse.getReturnCode().equals("0000")){
                 //如果开票成功 删除开票重发表中对应的记录
                 kpcfService.deleteById(kplsh);
-            }else if(invoiceResponse.equals("9998")){
+            }else if(invoiceResponse.equals("9990")){
                 while (i>0){
                     i--;
                     reDeal(kplsh,i);
