@@ -105,8 +105,9 @@ public class DirectAmqpConfiguration {
                 kpcfService.deleteById(kplsh);
             }else if(invoiceResponse.getReturnCode().equals("9990")){
                 while (i>0){
-                    reDeal(kplsh,i);
                     i--;
+                    reDeal(kplsh,i);
+
                 }
             }else{
                 //调用税控服务器开票
