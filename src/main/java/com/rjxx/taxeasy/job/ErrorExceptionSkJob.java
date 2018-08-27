@@ -3,6 +3,7 @@ package com.rjxx.taxeasy.job;
 import com.rjxx.taxeasy.bizcomm.utils.InvoiceResponse;
 import com.rjxx.taxeasy.bizcomm.utils.SkService;
 import com.rjxx.taxeasy.config.RabbitmqUtils;
+import com.rjxx.taxeasy.configuration.DirectAmqpConfiguration;
 import com.rjxx.taxeasy.domains.Cszb;
 import com.rjxx.taxeasy.domains.Kpcf;
 import com.rjxx.taxeasy.domains.Kpls;
@@ -59,6 +60,11 @@ public class ErrorExceptionSkJob implements Job {
                 if (!kpcfList.isEmpty() && kpcfList.size() > 0){
                     for (Kpcf kpcf : kpcfList){
                      int kplsh = kpcf.getKplsh();
+
+                     deal(kplsh,kpcf,3);
+
+/*
+
                      //查询确认是否开成功
                      InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
                         if (null==invoiceResponse || (null !=invoiceResponse && null != invoiceResponse.getReturnCode() && !invoiceResponse.getReturnCode().equals("0000"))){
@@ -110,8 +116,16 @@ public class ErrorExceptionSkJob implements Job {
                             }
 
                         }
+*/
+
+
+
                     }
-                }/*else{
+                }
+
+
+
+                /*else{
                     break;
                 }*/
                /* String kplshStr = (String) rabbitmqUtils.receiveMsg("ErrorException_Sk", "12");
@@ -172,4 +186,44 @@ public class ErrorExceptionSkJob implements Job {
             e.printStackTrace();
         }
     }
+
+    public void deal(int kplsh,Kpcf kpcf,int i) throws Exception{
+        InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
+        if(null !=invoiceResponse){
+            if(invoiceResponse.getReturnCode().equals("0000")){
+                //如果开票成功 删除开票重发表中对应的记录
+                kpcfService.deleteById(kplsh);
+            }else if(invoiceResponse.getReturnCode().equals("9990")){
+                while (i>0){
+                    i--;
+                    deal(kplsh,kpcf,i);
+
+                }
+            }else{
+                //调用税控服务器开票
+                InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
+                if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
+                    //如果开票成功 删除开票重发表中对应的记录
+                    kpcfService.deleteById(kplsh);
+                }else{
+                        //count +1
+                        kpcf.setXgsj(TimeUtil.getNowDate());
+                        kpcf.setKpcfcs(kpcf.getKpcfcs()+1);
+                        if (kpcf.getKpcfcs() < 6){
+                            kpcfService.save(kpcf);
+                        }
+                        if(kpcf.getKpcfcs() == 6){
+                            Kpls kpls=kplsService.findOne(kplsh);
+                            kpls.setFpztdm("05");
+                            kplsService.save(kpls);
+                            kpcfService.deleteById(kplsh);
+
+                        }
+//                               kpcfService.save(kpcf);
+                    }
+                    //服务器开票超时有处理机制，无需处理
+                }
+            }
+        }
+
 }
