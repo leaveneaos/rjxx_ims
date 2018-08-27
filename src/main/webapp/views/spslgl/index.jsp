@@ -138,7 +138,7 @@
 													<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 														<input id="searchtxt" name="ddh" type="text"  required>
 														<span class="am-input-group-btn">
-												<button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field am-icon-search" id="button1" type="button"></button>
+												<button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field" style="margin-left: ${par.btMarginLeft}px" id="button1" type="button">${par.btText}</button>
 											</span>
 													</div>
 												</div>

@@ -551,6 +551,7 @@
         $("#cd1").val(ejcd);
         $("#cd2").val(bt.id);
         $("#mainFrame").attr("src",v_id);
+        console.log(v_id);
     }
     function logout() {
         $('#my-confirm').modal({

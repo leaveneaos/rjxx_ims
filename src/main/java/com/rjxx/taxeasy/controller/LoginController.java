@@ -8,6 +8,7 @@ import com.rjxx.taxeasy.domains.Xf;
 import com.rjxx.taxeasy.domains.Yh;
 import com.rjxx.taxeasy.security.SecurityConstants;
 import com.rjxx.taxeasy.service.*;
+import com.rjxx.taxeasy.utils.JspPar;
 import com.rjxx.taxeasy.web.BaseController;
 import com.rjxx.utils.PasswordUtils;
 import com.rjxx.utils.StringUtils;
@@ -143,6 +144,7 @@ public class LoginController extends BaseController {
 					session.setAttribute("loginFlag","0");
 					session.setAttribute("pingtai","泰易（TaxEasy）开票通V2.0");
 					session.setAttribute("banquan","© Copyright 2014-2017 上海容津信息技术有限公司 沪ICP备15020560号");
+					session.setAttribute("par", JspPar.getPar());
 					return "redirect:/main";
 				//}
 				//return "redirect:/qymp";

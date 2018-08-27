@@ -64,26 +64,7 @@ public class DirectAmqpConfiguration {
                 }else if(cszb.getCsz().equals("03")){
                     if(!("09D103:发票领购信息已用完").equals(kpls.getErrorReason())){
                         //skService.SkServerKP(kplsh);
-                        InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
-                        if(null==invoiceResponse || (null !=invoiceResponse && null != invoiceResponse.getReturnCode() && !invoiceResponse.getReturnCode().equals("0000"))){
-                            //调用税控服务器开票
-                          InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
-
-                          if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
-                              //如果开票成功 删除开票重发表中对应的记录
-                              kpcfService.deleteById(kplsh);
-                          }
-                        }else if(null !=invoiceResponse.getReturnCode() && invoiceResponse.getReturnCode().equals("0000")  && null !=invoiceResponse.getFphm()){
-                            //如果开票成功 删除开票重发表中对应的记录
-                            kpcfService.deleteById(kplsh);
-
-                        }else if(null !=invoiceResponse && invoiceResponse.getReturnCode() == null){
-                            InvoiceResponse invoiceResponse2 =  skService.SkServerKP(kplsh);
-                            /*if (null !=invoiceResponse2 && invoiceResponse2.getReturnCode().equals("0000")){
-                                kpcfService.deleteById(kplsh);
-                            }*/
-
-                        }
+                        reDeal(kplsh,3);
                     }
                 }else if(cszb.getCsz().equals("04")){
                     skService.SkBoxKP(kplsh);
@@ -112,6 +93,31 @@ public class DirectAmqpConfiguration {
         }catch(Exception e){
             logger.info("--------发送失败信息给用户邮箱，或发送短信，推送消息--------"+e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+
+    public void reDeal(int kplsh,int i) throws Exception{
+        InvoiceResponse invoiceResponse = skService.SkServerQuery(kplsh);
+        if(null !=invoiceResponse){
+            if(invoiceResponse.getReturnCode().equals("0000")){
+                //如果开票成功 删除开票重发表中对应的记录
+                kpcfService.deleteById(kplsh);
+            }else if(invoiceResponse.equals("9990")){
+                while (i>0){
+                    i--;
+                    reDeal(kplsh,i);
+                }
+            }else{
+                //调用税控服务器开票
+                InvoiceResponse invoiceResponse1 =  skService.SkServerKP(kplsh);
+                if (null !=invoiceResponse1 && invoiceResponse1.getReturnCode().equals("0000")){
+                    //如果开票成功 删除开票重发表中对应的记录
+                    kpcfService.deleteById(kplsh);
+                }else{
+                    //服务器开票超时有处理机制，无需处理
+                }
+            }
         }
     }
 }
