@@ -50,15 +50,15 @@
 							<div class="am-g" style="margin-top: 20px">
 								<form action="#"
 									  class="js-search-form  am-form am-form-horizontal">
-									<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
-											<select id="tip" data-am-selected="{btnSize: 'sm'}">
+									<div class="am-u-sm-3" >
+											<select id="tip" style="height: ${par.select.height};padding: 0">
 												<option value="2">角色名称</option>
 											</select>
 									</div>
-									<div class="am-u-sm-6 am-u-md-6 am-u-lg-3">
+									<div class="am-u-sm-3">
 										<div
 												class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-											<input type="text" id="s_jsmc" class="am-form-field ">
+											<input style="height: ${par.select.height};" type="text" id="s_jsmc" class="am-form-field ">
 											<span class="am-input-group-btn" id="button1">
 												<button class="am-btn  am-btn-default am-btn-secondary tpl-table-list-field"
 														type="button" style="margin-left: ${par.btMarginLeft}px">${par.btText}</button>
