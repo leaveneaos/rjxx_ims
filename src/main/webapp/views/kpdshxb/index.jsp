@@ -242,7 +242,7 @@ table thead th {
 										</div>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
-												<table style="margin-bottom: 0px;"
+												<table style="margin-bottom: 0px;min-width: 110vw;"
 													class="js-table am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
 													id="jyls_table">
 													<thead>
@@ -273,7 +273,7 @@ table thead th {
 										</div>
 										<div style="margin-top: 0px; margin-left: 0px;"
 											class="am-u-sm-12">
-											<table style="margin-bottom: 0px;"
+											<table style="margin-bottom: 0px;min-width: 96vw"
 												class="js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
 												id="mxTable1">
 												<thead>
@@ -468,7 +468,7 @@ table thead th {
 										</div>
 									</form>
 									<div class="am-u-sm-12 am-padding-top">
-										<table style="margin-bottom: 0px;"
+										<table style="margin-bottom: 0px;min-width: 101%;"
 											class="am-table am-table-bordered am-text-nowrap am-table-hover am-table-striped am-scrollable-horizontal"
 											id="jyls_table2">
 											<thead>
@@ -1063,7 +1063,7 @@ table thead th {
 								</div>
 							</fieldset>
 						</form>
-						<table
+						<table style="min-width: 101%"
 							class="am-text-nowrap am-table-striped am-table-bordered am-table-compact table-main am-scrollable-horizontal"
 							id="jyspmx_edit_table">
 							<thead>
