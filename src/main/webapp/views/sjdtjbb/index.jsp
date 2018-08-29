@@ -187,8 +187,8 @@
 									<span><strong>&nbsp;</strong></span>
 								</div>
 								<br>
-								<table
-									class="scrollx js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
+								<table  id="table"
+									class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 									<thead>
 										<tr>
 											<th>序号</th>
@@ -257,6 +257,13 @@
 			});
 		}
 	</script>
-	<script src="assets/js/comm/table.js"></script>
+	<script>
+		$(function(){
+		    $('.am-table').parent().parent().css('overflow','unset');
+		    $('.am-table').parent().css('min-width','101%');
+		    $('#table').parent().parent().css('overflow-x','scroll');
+		    $('#table').parent().css({'height':'auto'});
+		})
+	</script>
 </body>
 </html>
