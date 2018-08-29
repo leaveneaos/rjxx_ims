@@ -492,7 +492,7 @@ public class FpkcController extends BaseController {
 				return result;
 			}
 			Fpkc item = fpkcService.findOne(xg_id);
-			item.setXgsj(new Date());
+//			item.setXgsj(new Date());
 			item.setXgry(getYhid());
 			item.setKcyjz(Integer.valueOf(yjkcl));
 			fpkcService.save(item);
