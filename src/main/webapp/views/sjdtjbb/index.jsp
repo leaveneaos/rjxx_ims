@@ -188,7 +188,7 @@
 								</div>
 								<br>
 								<table
-									class="js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
+									class="scrollx js-sltable am-table am-table-bordered am-table-striped am-text-nowrap">
 									<thead>
 										<tr>
 											<th>序号</th>
@@ -257,5 +257,6 @@
 			});
 		}
 	</script>
+	<script src="assets/js/comm/table.js"></script>
 </body>
 </html>

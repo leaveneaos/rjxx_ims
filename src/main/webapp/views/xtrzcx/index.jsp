@@ -49,7 +49,7 @@
 								<div class="am-u-sm-12 am-padding-top">
 									<div>
 										<table
-											class="js-table  am-table am-table-bordered  am-text-nowrap">
+											class="js-table scrollx am-table am-table-bordered  am-text-nowrap">
 											<thead>
 												<tr>
 													<th>序号</th>
@@ -108,6 +108,6 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/xtrzcx.js"></script>
-
+	<script src="assets/js/comm/table.js"></script>
 </body>
 </html>

@@ -168,7 +168,8 @@
                         </form>
                         <div class="am-u-sm-12 am-padding-top">
                             <div>
-                                <table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+                                <table style="margin-bottom: 0px;"
+                                       class="js-table2 scrollx am-table am-table-bordered am-table-hover am-text-nowrap"
                                        id="jkpz_table">
                                     <thead>
                                     <tr>
@@ -189,9 +190,9 @@
                         </div>
                             <input type="hidden" id="mbid">
                             <div style="margin-top: 0px; margin-left: 0px;"
-                                 class="am-u-sm-12 am-scrollable-horizontal">
+                                 class="am-u-sm-12">
                                 <table style="margin-bottom: 0px;"
-                                       class="jkpz-js-mxtable  am-table am-table-bordered am-table-striped  am-text-nowrap"
+                                       class="jkpz-js-mxtable scrollx am-table am-table-bordered am-table-striped  am-text-nowrap"
                                        id="jkpz_table_detail">
                                     <thead>
                                     <tr>
@@ -678,5 +679,6 @@
         });*/
     });
 </script>
+<script src="assets/js/comm/table.js"></script>
 </body>
 </html>

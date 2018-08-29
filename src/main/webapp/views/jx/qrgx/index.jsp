@@ -197,7 +197,7 @@ table thead th {
 											</div>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
-												<table style="margin-bottom: 0px;"
+												<table style="margin-bottom: 0px;min-width: 101%;"
 													class="js-table am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
 													id="jyls_table">
 													<thead>

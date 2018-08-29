@@ -218,8 +218,8 @@
 							<hr />
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
-									<table
-										class="js-table  am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
+									<table style="min-width: 101%;"
+										class="js-table scrollx am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th>序号</th>
@@ -391,6 +391,6 @@
             $("#s_kprqz").val(formatDate(endDate));
         });
 	</script>
-
+	<%--<script src="assets/js/comm/table.js"></script>--%>
 </body>
 </html>
