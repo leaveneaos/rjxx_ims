@@ -265,7 +265,7 @@
 										class="am-u-sm-12">
 										<div>
 											<table style="margin-bottom: 0px;"
-												class="js-mxtable am-table am-table-bordered am-table-hover am-text-nowrap am-table-striped"
+												class="js-mxtable scrollx am-table am-table-bordered am-table-hover am-text-nowrap am-table-striped"
 												id="jyspmx_table">
 												<thead>
 													<tr>
@@ -1128,4 +1128,5 @@
         $("#s_rqz1").val(formatDate(endDate));
     });
 </script>
+<script src="assets/js/comm/table.js"></script>
 </html>
