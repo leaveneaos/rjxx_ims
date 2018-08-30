@@ -717,9 +717,9 @@ $(function () {
                                             if(b){
                                                 var xml = data.xml;
                                                 var hckplsh = data.hckplsh;
-                                                alert("红冲报文"+xml);
+                                                //alert("红冲报文"+xml);
                                                 var  ret = sk.Operate(xml);
-                                                alert("红冲返回"+ret);
+                                                //alert("红冲返回"+ret);
                                                 var xmlDoc2 = $.parseXML(ret);
                                                 var returncode ,returnmsg,fpdm,fphm,kprq,jym,skm,ewm;
                                                 returncode= xmlDoc2.getElementsByTagName('returncode')[0].textContent;
