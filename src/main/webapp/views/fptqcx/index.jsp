@@ -190,7 +190,7 @@
 
 							<div class="am-u-sm-12 am-padding-top">
 								<div>
-									<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+									<table style="margin-bottom: 0px;min-width:101%;" class="scrollx js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
 										id="fptq_table">
 										<thead>
 											<tr>
@@ -261,6 +261,7 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fptqcx.js"></script>
+	<%--<script src="assets/js/comm/table.js"></script>--%>
 	
 </body>
 </html>

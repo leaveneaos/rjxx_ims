@@ -202,8 +202,8 @@ table thead th {
 											</div>
 										<div class="am-u-sm-12 am-padding-top">
 											<div>
-												<table style="margin-bottom: 0px;"
-													class="js-table am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
+												<table style="margin-bottom: 0px;min-width: 101%;"
+													class="js-table scrollx am-table am-table-bordered am-table-striped am-table-hover am-text-nowrap "
 													id="jyls_table">
 													<thead>
 														<tr>
@@ -375,7 +375,7 @@ table thead th {
 				<hr />
 				<div class="am-u-sm-12 am-padding-top" style="margin-left: 10px">
 					<div>
-						<table style="margin-bottom: 0px;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
+						<table style="margin-bottom: 0px;width: 101%;" class="js-table2 am-table am-table-bordered am-table-hover am-text-nowrap"
 							   id="detail_table">
 							<thead>
 							<tr>
@@ -397,7 +397,7 @@ table thead th {
 		</div>
 		<div id="doc-modal-fpyll" style="background-color: white;"class="am-modal-dialog">
 			<div class="am-modal-bd" >
-				<div id="doc-modal-fpyll">
+				<div id="doc-modal-fpyll2">
 					<%@ include file="fapiao.jsp" %>
 				</div>
 			</div>
@@ -437,7 +437,11 @@ table thead th {
 		</div>
 	</div>
 						<!--[if (gte IE 9)|!(IE)]><!-->
-						<!--<![endif]-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 	<script
 			src="plugins/datatables-1.10.10/media/js/jquery.dataTables.min.js"></script>
@@ -600,6 +604,9 @@ table thead th {
         return formatedDate;
     }
 	</script>
+						<%--<script src="assets/js/comm/table.js"></script>--%>
 
+
+			</div>
 </body>
 </html>

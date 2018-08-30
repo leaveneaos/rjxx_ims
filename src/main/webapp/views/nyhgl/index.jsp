@@ -120,12 +120,12 @@
 										</div>
 									</div>
 								<div class="am-u-sm-12 am-padding-top">
-									<div>
+									<div  style="min-width: 101%;">
 
 										<table
 											class="js-table am-table am-table-bordered am-table-striped am-text-nowrap">
 											<thead>
-												<tr>
+												<tr >
 													<th><input type="checkbox" id="check_all" /></th>
 													<th>序号</th>
 													<th>操作</th>

@@ -41,6 +41,7 @@
 	background-repeat:no-repeat;
 
 }
+.right{text-align: center !important;}
 </style>
 </head>
 <body>
@@ -693,6 +694,16 @@
         $("#w_kprqz1").val(formatDate(endDate));
         $("#s_rqq1").val(formatDate(startDate));
         $("#s_rqz1").val(formatDate(endDate));
+
+
+
     });
+</script>
+<script>
+	$(function(){
+        $('table').css('min-width','101%');
+
+
+	})
 </script>
 </html>

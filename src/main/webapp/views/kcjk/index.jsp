@@ -138,10 +138,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="am-u-sm-12">
-								<div>
-									<table id="dyzytable"
-										   class="am-table am-table-bordered am-table-compact am-table-striped am-text-nowrap">
+							<div class="am-u-sm-12 am-padding-top">
+								<div >
+									<table id="dyzytable" style="margin-bottom: 0px;"
+										   class="scrollx am-table am-table-bordered am-table-hover am-text-nowrap">
 										<thead>
 										<tr>
 											<th>序号</th>
@@ -271,6 +271,8 @@
 
         });
     }
+
 </script>
+<script src="assets/js/comm/table.js"></script>
 </body>
 </html>

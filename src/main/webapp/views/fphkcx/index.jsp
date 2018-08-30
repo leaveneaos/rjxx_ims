@@ -185,7 +185,7 @@
 							<div class="am-u-sm-12">
 								<div class="am-scrollable-horizontal">
 									<table
-										class="js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
+										class="scrollx js-table  am-table am-table-bordered am-table-striped am-text-nowrap">
 										<thead>
 											<tr>
 												<th>序号</th>
@@ -324,6 +324,6 @@
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/format.js"></script>
 	<script src="assets/js/fphkcx.js"></script>
-
+	<script src="assets/js/comm/table.js"></script>
 </body>
 </html>
