@@ -241,6 +241,7 @@ $(function () {
                         {"data": "fphm"},
                         {"data": "gfmc"},
                         {"data": "fpzlmc"},
+                        {"data": "errorReason"},
                         {
                             "data": function (data) {
                                 if (data.hjje) {
