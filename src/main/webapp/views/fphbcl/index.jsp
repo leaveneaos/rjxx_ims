@@ -122,7 +122,7 @@ table thead th {
 													<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 														<input id="ddh" name="ddh" type="text" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="输入订单号" required>
 														<span class="am-input-group-btn">
-                                                <button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field" style="margin-left:${par.btMargibnLeft}px" id="kp_search" type="button">${par.btText}</button>
+                                                <button class="am-btn am-btn-default am-btn-secondary tpl-table-list-field" style="margin-left:${par.btMarginLeft}px" id="kp_search" type="button">${par.btText}</button>
                                             </span>
 													</div>
 												</div>
