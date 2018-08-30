@@ -239,7 +239,7 @@
 										</div>
 									<div class="am-u-sm-12 am-padding-top">
 										<div>
-											<table style="margin-bottom: 0px;"
+											<table style="margin-bottom: 0px;min-width: 101%"
 												class="js-table2 am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap "
 												id="fpTable">
 												<thead>
@@ -463,7 +463,7 @@
 
 									<div class="am-u-sm-12 am-padding-top">
 										<div>
-											<table style="margin-bottom: 0px;"
+											<table style="margin-bottom: 0px;min-width: 101%;padding-right: 1%;"
 												class="js-table2 am-table am-table-bordered am-table-hover am-table-striped am-text-nowrap "
 												id="ysTable">
 												<thead>
@@ -491,7 +491,7 @@
 									<div style="margin-top: 0px; margin-left: 0px;"
 										class="am-u-sm-12">
 										<div>
-											<table style="margin-bottom: 0px;"
+											<table style="margin-bottom: 0px;min-width: 101%;padding-right: 1%;"
 												class="js-mxtable am-table am-table-bordered am-table-hover am-text-nowrap am-table-striped"
 												id="mxTable1">
 												<thead>

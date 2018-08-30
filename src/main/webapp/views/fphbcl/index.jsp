@@ -268,6 +268,7 @@ table thead th {
 			var $tab = $('#doc-tab-demo-1');
 			tabCounter++;
 			$tab.tabs('refresh');
+			$('table').css('min-width','101%')
 		});
 	</script>
 	<script>

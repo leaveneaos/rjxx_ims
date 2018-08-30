@@ -694,6 +694,9 @@
         $("#w_kprqz1").val(formatDate(endDate));
         $("#s_rqq1").val(formatDate(startDate));
         $("#s_rqz1").val(formatDate(endDate));
+
+        $('table').css({'min-width':'101%'})
+        $('table .'+'right').css({'text-align':'center'})
     });
 </script>
 </html>
