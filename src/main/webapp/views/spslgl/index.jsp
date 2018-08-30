@@ -677,7 +677,9 @@
             }
         }
     }
-
+$(function(){
+    $('table').css('min-width','101%')
+})
 </script>
 </body>
 </html>
