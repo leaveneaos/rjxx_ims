@@ -2297,6 +2297,8 @@ public class LrkpdController extends BaseController {
                 break;
             }
         }
+        //默认发票种类代码
+        Cszb cszb = cszbService.getSpbmbbh(getGsdm(),getXfid(),skpid,"mrfpzldm");
         Map xfxxmap = GetXfxx.getXfxx(xf, skp);
         String[] dataArry = fileContent.split("\n");
 
@@ -2384,11 +2386,7 @@ public class LrkpdController extends BaseController {
                 if (j == 8){
                     String fplx = xfxxArr[8];
                     jyxxsq.setFpzldm(fplx);
-                }else{
-                    Cszb cszb = cszbService.getSpbmbbh(getGsdm(),getXfid(),skpid,"mrfpzldm");
-                    jyxxsq.setFpzldm(cszb.getCsz());
                 }
-
             }
 
             //主信息
@@ -2402,6 +2400,10 @@ public class LrkpdController extends BaseController {
             jyxxsq.setSjly("2");
             jyxxsq.setTqm(lsh);
             jyxxsq.setBz(bz);
+
+            if(jyxxsq.getFpzldm() == null || "".equals(jyxxsq.getFpzldm())){
+                jyxxsq.setFpzldm(cszb.getCsz());
+            }
             //电话
             jyxxsq.setGfyh(gfyhzh);
             //销方信息
